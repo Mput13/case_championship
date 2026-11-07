@@ -2,7 +2,7 @@
 
 [Контекст кейса №5](context/README.md): требования чемпионата, разбор NotebookLM, источники, данные, города, конкуренты и идеи. Срез — 7 ноября 2026 года.
 
-Быстрые входы: [каталог данных](context/05_datasets/README.md), [проверки Terra](context/07_verification/README.md), [идеи](context/06_ideas/README.md).
+Быстрые входы: [каталог данных](context/05_datasets/README.md), [проверки Terra](context/07_verification/README.md), [идеи](context/06_ideas/README.md), [дополнительное исследование](context/09_additional_research/README.md).
 
 Исходные документы, полный Telegram, DOM авторизованных страниц и технические сведения сессий хранятся только в локальной рабочей папке и исключены из Git. Пакет готовит исследование; итоговые город, сеть и бизнес-прогноз ещё не выбраны.
 

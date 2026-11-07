@@ -44,6 +44,18 @@ add('FE',read_csv('04_research/flash_external_data/sources.csv'),dict(title='nam
 add('FM',read_csv('04_research/flash_methods/methods_sources.csv'),dict(title='name_title',url='url',source_record_id='source_id',claimed_status='status',period='period_year',grain='granularity_type',useful_for='relevance_to_case',limitations='unconfirmed_limitations'),'04_research/flash_methods/methods_sources.csv','FLASH_CLAIM_REQUIRES_REVIEW','methods')
 add('TD',read_csv('07_verification/terra_data/verified_sources.csv'),dict(title='organization',url='url',source_record_id='id',claimed_status='status',period='period',grain='grain',useful_for='schema_units',limitations='confirmed_and_limits',license_claim='license'),'07_verification/terra_data/verified_sources.csv','TERRA_CHECKED_SCOPE_SEE_REPORT','independent_data_audit')
 
+for prefix, topic, category in (
+    ('TS', 'similar_studies', 'additional_studies'),
+    ('TT', 'practical_tools', 'additional_tools'),
+    ('TC', 'network_cases', 'additional_network_cases'),
+):
+    provenance = f'09_additional_research/terra_{topic}/sources.csv'
+    add(prefix, read_csv(provenance), dict(
+        title='title', url='url', source_record_id='source_id',
+        claimed_status='status', useful_for='case_use',
+        limitations='limitations', license_claim='access_or_license',
+    ), provenance, 'TERRA_CHECKED_SCOPE_SEE_REPORT', category)
+
 out = CTX/'05_datasets/source_registry.csv'
 with out.open('w',newline='',encoding='utf-8') as f:
     w=csv.DictWriter(f,fieldnames=list(rows[0])); w.writeheader();w.writerows(rows)
