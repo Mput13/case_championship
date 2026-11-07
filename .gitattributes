@@ -1,0 +1,4 @@
+# Preserve source CSV bytes, including CRLF, so evidence hashes stay reproducible.
+*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# The rejected SDMX fragment is retained byte-for-byte for the audit.
+context/04_research/flash_aviation_data/sample_fedstat_31411_sdmx.xml -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
