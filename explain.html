@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кейс 5 Red Wings: решения до расчётов</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:17px/1.6 var(--font-sans,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif);color:var(--foreground,#1f2328)}
+.doc{--c-fg:var(--foreground,#1f2328);--c-mut:var(--muted-foreground,#59636e);--c-card:var(--card,#ffffff);--c-bd:var(--border,#d0d7de);--c-pri:var(--primary,#0969da);--c1:var(--chart-1,#e76e50);--c2:var(--chart-2,#2a9d8f);--c3:var(--chart-3,#264653);--c4:var(--chart-4,#e9c46a);--c5:var(--chart-5,#f4a261);--c6:var(--chart-6,#8e6bbf);--r:var(--radius,10px);--mono:var(--font-mono,ui-monospace,Menlo,Consolas,monospace)}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:32px;max-width:1280px;margin:0 auto}
+nav#toc{position:sticky;top:0;align-self:start;max-height:720px;overflow-y:auto;padding:20px 0;font-size:14px;line-height:1.35}
+nav#toc summary{cursor:pointer;font-weight:600;padding:8px 10px;list-style:none}
+nav#toc summary::-webkit-details-marker{display:none}
+nav#toc a{display:block;padding:5px 10px;border-left:2px solid var(--c-bd);color:var(--c-mut);text-decoration:none}
+nav#toc a:hover{color:var(--c-fg)}
+nav#toc a.on{border-left-color:var(--c-pri);color:var(--c-fg);font-weight:600}
+@media (min-width:901px){nav#toc summary{display:none}}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  nav#toc{max-height:none;padding:0;z-index:5;background:var(--c-card);border-bottom:1px solid var(--c-bd)}
+  nav#toc .items{max-height:420px;overflow-y:auto}
+}
+main{min-width:0;padding-bottom:96px}
+a{color:var(--c-pri)}
+h1{font-size:34px;line-height:1.15;margin:28px 0 10px;letter-spacing:-.01em}
+h2{font-size:26px;line-height:1.2;margin:0 0 12px;letter-spacing:-.01em}
+h3{font-size:19px;margin:26px 0 6px;line-height:1.3}
+h4{font-size:16px;margin:16px 0 4px}
+p,li{max-width:74ch}
+section{padding-top:30px;margin-top:38px;border-top:1px solid var(--c-bd);scroll-margin-top:56px}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+code,.mono{font-family:var(--mono);font-size:.88em}
+code{background:color-mix(in srgb,var(--c-fg) 8%,transparent);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.meta{color:var(--c-mut);max-width:74ch}
+.note,.warn,.good{border-left:4px solid var(--c-pri);background:color-mix(in srgb,var(--c-pri) 7%,transparent);padding:10px 16px;margin:16px 0;border-radius:0 var(--r) var(--r) 0;max-width:80ch}
+.warn{border-left-color:var(--c1);background:color-mix(in srgb,var(--c1) 9%,transparent)}
+.good{border-left-color:var(--c2);background:color-mix(in srgb,var(--c2) 9%,transparent)}
+.note>:first-child,.warn>:first-child,.good>:first-child{margin-top:0}
+.note>:last-child,.warn>:last-child,.good>:last-child{margin-bottom:0}
+.scroll{overflow-x:auto;margin:14px 0}
+.scroll:focus-visible,:focus-visible{outline:2px solid var(--c-pri);outline-offset:2px}
+table:has(th:nth-child(4)){min-width:640px}
+table{border-collapse:collapse;font-size:15px;line-height:1.45;min-width:100%}
+th,td{border:1px solid var(--c-bd);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-weight:600;background:color-mix(in srgb,var(--c-fg) 6%,transparent)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.b{display:inline-block;padding:0 8px;border:1px solid var(--c-bd);border-left-width:4px;border-radius:6px;font:600 12px/1.7 var(--mono);white-space:nowrap}
+.b.obs{border-left-color:var(--c2)}.b.scn{border-left-color:var(--c5)}.b.unk{border-left-color:var(--c1)}.b.prop{border-left-color:var(--c-pri)}.b.open{border-left-color:var(--c6)}
+.fig{margin:18px 0}
+.fig figcaption{font-size:14px;color:var(--c-mut);margin-top:6px;max-width:78ch}
+.fig svg{display:block;width:100%;height:auto;min-width:460px}
+svg text{fill:var(--c-fg);font-family:var(--font-sans,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif)}
+svg .mut{fill:var(--c-mut)}
+svg .box{fill:var(--c-card);stroke:var(--c-bd);stroke-width:1.5}
+svg .ln{stroke:var(--c-mut);stroke-width:2;fill:none}
+svg .bad{stroke:var(--c1)}
+.card{border:1px solid var(--c-bd);background:var(--c-card);border-radius:var(--r);padding:14px 18px;margin:16px 0}
+.card h3{margin-top:0}
+.card dl{margin:8px 0 0;display:grid;grid-template-columns:minmax(120px,170px) minmax(0,1fr);gap:4px 14px;font-size:15.5px;line-height:1.5}
+.card dt{color:var(--c-mut)}
+.card dd{margin:0}
+.card dd ol,.card dd ul{margin:0;padding-left:20px}
+@media (max-width:600px){.card dl{grid-template-columns:1fr}.card dt{margin-top:6px}h1{font-size:28px}}
+.tool{border:1px solid var(--c-bd);background:var(--c-card);border-radius:var(--r);padding:14px 18px;margin:18px 0}
+.tool label{display:block;font-size:15px;margin:10px 0 2px}
+.tool input[type=range]{width:100%;max-width:420px}
+.tool output,.tool .val{font-family:var(--mono);font-weight:600}
+.tool .out{margin-top:12px;padding-top:10px;border-top:1px dashed var(--c-bd)}
+.ok{color:var(--c2);font-weight:700}.no{color:var(--c1);font-weight:700}
+dl.gl{display:grid;grid-template-columns:minmax(130px,200px) minmax(0,1fr);gap:6px 18px}
+dl.gl dt{font-weight:600}dl.gl dd{margin:0}
+@media (max-width:600px){dl.gl{grid-template-columns:1fr}dl.gl dd{margin-bottom:8px}}
+pre.raw{font-family:var(--mono);font-size:13.5px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--c-fg) 6%,transparent);border-radius:var(--r);padding:10px 14px;margin:10px 0}
+</style>
+</head>
+<body class="doc">
+<div class="layout">
+<nav id="toc" aria-label="Оглавление">
+<details open>
+<summary>Оглавление</summary>
+<div class="items">
+<a href="#s1">1. Вопрос, гипотезы, сроки</a>
+<a href="#s2">2. Где команда и что нового</a>
+<a href="#s3">3. Хаб, прямые рейсы, смешанный</a>
+<a href="#s4">4. Оборот самолёта</a>
+<a href="#s5">5. Реальные входные данные</a>
+<a href="#s6">6. Единицы: OD, сегменты, кресла</a>
+<a href="#s7">7. Справедливое сравнение</a>
+<a href="#s8">8. Выручка, доля, OD-пробел</a>
+<a href="#s9">9. Что переносимо из работ</a>
+<a href="#s10">10. Реестр открытых решений</a>
+<a href="#s11">11. Минимальные эксперименты</a>
+<a href="#s12">12. План 8–10 ноября</a>
+<a href="#s13">13. Порог готовности</a>
+<a href="#s14">14. Словарь и ссылки</a>
+</div>
+</details>
+</nav>
+<main>
+
+<h1>Кейс 5 Red Wings: хаб или прямые рейсы — решения до расчётов</h1>
+<p>Ближайшая задача — согласовать ресурс, единицы и допущения, затем собрать две сравнимые сети и проверить их расписания. Выбор города и стратегии последует из расчётов. <a href="#s10">Решения D01–D12</a> и <a href="#s12">задачи T01–T10</a> показывают варианты и порядок работы.</p>
+<p class="meta">Подготовлено 8 ноября 2026 по материалам репозитория со срезом 7 ноября. Документ описывает, что решать и в каком порядке; расчёта сети, спроса или выручки в нём нет. Статусы решений — <span class="b prop">PROPOSED</span> («предложено») и <span class="b open">OPEN</span> («не решено»): принятые командой решения в этом пакете не зафиксированы. Значения в данных помечены <span class="b obs">OBSERVED</span> (взято из источника), <span class="b scn">SCENARIO</span> (допущение команды или учебный пример) и <span class="b unk">UNKNOWN</span> (не установлено; это не ноль).</p>
+
+<section id="s1">
+<h2>1. Вопрос кейса, гипотезы, требования и сроки</h2>
+<p>Red Wings нужно решить, куда направить ограниченные ресурсы, чтобы выросла её <strong>доля рынка</strong>. Две обязательные гипотезы: <strong>А</strong> — новый региональный хаб вне Москвы помимо Екатеринбурга; <strong>Б</strong> — прямые межрегиональные рейсы из существующих баз без нового хаба. Смешанный вариант допустим, если явно показано, сколько самолётов отдано каждой части, но он не отменяет расчёта обеих исходных гипотез. Поэтому в этом документе смешанный вариант — третий сценарий, а не готовый ответ.</p>
+<p>Доля определена как пассажиры Red Wings, делённые на пассажиры всех российских авиакомпаний. Для изменения доли нужны числитель и знаменатель за один период и по совместимой методике; прирост выражается в процентных пунктах (п.п.), относительный рост — отдельная величина. Долю компании нельзя смешивать с долей внутренних перевозок или долей отдельного аэропорта.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Обязательные результаты кейса">
+<table>
+<thead><tr><th>Обязательный результат</th><th>Что должно быть проверяемым</th></tr></thead>
+<tbody>
+<tr><td>Лонглист ≥ 10 городов → топ-3</td><td>Критерии, направление предпочтения, нормализация, веса, источники значений</td></tr>
+<tr><td>≥ 2 конкурента с региональными базами</td><td>Устройство сети, факты базирования, что переносимо на Red Wings</td></tr>
+<tr><td>Обе гипотезы: пассажиры, выручка, доля</td><td>Одинаковые определения и сопоставимые ресурсы</td></tr>
+<tr><td>Базовый и осторожный сценарии</td><td>Обоснованные диапазоны загрузки, тарифов, частот, доступного парка</td></tr>
+<tr><td>Для каждого А→Б: источник или метод</td><td>Пассажиры в год, рейсы в неделю, период, откуда значение или как оценено</td></tr>
+<tr><td>Выбранная сеть из 8–12 маршрутов</td><td>Выполнимое расписание и потребность в самолётах</td></tr>
+<tr><td>Дорожная карта до 2028</td><td>Очерёдность, ресурсы, условия запуска, риски</td></tr>
+<tr><td>Защита: 5–8 слайдов, до 5 минут</td><td>Выбор, расчёты, ограничения и следующие проверки; очная доработка 12–13 ноября</td></tr>
+<tr><td>Материалы ИИ</td><td>Исследования и проверка, а не только итоговые слайды</td></tr>
+</tbody>
+</table>
+</div>
+<p>Условие о новых SJ-100 не раньше второй половины 2027 года — ограничение кейса, а не гарантия поставок Red Wings. Нужны сценарий задержки и раздельный учёт существующего, занятого и доступного дополнительного парка.</p>
+<h3>Сроки и расхождения в документах организаторов</h3>
+<div class="scroll" tabindex="0" role="region" aria-label="Сроки чемпионата">
+<table>
+<thead><tr><th>Дата</th><th>Что требуется</th></tr></thead>
+<tbody>
+<tr><td>5 ноября</td><td>Старт, презентация, выбор кейсов</td></tr>
+<tr><td>6–8 ноября</td><td>Первая идея и найденные источники в начале паспорта</td></tr>
+<tr><td><strong>10 ноября, 23:59</strong></td><td>Заочная сдача паспорта и артефактов</td></tr>
+<tr><td>11 ноября</td><td>Отбор на очную часть</td></tr>
+<tr><td>12–13 ноября</td><td>Очная доработка и проверка; 13 ноября около 15:00 — финальный чек</td></tr>
+</tbody>
+</table>
+</div>
+<p>Часовой пояс на странице организаторов не указан; рабочее допущение — московское время. Паспорт на сайте и в PDF кейса — 1–2 страницы, в шаблоне DOCX — 2–3: это реальный конфликт документов, окончательный объём неизвестен. Форма сдачи ещё не опубликована в прочитанных сообщениях. Ссылка на форму выбора кейса — не форма сдачи.</p>
+</section>
+
+<section id="s2">
+<h2>2. Где команда сейчас и что добавили коллеги</h2>
+<p>После предыдущего пакета в <code>origin/main</code> появились коммиты <code>d3593c3</code> и <code>ec01770</code> с папкой <code>context/09_additional_research</code>: три отчёта Terra xhigh (похожие исследования, практические инструменты проверки расписаний, сетевые аналоги) и 27 карточек источников. Объединённый каталог поиска вырос до 174 записей и 161 различного URL — это реестр поиска, а не число готовых датасетов. Срез содержимого — 7 ноября 2026; документ собран 8 ноября. Его ключевые утверждения дополнительно проверены; границы проверки перечислены в <a href="https://github.com/Mput13/case_championship/blob/main/context/10_decision_guide/factcheck.csv">реестре фактчека</a>.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Что есть и чего нет у команды">
+<table>
+<thead><tr><th>Уже есть</th><th>Ещё нет</th></tr></thead>
+<tbody>
+<tr><td>Требования кейса, сроки, единицы метрик</td><td>Окончательный объём паспорта и форма сдачи</td></tr>
+<tr><td>Исправленный лонглист из 20 городов с отдельными статусами полей — это исходный список, не рейтинг</td><td>Топ-3: веса, нормализация и чувствительность не посчитаны</td></tr>
+<tr><td>Досье конкурентов и баз (например, S7 в Новосибирске и Иркутске), часть данных SECONDARY</td><td>Матрица OD (пассажиры по парам «откуда—куда»)</td></tr>
+<tr><td>Модель данных и три CSV-образца по 8 строк</td><td>Реально доступный дополнительный парк по датам</td></tr>
+<tr><td>Методы: swing/ROC, сценарный спрос, обороты каждого самолёта, формулы экономики рейса</td><td>Рассчитанные сети А, Б и смешанная; календарь с минутными расписаниями</td></tr>
+</tbody>
+</table>
+</div>
+<p>Статусы в репозитории читаются так: <code>VERIFIED_PRIMARY</code> — прочитанный первичный документ поддерживает конкретное утверждение (самоотчёт компании не равен независимой оценке); <code>SECONDARY</code> — подтверждение только вторичное; <code>ASSUMPTION</code> — допущение. Папка <code>04_research</code> — архив Flash с ошибками; его утверждения нельзя принимать без проверки.</p>
+<h3>Как получить топ-3 городов</h3>
+<p>Есть <a href="https://github.com/Mput13/case_championship/blob/main/context/07_verification/terra_cities_review/corrected_cities.csv">реестр 20 кандидатов</a>, но баллов и победителя пока нет. Пример его записи: <code>Самара,KUF,pax_2025=3570000,qualifier=≈,status=VERIFIED_PRIMARY,base_status=UNVERIFIED</code>. Это округлённый пассажиропоток аэропорта за 2025 год с первичным источником; отсутствие установленного базового перевозчика не означает свободный рынок. Для Уфы в реестре 4 929 715 пассажиров, но и это не оценка спроса на будущие линии Red Wings.</p>
+<p>Сначала отсеиваем невыполнимые варианты: неподходящий самолёт, недоступное обслуживание или незамыкающиеся обороты нельзя компенсировать высоким баллом спроса. Затем оцениваем локальный рынок, выигрыш времени поездки, конкуренцию, инфраструктуру, стоимость и сезонность. Население региона не подменяет население зоны тяготения; население, рейсы и поток аэропорта могут трижды учитывать один эффект.</p>
+<p><strong>Нормализация</strong> переводит разные единицы в общую шкалу, например 0–1: для критерия «больше — лучше» <code>u=(x−min)/(max−min)</code>, для «меньше — лучше» — <code>1−u</code>. Границы и правило пропусков фиксируют заранее; при одинаковых значениях критерий не различает города. Итоговый балл <code>Σ wⱼuⱼ</code> — инструмент отбора для расчёта, а не прогноз прибыли.</p>
+<p><strong>Swing-веса</strong> отвечают на вопрос: улучшение какого критерия от худшего до лучшего значения даёт больше пользы? Команда сравнивает эти переходы, назначает относительные баллы и нормирует их до суммы 1. <strong>ROC</strong> даёт альтернативные веса только по порядку важности: при трёх критериях около 0,611 / 0,278 / 0,111. Это контрольный учебный набор, не веса кейса. Проверяем несколько наборов весов и диапазоны неизвестных значений. Если состав топ-3 меняется, вывод условен; следующий сбор данных должен снять именно эту неопределённость.</p>
+<h3>Восемь находок коллег</h3>
+<p>Коллеги не нашли работы, которая сразу сравнивала бы малый хаб и прямую сеть при одном парке, расписании, конкурентах и сбоях. Вместо этого найдены отдельные приёмы. Приоритеты — оценка автора отчёта для обсуждения, не решение.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Находки дополнительного исследования">
+<table>
+<thead><tr><th>Находка</th><th>Что добавляет</th><th>Ограничение</th><th>Приоритет</th></tr></thead>
+<tbody>
+<tr><td>Синхронизация рейсов (Seredyński и соавт.)</td><td>Контрфактическая проверка: что даёт сдвиг времени <em>тех же</em> рейсов</td><td>Крупные европейские хабы; случайная перестановка не гарантирует оборот борта и продажу</td><td>Высокий</td></tr>
+<tr><td>Внешняя альтернатива и наличие борта (Santini–Vaze)</td><td>Пассажир может выбрать не рейс компании: поезд, конкурента, отказ; самолёт должен быть в аэропорту</td><td>Региональные авиакомпании США, не тест хаба против прямых рейсов</td><td>Высокий</td></tr>
+<tr><td>Отказ узла и задержки (Wuellner; Sanjeevi)</td><td>Сеть до/после при сохранении числа рейсов; распространение задержки по цепочке борта</td><td>Равное число рейсов ≠ равный флот; задержки США — не калибровка для РФ</td><td>Высокий</td></tr>
+<tr><td>AMPL + OR-Tools для оборотов</td><td>Постановка цепочек рейсов и открытый решатель для собственной проверки</td><td>Пример AMPL — один аэропорт; OR-Tools не содержит авиамодели</td><td>Высокий</td></tr>
+<tr><td>NetworkX для стыковок</td><td>Граф событий хранит конкретные рейсы и даты, а не одну линию между городами</td><td>Нужны календарь и правила пересадки; параллельные рейсы различать</td><td>Высокий</td></tr>
+<tr><td>Avelo: база прямых рейсов</td><td>Пример физического базирования и поэтапного добавления бортов</td><td>Самоотчёт; новая база ≠ «без новой базы»</td><td>Средний</td></tr>
+<tr><td>airBaltic: смешанная сеть</td><td>Выбор при ограниченном парке: местный и трансферный спрос рядом с прямыми рейсами</td><td>Перевозчик крупнее RW; не доказывает, что смешанная сеть лучше</td><td>Средний</td></tr>
+<tr><td>Nordica и Augusta</td><td>Прекращение сети; структура условий аэропортовых льгот</td><td>Причинный эффект не установлен; Augusta — не льгота RW</td><td>Средний</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="s3">
+<h2>3. Три схемы сети: хаб, прямые рейсы, смешанный вариант</h2>
+<p>Слова «база» и «хаб» путают, а от этого зависит вся постановка. <strong>База</strong> — место, где ночуют самолёты и экипажи и где есть обслуживание: это ресурс. <strong>Хаб</strong> — способ построить расписание: рейсы из нескольких городов прилетают в один узел в близкое время («волна» или «банк»), а затем вылетают дальше, чтобы пассажир успел пересесть. Базу можно иметь без пересадочного хаба: самолёты стоят в городе и летают в одни и те же направления напрямую. И наоборот: прилёты в город без базирования и без согласованных времён хабом не являются. Простое увеличение числа направлений аэропорта не доказывает, что появился работоспособный хаб.</p>
+<figure class="fig">
+<div class="scroll" tabindex="0" role="region" aria-label="Схема трёх вариантов сети">
+<svg viewBox="0 0 560 470" role="img" aria-labelledby="f3t f3d">
+<title id="f3t">Три схемы сети</title>
+<desc id="f3d">А: звезда вокруг нового хаба H, пассажир из А в Б летит через H двумя рейсами. Б: прямые линии между городами, самолёты базируются в существующих базах. Смешанный вариант: часть парка в звезде, часть в прямых линиях.</desc>
+<g font-size="15">
+<text x="8" y="22" font-weight="700">А. Новый хаб: пассажир A→B летит A–H–B</text>
+<line class="ln" x1="280" y1="82" x2="150" y2="48"/><line class="ln" x1="280" y1="82" x2="150" y2="116"/><line class="ln" x1="280" y1="82" x2="410" y2="48"/><line class="ln" x1="280" y1="82" x2="410" y2="116"/>
+<circle cx="280" cy="82" r="24" class="box" style="stroke:var(--c1);stroke-width:3"/><text x="280" y="88" text-anchor="middle" font-weight="700">H</text>
+<circle cx="150" cy="48" r="16" class="box"/><text x="150" y="53" text-anchor="middle">A</text>
+<circle cx="150" cy="116" r="16" class="box"/><text x="150" y="121" text-anchor="middle">C</text>
+<circle cx="410" cy="48" r="16" class="box"/><text x="410" y="53" text-anchor="middle">B</text>
+<circle cx="410" cy="116" r="16" class="box"/><text x="410" y="121" text-anchor="middle">D</text>
+<text x="8" y="150" class="mut" font-size="14">Самолёты и экипажи базируются в H; рейсы связаны по времени.</text>
+<text x="8" y="190" font-weight="700">Б. Прямые рейсы из существующих баз, новой базы нет</text>
+<line class="ln" x1="130" y1="250" x2="260" y2="222"/><line class="ln" x1="260" y1="222" x2="420" y2="250"/><line class="ln" x1="130" y1="250" x2="260" y2="290"/><line class="ln" x1="260" y1="290" x2="420" y2="250"/><line class="ln" x1="260" y1="222" x2="260" y2="290"/>
+<rect x="104" y="236" width="52" height="28" rx="6" class="box" style="stroke:var(--c2);stroke-width:3"/><text x="130" y="255" text-anchor="middle">Б-1</text>
+<rect x="394" y="236" width="52" height="28" rx="6" class="box" style="stroke:var(--c2);stroke-width:3"/><text x="420" y="255" text-anchor="middle">Б-2</text>
+<circle cx="260" cy="222" r="16" class="box"/><text x="260" y="227" text-anchor="middle">P</text>
+<circle cx="260" cy="290" r="16" class="box"/><text x="260" y="295" text-anchor="middle">Q</text>
+<text x="8" y="330" class="mut" font-size="14">Б-1, Б-2 — существующие базы; P, Q — региональные города.</text>
+<text x="8" y="366" font-weight="700">Смешанный: парк разделён, доли указаны явно</text>
+<rect x="60" y="380" width="200" height="56" rx="8" class="box" style="stroke:var(--c1);stroke-width:2"/><text x="160" y="404" text-anchor="middle">часть бортов: хаб</text><text x="160" y="424" text-anchor="middle" class="mut" font-size="13">n₁ — задаёт команда</text>
+<rect x="300" y="380" width="200" height="56" rx="8" class="box" style="stroke:var(--c2);stroke-width:2"/><text x="400" y="404" text-anchor="middle">часть бортов: прямые</text><text x="400" y="424" text-anchor="middle" class="mut" font-size="13">n₂; n₁ + n₂ = парк</text>
+<text x="8" y="460" class="mut" font-size="14">Условие: общий парк не больше, чем в чистых вариантах.</text>
+</g>
+</svg>
+</div>
+<figcaption>Схема, а не маршрутная карта: буквы — условные города. H — новая база-хаб, Б-1 и Б-2 — существующие базы. Возврат самолётов на базу проверяется отдельными цепочками рейсов.</figcaption>
+</figure>
+<h3>Что скрыто в варианте Б</h3>
+<p>Прямой рейс между двумя регионами без новой базы — это не просто линия на карте. Самолёт стартует из существующей базы и должен вернуться, поэтому нужна цепочка рейсов: коммерческие плечи и/или перегоны (полёты без пассажиров). Нельзя ни забыть перегоны, ни считать каждый вылет в регион пустым. Если цепочка из существующей базы невозможна, вариант Б физически не выполнен.</p>
+<h3>Почему Avelo — не доказательство варианта Б</h3>
+<p>Avelo часто приводят как пример прямых рейсов. По сообщениям самой компании, база в Нью-Хейвене (HVN) открылась в ноябре 2021 года, к маю 2022 на ней работали пять Boeing 737-700, за первый год Avelo сообщила о более чем 5 000 рейсов и 600 000 «customers». Это <span class="b obs">OBSERVED</span> как заявление компании. Но Avelo открыла <em>новую</em> базу, а вариант Б в кейсе — без новой базы. Значит, это аналог «база с прямыми рейсами против базы с пересадочным хабом», а не готовый ответ на вопрос кейса. Это самоотчёт: прибыль, число уникальных людей и загрузка не раскрыты, а 737 крупнее SJ-100.</p>
+<div class="note"><p><strong>Вывод для постановки.</strong> Варианты А и Б надо сравнивать на одинаковых ресурсах (глава 7). Смешанный вариант — условный: он возникает только после того, как для А и Б посчитаны обеспеченность парком и цепочки рейсов.</p></div>
+</section>
+
+<section id="s4">
+<h2>4. Оборот самолёта: время, место и невозможный переход</h2>
+<p>Расписание — не список линий между городами, а цепочки событий. Каждый рейс состоит из двух событий: вылет из аэропорта в момент <em>t</em> и прилёт в аэропорт в момент <em>t′</em>. Один борт может выполнить рейс k+1 после рейса k только при двух условиях: (1) аэропорт прилёта рейса k совпадает с аэропортом вылета рейса k+1; (2) вылет k+1 не раньше прилёта k плюс <strong>минимальный оборот</strong> — время на высадку, обслуживание и посадку. Оборот зависит от типа самолёта, аэропорта и компании; универсальной нормы в материалах нет, а значения в примерах ниже — учебные <span class="b scn">SCENARIO</span>.</p>
+<figure class="fig">
+<div class="scroll" tabindex="0" role="region" aria-label="Схема оборотов двух бортов во времени">
+<svg viewBox="0 0 560 250" role="img" aria-labelledby="f4t f4d">
+<title id="f4t">Два борта на оси времени</title>
+<desc id="f4d">Борт 1 выполняет рейс A→B, оборот 45 минут, рейс B→C — цепочка допустима. Борт 2 после рейса A→B стоит 20 минут, что меньше учебного минимума 45, а затем должен вылететь из D, хотя находится в C: два нарушения.</desc>
+<g font-size="14">
+<line class="ln" x1="120" y1="200" x2="520" y2="200"/>
+<g class="mut" font-size="13"><text x="120" y="222" text-anchor="middle">06:00</text><text x="250" y="222" text-anchor="middle">08:00</text><text x="380" y="222" text-anchor="middle">10:00</text><text x="510" y="222" text-anchor="middle">12:00</text></g>
+<line class="ln" x1="120" y1="196" x2="120" y2="204"/><line class="ln" x1="250" y1="196" x2="250" y2="204"/><line class="ln" x1="380" y1="196" x2="380" y2="204"/><line class="ln" x1="510" y1="196" x2="510" y2="204"/>
+<text x="8" y="40" font-weight="700">Борт 1</text><text x="8" y="58" class="mut" font-size="13">допустимо</text>
+<rect x="120" y="22" width="98" height="40" rx="6" class="box" style="stroke:var(--c2);stroke-width:2.5"/><text x="169" y="47" text-anchor="middle">A→B</text>
+<rect x="218" y="22" width="48" height="40" rx="6" class="box" style="stroke-dasharray:4 3"/><text x="242" y="47" text-anchor="middle" class="mut" font-size="12">оборот</text>
+<rect x="266" y="22" width="98" height="40" rx="6" class="box" style="stroke:var(--c2);stroke-width:2.5"/><text x="315" y="47" text-anchor="middle">B→C</text>
+<text x="8" y="130" font-weight="700">Борт 2</text><text x="8" y="148" class="mut" font-size="13">два нарушения</text>
+<rect x="120" y="112" width="98" height="40" rx="6" class="box" style="stroke:var(--c2);stroke-width:2.5"/><text x="169" y="137" text-anchor="middle">A→B</text>
+<rect x="218" y="112" width="22" height="40" rx="4" class="box bad" style="stroke-width:2.5"/>
+<rect x="240" y="112" width="98" height="40" rx="6" class="box bad" style="stroke-width:2.5"/><text x="289" y="137" text-anchor="middle">B→C</text>
+<rect x="413" y="112" width="98" height="40" rx="6" class="box bad" style="stroke-width:2.5"/><text x="462" y="137" text-anchor="middle">D→E</text>
+<text x="229" y="100" text-anchor="middle" font-size="13" style="fill:var(--c1)">оборот 20 &lt; 45</text>
+<line x1="229" y1="104" x2="229" y2="112" class="ln bad"/>
+<text x="462" y="172" text-anchor="middle" font-size="13" style="fill:var(--c1)">борт в C, рейс из D</text>
+<line x1="462" y1="176" x2="462" y2="152" class="ln bad"/>
+</g>
+</svg>
+</div>
+<figcaption>Учебная схема: времена и минимум оборота (45 мин) выбраны для иллюстрации, не из данных Red Wings. Пунктир — оборот. У нарушений указаны причины: короткий оборот и несовпадение аэропорта.</figcaption>
+</figure>
+<p>Кроме этих двух условий нужны ночёвка (где борт стоит ночью), окна обслуживания, переход через границу недели (где борт утром в понедельник), резерв времени на задержки и перегоны. Нижняя оценка парка по налёту — <code>ceil(Σ блок-часов за сутки / доступные блок-часы на борт в сутки)</code> — только нижняя граница: она не проверяет ни время, ни место. Значения вроде 4–6 бортов, 8,5–10,5 блок-часа в сутки или 45–60 минут MCT допустимы лишь как явно объявленные тестовые.</p>
+<div class="warn"><p><strong>Типичная ошибка переноса.</strong> Учебный ноутбук AMPL по назначению флота генерирует рейсы <em>одного аэропорта</em>, а допустимые пары фильтрует только по минимальному интервалу (в примере 1 час — демонстрационное значение). Если перенести его на несколько аэропортов без условия «аэропорт прилёта = аэропорт следующего вылета», получится «телепортация»: борт прилетает в B, а следующий рейс стартует из D. Для одноаэропортовой постановки это не дефект, для сети — ошибка адаптации.</p></div>
+<h3>Часовые пояса: местное время нельзя сравнивать напрямую</h3>
+<p>В строках образца Red Wings есть только местное время вылета, без пояса. Для расписаний нужна пара «<strong>IANA-зона + местная дата</strong>» (например, <code>Asia/Yekaterinburg</code>), из которой выводится UTC; одного фиксированного смещения недостаточно, потому что правила пояса и даты переходов меняются, а рейс может пересекать полночь. Ниже — настоящие два времени из образца. Для даты образца 2 августа 2026: Екатеринбург — UTC+5, Ижевск — UTC+4 (<code>Europe/Samara</code>). Зоны сверены по <a href="https://data.iana.org/time-zones/tzdb/zone1970.tab">таблице IANA</a> и <a href="https://data.iana.org/time-zones/tzdb/europe">правилам tzdb</a>. Передвиньте ползунки и сравните вердикт с «наивным» чтением, будто оба времени из одной зоны.</p>
+<div class="tool" id="turnTool">
+<h4 style="margin-top:0">Проверка оборота на двух строках образца <span class="b scn">SCENARIO</span></h4>
+<p style="margin:0">SVX→IJK вылет 20:00 (местное, Екатеринбург); IJK→SVX вылет 21:05 (местное, Ижевск). В пресс-релизе заявлено время в пути 1 ч 15 мин, но оно не включено в CSV и не определено как блок-время. Для демонстрации примем 75 минут за блок-время и предположим один борт на обоих рейсах; это допущения, а не установленный оборот.</p>
+<label for="blk">Блок-время SVX→IJK, минут: <span class="val" id="blkv"></span></label>
+<input type="range" id="blk" min="30" max="120" step="5" value="75">
+<label for="trn">Минимальный оборот в IJK, минут: <span class="val" id="trnv"></span></label>
+<input type="range" id="trn" min="20" max="90" step="5" value="40">
+<div class="out" role="status" aria-live="polite" id="turnOut"></div>
+</div>
+</section>
+
+<section id="s5">
+<h2>5. Реальные входные данные: что значит одна строка</h2>
+<p>В репозитории есть небольшие настоящие образцы, и важно понимать, что именно они фиксируют. Все четыре ниже — <span class="b obs">OBSERVED</span> в смысле «значение зафиксировано в указанном источнике», но ни один не отвечает на вопрос кейса сам по себе. Источники получены 7 ноября 2026; ниже показаны выбранные столбцы настоящих CSV. Часть полей и строк опущена для чтения; исходные файлы сохраняются в пакете.</p>
+
+<div class="card">
+<h3>1. План субсидируемых региональных маршрутов (Росавиация)</h3>
+<pre class="raw">source_row,airline,origin_name,destination_name,distance_km_oneway,seats_as_published,period_text,flights_per_week_as_published,round_trips_2026_as_published
+3,АО «Авиакомпания АЗИМУТ»,Астрахань,Минеральные Воды,447,100,01.01.2026-30.04.2026;01.10.2026-31.12.2026,2,60</pre>
+<dl>
+<dt>Смысл строки</dt><dd>Одна запланированная субсидируемая услуга одного перевозчика между двумя городами в двух сезонных интервалах.</dd>
+<dt>Единицы и период</dt><dd>Расстояние в километрах в одну сторону; кресла и частота «как опубликовано»; два периода внутри 2026 года.</dd>
+<dt>Источник</dt><dd><code>favt.gov.ru</code>, страница о субсидировании регионов; в образец вошли первые 8 полных строк таблицы, строки с <code>rowspan</code> пропущены — это <em>не вся программа</em>.</dd>
+<dt>Преобразование</dt><dd>Строка таблицы → CSV без изменения значений. Дальше: период раскрывается в даты, «2 в неделю» — в календарные рейсы (если определён день недели), город → аэропорт.</dd>
+<dt>Пробелы</dt><dd>Нет времени суток, номеров рейсов, цепочек бортов, пассажиров, выручки и факта выполнения; это <em>план</em>, не начисление. Число 60 нельзя пересчитать из частоты: 2 рейса/нед. × 30,3 нед. (212 дней двух интервалов) ≈ 61 — похоже на 60, но у строки 4 (Астрахань–Сочи) 3 в неделю дают ≈ 91 при опубликованных 60. Смысл поля нужно сверять с источником, а не угадывать.</dd>
+</dl>
+</div>
+
+<div class="card">
+<h3>2. Объявленное расписание Red Wings, раскрытое по календарю</h3>
+<pre class="raw">date,origin,destination,carrier,departure_local,aircraft,status
+2026-08-02,SVX,IJK,Red Wings,20:00,SSJ-100,announced_schedule
+2026-08-02,IJK,SVX,Red Wings,21:05,SSJ-100,announced_schedule</pre>
+<dl>
+<dt>Смысл строки</dt><dd>Один <em>объявленный</em> вылет в конкретную дату (экземпляр рейса), полученный из правила пресс-релиза Red Wings от 1 августа. Образец — 8 строк: 2, 7, 9 и 14 августа в обе стороны.</dd>
+<dt>Единицы и период</dt><dd>Дата и местное время вылета; тип воздушного судна SSJ-100.</dd>
+<dt>Преобразование</dt><dd>Правило «по каким дням» → набор дат. Это первый шаг к <code>flight_instance</code> в модели данных.</dd>
+<dt>Пробелы</dt><dd>В CSV нет часового пояса, времени прилёта, номера рейса и борта. В исходном пресс-релизе есть длительность 1 ч 15 мин; её можно добавить отдельным полем, сохранив исходное название «время в пути». Совпадение борта и фактический оборот этим не установлены. Статус <code>announced_schedule</code> — не факт выполнения. Он даёт основу для проверки цепочек, но без времён прилёта и назначения бортов проверка будет условной.</dd>
+</dl>
+</div>
+
+<div class="card">
+<h3>3. Справочник аэропортов OurAirports</h3>
+<pre class="raw">id,ident,name,latitude_deg,longitude_deg,iso_region,municipality,iata_code
+26378,USSS,Koltsovo Airport,56.743099212646,60.802700042725,RU-SVE,Yekaterinburg,SVX</pre>
+<dl>
+<dt>Смысл строки</dt><dd>Один <em>аэропорт</em>, а не город: несколько аэропортов могут обслуживать один город, код нельзя присваивать городу без подтверждения.</dd>
+<dt>Единицы и период</dt><dd>Градусы широты и долготы, высота в футах; период не задан, данные — снимок сообщества.</dd>
+<dt>Преобразование</dt><dd>Ключ соединения со строкой расписания — IATA (<code>SVX</code>); добавить постоянный <code>airport_id</code>, исторические коды и IANA-зону.</dd>
+<dt>Пробелы</dt><dd>В файле нет часового пояса, режима работы, обслуживания и пригодности аэродрома. Образец — 8 российских аэропортов; это данные сообщества, не эксплуатационные документы.</dd>
+</dl>
+</div>
+
+<div class="card">
+<h3>4. Показатель 59496: перевезённые пассажиры (ЕМИСС)</h3>
+<pre class="raw">indicator_id,year,regularity,traffic,unit,value
+59496,2025,regulyar Регулярные коммерческие перевозки,vnutr Внутренние перевозки,792 человек,78609346</pre>
+<dl>
+<dt>Смысл строки</dt><dd>Агрегат по стране: 78 609 346 человек — внутренние регулярные коммерческие перевозки в РФ за январь–декабрь 2025.</dd>
+<dt>Единицы и период</dt><dd>Человек; календарный год. Остальные три строки образца: нерегулярные внутренние 2 841 637, нерегулярные международные 4 303 699, регулярные международные 23 099 896.</dd>
+<dt>Источник</dt><dd>Получено из вторичного репозитория; в паспорте показателя период действия 2016–2022 при заявленной длине ряда до 2025. Это не прямая выгрузка ЕМИСС.</dd>
+<dt>Пробелы</dt><dd>Не OD-матрица, не выручка. Не доказано, что «перевезённые пассажиры» совпадают с определением знаменателя в условии кейса. Подходит как порядок величины знаменателя, но не как готовая база доли.</dd>
+</dl>
+</div>
+
+<h3>Как входы превращаются в решения</h3>
+<figure class="fig">
+<div class="scroll" tabindex="0" role="region" aria-label="Схема: данные, преобразования, решения">
+<svg viewBox="0 0 560 300" role="img" aria-labelledby="f5t f5d"><title id="f5t">Данные, преобразования и решения</title><desc id="f5d">План субсидий определяет кандидата маршрута и сезон, анонс рейсов раскрывается в календарь. Справочник аэропортов с добавленной IANA-зоной нужен календарю и проверке стыковок. Общий агрегат после сверки охвата используется в знаменателе доли, а не как OD-спрос.</desc><g font-size="12"><rect x="8" y="15" width="124" height="65" rx="6" class="box"/><text x="70" y="40" text-anchor="middle">План субсидий</text><text x="70" y="61" text-anchor="middle">маршрут, период</text><path d="M70 80 V107 m-4 -5 l4 5 4 -5" class="ln"/><rect x="8" y="115" width="124" height="65" rx="6" class="box"/><text x="70" y="140" text-anchor="middle">Периоды и частота</text><text x="70" y="161" text-anchor="middle">город → аэропорт</text><path d="M70 180 V207 m-4 -5 l4 5 4 -5" class="ln"/><rect x="8" y="215" width="124" height="65" rx="6" class="box"/><text x="70" y="240" text-anchor="middle">Кандидат маршрута</text><text x="70" y="261" text-anchor="middle">и сезон работы</text><rect x="148" y="15" width="124" height="65" rx="6" class="box"/><text x="210" y="40" text-anchor="middle">Анонс Red Wings</text><text x="210" y="61" text-anchor="middle">дни, местное время</text><path d="M210 80 V107 m-4 -5 l4 5 4 -5" class="ln"/><rect x="148" y="115" width="124" height="65" rx="6" class="box"/><text x="210" y="140" text-anchor="middle">Правило → даты</text><text x="210" y="161" text-anchor="middle">время → UTC</text><path d="M210 180 V207 m-4 -5 l4 5 4 -5" class="ln"/><rect x="148" y="215" width="124" height="65" rx="6" class="box"/><text x="210" y="240" text-anchor="middle">Календарь рейсов</text><text x="210" y="261" text-anchor="middle">и цепочки бортов</text><rect x="288" y="15" width="124" height="65" rx="6" class="box"/><text x="350" y="40" text-anchor="middle">Аэропорты</text><text x="350" y="61" text-anchor="middle">IATA, координаты</text><path d="M350 80 V107 m-4 -5 l4 5 4 -5" class="ln"/><rect x="288" y="115" width="124" height="65" rx="6" class="box"/><text x="350" y="140" text-anchor="middle">Коды и IANA-зона</text><text x="350" y="161" text-anchor="middle">проверка привязки</text><path d="M350 180 V207 m-4 -5 l4 5 4 -5" class="ln"/><rect x="288" y="215" width="124" height="65" rx="6" class="box"/><text x="350" y="240" text-anchor="middle">Стыковки</text><text x="350" y="261" text-anchor="middle">в одном аэропорту</text><rect x="428" y="15" width="124" height="65" rx="6" class="box"/><text x="490" y="40" text-anchor="middle">Агрегат РФ</text><text x="490" y="61" text-anchor="middle">человек за год</text><path d="M490 80 V107 m-4 -5 l4 5 4 -5" class="ln"/><rect x="428" y="115" width="124" height="65" rx="6" class="box"/><text x="490" y="140" text-anchor="middle">Период, категории</text><text x="490" y="161" text-anchor="middle">сумма без дублей</text><path d="M490 180 V207 m-4 -5 l4 5 4 -5" class="ln"/><rect x="428" y="215" width="124" height="65" rx="6" class="box"/><text x="490" y="240" text-anchor="middle">Знаменатель доли</text><text x="490" y="261" text-anchor="middle">после сверки охвата</text><path d="M288 147 H272 m5 -4 l-5 4 5 4" class="ln"/></g></svg>
+</div>
+<figcaption>OD-спрос и доступный дополнительный парк не выводятся из этих четырёх источников. Их задают отдельно как сценарии до получения наблюдений.</figcaption>
+</figure>
+</section>
+
+<section id="s6">
+<h2>6. Единицы: OD-поездка, сегмент, кресло и человек</h2>
+<p>Пять разных величин часто называют одним словом «пассажиры»: пассажиры аэропорта, OD-поездки (поездка «откуда—куда» целиком), пассажиро-сегменты (каждое занятое плечо), кресла (предложение) и уникальные люди. Пересадочный пассажир A→B через H — <em>одна</em> OD-поездка, <em>два</em> пассажиро-сегмента, <em>два</em> занятых кресла (по одному на рейс), а билет оплачен <em>один</em> раз. Человек, летящий туда и обратно с пересадкой, — один человек, две OD-поездки и четыре сегмента.</p>
+<figure class="fig">
+<div class="scroll" tabindex="0" role="region" aria-label="Схема: одна поездка, два сегмента">
+<svg viewBox="0 0 560 250" role="img" aria-labelledby="f6t f6d">
+<title id="f6t">Одна OD-поездка и два сегмента</title>
+<desc id="f6d">Пассажир летит из A в B через H. Это одна поездка A→B, два сегмента A→H и H→B, два занятых кресла и один оплаченный билет. Прямой рейс A→B для сравнения — один сегмент и одно кресло.</desc>
+<g font-size="14">
+<circle cx="70" cy="70" r="22" class="box"/><text x="70" y="76" text-anchor="middle" font-weight="700">A</text>
+<circle cx="280" cy="70" r="22" class="box" style="stroke:var(--c1);stroke-width:3"/><text x="280" y="76" text-anchor="middle" font-weight="700">H</text>
+<circle cx="490" cy="70" r="22" class="box"/><text x="490" y="76" text-anchor="middle" font-weight="700">B</text>
+<line class="ln" x1="94" y1="70" x2="254" y2="70"/><line class="ln" x1="306" y1="70" x2="466" y2="70"/>
+<path d="M246 64 L256 70 L246 76 Z" style="fill:var(--c-mut)"/><path d="M458 64 L468 70 L458 76 Z" style="fill:var(--c-mut)"/>
+<text x="175" y="58" text-anchor="middle">рейс F1</text><text x="385" y="58" text-anchor="middle">рейс F2</text>
+<path d="M70 108 L70 124 L490 124 L490 108" class="ln" style="stroke:var(--c-pri)"/>
+<text x="280" y="146" text-anchor="middle" style="fill:var(--c-pri)" font-weight="700">1 OD-поездка A→B</text>
+<g>
+<rect x="8" y="164" width="170" height="70" rx="6" class="box"/><text x="93" y="186" text-anchor="middle">2 пассажиро-</text><text x="93" y="204" text-anchor="middle">сегмента</text><text x="93" y="222" text-anchor="middle" class="mut" font-size="12">A→H и H→B</text>
+<rect x="195" y="164" width="170" height="70" rx="6" class="box"/><text x="280" y="186" text-anchor="middle">2 кресла занято</text><text x="280" y="204" text-anchor="middle">по одному на рейс</text><text x="280" y="222" text-anchor="middle" class="mut" font-size="12">нужна ёмкость на обоих</text>
+<rect x="382" y="164" width="170" height="70" rx="6" class="box"/><text x="467" y="186" text-anchor="middle">1 билет оплачен</text><text x="467" y="204" text-anchor="middle">выручка делится</text><text x="467" y="222" text-anchor="middle" class="mut" font-size="12">а не складывается</text>
+</g>
+</g>
+</svg>
+</div>
+<figcaption>Для сравнения: прямой рейс A→B — 1 поездка, 1 сегмент, 1 кресло. Ограничение вместимости проверяется по каждому рейсу и направлению, а не по сети в целом.</figcaption>
+</figure>
+<p>Следствия. Во-первых, <code>пассажиры_плеча ≤ кресла_выполненных_рейсов</code> проверяется для каждого направления и периода. Во-вторых, выручку считают по поездке с явным составом сборов либо по сегментам с согласованным распределением тарифа: нельзя прибавлять полную цену трансферного билета к каждому сегменту. В-третьих, пассажиры авиакомпании как показатель статистики и уникальные OD-поездки различаются, и как их считать для доли в этом кейсе — вопрос организаторам (решение D04).</p>
+<h3>Стыковка A–H–B: условное ожидание и MCT</h3>
+<p>Стыковка возможна, если аэропорт прилёта первого рейса совпадает с аэропортом вылета второго и выполняется <code>MCT ≤ вылет₂ − прилёт₁ ≤ максимальное ожидание</code>. <strong>MCT</strong> — минимальное допустимое время стыковки; он зависит от аэропорта, перевозчика, терминала и багажа. В материалах MCT нет: ниже его задаёте вы, как явное допущение, а не норматив. Расписание в примере <span class="b scn">SCENARIO</span> — синтетическое и учебное, без прогноза рынка: три прилёта в H и три вылета из H.</p>
+<div class="tool" id="abTool">
+<h4 style="margin-top:0">Допустимые стыковки при заданном MCT <span class="b scn">SCENARIO</span></h4>
+<label for="mct">MCT (минимум), минут: <span class="val" id="mctv"></span></label>
+<input type="range" id="mct" min="0" max="120" step="5" value="45">
+<label for="mxw">Максимальное ожидание, минут: <span class="val" id="mxwv"></span></label>
+<input type="range" id="mxw" min="30" max="360" step="10" value="180">
+<label for="sft">Сдвиг всех вылетов из H, минут: <span class="val" id="sftv"></span></label>
+<input type="range" id="sft" min="-120" max="120" step="5" value="0">
+<div class="out" role="status" aria-live="polite" id="abOut"></div>
+</div>
+<p>Сдвиньте вылеты на +10 минут: при MCT 45 число допустимых пар вырастет с двух до трёх, хотя рейсы те же. Именно такой эффект измеряет эксперимент о синхронизации (глава 11). Но сдвиг в этой игрушке не проверяет, может ли сам борт успеть: сначала нужна цепочка (глава 4), потом связность.</p>
+</section>
+
+<section id="s7">
+<h2>7. Справедливое сравнение: что должно быть одинаковым</h2>
+<p>Сравнение А и Б корректно, только если у них одинаково <em>ограничение</em> — ресурс и период, — а результаты (направления, число рейсов, блок-часы) у разных стратегий законно отличаются. Требовать одинаковых направлений или числа рейсов от двух разных стратегий можно лишь тогда, когда объяснена цель такого ограничения; иначе вы сравниваете не стратегии, а свои допущения. Одни и те же самолёты не означают одинаковых блок-часов, а равное число рейсов — равного парка.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Условия корректного сравнения">
+<table>
+<thead><tr><th>Параметр</th><th>Одинаково в А, Б и смешанном</th><th>Показывать отдельно</th><th>Ловушка</th></tr></thead>
+<tbody>
+<tr><td>Период</td><td>Один период и сезоны</td><td>Сильный и слабый сезон</td><td>Среднегодовая загрузка скрывает длинные провалы</td></tr>
+<tr><td>Парк</td><td>Один доступный дополнительный пул бортов</td><td>Существующий, занятый и доступный парк — разными строками</td><td>Число 31 из вторичных описаний парка не определяет доступные самолёты; принять его за весь свободный парк — известная ошибка и <strong>неравноправный вариант решения</strong></td></tr>
+<tr><td>Блок-часы</td><td>Не задаются заранее: это результат расписания</td><td>Налёт на борт в сутки; нижняя оценка парка</td><td>Равное число рейсов ≠ равные блок-часы</td></tr>
+<tr><td>Резерв</td><td>Одна политика резерва (борт и/или запас времени)</td><td>Резерв как отдельная статья</td><td>Резерв только в одном варианте</td></tr>
+<tr><td>Перегоны</td><td>Учитываются в обоих</td><td>Пустые и коммерческие плечи отдельно</td><td>Забыть перегон или считать каждый старт пустым</td></tr>
+<tr><td>Конкуренты и внешняя альтернатива</td><td>Один набор для обоих</td><td>Поезд, автомобиль, отказ от поездки — как внешние варианты</td><td>Считать, что весь спрос достаётся Red Wings</td></tr>
+</tbody>
+</table>
+</div>
+<p>Как задать пул? Учебная сетка из 3, 5 и 7 выделяемых бортов — просто набор уровней, чтобы проверить чувствительность вывода; она не утверждает, сколько бортов доступно, и не опирается на исторические данные. Команде нужно заменить её значениями, которые она сможет обосновать, либо запросить владельца данных (D02, D03). Сроки поставок тоже сценарные: в осторожном сценарии новых SJ-100 нет вообще.</p>
+<p>Что считается результатом сравнения при одинаковых ресурсах: сколько OD-пар покрыто прямым рейсом или допустимой стыковкой; сколько рейсов выполнимо цепочками; сколько нужно блок-часов, перегонов и резерва; как ведёт себя расписание при сбое (глава 11). Выручка, пассажиры и доля — отдельный слой, где данных нет (следующая глава).</p>
+</section>
+
+<section id="s8">
+<h2>8. Выручка, доля рынка и каннибализация: что проверяемо, а что — сценарий</h2>
+<p>Матрицы OD в проекте нет: нет ни проданных стыковок, ни потоков по парам городов, а доступный дополнительный парк неизвестен. Поэтому расписание и связность проверить можно, а пассажиров, выручку и долю — только сценариями. Этот пробел нельзя прятать в среднем значении: итоговое сравнение должно показывать слой «SCENARIO» отдельно от слоя «проверено по расписанию».</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Проверяемое и сценарное">
+<table>
+<thead><tr><th>Проверяется по расписанию и ресурсам</th><th>Только сценарий (нет данных)</th></tr></thead>
+<tbody>
+<tr><td>Совпадение аэропортов в цепочке; оборот не короче допущения</td><td>Число уникальных OD-поездок по парам</td></tr>
+<tr><td>Наличие допустимой стыковки по MCT-допущению</td><td>Доля пассажиров, выбирающих стыковку, а не поезд или конкурента</td></tr>
+<tr><td>Кресла, предложенные в направлении и период</td><td>Загрузка, а значит и пассажиры</td></tr>
+<tr><td>Нижняя оценка парка по налёту</td><td>Средняя полученная выручка на пассажира</td></tr>
+<tr><td>Потерянные связи и оборот при сбое</td><td>Доля рынка и её прирост в п.п.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Формулы и единицы</h3>
+<ul>
+<li><strong>Предложение:</strong> сценарные пассажиро-сегменты в одном направлении = <code>f × w × s × l</code>, где f — вылеты в неделю <em>в одном направлении</em>, w — недели, s — кресла, l — принятая загрузка. Обратное направление считают отдельно; множитель 2 — частный случай симметричного расписания. Кресла × загрузка — сценарная оценка, не наблюдение спроса.</li>
+<li><strong>Выручка:</strong> число реализованных OD-поездок × средняя <em>полученная</em> выручка на пассажира. Цена найденного билета — не она. Yield — выручка на пассажиро-километр (руб/пасс-км), его нельзя умножать на пассажиров без километров, а руб/пасс-км нельзя вычитать из руб/пасс.</li>
+<li><strong>Доля:</strong> <code>share = пассажиры Red Wings / пассажиры всех российских авиакомпаний</code>; прирост <code>Δ = 100 × (share₁ − share₀)</code> п.п. при одинаковых периоде, охвате и методике; если растёт весь рынок, меняется знаменатель.</li>
+<li><strong>Каннибализация:</strong> часть пассажиров новой сети перейдёт с существующих рейсов самой Red Wings. Этот переток вычитают из чистого эффекта; валовой прирост новых линий не равен приросту компании.</li>
+</ul>
+<h3>Порядок величины знаменателя на реальных числах</h3>
+<figure class="fig">
+<div class="scroll" tabindex="0" role="region" aria-label="Диаграмма перевезённых пассажиров по образцу 59496">
+<svg viewBox="0 0 560 215" role="img" aria-labelledby="f8t f8d">
+<title id="f8t">Перевезённые пассажиры, РФ, 2025, млн человек</title>
+<desc id="f8d">Регулярные внутренние перевозки 78,6 млн человек; регулярные международные 23,1 млн; нерегулярные международные 4,3 млн; нерегулярные внутренние 2,8 млн.</desc>
+<g font-size="14">
+<text x="8" y="20" font-weight="700">РФ, январь–декабрь 2025, млн человек</text>
+<text x="8" y="62" >Регулярные внутренние</text><rect x="200" y="46" width="295" height="22" rx="3" style="fill:var(--c2)"/><text x="502" y="63">78,6</text>
+<text x="8" y="100">Регулярные междунар.</text><rect x="200" y="84" width="87" height="22" rx="3" style="fill:var(--c-pri)"/><text x="294" y="101">23,1</text>
+<text x="8" y="138">Нерегулярные междунар.</text><rect x="200" y="122" width="16" height="22" rx="3" style="fill:var(--c-pri)"/><text x="223" y="139">4,3</text>
+<text x="8" y="176">Нерегулярные внутренние</text><rect x="200" y="160" width="11" height="22" rx="3" style="fill:var(--c2)"/><text x="218" y="177">2,8</text>
+<text x="8" y="205" class="mut" font-size="12">Масштаб: 0–80 млн. Показатель ЕМИСС 59496, число перевезённых пассажиров.</text>
+</g>
+</svg>
+</div>
+<figcaption>Источник: четыре строки показателя 59496 за 2025 год из вторичного репозитория, единица — человек. Ограничения: агрегат по стране, не OD и не выручка; определение «перевезённые» не сверено с знаменателем кейса; период действия паспорта показателя 2016–2022.</figcaption>
+</figure>
+<p>Сумма четырёх категорий образца — <strong>108 854 578 перевезённых пассажиров</strong>. Если использовать её как учебный знаменатель и считать весь прирост новым при неизменном рынке, то <strong>+0,1 п.п. требует примерно 108,9 тыс. дополнительных пассажиров в год</strong>, а +1 000 пассажиров дают около 0,00092 п.п. Значение 78,6 млн относится только к внутренним регулярным перевозкам и для общей доли не подходит. Эта арифметика показывает масштаб, но не задаёт цель или прогноз: для расчёта кейса ещё нужно согласовать охват показателя с числителем Red Wings, период, методику и учёт перетока.</p>
+<div class="warn"><p><strong>Субсидии.</strong> ПП № 1242 нельзя использовать как автоматически действующее основание на 2026 год: проверка нашла текст его отмены и более новое решение Росавиации, а точная редакция этого решения и условия конкретного договора на дату среза не установлены. Поэтому предлагаем обязательно проверить сценарий нулевой субсидии, а любая поддержка — отдельный сценарий после проверки её действующей редакции. Коэффициенты 1,5× и категорию 76–103 мест из черновых материалов Flash использовать нельзя.</p></div>
+<p>Что делать со спросом без матрицы OD: ранжировать пары по качественным прокси (время поездки «от двери до двери», частота, цена альтернатив, сезонность) и строить условные диапазоны с явной зависимостью от допущений. Калиброванные модели выбора (QSI), гравитационные модели и метод IPF применимы лишь при совместимых фактических наблюдениях либо согласованных итогах по отправлениям и назначениям; без них любой процент выбора — сценарий, а не результат исследования рынка.</p>
+</section>
+
+<section id="s9">
+<h2>9. Что переносимо из работ и аналогов</h2>
+<p>Переносится постановка вопроса и устройство проверки, а не коэффициенты. Иностранные коэффициенты спроса, индексы связности, распределения задержек и субсидии на Россию не переносятся; ни одна из работ не подтверждает прибыльность хаба или прямых рейсов для Red Wings.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Что переносится из работ">
+<table>
+<thead><tr><th>Источник</th><th>Что берём</th><th>Чего не берём</th></tr></thead>
+<tbody>
+<tr><td>Santini, Vaze (2025, препринт)</td><td>Явная внешняя альтернатива (другой перевозчик, наземный транспорт, отказ) и наличие самолёта в аэропорту в каждый момент</td><td>Калибровку США и условия партнёрства с магистральным перевозчиком; это не тест хаба против прямых рейсов</td></tr>
+<tr><td>Seredyński, Grosche, Rothlauf (2016)</td><td>Контрфактическая проверка: сколько стыковок добавляет синхронизация <em>при тех же рейсах</em></td><td>Значения индекса и веса для РФ; случайная перестановка не гарантирует оборот борта и продажу. При повторной проверке PDF вернул ошибку сервера, детали работы не подтверждены повторно</td></tr>
+<tr><td>Wuellner, Roy, D’Souza (препринт 2009, версия 2010)</td><td>Перестройка сети с сохранением числа рейсов и операций узлов; доля связной компоненты после отказа узла</td><td>Равное число рейсов не равно равным блок-часам; связность графа не гарантирует стыковку, места и выполнение рейса</td></tr>
+<tr><td>Sanjeevi, Venkatachalam (препринт 2020, версия 2021)</td><td>Сценарии первичных задержек, распространение по цепочке борта, ограниченный общий резерв; одинаковый бюджет резерва для сравнения</td><td>Распределения задержек США; модель не сравнивает хаб и прямые рейсы</td></tr>
+<tr><td>Sindhwani и соавт. (2024)</td><td>Стресс отказа или перегрузки узла; частные и социальные цели раздельно</td><td>Не честное сравнение малого хаба и прямой сети</td></tr>
+<tr><td>Brueckner, Zhang (рукопись NASA)</td><td>Компромисс между частотой и неудобством пересадки; три симметричных города</td><td>Монополия, симметрия, нет общего парка и конкурента; вывод о частоте для РФ не факт</td></tr>
+<tr><td>NetScan, приложение H</td><td>Образец перебора соединений с учётом длительности</td><td>Российский спрос; при повторном чтении PDF недоступен (403/таймаут), описание опирается на предыдущую проверку Terra</td></tr>
+<tr><td>Avelo (самоотчёт)</td><td>Рамка «база с прямыми рейсами против базы с пересадками»</td><td>Прибыльность, перенос американского спроса, доказательство варианта Б без новой базы</td></tr>
+<tr><td>airBaltic (отчёт за 2025)</td><td>Управленческий выбор при ограниченном парке: двигатели ограничили доступность самолётов, часть рейсов отменили; сохранили линии с местным и трансферным спросом</td><td>Убыток группы за 2025 (€44,337 млн) нельзя приписать хабу, прямой сети или одной причине; перевозчик значительно крупнее RW</td></tr>
+<tr><td>Nordica и Augusta</td><td>Шаблон условий пилота: обязательства, срок, исключения, возврат льгот, сценарий без поддержки. Аудит Эстонии (14.09.2023): осенью 2019 Nordica прекратила регулярные рейсы из Таллина</td><td>Причинный эффект закрытия не установлен. Рост пассажиропотока Tallinn Airport на 8,7% в 2019 — результат всех перевозчиков. Augusta (2022–2026): до 12/24 месяцев льгот, лимит $500 000 в год — условия чужого аэропорта, не льгота RW</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Инструменты: минимальный набор и отложенное</h3>
+<p>Ни один инструмент не поставляет данные Red Wings или OD-спрос. Минимальный набор из трёх позиций: (1) календарь рейсов с источником, датой и признаком неопределённости; (2) таблица цепочек каждого самолёта с отчётом о нарушениях; (3) список возможных стыковок с ожиданием и днями доступности — для него годится граф событий (например, NetworkX), в котором хранятся конкретные рейсы и даты; параллельные рейсы различают. Решатели OR-Tools и HiGHS универсальны и не содержат авиамодели; AMPL-ноутбук — образец постановки, лицензия текста не определена. OpenTripPlanner с GTFS нужен для сложной маршрутизации, но подходящего российского авиационного GTFS не подтверждено. Откладывается: развёртывание OpenTripPlanner, второй решатель параллельно с первым, коммерческая интеграция AMPL и сложная карта — до появления календаря и допущения по MCT. Эти инструменты в материалах прочитаны и описаны, но ни один не запускался на настоящей сети.</p>
+</section>
+
+<section id="s10">
+<h2>10. Реестр открытых решений</h2>
+<p>Двенадцать решений, которые влияют на расчёт. У каждого — варианты, последствия, <em>предлагаемый следующий шаг</em> (способ двигаться дальше, а не принятое решение команды) и условия пересмотра. Статус везде <span class="b prop">PROPOSED</span> или <span class="b open">OPEN</span>. Те же строки лежат в <code>context/10_decision_guide/decisions.csv</code>.</p>
+
+<article class="card" id="D01"><h3>D01. Что рекомендовать сейчас: протокол сравнения <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Назвать победителя А или Б.</li><li>Выдать протокол сравнения А, Б и смешанного на одинаковых ресурсах и условия, при которых выбор меняется.</li><li>Заранее закрепить смешанный вариант.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) без OD и пула бортов даёт ложную уверенность; (2) честно, но слабее как «ответ»; (3) защита смешанной стратегии преждевременна: пока не посчитаны А и Б, неясно, что и в каких долях смешивать.</dd>
+<dt>Предлагаемый шаг</dt><dd>Сейчас — вариант 2: согласовать протокол сравнения. Для сдачи нужен выбор стратегии на основе расчётов и условия, при которых его следует пересмотреть.</dd>
+<dt>Пересмотр</dt><dd>После экспериментов E1–E3 и сценарных расчётов; если различие по проверяемому слою устойчиво на всех уровнях пула.</dd>
+</dl></article>
+
+<article class="card" id="D02"><h3>D02. Как задать равный ресурс <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Одинаковый пул бортов и период.</li><li>Одинаковый бюджет блок-часов с резервом.</li><li>Одинаковый бюджет затрат.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) физически проверяемо, но использование бортов получается разным; (2) ближе к экономике, но скрывает цепочки; (3) нужны затраты, данных нет.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1 как ограничение; блок-часы, резерв и перегоны — выходные показатели. Проверить на нескольких уровнях пула (учебная сетка 3/5/7 — для обсуждения, не оценка доступности).</dd>
+<dt>Пересмотр</dt><dd>Когда владелец данных назовёт реальный пул или лимит налёта.</dd>
+</dl></article>
+
+<article class="card" id="D03"><h3>D03. Откуда взять доступный парк <span class="b open">OPEN</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Число 31 из вторичных описаний — как свободный парк.</li><li>Сценарный пул, который задаёт команда.</li><li>Запрос организаторам или владельцу данных.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) известная ошибка: 31 не определяет доступные до 2028 года самолёты, вариант неравноправен; (2) прозрачно, но произвольно; (3) нужен срок ответа.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 2 сейчас плюс запрос по варианту 3; существующий, занятый и доступный парк — раздельно.</dd>
+<dt>Пересмотр</dt><dd>Ответ организаторов или первичный документ о доступном парке.</dd>
+</dl></article>
+
+<article class="card" id="D04"><h3>D04. Что считать пассажиром при расчёте доли <span class="b open">OPEN</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Пассажиро-сегменты (как в статистике перевозчика, если так принято).</li><li>Уникальные OD-поездки.</li><li>Показывать оба варианта.</li></ol></dd>
+<dt>Последствия</dt><dd>Стыковочный пассажир считается дважды или один раз; от этого зависят и числитель, и сопоставимость со знаменателем.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 3 до ответа организаторов; определение — в реестре допущений.</dd>
+<dt>Пересмотр</dt><dd>Ответ организаторов; сверка определения «перевезённые пассажиры» в источнике знаменателя.</dd>
+</dl></article>
+
+<article class="card" id="D05"><h3>D05. Как оценивать спрос без матрицы OD <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Только ранжирование по прокси.</li><li>Сценарные диапазоны с явными допущениями и меткой SCENARIO.</li><li>Искать или покупать данные.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) не даёт выручки и доли; (2) даёт условные диапазоны, но не оценку риска; (3) срок и право на данные неизвестны.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 2; вариант 3 — только как запрос агрегированных разрешённых данных. Иностранные коэффициенты не переносить.</dd>
+<dt>Пересмотр</dt><dd>Появление совместимых фактических наблюдений по парам и периодам.</dd>
+</dl></article>
+
+<article class="card" id="D06"><h3>D06. Как хранить время рейса <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>IANA-зона + местная дата + местное время; UTC выводится.</li><li>Одно смещение UTC.</li><li>Только UTC.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) корректно при изменениях правил пояса и полуночном переходе; (2) ломается при смене смещения и неоднозначных датах; (3) теряется смысл «местного» расписания.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1; в строках без пояса (как в образце Red Wings) зону берём из справочника аэропортов.</dd>
+<dt>Пересмотр</dt><dd>Если источник сам публикует однозначный UTC.</dd>
+</dl></article>
+
+<article class="card" id="D07"><h3>D07. MCT и правила стыковки <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Диапазон допущений с анализом чувствительности.</li><li>Одно фиксированное значение.</li><li>Официальные значения аэропортов, если найдутся.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) число стыковок видно как функция MCT; (2) скрывает неопределённость; (3) нужны источники и права продажи единого билета.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1: значения — тестовые, не нормы; результат помечен «потенциальная связность», пока не известны продажа и багаж.</dd>
+<dt>Пересмотр</dt><dd>Найденные правила аэропорта или перевозчика.</dd>
+</dl></article>
+
+<article class="card" id="D08"><h3>D08. Веса при скрининге городов <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Swing-веса с проверкой ROC.</li><li>Только ROC по рангам.</li><li>Экспертные проценты без привязки к размаху шкал.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) веса привязаны к размаху критериев, ROC служит контролем; (2) проще, но игнорирует размах; (3) трудно защищать.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1; проверить, удерживается ли топ-3 при изменении весов и неопределённых значений; недостающее значение — по заранее заданному правилу.</dd>
+<dt>Пересмотр</dt><dd>Если победитель меняется при малых изменениях — расширить данные, не подгонять веса.</dd>
+</dl></article>
+
+<article class="card" id="D09"><h3>D09. Поддержка и субсидии <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Нулевая поддержка — обязательный сценарий.</li><li>Условия конкретной программы после проверки действующей редакции.</li><li>Не учитывать вовсе.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) показывает, живёт ли вариант без льгот; (2) без проверки редакции рискует опереться на утратившее силу основание — ПП № 1242 автоматически действующим не считается; (3) занижает вариант с поддержкой.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1 всегда; вариант 2 — отдельной строкой после сверки редакции решения и условий договора.</dd>
+<dt>Пересмотр</dt><dd>Проверка действующего решения Росавиации и договора; условия Augusta — только как шаблон структуры.</dd>
+</dl></article>
+
+<article class="card" id="D10"><h3>D10. Инструменты проверки <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Таблицы и собственный скрипт проверки цепочек и стыковок.</li><li>Сразу решатель (OR-Tools или HiGHS).</li><li>OpenTripPlanner с GTFS.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) быстро, прозрачно, но без оптимизации; (2) требует полной постановки; статус FEASIBLE не проверяет не заданные ограничения; (3) тяжело и без подходящих данных.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1; решатель — после календаря и допущений; вариант 3 отложить.</dd>
+<dt>Пересмотр</dt><dd>Если ручная проверка не справляется с числом цепочек.</dd>
+</dl></article>
+
+<article class="card" id="D11"><h3>D11. Объём паспорта <span class="b open">OPEN</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Ядро около 1,5–2 страниц плюс приложения.</li><li>Все материалы в 3 страницы.</li><li>Ждать ответа организаторов.</li></ol></dd>
+<dt>Последствия</dt><dd>Документы организаторов расходятся (1–2 против 2–3 страниц); при строгом лимите лишнее может быть не учтено.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1 и запрос организаторам; не ждать ответа с подготовкой.</dd>
+<dt>Пересмотр</dt><dd>Ответ организаторов или публикация формы сдачи.</dd>
+</dl></article>
+
+<article class="card" id="D12"><h3>D12. Как моделировать задержку SJ-100 <span class="b prop">PROPOSED</span></h3>
+<dl>
+<dt>Варианты</dt><dd><ol><li>Осторожный сценарий — без новых бортов; базовый — добавление не раньше второй половины 2027 года с параметром задержки.</li><li>Считать поставки фактом.</li><li>Исключить новые борты полностью.</li></ol></dd>
+<dt>Последствия</dt><dd>(1) показывает, нужны ли запуску борты, которых нет в осторожном сценарии; (2) нарушает условие кейса; (3) занижает базовый сценарий.</dd>
+<dt>Предлагаемый шаг</dt><dd>Вариант 1; условие кейса — ограничение, не гарантия Red Wings.</dd>
+<dt>Пересмотр</dt><dd>Новая информация о поставках от владельца данных.</dd>
+</dl></article>
+</section>
+
+<section id="s11">
+<h2>11. Минимальные эксперименты</h2>
+<p>Каждый эксперимент должен быть способен опровергнуть вариант. Значения сбоев и MCT — сценарные, а не статистика; результаты экспериментов — не доказательства прибыльности.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Минимальные эксперименты">
+<table>
+<thead><tr><th>Эксперимент</th><th>Входы</th><th>Результат</th><th>Что опровергает</th></tr></thead>
+<tbody>
+<tr><td><strong>E1.</strong> Равноресурсное сравнение А, Б (и смешанного третьим)</td><td>Один период; один пул бортов; сопоставимые кандидаты сетей; для выбранной сети — 8–12 маршрутов; одинаковая политика резерва; полный учёт перегонов</td><td>Допустимые цепочки, нарушения, нижняя оценка парка, покрытие OD прямыми рейсами и стыковками</td><td>Вариант, чьи цепочки не замыкаются при данном пуле или требуют больше бортов, чем есть</td></tr>
+<tr><td><strong>E2.</strong> Эффект синхронизации <em>тех же</em> рейсов</td><td>Набор рейсов хаба; исходные времена и многократные случайные сдвиги; диапазон MCT</td><td>Число и ожидание допустимых стыковок до и после; проверка, что сдвиг не ломает оборот борта</td><td>Если синхронизация не даёт стыковок больше случайных сдвигов, либо выигрыш исчезает после проверки оборотов</td></tr>
+<tr><td><strong>E3.</strong> Сбои</td><td>Одни и те же сценарии для обоих расписаний: первичная задержка рейса, борт на ТО, закрытие узла; общий ограниченный резерв</td><td>Потерянные потенциальные связи, затронутые цепочки борта, оставшееся покрытие OD</td><td>Вариант, теряющий в правдоподобном сценарии заметно больше связей или цепочек при равном резерве</td></tr>
+<tr><td><strong>E4.</strong> Тест самой проверки</td><td>4 учебных рейса: допустимый переход; недостаточный оборот; несовпадение аэропорта; переход через полночь</td><td>Проверка выдаёт ожидаемые вердикты (не запускалась)</td><td>Любое расхождение — ошибка проверки, исправляемая до работы с реальными данными</td></tr>
+<tr><td><strong>E5.</strong> Огибающая спроса</td><td>Диапазоны загрузки, тарифа, каннибализации, субсидии; обязательный нулевой вариант</td><td>Границы, где предпочтение переключается между А, Б и смешанным</td><td>Если предпочтение меняется при малых допустимых изменениях — данных недостаточно для вывода</td></tr>
+</tbody>
+</table>
+</div>
+<p>Эффект синхронизации (E2) отделён от равноресурсного сравнения (E1) намеренно. Одни и те же самолёты не дают одинаковых блок-часов, а сдвиг времени меняет и стыковки, и обороты: пока не проверена цепочка борта, выигрыш по стыковкам ничего не доказывает. Поэтому E2 всегда идёт после E1. Для случайных сдвигов фиксируйте число проверенных перестановок и seed; если допустимых по оборотам перестановок нет, тест неинформативен — это тоже результат.</p>
+</section>
+
+<section id="s12">
+<h2>12. План 8–10 ноября: задачи, зависимости, артефакты</h2>
+<p>План — предложение, не обещание длительностей. Роли — предлагаемые категории работ, конкретные исполнители не назначены. День указан как ориентир; жёсткий срок один: <strong>10 ноября, 23:59</strong> (московское время — рабочее допущение). Те же строки — в <code>context/10_decision_guide/tasks.csv</code>.</p>
+<figure class="fig">
+<div class="scroll" tabindex="0" role="region" aria-label="Граф зависимостей задач">
+<svg viewBox="0 0 560 560" role="img" aria-labelledby="f12t f12d">
+<title id="f12t">Зависимости задач T01–T10</title>
+<desc id="f12d">T01 определения и допущения открывает T02 критерии лонглиста, T04 досье конкурентов и T05 календарь и аэропорты. T02 ведёт к T03 весам и топ-3. T01, T03, T05 ведут к T06 кандидатам маршрутов. T05 и T06 — к T07 проверке цепочек и экспериментам. T01, T06, T07 — к T08 сценариям спроса. T07 и T08 — к T09 дорожной карте. T03, T04, T07, T08, T09 — к T10 паспорту. Плановые дни приведены в CSV задач.</desc>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" style="fill:var(--c-mut)"/></marker></defs>
+<g font-size="13">
+<g fill="none" style="stroke:var(--c-mut);stroke-width:1.6">
+<path d="M240 54 L120 92" marker-end="url(#ar)"/><path d="M280 54 L280 92" marker-end="url(#ar)"/><path d="M320 54 L450 92" marker-end="url(#ar)"/>
+<path d="M105 126 L105 162" marker-end="url(#ar)"/>
+<path d="M105 196 L170 232" marker-end="url(#ar)"/><path d="M270 126 L245 232" marker-end="url(#ar)"/>
+<path d="M225 266 L225 302" marker-end="url(#ar)"/>
+<path d="M270 336 L330 372" marker-end="url(#ar)"/>
+<path d="M175 336 L205 442" marker-end="url(#ar)"/>
+<path d="M345 406 L300 442" marker-end="url(#ar)"/>
+<path d="M270 476 L270 510" marker-end="url(#ar)"/>
+<path d="M20 179 L8 179 L8 527 L185 527" marker-end="url(#ar)" style="stroke-dasharray:5 3"/>
+<path d="M550 109 L556 109 L556 535 L355 535" marker-end="url(#ar)" style="stroke-dasharray:5 3"/>
+<path d="M430 389 L490 389 L490 519 L355 519" marker-end="url(#ar)" style="stroke-dasharray:5 3"/>
+</g>
+<rect x="200" y="20" width="160" height="34" rx="6" class="box" style="stroke:var(--c1);stroke-width:3"/><text x="280" y="42" text-anchor="middle">T01 Допущения</text>
+<rect x="20" y="92" width="170" height="34" rx="6" class="box" style="stroke:var(--c1);stroke-width:3"/><text x="105" y="114" text-anchor="middle">T02 Критерии городов</text>
+<rect x="195" y="92" width="170" height="34" rx="6" class="box" style="stroke:var(--c2);stroke-width:3"/><text x="280" y="114" text-anchor="middle">T05 Календарь, IANA</text>
+<rect x="380" y="92" width="170" height="34" rx="6" class="box" style="stroke:var(--c2);stroke-width:3"/><text x="465" y="114" text-anchor="middle">T04 Досье конкурентов</text>
+<rect x="20" y="162" width="170" height="34" rx="6" class="box" style="stroke:var(--c2);stroke-width:3"/><text x="105" y="184" text-anchor="middle">T03 Веса, топ-3</text>
+<rect x="140" y="232" width="170" height="34" rx="6" class="box" style="stroke:var(--c2);stroke-width:3"/><text x="225" y="254" text-anchor="middle">T06 Кандидаты сетей</text>
+<rect x="140" y="302" width="170" height="34" rx="6" class="box" style="stroke:var(--c4);stroke-width:3"/><text x="225" y="324" text-anchor="middle">T07 Цепочки, E1–E4</text>
+<rect x="260" y="372" width="170" height="34" rx="6" class="box" style="stroke:var(--c4);stroke-width:3"/><text x="345" y="394" text-anchor="middle">T08 Сценарии спроса</text>
+<rect x="185" y="442" width="170" height="34" rx="6" class="box" style="stroke:var(--c6);stroke-width:3"/><text x="270" y="464" text-anchor="middle">T09 Дорожная карта</text>
+<rect x="185" y="510" width="170" height="34" rx="6" class="box" style="stroke:var(--c6);stroke-width:3"/><text x="270" y="532" text-anchor="middle">T10 Паспорт, сверка</text>
+</g>
+</svg>
+</div>
+<figcaption>Пунктир — связь с дальней задачей (T03, T04, T08 → T10). Стрелки показывают основные зависимости; транзитивные (например, T01 → T06) опущены, полный список — в таблице ниже.</figcaption>
+</figure>
+<div class="scroll" tabindex="0" role="region" aria-label="Задачи плана">
+<table>
+<thead><tr><th>Задача</th><th>Зависит от</th><th>Предложенная роль</th><th>Артефакт и критерий готовности</th></tr></thead>
+<tbody>
+<tr><td><strong>T01</strong> Сборка критериев и фиксация допущений: период, пул бортов, единицы, определение доли и пассажира, MCT-диапазон, нулевая субсидия, часовые зоны</td><td>—</td><td>Методолог</td><td>Реестр допущений. Готово, когда у каждой величины есть единица, источник или метка SCENARIO/UNKNOWN</td></tr>
+<tr><td><strong>T02</strong> Данные лонглиста: ≥10 городов, критерии, направление предпочтения, правило пропусков</td><td>T01</td><td>Аналитик данных</td><td>Таблица с источниками и датами. Готово, когда нет пустых ячеек без правила</td></tr>
+<tr><td><strong>T03</strong> Нормализация, веса, топ-3, чувствительность</td><td>T02</td><td>Методолог</td><td>Расчёт и отчёт об устойчивости топ-3. Готово, когда виден эффект смены весов и данных</td></tr>
+<tr><td><strong>T04</strong> Досье ≥2 конкурентов с региональными базами</td><td>T01</td><td>Ответственный за источники</td><td>Страница с фактами базирования и границами переноса; SECONDARY отмечены</td></tr>
+<tr><td><strong>T05</strong> Календарь рейсов и справочник аэропортов с IANA-зоной</td><td>T01</td><td>Аналитик данных</td><td>CSV с датами и временами вылета/прилёта, зонами и источниками. Для проверки нужен прилёт или явно сценарное блок-время; неизвестное не подменяется нулём</td></tr>
+<tr><td><strong>T06</strong> Кандидаты сетей для А, Б и при необходимости смешанного варианта</td><td>T01, T03, T05</td><td>Ответственный за расписание</td><td>Список направлений с методом или источником и пометкой OBSERVED/SCENARIO. После сравнения выбранная сеть должна содержать 8–12 маршрутов</td></tr>
+<tr><td><strong>T07</strong> Проверка цепочек и стыковок; E1–E4</td><td>T05, T06</td><td>Ответственный за расписание</td><td>Отчёт нарушений и покрытие OD. Готово, когда E4 даёт ожидаемые вердикты</td></tr>
+<tr><td><strong>T08</strong> Сценарии пассажиров, выручки и доли (E5)</td><td>T01, T06, T07</td><td>Методолог</td><td>Базовый и осторожный сценарии с нулевой субсидией и каннибализацией</td></tr>
+<tr><td><strong>T09</strong> Дорожная карта до 2028</td><td>T07, T08</td><td>Методолог</td><td>Очерёдность, условия запуска и отката; условия перехода измеримы</td></tr>
+<tr><td><strong>T10</strong> Паспорт, реестр ИИ, сверка чисел</td><td>T03, T04, T07, T08, T09</td><td>Редактор паспорта</td><td>Паспорт до 23:59 10 ноября; каждое число сверено с источником</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Что отложить</h3>
+<p>Развёртывание OpenTripPlanner и преобразование в GTFS; одновременно два решателя; коммерческую интеграцию AMPL; сложную карту; обучение ML-модели (обязательным условием кейса оно не установлено); покупку платных данных; расчёты, требующие матрицы OD, которой нет. Расписания и связность проверяются без неё; всё остальное — сценарии.</p>
+</section>
+
+<section id="s13">
+<h2>13. Порог готовности к реализации и три первых действия</h2>
+<p>Расчёт имеет смысл начинать, когда выполнены пять условий:</p>
+<ol>
+<li>Зафиксированы период, пул бортов (сценарный или реальный), единицы счёта, определение доли и способ счёта пассажира.</li>
+<li>Есть календарь хотя бы на одну проверочную неделю с источником и датой каждой строки, а у каждого аэропорта — IANA-зона. Для цепочек задано время прилёта или явно сценарное блок-время; местная дата прилёта может отличаться от даты вылета.</li>
+<li>Тест E4 даёт ожидаемые вердикты: допустимый переход, недостаточный оборот, несовпадение аэропорта, переход через полночь.</li>
+<li>В реестре допущений есть диапазон MCT, резерв и политика перегонов, помеченные SCENARIO.</li>
+<li>Каждый А→Б имеет пометку OBSERVED, SCENARIO или UNKNOWN; пробел OD показан отдельным слоем.</li>
+</ol>
+<div class="good"><h4>Три первых практических действия</h4>
+<ol>
+<li><strong>Записать реестр допущений и определений</strong> (T01): период, пул, единицы, доля, пассажир, MCT, нулевая субсидия, зоны — со статусами решений D01–D12.</li>
+<li><strong>Написать тест из четырёх рейсов и спецификацию проверки цепочки</strong> (E4): условие совпадения аэропортов, оборот, полночь, часовой пояс.</li>
+<li><strong>Собрать календарь проверочной недели из имеющихся строк</strong> (T05): строки Red Wings и плана субсидий с источником, датой и IANA-зоной; добавить время прилёта или помеченное сценарное блок-время. Непроверенные поля — UNKNOWN.</li>
+</ol></div>
+<p>Что остаётся открытым даже после этого: реальный парк, продаваемость стыковок и OD-спрос. Их нельзя закрыть вычислением по расписанию; они остаются вопросами владельцу данных и сценарным слоем.</p>
+</section>
+
+<section id="s14">
+<h2>14. Словарь и проверяемые ссылки</h2>
+<dl class="gl">
+<dt>База</dt><dd>Место, где ночуют самолёты и экипажи, есть обслуживание. Ресурс, не схема рейсов.</dd>
+<dt>Хаб, волна, банк</dt><dd>Способ построить расписание: рейсы прилетают в узел почти одновременно, затем вылетают дальше.</dd>
+<dt>OD-поездка</dt><dd>Поездка «откуда—куда» целиком, независимо от числа пересадок.</dd>
+<dt>Пассажиро-сегмент</dt><dd>Занятое плечо одной поездки; пересадка даёт два сегмента.</dd>
+<dt>Оборот</dt><dd>Время самолёта на земле между прилётом и следующим вылетом; минимум зависит от типа, аэропорта, компании.</dd>
+<dt>Перегон</dt><dd>Полёт борта без коммерческих пассажиров для смены позиции.</dd>
+<dt>Блок-время</dt><dd>От начала движения с места стоянки до остановки на месте прилёта.</dd>
+<dt>MCT</dt><dd>Минимальное допустимое время стыковки; зависит от аэропорта, перевозчика, терминала, багажа.</dd>
+<dt>Load factor (загрузка)</dt><dd>На одном плече — доля занятых кресел. Для сети обычно RPK / ASK: пассажиро-километры, делённые на кресло-километры; это не простое среднее процентов разных рейсов.</dd>
+<dt>Yield</dt><dd>Пассажирская выручка на пассажиро-километр (руб/пасс-км).</dd>
+<dt>Каннибализация</dt><dd>Перераспределение пассажиров между собственными рейсами компании; не новый объём.</dd>
+<dt>Внешняя альтернатива</dt><dd>Вариант вне сети компании: конкурент, поезд, автомобиль, отказ от поездки.</dd>
+<dt>QSI</dt><dd>Индекс качества сервиса для разделения спроса между вариантами; без калибровки — только сценарий.</dd>
+<dt>IANA-зона</dt><dd>Идентификатор часовой зоны вида <code>Asia/Yekaterinburg</code>.</dd>
+<dt>п.п.</dt><dd>Процентный пункт — разность долей; не процент роста.</dd>
+<dt>OBSERVED / SCENARIO / UNKNOWN</dt><dd>Взято из источника / допущение или учебный пример / не установлено (не ноль).</dd>
+</dl>
+<h3>Ссылки на источники</h3>
+<p>При проверке 8 ноября повторно прочитаны требования чемпионата и кейса, документы Avelo, airBaltic, Nordica, Tallinn Airport и Augusta, несколько научных работ, определения Finnair и IANA. Проверка не охватывает весь каталог из 174 записей. Прямой доступ к ЕМИСС 59496 заблокирован, а PDF Seredyński вернул ошибку; эти ограничения сохранены.</p>
+<ul>
+<li><a href="https://mai-way.ru/tasks/red-wings/">Страница кейса Red Wings</a> — условия и требования.</li>
+<li><a href="https://favt.gov.ru/dejatelnost-vozdushnye-perevozki-subsidirovanie-regiony/">Росавиация: субсидирование региональных перевозок</a> — таблица плана (первые строки в образце).</li>
+<li><a href="https://flyredwings.com/en/press/news/red-wings-so-2-avgusta-nachnet-perevozit-passazhirov-izhavia-iz-ekaterinburga-v-izhevsk/">Пресс-релиз Red Wings, рейсы Екатеринбург–Ижевск</a> — исходное правило расписания.</li>
+<li><a href="https://davidmegginson.github.io/ourairports-data/airports.csv">OurAirports: airports.csv</a> — справочник аэропортов.</li>
+<li><a href="https://fedstat.ru/indicator/59496">ЕМИСС, показатель 59496</a> — метаданные перевезённых пассажиров.</li>
+<li><a href="https://mo-book.ampl.com/notebooks/07/fleet-assignment.html">AMPL: fleet assignment</a> — учебная постановка цепочек (один аэропорт).</li>
+<li><a href="https://github.com/google/or-tools">OR-Tools</a>, <a href="https://github.com/ERGO-Code/HiGHS/blob/master/docs/src/index.md">HiGHS</a>, <a href="https://networkx.org/documentation/networkx-3.0/reference/algorithms/generated/networkx.algorithms.simple_paths.all_simple_paths.html">NetworkX all_simple_paths</a> — открытые инструменты.</li>
+<li><a href="https://jats.aviationsociety.gr/index.php/JATS/article/download/53/40">Seredyński и др., синхронизация расписаний</a>.</li>
+<li><a href="https://optimization-online.org/wp-content/uploads/2025/02/main.pdf">Santini, Vaze, региональное планирование</a>.</li>
+<li><a href="https://arxiv.org/abs/0901.0774">Wuellner и др., устойчивость сетей</a>; <a href="https://arxiv.org/abs/2001.08548">Sanjeevi, Venkatachalam, надёжные расписания</a>.</li>
+<li><a href="https://ntrs.nasa.gov/api/citations/20000004967/downloads/20000004967.pdf">Brueckner, Zhang, частота и хаб</a> — теоретическая модель.</li>
+<li><a href="https://www.aveloair.com/company-news/avelo-airlines-celebrates-first-six-months-of-inspiring-travel-across-southern-connecticut">Avelo: шесть месяцев в HVN</a>; <a href="https://www.aveloair.com/company-news/avelo-soars-into-second-year-at-tweed-as-connecticuts-most-convenient-airline">первый год HVN</a> — самоотчёты.</li>
+<li><a href="https://a.storyblok.com/f/236210/x/da9c7bbf29/air-baltic-corporation-as-annual-report-2025.pdf">airBaltic: годовой отчёт за 2025</a>.</li>
+<li><a href="https://riigikontroll.ee/en/audits/overview-operations-national-airline-nordica">Аудит Эстонии о Nordica</a>; <a href="https://airport.ee/wp-content/uploads/2024/02/Tallinna-Lennujaam-eng-1.pdf">годовой отчёт Tallinn Airport за 2019</a>.</li>
+<li><a href="https://flyags.com/wp-content/uploads/2025/08/airline-incentive-program-22-26.pdf">Augusta: программа стимулов 2022–2026</a> — структура условий чужого аэропорта.</li>
+<li><a href="https://investors.finnair.com/en/as_an_investment/key_figures/">Finnair: определения показателей</a> — yield и смежные метрики.</li>
+</ul>
+</section>
+
+</main>
+</div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function hm(m){m=((m%1440)+1440)%1440;var h=Math.floor(m/60),k=m%60;return (h<10?'0':'')+h+':'+(k<10?'0':'')+k}
+  function sg(n){return (n>0?'+':(n<0?'\u2212':''))+Math.abs(n)}
+  function verdict(ok){return ok?'<span class="ok">допустимо</span>':'<span class="no">невозможно</span>'}
+
+  /* Проверка оборота: SVX 20:00 (UTC+5) и IJK 21:05 (UTC+4) */
+  function turn(){
+    var blk=+$('blk').value,trn=+$('trn').value;
+    $('blkv').textContent=blk;$('trnv').textContent=trn;
+    var d1=20*60-5*60,d2=21*60+5-4*60;
+    var arr=d1+blk,ready=arr+trn,slack=d2-ready;
+    var n1=20*60,n2=21*60+5,nslack=n2-(n1+blk+trn);
+    $('turnOut').innerHTML=
+      '<p style="margin:0 0 6px"><strong>С часовыми поясами:</strong> вылет SVX '+hm(d1)+' UTC, прилёт IJK '+hm(arr)+' UTC, готов к вылету '+hm(ready)+' UTC; вылет IJK '+hm(d2)+' UTC. Запас '+sg(slack)+' мин — '+verdict(slack>=0)+'.</p>'+
+      '<p style="margin:0">Если прочитать оба местных времени как одну зону: запас '+sg(nslack)+' мин — '+verdict(nslack>=0)+'. Один и тот же ввод, разные выводы.</p>';
+  }
+  /* Стыковка A–H–B */
+  var arrs=[8*60+10,12*60+40,17*60+30],deps=[9*60+5,13*60+20,19*60];
+  function ab(){
+    var mct=+$('mct').value,mxw=+$('mxw').value,sft=+$('sft').value;
+    $('mctv').textContent=mct;$('mxwv').textContent=mxw;$('sftv').textContent=sft;
+    var n=0,covered=0,rows='';
+    var head='<tr><th>Прилёт в H \\ Вылет из H</th>';
+    for(var j=0;j<deps.length;j++)head+='<th class="num">'+hm(deps[j]+sft)+'</th>';
+    head+='</tr>';
+    for(var i=0;i<arrs.length;i++){
+      var row='<tr><th>'+hm(arrs[i])+'</th>',has=false;
+      for(var k=0;k<deps.length;k++){
+        var gap=deps[k]+sft-arrs[i],ok=gap>=mct&&gap<=mxw;
+        if(ok){n++;has=true}
+        row+='<td class="num">'+gap+' мин '+(ok?'<span class="ok">да</span>':'<span class="no">нет</span>')+'</td>';
+      }
+      if(has)covered++;
+      rows+=row+'</tr>';
+    }
+    $('abOut').innerHTML='<p style="margin:0 0 8px">Допустимых стыковок: <strong>'+n+'</strong> из 9; прилётов хотя бы с одной стыковкой: <strong>'+covered+'</strong> из 3. Время в таблице — интервал между прилётом и вылетом.</p>'+
+      '<div class="scroll" tabindex="0" role="region" aria-label="Таблица стыковок"><table><thead>'+head+'</thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  ['blk','trn'].forEach(function(i){$(i).addEventListener('input',turn)});
+  ['mct','mxw','sft'].forEach(function(i){$(i).addEventListener('input',ab)});
+  turn();ab();
+
+  /* Оглавление */
+  var det=document.querySelector('#toc details'),mq=window.matchMedia('(min-width:901px)');
+  function sync(){det.open=mq.matches}
+  if(mq.addEventListener)mq.addEventListener('change',sync);else if(mq.addListener)mq.addListener(sync);
+  sync();
+  var links=[].slice.call(document.querySelectorAll('#toc a'));
+  links.forEach(function(a){a.addEventListener('click',function(){if(!mq.matches)det.open=false})});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)});
+        }
+      });
+    },{rootMargin:'-15% 0px -75% 0px'});
+    [].forEach.call(document.querySelectorAll('main section'),function(s){io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>

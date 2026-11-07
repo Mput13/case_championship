@@ -1,5 +1,7 @@
 # Кейс-чемпионат: Red Wings
 
+[Объяснялка: контекст, решения и ближайшие задачи](explain.html) — непрерывный документ со схемами, реальными примерами данных и двумя интерактивными расчётами. [Решения D01–D12](context/10_decision_guide/decisions.csv) и [задачи T01–T10](context/10_decision_guide/tasks.csv) пока предложены для обсуждения, а не приняты командой.
+
 [Контекст кейса №5](context/README.md): требования чемпионата, разбор NotebookLM, источники, данные, города, конкуренты и идеи. Срез — 7 ноября 2026 года.
 
 Быстрые входы: [каталог данных](context/05_datasets/README.md), [проверки Terra](context/07_verification/README.md), [идеи](context/06_ideas/README.md), [дополнительное исследование](context/09_additional_research/README.md).
