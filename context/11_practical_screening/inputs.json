@@ -1,0 +1,428 @@
+{
+  "as_of": "2026-11-08",
+  "population_period": "2025-01-01",
+  "population_scope": "city_proper_not_catchment",
+  "weights": {
+    "base": {
+      "market": 0.3,
+      "competition": 0.2,
+      "geography": 0.25,
+      "technical": 0.15,
+      "basing": 0.1
+    },
+    "market": {
+      "market": 0.45,
+      "competition": 0.15,
+      "geography": 0.15,
+      "technical": 0.15,
+      "basing": 0.1
+    },
+    "geography": {
+      "market": 0.2,
+      "competition": 0.15,
+      "geography": 0.4,
+      "technical": 0.15,
+      "basing": 0.1
+    },
+    "operations": {
+      "market": 0.2,
+      "competition": 0.15,
+      "geography": 0.15,
+      "technical": 0.3,
+      "basing": 0.2
+    }
+  },
+  "geography": {
+    "north": [
+      "ARH",
+      "MMK"
+    ],
+    "south": [
+      "MRV",
+      "AER",
+      "VOG"
+    ],
+    "east": [
+      "OMS",
+      "NJC",
+      "KJA"
+    ],
+    "east_south": [
+      "MRV",
+      "AER"
+    ],
+    "min_leg_km": 300,
+    "max_leg_km": 3000,
+    "detour_ceiling": 1.6,
+    "distance_scale_km": 1200
+  },
+  "network_assumptions": {
+    "status": "ASSUMPTION",
+    "period": "representative_six_day_week_in_2027_not_actual_schedule",
+    "active_aircraft": 4,
+    "spare_aircraft": 1,
+    "seats": 100,
+    "speed_kmh": 700,
+    "block_overhead_hours": 0.35,
+    "turn_minutes": 45,
+    "connection_min_minutes": 60,
+    "connection_max_minutes": 240,
+    "hub_arrival_utc_minute": 720,
+    "hub_departure_utc_minute": 795,
+    "direct_start_utc_minute": 300,
+    "max_daily_block_hours": 10,
+    "max_aircraft_day_span_hours": 16,
+    "lf_low": 0.55,
+    "lf_high": 0.8
+  },
+  "hub_pairs": [
+    [
+      "OMS",
+      "KUF"
+    ],
+    [
+      "MMK",
+      "UFA"
+    ],
+    [
+      "AER",
+      "VOG"
+    ],
+    [
+      "ARH",
+      "MRV"
+    ]
+  ],
+  "direct_cycles": [
+    [
+      "ZIA",
+      "ARH",
+      "MRV",
+      "ZIA"
+    ],
+    [
+      "ZIA",
+      "GSV",
+      "AER",
+      "ZIA"
+    ],
+    [
+      "SVX",
+      "OMS",
+      "KUF",
+      "SVX"
+    ],
+    [
+      "SVX",
+      "NJC",
+      "VOG",
+      "SVX"
+    ]
+  ],
+  "cities": [
+    {
+      "city": "Самара",
+      "iata": "KUF",
+      "population_thousands": 1154.2,
+      "airport_pax_2025": 3570000,
+      "pax_qualifier": "rounded",
+      "pax_source": "KUF-2025",
+      "competition": "28 перевозчиков за 2025; 47 направлений. Доли на целевых парах неизвестны.",
+      "connectivity": "47 направлений за 2025; есть прямые KGD и MRV, ниша не пустая.",
+      "technical": "Первичная страница: RRJ-95, круглосуточно, ВПП 3001×45, 54 стоянки. Свободные слоты и ТО для проекта неизвестны.",
+      "basing": "27.10.2026 RW называет город опорным аэропортом; физический объём базы UNKNOWN. В строгом сценарии нового узла исключён, расширение считать отдельно.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        50,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "KUF-2025",
+        "KUF-TECH",
+        "KUF-BASE",
+        "KUF-TERMS",
+        "RW-WINTER"
+      ],
+      "new_node": false
+    },
+    {
+      "city": "Уфа",
+      "iata": "UFA",
+      "population_thousands": 1166.1,
+      "airport_pax_2025": 4929715,
+      "pax_qualifier": "reported_exact",
+      "pax_source": "UFA-2025",
+      "competition": "ОЗП 2026/27: 34 перевозчика; базирование Азимута не доказано. Маршрутные доли неизвестны.",
+      "connectivity": "ОЗП 2026/27: 46 направлений, 24 внутренних; это план, не выполнение.",
+      "technical": "Тарифы предусматривают обслуживание SSJ; действующий допуск, свободное ТО, слоты и ограничения проекта не получены.",
+      "basing": "Прейскурант услуг с 01.11.2026 и положение о стимулировании найдены. Договор базы, свободные позиции, MCT и цена неизвестны.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "UFA-2025",
+        "UFA-WINTER",
+        "UFA-RATES",
+        "UFA-INCENTIVE"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Казань",
+      "iata": "KZN",
+      "population_thousands": 1329.8,
+      "airport_pax_2025": 5384816,
+      "pax_qualifier": "reported_exact_search_text",
+      "pax_source": "KZN-2025",
+      "competition": "Росавиация в сообщении 2026 называет Казань базой Nordwind. Доли и ответ конкурента неизвестны.",
+      "connectivity": "Свежая полная маршрутная таблица не получена; годовой поток аэропорта не заменяет её.",
+      "technical": "Допуск конкретного SSJ, свободные слоты, ТО и терминальные ограничения не проверены: UNKNOWN.",
+      "basing": "27.10.2026 RW называет город опорным аэропортом; физический объём базы UNKNOWN. В строгом сценарии нового узла исключён, расширение считать отдельно.",
+      "competition_interval": [
+        0,
+        50
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "KZN-2025",
+        "KZN-BASE",
+        "RW-WINTER"
+      ],
+      "new_node": false
+    },
+    {
+      "city": "Нижний Новгород",
+      "iata": "GOJ",
+      "population_thousands": 1198.2,
+      "airport_pax_2025": 1400000,
+      "pax_qualifier": "strict_lower_bound",
+      "pax_source": "GOJ-2025",
+      "competition": "ОЗП 2026/27: 14 перевозчиков. Есть Азимут и RW как клиенты линии ТО; маршрутные доли неизвестны.",
+      "connectivity": "ОЗП 2026/27: 19 направлений; 11 внутренних с октября и Оренбург с января. Год 2025: 26.",
+      "technical": "Первичная страница: RRJ-95, круглосуточно, ВПП 3005×45, 27 стоянок; с 26.10.2026 опубликовано оперативное ТО RRJ-95 до DAILY CHECK для RW и Азимута.",
+      "basing": "Есть конкретный контрагент линейного ТО RW, но не подтверждены свободная мощность, цена, экипажи и стоянки новой базы. 3-дневный срок запроса не гарантирует слот.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        100,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "GOJ-2025",
+        "GOJ-WINTER",
+        "GOJ-TECH",
+        "GOJ-MRO",
+        "GOJ-TERMS"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Пермь",
+      "iata": "PEE",
+      "population_thousands": 1027.5,
+      "airport_pax_2025": 2000000,
+      "pax_qualifier": "strict_lower_bound",
+      "pax_source": "PEE-2025",
+      "competition": "28 прямых направлений в 2025 по сообщению со ссылкой на аэропорт. Доли перевозчиков и текущие базы неизвестны.",
+      "connectivity": "28 направлений за 2025; актуальная полная ОЗП 2026/27 не получена.",
+      "technical": "Сайт при HTTP-проверке вернул страницу проверки браузера; актуальные допуск, ТО, слоты и ограничения UNKNOWN.",
+      "basing": "В 2021 обсуждалось базирование RW, текущий статус неизвестен. Положение о скидках 2022 не доказано действующим в 2026.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "PEE-2025",
+        "PEE-BASE",
+        "PEE-ACCESS"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Челябинск",
+      "iata": "CEK",
+      "population_thousands": 1176.8,
+      "airport_pax_2025": 2166689,
+      "pax_qualifier": "reported_exact_primary_channel",
+      "pax_source": "CEK-2025",
+      "competition": "В летнем плане 2026 — 19 перевозчиков; Азимут на MRV, ЮВТ на GOJ/KZN, S7 на OVB. Доли неизвестны.",
+      "connectivity": "2025: 25 направлений, 18 ВВЛ; летний план 2026: 21, из них 13 ВВЛ. Разные периоды не смешаны.",
+      "technical": "Регулярные полёты 2026 подтверждены официальным каналом; текущие допуск конкретного борта, ТО и слоты UNKNOWN.",
+      "basing": "Есть историческая целевая сеть регионального хаба RW в документе 2022, не доказанное текущее базирование.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "CEK-2025",
+        "CEK-SUMMER",
+        "RW-2022",
+        "CEK-ACCESS"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Тюмень",
+      "iata": "TJM",
+      "population_thousands": 872.1,
+      "airport_pax_2025": 2760338,
+      "pax_qualifier": "reported_exact_secondary",
+      "pax_source": "TJM-2025",
+      "competition": "Utair называет себя базовым перевозчиком: >30% потока Рощино, >40% регулярных рейсов, 27 своих направлений. Показатели самоотчёта 2026, не OD-доли.",
+      "connectivity": "2025: 47 прямых направлений, 33 внутренних; текущая полная ОЗП не выгружена.",
+      "technical": "Действующие допуск конкретного борта, доступное ТО и ограничения UNKNOWN; ошибочный домен tjm.aero не использован как доказательство закрытия.",
+      "basing": "Есть базовый конкурент Utair. Договор и инфраструктура для RW UNKNOWN; сайт tjmport.ru вернул проверку браузера.",
+      "competition_interval": [
+        0,
+        50
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "TJM-2025",
+        "TJM-BASE",
+        "TJM-ACCESS"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Омск",
+      "iata": "OMS",
+      "population_thousands": 1101.4,
+      "airport_pax_2025": 1629761,
+      "pax_qualifier": "reported_exact_secondary",
+      "pax_source": "OMS-2025",
+      "competition": "Доли, действующие базовые перевозчики и частоты на целевых парах UNKNOWN.",
+      "connectivity": "Итог 2025: основные потоки на Москву, Петербург, Сочи. Полная текущая сеть UNKNOWN.",
+      "technical": "В источниках подтверждается работа аэропорта; текущие допуски, ТО, ограничения и условия проекта UNKNOWN.",
+      "basing": "План базы RW 2021; ветка kiruha описывает выход из соглашения в 2022 и отсутствие перспектив базы по словам директора в 2025. Текущие статус, транзитная зона и условия UNKNOWN.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "OMS-2025",
+        "OMS-BASE"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Саратов",
+      "iata": "GSV",
+      "population_thousands": 886.2,
+      "airport_pax_2025": 1064000,
+      "pax_qualifier": "rounded_primary",
+      "pax_source": "GSV-2025",
+      "competition": "2025: 11 перевозчиков; август 2026: 10. RW и Азимут присутствовали, доли UNKNOWN.",
+      "connectivity": "2025: 14 направлений; август 2026: 11, в том числе Батуми. Это не пустая межрегиональная ниша.",
+      "technical": "Первичная страница: RRJ-95, круглосуточно, 3000×45, 21 стоянка. Свободные позиции и линейное ТО для базы UNKNOWN.",
+      "basing": "Положение о скидках 2026 найдено в поисковой копии, прямой PDF вернул 404; актуальность условий не подтверждена. Договор, скидка RW, экипажи и ТО UNKNOWN.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        50,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "GSV-2025",
+        "GSV-AUG",
+        "GSV-TECH",
+        "GSV-INCENTIVE"
+      ],
+      "new_node": true
+    },
+    {
+      "city": "Волгоград",
+      "iata": "VOG",
+      "population_thousands": 1012.2,
+      "airport_pax_2025": 1540280,
+      "pax_qualifier": "reported_exact_secondary",
+      "pax_source": "VOG-2025",
+      "competition": "2025: 16 перевозчиков по сообщению СМИ со ссылкой на аэропорт; текущие маршрутные доли UNKNOWN.",
+      "connectivity": "Помимо Москвы/Петербурга названы SVX, OVB и Анталья; полный список направлений UNKNOWN.",
+      "technical": "Текущие допуск, ТО, слоты и ограничения UNKNOWN. Историческая работа аэропорта не гарантирует доступности выбранного дня.",
+      "basing": "Условия базы RW, доступные стоянки, экипажи и стоимость UNKNOWN.",
+      "competition_interval": [
+        0,
+        100
+      ],
+      "technical_interval": [
+        0,
+        100
+      ],
+      "basing_interval": [
+        0,
+        100
+      ],
+      "sources": [
+        "VOG-2025"
+      ],
+      "new_node": true
+    }
+  ]
+}
