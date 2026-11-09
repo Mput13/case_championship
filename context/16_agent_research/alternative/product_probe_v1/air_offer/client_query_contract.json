@@ -1,0 +1,38 @@
+{
+  "status": "OBSERVED_IN_PUBLIC_CLIENT_NOT_PUBLISHED_API_CONTRACT",
+  "source_id": "azimuth_bundle_20261109",
+  "source_sha256": "61cd2d98a1240bbca65d66b6c0aef961199d633035b048fc01759b889cb6d8fe",
+  "rpc_url": "https://booking.azimuth.ru/rpc/tsh",
+  "wire_format": "JSON array of [method, parameters] pairs over POST",
+  "availability_method": "get-availability",
+  "availability_request_parameters": {
+    "owrt": "RT",
+    "departure_point": "KVX",
+    "arrival_point": "MRV",
+    "outbound_date": "07.12.2026",
+    "return_date": "14.12.2026",
+    "adult_count": 1,
+    "child_count": 0,
+    "infant_count": 0,
+    "direct_only": "Y",
+    "date_range": 3,
+    "promocode": "",
+    "return_full_names": "Y",
+    "child_alone": ""
+  },
+  "timetable_method": "get-air-schedule",
+  "timetable_parameter_names": [
+    "departure",
+    "arrival",
+    "min_dep_date",
+    "max_dep_date",
+    "show_prices"
+  ],
+  "timetable_price_default": "N",
+  "timetable_execution": "NOT_RUN_AFTER_PUBLIC_RPC_HTTP403",
+  "init_session_execution": "NOT_RUN",
+  "fetched_js_execution": "NOT_RUN",
+  "credential_handling": "No Cookie or Authorization supplied, recorded or reused; no browser/session state; response credential headers discarded",
+  "mutation_methods_execution": "NOT_RUN: create-order/select-offer/passenger data/hold/reservation/payment were outside scope",
+  "barrier": "403 Forbidden before a usable application response; no causality claim about WAF, auth, or endpoint validity"
+}

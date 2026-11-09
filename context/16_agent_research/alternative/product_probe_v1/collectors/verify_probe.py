@@ -64,6 +64,50 @@ def main():
     assert len(stay)==len(offers)==2
     assert all(r['minimum_stay']=='UNKNOWN' for r in stay)
     assert all(r['date_inventory']==r['all_in_itinerary_price']=='UNKNOWN' for r in offers)
+    receipt_bodies=0
+    for folder in ['receipts','ground_transfer/receipts','air_offer/receipts']:
+        base=ROOT if folder=='receipts' else ROOT/folder.split('/')[0]
+        for p in (ROOT/folder).glob('*.json'):
+            r=json.loads(p.read_text())
+            if not r.get('raw_path'):continue
+            body=base/r['raw_path']
+            if not body.exists():
+                assert r.get('source_status')=='ACCESS_FAILED',str(p.relative_to(ROOT))
+                continue
+            expected=r.get('stored_sha256') or r.get('sha256')
+            assert expected and digest(body)==expected,str(p.relative_to(ROOT))
+            expected_size=r.get('stored_size_bytes',r.get('size_bytes',r.get('byte_length')))
+            assert body.stat().st_size==expected_size
+            receipt_bodies+=1
+    for p in (ROOT/'stay_offer/receipts').glob('*.json'):
+        for r in json.loads(p.read_text())['sources']:
+            if r.get('access_status')!='FETCHED':continue
+            matches=list((ROOT/'stay_offer/raw_hold').glob(r['source_id']+'_'+r['raw_sha256']+'.*'))
+            assert len(matches)==1,r['source_id']
+            assert digest(matches[0])==r['raw_sha256'] and matches[0].stat().st_size==r['bytes']
+            receipt_bodies+=1
+    held_files=[p for p in ROOT.rglob('*') if p.is_file() and 'raw_hold' in p.relative_to(ROOT).parts]
+    held_inventory=[{'path':str(p.relative_to(ROOT)),'sha256':digest(p),'size_bytes':p.stat().st_size,
+                     'publication_status':'LOCAL_HOLD_IGNORED',
+                     'artifact_class':'DERIVED_QA_RENDER' if p.suffix in {'.png','.jpg'} else 'CAPTURED_BODY_OR_SUPPORT; see source receipts'} for p in sorted(held_files)]
+    (ROOT/'held_raw_inventory.json').write_text(json.dumps({'files':held_inventory,'raw_body_receipts_verified':receipt_bodies,
+        'scope':'Held source/support bytes plus local PDF QA derivatives; no independent-source count inferred'},ensure_ascii=False,indent=2)+'\n')
+    products_file=ROOT/'normalized/conditional_stay_calendars.csv'
+    product_checks=None
+    if products_file.exists():
+        products=read('normalized/conditional_stay_calendars.csv')
+        assert len(products)==len({r['product_case_id'] for r in products})==24
+        for r in products:
+            assert (dt.date.fromisoformat(r['assumed_checkout_date'])-dt.date.fromisoformat(r['assumed_reservation_start_date'])).days==int(r['assumed_nights'])
+            assert r['actual_booked_checkin_date']==r['actual_booked_checkout_date']==''
+            assert r['confirmed_stay_total_rub']==r['dated_air_fare_quote_rub']==''
+            assert r['inventory_status']==r['product_availability']=='UNKNOWN'
+            if r['return_departure_local']:
+                back=dt.datetime.fromisoformat(r['return_departure_local']);checkout=dt.datetime.fromisoformat(r['standard_checkout_local'])
+                delta=int((back-checkout).total_seconds()/60)
+                assert delta==int(r['max_property_exit_transfer_airport_buffer_minutes'])
+                assert delta-40==int(r['max_exit_wait_transfer_queue_minutes_before_general_checkin_close'])
+        product_checks={'rows':24,'booked_dates_and_availability':'UNKNOWN','night_difference_and_return_time_budgets':'PASS'}
     public_files=[p for p in sorted(ROOT.rglob('*')) if public(p) and p.relative_to(ROOT).as_posix() not in {'dataset_manifest.json','verification.json'}]
     for p in public_files:
         if p.suffix=='.json':safe(json.loads(p.read_text()),str(p.relative_to(ROOT)))
@@ -71,11 +115,10 @@ def main():
             text=p.read_text()
             assert '/Users/' not in text,f'local absolute path in public artefact {p.relative_to(ROOT)}'
             assert not re.search(r'\b(?:ghp_|github_pat_)[A-Za-z0-9_]{20,}',text),f'token pattern in {p.relative_to(ROOT)}'
-    held_files=[p for p in ROOT.rglob('*') if p.is_file() and 'raw_hold' in p.relative_to(ROOT).parts]
     report={'checked_at_utc':dt.datetime.now(dt.timezone.utc).isoformat(),'status':'PASS_OFFLINE_EXTRACTION_AND_CALENDAR_ONLY',
         'flight_rules':len(rules),'planned_flights':len(instances),'outbound_instances_in_window':len(outward),
-        'stay_rules':len(stay),'public_stay_tariffs':len(offers),'headers_and_public_paths':'PASS',
-        'held_raw_files':len(held_files),'held_raw_bytes':sum(p.stat().st_size for p in held_files),
+        'stay_rules':len(stay),'public_stay_tariffs':len(offers),'headers_and_public_paths':'PASS','conditional_product_checks':product_checks,
+        'held_raw_files':len(held_files),'held_raw_bytes':sum(p.stat().st_size for p in held_files),'held_source_bodies_verified_against_receipts':receipt_bodies,
         'source_conflict':'MonThu current airport vspreviousMonFri; not merged',
         'not_accepted':['performed flights','future inventory','confirmed dated hotel booking','concrete air fare quote','realised revenue','observed OD','predictive edge']}
     (ROOT/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
@@ -86,6 +129,8 @@ def main():
     modules=[]
     for name in ['ground_transfer','stay_offer']:
         m=ROOT/name/'dataset_manifest.json';modules.append({'path':str(m.relative_to(ROOT)),'sha256':digest(m),'scope':'module raw/source details and explicit UNKNOWN; no market acceptance'})
+    air=ROOT/'air_offer/source_manifest.json'
+    if air.exists():modules.append({'path':str(air.relative_to(ROOT)),'sha256':digest(air),'scope':'dated query error and general policy; not a dated available offer'})
     (ROOT/'dataset_manifest.json').write_text(json.dumps({'schema_version':'c14-product-probe-v1','path_base':'directory containing this manifest',
         'created_at_utc':report['checked_at_utc'],'reference_scope_file':'input_reference_scope.json','scope_file':'table_contract.json',
         'public_files':files,'verification_sha256':digest(ROOT/'verification.json'),'root_sources':sources,'module_manifests':modules,

@@ -1,0 +1,319 @@
+{
+  "dataset_id": "c14-air-offer-public-probe-v1",
+  "created_at_utc": "2026-11-09T14:51:18.865600+00:00",
+  "researcher": "Independent C14 air-offer research agent",
+  "source_authorship": "Official airline primary sources",
+  "scope": "KVX-MRV return itinerary,1adult,07-14Dec2026; general carrier policies separate from dated offers",
+  "dated_offer_result": "UNKNOWN_ACCESS_BLOCKED_HTTP403",
+  "successful_dated_price_quotes": 0,
+  "not_run": [
+    "10-21Dec2026 second scenario after same publicRPC barrier",
+    "get-air-schedule HTTP query",
+    "session initialization",
+    "browser execution",
+    "captcha/auth bypass",
+    "reservation/order/hold",
+    "passenger record",
+    "payment"
+  ],
+  "local_raw_policy": "Locally ignored raw_hold; no full carrier HTML/JS for public redistribution; credentials redacted before retained output; original source SHA and stored SHA separated",
+  "public_extract_policy": "Only factual extracts, URL, SHA, safe receipts and scripts; no contacts, auth values or absolute local paths",
+  "sources": [
+    {
+      "snapshot_id": "availability_07_14_dec2026",
+      "source_url": "https://booking.azimuth.ru/rpc/tsh",
+      "method": "POST",
+      "request_parameters": {
+        "owrt": "RT",
+        "departure_point": "KVX",
+        "arrival_point": "MRV",
+        "outbound_date": "07.12.2026",
+        "return_date": "14.12.2026",
+        "adult_count": 1,
+        "child_count": 0,
+        "infant_count": 0,
+        "direct_only": "Y",
+        "date_range": 3,
+        "promocode": "",
+        "return_full_names": "Y",
+        "child_alone": ""
+      },
+      "retrieved_at_utc": "2026-11-09T14:41:45.836683+00:00",
+      "source_status": "HTTP_ERROR_WITH_BODY",
+      "publication_date": "UNKNOWN",
+      "licence": "UNKNOWN",
+      "headers_policy": "seven-field-whitelist-no-cookie-auth",
+      "raw_publication_status": "LOCAL_HOLD_IGNORED",
+      "collector_version": "air-offer-public-v1",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/air_offer/collect_sources.py",
+        "--id",
+        "availability_07_14_dec2026_refresh",
+        "--url",
+        "https://booking.azimuth.ru/rpc/tsh",
+        "--outbound",
+        "07.12.2026",
+        "--return-date",
+        "14.12.2026"
+      ],
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "http_status": 403,
+      "response_headers": {
+        "date": "Mon, 09 Nov 2026 14:41:51 GMT",
+        "content-type": "text/html",
+        "content-length": "153"
+      },
+      "source_sha256": "aa87d30d2a8f9e2474bdfa08dbb6483daa003e9dae9d362a615a197d0667f754",
+      "source_size_bytes": 153,
+      "raw_storage_transform": "Redact hidden form credential values; public content unchanged",
+      "raw_path": "raw_hold/availability_07_14_dec2026.bin",
+      "stored_sha256": "aa87d30d2a8f9e2474bdfa08dbb6483daa003e9dae9d362a615a197d0667f754",
+      "stored_size_bytes": 153,
+      "completed_at_utc": "2026-11-09T14:41:51.008893+00:00",
+      "authorship": "Official Azimuth source"
+    },
+    {
+      "snapshot_id": "baggage_20261109",
+      "source_url": "https://azimuth.ru/ru/passengers/baggage",
+      "method": "GET",
+      "request_parameters": null,
+      "retrieved_at_utc": "2026-11-09T14:41:45.835783+00:00",
+      "source_status": "ACQUIRED_RAW",
+      "publication_date": "UNKNOWN",
+      "licence": "UNKNOWN",
+      "headers_policy": "seven-field-whitelist-no-cookie-auth",
+      "raw_publication_status": "LOCAL_HOLD_IGNORED",
+      "collector_version": "air-offer-public-v1",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/air_offer/collect_sources.py",
+        "--id",
+        "baggage_20261109_refresh",
+        "--url",
+        "https://azimuth.ru/ru/passengers/baggage"
+      ],
+      "http_status": 200,
+      "response_headers": {
+        "date": "Mon, 09 Nov 2026 14:41:51 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "etag": "W/\"c37bb06816ad5cd6e280854f6f686ed9\"",
+        "cache-control": "max-age=0, private, must-revalidate"
+      },
+      "source_sha256": "c37bb06816ad5cd6e280854f6f686ed9732f26c5b88d8dddc8475f7e016d54c3",
+      "source_size_bytes": 109900,
+      "raw_storage_transform": "Redact hidden form and meta credential values; public content unchanged",
+      "raw_path": "raw_hold/baggage_20261109.bin",
+      "stored_sha256": "7db0b4a48f87ee4aa92464b61d2616e187818832ce701694cfe6bc34729192d8",
+      "stored_size_bytes": 109736,
+      "completed_at_utc": "2026-11-09T14:41:51.200057+00:00",
+      "authorship": "Official Azimuth source"
+    },
+    {
+      "snapshot_id": "booking_config_20261109",
+      "source_url": "https://booking.azimuth.ru/config.json",
+      "method": "GET",
+      "request_parameters": null,
+      "retrieved_at_utc": "2026-11-09T14:41:45.836539+00:00",
+      "source_status": "ACQUIRED_RAW",
+      "publication_date": "UNKNOWN",
+      "licence": "UNKNOWN",
+      "headers_policy": "seven-field-whitelist-no-cookie-auth",
+      "raw_publication_status": "LOCAL_HOLD_IGNORED",
+      "collector_version": "air-offer-public-v1",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/air_offer/collect_sources.py",
+        "--id",
+        "booking_config_20261109_refresh",
+        "--url",
+        "https://booking.azimuth.ru/config.json"
+      ],
+      "http_status": 200,
+      "response_headers": {
+        "date": "Mon, 09 Nov 2026 14:41:51 GMT",
+        "content-type": "application/json",
+        "content-length": "1255",
+        "last-modified": "Wed, 22 Jul 2026 09:46:10 GMT",
+        "etag": "\"4e7-65730025f7805\""
+      },
+      "source_sha256": "d638fe7820fb21f5c3af7f52a74acda131acd080f7c63f8b9cfb83e65384f456",
+      "source_size_bytes": 1255,
+      "raw_storage_transform": "JSON reserialization with credential-session field redaction",
+      "raw_path": "raw_hold/booking_config_20261109.bin",
+      "stored_sha256": "4e40ac83d90d5b1a26f1d12d18b4bdae34186fc42f10fe8fcc49c58c9f92dcc8",
+      "stored_size_bytes": 1207,
+      "completed_at_utc": "2026-11-09T14:41:51.152354+00:00",
+      "authorship": "Official Azimuth source"
+    },
+    {
+      "snapshot_id": "carriage_20261109",
+      "source_url": "https://azimuth.ru/ru/passengers/rules-of-carriage",
+      "method": "GET",
+      "request_parameters": null,
+      "retrieved_at_utc": "2026-11-09T14:41:45.835771+00:00",
+      "source_status": "ACQUIRED_RAW",
+      "publication_date": "UNKNOWN",
+      "licence": "UNKNOWN",
+      "headers_policy": "seven-field-whitelist-no-cookie-auth",
+      "raw_publication_status": "LOCAL_HOLD_IGNORED",
+      "collector_version": "air-offer-public-v1",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/air_offer/collect_sources.py",
+        "--id",
+        "carriage_20261109_refresh",
+        "--url",
+        "https://azimuth.ru/ru/passengers/rules-of-carriage"
+      ],
+      "http_status": 200,
+      "response_headers": {
+        "date": "Mon, 09 Nov 2026 14:41:51 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "etag": "W/\"bf7c48d8b17e3d70c08cf1f6befc4023\"",
+        "cache-control": "max-age=0, private, must-revalidate"
+      },
+      "source_sha256": "bf7c48d8b17e3d70c08cf1f6befc402326576f6d92ed9bfe9aeab2ec896938e3",
+      "source_size_bytes": 283180,
+      "raw_storage_transform": "Redact hidden form and meta credential values; public content unchanged",
+      "raw_path": "raw_hold/carriage_20261109.bin",
+      "stored_sha256": "3d43ffa12e94b1197c05a25f23d74deaed27948c4b7ec76d8463f7d087359c64",
+      "stored_size_bytes": 283016,
+      "completed_at_utc": "2026-11-09T14:41:51.531976+00:00",
+      "authorship": "Official Azimuth source"
+    },
+    {
+      "snapshot_id": "fares_20261109",
+      "source_url": "https://azimuth.ru/ru/passengers/fares",
+      "method": "GET",
+      "request_parameters": null,
+      "retrieved_at_utc": "2026-11-09T14:41:45.835924+00:00",
+      "source_status": "ACQUIRED_RAW",
+      "publication_date": "UNKNOWN",
+      "licence": "UNKNOWN",
+      "headers_policy": "seven-field-whitelist-no-cookie-auth",
+      "raw_publication_status": "LOCAL_HOLD_IGNORED",
+      "collector_version": "air-offer-public-v1",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/air_offer/collect_sources.py",
+        "--id",
+        "fares_20261109_refresh",
+        "--url",
+        "https://azimuth.ru/ru/passengers/fares"
+      ],
+      "http_status": 200,
+      "response_headers": {
+        "date": "Mon, 09 Nov 2026 14:41:51 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "etag": "W/\"63cb7284544f71d02aad3cee5439f033\"",
+        "cache-control": "max-age=0, private, must-revalidate"
+      },
+      "source_sha256": "63cb7284544f71d02aad3cee5439f033950bede066d721e9927487c9d810cbcb",
+      "source_size_bytes": 109423,
+      "raw_storage_transform": "Redact hidden form and meta credential values; public content unchanged",
+      "raw_path": "raw_hold/fares_20261109.bin",
+      "stored_sha256": "a2eaf02c0f7018f624cf954ac123eb851435ae74e8a875f4f0a3105f68520dc5",
+      "stored_size_bytes": 109259,
+      "completed_at_utc": "2026-11-09T14:41:52.018689+00:00",
+      "authorship": "Official Azimuth source"
+    },
+    {
+      "snapshot_id": "registration_20261109",
+      "source_url": "https://azimuth.ru/ru/faq/1",
+      "method": "GET",
+      "request_parameters": null,
+      "retrieved_at_utc": "2026-11-09T14:41:45.837067+00:00",
+      "source_status": "ACQUIRED_RAW",
+      "publication_date": "UNKNOWN",
+      "licence": "UNKNOWN",
+      "headers_policy": "seven-field-whitelist-no-cookie-auth",
+      "raw_publication_status": "LOCAL_HOLD_IGNORED",
+      "collector_version": "air-offer-public-v1",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/air_offer/collect_sources.py",
+        "--id",
+        "registration_20261109_refresh",
+        "--url",
+        "https://azimuth.ru/ru/faq/1"
+      ],
+      "http_status": 200,
+      "response_headers": {
+        "date": "Mon, 09 Nov 2026 14:41:51 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "etag": "W/\"eda8173811969e475820cc5294bc8f9d\"",
+        "cache-control": "max-age=0, private, must-revalidate"
+      },
+      "source_sha256": "eda8173811969e475820cc5294bc8f9dc52e842c354445725e7a48777148a122",
+      "source_size_bytes": 95405,
+      "raw_storage_transform": "Redact hidden form and meta credential values; public content unchanged",
+      "raw_path": "raw_hold/registration_20261109.bin",
+      "stored_sha256": "f882a07c4bdebc30d225d8960358146800ddf087970fcfc7499e470cd6239076",
+      "stored_size_bytes": 95241,
+      "completed_at_utc": "2026-11-09T14:41:52.020424+00:00",
+      "authorship": "Official Azimuth source"
+    }
+  ],
+  "inherited_read_only_sources": [
+    {
+      "source_id": "azimuth_bundle_20261109",
+      "source_url": "https://booking.azimuth.ru/new/assets/tsh-d0c6afc98711c.js",
+      "retrieved_at_utc": "2026-11-09T14:29:08.601659+00:00",
+      "sha256": "61cd2d98a1240bbca65d66b6c0aef961199d633035b048fc01759b889cb6d8fe",
+      "receipt_path": "../receipts/azimuth_bundle_20261109.json",
+      "ownership": "Root-acquired frozen source, read-only reuse",
+      "authorship": "Official Azimuth booking frontend",
+      "use": "Static source inspection only; fetched JavaScript was never executed"
+    },
+    {
+      "source_id": "azimuth_timetable_20261109",
+      "source_url": "https://booking.azimuth.ru/timetable/",
+      "retrieved_at_utc": "2026-11-09T14:20:16.979802+00:00",
+      "sha256": "6a12a034abc07dfb7ef099af7cecf9154eb5e63b1fecb7621857db2b8001267d",
+      "receipt_path": "../receipts/azimuth_timetable_20261109.json",
+      "ownership": "Root-acquired frozen source, read-only reuse",
+      "authorship": "Official Azimuth booking frontend",
+      "use": "Static source inspection only; fetched JavaScript was never executed"
+    },
+    {
+      "source_id": "azimuth_timetable_results_js_20261109",
+      "source_url": "https://booking.azimuth.ru/new/assets/timetable-results-Blj5yrvv.js",
+      "retrieved_at_utc": "2026-11-09T14:31:36.174098+00:00",
+      "sha256": "0ef19549c0b408191adf50ea5ded90fdbc178916bfa615f7f2ce2ac270efeded",
+      "receipt_path": "../receipts/azimuth_timetable_results_js_20261109.json",
+      "ownership": "Root-acquired frozen source, read-only reuse",
+      "authorship": "Official Azimuth booking frontend",
+      "use": "Static source inspection only; fetched JavaScript was never executed"
+    }
+  ],
+  "artifacts": {
+    "fare_observations.csv": {
+      "sha256": "0cb91c8519dbec289ed0a12a1c7754184afea85b75d87020009aa0d558620ee8",
+      "size_bytes": 926
+    },
+    "fare_policy_rules.csv": {
+      "sha256": "fb6c706e29ab4eb4809b621daa7ecd73a239cffe1e029568fd37da8633dd0725",
+      "size_bytes": 1990
+    },
+    "airport_buffers.csv": {
+      "sha256": "dea1b0d0a6a76518feec7b310c8eaf7cbb43df4ef956fc4deab0475d16e6d4a1",
+      "size_bytes": 1148
+    },
+    "client_query_contract.json": {
+      "sha256": "48f090c177131174e556b3efe31c59978e2441c3903bb74fffb42f7bfc8686e1",
+      "size_bytes": 1484
+    },
+    "safe_factual_extracts.json": {
+      "sha256": "1bead8bf70fed0f9c10ba5a1d00881ae0aa2fe3ecd5697caccc015bf7e9c1425",
+      "size_bytes": 2318
+    }
+  },
+  "acceptance_limits": [
+    "Access failure does not establish zero demand or no seats.",
+    "Advertised from2688RUB is not a target-date price.",
+    "General policy does not establish selected-offer brand, baggage, refund, exchange or gross price.",
+    "Observed fare or ad cannot establish yield or realised revenue.",
+    "No boarding-pass-specific deadline available."
+  ]
+}
