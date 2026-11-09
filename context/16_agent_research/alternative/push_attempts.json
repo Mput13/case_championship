@@ -20,6 +20,16 @@
       "error": "RPC failed HTTP408 curl22; send-pack unexpected disconnect; remote hung up; Everything up-to-date",
       "mitigation_result": "Per-command HTTP1.1 +32MiB buffer did not solve; exact cause UNKNOWN",
       "outcome": "REMOTE_BRANCH_ABSENT_CONFIRMED_BY_SUCCESSFUL_LS_REMOTE"
+    },
+    {
+      "recorded_at_utc": "2026-11-09T13:54:53.319400+00:00",
+      "command": "GIT_SSH_COMMAND=[strict existing-host-key options] git -c remote.origin.url=ssh://git@ssh.github.com:443/Mput13/case_championship.git push -u origin research/case5-raw-alternative-20261109",
+      "intended_sha": "b15b8ff844089a64d9fed129b6ee9a0d46ecded2",
+      "status": "REMOTE_ACCEPTED_SSH",
+      "aggregate_exit_code": 1,
+      "explanation": "remote.origin.url added a second URL: original HTTPS failed408; following SSH443 endpoint accepted new branch and set upstream. Remote ref separately checked by root.",
+      "ssh_remote_result": "new branch research/case5-raw-alternative-20261109 created; upstream origin/research/case5-raw-alternative-20261109 set",
+      "no_force_push": true
     }
   ],
   "safe_transport_fallback": {
@@ -27,6 +37,9 @@
     "options": "BatchMode=yes; StrictHostKeyChecking=yes; UpdateHostKeys=no; ConnectTimeout=10",
     "persistent_remote_or_proxy_or_ssh_changes": false,
     "no_agent_or_service_restart": true,
-    "reason": "Two completed HTTPS push attempts failed HTTP408; exact intermediary cause remains UNKNOWN"
+    "reason": "Two completed HTTPS push attempts failed HTTP408; exact intermediary cause remains UNKNOWN",
+    "result": "SSH443 accepted branch using existing loaded key and known github.com host key",
+    "subsequent_push_recipe": "GIT_SSH_COMMAND=[strict existing-host-key options] git -c remote.origin.pushurl=ssh://git@ssh.github.com:443/Mput13/case_championship.git push -u origin research/case5-raw-alternative-20261109",
+    "recipe_note": "pushurl override selects only SSH for push, without persisting remote URL changes"
   }
 }
