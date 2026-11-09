@@ -20,6 +20,7 @@ py -3.13 src/longlist_data.py                     # население, даль
 py -3.13 src/build_longlist.py                    # data/processed/longlist.csv и outputs/longlist.xlsx
 py -3.13 src/build_dashboard.py                   # панель outputs/redwings_panel.html (табло, веса, карта, «Ковёр»)
 ```
+Всё сразу одной командой: `py -3.13 src/update.py --force` — загрузка, проверки, лонглист, спрос по парам (docs/23), сравнение гипотез (docs/24), карты `outputs/map_hub.png` и `outputs/map_direct.png`, книга `outputs/redwings_model.xlsx`, панель.
 Ручные данные со ссылками — `data/manual/longlist_manual.csv`.
 
 ## Командный пакет (context/)

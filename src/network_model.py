@@ -283,6 +283,17 @@ def kover_avg(legs_freq, K):
     return round(tot / w) if w else 0
 
 
+def range_light(a, b, km):
+    """Светофор дальности docs/17 для SSJ/SJ-100 по расстоянию по прямой."""
+    south = bool({a, b} & SOUTH)
+    green = 2150 if south else 2300
+    if km <= green:
+        return "зелёный" + (" (юг, порог 2 150 км)" if south else "")
+    if km <= 2900:
+        return "жёлтый: SSJ на пределе, нужен Ту-204/214"
+    return "красный: только Ту-214"
+
+
 FREQ_METHOD = ("расчёт: захваченные пассажиры в неделю / (100 кресел × загрузка 85%), "
                "не реже 3 и не чаще 14 рейсов в неделю (data/assumptions/network.csv)")
 
@@ -315,7 +326,8 @@ def main():
                                "to_city": NAME.get(L["b"], D.n.loc[L["b"], "main_city"]), "km": round(L["km"]),
                                "freq_week_each_way": L["freq"], "pax_year_local": round(2 * L["local_carried"] * W),
                                "pax_year_segments": round(2 * L["carried_dir_week"] * W), "load_factor": round(L["lf"], 2),
-                               "demand_source": D.method(H, L["b"]), "direct_now": D.has_direct(H, L["b"])})
+                               "demand_source": D.method(H, L["b"]), "direct_now": D.has_direct(H, L["b"]),
+                               "range_light": range_light(H, L["b"], L["km"])})
         chosen = direct_network(D, A, scen, nodes_all)
         hours = sum(c[4] for c in chosen)
         cost = sum(c[5] for c in chosen)
@@ -335,7 +347,8 @@ def main():
                                "to_city": f"{NAME.get(L['a'], D.n.loc[L['a'], 'main_city'])} — {NAME.get(L['b'], D.n.loc[L['b'], 'main_city'])}",
                                "km": round(L["km"]), "freq_week_each_way": L["freq"], "pax_year_local": round(2 * L["carried_dir_week"] * W),
                                "pax_year_segments": round(2 * L["carried_dir_week"] * W), "load_factor": round(L["lf"], 2),
-                               "demand_source": D.method(L["a"], L["b"]), "direct_now": D.has_direct(L["a"], L["b"])})
+                               "demand_source": D.method(L["a"], L["b"]), "direct_now": D.has_direct(L["a"], L["b"]),
+                               "range_light": range_light(L["a"], L["b"], L["km"])})
     sm = pd.DataFrame(summary)
     rt = pd.DataFrame(routes)
     rt.to_csv(P / "network_routes.csv", index=False, encoding="utf-8")
@@ -346,7 +359,7 @@ def main():
     b["route"] = [f"{NAME.get(r['from'], D.n.loc[r['from'], 'main_city'])} — {NAME.get(r.to, D.n.loc[r.to, 'main_city'])}"
                   for _, r in b.iterrows()]
     mt = b[["variant", "route", "km", "pax_year_segments", "pax_cautious", "freq_week_each_way", "load_factor",
-            "direct_now", "demand_source"]].rename(columns={
+            "direct_now", "range_light", "demand_source"]].rename(columns={"range_light": "Светофор дальности SSJ (docs/17)",
         "variant": "Вариант", "route": "Маршрут", "km": "Км", "pax_year_segments": "Пассажиров в год (база)",
         "pax_cautious": "Пассажиров в год (осторожно)", "freq_week_each_way": "Рейсов в неделю в одну сторону",
         "load_factor": "Загрузка", "direct_now": "Прямой рейс уже есть", "demand_source": "Откуда спрос пары"})

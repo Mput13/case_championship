@@ -32,7 +32,7 @@ RUNS = ROOT / "data" / "raw" / "_runs.csv"
 # цепочка пересчёта (каждый шаг читает выход предыдущих)
 BUILD = ["src/kover_days.py", "src/longlist_data.py", "src/build_longlist.py",
          "src/demand_model.py", "src/demand_summary.py", "src/build_criteria.py",
-         "src/longlist_score.py", "src/network_model.py", "src/scan_news.py", "src/build_dashboard.py"]
+         "src/longlist_score.py", "src/network_model.py", "src/network_map.py", "src/build_workbook.py", "src/scan_news.py", "src/build_dashboard.py"]
 
 
 def rows_and_hash(p):
