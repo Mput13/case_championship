@@ -2,8 +2,7 @@
   "checked_at_utc": "2026-11-09T13:49:37.241600+00:00",
   "scope": "Imported JSON metadata only; raw HTML and primary hashes unchanged",
   "upstream_hypotheses_forbidden_values_count": 7,
-  "also_observed_in_hypotheses_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0",
-  "upstream_action": "Coordinator notified; owner must sanitize source manifest and header collector",
+  "upstream_action": "Coordinator already requested removal of remaining marker keys; no new broad audit or incident claim",
   "transformations": [
     {
       "input_sha": "46d7994f1abb65c693ad75045ef8b25cc43eb6b2",
@@ -15,5 +14,32 @@
       "header_fields_removed": 81,
       "storage_transform": "JSON metadata header whitelist"
     }
-  ]
+  ],
+  "version_checks": [
+    {
+      "input_sha": "46d7994f1abb65c693ad75045ef8b25cc43eb6b2",
+      "header_keys": 7,
+      "nonempty_strings": 7,
+      "redaction_markers": 0,
+      "interpretation": "Historical original non-redacted header values; not republished in critic"
+    },
+    {
+      "input_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0",
+      "header_keys": 7,
+      "nonempty_strings": 7,
+      "value_lengths": [
+        26,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26
+      ],
+      "redaction_markers": 7,
+      "interpretation": "All seven are redaction markers; no actual cookie value established by this check"
+    }
+  ],
+  "correction": "Earlier nonempty-key check did not distinguish redaction markers. Latest bf72e8a must not be called a cookie leak. Removing marker keys is metadata hygiene only.",
+  "corrected_at_utc": "2026-11-09T13:55:48.174635+00:00"
 }

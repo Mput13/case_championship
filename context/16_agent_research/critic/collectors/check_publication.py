@@ -44,7 +44,7 @@ def main():
     inventory = []
     for name in sorted(ignored):
         path = REPO/name
-        if '__pycache__' in path.parts or path.suffix == '.pyc' or not path.is_file():
+        if '__pycache__' in path.parts or path.suffix == '.pyc' or path.name == '.manifest.lock' or not path.is_file():
             continue
         data = path.read_bytes()
         inventory.append({'path': path.relative_to(BASE).as_posix(), 'sha256': hashlib.sha256(data).hexdigest(),

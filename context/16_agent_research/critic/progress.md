@@ -33,3 +33,11 @@ Gemini завершился FAILED/NOT_PRODUCED, backend502; read-only диаг�
 front9d9a874 (kiruha355):1428predictions+20sums свелись; endpoint/transfer causal claims HOLD, H1×2/region status mismatch, частота70k/year исправляется8.41RT/week при100LF80 всего рынка. Rail24–168stress не меняет modeltop3; criteriondefault0. Три цитируемых secondary страницы дополнительно получены root,13чисел/контекст проверены; это не primary airport series.
 
 Pinned alternative5819 и hypotheses46d7 проверены отдельно:17 694rawcells/18 360increments/1 530profiles, корпоративные keys безразмножения,35cards/9queue/107attributed ancestors,не прогноз. Первый checkpoint582cdef pushed; собирается следующий содержательный push, acceptance не повышается.
+
+## Уточнение санитарной проверки — 2026-11-09T13:55:48.176145+00:00
+
+После замечания пользователя раздельно проверены значения по версиям без вывода содержимого:46d7 семь строк без redaction marker;bf72 все семь — маркеры длиной26. Прежняя проверка nonempty была недостаточна для утверждения об актуальных cookie. Формулировка исправлена; bf72 не объявляется утечкой. Перенос source-policy gates на market truth не выполнялся.
+
+## Stage19/20 и источники — 2026-11-09T14:07:55.536528+00:00
+
+33pinnedhashes/9cases/19sources и units независимо свелись, новыхpaidODнет.3primaryHTML получены с whitelistheaders;C12иRW прочитаны nativeweb без выдуманногоHTTPraw. В collector исправлена потеря общегоindex при concurrent --only: per-source receipts+locked merge,5источников повторно получены последовательно, первые успешные bytes сохранены с UNKNOWN_EXACT timing;C01–C10 записи/байты неизменны. Stage20 baselinequalitative; реальныйreplacementNOT_EVALUATED. Sol отдельно проверяет новый core market/capacity grain наpinned a875cdd, без дублирования закрытыхgeo findings.

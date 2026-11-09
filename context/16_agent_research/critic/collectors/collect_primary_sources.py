@@ -3,6 +3,7 @@
 import argparse
 import csv
 import datetime as dt
+import fcntl
 import hashlib
 import json
 from pathlib import Path
@@ -58,13 +59,52 @@ SOURCES = [
          url='https://superomsk.ru/news/157499-omskiy_aeroport_opublikoval_top_10_populyarnx_napr/', filename='front_oms_secondary.html',
          period='2025; publication2026-01-16', grain='airport route ranking news article', source_tier='SECONDARY',
          coverage='Omsk airport named route counts; original airport dataset not obtained', license='UNKNOWN'),
+    dict(dataset_id='C11', name='UMPO_summer_cohort', organization='Ростех',
+         url='https://rostec.ru/media/news/studenty-treka-krylya-rostekha-iz-moskvy-i-sankt-peterburga-proshli-praktiku-v-odk-umpo/', filename='stage19_umpo.html',
+         period='2026-08-24 report of summer practice', grain='employer cohort / training event', source_tier='PRIMARY',
+         coverage='43 total trainees; no ticket origin split, mode or December bookings', license='UNKNOWN'),
+    dict(dataset_id='C12', name='Perm_motory_summer_cohort', organization='ОДК',
+         url='https://uecrus.com/press/odk-permskie-motory-prinyali-na-praktiku-studentov-moskovskogo-vuza/', filename='stage19_perm_cohort.html',
+         period='2026-07-22 report; practice began June2026', grain='employer cohort / training event', source_tier='PRIMARY',
+         coverage='15 Moscow university trainees; no observed paid flight or airport choice', license='UNKNOWN'),
+    dict(dataset_id='C13', name='Park_Shafran_opening', organization='Санаторий Парк Шафран',
+         url='https://parkshafran.ru/news/25-iyulya-2025-otkrytie-sanatoriya-park-shafran/', filename='stage19_shafran_opening.html',
+         period='opening2025-07-25; publication2025-08-01', grain='operator facility announcement', source_tier='PRIMARY',
+         coverage='Opening precedes both December2025 and2026; no guest bookings or origin OD', license='UNKNOWN'),
+    dict(dataset_id='C14', name='Park_Shafran_capacity', organization='Санаторий Парк Шафран',
+         url='https://parkshafran.ru/', filename='stage19_shafran_home.html',
+         period='undated page observed2026-11-09', grain='operator facility stock and access description', source_tier='PRIMARY',
+         coverage='112 rooms and access distances; no occupancy, stay length, guest origins or airline choice', license='UNKNOWN'),
+    dict(dataset_id='C15', name='M12_road_time_change', organization='Автодор',
+         url='https://russianhighways.ru/press/news/139252/', filename='stage19_avtodor.html',
+         period='2026-01-26 report on2025 opening', grain='road operator travel-time statement', source_tier='PRIMARY',
+         coverage='Kazan-Ekaterinburg road-time savings by vehicle type; no actual modal shift or full door-to-door time', license='UNKNOWN'),
 ]
+
+def publish_index(new_records):
+    """Merge receipts under a file lock; independent --only fetches may overlap."""
+    with (BASE/'raw/.manifest.lock').open('w') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        previous=json.loads((BASE/'dataset_manifest.json').read_text())['datasets'] if (BASE/'dataset_manifest.json').exists() else []
+        by_id={r['dataset_id']:r for r in previous}
+        by_id.update({r['dataset_id']:r for r in new_records})
+        records=sorted(by_id.values(),key=lambda r:r['dataset_id'])
+        manifest=dict(generated_at_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
+                      path_base='context/16_agent_research/critic',datasets=records)
+        (BASE/'dataset_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+        fields=['dataset_id','organization','name','source_tier','source_url','publication_date','retrieved_at_utc','period','grain',
+                'geographic_coverage','units','key_fields','license','acquisition_status','raw_path','sha256','byte_size','limitations']
+        with (BASE/'source_registry.csv').open('w',newline='') as f:
+            w=csv.DictWriter(f,fields,extrasaction='ignore');w.writeheader();w.writerows(records)
+        failed=[r for r in records if r['acquisition_status']=='ACCESS_FAILED']
+        with (BASE/'rejected_or_unavailable.csv').open('w',newline='') as f:
+            w=csv.DictWriter(f,['dataset_id','source_url','exit_code','error','limitations'],extrasaction='ignore');w.writeheader();w.writerows(failed)
+    return records
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--only');args=parser.parse_args()
     raw = BASE/'raw'; raw.mkdir(parents=True, exist_ok=True)
-    previous=json.loads((BASE/'dataset_manifest.json').read_text())['datasets'] if (BASE/'dataset_manifest.json').exists() else []
-    records=[r for r in previous if args.only and r['dataset_id']!=args.only]
+    records=[]
     for spec in SOURCES:
         if args.only and spec['dataset_id']!=args.only:continue
         dest=raw/spec['filename']; headers=dest.with_suffix(dest.suffix+'.headers.txt')
@@ -75,7 +115,7 @@ def main():
         headers.write_text(filtered_header_text(run.stdout))
         ok=run.returncode==0 and dest.exists()
         data=dest.read_bytes() if ok else b''
-        records.append(dict(**spec, source_url=spec['url'], retrieved_at_utc=started,
+        receipt=dict(**spec, source_url=spec['url'], retrieved_at_utc=started,
             raw_path=str(dest.relative_to(BASE)) if ok else None,
             sha256=hashlib.sha256(data).hexdigest() if ok else None,
             byte_size=len(data) if ok else None, record_count=None,
@@ -84,18 +124,11 @@ def main():
             value_status='UNKNOWN', publication_date=None, units='document; see extracted source checks',
             key_fields='dataset_id; URL; retrieved_at_utc', collector_version='critic-source-fetch-v2-safe-headers',
             command=argv, exit_code=run.returncode, error=run.stderr.strip() or None,
-            limitations='Raw bytes obtained does not establish empirical validity. No market or network contract coefficient inferred.'))
-    records.sort(key=lambda r:r['dataset_id'])
-    manifest=dict(generated_at_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
-                  path_base='context/16_agent_research/critic',datasets=records)
-    (BASE/'dataset_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    fields=['dataset_id','organization','name','source_tier','source_url','publication_date','retrieved_at_utc','period','grain',
-            'geographic_coverage','units','key_fields','license','acquisition_status','raw_path','sha256','byte_size','limitations']
-    with (BASE/'source_registry.csv').open('w',newline='') as f:
-        w=csv.DictWriter(f,fields,extrasaction='ignore');w.writeheader();w.writerows(records)
-    failed=[r for r in records if r['acquisition_status']=='ACCESS_FAILED']
-    with (BASE/'rejected_or_unavailable.csv').open('w',newline='') as f:
-        w=csv.DictWriter(f,['dataset_id','source_url','exit_code','error','limitations'],extrasaction='ignore');w.writeheader();w.writerows(failed)
+            limitations='Raw bytes obtained does not establish empirical validity. No market or network contract coefficient inferred.')
+        records.append(receipt)
+        receipts=BASE/'evidence/acquisition_receipts';receipts.mkdir(exist_ok=True)
+        (receipts/(spec['dataset_id']+'.json')).write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+    publish_index(records)
     print(json.dumps([{'id':r['dataset_id'],'status':r['acquisition_status'],'bytes':r['byte_size']} for r in records]))
 
 if __name__=='__main__':main()
