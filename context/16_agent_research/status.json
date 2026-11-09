@@ -1,6 +1,6 @@
 {
-  "updated_at_utc": "2026-11-09T14:00:44.560588+00:00",
-  "phase": "first_wave_collected_integration_review",
+  "updated_at_utc": "2026-11-09T14:14:07.271415+00:00",
+  "phase": "phase2_running",
   "scope": "Russia; international as separately reviewed research",
   "first_checkpoint": "~4 hours after launch; user-facing interim in 1-2 hours",
   "threads": [
@@ -20,12 +20,15 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3A33e096d48716d2f5375f406781e407990d6d3250bb63a38de014df45f82ca274:ordinal:1",
-      "status": "checkpoint_available",
+      "status": "phase2_requested",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109",
       "last_checked_status": "running",
       "checkpoint_sha": "daa2d8f6d2a5d9bac8bf95e8b16f3a278cafec33",
       "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
-      "publication": "PUSH_REQUESTED_REMOTE_CONFIRMATION_SEPARATE"
+      "publication": "REMOTE_HEAD_CONFIRMED",
+      "pushed_sha": "a875cdd1ecaf778f53ba06cab1c66581a7f215c6",
+      "phase": "phase2_running",
+      "next_brief": "phase2_brief.md"
     },
     {
       "role": "alternative",
@@ -43,12 +46,15 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3Af2d28f53b4e357dd8f749798d7cd14776291fc6407f5058e2bba7f89f72132e3:ordinal:1",
-      "status": "checkpoint_available",
+      "status": "phase2_requested",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-alternative-20261109",
       "last_checked_status": "running",
       "checkpoint_sha": "0fd05faaee208d59cd1b6f49683a9e7c7bb308af",
       "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
-      "publication": "PUSH_REQUESTED_REMOTE_CONFIRMATION_SEPARATE"
+      "publication": "REMOTE_HEAD_CONFIRMED",
+      "pushed_sha": "7bcc3a58077431e22dcb49940905497bd8ebe9c8",
+      "phase": "phase2_running",
+      "next_brief": "phase2_brief.md"
     },
     {
       "role": "critic",
@@ -66,13 +72,15 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3Aa147b5391eab2b659533d6000ceeb0d41ed2e74b3b760d3b41a60f554f57ae10:ordinal:1",
-      "status": "checkpoint_available",
+      "status": "phase2_requested",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109",
       "last_checked_status": "running",
       "checkpoint_sha": "582cdefa1fce682354f04f21418bab6b4a85bc5c",
       "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
       "publication": "REMOTE_HEAD_CONFIRMED",
-      "pushed_sha": "582cdefa1fce682354f04f21418bab6b4a85bc5c"
+      "pushed_sha": "7a3a693c0c32835fe623c7864cabbd2afed5d0f1",
+      "phase": "phase2_running",
+      "next_brief": "phase2_brief.md"
     },
     {
       "role": "hypotheses",
@@ -90,13 +98,15 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3A3e52eced5c1c3a2f4d5165d99774605ce357f8f50b7557306984af0131d59e0d:ordinal:1",
-      "status": "checkpoint_available",
+      "status": "phase2_requested",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-hypotheses-20261109",
       "last_checked_status": "running",
       "checkpoint_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0",
       "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
       "publication": "REMOTE_HEAD_CONFIRMED",
-      "pushed_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0"
+      "pushed_sha": "4823b05d64439cf59991dc2bcd126b747b81a59b",
+      "phase": "phase2_running",
+      "next_brief": "phase2_brief.md"
     }
   ],
   "received": [
@@ -213,16 +223,18 @@
     "retry": "NOT_REQUESTED"
   },
   "online_refs": {
-    "checked_at_utc": "2026-11-09T13:42:02.098395+00:00",
-    "refs": {
-      "research/case5-data-critic-20261109": "582cdefa1fce682354f04f21418bab6b4a85bc5c",
-      "research/case5-hypotheses-20261109": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0"
-    }
+    "confirmed": {
+      "refs/heads/research/case5-data-critic-20261109": "7a3a693c0c32835fe623c7864cabbd2afed5d0f1",
+      "refs/heads/research/case5-hypotheses-20261109": "4823b05d64439cf59991dc2bcd126b747b81a59b",
+      "refs/heads/research/case5-raw-alternative-20261109": "7bcc3a58077431e22dcb49940905497bd8ebe9c8",
+      "refs/heads/research/case5-raw-core-20261109": "a875cdd1ecaf778f53ba06cab1c66581a7f215c6"
+    },
+    "method": "git ls-remote"
   },
   "publication_reports": {
+    "core": "a875cdd1ecaf778f53ba06cab1c66581a7f215c6",
     "alternative": "7bcc3a58077431e22dcb49940905497bd8ebe9c8",
-    "hypotheses": "4823b05d64439cf59991dc2bcd126b747b81a59b",
-    "critic": "e07c468f5f03710a56cab8559db6cba7f213c793",
-    "core": "PUSH_IN_PROGRESS"
+    "critic": "7a3a693c0c32835fe623c7864cabbd2afed5d0f1",
+    "hypotheses": "4823b05d64439cf59991dc2bcd126b747b81a59b"
   }
 }
