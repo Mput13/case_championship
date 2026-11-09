@@ -1,0 +1,17 @@
+[
+  {
+    "source_url": "https://sibur.ru/ru/about/geo/",
+    "method": "python3 urllib.request.urlopen",
+    "error": "URLError <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)>",
+    "fallback": "curl succeeded with TLS verification enabled"
+  },
+  {
+    "source_url": "https://rosneft.ru/press/news/item/185797/",
+    "method": "curl -sS -L --fail --max-time 40",
+    "error": "curl: (60) SSL certificate problem: self signed certificate in certificate chain",
+    "repeat_www": "same error",
+    "web_open_error": "Failed to fetch https://rosneft.ru/press/news/item/185797/: TimeoutError",
+    "fallback": "search-indexed primary-source text retained separately; no full HTML acquisition claim",
+    "observed_at_utc": "2026-11-09T10:55:05.731395+00:00"
+  }
+]
