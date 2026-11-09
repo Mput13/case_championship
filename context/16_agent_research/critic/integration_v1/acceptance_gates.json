@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-09T14:31:20.575197+00:00",
+  "generated_at_utc": "2026-11-09T14:41:47.886166+00:00",
   "status": "IN_PROGRESS",
   "policy": "Arithmetic, conditional calendar/resource, market/launch acceptance separate",
   "gates": [
@@ -14,8 +14,8 @@
       "gate_id": "F02",
       "topic": "threshold_inverse",
       "status": "PASS_SCENARIO_ARITHMETIC",
-      "evidence": "36integer rational inversions; q threshold minimal; actual constantgap/netfare unknown",
-      "path": "threshold_oracle.csv"
+      "evidence": "108candidate rows reconcile to independent36Fractioninversions; actualgap/netfare/capacity UNKNOWN",
+      "path": "reviews/c26661067277af20/reproduction.json"
     },
     {
       "gate_id": "F03",
@@ -27,16 +27,16 @@
     {
       "gate_id": "F04",
       "topic": "C14_hotel_product",
-      "status": "PENDING_IMMUTABLE_PRODUCT_OUTPUT",
-      "evidence": "Bookedstay/transfer/checkin constraints and dates not accepted fromdraftfolder",
+      "status": "PENDING_PRIMARY_AUDIT_NEW_INPUT_SET",
+      "evidence": "alternativefa39de immutable checkpoint received; not substituted into frozen001; hotelproduct/transfer yet to audit",
       "path": "hotel_anchor_checks.csv"
     },
     {
       "gate_id": "F05",
       "topic": "C01_same_legs_and_joint_seats",
-      "status": "PENDING_PINNED_EXPERIMENT_OUTPUT",
-      "evidence": "Physicallegset, timing, localsalesdelta and jointseatconservation to inspect",
-      "path": "frozen_contract.json"
+      "status": "PASS_SCENARIO_ARITHMETIC",
+      "evidence": "62physicallegs72connections36cohorts228resources independently reconcile;6datepairs sharelegs;realcost/local-loss UNKNOWN",
+      "path": "reviews/c26661067277af20/reproduction.json"
     },
     {
       "gate_id": "F06",
@@ -65,6 +65,16 @@
       "status": "NOT_EVALUATED",
       "evidence": "3productexperiments do not cover fullcase8–12directions/annualshare/2028",
       "path": "README.md"
+    },
+    {
+      "gate_id": "F10",
+      "topic": "C14_new_primary_reference",
+      "status": "PENDING_PRIMARY_AUDIT",
+      "input_git_sha": "fa39de413ac00a93b0214840aae2e7916332cef5",
+      "evidence": "New checkpoint received with Mon/Thu report; requires separate reference scope and calendar comparison",
+      "path": "progress.md"
     }
-  ]
+  ],
+  "audited_experiment_git_sha": "1a6844511d9f18b11473d02b2f0cb5963f9f173b",
+  "audited_run": "c26661067277af20"
 }
