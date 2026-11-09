@@ -1,0 +1,70 @@
+{
+  "generated_at_utc": "2026-11-09T14:31:20.575197+00:00",
+  "status": "IN_PROGRESS",
+  "policy": "Arithmetic, conditional calendar/resource, market/launch acceptance separate",
+  "gates": [
+    {
+      "gate_id": "F01",
+      "topic": "frozen_input_provenance",
+      "status": "PASS_SCOPED",
+      "evidence": "10 input hashes and contract exactbytes match Git22cbc",
+      "path": "reference_scope.json"
+    },
+    {
+      "gate_id": "F02",
+      "topic": "threshold_inverse",
+      "status": "PASS_SCENARIO_ARITHMETIC",
+      "evidence": "36integer rational inversions; q threshold minimal; actual constantgap/netfare unknown",
+      "path": "threshold_oracle.csv"
+    },
+    {
+      "gate_id": "F03",
+      "topic": "C14_reference_calendar",
+      "status": "HOLD_DECEMBER_COVERAGE",
+      "evidence": "2Novemberboardentries do not establishDecemberrule;clockbasisunknown",
+      "path": "reference_board_instances.csv"
+    },
+    {
+      "gate_id": "F04",
+      "topic": "C14_hotel_product",
+      "status": "PENDING_IMMUTABLE_PRODUCT_OUTPUT",
+      "evidence": "Bookedstay/transfer/checkin constraints and dates not accepted fromdraftfolder",
+      "path": "hotel_anchor_checks.csv"
+    },
+    {
+      "gate_id": "F05",
+      "topic": "C01_same_legs_and_joint_seats",
+      "status": "PENDING_PINNED_EXPERIMENT_OUTPUT",
+      "evidence": "Physicallegset, timing, localsalesdelta and jointseatconservation to inspect",
+      "path": "frozen_contract.json"
+    },
+    {
+      "gate_id": "F06",
+      "topic": "C07_resource_arithmetic",
+      "status": "PASS_SCENARIO_REFERENCE_ONLY",
+      "evidence": "4clockproxies and9stresswindows;7within;actualtail/crew/slotsUNKNOWN",
+      "path": "C07_reference_checks.json"
+    },
+    {
+      "gate_id": "F07",
+      "topic": "C07_donor_economics",
+      "status": "NOT_EVALUATED",
+      "evidence": "Actual donor and incremental money unknown; preserve keep/replace/remove distinction",
+      "path": "frozen_contract.json"
+    },
+    {
+      "gate_id": "F08",
+      "topic": "training_holdout_market",
+      "status": "UNKNOWN_NO_LABELS",
+      "evidence": "No fit/holdout targetlabels; no accuracy or predictiveedge accepted",
+      "path": "reference_scope.json"
+    },
+    {
+      "gate_id": "F09",
+      "topic": "full_case_network",
+      "status": "NOT_EVALUATED",
+      "evidence": "3productexperiments do not cover fullcase8–12directions/annualshare/2028",
+      "path": "README.md"
+    }
+  ]
+}
