@@ -125,6 +125,13 @@ def dropins(known, weights):
 
 
 def main():
+    accepted = ROOT / 'context/22_stage1_audit/accepted_model_inputs.json'
+    if accepted.exists():
+        import stage1_audit_rules
+        data = stage1_audit_rules.build(pd.read_csv(P/'longlist.csv').set_index('iata'))
+        OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1, allow_nan=False), encoding='utf-8')
+        print('accepted round2 stage1 snapshot →', OUT)
+        return
     ll = pd.read_csv(P / "longlist.csv")
     w = pd.read_csv(ROOT / "data/assumptions/longlist_weights.csv")
     crit, vals = core(ll, w)

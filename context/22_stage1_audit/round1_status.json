@@ -1,0 +1,71 @@
+{
+  "methodology": {
+    "status": "completed_pending_code_recalculation",
+    "files": ["methodology.md", "recommended_weights.csv", "weight_profiles.json", "rules.json"],
+    "proposed_weight_sum": 100,
+    "primary_500km_preserved": true,
+    "distance_weight_proposed": 0,
+    "profiles": 5,
+    "main_notes": [
+      "Weights are normative, not empirically calibrated and not team-approved.",
+      "Implement fixed scales, raw evidence status and unknown bounds together with weights; replacing only CSV weights is insufficient.",
+      "Source baseline total125 is normalized by code; it is a percentage-communication issue, not proof of arithmetic error.",
+      "Main inclusion is expansion_allowed; strict_new must be explicit and symmetric across verified RW support airports.",
+      "Weather weight7 does not justify treating invalid/missing coverage as measured. Retain UNKNOWN/coverage stress where raw archives unavailable."
+    ],
+    "correction_round_started": false
+  },
+  "independent_review": {
+    "status": "completed",
+    "files": ["independent_review_round1.md", "review_findings.json"],
+    "baseline_top3_reproduced": true,
+    "integration_priorities": [
+      "R1: evidence uncertainty must be separate from numeric completeness; weak competitor and MRO inputs currently evade bounds.",
+      "R2: label strict-new vs development-of-support-airport eligibility; OMS historical/current status cannot be automatically excluded from stale labels.",
+      "R3: transfer_demand_base is modelled pair scale, not verified hub demand; use limited sensitivity, not sales claims.",
+      "R4: preserve main 500km rule, separate eligibility effect from changing min-max universe; avoid distance reward plus cutoff by default.",
+      "R5: replay stored intro-only Kover counts as sensitivity; baseline KUF/VOG third-place gap changes sign, no broad recollection.",
+      "R6: fix weather sentinel denominator with a meaningful fixture; absent raw coverage cannot be assumed valid."
+    ],
+    "correction_round_started": false
+  },
+  "research_OMS": {
+    "status": "completed_requires_integration_corrections",
+    "files": ["research/OMS_evidence.csv", "research/OMS_findings.md"],
+    "new_primary_evidence": true,
+    "main_verified_sources": [
+      "https://www.aeroomsk.ru/ob-aeroporte/press-tsentr/novosti/207/",
+      "https://flyredwings.com/press/"
+    ],
+    "integration_notes": [
+      "OMS airport publication 2024-12-03 explicitly reports existing SSJ maintenance by airport IAS for three airlines. Accept as published historical capability, not a current 2026 contract or unlimited scope/capacity.",
+      "RW generic press page names DME/ZIA/SVX. Absence of OMS is not proof of no base/support status; reject confirmed_negative or categorical rw_support=0 from this source alone.",
+      "competitor_hub 0.25 to UNKNOWN imputation 0.5 DECREASES score for a negative criterion; research summary has the sign wrong.",
+      "OMS CSV has misaligned extra columns/unquoted punctuation; normalize with strict schema before ingesting, do not consume positionally.",
+      "Unknown competitor basing stays raw UNKNOWN, not verified no-competitor."
+    ],
+    "correction_round_started": false
+  },
+  "research_REN": {
+    "status": "completed_with_unknowns",
+    "files": ["research/REN_evidence.csv", "research/REN_findings.md"],
+    "new_primary_evidence": false,
+    "accepted_input_changes": [],
+    "integration_notes": [
+      "951000 is an unverified lower-bound claim from existing notes, not an exact observed annual total.",
+      "Do not accept the research assertion that UNKNOWN/bounds cannot affect ranking; quantify in code.",
+      "Blank primary publication date when no publication was found; 2026-11-10 is the audit/access date.",
+      "0.5 is model imputation only, not a verified raw MRO/transfer fact. Preserve raw UNKNOWN."
+    ],
+    "correction_round_started": false
+  },
+  "research_KUF": {
+    "status": "completed_without_deliverables",
+    "expected_files": ["research/KUF_evidence.csv", "research/KUF_findings.md"],
+    "new_primary_evidence": false,
+    "accepted_input_changes": [],
+    "unresolved": ["transfer procedure", "SSJ line maintenance", "RW support-airport statement and actual basing"],
+    "correction_round_started": false,
+    "handling": "Keep UNKNOWN; consider one tightly scoped correction after round1. Do not raise a score from an unverified note."
+  }
+}

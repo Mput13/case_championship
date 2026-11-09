@@ -6,6 +6,7 @@
 Запуск: python src/build_dashboard.py   (после build_longlist.py)
 """
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -103,6 +104,41 @@ def monthly():
     return months, {i: [int(m.get((i, mo), 0)) for mo in months] for i in e.iata.unique()}
 
 
+def write_panel(data):
+    tpl = (ROOT / "src/dashboard_template.html").read_text(encoding="utf-8")
+    js = json.dumps(data, ensure_ascii=False, allow_nan=False).replace("</", "<\\/")
+    out = ROOT / "outputs/redwings_panel.html"
+    out.write_text(tpl.replace("/*__DATA__*/null", js), encoding="utf-8")
+    print("ok", out, len(data["cities"]), "городов,", len(data["meta"]["months"]), "мес.")
+
+
+def stage1_only():
+    """Пересобрать шаг 1 из локальных CSV, сохранив встроенные шаги 2–4 и карты.
+
+    Нужна уже собранная панель. Режим не требует отсутствующих raw-справочников,
+    не загружает их и отказывается молча оставлять старые расстояния/состав городов.
+    """
+    out = ROOT / "outputs/redwings_panel.html"
+    match = re.search(r"const D = (.*?);\n", out.read_text(encoding="utf-8"))
+    if not match:
+        raise ValueError("Нужна существующая панель со встроенным JSON")
+    data = json.loads(match.group(1))
+    ll = pd.read_csv(P / "longlist.csv").set_index("iata")
+    if list(ll.index) != [c["iata"] for c in data["cities"]]:
+        raise ValueError("Изменился состав городов: требуется полная пересборка панели")
+    for c in data["cities"]:
+        for key in ["dist_msk_km", "dist_ekb_km"]:
+            if num(ll.loc[c["iata"], key]) != c[key]:
+                raise ValueError(f"Изменились расстояния {c['iata']}: требуется полная пересборка панели")
+    crit = json.loads((P / "criteria.json").read_text(encoding="utf-8"))
+    data.update(crit)
+    data["weights"] = [{"key": c["key"], "label": c["label"], "dir": c["dir"],
+                        "w": c["weight"], "why": c["why"]}
+                       for c in crit["criteria"] if c.get("origin") == "основной"]
+    data["meta"]["built"] = datetime.now().strftime("%d.%m.%Y %H:%M")
+    write_panel(data)
+
+
 def main():
     ll = pd.read_csv(P / "longlist.csv")
     kov = pd.read_csv(P / "kover_days.csv").set_index("iata")
@@ -159,12 +195,14 @@ def main():
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
     }
-    tpl = (ROOT / "src/dashboard_template.html").read_text(encoding="utf-8")
-    js = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
-    out = ROOT / "outputs/redwings_panel.html"
-    out.write_text(tpl.replace("/*__DATA__*/null", js), encoding="utf-8")
-    print("ok", out, len(cities), "городов,", len(months), "мес.")
+    write_panel(data)
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--stage1-only", action="store_true", help="обновить только шаг 1 существующей панели офлайн")
+    if ap.parse_args().stage1_only:
+        stage1_only()
+    else:
+        main()

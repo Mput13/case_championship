@@ -50,7 +50,7 @@ def set_font(path):
         raise SystemExit(f"Calibri остался в {bad}")
 
 
-def main():
+def main(write_xlsx=True):
     c = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv")
     c = c[["city", "iata", "pax_2025", "pax_2025_qualifier", "pax_source_url"]].copy()
     # в источнике только «более N» — берём N как нижнюю границу (data/manual/pax_2025_overrides.csv)
@@ -70,7 +70,10 @@ def main():
     df = c.merge(comp, on="iata", how="left").merge(kov, on="iata", how="left") \
           .merge(man, on="iata", how="left").merge(extra, on="iata", how="left") \
           .merge(tp, on="iata", how="left").merge(tech, on="iata", how="left")
-    df.to_csv(P / "longlist.csv", index=False, encoding="utf-8")
+    df.to_csv(P / "longlist.csv", index=False, encoding="utf-8", lineterminator="\r\n")
+    if not write_xlsx:
+        print(f"ok {P / 'longlist.csv'}: {len(df)} городов; Excel не пересобирался")
+        return
 
     sources = pd.DataFrame([
         ("pax_2025", "Пассажиропоток аэропорта 2025, чел.", "пресс-релизы аэропортов, ссылка в pax_source_url (сверка Terra)"),
@@ -106,4 +109,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--no-xlsx", action="store_true", help="пересобрать только CSV, без Excel")
+    main(write_xlsx=not ap.parse_args().no_xlsx)

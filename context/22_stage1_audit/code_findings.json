@@ -1,0 +1,56 @@
+{
+  "baseline_top3_changing_code_errors": [],
+  "findings": [
+    {
+      "id": "C01",
+      "type": "REPRODUCED_CODE_BUG",
+      "status": "FIXED",
+      "finding": "Python default_rng(42) and JS Mulberry32(42) produce different samples; maximum exact stability difference 2.8 percentage points. Python now matches JS.",
+      "baseline_top3_changed": false
+    },
+    {
+      "id": "C02",
+      "type": "REPRODUCED_SYNTHETIC_CODE_BUG",
+      "status": "FIXED",
+      "finding": "CSV sorted rounded scores before assigning places. Synthetic .50041/.50049 at cutoff wrongly selected C instead of D. Sort full scores before rounding.",
+      "baseline_top3_changed": false,
+      "synthetic_top3_changed": true
+    },
+    {
+      "id": "C03",
+      "type": "REPRODUCED_PANEL_CODE_BUG",
+      "status": "FIXED",
+      "finding": "When only identical SSJ operations criterion has positive weight, nominal ranks were sequential but best/worst ranks all 1. Stable original city order now applies to both.",
+      "baseline_top3_changed": false
+    },
+    {
+      "id": "C04",
+      "type": "REPRODUCED_PANEL_CODE_BUG",
+      "status": "FIXED",
+      "finding": "All-zero slider weights produced an arbitrary top3 with zero scores via denominator fallback 1. Reject invalid weights and retain last positive slider weight.",
+      "baseline_top3_changed": false
+    },
+    {
+      "id": "P01",
+      "type": "REPRODUCED_PANEL_LABEL_BUG",
+      "status": "FIXED",
+      "finding": "ssj_mro=0.5 was displayed as нет although it means indirect evidence. Now shown as косвенно.",
+      "baseline_top3_changed": false
+    },
+    {
+      "id": "D01",
+      "type": "REPRODUCED_DOCUMENT_DISCREPANCY",
+      "status": "REPORTED_NOT_EDITED_OUTSIDE_SCOPE",
+      "finding": "docs/25 claims first two stay identical across five profiles. Source-commit scenario CSVs already contradict this: market OMS,KUF,VOG; operations OMS,BAX,REN.",
+      "baseline_top3_changed": false,
+      "existing_profile_changes_top3": true
+    },
+    {
+      "id": "R01",
+      "type": "OFFLINE_REPRODUCTION_LIMIT",
+      "status": "STAGE1_ONLY_REBUILD_ADDED",
+      "finding": "Full build_dashboard requires missing raw/ourairports_airports.csv. Stage1-only rebuild uses pinned embedded other-step payload; no raw download or steps2-4 rebuild.",
+      "baseline_top3_changed": false
+    }
+  ]
+}

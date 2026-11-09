@@ -1,0 +1,364 @@
+{
+  "verdict": "ACCEPT_WITH_LIMITATIONS",
+  "scope": "Условный вычислительный скрининг шага 1; не эксплуатационная/инвестиционная приёмка",
+  "date": "2026-11-10",
+  "branch": "research/stage1-panel-audit-20261110",
+  "reviewed_source_commit": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+  "primary": {
+    "mode": "expansion_allowed",
+    "min_km": 500,
+    "profile": "balanced",
+    "scores": {
+      "OMS": 0.6489141347151431,
+      "REN": 0.5508560277945392,
+      "BAX": 0.5269528227041733,
+      "KUF": 0.5262316744574347
+    },
+    "third_fourth_gap": 0.0007211482467386
+  },
+  "computation_status": "PASS for saved scenarios; residual display and tie-bound defects",
+  "checks": {
+    "status": "COMPUTATION_PASS_WITH_TIE_BOUND_DEFECT",
+    "cases_independent": 140,
+    "js_cases": 60,
+    "score_max_error": 2.220446049250313e-16,
+    "js_max_error": 2.220446049250313e-16,
+    "weak_cells_checked": 18,
+    "tracked_protected_checked": 33,
+    "manifest_files": 32,
+    "payload_unchanged": true,
+    "build_equal": true,
+    "weather_fixture": {
+      "frost": 1,
+      "wind": 2,
+      "either": 1,
+      "valid_temp_days": 2,
+      "valid_wind_days": 3,
+      "valid_joint_days": 2,
+      "record_days": 4,
+      "observations": 5
+    },
+    "raw_zero_cells": [],
+    "tie_defect": {
+      "GSV": {
+        "rank": 2,
+        "rank_best": 1,
+        "rank_worst": 1
+      }
+    },
+    "js_tie_example": [
+      {
+        "iata": "KUF",
+        "rank": 1,
+        "best": 1,
+        "worst": 1,
+        "score": 1,
+        "tied": true
+      },
+      {
+        "iata": "GSV",
+        "rank": 2,
+        "best": 1,
+        "worst": 1,
+        "score": 1,
+        "tied": true
+      },
+      {
+        "iata": "KZN",
+        "rank": 3,
+        "best": 1,
+        "worst": 15,
+        "score": 0.5,
+        "tied": true
+      },
+      {
+        "iata": "OMS",
+        "rank": 4,
+        "best": 1,
+        "worst": 15,
+        "score": 0.5,
+        "tied": true
+      },
+      {
+        "iata": "MRV",
+        "rank": 5,
+        "best": 1,
+        "worst": 15,
+        "score": 0.5,
+        "tied": true
+      }
+    ],
+    "common_neutral": [
+      {
+        "stress": "common_neutral",
+        "min_dist_km": 500,
+        "mode": "expansion_allowed",
+        "profile": "balanced",
+        "n": 15,
+        "top3": "OMS / REN / BAX",
+        "top3_cities": "Омск / Оренбург / Барнаул",
+        "third_fourth_gap": 0.0007211482467386,
+        "score1": 0.6089141347151431,
+        "score2": 0.5508560277945392,
+        "score3": 0.5269528227041733
+      },
+      {
+        "stress": "common_neutral",
+        "min_dist_km": 500,
+        "mode": "expansion_allowed",
+        "profile": "local_market",
+        "n": 15,
+        "top3": "KUF / OMS / KJA",
+        "top3_cities": "Самара / Омск / Красноярск",
+        "third_fourth_gap": 0.0155211226110353,
+        "score1": 0.5602368547050358,
+        "score2": 0.54532018980716,
+        "score3": 0.513857407878791
+      },
+      {
+        "stress": "common_neutral",
+        "min_dist_km": 500,
+        "mode": "expansion_allowed",
+        "profile": "connectivity",
+        "n": 15,
+        "top3": "OMS / REN / KUF",
+        "top3_cities": "Омск / Оренбург / Самара",
+        "third_fourth_gap": 0.0180209296242683,
+        "score1": 0.6538102319940241,
+        "score2": 0.6237535795614813,
+        "score3": 0.5457057563125944
+      },
+      {
+        "stress": "common_neutral",
+        "min_dist_km": 500,
+        "mode": "expansion_allowed",
+        "profile": "resilience",
+        "n": 15,
+        "top3": "OMS / MRV / BAX",
+        "top3_cities": "Омск / Минеральные Воды / Барнаул",
+        "third_fourth_gap": 0.0048627631507569,
+        "score1": 0.6335295247684737,
+        "score2": 0.5878482120814598,
+        "score3": 0.5838165006713276
+      },
+      {
+        "stress": "common_neutral",
+        "min_dist_km": 500,
+        "mode": "expansion_allowed",
+        "profile": "evidence_neutral",
+        "n": 15,
+        "top3": "OMS / REN / KUF",
+        "top3_cities": "Омск / Оренбург / Самара",
+        "third_fourth_gap": 0.0453018565083831,
+        "score1": 0.6281983148675886,
+        "score2": 0.5570899584475955,
+        "score3": 0.5543642893982126
+      }
+    ],
+    "source_unchanged": true,
+    "attribution_replayed_in_memory": true,
+    "attribution_top3": [
+      {
+        "step": "0_baseline",
+        "rank": 1,
+        "iata": "OMS",
+        "score": 0.5637893886563405
+      },
+      {
+        "step": "0_baseline",
+        "rank": 2,
+        "iata": "REN",
+        "score": 0.5255696419310424
+      },
+      {
+        "step": "0_baseline",
+        "rank": 3,
+        "iata": "KUF",
+        "score": 0.5230396088551296
+      },
+      {
+        "step": "1_data_unknown_central",
+        "rank": 1,
+        "iata": "OMS",
+        "score": 0.5799673287173284
+      },
+      {
+        "step": "1_data_unknown_central",
+        "rank": 2,
+        "iata": "REN",
+        "score": 0.5204907658960104
+      },
+      {
+        "step": "1_data_unknown_central",
+        "rank": 3,
+        "iata": "VOG",
+        "score": 0.49511752760202216
+      },
+      {
+        "step": "2_fixed_scales",
+        "rank": 1,
+        "iata": "OMS",
+        "score": 0.5700547088612157
+      },
+      {
+        "step": "2_fixed_scales",
+        "rank": 2,
+        "iata": "REN",
+        "score": 0.5083152515701566
+      },
+      {
+        "step": "2_fixed_scales",
+        "rank": 3,
+        "iata": "KHV",
+        "score": 0.49446607741586557
+      },
+      {
+        "step": "3_proposed_weights",
+        "rank": 1,
+        "iata": "OMS",
+        "score": 0.6489141347151431
+      },
+      {
+        "step": "3_proposed_weights",
+        "rank": 2,
+        "iata": "REN",
+        "score": 0.5508560277945392
+      },
+      {
+        "step": "3_proposed_weights",
+        "rank": 3,
+        "iata": "BAX",
+        "score": 0.5269528227041733
+      },
+      {
+        "step": "4_strict_new_eligibility",
+        "rank": 1,
+        "iata": "OMS",
+        "score": 0.6489141347151431
+      },
+      {
+        "step": "4_strict_new_eligibility",
+        "rank": 2,
+        "iata": "REN",
+        "score": 0.5508560277945392
+      },
+      {
+        "step": "4_strict_new_eligibility",
+        "rank": 3,
+        "iata": "BAX",
+        "score": 0.5269528227041733
+      }
+    ],
+    "unknown_display_defect": [
+      {
+        "iata": "OMS",
+        "status": "UNKNOWN",
+        "display": "нет"
+      },
+      {
+        "iata": "REN",
+        "status": "UNKNOWN",
+        "display": "нет"
+      },
+      {
+        "iata": "BAX",
+        "status": "UNKNOWN",
+        "display": "нет"
+      },
+      {
+        "iata": "KUF",
+        "status": "UNKNOWN",
+        "display": "нет"
+      }
+    ]
+  },
+  "round1": [
+    {
+      "id": "R1",
+      "status": "частично",
+      "reason": "18 слабых ячеек корректно получили null/нейтральный центр/диапазон; evidence и utility разделены. Остался вывод «нет» в краткой ячейке (A1)."
+    },
+    {
+      "id": "R2",
+      "status": "закрыто в пределах скрининга",
+      "reason": "Симметричный strict_new исключает KUF/KZN/AER/MCX; остальные UNKNOWN условны. ТО OMS ограничено публикацией 03.12.2024; договор-2026 не утверждается."
+    },
+    {
+      "id": "R3",
+      "status": "частично",
+      "reason": "Transfer — INDIRECT proxy, полный utility [0,1]; OD и парных сценариев нет, что прямо раскрыто. Продажи и прибыль не вычислены."
+    },
+    {
+      "id": "R4",
+      "status": "частично",
+      "reason": "Якоря фиксированы до фильтра, расстояние вес0; примеры clipping/constant/missing пройдены. ZIA+SVX и эксплуатационная пригодность не проверены; A2 ограничивает ties."
+    },
+    {
+      "id": "R5",
+      "status": "частично",
+      "reason": "Основные дни введения/снятия сохранены; intro-only возвращает KUF третьим. Часы, длительности и потери волн неизвестны."
+    },
+    {
+      "id": "R6",
+      "status": "частично",
+      "reason": "Sentinel и знаменатели исправлены, fixtures исполнены. Raw отсутствует: погода всех городов UNKNOWN с [0,1], не хорошая погода; фактический погодный риск не восстановлен."
+    }
+  ],
+  "residual_findings": [
+    {
+      "id": "A1",
+      "severity": "P2",
+      "path": "src/dashboard_template.html:336; outputs/redwings_panel.html; data/processed/criteria.json",
+      "title": "UNKNOWN отображается как «нет»",
+      "evidence": "Реальная cell() возвращает «нет» для competitor_hub OMS/REN/BAX/KUF: v=null, status=UNKNOWN, u=.5, bounds=[0,1], но сохранён t=\"нет\".",
+      "top3_impact": "Баллы и состав не меняются; краткая таблица ошибочно выглядит доказательством отсутствия конкурента у лидеров. Панель нельзя предъявлять как самостоятельную таблицу подтверждённых фактов."
+    },
+    {
+      "id": "A2",
+      "severity": "P2",
+      "path": "scripts/finalize_stage1_audit.py:55; src/dashboard_template.html:312; src/longlist_score.py:90",
+      "title": "Границы места не согласованы со стабильным разрешением точных равенств",
+      "evidence": "При единственном положительном весе h24 KUF и GSV имеют score=1; GSV rank=2, но rank_best=rank_worst=1. Python и реальный JS воспроизводят дефект. Строгое > игнорирует порядок при равенстве.",
+      "top3_impact": "В опубликованных 140 конфигурациях основной порядок подтверждён; дефект ограничивает произвольные пользовательские веса и интерпретацию диапазонов места при ties. Нельзя заявлять полное покрытие rank-ties тестами."
+    },
+    {
+      "id": "A3",
+      "severity": "P2",
+      "path": "context/22_stage1_audit/brief.md:32; context/22_stage1_audit/summary.html; context/22_stage1_audit/final_comparison.csv",
+      "title": "Common-neutral по альтернативам недостаточно раскрыт в кратком изложении",
+      "evidence": "Числа сохранены верно. При 500/expansion_allowed/common_neutral/local_market лидирует KUF .560236855, OMS .545320190; resilience меняет тройку на OMS/MRV/BAX. Brief и summary выделяют сохранение balanced, не показывая эти изменения рядом.",
+      "top3_impact": "Основной balanced не опровергнут. Запрещено обобщать лидерство OMS на все профили и документальные допущения. Для команды использовать таблицу ниже."
+    },
+    {
+      "id": "A4",
+      "severity": "P1_SCOPE_LIMITATION",
+      "path": "context/22_stage1_audit/brief.md:46; context/22_stage1_audit/accepted_research.csv; src/stage1_audit_rules.py",
+      "title": "Рынок, эксплуатация и текущая новизна остаются условными",
+      "evidence": "Нет OD/захвата/парных сценариев transfer, локальных погодных gz и почасового покрытия, длительностей Ковра/стыковочных волн, подтверждения договоров ТО-2026 и текущей физической базы для всех кандидатов. Интервалы — только закодированные сценарии.",
+      "top3_impact": "Не блокирует условный скрининг; блокирует вывод о готовом новом прибыльном хабе и гарантированном топ-3. OMS/REN/BAX/KUF имеют диапазоны мест 1–15."
+    },
+    {
+      "id": "A5",
+      "severity": "P2_SCOPE_LIMITATION",
+      "path": "context/22_stage1_audit/brief.md:4; context/22_stage1_audit/brief.md:50; context/22_stage1_audit/methodology.md:95",
+      "title": "География и веса остаются нормативными допущениями",
+      "evidence": "500 км сохранён для исторических SVO/DME/VKO/SVX; ZIA+SVX чувствительность прямо не выполнена. Вес расстояния 0, суммы профилей 100; коррелированные gap/transfer/population не стали независимыми измерениями спроса.",
+      "top3_impact": "Результат применим только к указанному фильтру, шкалам и предложенным весам. Без500 CEK/UFA/OMS; это не отменяет основной режим и не решение команды."
+    }
+  ],
+  "full_mutating_runner_executed": false,
+  "read_only_reproduction": "PYTHONDONTWRITEBYTECODE=1 /home/mputi/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 -B context/22_stage1_audit/acceptance/check.py",
+  "allowed": [
+    "Условный топ-3 OMS/REN/BAX при 500/expansion_allowed/balanced с разрывом BAX–KUF .000721148",
+    "Strict_new сохраняет тройку, исключая подтверждённые опоры симметрично",
+    "Без500 CEK/UFA/OMS; intro-only при500/expansion_allowed возвращает KUF третьим",
+    "Предложенные веса, сценарные границы и ограничения данных"
+  ],
+  "not_allowed": [
+    "Устойчивый или доказанно оптимальный топ-3 и лидер OMS при всех допущениях",
+    "Отсутствие конкурентов по ячейке «нет»; все кандидаты доказанно новые",
+    "ТО OMS гарантированно доступно в2026; REN ровно951100",
+    "Вероятности успеха, продажи, прибыль, готовность волн",
+    "Полная реальная неопределённость, ZIA+SVX, шаги2–4 и Excel якобы проверены"
+  ]
+}

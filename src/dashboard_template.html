@@ -179,8 +179,8 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 <div class="wrap">
   <header class="hero">
     <div>
-      <h1>Где ставить новый хаб</h1>
-      <p class="lede">Двадцать городов-кандидатов, их данные и веса критериев. Двигайте веса на пульте, нажимайте город на табло или на карте.</p>
+      <h1>Скрининг проекта хаба</h1>
+      <p class="lede">Предложение методики, не решение команды и не рейтинг прибыли. Основной режим: 500 км, развитие опоры допустимо. Шаги 2–4 сохранены и этим аудитом не проверены.</p>
     </div>
     <div class="hero-meta" id="meta"></div>
   </header>
@@ -195,9 +195,9 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </section>
 
     <aside class="panel" aria-labelledby="w-title">
-      <div><h2 id="w-title" style="font-size:20px">Пульт весов</h2><div class="hint">Черновик команды. Проценты пересчитываются в сумму 100.</div></div>
-      <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Хаб рядом со своей базой почти ничего не добавляет к сети.</small></div>
-      <div id="wlist" style="display:grid;gap:12px"></div>
+      <div><h2 id="w-title" style="font-size:20px">Пульт весов</h2><div class="hint">Предложенные веса, сумма 100. Фиксированные шкалы 20 городов до фильтра.</div></div>
+      <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Командное правило предварительного отсечения; эффект перекрытия сети не оценён.</small></div>
+      <label>Профиль <select id="audit-profile"></select></label><label>Допуск <select id="audit-mode"><option value="expansion_allowed">Развитие опоры допустимо</option><option value="strict_new">Строго новый, условный</option></select></label><label>Диагностика <select id="audit-stress"><option value="base">Основная</option><option value="common_neutral">Общая нейтральность документов</option><option value="intro_only">Только публикации введения</option><option value="ren_lower">REN: нижняя граница 951000</option><option value="ren_extreme">REN: крайний верх шкалы</option><option value="transfer_low">Transfer proxy: низ шкалы</option><option value="transfer_high">Transfer proxy: верх шкалы</option></select></label><div id="wlist" style="display:grid;gap:12px"></div>
       <div class="stab" id="stab"></div>
       <button class="btn" id="reset" type="button">Вернуть веса по умолчанию</button>
     </aside>
@@ -250,7 +250,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </section>
 
   <section class="card" aria-labelledby="k-title">
-    <div class="sec-h"><h2 id="k-title" style="font-size:20px">«Ковёр» по месяцам</h2><span class="hint" id="k-sub"></span></div>
+    <div class="sec-h"><h2 id="k-title" style="font-size:20px">Дни публикаций об ограничениях по месяцам</h2><span class="hint" id="k-sub"></span></div>
     <div class="tscroll"><table class="kov" id="kov"></table></div>
   </section>
 
@@ -272,6 +272,7 @@ const mln=v=> v==null ? '—' : (v>=1e6 ? ru(v/1e6, v>=1e7?1:2)+' млн' : ru(v
 const dayW=n=>{ const a=Math.abs(n)%100,b=a%10; return a>10&&a<20?'дней':b===1?'день':b>=2&&b<=4?'дня':'дней'; };
 const CR=D.criteria;
 const DEFAULT_W=Object.fromEntries(CR.map(w=>[w.key,w.weight]));
+let MODE='expansion_allowed', STRESS='base', PROFILE='balanced';
 let W={...DEFAULT_W}, MIN=500, SEL=null, SORT={key:'score',dir:-1}, DTAB='all', ITAB='all', R;
 const BY=Object.fromEntries(D.cities.map(c=>[c.iata,c]));
 const h=(tag,props={},...kids)=>{ const e=document.createElement(tag); for(const k in props){ if(k==='class') e.className=props[k]; else if(k==='style') e.style.cssText=props[k]; else e.setAttribute(k,props[k]); } kids.flat().forEach(x=>{ if(x==null||x==='') return; e.append(x instanceof Node?x:String(x)); }); return e; };
@@ -280,24 +281,39 @@ const PLANE='M98 50 94 46 86 45 60 45 36 14 27 14 40 45 18 45 10 34 4 34 9 50 4 
 function heat(z,dark){ const c=z<.5? d3i('#E32A2F','#F5B841',z*2) : d3i('#F5B841','#3FA772',(z-.5)*2); return dark?`rgba(${c},.30)`:`rgba(${c},.22)`; }
 function d3i(a,b,t){ const p=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)); const A=p(a),B=p(b); return A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(','); }
 
-function raw(c,w){ const x=(D.values[c.iata]||{})[w.key]; const v=x?x.v:null; return v==null&&w.fill!=null?w.fill:v; }
-function normalize(set){ const z=set.map(()=>({})); for(const w of CR){ const xs=set.map(c=>raw(c,w)), ok=xs.filter(v=>v!=null), lo=w.lo!=null?w.lo:Math.min(...ok), hi=w.hi!=null?w.hi:Math.max(...ok), sp=hi-lo; set.forEach((c,i)=>{ if(xs[i]==null){ z[i][w.key]=0.5; return; } const v=sp?(xs[i]-lo)/sp:0; z[i][w.key]=w.dir==='-'?1-v:v; }); } return z; }
-function scoreAll(z,ws){ const t=Object.values(ws).reduce((a,b)=>a+b,0)||1; return z.map(r=>CR.reduce((s,w)=>s+r[w.key]*ws[w.key],0)/t); }
+function utilityCell(c,w){
+  const x=(D.values[c.iata]||{})[w.key]||{}, ok=D.stage1;
+  const all=D.cities.map(c=>(D.values[c.iata]||{})[w.key]?.v).filter(v=>v!=null);
+  const lo=w.lo!=null?w.lo:Math.min(...all), hi=w.hi!=null?w.hi:Math.max(...all);
+  const norm=v=>{if(v==null||w.constant||!(hi>lo))return .5;const z=Math.max(0,Math.min(1,(v-lo)/(hi-lo)));return w.dir==='-'?1-z:z;};
+  let u=x.u!=null?x.u:norm(x.v), a=x.u_low!=null?x.u_low:(x.v==null?0:u), b=x.u_high!=null?x.u_high:(x.v==null?1:u);
+  if(ok&&STRESS==='common_neutral'&&['competitor_hub','ssj_mro','transfer_zone'].includes(w.key))u=a=b=.5;
+  if(ok&&STRESS==='intro_only'&&w.key==='last365_days')u=a=b=norm(D.stage1.intro_only[c.iata]);
+  if(ok&&c.iata==='REN'&&w.key==='pax_2025'&&STRESS==='ren_lower')u=norm(951000);
+  if(ok&&c.iata==='REN'&&w.key==='pax_2025'&&STRESS==='ren_extreme'){u=b=1;}
+  if(ok&&w.key==='transfer_demand_base'&&STRESS==='transfer_low')u=0;
+  if(ok&&w.key==='transfer_demand_base'&&STRESS==='transfer_high')u=1;
+  return {u,a,b,unknown:x.unknown!=null?x.unknown:x.v==null,indirect:!!x.indirect};
+}
+function normalize(set){return set.map(c=>Object.fromEntries(CR.map(w=>[w.key,utilityCell(c,w).u])));}
+function scoreAll(z,ws){ const t=CR.reduce((s,w)=>s+ws[w.key],0); if(!(t>0)||CR.some(w=>!Number.isFinite(ws[w.key])||ws[w.key]<0)) throw new Error('Нужны неотрицательные веса с положительной суммой'); return z.map(r=>CR.reduce((s,w)=>s+r[w.key]*ws[w.key],0)/t); }
 function top3(s){ return s.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]).slice(0,3).map(x=>x[1]); }
 function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function compute(){
-  const set=D.cities.filter(c=>Math.min(c.dist_msk_km,c.dist_ekb_km)>=MIN), out=D.cities.filter(c=>!set.includes(c));
+  const set=D.cities.filter(c=>Math.min(c.dist_msk_km,c.dist_ekb_km)>=MIN&&!(MODE==='strict_new'&&(D.stage1?.strict_excluded||[]).includes(c.iata))), out=D.cities.filter(c=>!set.includes(c));
   const z=normalize(set), s=scoreAll(z,W), base=top3(s).slice().sort().join();
   const hits=new Array(set.length).fill(0), r=rng(42), N=2000;
   for(let k=0;k<N;k++){ const ww={}; for(const w of CR) ww[w.key]=W[w.key]*(0.5+r()); top3(scoreAll(z,ww)).forEach(i=>hits[i]++); }
   let same=0,total=0; for(const w of CR) if(W[w.key]>0) for(const f of [0.5,1.5]){ const ww={...W}; ww[w.key]*=f; total++; if(top3(scoreAll(z,ww)).sort().join()===base) same++; }
-  // диапазон из-за пропусков: неизвестное значение города — худшее (0) или лучшее (1); как в src/longlist_score.py
-  const miss=set.map(c=>Object.fromEntries(CR.map(w=>{ const x=(D.values[c.iata]||{})[w.key]; return [w.key,!x||x.v==null]; })));
-  const zl=z.map((q,i)=>Object.fromEntries(CR.map(w=>[w.key,miss[i][w.key]?0:q[w.key]]))), zh=z.map((q,i)=>Object.fromEntries(CR.map(w=>[w.key,miss[i][w.key]?1:q[w.key]])));
+  const cells=set.map(c=>Object.fromEntries(CR.map(w=>[w.key,utilityCell(c,w)])));
+  const zl=cells.map(q=>Object.fromEntries(CR.map(w=>[w.key,q[w.key].a]))), zh=cells.map(q=>Object.fromEntries(CR.map(w=>[w.key,q[w.key].b])));
   const sl=scoreAll(zl,W), sh=scoreAll(zh,W), tw=Object.values(W).reduce((a,b)=>a+b,0)||1;
   const rows=set.map((c,i)=>({c,score:s[i],z:z[i],share:hits[i]/N,lo:sl[i],hi:sh[i],
     best:1+sl.filter((v,j)=>j!==i&&v>sh[i]).length, worst:1+sh.filter((v,j)=>j!==i&&v>sl[i]).length,
-    unk:CR.reduce((a,w)=>a+(miss[i][w.key]?W[w.key]:0),0)/tw})).sort((a,b)=>b.score-a.score); rows.forEach((x,i)=>x.rank=i+1);
+    tied:sh.some((v,j)=>j!==i&&v===sl[i])||sl.some((v,j)=>j!==i&&v===sh[i]),
+    unk:CR.reduce((a,w)=>a+(cells[i][w.key].unknown?W[w.key]:0),0)/tw,
+    indirect:CR.reduce((a,w)=>a+(cells[i][w.key].indirect?W[w.key]:0),0)/tw,
+    uncertain:CR.reduce((a,w)=>a+(cells[i][w.key].b>cells[i][w.key].a?W[w.key]:0),0)/tw})).sort((a,b)=>b.score-a.score); rows.forEach((x,i)=>x.rank=i+1);
   return {rows,out,same,total,byIata:Object.fromEntries(rows.map(x=>[x.c.iata,x]))};
 }
 
@@ -306,31 +322,33 @@ function meta(){
   const m=Object.values(D.manifest), ok=m.filter(x=>x.status==='ok'||x.status==='manual').length;
   const el=document.getElementById('meta');
   el.append(h('div',{},'Сборка ',h('b',{},D.meta.built)), h('div',{},'Источников в норме ',h('b',{},`${ok} из ${m.length}`),' · ',h('a',{href:'#sources'},'табло данных')), h('div',{},'Постов Росавиации ',h('b',{},ru(D.meta.posts))));
-  document.getElementById('foot').append('Обновить всё одной командой: ',h('code',{},'py -3.13 src/update.py'),'. Она скачает новое, проверит, пересчитает и соберёт эту страницу заново. Как устроено — docs/HANDOFF.md.');
+  document.getElementById('foot').append('Аудит шага 1: context/22_stage1_audit/brief.md. Воспроизведение: python scripts/finalize_stage1_audit.py. Шаги 2–4 и экономика этим аудитом не проверены.');
 }
 
-function fmtv(v,f,short){ if(v==null) return 'нет данных';
+function fmtv(v,f,short,key){ if(v==null) return 'нет данных';
+  if(key==='ssj_mro') return v>=1?'подтверждено':v>0?'косвенно':'нет';
   if(f==='mln') return v>=1e6?ru(v/1e6,short?1:2)+' млн':ru(v/1e3,0)+' тыс.';
   if(f==='days') return short?v+' дн.':`${v} ${dayW(v)}`;
   if(f==='km') return ru(v)+' км'; if(f==='pct') return ru(v,1)+'%'; if(f==='int') return ru(v);
   if(f==='yesno') return v>=1?'да':v>0?'не проверено':'нет'; if(f==='level') return v>=2?'по парку Red Wings':v>=1?'есть':'нет';
   return ru(v,2); }
-function cell(iata,w,short){ const x=(D.values[iata]||{})[w.key]||{}; let t=x.v==null?(x.t||(w.fill!=null?'не проверено':'нет данных')):fmtv(x.v,w.fmt,short);
-  if(x.v!=null&&x.t==='≥') t+=' и больше'; else if(x.v!=null&&w.fmt==='yesno'&&x.t) t=x.t; return t; }
+function cell(iata,w,short){ const x=(D.values[iata]||{})[w.key]||{}; let t=x.v==null?(x.t||'UNKNOWN; центр 0,5'):fmtv(x.v,w.fmt,short,w.key);
+  if(x.v!=null&&x.t==='≈') t='≈ '+t; if(x.v!=null&&x.t==='≥') t+=' и больше'; else if(x.v!=null&&w.fmt==='yesno'&&x.t) t=x.t; return t; }
 const COLS=[
   {k:'rank',t:'№',v:x=>x.rank?String(x.rank).padStart(2,'0'):'—'},
   {k:'city',t:'Город',cls:'cn',v:x=>x.c.city},
   {k:'code',t:'Код',cls:'code',v:x=>x.c.iata},
   {k:'score',t:'Балл',s:x=>x.score,v:x=>x.score==null?'—':null},
   {k:'share',t:'В топ-3',r:1,s:x=>x.share,v:x=>x.share==null?'—':Math.round(x.share*100)+'%'},
-  {k:'rng',t:'Место при пропусках',r:1,s:x=>x.worst,v:x=>x.best==null?'—':(x.best===x.worst?String(x.best):`${x.best}–${x.worst}`)},
-  {k:'unk',t:'Вес на пропусках',r:1,s:x=>x.unk,v:x=>x.unk==null?'—':Math.round(x.unk*100)+'%'},
+  {k:'rng',t:'Место: сценарные границы',r:1,s:x=>x.worst,v:x=>x.best==null?'—':(x.best===x.worst?String(x.best):`${x.best}–${x.worst}`)},
+  {k:'unk',t:'Вес UNKNOWN',r:1,s:x=>x.unk,v:x=>x.unk==null?'—':Math.round(x.unk*100)+'%'},
+  {k:'indirect',t:'Вес косвенных',r:1,v:x=>x.indirect==null?'—':Math.round(x.indirect*100)+'%'},
   ...CR.filter(w=>w.board).map(w=>({k:w.key,t:w.short,r:1,z:w.key,s:x=>{ const v=((D.values[x.c.iata]||{})[w.key]||{}).v; return v==null?-Infinity:v; },v:x=>cell(x.c.iata,w,true)})),
   {k:'st',t:'Статус',v:null},
 ];
 function board(){
   const t=document.getElementById('dep'), th=t.tHead, tb=t.tBodies[0]; th.textContent=''; tb.textContent='';
-  document.getElementById('b-sub').textContent=(MIN?`Без городов ближе ${MIN} км к базам · вне фильтра ${R.out.length}`:'Все 20 городов')+` · тройка держится в ${R.same} из ${R.total} проверок весов`;
+  document.getElementById('b-sub').textContent=(MIN?`Основной фильтр ${MIN} км · исключено ${R.out.length}`:'Без 500 км — чувствительность')+` · ${MODE} · ${STRESS}`+` · тройка держится в ${R.same} из ${R.total} проверок весов`;
   const tr=h('tr'); COLS.forEach(c=>{ const cell=h('th',{class:(c.r?'r ':'')+(c.s?'s':''),scope:'col'},c.t+(SORT.key===c.k?(SORT.dir<0?' ↓':' ↑'):'')); if(c.s) cell.addEventListener('click',()=>{ SORT={key:c.k,dir:SORT.key===c.k?-SORT.dir:-1}; board(); }); tr.append(cell); }); th.append(tr);
   const col=COLS.find(c=>c.k===SORT.key)||COLS[3], maxS=R.rows[0].score;
   const rows=R.rows.slice().sort((a,b)=>SORT.dir*((col.s?col.s(a):a.rank)-(col.s?col.s(b):b.rank)));
@@ -342,7 +360,7 @@ function board(){
     for(const c of COLS){
       let td;
       if(c.k==='score'){ td=h('td'); if(x.score==null) td.append('—'); else { const i=h('i',{style:`width:${x.score/maxS*100}%`}); td.append(h('div',{class:'sc'},h('span',{style:'min-width:34px'},ru(x.score*100,1)),h('div',{class:'sbar'},i))); } }
-      else if(c.k==='st'){ const top=x.rank&&x.rank<=3; td=h('td',{},x.score==null?h('span',{class:'st off'},'ВНЕ ФИЛЬТРА'):h('span',{class:'st '+(top?'go':'wait')},top?h('i',{class:'dot'}):'',top?'ПОСАДКА':'ОЖИДАНИЕ')); }
+      else if(c.k==='st'){ const top=x.rank&&x.rank<=3; td=h('td',{},x.score==null?h('span',{class:'st off'},(MODE==='strict_new'&&(D.stage1?.strict_excluded||[]).includes(x.c.iata))?'ОПОРА RW 27.10.26':'< '+MIN+' КМ'):h('span',{class:'st '+(top?'go':'wait')},top?h('i',{class:'dot'}):'',top?'УСЛОВНЫЙ ТОП':'УСЛОВНО')); }
       else { td=h('td',{class:(c.cls||'')+(c.r?' r':'')+(c.z?' h':'')},c.v(x)); if(c.z&&x.z) td.style.background=heat(x.z[c.z],true); }
       r.append(td);
     }
@@ -352,18 +370,23 @@ function board(){
 
 function weights(){
   const seg=document.getElementById('mindist'); seg.textContent='';
-  [0,300,500,800].forEach(v=>{ const b=h('button',{type:'button','aria-pressed':String(v===MIN),id:'md-'+v},v?v+' км':'нет'); b.addEventListener('click',()=>{ MIN=v; weights(); update(); }); seg.append(b); });
+  [500,0].forEach(v=>{ const b=h('button',{type:'button','aria-pressed':String(v===MIN),id:'md-'+v},v?v+' км':'нет'); b.addEventListener('click',()=>{ MIN=v; weights(); update(); }); seg.append(b); });
+  const pp=document.getElementById('audit-profile');
+  if(!pp.options.length)for(const p of (D.stage1?.profiles||[])){const o=h('option',{value:p.id},p.label);pp.append(o);}
+  pp.onchange=()=>{PROFILE=pp.value;W={...D.stage1.profiles.find(p=>p.id===PROFILE).weights};update();};
+  document.getElementById('audit-mode').onchange=e=>{MODE=e.target.value;update();};
+  document.getElementById('audit-stress').onchange=e=>{STRESS=e.target.value;update();};
   const box=document.getElementById('wlist'); if(box.childElementCount) return;
   for(const w of CR){
     const inp=h('input',{type:'range',min:0,max:40,step:1,value:W[w.key],id:'w-'+w.key});
-    inp.addEventListener('input',()=>{ W[w.key]=+inp.value; update(); });
+    inp.addEventListener('input',()=>{ if(+inp.value===0&&CR.every(c=>c.key===w.key||W[c.key]===0)){ inp.value=W[w.key]; return; } W[w.key]=+inp.value; update(); });
     box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why+(w.origin!=='основной'?` · подключён из data/criteria/${w.origin}`:''))));
   }
 }
 function weightLabels(){
   const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ document.getElementById('wp-'+w.key).textContent=ru(W[w.key]/t*100)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
   const s=document.getElementById('stab'); s.textContent='';
-  s.append(h('div',{},'Топ-3: ',h('b',{},R.rows.slice(0,3).map(x=>x.c.city).join(', '))), h('div',{},'Один вес ×0,5 или ×1,5: тройка та же в ',h('b',{},`${R.same} из ${R.total}`)), h('div',{style:'color:var(--muted);font-size:12px'},'«В топ-3» на табло — доля из 2 000 случайных наборов весов.'));
+  s.append(h('div',{},'Топ-3: ',h('b',{},R.rows.slice(0,3).map(x=>x.c.city).join(', '))), h('div',{},'Один вес ×0,5 или ×1,5: тройка та же в ',h('b',{},`${R.same} из ${R.total}`)), h('div',{style:'color:var(--muted);font-size:12px'},'«В топ-3» — частота в 2 000 произвольных наборах весов, не вероятность. Границы включают модель/охват/UNKNOWN, не всю реальную неопределённость. Погода UNKNOWN без архивов; географические радиусы условны, не допуск рейса.'));
 }
 
 function ticket(){
@@ -375,7 +398,7 @@ function ticket(){
       h('div',{style:'margin-left:auto'},h('div',{class:'t-city'},c.city),h('div',{class:'t-lbl'},c.region+' · '+c.fd))));
   const facts=h('div',{class:'facts'});
   const F=(w)=>{ const x=(D.values[c.iata]||{})[w.key]||{}, z=X&&X.z?X.z[w.key]:null, miss=x.v==null&&w.fill==null;
-    const src=h('span',{}, w.fmt==='level'&&x.t?x.t+' · ':'', link(x.s)||'');
+    const src=h('span',{}, w.fmt==='level'&&x.t?x.t+' · ':'', link(x.s)||'', ' · '+(x.status||'UNKNOWN')+' · публикация: '+(x.source_date||'не указана')+' · период: '+(x.reference_period||'не указан')+' · '+(x.note||'')+(x.coverage?' · охват: '+JSON.stringify(x.coverage):''));
     facts.append(h('div',{class:'fact'},h('div',{class:'t-lbl'},w.label),h('span',{class:'chip',style:miss?'background:#ECEAE4;color:#5E6675':z==null?'padding-left:0':'background:'+heat(z)},cell(c.iata,w,false)),h('div',{class:'s'},src))); };
   CR.forEach(F);
   main.append(facts);
@@ -390,7 +413,7 @@ function ticket(){
   else stub.append(kv('Статус','вне фильтра'),kv('До базы',ru(Math.min(c.dist_msk_km,c.dist_ekb_km))+' км'));
   stub.append(kv('Долетит SSJ',`${ru(c.ssj_reach_airports)} аэропортов`),kv('Прямых рейсов сейчас',ru(c.direct_now)));
   const mx=Math.max(25,...c.kov_months), ms=D.meta.months;
-  stub.append(h('div',{},h('div',{class:'t-lbl'},'«Ковёр» по месяцам'),h('div',{class:'spark'},...c.kov_months.map((v,i)=>{ const b=h('i',{title:`${ms[i]}: ${v} ${dayW(v)}`}); b.style.height=(v/mx*100)+'%'; return b; })),h('div',{class:'spark-l'},h('span',{},ms[0].slice(5)+'.'+ms[0].slice(2,4)),h('span',{},ms[ms.length-1].slice(5)+'.'+ms[ms.length-1].slice(2,4)))));
+  stub.append(h('div',{},h('div',{class:'t-lbl'},'Дни публикаций об ограничениях по месяцам'),h('div',{class:'spark'},...c.kov_months.map((v,i)=>{ const b=h('i',{title:`${ms[i]}: ${v} ${dayW(v)}`}); b.style.height=(v/mx*100)+'%'; return b; })),h('div',{class:'spark-l'},h('span',{},ms[0].slice(5)+'.'+ms[0].slice(2,4)),h('span',{},ms[ms.length-1].slice(5)+'.'+ms[ms.length-1].slice(2,4)))));
   stub.append(h('div',{class:'barcode','aria-hidden':'true'}));
   el.append(main,stub);
 }
@@ -570,7 +593,7 @@ function update(){
   R=compute(); if(!SEL) SEL=R.rows[0].c.iata;
   board(); weightLabels(); ticket(); destBoard(); if(window.d3) mapUpdate();
 }
-document.getElementById('reset').addEventListener('click',()=>{ W={...DEFAULT_W}; MIN=500; weights(); update(); });
+document.getElementById('reset').addEventListener('click',()=>{ W={...DEFAULT_W};PROFILE='balanced';document.getElementById('audit-profile').value=PROFILE; MIN=500; weights(); update(); });
 meta(); weights(); kov(); sources(); vsBoard(); netInit(); netUpdate();
 let rz; window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(!window.d3) return; d3.select('#netmap').selectAll('*').remove(); NK=1; netInit(); netUpdate(); d3.select('#map').selectAll('*').remove(); K=1; mapInit(); mapUpdate(); },200); });
 if(window.d3) mapInit(); else document.getElementById('mapbox').prepend(h('div',{style:'padding:16px;color:var(--muted)'},'Карта не загрузилась: нет доступа к библиотеке d3.'));
