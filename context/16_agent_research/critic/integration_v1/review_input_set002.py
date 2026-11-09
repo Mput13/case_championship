@@ -153,6 +153,8 @@ def main():
         equal('PRIMARY_CLOCKS', [rule['departure_local_time'], rule['arrival_local_time']], times, rule['rule_id'])
         equal('PRIMARY_WEEKDAY', rule['weekdays_iso'], str(weekday), rule['rule_id'])
         equal('PRIMARY_FLIGHT', rule['flight_number'], re.search(r'[АA]4601[34]', block)[0].replace('А', 'A'))
+        labelled_direction = 'Направление ' + rule['departure_local_time'] + ' ' + rule['origin_name_source'] + ' ' + rule['arrival_local_time'] + ' ' + rule['destination_name_source'] + ' Аэропорт прилета'
+        equal('PRIMARY_DIRECTION', labelled_direction in block, True, rule['rule_id'])
         source_cells.append(dict(rule_id=rule['rule_id'], published_dates=dates, published_times=times, weekday_iso=weekday))
     equal('PRIMARY_LOCAL_FOOTER', 'местное время аэропортов прилета/вылета' in data.decode(), True)
     expected_dates = set()
