@@ -1,0 +1,32 @@
+{
+  "attempts": [
+    {
+      "recorded_at_utc": "2026-11-09T13:14:30.174705+00:00",
+      "command": "git push -u origin research/case5-raw-alternative-20261109",
+      "intended_sha": "0fd05faaee208d59cd1b6f49683a9e7c7bb308af",
+      "exit_code": 1,
+      "error": "RPC failed; HTTP408 curl22; send-pack unexpected disconnect; remote hung up; Everything up-to-date",
+      "outcome": "REMOTE_BRANCH_ABSENT_CONFIRMED_BY_SUCCESSFUL_LS_REMOTE",
+      "no_service_restart": true
+    },
+    {
+      "recorded_at_utc": "2026-11-09T13:17:13.193466+00:00",
+      "command": "git -c http.version=HTTP/1.1 -c http.postBuffer=33554432 push -u origin research/case5-raw-alternative-20261109",
+      "intended_sha": "0fd05faaee208d59cd1b6f49683a9e7c7bb308af",
+      "status": "FAILED_HTTP408",
+      "scope": "Per-command transport settings; no persistent config changes; content-length buffering hypothesis, not proven root cause",
+      "exit_code": 1,
+      "completed_receipt_at_utc": "2026-11-09T13:24:08.144284+00:00",
+      "error": "RPC failed HTTP408 curl22; send-pack unexpected disconnect; remote hung up; Everything up-to-date",
+      "mitigation_result": "Per-command HTTP1.1 +32MiB buffer did not solve; exact cause UNKNOWN",
+      "outcome": "REMOTE_BRANCH_ABSENT_CONFIRMED_BY_SUCCESSFUL_LS_REMOTE"
+    }
+  ],
+  "safe_transport_fallback": {
+    "planned": "SSH over443 using existing ssh-agent key and existing github.com host key alias",
+    "options": "BatchMode=yes; StrictHostKeyChecking=yes; UpdateHostKeys=no; ConnectTimeout=10",
+    "persistent_remote_or_proxy_or_ssh_changes": false,
+    "no_agent_or_service_restart": true,
+    "reason": "Two completed HTTPS push attempts failed HTTP408; exact intermediary cause remains UNKNOWN"
+  }
+}

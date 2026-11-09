@@ -1,0 +1,57 @@
+{
+  "diagnostic_started_at_utc": "2026-11-09T13:14:36Z",
+  "error_at_utc": "UNKNOWN; reported by root before diagnostic start",
+  "task": "/root/git_push_diagnosis",
+  "environment_id": "UNKNOWN",
+  "branch": "research/case5-raw-alternative-20261109",
+  "head_checked": "0fd05faaee208d59cd1b6f49683a9e7c7bb308af",
+  "baseline": "9dbaee7ee53ee10ecb6db64d1cf634a7c0bceba7",
+  "git_version": "2.50.1 (Apple Git-155)",
+  "parent_reported_exit_code": 1,
+  "parent_reported_error": "error: RPC failed; HTTP 408 curl 22 The requested URL returned error: 408\nsend-pack: unexpected disconnect while reading sideband packet\nfatal: the remote end hung up unexpectedly\nEverything up-to-date",
+  "pack_estimate": {
+    "command": "git pack-objects --stdout --revs; stdin=head and ^baseline",
+    "new_objects": 571,
+    "blob_count": 517,
+    "blob_uncompressed_bytes": 45618930,
+    "pack_bytes": 13860564,
+    "pack_sha256": "61a3a6cc70b70bb4095b30e9f5ad9a3631a84f4ea38dd7b850eb327c3c9fa2a8",
+    "largest_blob_bytes": 6267983,
+    "largest_blob_path": "context/16_agent_research/alternative/modules/telegram_correction/normalized/comparison_original_corrected.csv",
+    "persistent_pack_written": false,
+    "limitation": "Local baseline estimate; actual upload negotiated against server haves may differ"
+  },
+  "transport_config_key_names_only": [
+    "credential.helper",
+    "remote.origin.url",
+    "remote.origin.fetch"
+  ],
+  "http_config_overrides_found": false,
+  "inference": "Remote/intermediary HTTP transport timeout; exact component/cause UNKNOWN",
+  "not_established": [
+    "credential failure",
+    "GitHub file-size rejection",
+    "object corruption",
+    "proxy chunked incompatibility"
+  ],
+  "suggested_one_time_test": "git -c http.version=HTTP/1.1 -c http.postBuffer=33554432 push -u origin research/case5-raw-alternative-20261109",
+  "test_prerequisite": "Root must inspect remote SHA before any retry; outcome remains unknown despite Everything up-to-date text",
+  "postbuffer_limit": "Only a test for chunked-encoding incompatibility; not a general push fix; increases client buffer memory",
+  "primary_documentation": {
+    "source": "https://raw.githubusercontent.com/git/git/v2.50.1/Documentation/config/http.adoc",
+    "access": "ACQUIRED_READ_ONLY",
+    "git_scm_url": "https://git-scm.com/docs/git-config",
+    "git_scm_access": "HTTP403"
+  },
+  "count_objects": {
+    "loose_object_count": 2127,
+    "loose_size_kib": 113556,
+    "packed_objects": 411,
+    "pack_count": 3,
+    "pack_size_kib": 2044,
+    "warning": "zero-size garbage refs directory in shared worktree metadata; not established as HTTP408 cause; no cleanup performed"
+  },
+  "mutations": "Only this diagnostic subfolder; no push/fetch/config/ref changes, no process restarts or kills, no traces with headers",
+  "remote_sha_check": "NOT_RUN_BY_DIAGNOSTIC_AGENT",
+  "push_outcome": "UNKNOWN_TO_DIAGNOSTIC_AGENT"
+}
