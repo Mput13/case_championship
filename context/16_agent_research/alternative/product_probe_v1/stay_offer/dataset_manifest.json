@@ -1,0 +1,121 @@
+{
+  "dataset_id": "C14_stay_offer_product_probe_v1",
+  "case": "C14 Kirov–Mineralnye Vody sanatorium product",
+  "search_date_utc": "2026-11-09",
+  "collection_first_utc": "2026-11-09T14:16:53Z",
+  "pinned_receipts": [
+    "20261109T141704Z.json",
+    "20261109T141915Z.json"
+  ],
+  "collection_last_utc": "2026-11-09T14:19:07Z",
+  "source_count": 11,
+  "offer_count": 2,
+  "stay_rule_count": 2,
+  "calendar_candidate_count": 42,
+  "grain": {
+    "public_offers.csv": "one selected provider tariff/programme/room/occupancy row with alternative solo rate",
+    "stay_rules.csv": "one provider rule set observed at collection time",
+    "stay_calendar_candidates.csv": "offer x hypothetical property checkin date x requested nights; no flight join"
+  },
+  "scope": {
+    "property_checkin_window": [
+      "2026-12-07",
+      "2026-12-13"
+    ],
+    "nights": [
+      7,
+      10,
+      14
+    ],
+    "checkout_deadline": "2026-12-27"
+  },
+  "acceptance": {
+    "public_primary_tariffs": "OBSERVED",
+    "checkin_checkout": "OBSERVED",
+    "minimum_stay": "UNKNOWN",
+    "date_inventory": "UNKNOWN",
+    "priced_available_itinerary": "UNKNOWN",
+    "medical_eligibility": "UNKNOWN",
+    "flight_and_transfer_join": "NOT_PERFORMED_HERE",
+    "realised_airline_revenue": "NOT_MEASURED"
+  },
+  "rights": {
+    "source_licence": "UNKNOWN",
+    "raw": "HELD_NOT_PUBLISHED; ignored; exact SHA in receipts",
+    "published_content": "factual structured extracts and source metadata only",
+    "individual_contacts": "not extracted"
+  },
+  "reproduction": [
+    "python3 build_dataset.py",
+    "python3 collect_sources.py verify"
+  ],
+  "fresh_collection": "python3 collect_sources.py collect; new receipt does not update the pinned dataset automatically",
+  "collection_dependencies": "Python standard library only; optional PDF QA used preinstalled Poppler",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "12b30f699904e82b041651230c957fcc6ef89829a3c64cc656e529b219605931",
+      "bytes": 23
+    },
+    {
+      "path": "build_dataset.py",
+      "sha256": "cc61fd371b48f397ea17b74d64534fc3db7400105ea916b53b2168b34facd514",
+      "bytes": 11862
+    },
+    {
+      "path": "collect_sources.py",
+      "sha256": "963d599bbd8efbbae2faf37a39f5bc6766eebdde97d40d92225ac537cba9af7b",
+      "bytes": 3854
+    },
+    {
+      "path": "findings.md",
+      "sha256": "6aa716c3f7a72bc1ce3ff2985967c221594ecaee5565cf366493a01525813c16",
+      "bytes": 7905
+    },
+    {
+      "path": "public_offers.csv",
+      "sha256": "129dff7daf09d5ff4265d9a4473aab2c1474dbe14639ae20c5c7c5035df3915c",
+      "bytes": 2111
+    },
+    {
+      "path": "receipts/20261109T141704Z.json",
+      "sha256": "3277284dbe492fd09cade74af6edac167c066ddfb4047f7e5c6d8ba3e539c060",
+      "bytes": 9723
+    },
+    {
+      "path": "receipts/20261109T141915Z.json",
+      "sha256": "278db37df751945c6591767bafec62f21c15312d3d134428073ebc98641de2fd",
+      "bytes": 3922
+    },
+    {
+      "path": "safe_factual_extracts.json",
+      "sha256": "9905b411dbd1d82787df46084942217c474240fa13b2951f7cc25119c4aa26a6",
+      "bytes": 1659
+    },
+    {
+      "path": "source_index.csv",
+      "sha256": "e8acfbcddca8af4434d921cde2dcf6a14d5846d66433074e6e068d0c08f837f0",
+      "bytes": 4130
+    },
+    {
+      "path": "sources.json",
+      "sha256": "743a7356f78a15f79658778f10cb31fb9f075685f114ed108ad0fc7dae9c6440",
+      "bytes": 3594
+    },
+    {
+      "path": "stay_calendar_candidates.csv",
+      "sha256": "9c88df2fd37e862d9fc65f5faf2cf061dc54a1506d47781680c3b4dc23a513de",
+      "bytes": 9796
+    },
+    {
+      "path": "stay_rules.csv",
+      "sha256": "7d368556bb41a56e1a3ff1e648936596f1a2778c67ae602381b88c6acaea30e5",
+      "bytes": 1146
+    },
+    {
+      "path": "tool_observations.json",
+      "sha256": "99ab5f63eabb8034d13b11ad0721509d694f9e8ee52afe2fe210ae550c8b503e",
+      "bytes": 940
+    }
+  ]
+}

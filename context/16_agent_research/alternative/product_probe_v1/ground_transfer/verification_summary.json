@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-11-09T14:30:41.921476+00:00",
+  "raw_bodies_verified": 45,
+  "source_receipts": 52,
+  "schedule_rows": 363,
+  "fare_rows": 363,
+  "exact_date_pages": 15,
+  "rules": 15,
+  "ground_alternatives": 16,
+  "curated_price_rows": 9,
+  "public_data_files_scanned": 61,
+  "checks": [
+    "every raw body hash/size matches receipt",
+    "public artifact hashes match manifest",
+    "only allowed response headers persisted",
+    "requested dates and station codes verified by derive_schedules",
+    "clock-duration arithmetic and day offsets verified by derive_schedules",
+    "schedule and tariff rows separated by observation_id",
+    "unknown IANA not filled by inference",
+    "primary long-distance rail remains UNKNOWN, secondary reference isolated",
+    "all advertised price inventory UNKNOWN",
+    "raw_hold gitignored"
+  ],
+  "not_tested": [
+    "train performed instances",
+    "seat inventory",
+    "taxi actual availability",
+    "night pickup confirmation",
+    "airport exit/wait",
+    "sanatorium checkin/room inventory",
+    "consumer purchase quotes",
+    "primary dated Kirov rail return itinerary"
+  ]
+}

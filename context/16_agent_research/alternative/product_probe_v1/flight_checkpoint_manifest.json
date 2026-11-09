@@ -1,0 +1,81 @@
+{
+  "schema_version": "c14-flight-checkpoint-v1",
+  "created_at_utc": "2026-11-09T14:31:36.167053+00:00",
+  "scope": "12 planned instances derived from6 official advertised rules for07–27Dec2026; no hotel/transfer compatibility acceptance yet",
+  "files": [
+    {
+      "path": "table_contract.json",
+      "sha256": "b406b0a611377426925dd0111a3fa7a388bf897c3cc0340143d780dff5a97741",
+      "size_bytes": 2181
+    },
+    {
+      "path": "reference/airport_keys.csv",
+      "sha256": "b1462de46f04ce9bcba80438bf04a5bfa9eb9df017e56c7401fa1181f93f7624",
+      "size_bytes": 674
+    },
+    {
+      "path": "normalized/flight_rules.csv",
+      "sha256": "07a504f45249dfa9924af34b5e6fbc05e396654b98c18bbef48844a2545ea3d5",
+      "size_bytes": 5468
+    },
+    {
+      "path": "normalized/flight_rule_cells.csv",
+      "sha256": "3552bed445c8edfbe695274ec7dfdeeb68dec5838043e8992909524c7b6ca179",
+      "size_bytes": 1296
+    },
+    {
+      "path": "normalized/dated_flights.csv",
+      "sha256": "e22ecf0e06a824a489323ba7b9a3220dd47f4272dfe4876015568fef59022852",
+      "size_bytes": 4663
+    },
+    {
+      "path": "normalized/flight_validation.json",
+      "sha256": "f02ee0af523005d58a5eaa4784e139a56adb3313ba5b575ca034265e0bd6a295",
+      "size_bytes": 1182
+    },
+    {
+      "path": "receipts/kvx_timetable_20261109.json",
+      "sha256": "de4f07728f16c44d97c35d7034fe7312df27634f110c251ee3d3aace35f67ef1",
+      "size_bytes": 1019
+    },
+    {
+      "path": "collectors/build_flights.py",
+      "sha256": "8c831c1d1534bd83925a0057125bb346626d9881ce530af689071b356bcb5af4",
+      "size_bytes": 8974
+    }
+  ],
+  "raw_sources": [
+    {
+      "snapshot_id": "kvx_timetable_20261109",
+      "source_url": "https://pobedilovo43.ru/passengers/timetable/",
+      "sha256": "e6d324e8a82f6f92ecb3966bac4a836c24fd40d61d28509017a8acbe75fe5a49",
+      "size_bytes": 338006,
+      "raw_publication": "LOCAL_HOLD",
+      "raw_path": "raw_hold/kvx_timetable_20261109.bin",
+      "reproduce_command": [
+        "python3",
+        "context/16_agent_research/alternative/product_probe_v1/collectors/fetch.py",
+        "--id",
+        "kvx_timetable_20261109_refresh",
+        "--url",
+        "https://pobedilovo43.ru/passengers/timetable/"
+      ]
+    }
+  ],
+  "core_reference": {
+    "branch_head": "c9d38bd833e0ffad1ed49acac95bcfac767b6db5",
+    "airport_version_sha256": "c3797c1f6caedbc20ba22819c18b1b191cc209cf3f58ceb249678a96dc26d95d",
+    "filtered_airports": [
+      "KVX",
+      "MRV"
+    ],
+    "timezone_note": "PublishedKVXEurope/Moscow vscuratedEurope/Kirov; +03 agrees; explicitmappingretained"
+  },
+  "holds": [
+    "ADVERTISED_SCHEDULE_NOT_PERFORMED",
+    "SOURCE_CONFLICT_MON_THU_VS_EARLIER_MON_FRI",
+    "STOP_PATTERN_UNKNOWN",
+    "INVENTORY_AND_FARE_UNKNOWN",
+    "HOTEL_BOOKED_DATES_AND_TRANSFER_PENDING"
+  ]
+}

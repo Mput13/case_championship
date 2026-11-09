@@ -1,0 +1,1690 @@
+{
+  "dataset_id": "C14_ground_transfer_product_probe_v1",
+  "built_utc": "2026-11-09T14:30:41.858379+00:00",
+  "scope": {
+    "outbound_window": "2026-12-07/2026-12-13",
+    "night_counts": [
+      7,
+      10,
+      14
+    ],
+    "return_cutoff": "2026-12-27",
+    "sampled_outbound_transfer_dates": [
+      "2026-12-07",
+      "2026-12-13"
+    ],
+    "sampled_return_transfer_dates": [
+      "2026-12-14",
+      "2026-12-18",
+      "2026-12-27"
+    ],
+    "date_limit": "No extrapolation to other dates; flights and sanatorium offers owned by root/peer"
+  },
+  "acceptance": {
+    "official_date_schedules": "PASS_363_ADVERTISED_ROWS_15_DATE_PAGES",
+    "performed_instances": "NOT_OBSERVED",
+    "inventory": "NOT_QUERIED",
+    "airport_bus_pdf": "NOT_ADMITTED_USABLE_RAW_UNAVAILABLE",
+    "dated_long_distance_rail": "UNKNOWN",
+    "consumer_fare_quotes": "UNKNOWN",
+    "realised_revenue": "UNKNOWN",
+    "night_arrival": "NIGHT_CAR_PRODUCTS_ADVERTISED; actual capacity/pickup/property checkin UNKNOWN"
+  },
+  "tables": {
+    "transfer_schedule.csv": "one advertised train x exact date x station pair; duration_minutes; no monetary data",
+    "transfer_fare_observations.csv": "displayed full tariff RUB/person/one-way on schedule page, not inventory quote",
+    "transfer_rules.csv": "reviewed route/property conditions; UNKNOWN explicit",
+    "ground_alternatives.csv": "sample date station-pair summaries and separately labelled secondary long-distance rail lead",
+    "curated_transfer_prices.csv": "advertised product tariff with source-specific units/validity, not price quote"
+  },
+  "http_receipt_policy": {
+    "persisted_header_allowlist": [
+      "content-type",
+      "content-length",
+      "last-modified",
+      "etag",
+      "date",
+      "cache-control"
+    ],
+    "cookies_auth_session_headers": "NOT_PERSISTED",
+    "raw_hold": "Ignored local only; unmodified body bytes; no public redistribution clearance assumed",
+    "transport": "Python stdlib urllib GET; TLS verification enabled; no auth; no browser; no purchase; no retries"
+  },
+  "sources": [
+    {
+      "source_id": "airport_home",
+      "url": "https://mvairport.ru/",
+      "started_utc": "2026-11-09T14:14:35.054437+00:00",
+      "acquisition": "Python stdlib urllib GET; no authentication; Accept-Encoding identity",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:14:40 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "status": 200,
+      "final_url": "https://mvairport.ru/",
+      "raw_path": "raw_hold/airport_home.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "completed_utc": "2026-11-09T14:14:41.064784+00:00",
+      "source_class": "PRIMARY",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "airport_rail",
+      "url": "https://mvairport.ru/transport/how/electro-train/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:17:21.099417+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:17:23 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://mvairport.ru/transport/how/electro-train/",
+      "raw_path": "raw_hold/airport_rail.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "completed_utc": "2026-11-09T14:17:23.410419+00:00",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "airport_route11",
+      "url": "https://mvairport.ru/transport/how/taxi/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:17:21.099107+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:17:23 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://mvairport.ru/transport/how/taxi/",
+      "raw_path": "raw_hold/airport_route11.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "completed_utc": "2026-11-09T14:17:23.393945+00:00",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "airport_route11_http",
+      "url": "http://mvairport.ru/upload/rasp11.pdf",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:41.594988+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:45 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://mvairport.ru/upload/rasp11.pdf",
+      "raw_path": "raw_hold/airport_route11_http.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "completed_utc": "2026-11-09T14:20:45.998226+00:00",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "airport_route11_pdf",
+      "url": "https://mvairport.ru/upload/rasp11.pdf",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:17:21.099529+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:17:23 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://mvairport.ru/upload/rasp11.pdf",
+      "raw_path": "raw_hold/airport_route11_pdf.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "completed_utc": "2026-11-09T14:17:23.373116+00:00",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "airport_route11_www",
+      "url": "https://www.mvairport.ru/transport/how/taxi/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:17:21.099629+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:17:23 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://www.mvairport.ru/transport/how/taxi/",
+      "raw_path": "raw_hold/airport_route11_www.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "completed_utc": "2026-11-09T14:17:23.418251+00:00",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "airport_sitemap",
+      "url": "https://mvairport.ru/sitemap/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:16:24.865465+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:16:26 GMT",
+        "content-length": "13602",
+        "cache-control": "no-cache",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://mvairport.ru/sitemap/",
+      "raw_path": "raw_hold/airport_sitemap.html",
+      "sha256": "d0db68a344d1ad23628a7baec8bdbdf58a763073717bd3cf01ebba3d3478e8ef",
+      "byte_length": 13602,
+      "completed_utc": "2026-11-09T14:16:26.396454+00:00",
+      "capture_interpretation": "HTTP200_JS_CHALLENGE_NOT_CONTENT",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "centrosouz_arrival_memo",
+      "url": "https://centrosouz.com/about/spravka-otdyhayushchim/pamyatka-otdyhayushchemu",
+      "source_class": "PRIMARY_PROPERTY",
+      "licence": "UNKNOWN; raw held; factual extracts only",
+      "started_utc": "2026-11-09T14:29:07.829938+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:29:12 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "last-modified": "Thu, 01 Jan 1970 00:00:00 GMT",
+        "cache-control": "max-age=31104000"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://centrosouz.com/about/spravka-otdyhayushchim/pamyatka-otdyhayushchemu",
+      "raw_path": "raw_hold/centrosouz_arrival_memo.html",
+      "sha256": "a1cc9e6a9f01b62bfdf0077df2ce87ea93c01da2056b6b3e643a62a5bca644e6",
+      "byte_length": 60280,
+      "completed_utc": "2026-11-09T14:29:12.557932+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "centrosouz_transfer",
+      "url": "https://centrosouz.com/services/transfer",
+      "source_class": "PRIMARY_PROPERTY",
+      "licence": "UNKNOWN; raw held; factual extracts only",
+      "started_utc": "2026-11-09T14:29:07.829596+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:29:13 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "last-modified": "Thu, 01 Jan 1970 00:00:00 GMT",
+        "cache-control": "max-age=31104000"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://centrosouz.com/services/transfer",
+      "raw_path": "raw_hold/centrosouz_transfer.html",
+      "sha256": "bb96dcf1806ef5ffb87703c7efab0d701d29f9ddecf79db2acd5f766e87b940a",
+      "byte_length": 51438,
+      "completed_utc": "2026-11-09T14:29:13.711609+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "essentuki_istok_directions",
+      "url": "https://www.istok-kmv.ru/about/how-to-get-there/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:04.561173+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:19:07 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://www.istok-kmv.ru/about/how-to-get-there/",
+      "raw_path": "raw_hold/essentuki_istok_directions.html",
+      "sha256": "1736fe812e66d9401255327f31fcb692e4049aa6f54a00973ed6a0cf3ea67a67",
+      "byte_length": 85921,
+      "completed_utc": "2026-11-09T14:19:07.540806+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "essentuki_rus_transfer",
+      "url": "https://ruskmv.ru/services/transfer/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:07.066884+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {},
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)>",
+      "completed_utc": "2026-11-09T14:19:09.066084+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "essentuki_shakhter_transfer",
+      "url": "https://essentuki.amaks-kurort.ru/services/transfer/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:07.026600+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:19:09 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "93250",
+        "cache-control": "no-store, no-cache, must-revalidate"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://essentuki.amaks-kurort.ru/services/transfer/",
+      "raw_path": "raw_hold/essentuki_shakhter_transfer.html",
+      "sha256": "21dc1b1f51dc73a139467f7ed9f6f6c8150017dd65a8f57ca28dc273956aeebc",
+      "byte_length": 93250,
+      "completed_utc": "2026-11-09T14:19:11.395884+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "fpc_2024_route_inventory",
+      "url": "https://ar2024.fpc.ru/ru/appendices/company-assets",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:16:18.995354+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {},
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1006)>",
+      "completed_utc": "2026-11-09T14:16:24.991874+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "fpc_2025_route_inventory",
+      "url": "https://ar2025.fpc.ru/ru/appendices/company-assets",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:14.532096+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:18:18 GMT",
+        "content-type": "text/html",
+        "content-length": "146"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 404,
+      "final_url": "https://ar2025.fpc.ru/ru/appendices/company-assets",
+      "raw_path": "raw_hold/fpc_2025_route_inventory.html",
+      "sha256": "55f7d9e99b8e2d4e0e193b2f0275501e6d9c1ebd29cadbea6a0da48a8587e3e0",
+      "byte_length": 146,
+      "completed_utc": "2026-11-09T14:18:18.261628+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "kislovodsk_park_directions",
+      "url": "https://kispark.ru/visitors/howtoreach/?special_version=Y",
+      "started_utc": "2026-11-09T14:14:35.054931+00:00",
+      "acquisition": "Python stdlib urllib GET; no authentication; Accept-Encoding identity",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:14:42 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-store, no-cache, must-revalidate"
+      },
+      "status": 200,
+      "final_url": "https://kispark.ru/visitors/howtoreach/?special_version=Y",
+      "raw_path": "raw_hold/kislovodsk_park_directions.html",
+      "sha256": "563df640881de2c02710b1c18913973d473986fa18cf9f2bc8c5eb4d44269dd6",
+      "byte_length": 36525,
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "completed_utc": "2026-11-09T14:14:42.468806+00:00",
+      "source_class": "PRIMARY",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "mashuk_night_transfer",
+      "url": "https://center-mashuk.ru/uslugi/transfer/",
+      "source_class": "PRIMARY_OPERATOR_PRODUCT",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:22:16.803423+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:22:37 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "769206",
+        "last-modified": "Wed, 08 Apr 2026 20:12:32 GMT",
+        "etag": "\"bbcb6-64ef8851c135b\""
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 500,
+      "final_url": "https://center-mashuk.ru/uslugi/transfer/",
+      "raw_path": "raw_hold/mashuk_night_transfer.html",
+      "sha256": "113f1e9f3feeb0f859c7cf4cfd446a493a4d5b99afd4b31ead60384d3f094461",
+      "byte_length": 769206,
+      "completed_utc": "2026-11-09T14:22:40.196454+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "mayrveda_directions",
+      "url": "https://mayrveda.ru/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:16:18.995482+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:16:25 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-store, no-cache, must-revalidate"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://mayrveda.ru/",
+      "raw_path": "raw_hold/mayrveda_directions.html",
+      "sha256": "40d4e459486e664812a39b7f40227934442b54a1c7c73777c1e47ab37b7841c2",
+      "byte_length": 1248806,
+      "completed_utc": "2026-11-09T14:16:28.612445+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "metallurg_directions",
+      "url": "https://metallurgess.ru/info/useful-info/drive-way/",
+      "source_class": "PRIMARY_PROPERTY",
+      "licence": "UNKNOWN; raw held; factual extracts only",
+      "started_utc": "2026-11-09T14:29:40.499748+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:29:41 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "279990",
+        "cache-control": "no-store, no-cache, must-revalidate"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://metallurgess.ru/info/useful-info/drive-way/",
+      "raw_path": "raw_hold/metallurg_directions.html",
+      "sha256": "a9b8310cbe58ec5f1287f7bfabcd1901ed0ece48820bc56474c537efb07e203b",
+      "byte_length": 279990,
+      "completed_utc": "2026-11-09T14:29:42.149008+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "metallurg_useful_info",
+      "url": "https://metallurgess.ru/info/useful-info/",
+      "source_class": "PRIMARY_PROPERTY",
+      "licence": "UNKNOWN; raw held; factual extracts only",
+      "started_utc": "2026-11-09T14:29:07.830038+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:29:13 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "265240",
+        "cache-control": "no-store, no-cache, must-revalidate"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://metallurgess.ru/info/useful-info/",
+      "raw_path": "raw_hold/metallurg_useful_info.html",
+      "sha256": "b68820b534bedbfa50d44636cb942666a30c32254c1198a6071616f871f65d2f",
+      "byte_length": 265240,
+      "completed_utc": "2026-11-09T14:29:14.819500+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "moretravel_kmv_tariffs",
+      "url": "https://beta.moretravel.ru/country/extras/?ci=6",
+      "source_class": "PRIMARY_OPERATOR_PRODUCT",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:22:16.803033+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:22:21 GMT",
+        "content-type": "text/html",
+        "cache-control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "last-modified": "Mon, 09 Nov 2026 14:22:21 GMT"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://beta.moretravel.ru/country/extras/?ci=6",
+      "raw_path": "raw_hold/moretravel_kmv_tariffs.html",
+      "sha256": "5ad2eee92a960b3ad902c4eb6b5a38a397716dd9df1f383f2fa5f511bfe9d676",
+      "byte_length": 40692,
+      "completed_utc": "2026-11-09T14:22:21.981484+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "pyatigorye_directions",
+      "url": "https://fivemount.ru/images/adress.pdf",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:07.541494+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {},
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>",
+      "completed_utc": "2026-11-09T14:19:13.478330+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "pyatigorye_home",
+      "url": "https://fivemount.ru/",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:09.066505+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {},
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>",
+      "completed_utc": "2026-11-09T14:19:14.090696+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "rail_kirov_kislovodsk_secondary",
+      "url": "https://traintickets.ru/raspisanie/kirov_-_kislovodsk",
+      "source_class": "SECONDARY_RESELLER",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:41.594729+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:45 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://traintickets.ru/raspisanie/kirov_-_kislovodsk",
+      "raw_path": "raw_hold/rail_kirov_kislovodsk_secondary.html",
+      "sha256": "ba8c98a2e8c0306282338ad8e3943fe31b424c087d661ee514d7c475b39bec72",
+      "byte_length": 48763,
+      "completed_utc": "2026-11-09T14:20:45.866110+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "rail_kirov_kislovodsk_ufs_dec08",
+      "url": "https://www.ufs-online.ru/raspisanie-poezdov/kirov?date=08.12.2026",
+      "source_class": "SECONDARY_RESELLER",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:41.594862+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:45 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "445675",
+        "etag": "W/\"6cceb-sltMQz0MaagKyKZM3VXnO0XEe/k\""
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://www.ufs-online.ru/raspisanie-poezdov/kirov?date=08.12.2026",
+      "raw_path": "raw_hold/rail_kirov_kislovodsk_ufs_dec08.html",
+      "sha256": "2631aee9d34fadad1046905c35a67882b37cbac60eed5d8d6971967ca2f91602",
+      "byte_length": 445675,
+      "completed_utc": "2026-11-09T14:20:48.261341+00:00",
+      "capture_interpretation": "QUARANTINE_QUERY_DATE_NOT_HONOURED_SUMMER_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "08.12.2026",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "rzd_home",
+      "url": "https://pass.rzd.ru/",
+      "started_utc": "2026-11-09T14:14:35.054833+00:00",
+      "acquisition": "Python stdlib urllib GET; no authentication; Accept-Encoding identity",
+      "headers": {},
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1006)>",
+      "completed_utc": "2026-11-09T14:14:40.153559+00:00",
+      "source_class": "PRIMARY",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "rzd_rus_schedule",
+      "url": "https://ticket.rzd.ru/searchresults/v/1/dir/0?code0=2060600&code1=2064300&dt0=07.12.2026",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:14.575838+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {},
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1006)>",
+      "completed_utc": "2026-11-09T14:18:16.272099+00:00",
+      "capture_interpretation": "TLS_ERROR; query station keys not independently verified; no absence inference",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "sanruno_primary",
+      "url": "https://www.sanruno.ru/",
+      "source_class": "PRIMARY_OPERATOR_PRODUCT",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:22:16.803342+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {},
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": "ERROR",
+      "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+      "completed_utc": "2026-11-09T14:22:17.625737+00:00",
+      "capture_interpretation": "UNUSABLE_HTTP_OR_TLS_ERROR",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "UNKNOWN; raw held; reviewed factual extracts with source links only"
+    },
+    {
+      "source_id": "skppk_copyright",
+      "url": "https://skppk.ru/avtorskie-prava",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:41.594384+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:44 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/avtorskie-prava",
+      "raw_path": "raw_hold/skppk_copyright.html",
+      "sha256": "8d60d6623204461c6d987cdf70c0000ddfc31bd4141388eb86d39858c3bd0dfa",
+      "byte_length": 18926,
+      "completed_utc": "2026-11-09T14:20:44.301069+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec07_essentuki",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612992&date=2026-12-07",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:04.561084+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:19:06 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612992&date=2026-12-07",
+      "raw_path": "raw_hold/skppk_dec07_essentuki.html",
+      "sha256": "fc687c9bb8ed8fcebfe5a59da3d40efe37949c7afbc7ed9771d43f236bafa22d",
+      "byte_length": 38241,
+      "completed_utc": "2026-11-09T14:19:07.026442+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-07",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec07_kislovodsk",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612962&date=2026-12-07",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:04.560597+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:19:11 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612962&date=2026-12-07",
+      "raw_path": "raw_hold/skppk_dec07_kislovodsk.html",
+      "sha256": "0effb72f50733f68de1a47a371ab597e1ae70c73a3a4736c9d24d39b46a01d64",
+      "byte_length": 38455,
+      "completed_utc": "2026-11-09T14:19:11.733166+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-07",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec07_pyatigorsk",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612972&date=2026-12-07",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:19:04.560908+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:19:06 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612972&date=2026-12-07",
+      "raw_path": "raw_hold/skppk_dec07_pyatigorsk.html",
+      "sha256": "3161feda304b79aa8f9ef2e5deda77bbc54e1fe792dba59289df62ef639a177f",
+      "byte_length": 38245,
+      "completed_utc": "2026-11-09T14:19:07.066727+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-07",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec13_essentuki",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612992&date=2026-12-13",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:52.822532+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:55 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612992&date=2026-12-13",
+      "raw_path": "raw_hold/skppk_dec13_essentuki.html",
+      "sha256": "e20ef960a5a6d8fd6ca5f4c6e4c97df0e33f85333cbd298275d8d94f36b124e5",
+      "byte_length": 36838,
+      "completed_utc": "2026-11-09T14:20:56.180099+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-13",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec13_kislovodsk",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612962&date=2026-12-13",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:44.301825+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:52 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612962&date=2026-12-13",
+      "raw_path": "raw_hold/skppk_dec13_kislovodsk.html",
+      "sha256": "974411e53239e31efec7de0d89cb8ae5dc868ee8e7c2d2248fff05442b22a348",
+      "byte_length": 37032,
+      "completed_utc": "2026-11-09T14:20:52.822031+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-13",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec13_pyatigorsk",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612972&date=2026-12-13",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:48.262143+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:50 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9613073&to=9612972&date=2026-12-13",
+      "raw_path": "raw_hold/skppk_dec13_pyatigorsk.html",
+      "sha256": "4c39769b9ae76b879825cb9c44967c1c7704046682c9d59fd4dee36e3b8bbbb0",
+      "byte_length": 36842,
+      "completed_utc": "2026-11-09T14:20:50.419510+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-13",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec14_essentuki_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612992&to=9613073&date=2026-12-14",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:53.196310+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:55 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612992&to=9613073&date=2026-12-14",
+      "raw_path": "raw_hold/skppk_dec14_essentuki_return.html",
+      "sha256": "54b1a3e7a55b9b08763b4947b637e83e5648d69fc73f46a0f0460f14b54b5732",
+      "byte_length": 38250,
+      "completed_utc": "2026-11-09T14:20:55.958614+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-14",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec14_kislovodsk_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612962&to=9613073&date=2026-12-14",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:45.867043+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:52 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612962&to=9613073&date=2026-12-14",
+      "raw_path": "raw_hold/skppk_dec14_kislovodsk_return.html",
+      "sha256": "c6b6f48000ff39bb3bd1e0f79f43dc72bc48abc7b6386bac4bdbab1376c15fd3",
+      "byte_length": 38492,
+      "completed_utc": "2026-11-09T14:20:53.304438+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-14",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec14_pyatigorsk_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612972&to=9613073&date=2026-12-14",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:50.419982+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:52 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612972&to=9613073&date=2026-12-14",
+      "raw_path": "raw_hold/skppk_dec14_pyatigorsk_return.html",
+      "sha256": "bb7ac21cdf1adf52d90b4b5ea4942d05f6b4e928f6785754e6dd64a97ac82ec9",
+      "byte_length": 38248,
+      "completed_utc": "2026-11-09T14:20:52.677305+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-14",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec18_essentuki_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612992&to=9613073&date=2026-12-18",
+      "source_class": "PRIMARY",
+      "licence": "SITE_REQUIRES_ATTRIBUTION; full raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:21:55.087445+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:21:59 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612992&to=9613073&date=2026-12-18",
+      "raw_path": "raw_hold/skppk_dec18_essentuki_return.html",
+      "sha256": "d92584aa5aa0d143ea1cda4def3d8eca704d879501be359530b9cc8dfa5bd08f",
+      "byte_length": 38250,
+      "completed_utc": "2026-11-09T14:21:59.774127+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-18",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec18_kislovodsk_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612962&to=9613073&date=2026-12-18",
+      "source_class": "PRIMARY",
+      "licence": "SITE_REQUIRES_ATTRIBUTION; full raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:21:55.087030+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:22:14 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612962&to=9613073&date=2026-12-18",
+      "raw_path": "raw_hold/skppk_dec18_kislovodsk_return.html",
+      "sha256": "7ad4e21d1b8f02a0b33d7d4276c5c6c65d16bdda98d8c74ab462202c710d47cb",
+      "byte_length": 38492,
+      "completed_utc": "2026-11-09T14:22:15.062419+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-18",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec18_pyatigorsk_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612972&to=9613073&date=2026-12-18",
+      "source_class": "PRIMARY",
+      "licence": "SITE_REQUIRES_ATTRIBUTION; full raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:21:55.087337+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:22:14 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612972&to=9613073&date=2026-12-18",
+      "raw_path": "raw_hold/skppk_dec18_pyatigorsk_return.html",
+      "sha256": "eab4c69738f511e55a892e58143cc4412cde5b41a3b55dac7c583043c870193b",
+      "byte_length": 38248,
+      "completed_utc": "2026-11-09T14:22:15.202985+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-18",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec27_essentuki_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612992&to=9613073&date=2026-12-27",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:53.305057+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:55 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612992&to=9613073&date=2026-12-27",
+      "raw_path": "raw_hold/skppk_dec27_essentuki_return.html",
+      "sha256": "a25eff7b120e2ffcacba477103eb94d77a2d91f6cdb1b303a5050a7458ffd7d6",
+      "byte_length": 36846,
+      "completed_utc": "2026-11-09T14:20:56.098569+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-27",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec27_kislovodsk_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612962&to=9613073&date=2026-12-27",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:45.998740+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:52 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612962&to=9613073&date=2026-12-27",
+      "raw_path": "raw_hold/skppk_dec27_kislovodsk_return.html",
+      "sha256": "bc0cf39dbf6a634d52298cf2b5e28e3dd40002db7a53a4c900cf8f146764d5e3",
+      "byte_length": 37064,
+      "completed_utc": "2026-11-09T14:20:53.195747+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-27",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_dec27_pyatigorsk_return",
+      "url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612972&to=9613073&date=2026-12-27",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:20:52.677874+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:20:55 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/poisk-po-raspisaniyu?from=9612972&to=9613073&date=2026-12-27",
+      "raw_path": "raw_hold/skppk_dec27_pyatigorsk_return.html",
+      "sha256": "c0471639d27aa323961e153f8023a721a694581c8eb56774a2e32700ffe6c49d",
+      "byte_length": 36844,
+      "completed_utc": "2026-11-09T14:20:55.811394+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "2026-12-27",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_home",
+      "url": "https://skppk.ru/",
+      "started_utc": "2026-11-09T14:14:35.054714+00:00",
+      "acquisition": "Python stdlib urllib GET; no authentication; Accept-Encoding identity",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:14:41 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "status": 200,
+      "final_url": "https://skppk.ru/",
+      "raw_path": "raw_hold/skppk_home.html",
+      "sha256": "18ed52e82bb6f3203cf5493f88283cea028778cc52dedd60234f18e677fa0ec4",
+      "byte_length": 51170,
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "completed_utc": "2026-11-09T14:14:42.064325+00:00",
+      "source_class": "PRIMARY",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_lookup_essentuki",
+      "url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%95%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%83%D0%BA%D0%B8",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:09.693011+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:18:15 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "166"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%95%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%83%D0%BA%D0%B8",
+      "raw_path": "raw_hold/skppk_lookup_essentuki.html",
+      "sha256": "ae05408a0b983806a14d23b2ef0e591d9823c69c242c064af6fb4de8a38b79ac",
+      "byte_length": 166,
+      "completed_utc": "2026-11-09T14:18:15.549998+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_lookup_kislovodsk",
+      "url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%9A%D0%B8%D1%81%D0%BB%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D0%BA",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:09.692737+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:18:14 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "178"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%9A%D0%B8%D1%81%D0%BB%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D0%BA",
+      "raw_path": "raw_hold/skppk_lookup_kislovodsk.html",
+      "sha256": "25f1f3a39b38a8bde0fd5d1232beb95f2c0f3f19cb93a7c74840880b80aa176d",
+      "byte_length": 178,
+      "completed_utc": "2026-11-09T14:18:14.531430+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_lookup_mineralnye",
+      "url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%9C%D0%B8%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%92%D0%BE%D0%B4%D1%8B",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:09.692429+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:18:14 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "240"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%9C%D0%B8%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%92%D0%BE%D0%B4%D1%8B",
+      "raw_path": "raw_hold/skppk_lookup_mineralnye.html",
+      "sha256": "47db6077af0d892bd5e259e74433e984f5ce9c058a8c75180a3044ef0065cc79",
+      "byte_length": 240,
+      "completed_utc": "2026-11-09T14:18:14.575450+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_lookup_pyatigorsk",
+      "url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%9F%D1%8F%D1%82%D0%B8%D0%B3%D0%BE%D1%80%D1%81%D0%BA",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:09.692858+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:18:14 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": "166"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/index.php?controller=ajax&method=station&query=%D0%9F%D1%8F%D1%82%D0%B8%D0%B3%D0%BE%D1%80%D1%81%D0%BA",
+      "raw_path": "raw_hold/skppk_lookup_pyatigorsk.html",
+      "sha256": "bcb65745e240449c38e431c727d423a12896457808a8aee433bd97a4a70dae5d",
+      "byte_length": 166,
+      "completed_utc": "2026-11-09T14:18:15.033761+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_script",
+      "url": "https://skppk.ru/res/js/netbike.js?210926_1",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:17:23.373688+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:17:24 GMT",
+        "content-type": "application/x-javascript",
+        "content-length": "9667",
+        "last-modified": "Wed, 05 Mar 2025 08:39:16 GMT",
+        "etag": "\"67c80db4-25c3\"",
+        "cache-control": "max-age=604800"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/res/js/netbike.js?210926_1",
+      "raw_path": "raw_hold/skppk_script.html",
+      "sha256": "53399182b113b2a8440fea4530a379838c8e98842b93eec1e894f8851bb9fbcd",
+      "byte_length": 9667,
+      "completed_utc": "2026-11-09T14:17:25.038511+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_search",
+      "url": "https://skppk.ru/passazhiram/poisk-po-raspisaniyu",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:16:18.994994+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:16:24 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/passazhiram/poisk-po-raspisaniyu",
+      "raw_path": "raw_hold/skppk_search.html",
+      "sha256": "02b04ee56d533d1dbdb16a40c6ff5ed8c691852ffc4604858d3827de60960bf2",
+      "byte_length": 20032,
+      "completed_utc": "2026-11-09T14:16:24.864723+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_station_mineralnye",
+      "url": "https://skppk.ru/spravochnik?s=9613261",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:16:18.995276+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:16:25 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/spravochnik?s=9613261",
+      "raw_path": "raw_hold/skppk_station_mineralnye.html",
+      "sha256": "4c8f672c99145da47ea0b5ccaef359dbc3a401bc85a81af008a23dace1b388d1",
+      "byte_length": 24994,
+      "completed_utc": "2026-11-09T14:16:27.798524+00:00",
+      "capture_interpretation": "EXPLORATORY_STATION_KEY_NOT_USED_AFTER_AUTOCOMPLETE",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    },
+    {
+      "source_id": "skppk_tariffs_page",
+      "url": "https://skppk.ru/passazhiram/tarify-i-l-goty",
+      "source_class": "PRIMARY",
+      "licence": "UNKNOWN; raw held; reviewed factual extracts only",
+      "started_utc": "2026-11-09T14:18:15.034432+00:00",
+      "acquisition": "Python stdlib urllib GET; TLS verification enabled; no auth/cookies; Accept-Encoding identity; no retries",
+      "headers": {
+        "date": "Mon, 09 Nov 2026 14:18:17 GMT",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "raw_redistribution": "HELD_UNKNOWN_LICENCE",
+      "status": 200,
+      "final_url": "https://skppk.ru/passazhiram/tarify-i-l-goty",
+      "raw_path": "raw_hold/skppk_tariffs_page.html",
+      "sha256": "5f65d00a18aa7d130529c5f29e246fe36f11f208384d23a6af725714b023b095",
+      "byte_length": 19337,
+      "completed_utc": "2026-11-09T14:18:17.340597+00:00",
+      "capture_interpretation": "USABLE_FROZEN_BODY",
+      "public_access": "FREE_PUBLIC_GET_NO_AUTH",
+      "grain": "ONE_HTTP_RESPONSE_BODY",
+      "unit": "BYTES; factual tables preserve minutes/RUB/person/car separately",
+      "period_requested": "UNDATED_OR_EXPLORATORY",
+      "licence_assessment": "SKPPK page/footer permits use with link; full body held because incidental contacts/third-party assets"
+    }
+  ],
+  "public_artifacts": [
+    {
+      "path": ".gitignore",
+      "sha256": "12b30f699904e82b041651230c957fcc6ef89829a3c64cc656e529b219605931",
+      "byte_length": 23
+    },
+    {
+      "path": "collectors/assemble_bundle.py",
+      "sha256": "d131af3bdbb5b62dde2eb5851d58fcc376eda3e5a776c26f76b9f964f12297be",
+      "byte_length": 18378
+    },
+    {
+      "path": "collectors/derive_schedules.py",
+      "sha256": "58d18df878be2158018de130711ac3fcbd38f34080d000bc0adbfa05b501b67f",
+      "byte_length": 5264
+    },
+    {
+      "path": "collectors/fetch_sources.py",
+      "sha256": "b891d9f2b3e6909c721c262d95c1dce3669e04c7756e65ddbf4c682ba81add65",
+      "byte_length": 2961
+    },
+    {
+      "path": "collectors/sources.json",
+      "sha256": "a027358ac938a7370816a695c9192e4383ef9789fe0fbffbc77ff76b91807e26",
+      "byte_length": 11765
+    },
+    {
+      "path": "collectors/verify_bundle.py",
+      "sha256": "5a06112ebdfa6e64343ccdeb8b0d2e612bfdb9b2e8401e75e6e249abeb07358f",
+      "byte_length": 3808
+    },
+    {
+      "path": "curated_transfer_prices.csv",
+      "sha256": "fa028f0d7a9fa692c741b8ff552e93cfa2d21ae89563d8ab74b6097492dc974b",
+      "byte_length": 6599
+    },
+    {
+      "path": "findings.md",
+      "sha256": "5660ac198cca118e5c6cff63badfac5de7a04f08a2e43b606671e5ea0fca78b7",
+      "byte_length": 18221
+    },
+    {
+      "path": "ground_alternatives.csv",
+      "sha256": "70cb65f29244c9a6a7c73441749e6975054a332081729eb1a154c8d773511109",
+      "byte_length": 12236
+    },
+    {
+      "path": "property_arrival_constraints.csv",
+      "sha256": "29f7b689dd1885538e43d91b3e4dd5071e5d8b612146799d92635eef3797e8cc",
+      "byte_length": 768
+    },
+    {
+      "path": "receipts/airport_home.json",
+      "sha256": "3e4d3dfdc9c166be4d61e3f36ce06f7c25650f24d21d50aa8086cc6ed3dff286",
+      "byte_length": 695
+    },
+    {
+      "path": "receipts/airport_rail.json",
+      "sha256": "afcaa77215c30e65020c330aa4658c7acdbbb8c38b1ed5283bc4963b1236f9f6",
+      "byte_length": 882
+    },
+    {
+      "path": "receipts/airport_route11.json",
+      "sha256": "b0a2b3222ebe39ceb0171928dde8628193dafa194b4b0915aad26038ecd2e6b2",
+      "byte_length": 870
+    },
+    {
+      "path": "receipts/airport_route11_http.json",
+      "sha256": "26ab8069776716b5de00a3eaace8a471e3d33e3dc48f9fceec3712cc64ca3a90",
+      "byte_length": 875
+    },
+    {
+      "path": "receipts/airport_route11_pdf.json",
+      "sha256": "01e4a6352c78797d5f179c3743e0acb00888277a1ddb48a40da4c7e1be32a8c8",
+      "byte_length": 874
+    },
+    {
+      "path": "receipts/airport_route11_www.json",
+      "sha256": "501a67a4e630afbacc092433acf851ed409f18deaebaedd26ee310b11c6f27da",
+      "byte_length": 886
+    },
+    {
+      "path": "receipts/airport_sitemap.json",
+      "sha256": "c57527f52b65e7db0576ca64e53916bcee769f5f8ba5751ad08f0780baddcb8c",
+      "byte_length": 848
+    },
+    {
+      "path": "receipts/centrosouz_arrival_memo.json",
+      "sha256": "b3a57f557968f0b2cde974598409b4ddc65353b537076d8dc0db4a2284126eaf",
+      "byte_length": 989
+    },
+    {
+      "path": "receipts/centrosouz_transfer.json",
+      "sha256": "6e5fcb74a43ca511c15c885d19845e147ea952dd559e38ae38dc7646ea075bdb",
+      "byte_length": 909
+    },
+    {
+      "path": "receipts/essentuki_istok_directions.json",
+      "sha256": "54883bf3b4da046670710a976d8097d37bfd2fb91aac051533db5a45400f034c",
+      "byte_length": 844
+    },
+    {
+      "path": "receipts/essentuki_rus_transfer.json",
+      "sha256": "2fc50d3e78ee37c6e291e1a40b2ce52fa640c671ef7d4fae7f92e3d17bd2f4be",
+      "byte_length": 661
+    },
+    {
+      "path": "receipts/essentuki_shakhter_transfer.json",
+      "sha256": "167ab884bac15771c5be3952b67f3fd6bb4acd70d4c45d2032847c35be758f3f",
+      "byte_length": 945
+    },
+    {
+      "path": "receipts/fpc_2024_route_inventory.json",
+      "sha256": "4c0369920955849e2e76372e95c00df2f783432112801d5e3ec77f078cd4f483",
+      "byte_length": 662
+    },
+    {
+      "path": "receipts/fpc_2025_route_inventory.json",
+      "sha256": "3990d523cd1c86dfd82158b6c503e67c6801985d438cf71b92f5e1b656cabf27",
+      "byte_length": 856
+    },
+    {
+      "path": "receipts/kislovodsk_park_directions.json",
+      "sha256": "c611d12c60e03779b9ac4f8f9553c34a93952c6da7a3f9c3d44bab13d933a579",
+      "byte_length": 791
+    },
+    {
+      "path": "receipts/mashuk_night_transfer.json",
+      "sha256": "8f425eefc1c8f89004dfc375c70f8996aff8a94739a543ab659df5e673292842",
+      "byte_length": 963
+    },
+    {
+      "path": "receipts/mayrveda_directions.json",
+      "sha256": "aeee80f6014c537b85d8f9c7294c31300a0f9b4abaa29a25376f16aa0ae9dc10",
+      "byte_length": 836
+    },
+    {
+      "path": "receipts/metallurg_directions.json",
+      "sha256": "735190a2f7a43540c740b3f3a2eb54f2825ffc30d33f72522f420d8e830f6532",
+      "byte_length": 931
+    },
+    {
+      "path": "receipts/metallurg_useful_info.json",
+      "sha256": "dcc95f648b7bfc59d60fe7a16afcfc79fe86dffd97f786d2950bf3107c93fa62",
+      "byte_length": 913
+    },
+    {
+      "path": "receipts/moretravel_kmv_tariffs.json",
+      "sha256": "51ab0c3d9f5ae1eb3091dbbfd937f530195e2cca56004a31b5eead4db8bb4466",
+      "byte_length": 977
+    },
+    {
+      "path": "receipts/pyatigorye_directions.json",
+      "sha256": "a1943e3ca008e1c8f283d64d49124e22327f45e0b25d67d28ee19d65c46dfd31",
+      "byte_length": 637
+    },
+    {
+      "path": "receipts/pyatigorye_home.json",
+      "sha256": "d7a70042f959ab577985b57691e40617b3f17c8b1842e44fd5aab0799ff88048",
+      "byte_length": 614
+    },
+    {
+      "path": "receipts/rail_kirov_kislovodsk_secondary.json",
+      "sha256": "0eced3742b977999158b124cfe31b311f27aae509371c60ff0a6cfcb2d3a9448",
+      "byte_length": 962
+    },
+    {
+      "path": "receipts/rail_kirov_kislovodsk_ufs_dec08.json",
+      "sha256": "45c25215d0294492f3e1f75174f18ae004afdb9a4c672ac02d1c967ab022f007",
+      "byte_length": 989
+    },
+    {
+      "path": "receipts/rzd_home.json",
+      "sha256": "80f858a1f2d880006380c766418ef4a77a107c5182c7f0cccbb5288e9dd9e548",
+      "byte_length": 458
+    },
+    {
+      "path": "receipts/rzd_rus_schedule.json",
+      "sha256": "ab49a18070359fdcc09e8210e774a599c7ee6ddf1fda5d7f7b2406d27a1a6077",
+      "byte_length": 713
+    },
+    {
+      "path": "receipts/sanruno_primary.json",
+      "sha256": "d53cf3121a22cbc6babdf58e95db4ab009ad9ee868763a0f1ebd7313668a988e",
+      "byte_length": 600
+    },
+    {
+      "path": "receipts/skppk_copyright.json",
+      "sha256": "adcdf8251171f2395cf3839af585d982c891740e19f341e99f0cbbba9ebea3c7",
+      "byte_length": 790
+    },
+    {
+      "path": "receipts/skppk_dec07_essentuki.json",
+      "sha256": "f35c2f978154048d257be238941e3d0a30b03fb6f9cf88ac52b63afdbc0ffc03",
+      "byte_length": 892
+    },
+    {
+      "path": "receipts/skppk_dec07_kislovodsk.json",
+      "sha256": "91cbfeb25ce97110cae0cec4c9c5c42b460bb0f9fabf9a091ab91bf47ab3e712",
+      "byte_length": 894
+    },
+    {
+      "path": "receipts/skppk_dec07_pyatigorsk.json",
+      "sha256": "0893a523d8989caba74b1f1dc98e2b822b3a4a2013dafc135c106281abbd2dad",
+      "byte_length": 894
+    },
+    {
+      "path": "receipts/skppk_dec13_essentuki.json",
+      "sha256": "44b2c3552a2a4b7c6868f8c802237bdfac26d8898018545256e0036a25f90aca",
+      "byte_length": 892
+    },
+    {
+      "path": "receipts/skppk_dec13_kislovodsk.json",
+      "sha256": "509ea80165323d54f03bc25f236b75eb409bccaf0f7a9011f9c144716105458f",
+      "byte_length": 894
+    },
+    {
+      "path": "receipts/skppk_dec13_pyatigorsk.json",
+      "sha256": "fec007045947a1fedf493ad2531bd0b005657dd01a33afbd169035ad96c88f56",
+      "byte_length": 894
+    },
+    {
+      "path": "receipts/skppk_dec14_essentuki_return.json",
+      "sha256": "1143081ee6120080aeb84f029d00c023ee8a1440c1c5a6bd79784f1e9814c76d",
+      "byte_length": 906
+    },
+    {
+      "path": "receipts/skppk_dec14_kislovodsk_return.json",
+      "sha256": "6111845f6b778490f6cf3f9368a59e9836ad2f03b7b9794d93ed8f2405751ffc",
+      "byte_length": 908
+    },
+    {
+      "path": "receipts/skppk_dec14_pyatigorsk_return.json",
+      "sha256": "2ed7a288ecbb00aa38618aa9f8cdf9fa5cfb8e32f8d518bdf0412d50460d4951",
+      "byte_length": 908
+    },
+    {
+      "path": "receipts/skppk_dec18_essentuki_return.json",
+      "sha256": "62ffb0b32c98d79d50ef3b1a55f07ec18ffa52e92c55e9f7d12f5ee917a919e9",
+      "byte_length": 929
+    },
+    {
+      "path": "receipts/skppk_dec18_kislovodsk_return.json",
+      "sha256": "6c2365e2bf272281ac75b3eae3f2858adcb0f329b2266c38fc610df224be01b6",
+      "byte_length": 931
+    },
+    {
+      "path": "receipts/skppk_dec18_pyatigorsk_return.json",
+      "sha256": "0ba37f92015cebea9122b75ddb6d2276d8dd57cb0a83d1ff951cd1e47ea6e5dd",
+      "byte_length": 931
+    },
+    {
+      "path": "receipts/skppk_dec27_essentuki_return.json",
+      "sha256": "c12138346fd8f547043da60f25366ee8cc517cec1755a533c891ea3a479aa64e",
+      "byte_length": 906
+    },
+    {
+      "path": "receipts/skppk_dec27_kislovodsk_return.json",
+      "sha256": "da3a5a4cb6a40a1d2cc2f196bff9708db9f2c5e127cc38bda74422a84e338880",
+      "byte_length": 908
+    },
+    {
+      "path": "receipts/skppk_dec27_pyatigorsk_return.json",
+      "sha256": "ca190f7ef89714e79d3708b71566f990753aba0694ffc2e4cd06dc2226b68347",
+      "byte_length": 908
+    },
+    {
+      "path": "receipts/skppk_home.json",
+      "sha256": "af690a34f7ab826ed7fe089f1b131fd401b9ecaf5c9969df198a23aee9b5b19e",
+      "byte_length": 619
+    },
+    {
+      "path": "receipts/skppk_lookup_essentuki.json",
+      "sha256": "92800cb4657f42f7ac1e8c7c1b95f60a2147cd83219e86e255c3655cee69756e",
+      "byte_length": 1003
+    },
+    {
+      "path": "receipts/skppk_lookup_kislovodsk.json",
+      "sha256": "adb2b7ae680709c0c851dd2309a81cbfb8150aa81dce79a24426b12e97a85ea7",
+      "byte_length": 1017
+    },
+    {
+      "path": "receipts/skppk_lookup_mineralnye.json",
+      "sha256": "9da5778145593e50842bceb500adcca16b6c38b6cec2992f60e425a679b3e335",
+      "byte_length": 1083
+    },
+    {
+      "path": "receipts/skppk_lookup_pyatigorsk.json",
+      "sha256": "2c411c666153459292550cba27a61c9b69390c392ea6a05a7156c057cd5e8d22",
+      "byte_length": 1005
+    },
+    {
+      "path": "receipts/skppk_script.json",
+      "sha256": "050fb550317c4732a941be23e3c77d04cdc2bc3897124e994b4b1e48ce1e3e18",
+      "byte_length": 961
+    },
+    {
+      "path": "receipts/skppk_search.json",
+      "sha256": "2ac03754993f3d660fce4ca717889cfe055e2f8d41e15af14c21aa82a76a69f1",
+      "byte_length": 818
+    },
+    {
+      "path": "receipts/skppk_station_mineralnye.json",
+      "sha256": "80436597b78ac307b4ab8aa76b6110d8b851e7b947dfd031c0667d8702b0ead6",
+      "byte_length": 820
+    },
+    {
+      "path": "receipts/skppk_tariffs_page.json",
+      "sha256": "bea82ee497662fd420aba89fb4e4a7fcbbd3461ab3121bd0fab3555bc3af5b8e",
+      "byte_length": 820
+    },
+    {
+      "path": "schedule_verification.json",
+      "sha256": "3c2c339cab204a36bbbd46efc3bed489161a5f87c547b3fab1dec7c9740c1876",
+      "byte_length": 4165
+    },
+    {
+      "path": "transfer_fare_observations.csv",
+      "sha256": "c00b54c80765346526e5648ab0ce6c9cb1793132c5f7ff3a892ba76aa7f62cab",
+      "byte_length": 248685
+    },
+    {
+      "path": "transfer_rules.csv",
+      "sha256": "119ee8bf97c884220d900f93cd36901fccd593b60fd62105d5df1156b4dc14fe",
+      "byte_length": 14973
+    },
+    {
+      "path": "transfer_schedule.csv",
+      "sha256": "fc6514d1f86cc54c7ada2811dbc5dc0897955a84a65fcddb43b95c95d7650c66",
+      "byte_length": 310154
+    }
+  ],
+  "acquisition_commands": [
+    "python3 collectors/fetch_sources.py [source_id ...]",
+    "python3 collectors/derive_schedules.py",
+    "python3 collectors/assemble_bundle.py",
+    "python3 collectors/verify_bundle.py"
+  ],
+  "reproduction_limit": "Receipt filenames are frozen and skipped; use fresh checkout or new source id for later snapshots. Native airport web text earlier readable then zero-lines; retained failed native text responses in held directory, not raw proof of timetable."
+}
