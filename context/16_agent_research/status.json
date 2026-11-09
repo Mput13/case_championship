@@ -1,6 +1,6 @@
 {
-  "updated_at_utc": "2026-11-09T11:02:24.454661+00:00",
-  "phase": "research_running",
+  "updated_at_utc": "2026-11-09T14:00:44.560588+00:00",
+  "phase": "first_wave_collected_integration_review",
   "scope": "Russia; international as separately reviewed research",
   "first_checkpoint": "~4 hours after launch; user-facing interim in 1-2 hours",
   "threads": [
@@ -20,9 +20,12 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3A33e096d48716d2f5375f406781e407990d6d3250bb63a38de014df45f82ca274:ordinal:1",
-      "status": "preparing",
+      "status": "checkpoint_available",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109",
-      "last_checked_status": "running"
+      "last_checked_status": "running",
+      "checkpoint_sha": "daa2d8f6d2a5d9bac8bf95e8b16f3a278cafec33",
+      "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
+      "publication": "PUSH_REQUESTED_REMOTE_CONFIRMATION_SEPARATE"
     },
     {
       "role": "alternative",
@@ -40,9 +43,12 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3Af2d28f53b4e357dd8f749798d7cd14776291fc6407f5058e2bba7f89f72132e3:ordinal:1",
-      "status": "preparing",
+      "status": "checkpoint_available",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-alternative-20261109",
-      "last_checked_status": "running"
+      "last_checked_status": "running",
+      "checkpoint_sha": "0fd05faaee208d59cd1b6f49683a9e7c7bb308af",
+      "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
+      "publication": "PUSH_REQUESTED_REMOTE_CONFIRMATION_SEPARATE"
     },
     {
       "role": "critic",
@@ -60,9 +66,13 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3Aa147b5391eab2b659533d6000ceeb0d41ed2e74b3b760d3b41a60f554f57ae10:ordinal:1",
-      "status": "preparing",
+      "status": "checkpoint_available",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109",
-      "last_checked_status": "running"
+      "last_checked_status": "running",
+      "checkpoint_sha": "582cdefa1fce682354f04f21418bab6b4a85bc5c",
+      "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
+      "publication": "REMOTE_HEAD_CONFIRMED",
+      "pushed_sha": "582cdefa1fce682354f04f21418bab6b4a85bc5c"
     },
     {
       "role": "hypotheses",
@@ -80,17 +90,59 @@
         ]
       },
       "runId": "run:thread:mcp%3Alaunch%3A3e52eced5c1c3a2f4d5165d99774605ce357f8f50b7557306984af0131d59e0d:ordinal:1",
-      "status": "preparing",
+      "status": "checkpoint_available",
       "worktree": "/Users/a/.t3/worktrees/case_championship/research-case5-hypotheses-20261109",
-      "last_checked_status": "running"
+      "last_checked_status": "running",
+      "checkpoint_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0",
+      "checkpoint_at_utc": "2026-11-09T13:18:56.384489+00:00",
+      "publication": "REMOTE_HEAD_CONFIRMED",
+      "pushed_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0"
     }
   ],
   "received": [
     {
       "role": "core",
-      "manifest": "first_raw_check.json",
-      "stage": "ACQUIRED_RAW",
-      "coordinator_check": "7 available raw files hashes and counts checked; one missing terms-page recorded, no external claim validation"
+      "source_sha": "daa2d8f6d2a5d9bac8bf95e8b16f3a278cafec33",
+      "snapshot": "coordinator/20261109T131856Z/core",
+      "raw_check_counts": {
+        "PASS": 73,
+        "NO_RAW_NOT_CHECKED": 15
+      },
+      "stage": "ACQUIRED_RAW_AND_PARSED_SCOPED_REVIEW",
+      "scope": "Hash equality and selected table parsing; truth/fitness only within independent audit scopes"
+    },
+    {
+      "role": "alternative",
+      "source_sha": "0fd05faaee208d59cd1b6f49683a9e7c7bb308af",
+      "snapshot": "coordinator/20261109T131856Z/alternative",
+      "raw_check_counts": {
+        "PASS": 263,
+        "NO_RAW_NOT_CHECKED": 1
+      },
+      "stage": "ACQUIRED_RAW_AND_PARSED_SCOPED_REVIEW",
+      "scope": "Hash equality and selected table parsing; truth/fitness only within independent audit scopes"
+    },
+    {
+      "role": "critic",
+      "source_sha": "582cdefa1fce682354f04f21418bab6b4a85bc5c",
+      "snapshot": "coordinator/20261109T131856Z/critic",
+      "raw_check_counts": {
+        "PASS": 6,
+        "NO_RAW_NOT_CHECKED": 1
+      },
+      "stage": "ACQUIRED_RAW_AND_PARSED_SCOPED_REVIEW",
+      "scope": "Hash equality and selected table parsing; truth/fitness only within independent audit scopes"
+    },
+    {
+      "role": "hypotheses",
+      "source_sha": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0",
+      "snapshot": "coordinator/20261109T131856Z/hypotheses",
+      "raw_check_counts": {
+        "PASS": 121,
+        "NO_RAW_NOT_CHECKED": 1
+      },
+      "stage": "ACQUIRED_RAW_AND_PARSED_SCOPED_REVIEW",
+      "scope": "Hash equality and selected table parsing; truth/fitness only within independent audit scopes"
     }
   ],
   "open_decisions": [
@@ -111,6 +163,24 @@
       "ref": "origin/research/red-wings-team-update-20261109",
       "sha": "bf564c7b66a2559c21e9f519ae5a3f28a489378f",
       "summary": "New conditional-decision package sent to all leads; recommendation not accepted by coordinator"
+    },
+    {
+      "ref": "origin/front",
+      "sha": "9d9a874b1568c2cebec9cd3fc1f33ef76f37f450",
+      "author": "kiruha355",
+      "summary": "New gravity-based segment prediction, source-based criteria and closed-airport separation; endpoint-demand/transfer claims held by critic."
+    },
+    {
+      "ref": "origin/research/red-wings-team-update-20261109",
+      "sha": "359ad3cfb4fdcc74e14c802fc6256e65c1106dbb",
+      "author": "mput",
+      "summary": "Stage17 aircraft-specific route review and Stage18 unit economics; scoped arithmetic checked, real OD/yield/free fleet not established."
+    },
+    {
+      "ref": "origin/research/red-wings-team-update-20261109",
+      "sha": "7ee30ec3d12c92715c6a060d97019de0e1495d1d",
+      "author": "mput",
+      "summary": "Specific travel mechanisms and real-flight replacement audit proposal; docs read, primary sources pending."
     }
   ],
   "holds": [
@@ -119,6 +189,40 @@
       "reason": "Reply preview substituted for message body; mixed-airport status also misclassified",
       "evidence_role": "critic/front_audit",
       "full_recalculation": "NOT_RUN"
+    },
+    {
+      "feature": "front9d9a874_endpoint_demand_and_transfer_residual",
+      "reason": "Model trained on reported pair segments does not identify final OD or causal transfer residual",
+      "evidence_role": "critic/front_demand_audit",
+      "raw_segment_predictions": "retain as MODEL_ESTIMATE; no blanket rejection"
     }
-  ]
+  ],
+  "publication_policy": "Each role commits and pushes substantial checkpoints to its own branch, per direct user instruction 2026-11-09; acceptance remains separate.",
+  "resolved": [
+    {
+      "issue": "core timezone auxiliary mismatch and stale normalized hashes",
+      "status": "CLOSED_IN_FRESH_CRITIC_SNAPSHOT",
+      "remaining": "Quarantined timezones remain NULL; no inferred legal airport zone from nearest city."
+    }
+  ],
+  "international": {
+    "model": "gemini-3.8-flash-medium",
+    "provider": "antigravity",
+    "status": "FAILED_NOT_PRODUCED",
+    "reason": "model unreachable / backend 502",
+    "retry": "NOT_REQUESTED"
+  },
+  "online_refs": {
+    "checked_at_utc": "2026-11-09T13:42:02.098395+00:00",
+    "refs": {
+      "research/case5-data-critic-20261109": "582cdefa1fce682354f04f21418bab6b4a85bc5c",
+      "research/case5-hypotheses-20261109": "bf72e8a49176bd4343b1ae3108c67d21a03c2fb0"
+    }
+  },
+  "publication_reports": {
+    "alternative": "7bcc3a58077431e22dcb49940905497bd8ebe9c8",
+    "hypotheses": "4823b05d64439cf59991dc2bcd126b747b81a59b",
+    "critic": "e07c468f5f03710a56cab8559db6cba7f213c793",
+    "core": "PUSH_IN_PROGRESS"
+  }
 }

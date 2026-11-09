@@ -1,0 +1,628 @@
+{
+  "generated_at_utc": "2026-11-09T13:20:50.327211+00:00",
+  "input_sha": "9d9a874b1568c2cebec9cd3fc1f33ef76f37f450",
+  "author": "kiruha355",
+  "execution_policy": "Own numpy/stdlib equations only; author code not executed/imported",
+  "external_archive": {
+    "path": "/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109/context/16_agent_research/critic/front_audit/raw/primary/tochno_intercity.zip",
+    "stored_sha256": "4728d93b8d29925b433a84a7c91fedbe4665bc78e672a23dc185d01c1e41dbea",
+    "member": "data_intercity_connectivity_162_v20260629.csv",
+    "member_sha256": "aed8463339b988a7c9ac81aa976a4fc25c152e4066b551d25cbdcc16ebe16d53"
+  },
+  "shape": {
+    "manual_rows": 37,
+    "fit_rows": 31,
+    "carrier_group_lower_rows": 6,
+    "unique_fit_unordered_pairs": 31,
+    "airport_nodes": 78,
+    "output_pairs": 1428,
+    "unique_output_unordered_pairs": 1428,
+    "spokes": 870,
+    "candidates": 20
+  },
+  "calibration": {
+    "coverage_counts": {
+      "airport": 30,
+      "region": 1
+    },
+    "period_annual_factor_counts": {
+      "2025;factor=1": 27,
+      "I полугодие 2025;factor=2": 4
+    },
+    "origin_counts": {
+      "OMS": 8,
+      "PEE": 10,
+      "AER": 5,
+      "OVB": 4,
+      "BAX": 2,
+      "CEK": 1,
+      "KUF": 1
+    },
+    "source_cluster_counts": {
+      "https://superomsk.ru/news/157499-omskiy_aeroport_opublikoval_top_10_populyarnx_napr/": 8,
+      "https://v-kurse.ru/2026/02/02/410261": 10,
+      "https://www.kommersant.ru/doc/8362906": 5,
+      "https://abnews.ru/siberia/news/novosibirsk/2025/7/20/dalnevostochnye-goroda-stali-liderami-sredi-avianapravlenij-iz-tolmachevo": 4,
+      "https://www.amic.ru/news/novyy-rekord-aeroport-barnaula-obsluzhil-pochti-800-tys-passazhirov-za-2025-god-575903": 2,
+      "https://expert-ural.com/news/pochti-na-55-viros-passazhiropotok-iz-aeroportov-chelyabinskoy-oblasti.html": 1,
+      "context/12_network_economics/README.md (аэропорт Самары по данным коллег)": 1
+    },
+    "missing_rail_rows": [],
+    "coefficients": [
+      -11.884835829994671,
+      0.7103985417083222,
+      0.8135429614446248,
+      0.847150044514344,
+      1.7926164956932473
+    ],
+    "expected_rounded_coefficients": {
+      "const": -11.885,
+      "lnPP": 0.71,
+      "lnRail": 0.814,
+      "mow": 0.847,
+      "resort": 1.793
+    }
+  },
+  "loo": {
+    "usual_actual_denominator_median_APE_pct": 49.84982671470012,
+    "forecast_denominator_median_APE_pct": 56.155316550985845,
+    "share_within_x2": 0.6451612903225806,
+    "reported_median_abs_error_pct": 56.2,
+    "cautious_residual_factor": 0.5651504881906163,
+    "optimistic_residual_factor": 1.9940110561753956,
+    "fraction_of_31_LOO_residuals_above_fitted20pct_cut": 0.8064516129032258,
+    "leave_origin_cluster_out": {
+      "AER": {
+        "rows": 5,
+        "usual_actual_denominator_median_APE_pct": 76.27933375645569,
+        "forecast_denominator_median_APE_pct": 321.5733191187894,
+        "share_within_x2": 0.0
+      },
+      "BAX": {
+        "rows": 2,
+        "usual_actual_denominator_median_APE_pct": 179.6579027611416,
+        "forecast_denominator_median_APE_pct": 63.32793727763884,
+        "share_within_x2": 0.0
+      },
+      "CEK": {
+        "rows": 1,
+        "usual_actual_denominator_median_APE_pct": 22.543357840984825,
+        "forecast_denominator_median_APE_pct": 29.104486345669713,
+        "share_within_x2": 1.0
+      },
+      "KUF": {
+        "rows": 1,
+        "usual_actual_denominator_median_APE_pct": 372.0003133313496,
+        "forecast_denominator_median_APE_pct": 78.8135733863806,
+        "share_within_x2": 0.0
+      },
+      "OMS": {
+        "rows": 8,
+        "usual_actual_denominator_median_APE_pct": 52.83606088403846,
+        "forecast_denominator_median_APE_pct": 35.50475891868893,
+        "share_within_x2": 0.625
+      },
+      "OVB": {
+        "rows": 4,
+        "usual_actual_denominator_median_APE_pct": 53.24087851694846,
+        "forecast_denominator_median_APE_pct": 114.20548493184062,
+        "share_within_x2": 0.25
+      },
+      "PEE": {
+        "rows": 10,
+        "usual_actual_denominator_median_APE_pct": 53.29193428325847,
+        "forecast_denominator_median_APE_pct": 51.02718630876826,
+        "share_within_x2": 0.5
+      }
+    },
+    "validation_scope": "LOO on selected airport-segment sample; model feature family selected using same LOO; no independent endpoint/no-direct test"
+  },
+  "exported_model_values": {
+    "mismatches": [],
+    "reconciled_pairs": 1428
+  },
+  "summary_aggregation": [
+    {
+      "hub": "VOG",
+      "sum_base": 1155298,
+      "export_base": 1155298,
+      "sum_cautious": 652920,
+      "export_cautious": 652920
+    },
+    {
+      "hub": "CEK",
+      "sum_base": 1128838,
+      "export_base": 1128838,
+      "sum_cautious": 637965,
+      "export_cautious": 637965
+    },
+    {
+      "hub": "OMS",
+      "sum_base": 981421,
+      "export_base": 981421,
+      "sum_cautious": 554651,
+      "export_cautious": 554651
+    },
+    {
+      "hub": "PEE",
+      "sum_base": 947824,
+      "export_base": 947824,
+      "sum_cautious": 535661,
+      "export_cautious": 535661
+    },
+    {
+      "hub": "GSV",
+      "sum_base": 906992,
+      "export_base": 906992,
+      "sum_cautious": 512588,
+      "export_cautious": 512588
+    },
+    {
+      "hub": "KUF",
+      "sum_base": 895188,
+      "export_base": 895188,
+      "sum_cautious": 505917,
+      "export_cautious": 505917
+    },
+    {
+      "hub": "GOJ",
+      "sum_base": 842045,
+      "export_base": 842045,
+      "sum_cautious": 475881,
+      "export_cautious": 475881
+    },
+    {
+      "hub": "TJM",
+      "sum_base": 822484,
+      "export_base": 822484,
+      "sum_cautious": 464827,
+      "export_cautious": 464827
+    },
+    {
+      "hub": "UFA",
+      "sum_base": 752427,
+      "export_base": 752427,
+      "sum_cautious": 425236,
+      "export_cautious": 425236
+    },
+    {
+      "hub": "MRV",
+      "sum_base": 711483,
+      "export_base": 711483,
+      "sum_cautious": 402097,
+      "export_cautious": 402097
+    },
+    {
+      "hub": "REN",
+      "sum_base": 654321,
+      "export_base": 654321,
+      "sum_cautious": 369788,
+      "export_cautious": 369788
+    },
+    {
+      "hub": "BAX",
+      "sum_base": 570643,
+      "export_base": 570643,
+      "sum_cautious": 322498,
+      "export_cautious": 322498
+    },
+    {
+      "hub": "KGD",
+      "sum_base": 451334,
+      "export_base": 451334,
+      "sum_cautious": 255071,
+      "export_cautious": 255071
+    },
+    {
+      "hub": "AER",
+      "sum_base": 436562,
+      "export_base": 436562,
+      "sum_cautious": 246723,
+      "export_cautious": 246723
+    },
+    {
+      "hub": "KJA",
+      "sum_base": 321660,
+      "export_base": 321660,
+      "sum_cautious": 181785,
+      "export_cautious": 181785
+    },
+    {
+      "hub": "IKT",
+      "sum_base": 235673,
+      "export_base": 235673,
+      "sum_cautious": 133192,
+      "export_cautious": 133192
+    },
+    {
+      "hub": "MCX",
+      "sum_base": 231724,
+      "export_base": 231724,
+      "sum_cautious": 130957,
+      "export_cautious": 130957
+    },
+    {
+      "hub": "KZN",
+      "sum_base": 203645,
+      "export_base": 203645,
+      "sum_cautious": 115088,
+      "export_cautious": 115088
+    },
+    {
+      "hub": "KHV",
+      "sum_base": 0,
+      "export_base": 0,
+      "sum_cautious": 0,
+      "export_cautious": 0
+    },
+    {
+      "hub": "VVO",
+      "sum_base": 0,
+      "export_base": 0,
+      "sum_cautious": 0,
+      "export_cautious": 0
+    }
+  ],
+  "rail_missing_scenarios": [
+    {
+      "fill_hours": 24,
+      "scenario_status": "SCENARIO_NOT_CONFIDENCE_INTERVAL",
+      "coefficients": [
+        -11.884835829994671,
+        0.7103985417083222,
+        0.8135429614446248,
+        0.847150044514344,
+        1.7926164956932473
+      ],
+      "top3": [
+        "VOG",
+        "CEK",
+        "OMS"
+      ],
+      "candidate_totals": {
+        "UFA": 752427,
+        "BAX": 528772,
+        "VOG": 1139066,
+        "KUF": 876816,
+        "IKT": 206437,
+        "GSV": 879835,
+        "KZN": 203645,
+        "REN": 638138,
+        "KJA": 281959,
+        "CEK": 1096315,
+        "OMS": 960682,
+        "TJM": 805533,
+        "PEE": 926823,
+        "MRV": 711483,
+        "MCX": 231724,
+        "KGD": 451334,
+        "GOJ": 809644,
+        "AER": 436562
+      },
+      "missing_rail_gap_spokes": 31,
+      "missing_reasons": {
+        "Маршрут не найден": 31
+      }
+    },
+    {
+      "fill_hours": 48,
+      "scenario_status": "SCENARIO_NOT_CONFIDENCE_INTERVAL",
+      "coefficients": [
+        -11.884835829994671,
+        0.7103985417083222,
+        0.8135429614446248,
+        0.847150044514344,
+        1.7926164956932473
+      ],
+      "top3": [
+        "VOG",
+        "CEK",
+        "OMS"
+      ],
+      "candidate_totals": {
+        "UFA": 752427,
+        "BAX": 543956,
+        "VOG": 1144953,
+        "KUF": 883479,
+        "IKT": 217039,
+        "GSV": 889684,
+        "KZN": 203645,
+        "REN": 644008,
+        "KJA": 296356,
+        "CEK": 1108109,
+        "OMS": 968203,
+        "TJM": 811680,
+        "PEE": 934439,
+        "MRV": 711483,
+        "MCX": 231724,
+        "KGD": 451334,
+        "GOJ": 821394,
+        "AER": 436562
+      },
+      "missing_rail_gap_spokes": 31,
+      "missing_reasons": {
+        "Маршрут не найден": 31
+      }
+    },
+    {
+      "fill_hours": 96,
+      "scenario_status": "SCENARIO_NOT_CONFIDENCE_INTERVAL",
+      "coefficients": [
+        -11.884835829994671,
+        0.7103985417083222,
+        0.8135429614446248,
+        0.847150044514344,
+        1.7926164956932473
+      ],
+      "top3": [
+        "VOG",
+        "CEK",
+        "OMS"
+      ],
+      "candidate_totals": {
+        "UFA": 752427,
+        "BAX": 570643,
+        "VOG": 1155298,
+        "KUF": 895188,
+        "IKT": 235673,
+        "GSV": 906992,
+        "KZN": 203645,
+        "REN": 654321,
+        "KJA": 321660,
+        "CEK": 1128838,
+        "OMS": 981421,
+        "TJM": 822484,
+        "PEE": 947824,
+        "MRV": 711483,
+        "MCX": 231724,
+        "KGD": 451334,
+        "GOJ": 842045,
+        "AER": 436562
+      },
+      "missing_rail_gap_spokes": 31,
+      "missing_reasons": {
+        "Маршрут не найден": 31
+      }
+    },
+    {
+      "fill_hours": 168,
+      "scenario_status": "SCENARIO_NOT_CONFIDENCE_INTERVAL",
+      "coefficients": [
+        -11.884835829994671,
+        0.7103985417083222,
+        0.8135429614446248,
+        0.847150044514344,
+        1.7926164956932473
+      ],
+      "top3": [
+        "VOG",
+        "CEK",
+        "OMS"
+      ],
+      "candidate_totals": {
+        "UFA": 752427,
+        "BAX": 606344,
+        "VOG": 1169137,
+        "KUF": 910852,
+        "IKT": 260600,
+        "GSV": 930147,
+        "KZN": 203645,
+        "REN": 668118,
+        "KJA": 355509,
+        "CEK": 1156568,
+        "OMS": 999104,
+        "TJM": 836937,
+        "PEE": 965730,
+        "MRV": 711483,
+        "MCX": 231724,
+        "KGD": 451334,
+        "GOJ": 869671,
+        "AER": 436562
+      },
+      "missing_rail_gap_spokes": 31,
+      "missing_reasons": {
+        "Маршрут не найден": 31
+      }
+    }
+  ],
+  "calibration_cleaning_scenarios": [
+    {
+      "scenario": "base31",
+      "remaining_calibration_rows": 31,
+      "top3": [
+        "VOG",
+        "CEK",
+        "OMS"
+      ],
+      "candidate_totals": {
+        "UFA": 752427,
+        "BAX": 570643,
+        "VOG": 1155298,
+        "KUF": 895188,
+        "IKT": 235673,
+        "GSV": 906992,
+        "KZN": 203645,
+        "REN": 654321,
+        "KJA": 321660,
+        "CEK": 1128838,
+        "OMS": 981421,
+        "TJM": 822484,
+        "PEE": 947824,
+        "MRV": 711483,
+        "MCX": 231724,
+        "KGD": 451334,
+        "GOJ": 842045,
+        "AER": 436562
+      },
+      "interpretation": "Sensitivity to questionable calibration rows; not a corrected OD model or confidence interval"
+    },
+    {
+      "scenario": "exclude_region",
+      "remaining_calibration_rows": 30,
+      "top3": [
+        "VOG",
+        "CEK",
+        "OMS"
+      ],
+      "candidate_totals": {
+        "UFA": 751731,
+        "BAX": 571978,
+        "VOG": 1153214,
+        "KUF": 892870,
+        "IKT": 236828,
+        "GSV": 906051,
+        "KZN": 203504,
+        "REN": 655271,
+        "KJA": 322276,
+        "CEK": 1127809,
+        "OMS": 980904,
+        "TJM": 822991,
+        "PEE": 947387,
+        "MRV": 715805,
+        "MCX": 232158,
+        "KGD": 454062,
+        "GOJ": 841251,
+        "AER": 439025
+      },
+      "interpretation": "Sensitivity to questionable calibration rows; not a corrected OD model or confidence interval"
+    },
+    {
+      "scenario": "exclude_halfyear_annualization",
+      "remaining_calibration_rows": 27,
+      "top3": [
+        "VOG",
+        "CEK",
+        "GSV"
+      ],
+      "candidate_totals": {
+        "UFA": 726427,
+        "BAX": 499203,
+        "VOG": 1195223,
+        "KUF": 876450,
+        "IKT": 183342,
+        "GSV": 933087,
+        "KZN": 205288,
+        "REN": 629792,
+        "KJA": 283323,
+        "CEK": 1061865,
+        "OMS": 879283,
+        "TJM": 760092,
+        "PEE": 896122,
+        "MRV": 843667,
+        "MCX": 220251,
+        "KGD": 415434,
+        "GOJ": 806957,
+        "AER": 533318
+      },
+      "interpretation": "Sensitivity to questionable calibration rows; not a corrected OD model or confidence interval"
+    },
+    {
+      "scenario": "exclude_both",
+      "remaining_calibration_rows": 26,
+      "top3": [
+        "VOG",
+        "CEK",
+        "GSV"
+      ],
+      "candidate_totals": {
+        "UFA": 726732,
+        "BAX": 501022,
+        "VOG": 1195407,
+        "KUF": 874506,
+        "IKT": 184315,
+        "GSV": 934123,
+        "KZN": 205662,
+        "REN": 632438,
+        "KJA": 284082,
+        "CEK": 1061608,
+        "OMS": 878978,
+        "TJM": 761535,
+        "PEE": 896695,
+        "MRV": 853727,
+        "MCX": 221302,
+        "KGD": 419339,
+        "GOJ": 807012,
+        "AER": 539716
+      },
+      "interpretation": "Sensitivity to questionable calibration rows; not a corrected OD model or confidence interval"
+    }
+  ],
+  "group_lower_checks": [
+    {
+      "pair": "KJA-MOW",
+      "reported_group_lower": 690700.0,
+      "model_base": 1476455,
+      "model_optimistic": 2944067,
+      "status": "Pinned asserted lower bound, not independently source-authenticated here"
+    },
+    {
+      "pair": "KJA-LED",
+      "reported_group_lower": 191400.0,
+      "model_base": 315614,
+      "model_optimistic": 629337,
+      "status": "Pinned asserted lower bound, not independently source-authenticated here"
+    },
+    {
+      "pair": "KJA-AER",
+      "reported_group_lower": 156200.0,
+      "model_base": 350644,
+      "model_optimistic": 699188,
+      "status": "Pinned asserted lower bound, not independently source-authenticated here"
+    },
+    {
+      "pair": "KJA-BQS",
+      "reported_group_lower": 148500.0,
+      "model_base": 28826,
+      "model_optimistic": 57479,
+      "status": "Pinned asserted lower bound, not independently source-authenticated here"
+    },
+    {
+      "pair": "KJA-IKT",
+      "reported_group_lower": 128400.0,
+      "model_base": 26117,
+      "model_optimistic": 52078,
+      "status": "Pinned asserted lower bound, not independently source-authenticated here"
+    },
+    {
+      "pair": "KJA-SVX",
+      "reported_group_lower": 67100.0,
+      "model_base": 77571,
+      "model_optimistic": 154678,
+      "status": "Pinned asserted lower bound, not independently source-authenticated here"
+    }
+  ],
+  "criterion": [
+    {
+      "key": "demand_gap",
+      "label": "Скрытый спрос без прямых рейсов (модель)",
+      "short": "Скрытый спрос",
+      "dir": "+",
+      "weight": 0.0,
+      "why": "сколько пассажиров в год хотели бы лететь из города туда, куда прямого рейса нет",
+      "fmt": "mln",
+      "board": 0,
+      "fill": null,
+      "origin": "demand_gap.csv"
+    }
+  ],
+  "frequency_example": {
+    "annual_both_direction_segments": 70000,
+    "daily_both_directions": 191.78082191780823,
+    "daily_per_direction": 95.89041095890411,
+    "seats": 100,
+    "load_factor_scenario": 0.8,
+    "one_way_departures_per_week": 16.826923076923077,
+    "round_trips_per_week": 8.413461538461538,
+    "scope": "Capacity arithmetic for whole market if fully served; capture by RW UNKNOWN; no frequency recommendation"
+  },
+  "limits": [
+    "Observed report aggregation is not synthetic merely because multiple sources are combined.",
+    "Endpoint OD/new-direct counterfactual/transfer residual are not identified by this regression on segment counts.",
+    "Reproduction is conditional arithmetic, not forecast or data-truth acceptance.",
+    "Rail missing fills and annual_factor2 are modelling scenarios; residual quantiles do not guarantee prospective80percent coverage."
+  ],
+  "environment": {
+    "numpy": "2.4.3"
+  },
+  "collector_version": "critic-front-demand-1"
+}
