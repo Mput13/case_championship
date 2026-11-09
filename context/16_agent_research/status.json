@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-11-09T16:53:38.592858+00:00",
+  "updated_at_utc": "2026-11-09T17:04:10.986420+00:00",
   "phase": "phase2_bounded_complete",
   "scope": "Russia; international as separately reviewed research",
   "first_checkpoint": "~4 hours after launch; user-facing interim in 1-2 hours",
@@ -812,7 +812,9 @@
     }
   ],
   "remaining_scope": [
-    "Publish saved Sites version7 after backend failure is resolved; no automatic retry loop",
+    "Sites version8 saved but requested closing publication failed; last confirmed live version6; no automatic retry",
+    "Correct passenger-flow accounting before renewed network ranking",
+    "Implement separate Kover/no-Kover/adaptation module while retaining original experiments",
     "Fullcase8-12network, realOD/yield/freefleet and launch decision not established"
   ],
   "final_critic": {
@@ -843,9 +845,24 @@
     },
     "publication_status": "SAVED_NOT_PUBLISHED_TERMINAL_FAILURE",
     "last_confirmed_successful_version": 6,
-    "automatic_retry": "STOPPED_NO_NEW_SCHEDULE",
+    "automatic_retry": "STOPPED_AFTER_REQUESTED_CLOSING_ATTEMPT",
     "site_audience": "public_unchanged",
-    "main_explainer_sha256": "43a75dedbc8e56575dd8a1f739d63c1883f96a1ffe9182b51e0dec27f7a7e7d0"
+    "main_explainer_sha256": "43a75dedbc8e56575dd8a1f739d63c1883f96a1ffe9182b51e0dec27f7a7e7d0",
+    "closing_checkpoint_attempt": {
+      "id": "appgdep_6af1fcb755e48191a30c5f1e2f02a5c0",
+      "project_id": "appgprj_6af17440293c81919808fb1d0fbafa4b",
+      "title": "Red Wings — разбор кейса и гипотезы команды",
+      "version_id": "appgprj_6af17440293c81919808fb1d0fbafa4b~appgver_8f5ea11d51f48191b6c36751861ff805",
+      "type": "publish",
+      "status": "failed",
+      "url": null,
+      "has_mcp": false,
+      "screenshot_asset_pointer": null,
+      "provider_deployment_id": "site---6af17440293c81919808fb1d0fbafa4b",
+      "failure_message": "Failed to publish the built site.",
+      "env_set_revision": 0,
+      "updated_at": "2026-11-09T17:02:52.389456+00:00"
+    }
   },
   "kover_module": {
     "state": "SPECIFIED_NOT_IMPLEMENTED",
@@ -859,6 +876,9 @@
     "time_utc": "2026-11-09T16:24:52.407670+00:00",
     "all_role_cycles_reported_complete": true,
     "source_hashes": "coordinator/20261109T154615Z",
-    "independent_review": "fd086bad2ae30c46e95d6e38954dc99a18627902"
-  }
+    "independent_review": "fd086bad2ae30c46e95d6e38954dc99a18627902",
+    "closing_check_recorded_at_utc": "2026-11-09T17:04:10.986420+00:00",
+    "closing_integrity_check": "coordinator/20261109T170202Z"
+  },
+  "closing_checkpoint": "coordinator/20261109T170202Z"
 }

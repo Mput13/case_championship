@@ -1,0 +1,220 @@
+{
+  "checked_at_utc": "2026-11-09T17:02:02.151421+00:00",
+  "scope": "FINAL_CHECKPOINT_NO_NEW_RESEARCH_COMMITS",
+  "new_refs": [
+    {
+      "ref": "origin/docs/case5-team-synthesis-20261109",
+      "old_sha": "04dae78f0ec3cc948311a4a2b2d3dd7c0633eabc",
+      "new_sha": "102b7df97423014f3e27baea1da50b7824c9c474",
+      "author": "Mput13",
+      "assessment": "OWN_REPORT_AND_KOVER_SPEC_ONLY"
+    }
+  ],
+  "refs": [
+    {
+      "role": "core",
+      "ref": "origin/research/case5-raw-core-20261109",
+      "sha": "505e24663e5952bae9b9540bb9a5a622663bfc2a",
+      "author": "Mput13"
+    },
+    {
+      "role": "alternative",
+      "ref": "origin/research/case5-raw-alternative-20261109",
+      "sha": "ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+      "author": "Mput13"
+    },
+    {
+      "role": "critic",
+      "ref": "origin/research/case5-data-critic-20261109",
+      "sha": "fd086bad2ae30c46e95d6e38954dc99a18627902",
+      "author": "Mput13"
+    },
+    {
+      "role": "hypotheses",
+      "ref": "origin/research/case5-hypotheses-20261109",
+      "sha": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+      "author": "Mput13"
+    }
+  ],
+  "selected_csv_checks": [
+    {
+      "role": "core",
+      "source_sha": "505e24663e5952bae9b9540bb9a5a622663bfc2a",
+      "path": "operating/market_observation_v1.csv",
+      "sha256": "9080fdf675293109f14c8f2026cfaa4e73df60e03388fff6bd1a98b0951c3d54",
+      "rows": 24,
+      "example": [
+        {
+          "observation_id": "OBS:db85da64ff86699c1c44d15f",
+          "entity_id": "RU_CARRIERS",
+          "metric": "carrier_passengers",
+          "period_start": "2025-01-01",
+          "period_end": "2025-05-31",
+          "value": "40.4",
+          "unit": "million passenger segments",
+          "qualifier": "almost",
+          "value_status": "OBSERVED",
+          "observation_kind": "REPORTED_OUTTURN",
+          "source_id": "favt_ru:4262",
+          "published_at_utc": "2025-06-30T19:36:40+00:00",
+          "snapshot_at_utc": "2026-11-09T11:04:29.977265+00:00",
+          "source_url": "https://t.me/favt_ru/4262",
+          "raw_path": "raw/telegram_main/favt_ru/4287.html",
+          "literal_value": "40,4",
+          "validation_boundary": "Manual main-text selection + literal check; official reported aggregate, not independent cell audit",
+          "limitations": "Not unique persons or final OD; airport and carrier counts have different accounting; plans/budgets are not outturn/payments",
+          "legacy_observation_id": "favt_ru:4262:carrier_passengers",
+          "observation_version_id": "OBSVER:a6a53530ad80dd2cdfd698cf"
+        }
+      ],
+      "check": "PINNED_AND_OWNER_BYTES_MATCH",
+      "acceptance": "INTEGRITY_ONLY_NOT_MARKET"
+    },
+    {
+      "role": "alternative",
+      "source_sha": "ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+      "path": "normalized/flight_rules_v2.csv",
+      "sha256": "9d73559d63f7f69b52e77de226511d413d1f6fe3b73b5960356be92fad896237",
+      "rows": 6,
+      "example": [
+        {
+          "rule_id": "C14-R-07bcbd8134ee5c",
+          "operating_carrier_id": "",
+          "operating_carrier_iata": "",
+          "carrier_status": "PUBLISHED_AIRLINE_ASSOCIATION; ACTUAL_OPERATOR_NOT_VERIFIED",
+          "marketing_carrier_iata": "",
+          "flight_number": "A46013",
+          "source_flight_number": "А46013",
+          "origin_iata": "MRV",
+          "origin_airport_id": "OA:6514",
+          "origin_icao": "URMM",
+          "destination_iata": "KVX",
+          "destination_airport_id": "OA:42945",
+          "destination_icao": "USKK",
+          "origin_name_source": "Минеральные воды",
+          "destination_name_source": "Киров",
+          "departure_local_time": "16:40",
+          "arrival_local_time": "19:50",
+          "arrival_day_offset": "0",
+          "day_offset_status": "DERIVED_CLOCK_ROLLOVER_ASSUMES_LESS_THAN24H",
+          "origin_iana": "Europe/Moscow",
+          "destination_iana": "Europe/Kirov",
+          "clock_basis": "AIRPORT_PUBLISHED_LOCAL_TIME",
+          "timezone_mapping_status": "CURATED_AREA_IANA; published core KVX Europe/Moscow differs by name, agrees offset in2026",
+          "valid_from": "2026-11-09",
+          "valid_to": "2027-03-22",
+          "weekdays_iso": "1",
+          "exceptions": "UNKNOWN_NOT_LISTED",
+          "intermediate_stops": "",
+          "stop_pattern_status": "UNKNOWN_NOT_STATED_IN_RULE",
+          "source_status": "PARSED",
+          "value_status": "OBSERVED",
+          "scope_status": "ADVERTISED_SCHEDULE_NOT_OPERATIONAL_GUARANTEE",
+          "source_snapshot": "kvx_timetable_20261109",
+          "source_sha256": "e6d324e8a82f6f92ecb3966bac4a836c24fd40d61d28509017a8acbe75fe5a49",
+          "source_url": "https://pobedilovo43.ru/passengers/timetable/",
+          "observed_at_utc": "2026-11-09T14:20:16.979801+00:00",
+          "source_locator": "div.result__block occurrence1; destination_type/period/days",
+          "recipe_version": "c14-flight-v1",
+          "source_carrier_association": "Azimuth / A4 prefix published with airport rule; carrier news corroborates route",
+          "legal_carrier_role_status": "UNKNOWN",
+          "legal_role_missing_reason": "Source association does not establish operating or marketing legal role for a future instance",
+          "derived_fields": "rule_id;origin_iana;destination_iana;arrival_day_offset",
+          "day_offset_value_status": "DERIVED",
+          "timezone_value_status": "DERIVED",
+          "legacy_input_commit": "fa39de413ac00a93b0214840aae2e7916332cef5",
+          "legacy_table_sha256": "07a504f45249dfa9924af34b5e6fbc05e396654b98c18bbef48844a2545ea3d5",
+          "adapter_version": "c14-flight-role-adapter-v2"
+        }
+      ],
+      "check": "PINNED_AND_OWNER_BYTES_MATCH",
+      "acceptance": "INTEGRITY_ONLY_NOT_MARKET"
+    },
+    {
+      "role": "hypotheses",
+      "source_sha": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+      "path": "runs/c26661067277af20/c07_comparison.csv",
+      "sha256": "4b4bc432cf4b1e7225c365f7de1b8999d19b61e75ba4944eba8938bf1964c5e8",
+      "rows": 3,
+      "example": [
+        {
+          "variant": "C07_chain_turn30",
+          "baseline": "C07_reference",
+          "legs_candidate": "4",
+          "legs_baseline": "2",
+          "block_candidate_minutes": "475",
+          "block_baseline_minutes": "205",
+          "elapsed_candidate_minutes": "565",
+          "elapsed_baseline_minutes": "255",
+          "return_delay_vs_reference_minutes": "310",
+          "initial_airport": "SVX",
+          "final_airport": "SVX",
+          "same_reference_slot_gate": "FAIL_CANNOT_KEEP_REFERENCE_RETURN",
+          "tail_next_assignment": "UNKNOWN",
+          "donor_id": "UNKNOWN",
+          "actual_replaceability": "NOT_EVALUATED"
+        }
+      ],
+      "check": "PINNED_AND_OWNER_BYTES_MATCH",
+      "acceptance": "INTEGRITY_ONLY_NOT_MARKET"
+    }
+  ],
+  "selected_raw_check": {
+    "source_sha": "505e24663e5952bae9b9540bb9a5a622663bfc2a",
+    "sha256": "e6d324e8a82f6f92ecb3966bac4a836c24fd40d61d28509017a8acbe75fe5a49",
+    "copied": false,
+    "interpretation": "RAW_BYTES_ONLY"
+  },
+  "critic_handoff_sha256": "ee1b2e5b631906a5463c7a1392f97cc9ff5577d1f89fa94bd123a25024678d4d",
+  "critic_scope": {
+    "completed_at_utc": "2026-11-09T15:51:16.976304+00:00",
+    "branch": "research/case5-data-critic-20261109",
+    "status": "BOUNDED_CYCLE_COMPLETE_SCOPE_LIMITED",
+    "decision": "NOT_READY_FOR_STRATEGY_OR_LAUNCH",
+    "main_report": "professional_review.md",
+    "gates": "acceptance_gates.json",
+    "findings": "findings.csv",
+    "source_checks": "source_checks.csv",
+    "audited_versions": "audited_input_versions.json",
+    "final_reference_snapshot": "final_reference_snapshot.json",
+    "reproduction_scripts": [
+      "probe_frozen_inputs.py",
+      "check_C07_reference.py",
+      "review_experiment_001.py",
+      "review_input_set002.py",
+      "review_core_integration.py",
+      "review_core_social.py",
+      "review_core_c14_union.py",
+      "check_conditional_capacity.py",
+      "review_alternative_f92.py",
+      "review_front2272.py",
+      "review_late_phase2.py"
+    ],
+    "new_material_issue": {
+      "id": "IV13",
+      "severity": "P2",
+      "input_sha": "2272e9fac19cdebf68086a46f7ddc48c0fb2d9c8",
+      "status": "OPEN_REPRODUCED_SCALARS_AND_CODE_MECHANISMS",
+      "full_model_replay": "NOT_RUN"
+    },
+    "unknowns": [
+      "actualOD/netyield/localbookings",
+      "freeaircraft/tail/nextassignment/crew/engineeringblocks",
+      "baseline/donor/incrementalcontractcosts",
+      "bookedhoteldate/minstay/extensioninventory/groundlink/boardingdeadline",
+      "trainholdouttargetlabels/predictiveedge"
+    ],
+    "outside_review_scope": [
+      "core505newC07reconciliation",
+      "alternativeefoptionalC10/receptionextract",
+      "fullfront2272modelreplay",
+      "fullcase8-12network/annualrevenue/share/roadmap2028"
+    ],
+    "local_raw_manifest": "local_raw_manifest.json",
+    "external_retained_raw": "reviews/core_social_b264780/input_manifest.json; threeownerZIPsread-only, not copied",
+    "safety": "Only critic/integration_v1 written; peer code not executed; no new child/source requests or restarts; no peer branches merged; raw not staged",
+    "continuation": "No automatic new research cycle"
+  },
+  "new_data_or_model_acceptance": false,
+  "automatic_extension": false
+}
