@@ -3,6 +3,7 @@
 from pathlib import Path
 from datetime import datetime,timezone
 import csv,hashlib,json,subprocess
+from publication_headers import clean_public_metadata
 ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def ignored(p):return subprocess.run(['git','check-ignore','--no-index','-q',str(p)]).returncode==0
@@ -13,7 +14,7 @@ def main():
     ds=[]
     for filename,base in [('inputs/capture_manifest.json',''),('contributions/source_access/dataset_manifest_public.json','contributions/source_access'),('contributions/existing_map/dataset_manifest.json','contributions/existing_map'),('contributions/existing_map/review_source_manifest.json','contributions/existing_map'),('inputs/peer_status_manifest.json',''),('inputs/late_update_manifest.json','')]:
         for r0 in json.load((ROOT/filename).open())['datasets']:
-            r=dict(r0);r['upstream_manifest']=filename
+            r=clean_public_metadata(r0);r['upstream_manifest']=filename
             for key in ['raw_path','text_path','derived_path']:
                 if r.get(key):r[key]=str(Path(base)/r[key]) if base else r[key]
             r['size_bytes']=r.get('size_bytes',r.get('byte_size',r.get('bytes')))

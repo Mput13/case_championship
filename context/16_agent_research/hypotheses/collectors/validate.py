@@ -4,6 +4,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 import csv,gzip,hashlib,json,math,subprocess,sys
 from jsonschema import Draft202012Validator
+from publication_headers import PUBLIC_HEADERS, forbidden_key
 ROOT=Path(__file__).resolve().parents[1]
 def read(name):return list(csv.DictReader((ROOT/name).open()))
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -47,6 +48,37 @@ def main():
     check('external_raw_ignored',subprocess.run(['git','check-ignore','-q',str(ROOT/g['raw_path'])]).returncode==0)
     runs=[json.loads(l) for l in (ROOT/'evaluation_runs.jsonl').read_text().splitlines()]
     check('all_attempt_inputs_preserved',all(sha(ROOT/'inputs/run_snapshots'/(h+'.blob'))==h for run in runs for h in run['input_hashes'].values()))
+    public_files=['dataset_manifest.json','contributions/source_access/dataset_manifest_public.json','contributions/source_access/public_receipts.json','contributions/existing_map/review_evidence/front_audit_20261109/primary_manifest_public.json']
+    def safe_metadata(value):
+        if isinstance(value,list):return all(safe_metadata(v) for v in value)
+        if not isinstance(value,dict):return True
+        return all(not forbidden_key(k) and (k.casefold()!='headers' or isinstance(v,dict) and all(h.casefold() in PUBLIC_HEADERS for h in v)) and safe_metadata(v) for k,v in value.items())
+    check('published_metadata_keys_and_header_whitelist',all(safe_metadata(json.loads((ROOT/p).read_text())) for p in public_files))
+    transforms=json.loads((ROOT/'publication_transforms.json').read_text())['transformations']
+    check('original_and_stored_metadata_hashes',all(sha(ROOT/item['path'])==item['sha256'] for t in transforms for item in t['originals']+[t['stored']]))
+    local_raw=json.loads((ROOT/'publication_review.json').read_text())['local_only']
+    check('all_local_originals_unchanged',all(sha(ROOT/r['path'])==r['sha256'] for r in local_raw))
+    # Exercise the collector with an in-memory HTTP response; never make a request.
+    import email.message,importlib.util,tempfile
+    from unittest.mock import patch
+    spec=importlib.util.spec_from_file_location('publication_collector',ROOT/'contributions/source_access/collectors/acquire.py')
+    collector=importlib.util.module_from_spec(spec);spec.loader.exec_module(collector)
+    headers=email.message.Message()
+    for key,value in [('Content-Type','text/html; charset=utf-8'),('Date','Mon, 09 Nov 2026 00:00:00 GMT'),('sEt-CoOkIe','fixture-only'),('Authorization','fixture-only'),('X-Unknown-Header','fixture-only')]:headers[key]=value
+    body=b'<p>Unmodified body fixture</p>'
+    class Response:
+        status=200;url='https://example.invalid/offline-fixture'
+        def __enter__(self):return self
+        def __exit__(self,*args):return False
+        def read(self,*args):return body
+    response=Response();response.headers=headers
+    with tempfile.TemporaryDirectory(dir=ROOT/'raw/external',prefix='publication-check-') as temp:
+        collector.ROOT=Path(temp);(collector.ROOT/'raw').mkdir()
+        with patch.object(collector.urllib.request,'urlopen',return_value=response):
+            row=collector.acquire({'dataset_id':'FIXTURE','source_url':response.url})
+        receipt=json.loads((collector.ROOT/'raw/FIXTURE_receipt.json').read_text())
+        ok=row['acquisition_status']=='ACQUIRED_RAW' and row['headers']=={'Content-Type':headers['Content-Type'],'Date':headers['Date']} and safe_metadata(receipt) and (collector.ROOT/'raw/FIXTURE.html').read_bytes()==body and row['sha256']==hashlib.sha256(body).hexdigest()
+    check('collector_offline_headers_and_original_body',ok)
     artifacts=json.load((ROOT/'artifact_manifest.json').open())['files'];bad_art=[r['path'] for r in artifacts if sha(ROOT/r['path'])!=r['sha256']];check('artifact_manifest',not bad_art,str(bad_art))
     out=dict(checked_at_utc=datetime.now(timezone.utc).isoformat(),status='PASS' if not errors else 'FAIL',checks=checks,limits=['No candidate economic forecasts evaluated','No full schedules or fleet availability accepted','Primary observations retain original period and grain','Full front reparse NOT_RUN'])
     (ROOT/'validation.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'status':out['status'],'checks':len(checks),'failures':errors}));sys.exit(bool(errors))
