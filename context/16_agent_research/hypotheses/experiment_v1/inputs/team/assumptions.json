@@ -1,0 +1,99 @@
+{
+  "as_of": "2026-11-09",
+  "period": "2026-12-07/13",
+  "profile": "ROUTE_INPUTS_UPPER_100",
+  "routes": [
+    [
+      "ZIA",
+      "MRV"
+    ],
+    [
+      "ZIA",
+      "AER"
+    ],
+    [
+      "SVX",
+      "MRV"
+    ],
+    [
+      "SVX",
+      "AER"
+    ],
+    [
+      "ZIA",
+      "GSV"
+    ],
+    [
+      "SVX",
+      "REN"
+    ],
+    [
+      "SVX",
+      "OMS"
+    ]
+  ],
+  "route_selection": "Five promising one-weekly outbacks including restored SVX-AER with primary route-specific scale, and two existing-RW-overlap controls; not a global optimum",
+  "frequency": 1,
+  "nominal_capacity_per_flight": 100,
+  "technical_status": "требует эксплуатационной проверки; nominal100 is not a confirmed payload",
+  "fixed_extra_burden_per_roundtrip_week_rub": [
+    0,
+    500000,
+    1000000
+  ],
+  "net_fuel_adjustment_stress_rub_per_t": [
+    0,
+    3024,
+    10000,
+    30000,
+    60000
+  ],
+  "net_fuel_adjustment_definition": "Net additional economic benefit after any newly accrued excise, refunds, pass-throughs and amounts already in supplier price. NOT gross deduction, not measured RW benefit, not paid route subsidy. 3024=2800*(2.08-1) conditional arithmetic illustration only; other points span the break-even gap, not a credible forecast interval.",
+  "fare_threshold_modes": [
+    "new_ticket_only_old_RW_yield_held_fixed",
+    "common_market_repricing_old_and_new_together"
+  ],
+  "paid_pax_interpretation": "One-way journeys per departure; roundtrip has two legs. Equal-direction tests are assumptions; each direction separately exported. Required OD inferred backwards from uncalibrated capture, never observed demand.",
+  "transfer_probe_scales": [
+    1,
+    2,
+    4,
+    10,
+    1000
+  ],
+  "transfer_upper_bound": "Maximum-profit bipartite residual-seat flow, locals fixed, transfer OD unlimited, zero transfer migration. An optimistic upper bound with unchanged dated connection products, fares and flight costs; not whole-network optimum.",
+  "sensitivity_cases": [
+    "baseline",
+    "no_migration",
+    "no_uplift",
+    "remove_cycle_fuel_overlap_test",
+    "remove_receive_release_for_overlap_test_only",
+    "pax_cost338_5_reference_only",
+    "no_hourly_crew_cash_only",
+    "no_MRO_cash_only",
+    "fuel_burn_minus20pct_unverified",
+    "all_flight_cost_minus20pct_unverified",
+    "unknown_leg_plus30min",
+    "unknown_leg_plus60min"
+  ],
+  "limits": [
+    "No observed winter OD or net settlement yield added",
+    "UFA tariffs are public local references, not signed all-airport RW contracts",
+    "Fuel burn and all hourly costs remain analyst assumptions",
+    "Cost reductions, full load and higher fare at fixed sales are thresholds, not verified business plans",
+    "No pilot is justified by smaller loss; full economics, technical clearance and evidence of payable demand needed"
+  ],
+  "endpoint_fraction_tests": [
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "winter_to_annual_average_tests": [
+    0.5,
+    0.75,
+    1.0
+  ],
+  "segment_scale_warning": "Actual historical flown route-pair passenger movements, not final OD. Annual/(2*52) assumes both directions and symmetry. Endpoint fractions and December/annual ratios are unknown; grid is a decision-boundary test, not an empirical confidence interval.",
+  "net_yield_audit_definition": "Assumed carrier realised revenue per one-way journey after recoverable VAT and sales deductions, BEFORE the passenger/airport expenses itemised here. Future settlement data already net of those airport charges must not incur them again. Actual definition not established from sold tickets."
+}
