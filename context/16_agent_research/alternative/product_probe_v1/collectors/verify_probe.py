@@ -65,7 +65,7 @@ def main():
     assert all(r['minimum_stay']=='UNKNOWN' for r in stay)
     assert all(r['date_inventory']==r['all_in_itinerary_price']=='UNKNOWN' for r in offers)
     receipt_bodies=0
-    for folder in ['receipts','ground_transfer/receipts','air_offer/receipts']:
+    for folder in ['receipts','ground_transfer/receipts','air_offer/receipts','c10_optional/receipts']:
         base=ROOT if folder=='receipts' else ROOT/folder.split('/')[0]
         for p in (ROOT/folder).glob('*.json'):
             r=json.loads(p.read_text())
@@ -108,6 +108,34 @@ def main():
                 assert delta==int(r['max_property_exit_transfer_airport_buffer_minutes'])
                 assert delta-40==int(r['max_exit_wait_transfer_queue_minutes_before_general_checkin_close'])
         product_checks={'rows':24,'booked_dates_and_availability':'UNKNOWN','night_difference_and_return_time_budgets':'PASS'}
+    roles_file=ROOT/'normalized/flight_rules_v2.csv'
+    if roles_file.exists():
+        roles=read('normalized/flight_rules_v2.csv');assert len(roles)==6
+        assert {r['rule_id'] for r in roles}=={r['rule_id'] for r in rules}
+        assert all(r['operating_carrier_id']==r['operating_carrier_iata']==r['marketing_carrier_iata']=='' for r in roles)
+        assert all(r['legal_carrier_role_status']=='UNKNOWN' and r['value_status']=='OBSERVED' for r in roles)
+    c10_file=ROOT/'c10_optional/source_manifest.json';c10_checks=None
+    if c10_file.exists():
+        c10_rules=read('c10_optional/route_rules.csv');c10_dates=read('c10_optional/schedule_dates.csv')
+        assert len(c10_rules)==len({r['rule_id'] for r in c10_rules})==17
+        c10_idx={r['rule_id']:r for r in c10_rules}
+        keys=set()
+        for r in c10_dates:
+            rr=c10_idx[r['rule_id']];date=dt.date.fromisoformat(r['departure_date_as_published'])
+            assert rr['record_role']=='PRIMARY_PAIR_TIMETABLE_RULE'
+            assert rr['valid_from']<=date.isoformat()<=rr['valid_to']
+            assert date.isoweekday() in {int(v) for v in rr['weekday_iso'].split('|')}
+            key=(r['direction_alias'],r['flight_identifier_raw'],r['departure_date_as_published'],r['departure_clock_as_published'])
+            assert key not in keys;keys.add(key)
+            assert r['arrival_date']==r['open_sale_status']=='UNKNOWN'
+        assert len(c10_dates)==28
+        assert all(r['operating_carrier']==r['marketing_carrier']==r['origin_iana']==r['destination_iana']=='UNKNOWN' for r in c10_rules)
+        corp=read('c10_optional/corporate_evidence.csv');assert len(corp)==1
+        assert corp[0]['fact_date']=='2006-04-26' and corp[0]['relationship_current_2026']=='UNKNOWN'
+        cm=json.loads(c10_file.read_text())
+        for path,a in cm['artifacts'].items():
+            assert digest(ROOT/'c10_optional'/path)==a['sha256'],path
+        c10_checks={'rules':17,'primary_occurrences':28,'historical_corporate_facts':1,'current_OD':'UNKNOWN','scope':'pair-only optional module; no C14 changes or approved airport/role/timezone mapping'}
     public_files=[p for p in sorted(ROOT.rglob('*')) if public(p) and p.relative_to(ROOT).as_posix() not in {'dataset_manifest.json','verification.json'}]
     for p in public_files:
         if p.suffix=='.json':safe(json.loads(p.read_text()),str(p.relative_to(ROOT)))
@@ -117,7 +145,7 @@ def main():
             assert not re.search(r'\b(?:ghp_|github_pat_)[A-Za-z0-9_]{20,}',text),f'token pattern in {p.relative_to(ROOT)}'
     report={'checked_at_utc':dt.datetime.now(dt.timezone.utc).isoformat(),'status':'PASS_OFFLINE_EXTRACTION_AND_CALENDAR_ONLY',
         'flight_rules':len(rules),'planned_flights':len(instances),'outbound_instances_in_window':len(outward),
-        'stay_rules':len(stay),'public_stay_tariffs':len(offers),'headers_and_public_paths':'PASS','conditional_product_checks':product_checks,
+        'stay_rules':len(stay),'public_stay_tariffs':len(offers),'headers_and_public_paths':'PASS','conditional_product_checks':product_checks,'optional_c10':c10_checks,
         'held_raw_files':len(held_files),'held_raw_bytes':sum(p.stat().st_size for p in held_files),'held_source_bodies_verified_against_receipts':receipt_bodies,
         'source_conflict':'MonThu current airport vspreviousMonFri; not merged',
         'not_accepted':['performed flights','future inventory','confirmed dated hotel booking','concrete air fare quote','realised revenue','observed OD','predictive edge']}
@@ -131,6 +159,7 @@ def main():
         m=ROOT/name/'dataset_manifest.json';modules.append({'path':str(m.relative_to(ROOT)),'sha256':digest(m),'scope':'module raw/source details and explicit UNKNOWN; no market acceptance'})
     air=ROOT/'air_offer/source_manifest.json'
     if air.exists():modules.append({'path':str(air.relative_to(ROOT)),'sha256':digest(air),'scope':'dated query error and general policy; not a dated available offer'})
+    if c10_file.exists():modules.append({'path':str(c10_file.relative_to(ROOT)),'sha256':digest(c10_file),'scope':'optional UFA–SGC published rules and historical corporate assertion only'})
     (ROOT/'dataset_manifest.json').write_text(json.dumps({'schema_version':'c14-product-probe-v1','path_base':'directory containing this manifest',
         'created_at_utc':report['checked_at_utc'],'reference_scope_file':'input_reference_scope.json','scope_file':'table_contract.json',
         'public_files':files,'verification_sha256':digest(ROOT/'verification.json'),'root_sources':sources,'module_manifests':modules,
