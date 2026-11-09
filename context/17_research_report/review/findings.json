@@ -1,0 +1,80 @@
+{
+  "decision": "APPROVE",
+  "reviewed_at_utc": "2026-11-09T20:28:37Z",
+  "reviewer": "Sol6.1 xhigh",
+  "scope": "Read-only review of high-impact facts, units, calculation boundaries and user-request coverage in the research HTML report",
+  "reviewed_artifacts": [
+    {
+      "path": "research-report.html",
+      "sha256": "9e0e16d0d8d2566af56791b46b68d7f01a5d66c90514e3d9d454b60ac28f87c0"
+    },
+    {
+      "path": "templates/research-report.html",
+      "sha256": "b8f0d1e150329c04d6b2d442353afc36a1c7bc994b57aafe6ee829fd7f471469"
+    },
+    {
+      "path": "scripts/build_research_report.py",
+      "sha256": "f66af7f31c454736f3cd7f1ebfbd8db36bcbd16f586383fb767927f0262bcc98"
+    },
+    {
+      "path": "context/17_research_report/input_manifest.json",
+      "sha256": "2e2299d8617579c5f202a504b6be6bd782dde8329dc02460c1de2d345e5dc1e8"
+    }
+  ],
+  "severity_counts": {"P1": 0, "P2": 0},
+  "findings": [],
+  "required_fixes": [],
+  "personally_verified": [
+    "All 40 pinned input bytes, sizes and SHA-256 hashes match input_manifest.json",
+    "Rendered report SHA matches supplied QA and review snapshot",
+    "Pinned counts: 1845 airport objects; 96660 modeled access rows; 2022 municipal rows all in 2024; 18360 normalized tourism rows; 996 station-months",
+    "C14: 24 calendar rows; all full-product gates UNKNOWN; 12 exact dates; 10 positive extensions of 1/2/3 nights; 2 beyond-capture unknowns; source night arrivals distinct from proposed daytime product",
+    "C01 resource shifts: first departure +120, return +135, occupied elapsed +15, block and physical-flight deltas zero",
+    "Capacity counterexample arithmetic: q34, margin10000, load114/100, residual-capacity margin-200000 RUB",
+    "C07 pinned rows and chart arithmetic: four legs; block475; elapsed565/610/655; baseline255; deltas310/355/400; donor and next assignment UNKNOWN",
+    "Front scalar -9494; Telegram count difference5981; presentation agrees with pinned reviewer/coordinator statements and preserves acceptance limits",
+    "35 generated programs preserve selected specification fields and every linked ancestor author/source URL; 107 ancestry records; 9 queued; evaluation statuses all NOT_EVALUATED",
+    "14 main sections remain outside details and are not hidden; no duplicate IDs or broken internal anchors; 118 HTTPS source links",
+    "Requested source/method/results/limitations coverage, cancelled dashboard, three proposed Kover modes, unchanged original experiment, user-attributed change preference and required new-hub hypothesis"
+  ],
+  "trusted_qa_not_rerun": [
+    {
+      "artifact": "context/17_research_report/build_checks.json",
+      "scope": "Additional builder assertions; builder was read, not executed"
+    },
+    {
+      "artifact": "context/17_research_report/static_checks.json",
+      "scope": "41 immutable Git link targets and node syntax check; own separate input hash/outline checks completed"
+    },
+    {
+      "artifact": "context/17_research_report/layout_checks.json",
+      "scope": "1200/390 rendering, page overflow and sticky navigation; no personal browser or screenshot QA"
+    },
+    {
+      "artifact": "context/17_research_report/preview_checks.json",
+      "scope": "Provided preview evidence, handoff and QA PNGs; no new preview session"
+    },
+    {
+      "artifact": "context/17_research_report/interaction_checks.json",
+      "scope": "Minimal DOM fixture results, not personal browser E2E"
+    },
+    {
+      "artifact": "fd086bad2ae30c46e95d6e38954dc99a18627902:context/16_agent_research/critic/integration_v1/phase2_handoff.json",
+      "scope": "Prior independent source-cell, semantic and mechanism QA only within declared scope; no full replay or market acceptance"
+    }
+  ],
+  "not_run": [
+    "Web/network retries and external URL availability checks",
+    "New browser, preview, server or screenshot verification",
+    "Builder/check scripts that overwrite supplied artifacts",
+    "Peer research code and full Front2272 model replay",
+    "Primary-source re-audit of all raw cells and URLs",
+    "New children, commits, pushes, Sites or publication"
+  ],
+  "network_recovery": "IN_PROGRESS accepted for this reviewed snapshot; later integrated results are outside this verdict",
+  "acceptance_boundary": "Approval of report presentation and scoped consistency only; strategy, demand, financial viability and launch remain unaccepted",
+  "writes": [
+    "context/17_research_report/review/report.md",
+    "context/17_research_report/review/findings.json"
+  ]
+}
