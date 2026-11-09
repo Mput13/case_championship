@@ -52,3 +52,17 @@ Input-set002 (`411a3515…`) фиксирует alternative@fa39de413ac00a93b021
 Property timezone/minstay и ночное заселение UNKNOWN. Clock budgets для обратного трансфера рассчитаны отдельно только при явном условии одинаковых гражданских часов; IANA отеля не заполнен поясом аэропорта. Стоимость bed-day/person-day не умножалась на число ночей; оплачиваемые дни и inventory неизвестны. Ground rows на фактические08/11Dec не найдены в ограниченном срезе, поэтому coverageUNKNOWN, без переноса07/13Dec. Интервал между объявленными прилётом/вылетомKVX60мин не доказывает общий борт или допустимыйturnaround.
 
 Денежные108строк дополнены itinerary_template_id/targetOD/legsequences в `cost_resource/6cf441ef38e2c6c5/conditional_thresholds_with_product_keys.csv`. C07здесь локальныйOMS–KJA–OMS:2qпосадок; отдельныйthroughSVX–KJAчерезOMS потребовал бы4q. Параметры порогов не менялись.
+
+## Core operating и изменение даты возврата
+
+`input_sets/phase2-frozen-003.json` отдельно фиксирует core@b264780e65a0e04afd42da811652039c70fc1def; оба manifestSHA проверены. `operating_join/126bccd230436e9f/` соединил7airportkeys/10physicalrequirements/7rules/12dateddepartures. Все12arrivalUTC остаются пустыми.30карантинных записей сохранены; ни сценарныйarrival, ни другойhelper не заполняет источник. Более поздний C14изinput002 не подменён историческиминоябрьскимистрокамиcore.
+
+`c14_calendar_flex/13bad5060a24f3ce/` проверяет явно условное согласие пассажира на более поздний возврат. Для10из24вариантов ближайший последующий вылет в сохранённом горизонте требует ещё1/2/3bookedночей. Длядвухcheckout25Decследующийвозврат внеcoverageUNKNOWN. Это варианты изменения даты, не подтверждённый пакет: продление номера, оплачиваемые дни, доплата, трансфер и желание пассажира UNKNOWN. Никакая tariff×nights сумма не объявлена.
+
+Полное повторное вычисление сохранённых проходов в свежем временном каталоге внутри роли: `python3 context/16_agent_research/hypotheses/experiment_v1/scripts/replay.py`. Он исполняет только сохранённые версии собственного кода, проверяет побайтовые результаты и удаляет свой временный каталог. Сеть и исходные опубликованные outputs не изменяются.
+
+## Независимая проверка
+
+`reviews/critic_d325/` сохраняет exactfiles critic@d325cd3d79165015d2208fbe2ce3b7f4237df7f4: вход1a684451, runc266…, ARITHMETIC_PASS_SCOPED по собственным формулам без исполнения авторского кода. Границы calendar/resource/market сохранены. P3к явному денежному OD закрывается добавленными productkeys в eac4; критик сообщил независимые differences0 по этому входу, его отдельный опубликованный SHA ещё ожидается.
+
+Последний fetch обнаружил front@2272e9fac19cdebf68086a46f7ddc48c0fb2d9c8 и team@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299. Они записаны как reference/PENDING, в frozen эксперименты не добавлены. Новые network-таблицы не меняют приёмку нашего OD/парка или HOLD старого Telegram.

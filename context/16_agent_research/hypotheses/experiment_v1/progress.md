@@ -7,3 +7,7 @@
 2026-11-09T14:36:43.634598+00:00 — cost_resource8762cfe3b8961b31: matched resource deltas,12movement counts,9tariffreferences,3gapdefinitions;5checksPASS. C01south+15occupiedmin/+135returnshift. PublicOMS911+947=1858RUB/t conditionalcoefficient, notpaidbudget/floor. Frozeninput/marketacceptance unchanged.
 
 2026-11-09T14:46:34.142587+00:00 — Newinput002fa39de4,9safeCSV,manifest411a3515;C14productrun3906edd033f75bc6:24requests/12calendarjoins,fullproductUNKNOWN.6modulechecks+independentdateoraclePASS. FieldtargetODexplicit in costresource6cf441ef;oldcode/output8762retained.
+
+2026-11-09T14:55:08.015325+00:00 — Coreinput003b264frozen;scope7keymatch,12unknownarrivalUTCnotfilled. C14flex13bad5060a24f3ce counts additionalbookednights only; nochargesimputed. Freshreplay5runs48outputsbyteidentical; extendingreplay tothese2modules.
+
+2026-11-09T14:57:18.428645+00:00 — Independentinput001audit pinned d325:ARITHMETIC_PASS_SCOPED, no source/market uplift. Input002differences0 сообщеныcritic, publicationSHApending. Freshreplay7runs55outputsidentical. Front2272e9/team93fa refsrecordedpending outsidefrozenexperiments.
