@@ -1,0 +1,76 @@
+{
+  "native_tool": "web.open",
+  "native_failures": [
+    {
+      "url": "https://t.me/s/favt_info/4685",
+      "error": "Internal Error ()\nURL https://t.me/s/favt_info/4685 is not accessible via this tool.",
+      "time_note": "Observed this audit run 2026-11-09, before successful urllib probe; native tool response supplied no timestamp."
+    },
+    {
+      "url": "https://t.me/s/favt_info/4687",
+      "error": "Internal Error ()\nURL https://t.me/s/favt_info/4687 is not accessible via this tool.",
+      "time_note": "Observed this audit run 2026-11-09, before successful urllib probe; native tool response supplied no timestamp."
+    },
+    {
+      "url": "https://t.me/s/favt_info/6503",
+      "error": "Internal Error ()\nURL https://t.me/s/favt_info/6503 is not accessible via this tool.",
+      "time_note": "Observed this audit run 2026-11-09, before successful urllib probe; native tool response supplied no timestamp."
+    }
+  ],
+  "fallback_tool": "Python stdlib urllib HTTP text fetch",
+  "fallback_results": [
+    {
+      "source_url": "https://t.me/s/favt_info/4685",
+      "checked_at_utc": "2026-11-09T10:56:22.716886+00:00",
+      "http_status": 200,
+      "final_url": "https://t.me/s/favt_info/4685",
+      "redirects": [],
+      "content_type": "text/html; charset=utf-8",
+      "headers": {
+        "Date": "Mon, 09 Nov 2026 10:56:23 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "153633",
+        "Cache-control": "no-store"
+      },
+      "bytes": 153633,
+      "raw_path": "raw/primary/favt_info_4685.html",
+      "sha256": "dcaa2d2419e29580091f7aebe19d820f1f95f5474bd1ef60540377f282e8c9fd"
+    },
+    {
+      "source_url": "https://t.me/s/favt_info/4687",
+      "checked_at_utc": "2026-11-09T10:56:23.998029+00:00",
+      "http_status": 200,
+      "final_url": "https://t.me/s/favt_info/4687",
+      "redirects": [],
+      "content_type": "text/html; charset=utf-8",
+      "headers": {
+        "Date": "Mon, 09 Nov 2026 10:56:24 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "157738",
+        "Cache-control": "no-store"
+      },
+      "bytes": 157738,
+      "raw_path": "raw/primary/favt_info_4687.html",
+      "sha256": "015c6153648481019f3e9b9a335f964340e89a8d181196c77c2cd1d5dfedb512"
+    },
+    {
+      "source_url": "https://t.me/s/favt_info/6503",
+      "checked_at_utc": "2026-11-09T10:56:25.198480+00:00",
+      "http_status": 200,
+      "final_url": "https://t.me/s/favt_info/6503",
+      "redirects": [],
+      "content_type": "text/html; charset=utf-8",
+      "headers": {
+        "Date": "Mon, 09 Nov 2026 10:56:25 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "146331",
+        "Cache-control": "no-store"
+      },
+      "bytes": 146331,
+      "raw_path": "raw/primary/favt_info_6503.html",
+      "sha256": "0efcd4dc209326ef9f7bdabb2b8e9e17ce7e1f65bf8ff4f71859e28a51daae17"
+    }
+  ],
+  "diagnosis": "The exact public URLs are reachable over HTTP from this environment and return HTML. Failure is specific to web.open access/rendering path; underlying reason UNKNOWN. No evidence that login or a browser is required.",
+  "safe_fix": "Use saved raw HTTP HTML with exact URL/status/hash for this research. Do not restart services, change profiles, or infer a T3 defect."
+}

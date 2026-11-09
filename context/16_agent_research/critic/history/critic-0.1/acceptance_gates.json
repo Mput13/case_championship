@@ -1,0 +1,132 @@
+{
+  "protocol_version": "critic-0.1",
+  "generated_at_utc": "2026-11-09T10:59:00.717281+00:00",
+  "overall": "NOT_READY_FOR_LAUNCH; conditional arithmetic checks passed within scope",
+  "levels": [
+    "ARITHMETIC_PASS",
+    "SCREENING_READY",
+    "CONDITIONAL_COMPARISON_READY",
+    "CASE_PRESENTATION_READY",
+    "LAUNCH_READY"
+  ],
+  "policy": "A gate at LAUNCH_READY is not automatically required for a candid conditional case presentation. UNKNOWN is not zero or false. No confidence probability inferred.",
+  "gates": [
+    {
+      "id": "G01",
+      "topic": "requirements",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PASS",
+      "evidence": "Live organizer and local requirements read; no fixed universal weights imposed",
+      "evidence_path": "raw/organizer.html; evaluation_protocol.md",
+      "minimum_next_action": "Maintain annual metrics/route count and model definitions"
+    },
+    {
+      "id": "G02",
+      "topic": "provenance",
+      "level": "ARITHMETIC_PASS",
+      "status": "PASS_SCOPED",
+      "evidence": "Pinned SHA and byte hashes for independently checked ledgers; source raw saved",
+      "evidence_path": "input_refs.json; dataset_manifest.json; evidence/pinned_package_checks.json",
+      "minimum_next_action": "Refresh refs and manifests before integration"
+    },
+    {
+      "id": "G03",
+      "topic": "restriction_source_body",
+      "level": "SCREENING_READY",
+      "status": "FAIL",
+      "evidence": "Front Telegram extractor may substitute reply body; targeted primary reproduction underway",
+      "evidence_path": "front_audit/partial_day_impact.json",
+      "minimum_next_action": "Extract main body per message; refetch/rebuild/validate corrected counts"
+    },
+    {
+      "id": "G04",
+      "topic": "NULL_ground",
+      "level": "SCREENING_READY",
+      "status": "FAIL",
+      "evidence": "NULL route missing reason must survive; absence of rail evidence is not bad rail",
+      "evidence_path": "front_audit/reproduction.json",
+      "minimum_next_action": "Separate known gap and unknown rail; recompute bounds"
+    },
+    {
+      "id": "G05",
+      "topic": "competition_coverage",
+      "level": "SCREENING_READY",
+      "status": "FAIL",
+      "evidence": "Short base dictionary maps unknown to zero penalty in front; stage15 corrected variants distinguish UNKNOWN",
+      "evidence_path": "front_audit/reproduction.json",
+      "minimum_next_action": "Separate presence evidence, absence evidence, UNKNOWN and route share"
+    },
+    {
+      "id": "G06",
+      "topic": "ledger",
+      "level": "ARITHMETIC_PASS",
+      "status": "PASS_SCOPED",
+      "evidence": "48 stage15 plus30 stage16 results independently reconcile exported capacity, one fare, OD and money",
+      "evidence_path": "evidence/pinned_package_checks.json",
+      "minimum_next_action": "Preserve identities on new inputs; no empirical inference from PASS"
+    },
+    {
+      "id": "G07",
+      "topic": "OD_and_yield",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PASS_CONDITIONAL",
+      "evidence": "Stage15/16 explicitly scenario; no empirical realised OD/net-fare calibration",
+      "evidence_path": "raw/conditional_decision/context/16_conditional_decision/model/markets.csv",
+      "minimum_next_action": "Keep SCENARIO; source/calibrate or show thresholds"
+    },
+    {
+      "id": "G08",
+      "topic": "market_prediction",
+      "level": "LAUNCH_READY",
+      "status": "UNKNOWN",
+      "evidence": "Directional seasonal paid OD, clean yield and own sales/migration remain unknown",
+      "evidence_path": "raw/conditional_decision/context/16_conditional_decision/research/decision_evidence.csv",
+      "minimum_next_action": "Obtain compatible observations or contractual revenue support"
+    },
+    {
+      "id": "G09",
+      "topic": "resources_and_product",
+      "level": "LAUNCH_READY",
+      "status": "UNKNOWN",
+      "evidence": "Actual free fleet, reserve coverage, slots, crews, maintenance and protected transfer unverified",
+      "evidence_path": "raw/team_update/context/15_team_update/model/configuration.json",
+      "minimum_next_action": "Operational commitments and actual programme feasibility"
+    },
+    {
+      "id": "G10",
+      "topic": "cash_and_contracts",
+      "level": "LAUNCH_READY",
+      "status": "UNKNOWN",
+      "evidence": "Public UFA cost reference not network contract; fixed base/fleet/opportunity/cash incomplete",
+      "evidence_path": "raw/ufa_fuel_20261111.pdf",
+      "minimum_next_action": "Incremental contractual cash budget and no double-counting opportunity/migration"
+    },
+    {
+      "id": "G11",
+      "topic": "case_coverage",
+      "level": "CASE_PRESENTATION_READY",
+      "status": "PARTIAL",
+      "evidence": "Selected conditional case8 includes4 Moscow support pairs; complete annual/share/2028 basis pending",
+      "evidence_path": "evidence/pinned_package_checks.json",
+      "minimum_next_action": "Label supporting vs non-Moscow links; explain fit and complete annual scenario table"
+    },
+    {
+      "id": "G12",
+      "topic": "international",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PENDING",
+      "evidence": "Required factual Gemini research not yet Sol reviewed",
+      "evidence_path": "international/",
+      "minimum_next_action": "Run exact requested provider/model; independently check selected claims"
+    },
+    {
+      "id": "G13",
+      "topic": "cross_role_integration",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PENDING",
+      "evidence": "New outputs arrive incrementally; source semantic checks not yet complete",
+      "evidence_path": "integration_plan.md",
+      "minimum_next_action": "Freeze snapshots and inspect manifests/status plus source grain and coverage"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "schema_version": "1.0",
+  "diagnostic_kind": "read_only_terminal_T3_Antigravity_failure",
+  "created_at_utc": "2026-11-09T12:34:03.429Z",
+  "status": "DIAGNOSED_TO_AVAILABLE_EVIDENCE_ROOT_CAUSE_UNKNOWN",
+  "scope": {
+    "requested": "Explain terminal Gemini failure and safe recovery boundaries; no international research replacement.",
+    "allowed_reads": [
+      "One T3 terminal activity read",
+      "Current local project file existence/stat metadata",
+      "Available tool catalogue metadata"
+    ],
+    "excluded": [
+      "Retries or new delegates",
+      "Provider/model network probes",
+      "Provider logs, secrets, profiles or internal files",
+      "Restarts, process changes, browser changes",
+      "Model/provider substitution"
+    ]
+  },
+  "evidence": {
+    "read_at_utc": "2026-11-09T12:33:12.346Z",
+    "thread_id": "thread:delegated-task:command%3Amcp%3A749d3d1c-5203-4075-935a-1687276fdbad%3Adelegate-task%3A3c78fcfa-8db5-43b1-81fc-7f286a7a8d7b",
+    "thread_link": "<t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3A749d3d1c-5203-4075-935a-1687276fdbad%3Adelegate-task%3A3c78fcfa-8db5-43b1-81fc-7f286a7a8d7b>",
+    "environment_id": "d463a92a-a497-4213-aeb8-69f0a1470b87",
+    "thread_status": "failed",
+    "active_run_id": null,
+    "provider_instance_id": "antigravity",
+    "model": "gemini-3.8-flash-medium",
+    "worktree_path": "/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109",
+    "run_count": 1,
+    "run": {
+      "runId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A749d3d1c-5203-4075-935a-1687276fdbad%253Adelegate-task%253A3c78fcfa-8db5-43b1-81fc-7f286a7a8d7b:ordinal:1",
+      "ordinal": 1,
+      "status": "failed",
+      "providerInstanceId": "antigravity",
+      "model": "gemini-3.8-flash-medium",
+      "requestedAt": "2026-11-09T11:01:37.110Z",
+      "startedAt": "2026-11-09T11:01:43.305Z",
+      "completedAt": "2026-11-09T11:29:27.004Z"
+    },
+    "events": [
+      {
+        "position": 1,
+        "type": "dynamic_tool",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z",
+        "error": "Read: Tool execution failed"
+      },
+      {
+        "position": 2,
+        "type": "command_execution",
+        "status": "completed",
+        "updated_at": "2026-11-09T11:02:02.086Z"
+      },
+      {
+        "position": 3,
+        "type": "dynamic_tool",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z",
+        "error": "Read: Tool execution failed"
+      },
+      {
+        "position": 4,
+        "type": "file_change",
+        "status": "completed",
+        "updated_at": "2026-11-09T11:02:20.163Z"
+      },
+      {
+        "position": 8,
+        "type": "dynamic_tool",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z",
+        "error": "Read: Tool execution failed"
+      },
+      {
+        "position": 9,
+        "type": "dynamic_tool",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z",
+        "error": "Read: Tool execution failed"
+      },
+      {
+        "position": 10,
+        "type": "dynamic_tool",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z",
+        "error": "Read: Tool execution failed"
+      },
+      {
+        "position": 11,
+        "type": "dynamic_tool",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z",
+        "error": "Read: Tool execution failed"
+      },
+      {
+        "position": 13,
+        "type": "web_search",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:05:28.736Z"
+      },
+      {
+        "position": 16,
+        "type": "file_search",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:17:35.588Z"
+      },
+      {
+        "position": 17,
+        "type": "assistant_message",
+        "status": "completed",
+        "updated_at": "2026-11-09T11:29:26.970Z",
+        "error": "Agent execution error: model unreachable: Error 502, Message: Bad Gateway: Failed to connect to backend API, Status: 502 Bad Gateway"
+      },
+      {
+        "position": 18,
+        "type": "error",
+        "status": "failed",
+        "updated_at": "2026-11-09T11:29:27.001Z"
+      }
+    ],
+    "native_read_failed_count": 6,
+    "full_activity_read": true,
+    "additional_provider_request": false
+  },
+  "project_file_metadata": {
+    "checked_at_utc": "2026-11-09T12:33:12.423133+00:00",
+    "project_root": "/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109",
+    "brief": {
+      "relative_path": "context/16_agent_research/briefs/international.md",
+      "exists": true,
+      "is_file": true,
+      "readable_by_diagnostic_user": true,
+      "bytes": 3904,
+      "mtime_utc": "2026-11-09T10:50:31.515865+00:00"
+    },
+    "delegation": {
+      "relative_path": "context/16_agent_research/critic/international/delegation.json",
+      "exists": true,
+      "is_file": true,
+      "readable_by_diagnostic_user": true,
+      "bytes": 534
+    },
+    "progress": {
+      "relative_path": "context/16_agent_research/critic/international/progress.md",
+      "exists": true,
+      "is_file": true,
+      "readable_by_diagnostic_user": true,
+      "bytes": 1665
+    },
+    "terminal_failure": {
+      "relative_path": "context/16_agent_research/critic/international/terminal_failure.json",
+      "exists": true,
+      "is_file": true,
+      "readable_by_diagnostic_user": true,
+      "bytes": 6206
+    },
+    "missing_requested_outputs": [
+      "report.md",
+      "claims.csv",
+      "comparables.csv",
+      "source_registry.csv",
+      "dataset_manifest.json"
+    ],
+    "raw_directory_exists": true,
+    "raw_file_count": 0,
+    "qualification": "Current diagnostic user's filesystem metadata only; not a proof of the delegated Read tool's permissions or the exact historical filesystem state."
+  },
+  "proven": [
+    "Exactly one recorded Antigravity run requested gemini-3.8-flash-medium; it reached terminal failed state at 2026-11-09T11:29:27.004Z. No active run remains.",
+    "Six visible native Read invocations failed with generic Tool execution failed. The first two targeted the project brief and delegation file; later attempts targeted generated output and were not opened by this diagnostic.",
+    "A shell mkdir/list command and a project progress file_change are marked completed between Read failures. Thus the visible failure does not establish that all local filesystem access was unavailable.",
+    "The final explicit error is: Agent execution error: model unreachable: Error 502, Message: Bad Gateway: Failed to connect to backend API, Status: 502 Bad Gateway",
+    "Current project brief and delegation files exist and are readable by the diagnostic user. The requested report/claims/comparables/source registry/manifest files are absent; raw directory has no files.",
+    "Search-like activity contains proposed content and leads, but this run did not deliver the requested reproducible source package."
+  ],
+  "unknown": [
+    "Why native Read failed: input schema, adapter, tool implementation, sandbox, access routing or another cause is not distinguishable from the generic error.",
+    "Whether native Read failures caused, contributed to, or are independent of the later backend connection 502.",
+    "Which hop or upstream backend produced the 502, whether it was transient, and whether the requested model is reachable now.",
+    "No evidence identifies quota exhaustion, invalid credentials, an unavailable catalogue model or user file deletion.",
+    "No independently verified international claims can be accepted from search previews alone."
+  ],
+  "causal_assessment": {
+    "terminal_stop": "A model/backend connectivity failure is explicitly reported; this is the supported terminal-stop mechanism.",
+    "earlier_tool_failures": "A separate reproducible-in-history Read failure is present; underlying cause UNKNOWN.",
+    "not_supported": "Do not label this a missing-file problem, an exhausted quota, a T3-wide outage or a permanently unavailable Gemini model."
+  },
+  "safe_recovery": {
+    "immediate": [
+      "Preserve delegation settings, terminal error, this diagnostic and partial progress as failed-run evidence.",
+      "Mark international research output NOT_PRODUCED / FAILED; do not promote generated previews into verified claims or fill missing outputs with invented facts.",
+      "Continue the parent's already authorized independent Russian-market and methodology work; keep the failed international package separate."
+    ],
+    "future_bounded_options_not_executed": [
+      "Once exact-model availability is restored, a newly authorized or otherwise already-scoped retry may use the same provider/model and a bounded task. This diagnostic does not start it.",
+      "To reduce dependence on the unexplained Read path, a future brief can carry its essential factual instructions inline; this does not repair backend connectivity and does not diagnose the Read root cause.",
+      "A future tool-adapter fix should reproduce the Read problem in an isolated test checkout with a harmless known project file; no live-session restart is warranted by current evidence."
+    ],
+    "restart_needed": false,
+    "automatic_model_change_allowed": false,
+    "current_retry_performed": false,
+    "paid_model_probe_performed": false,
+    "provider_internal_access_performed": false
+  },
+  "research_acceptance": {
+    "gemini_run": "FAILED",
+    "requested_artifact_package": "NOT_PRODUCED",
+    "verified_source_package": "ABSENT",
+    "international_research_complete": false,
+    "replacement_by_this_diagnostic": false
+  }
+}

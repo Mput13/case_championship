@@ -1,0 +1,163 @@
+{
+  "protocol_version": "critic-0.2",
+  "generated_at_utc": "2026-11-09T13:05:34.830441+00:00",
+  "overall": "NOT_READY_FOR_LAUNCH; scoped conditional arithmetic and first cross-role checks available; not full case acceptance",
+  "levels": [
+    "ARITHMETIC_PASS",
+    "SCREENING_READY",
+    "CONDITIONAL_COMPARISON_READY",
+    "CASE_PRESENTATION_READY",
+    "LAUNCH_READY"
+  ],
+  "policy": "A gate at LAUNCH_READY is not automatically required for a candid conditional case presentation. UNKNOWN is not zero or false. No confidence probability inferred.",
+  "gates": [
+    {
+      "id": "G01",
+      "topic": "requirements",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PASS",
+      "evidence": "Live organizer and local requirements read; no fixed universal weights imposed",
+      "evidence_path": "raw/organizer.html; evaluation_protocol.md",
+      "minimum_next_action": "Maintain annual metrics/route count and model definitions"
+    },
+    {
+      "id": "G02",
+      "topic": "provenance",
+      "level": "ARITHMETIC_PASS",
+      "status": "PASS_SCOPED",
+      "evidence": "Pinned SHA and byte hashes for independently checked ledgers; source raw saved",
+      "evidence_path": "input_refs.json; dataset_manifest.json; evidence/pinned_package_checks.json",
+      "minimum_next_action": "Refresh refs and manifests before integration"
+    },
+    {
+      "id": "G03",
+      "topic": "restriction_source_body",
+      "level": "SCREENING_READY",
+      "status": "FAIL_LEGACY_INPUT",
+      "evidence": "Front71b main/reply contamination reproduced; targeted correction changes two VOG introduction-post days; full corrected-history event validation not reviewed",
+      "evidence_path": "front_audit/partial_day_impact.json",
+      "minimum_next_action": "Keep legacy derived restriction counts on HOLD; rebuild main text and independently validate event/airport semantics; post time not event duration"
+    },
+    {
+      "id": "G04",
+      "topic": "NULL_ground",
+      "level": "SCREENING_READY",
+      "status": "FAIL",
+      "evidence": "Front71b loses NULL rail reason; core normalization preserves missing_reason; exclusion stress retains current top3/ranks",
+      "evidence_path": "front_audit/reproduction.json",
+      "minimum_next_action": "Do not use original front gap as measured demand; retain known/unknown gap and MODEL_ESTIMATE durations; check selected boundary alternatives"
+    },
+    {
+      "id": "G05",
+      "topic": "competition_coverage",
+      "level": "SCREENING_READY",
+      "status": "FAIL",
+      "evidence": "Front71b gives unknown competition a zero penalty; stage15 corrected variants retain UNKNOWN",
+      "evidence_path": "front_audit/reproduction.json",
+      "minimum_next_action": "Apply explicit same-date competition coverage to all finalists or exclude criterion consistently; presence is not OD dominance"
+    },
+    {
+      "id": "G06",
+      "topic": "ledger",
+      "level": "ARITHMETIC_PASS",
+      "status": "PASS_SCOPED",
+      "evidence": "Independent exported-ledger reconciliation:48 stage15 +30 stage16 +132 stage17 results; one fare and dated seats conserved; stage18 unit economics/breakeven/fuel and4residual-seat LP independently reconcile",
+      "evidence_path": "evidence/pinned_package_checks.json; evidence/stage17_checks.json; stage18_audit/reproduction.json",
+      "minimum_next_action": "Preserve invariants and explicit SCENARIO classification on new observations; no empirical inference from arithmetic"
+    },
+    {
+      "id": "G07",
+      "topic": "OD_and_yield",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PASS_CONDITIONAL",
+      "evidence": "Stages15–18 remain conditional; stage18 historical pair segments improve scale anchor but endpoint fraction/season/capture/net yield remain scenario",
+      "evidence_path": "raw/conditional_decision/; raw/aircraft_route_review/",
+      "minimum_next_action": "Keep assumptions visible and compare thresholds/rank switches; calibrate directional seasonal OD and net realised yield separately"
+    },
+    {
+      "id": "G08",
+      "topic": "market_prediction",
+      "level": "LAUNCH_READY",
+      "status": "UNKNOWN",
+      "evidence": "Directional seasonal paid OD, clean yield and own sales/migration remain unknown",
+      "evidence_path": "raw/conditional_decision/context/16_conditional_decision/research/decision_evidence.csv",
+      "minimum_next_action": "Obtain compatible observations or contractual revenue support"
+    },
+    {
+      "id": "G09",
+      "topic": "resources_and_product",
+      "level": "LAUNCH_READY",
+      "status": "UNKNOWN",
+      "evidence": "Stage17 removes generic radius gate; all2400 route-variant rows retain unknown confirmed payload/actual DOW/available tails; operational commitments absent",
+      "evidence_path": "raw/aircraft_route_review/context/17_aircraft_route_review/model/route_variant_matrix.csv",
+      "minimum_next_action": "Tail-specific AFM/WBM/OFP/route/reserve/runway/crew/maintenance commitments; no inherited SJ100 performance or published-fleet availability"
+    },
+    {
+      "id": "G10",
+      "topic": "cash_and_contracts",
+      "level": "LAUNCH_READY",
+      "status": "UNKNOWN",
+      "evidence": "Public UFA cost reference not network contract; fixed base/fleet/opportunity/cash incomplete",
+      "evidence_path": "raw/ufa_fuel_20261111.pdf",
+      "minimum_next_action": "Incremental contractual cash budget and no double-counting opportunity/migration"
+    },
+    {
+      "id": "G11",
+      "topic": "case_coverage",
+      "level": "CASE_PRESENTATION_READY",
+      "status": "PARTIAL",
+      "evidence": "Stage16 D_case8 has4 Moscow support pairs; stage17 changes selected designs. One December week is not annual/2028 forecast; full compatible share denominator pending",
+      "evidence_path": "evidence/pinned_package_checks.json",
+      "minimum_next_action": "Use current selected design; label supporting vs non-Moscow links; show annual seasonal scenarios, two hypotheses,>=10 cities/top3,>=2 competitors,8–12 selected routes and2028 roadmap"
+    },
+    {
+      "id": "G12",
+      "topic": "international",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "BLOCKED_PROVIDER_OUTPUT_NOT_PRODUCED",
+      "evidence": "Exact requested Gemini model ran and terminated backend502; no source/claims package delivered; diagnosis does not replace review",
+      "evidence_path": "international/delegation.json; international/terminal_failure.json; international/diagnostic.json",
+      "minimum_next_action": "Retain failed-run evidence and do not promote preliminary notes; no unasked provider/model substitution"
+    },
+    {
+      "id": "G13",
+      "topic": "cross_role_integration",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "PARTIAL_SCOPED_CHECKS",
+      "evidence": "Core7raw hashes/counts, unique keys and consistent current timezone auxiliary; hypotheses geometry81paths/144legs; NOAA83archives/996months independently checked. No operational/market feature accepted",
+      "evidence_path": "cross_role_review.md; evidence/cross_role_checks.json; weather_audit/reproduction.json",
+      "minimum_next_action": "Current four-file core final inventory matches; carry NOAA coverage into join; validate chosen airport/station identity and review later input versions"
+    }
+  ],
+  "feature_acceptance_rules": [
+    {
+      "feature": "restriction risk",
+      "accepted_scope": "NONE from legacy contaminated text",
+      "required_before_screening": "validated main/reply extraction plus airport/event coverage; post-day proxy labelled",
+      "required_before_economic_loss": "operating intervals with unknown endpoints, actual schedule/bank overlap and recovery model"
+    },
+    {
+      "feature": "NOAA2024 weather",
+      "accepted_scope": "descriptive archived station baseline only, reconciled within frozen sample",
+      "required_before_screening": "station-airport evidence, cadence and valid-observation/calendar denominators carried into join; no missing-to-zero",
+      "required_before_economic_loss": "independent relationship with actual flight outcomes and network exposure; no assumed current probability"
+    },
+    {
+      "feature": "city population/ground gap",
+      "accepted_scope": "directory/city-pair proxy with source units and missing_reason",
+      "required_before_screening": "consistent geography/year and missingness bounds; no catchment overlap sums",
+      "required_before_passenger_forecast": "explicit calibrated OD mechanism and net sales attribution"
+    },
+    {
+      "feature": "route geometry/mass budget",
+      "accepted_scope": "DERIVED geometry / SCENARIO mass illustration",
+      "required_before_screening": "known airport identity and disclosed route/time assumptions",
+      "required_before_operation": "specific tail and modification, AFM/WBM/current route+fuel+weather+airport constraints"
+    },
+    {
+      "feature": "candidate queue",
+      "accepted_scope": "research prioritisation only",
+      "required_before_comparison": "same frozen evaluator and common definitions; attributed historical ancestry is not independent experiment count"
+    }
+  ]
+}

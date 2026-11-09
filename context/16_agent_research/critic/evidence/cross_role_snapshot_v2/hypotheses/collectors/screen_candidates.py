@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""Offline geometry, literal schedule extraction and reproduction of scenario thresholds."""
+from pathlib import Path
+from html.parser import HTMLParser
+from datetime import datetime,timezone
+import csv,hashlib,json,math
+ROOT=Path(__file__).resolve().parents[1]
+def read(p):return list(csv.DictReader(p.open()))
+def write(p,rows):
+    with p.open('w',newline='') as f:
+        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def distance(a,b):
+    la,lo,lb,lob=map(math.radians,[float(a['latitude_deg']),float(a['longitude_deg']),float(b['latitude_deg']),float(b['longitude_deg'])])
+    h=math.sin((lb-la)/2)**2+math.cos(la)*math.cos(lb)*math.sin((lob-lo)/2)**2
+    return 2*6371.0088*math.asin(min(1,math.sqrt(h)))
+class Table(HTMLParser):
+    def __init__(self):super().__init__();self.rows=[];self.row=None;self.cell=None
+    def handle_starttag(self,t,a):
+        if t=='tr':self.row=[]
+        elif t in ('td','th') and self.row is not None:self.cell=[]
+    def handle_endtag(self,t):
+        if t in ('td','th') and self.cell is not None:self.row.append(' '.join(''.join(self.cell).split()));self.cell=None
+        elif t=='tr' and self.row is not None:
+            if self.row:self.rows.append(self.row)
+            self.row=None
+    def handle_data(self,s):
+        if self.cell is not None:self.cell.append(s+' ')
+def main():
+    cat=json.load((ROOT/'inputs/candidate_catalog.json').open())['candidates']
+    all_air=read(ROOT/'normalized/airports_ru.csv');codes=sorted({c for r in cat for p in r['proposed_paths'].split(';') for c in p.split('>')})
+    air={};cities=[]
+    for c in codes:
+        matches=[a for a in all_air if a['iata_code']==c]
+        if len(matches)!=1:raise ValueError(f'{c}: {len(matches)} coordinate matches')
+        air[c]=matches[0];a=air[c]
+        cities.append(dict(airport_iata=c,airport_id=a['ident'],source_municipality=a['municipality'],iso_region=a['iso_region'],latitude_deg=a['latitude_deg'],longitude_deg=a['longitude_deg'],candidate_ids=';'.join(r['candidate_id'] for r in cat if any(c in p.split('>') for p in r['proposed_paths'].split(';'))),base_status='UNKNOWN_FOR_RW',timezone='UNKNOWN',source_id='HYP-S03',value_type='OBSERVED',scope='airport coordinate; not city catchment'))
+    write(ROOT/'normalized/city_scope.csv',cities)
+    legs=[];paths=[]
+    for r in cat:
+        for j,path in enumerate(r['proposed_paths'].split(';'),1):
+            nodes=path.split('>');lengths=[];ground=r['network_form']=='GROUND_FEEDER'
+            for k,(a,b) in enumerate(zip(nodes,nodes[1:]),1):
+                d=distance(air[a],air[b]);lengths.append(d)
+                legs.append(dict(candidate_id=r['candidate_id'],path_id=j,leg_index=k,origin=a,destination=b,distance_km=round(d,3),mode='GROUND_COORDINATE_CHORD_ONLY' if ground else 'PROPOSED_AIR_OR_POSITIONING',source_id='HYP-S03',value_type='DERIVED',formula='haversine R=6371.0088 km',dispatch_status='NOT_EVALUATED',limitation='Not flown track, travel time, payload or airport approval'))
+            direct=distance(air[nodes[0]],air[nodes[-1]])
+            ratio=sum(lengths)/direct if direct>0 and len(set(nodes))==len(nodes) else None
+            paths.append(dict(candidate_id=r['candidate_id'],path_id=j,path=path,total_chord_km=round(sum(lengths),3),endpoint_chord_km=round(direct,3),detour_ratio=round(ratio,5) if ratio else None,detour_missing_reason='' if ratio else 'Aircraft cycle/repeated airport; not a single endpoint itinerary',max_leg_km=round(max(lengths),3),geometry_status='CALCULATED',economic_status='NOT_EVALUATED',source_id='HYP-S03',value_type='DERIVED',interpretation='Geometric lead only; no universal detour/range rejection'))
+    write(ROOT/'normalized/geometry_legs.csv',legs);write(ROOT/'normalized/geometry_paths.csv',paths)
+    # Vary only declared preliminary screens, not aircraft limits or observed demand.
+    sensitivity=[]
+    for r in paths:
+        for screen in [2000,2300,2600,3000]:
+            sensitivity.append(dict(candidate_id=r['candidate_id'],path_id=r['path_id'],screen_km=screen,any_leg_over_screen=r['max_leg_km']>screen,parameter_type='SCENARIO',result_type='DERIVED',use='dispatch-research priority only; not feasibility approval/rejection'))
+    write(ROOT/'normalized/geometry_screen_sensitivity.csv',sensitivity)
+    p=Table();p.feed((ROOT/'raw/khv_schedule.html').read_text());assert 'Аэропорт отправления' in p.rows[0][0]
+    schedules=[]
+    for i,cells in enumerate(p.rows[1:],2):
+        if len(cells)!=7:raise ValueError(f'Unexpected KHV table row {i}: {cells}')
+        schedules.append(dict(source_id='HYP-S02',raw_table_row=i,origin_city_raw=cells[0],destination_airport='KHV',direction_basis='table header: airport of departure',validity_raw=cells[1],carrier_code_raw=cells[2],flight_no_raw=cells[3],weekdays_raw=cells[4],departure_local_raw=cells[5],arrival_local_raw=cells[6],operating_carrier='UNKNOWN',value_type='OBSERVED',object='PUBLISHED_ARRIVAL_RULE',limitation='One arrival table only; no operating-carrier dedup or execution; no outgoing calendar or full product'))
+    write(ROOT/'normalized/khv_arrival_rules.csv',schedules)
+    pilot=ROOT/'inputs/conditional/context/16_conditional_decision/model/pilot_booking_gate.csv'
+    thresholds=[]
+    for r in read(pilot):
+        cost=float(r['flight_cost']);m=float(r['net_new_margin_per_booked']);n=float(r['departures']);capacity=float(r['capacity'])
+        q=cost/m;assert abs(q-float(r['required_paid_pax_before_fixed']))<1e-7
+        fixed=(cost+1_000_000/(2*n))/m
+        assert abs(fixed-float(r['required_paid_pax_with_1million_allocated_fixed_per_week']))<1e-7
+        thresholds.append(dict(origin=r['origin'],destination=r['destination'],scenario=r['scenario'],required_pax_before_fixed=math.ceil(q),required_pax_10pct_variable_cost_margin=math.ceil(1.1*q),required_pax_with_symmetric_1m_weekly_fixed=math.ceil(fixed),capacity=capacity,base_threshold_exceeds_capacity=q>capacity,fixed_threshold_exceeds_capacity=fixed>capacity,value_type='DERIVED',input_value_type='SCENARIO',source_sha='bf564c7b66a2559c21e9f519ae5a3f28a489378f',input_sha256=sha(pilot),scope='Reproduced division/rounding only; no independent validation of demand/fare/cost/migration; symmetric allocation only'))
+    write(ROOT/'normalized/reproduced_thresholds.csv',thresholds)
+    experiments=[]
+    for r in cat:
+        if not r['selected_for_deepening']:continue
+        pp=[p for p in paths if p['candidate_id']==r['candidate_id']]
+        experiments.append(dict(experiment_id=r['experiment_id'],candidate_id=r['candidate_id'],candidate_version=r['candidate_version'],question=r['specific_test'],why_this_mechanism=r['selection_rationale'],data_ids=r['data_request_ids'],current_evidence=r['primary_evidence_ids'],geometry_status='CALCULATED_CHORD_ONLY',alternative_status='PARTIAL_PRIMARY_EVIDENCE' if r['primary_evidence_ids'] else 'NOT_EVALUATED',economics_status='NOT_EVALUATED',resource_status='NOT_EVALUATED',decision_rule=r['stop_rule'],max_example_leg_km=max(p['max_leg_km'] for p in pp),next_output='dated_product_comparison + common-evaluator result or explicit missing-input gate',fixed_evaluator='methods-v1; proposed full evaluator NOT_IMPLEMENTED',holdout_status='NOT_RESERVED; must pre-register before demand calibration',research_priority='First wave: mechanism diversity, not expected-profit rank'))
+    write(ROOT/'experiments_queue.csv',experiments)
+    # Append a content-addressed record: repeating identical offline input is replay, not a new experiment.
+    inputs={str(p.relative_to(ROOT)):sha(p) for p in [ROOT/'inputs/candidate_catalog.json',ROOT/'normalized/airports_ru.csv',ROOT/'raw/khv_schedule.html',pilot,Path(__file__)]}
+    snapshot_dir=ROOT/'inputs/run_snapshots';snapshot_dir.mkdir(exist_ok=True)
+    for rel,h in inputs.items():
+        snapshot=snapshot_dir/(h+'.blob')
+        if not snapshot.exists():snapshot.write_bytes((ROOT/rel).read_bytes())
+    run_id=hashlib.sha256(json.dumps(inputs,sort_keys=True).encode()).hexdigest()[:16]
+    journal=ROOT/'evaluation_runs.jsonl';seen={json.loads(l)['run_id'] for l in journal.read_text().splitlines()} if journal.exists() else set()
+    if run_id not in seen:
+        with journal.open('a') as f:f.write(json.dumps(dict(run_id=run_id,at_utc=datetime.now(timezone.utc).isoformat(),evaluator='geometry-and-thresholds-v1',input_hashes=inputs,candidate_ids=[r['candidate_id'] for r in cat],status='PARTIAL_GEOMETRY_ONLY',demand_fit='NOT_RUN',economics='NOT_RUN',rejected_candidates=[],screen_thresholds_km=[2000,2300,2600,3000]),ensure_ascii=False)+'\n')
+    summary=dict(airport_count=len(cities),candidates=len(cat),path_count=len(paths),leg_rows=len(legs),khv_arrival_rules=len(schedules),threshold_rows=len(thresholds),deepening=len(experiments),run_id=run_id)
+    (ROOT/'normalized/screen_summary.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary))
+if __name__=='__main__':main()

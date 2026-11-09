@@ -1,0 +1,150 @@
+{
+  "generated_at_utc": "2026-11-09T12:42:08.019468+00:00",
+  "snapshot_manifest": "evidence/cross_role_snapshot_v2/manifest.json",
+  "scope": "IN_PROGRESS; files may change concurrently; not final submission",
+  "core": {
+    "raw_checks": [
+      {
+        "dataset_id": "ourairports_airports",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/ourairports_airports.csv.gz",
+        "sha256": "1b46b6c1bd27d12c50ace581130faf7c69f7a2df5268dcb4ebaaa06d530d2d28",
+        "stored_sha256": "3c8a627dcf3f4abc06876ba4cbbd9494c280638892ca0f26ddabd45c2624658d",
+        "record_count": 86350,
+        "bytes_validated": true,
+        "semantic_truth_validated": false
+      },
+      {
+        "dataset_id": "ourairports_runways",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/ourairports_runways.csv",
+        "sha256": "bb0e928bce53e70bc41e61b3e6fcf79652ee879b6ca06e733008cb81ba8d78aa",
+        "stored_sha256": "bb0e928bce53e70bc41e61b3e6fcf79652ee879b6ca06e733008cb81ba8d78aa",
+        "record_count": 48412,
+        "bytes_validated": true,
+        "semantic_truth_validated": false
+      },
+      {
+        "dataset_id": "travelpayouts_airports",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/travelpayouts_airports.json",
+        "sha256": "d49ec973b2426530e4155600807bbcb55352321de561cd904c8ccf3e5523dc1c",
+        "stored_sha256": "d49ec973b2426530e4155600807bbcb55352321de561cd904c8ccf3e5523dc1c",
+        "record_count": 10378,
+        "bytes_validated": true,
+        "semantic_truth_validated": false
+      },
+      {
+        "dataset_id": "travelpayouts_cities",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/travelpayouts_cities.json",
+        "sha256": "5179e7aab803690a9b6511b09cb8a7f9e26953941bd79661626c4c8004dec9ae",
+        "stored_sha256": "5179e7aab803690a9b6511b09cb8a7f9e26953941bd79661626c4c8004dec9ae",
+        "record_count": 9653,
+        "bytes_validated": true,
+        "semantic_truth_validated": false
+      },
+      {
+        "dataset_id": "tochno_intercity_zip",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/tochno_intercity_zip.zip",
+        "sha256": "4728d93b8d29925b433a84a7c91fedbe4665bc78e672a23dc185d01c1e41dbea",
+        "stored_sha256": "4728d93b8d29925b433a84a7c91fedbe4665bc78e672a23dc185d01c1e41dbea",
+        "record_count": 96660,
+        "bytes_validated": true,
+        "semantic_truth_validated": false,
+        "pair_mode_unique": true,
+        "rows": 96660,
+        "member": "data_intercity_connectivity_162_v20260629.csv",
+        "reverse_mismatch_count": 0,
+        "scope": "Reverse-direction copies are not independent observations; provider-estimated durations are not train schedules"
+      },
+      {
+        "dataset_id": "tochno_intercity_method",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/tochno_intercity_method.pdf",
+        "sha256": "8c490cb8f3216b0779bef981217db0187716177d6df29c10d0802c1cb9767f50",
+        "stored_sha256": "8c490cb8f3216b0779bef981217db0187716177d6df29c10d0802c1cb9767f50",
+        "record_count": null,
+        "bytes_validated": true,
+        "semantic_truth_validated": false
+      },
+      {
+        "dataset_id": "case5_live_brief",
+        "external_path": "/Users/a/.t3/worktrees/case_championship/research-case5-raw-core-20261109/context/16_agent_research/core/raw/public/case5_live_brief.html",
+        "sha256": "3fd55465168339d63835e063eee1c188ca19e8c9feb728694b7cd5c63d7242d9",
+        "stored_sha256": "3fd55465168339d63835e063eee1c188ca19e8c9feb728694b7cd5c63d7242d9",
+        "record_count": null,
+        "bytes_validated": true,
+        "semantic_truth_validated": false
+      }
+    ],
+    "keys": {
+      "airport": {
+        "rows": 1845,
+        "distinct": 1845,
+        "duplicate_rows": 0
+      },
+      "city": {
+        "rows": 180,
+        "distinct": 180,
+        "duplicate_rows": 0
+      },
+      "timezone_aux": {
+        "rows": 219,
+        "distinct": 219,
+        "duplicate_rows": 0
+      },
+      "candidate_link": {
+        "rows": 255,
+        "distinct": 255,
+        "duplicate_rows": 0
+      }
+    },
+    "timezone_cross_table_mismatches": [],
+    "stale_normalization_hashes": [
+      {
+        "path": "normalized/airport_version.csv",
+        "expected": "faa65c851d87a2466bdb7e331ef79fedc683591733043cdc312a3c98efeee286",
+        "actual": "c3797c1f6caedbc20ba22819c18b1b191cc209cf3f58ceb249678a96dc26d95d"
+      },
+      {
+        "path": "normalized/city_version.csv",
+        "expected": "b1e3d2155467e58f616537363471191f0aa0f1c0b6377fc4e0929c40824b1945",
+        "actual": "057682942a69dbab6a45ecf04278089104c9a4dca6e4cc1a1afc882f80d746ed"
+      },
+      {
+        "path": "normalized/airport_timezone_join.csv",
+        "expected": "3dfc9e53d739469fa58c64abb925ef2b0941d4eb93b400aef0fcd9722749f84b",
+        "actual": "276f06596efedf1407b0f7921bf896873d9da9e72c5df2c9852bf2626d384869"
+      },
+      {
+        "path": "normalized/canonical_keys.csv",
+        "expected": "ee71b409937235a387d491df8410dd55a29f266002e57481b809a58db8bcd157",
+        "actual": "d5d37ed0b8bbf078d0613e7d6393baa116a0c1b19787bccc6fe172d198e845cc"
+      }
+    ],
+    "airport_join_rows": 219,
+    "airport_iata_rows": 219,
+    "links_foreign_keys_valid": true,
+    "candidate_link_scope": "Geographic chord <=75km; no travel-time/catchment or demand inference",
+    "timezone_scope": "Published assertion plus nearby-city conflict diagnostic; not legal timezone assignment or airport-boundary verification"
+  },
+  "hypotheses": {
+    "candidate_keys": {
+      "rows": 35,
+      "distinct": 35,
+      "duplicate_rows": 0
+    },
+    "candidates": 35,
+    "queue_rows": 9,
+    "geometry_paths": 81,
+    "geometry_legs": 144,
+    "airport_scope": 50,
+    "geometry_errors": [],
+    "economic_status_counts": {
+      "NOT_EVALUATED": 35
+    },
+    "demand_status_counts": {
+      "UNKNOWN": 35
+    },
+    "numeric_demand_count": 0,
+    "numeric_fare_count": 0,
+    "interpretation": "Geometry independently reproduced, not route approval or profitability; research priority is not expected-profit ranking"
+  },
+  "acceptance": "Timezone auxiliary now agrees with usable main fields; publish a current final normalized hash manifest or label the old normalization diagnostic as historical; hypotheses geometry accepted only as DERIVED research lead; no market/fleet/operational acceptance"
+}

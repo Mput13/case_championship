@@ -1,0 +1,143 @@
+{
+  "generated_at_utc": "2026-11-09T12:58:18.212549+00:00",
+  "input_sha": "359ad3cfb4fdcc74e14c802fc6256e65c1106dbb",
+  "status": "ARITHMETIC_PASS_SCOPED",
+  "execution_policy": "No author code imported/executed. Stdlib re-derivation and independently implemented HiGHS linear programme.",
+  "environment": {
+    "python": "3.11.9",
+    "scipy": "1.17.1"
+  },
+  "checks": {
+    "flight_costs": 280,
+    "route_costs": 112,
+    "route_money": 112,
+    "capture": 14,
+    "breakeven": 350,
+    "net_fuel": 140,
+    "frequency": 84,
+    "source_linked": 144,
+    "source_gate": 6,
+    "prior_export": 1098,
+    "no_launch_structural_baseline": 90,
+    "hub_lp": 16
+  },
+  "errors": [],
+  "tables_checked": {
+    "route_ledgers": 14,
+    "flight_costs": 28,
+    "break_even": 42,
+    "net_fuel_adjustments": 70,
+    "frequency_tests": 42,
+    "source_linked_scales": 48,
+    "prior_exports": 132
+  },
+  "hub_lp": [
+    {
+      "network": "H_UFA_4",
+      "scenario": "base",
+      "products": 8,
+      "constraints": 16,
+      "recomputed_margin": 3141422.0431965766,
+      "exported_margin": 3141422.0431965766,
+      "dual_objective": 3141422.0431965766,
+      "max_constraint_violation": 0,
+      "scope": "Locals fixed, existing dated products, no transfer OD bound/migration; not whole-network bound"
+    },
+    {
+      "network": "H_UFA_4",
+      "scenario": "cautious",
+      "products": 8,
+      "constraints": 16,
+      "recomputed_margin": 2793996.5817510225,
+      "exported_margin": 2793996.5817510225,
+      "dual_objective": 2793996.5817510225,
+      "max_constraint_violation": 0,
+      "scope": "Locals fixed, existing dated products, no transfer OD bound/migration; not whole-network bound"
+    },
+    {
+      "network": "H_UFA_8",
+      "scenario": "base",
+      "products": 24,
+      "constraints": 32,
+      "recomputed_margin": 5054371.134123292,
+      "exported_margin": 5054371.134123292,
+      "dual_objective": 5054371.134123291,
+      "max_constraint_violation": 0,
+      "scope": "Locals fixed, existing dated products, no transfer OD bound/migration; not whole-network bound"
+    },
+    {
+      "network": "H_UFA_8",
+      "scenario": "cautious",
+      "products": 24,
+      "constraints": 32,
+      "recomputed_margin": 4247833.835409539,
+      "exported_margin": 4247833.835409539,
+      "dual_objective": 4247833.835409539,
+      "max_constraint_violation": 0,
+      "scope": "Locals fixed, existing dated products, no transfer OD bound/migration; not whole-network bound"
+    }
+  ],
+  "examples": [
+    {
+      "route": "ZIA-MRV",
+      "scenario": "base",
+      "paid_now_per_departure": "49.748754994299986",
+      "linear_paid_threshold_NOT_capacity_forecast": "74.594965",
+      "common_new_and_old_net_yield_needed_at_same_sales": "16257.19794840183",
+      "contribution_at100_and_current_fare": "508100.69999999995"
+    },
+    {
+      "route": "ZIA-AER",
+      "scenario": "base",
+      "paid_now_per_departure": "49.748754994299986",
+      "linear_paid_threshold_NOT_capacity_forecast": "76.84408",
+      "common_new_and_old_net_yield_needed_at_same_sales": "16733.087138785682",
+      "contribution_at100_and_current_fare": "463118.3999999999"
+    },
+    {
+      "route": "SVX-MRV",
+      "scenario": "base",
+      "paid_now_per_departure": "61.229236916061524",
+      "linear_paid_threshold_NOT_capacity_forecast": "83.42967509727627",
+      "common_new_and_old_net_yield_needed_at_same_sales": "18904.358646759945",
+      "contribution_at100_and_current_fare": "425857.3499999996"
+    },
+    {
+      "route": "SVX-AER",
+      "scenario": "base",
+      "paid_now_per_departure": "61.229236916061524",
+      "linear_paid_threshold_NOT_capacity_forecast": "92.1810953307393",
+      "common_new_and_old_net_yield_needed_at_same_sales": "20837.658482694347",
+      "contribution_at100_and_current_fare": "200945.8500000001"
+    },
+    {
+      "route": "ZIA-GSV",
+      "scenario": "base",
+      "paid_now_per_departure": "25.512182048358966",
+      "linear_paid_threshold_NOT_capacity_forecast": "64.3256975308642",
+      "common_new_and_old_net_yield_needed_at_same_sales": "21971.69678689843",
+      "contribution_at100_and_current_fare": "577923.7"
+    },
+    {
+      "route": "SVX-REN",
+      "scenario": "base",
+      "paid_now_per_departure": "25.512182048358966",
+      "linear_paid_threshold_NOT_capacity_forecast": "166.47660294117648",
+      "common_new_and_old_net_yield_needed_at_same_sales": "55965.7034948142",
+      "contribution_at100_and_current_fare": "-452040.90000000014"
+    },
+    {
+      "route": "SVX-OMS",
+      "scenario": "base",
+      "paid_now_per_departure": "25.512182048358966",
+      "linear_paid_threshold_NOT_capacity_forecast": "176.39916911764706",
+      "common_new_and_old_net_yield_needed_at_same_sales": "59271.64621426204",
+      "contribution_at100_and_current_fare": "-519514.3500000001"
+    }
+  ],
+  "limits": [
+    "No observed net realised yield, winter endpoint OD, payable tax benefit, actual mission fuel, free tail, fixed/opportunity budget or dispatch approval validated.",
+    "Primary public passenger figures corroborate reported historical route scale only.",
+    "Scenarios are not confidence limits; frozen locals residual LP is not a universal or global hub bound."
+  ]
+}

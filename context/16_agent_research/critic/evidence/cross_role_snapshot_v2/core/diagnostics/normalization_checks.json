@@ -1,0 +1,427 @@
+{
+  "created_at_utc": "2026-11-09T10:57:01.261100+00:00",
+  "version": "core-normalize-v1",
+  "input_hashes_verified": 7,
+  "tochno_member": {
+    "path": "data_intercity_connectivity_162_v20260629.csv",
+    "sha256": "aed8463339b988a7c9ac81aa976a4fc25c152e4066b551d25cbdcc16ebe16d53",
+    "size_bytes": 23511679,
+    "rows": 96660
+  },
+  "keys": {
+    "ourairports_ru_id": {
+      "rows": 1845,
+      "distinct_keys": 1845,
+      "duplicated_keys": [],
+      "extra_rows": 0
+    },
+    "ourairports_ru_iata_nonempty": {
+      "rows": 219,
+      "distinct_keys": 219,
+      "duplicated_keys": [],
+      "extra_rows": 0
+    },
+    "travelpayouts_ru_airport_code": {
+      "rows": 303,
+      "distinct_keys": 303,
+      "duplicated_keys": [],
+      "extra_rows": 0
+    },
+    "tochno_pair_mode": {
+      "rows": 96660,
+      "distinct_keys": 96660,
+      "duplicated_keys": [],
+      "extra_rows": 0
+    }
+  },
+  "limitations": [
+    "Tochno reverse direction copies original; not independent evidence",
+    "All Tochno durations are provider MODEL_ESTIMATE; no scheduled travel-date observation",
+    "OurAirports ISO scope retained; no attempt to redefine borders or airport operating authority",
+    "Timezone is published Travelpayouts field checked against local IANA database; not statutory boundary verification"
+  ],
+  "airport_join": {
+    "left_rows": 219,
+    "right_ru_airport_rows": 303,
+    "result_rows": 219,
+    "matched": 215,
+    "unmatched": [
+      "UHS",
+      "EDN",
+      "KXD",
+      "NFG"
+    ],
+    "multiplied_rows": 0,
+    "coordinate_discrepancies_over_10km": [
+      {
+        "airport_id": "OA:44301",
+        "ident": "RU-0089",
+        "iata_code": "NOI",
+        "name": "Krymsk Air Base",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 32.946,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:35001",
+        "ident": "RU-10046",
+        "iata_code": "KVK",
+        "name": "Kirovsk-Apatity Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 13.398,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:5751",
+        "ident": "UELL",
+        "iata_code": "NER",
+        "name": "Chulman Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Yakutsk",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 35.028,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:6460",
+        "ident": "UHPP",
+        "iata_code": "PKC",
+        "name": "Yelizovo Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Kamchatka",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 21.501,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:6492",
+        "ident": "ULPB",
+        "iata_code": "PES",
+        "name": "Petrozavodsk Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 24.332,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:32546",
+        "ident": "UNSS",
+        "iata_code": "SWT",
+        "name": "Strezhevoy Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Novosibirsk",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 42.892,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:32468",
+        "ident": "UNTT",
+        "iata_code": "TOF",
+        "name": "Tomsk Kamov Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Omsk",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 19.944,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:32045",
+        "ident": "UNWW",
+        "iata_code": "NOZ",
+        "name": "Spichenkovo Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Novokuznetsk",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 20.207,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:6511",
+        "ident": "URKA",
+        "iata_code": "AAQ",
+        "name": "Anapa Vityazevo Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 11.606,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:6517",
+        "ident": "URMT",
+        "iata_code": "STW",
+        "name": "Stavropol Shpakovskoye Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 26.231,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:26371",
+        "ident": "USCM",
+        "iata_code": "MQF",
+        "name": "Magnitogorsk International Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Yekaterinburg",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 21.621,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:327554",
+        "ident": "USDA",
+        "iata_code": "SBT",
+        "name": "Sabetta International Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Yekaterinburg",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 102.183,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:26393",
+        "ident": "UUBP",
+        "iata_code": "BZK",
+        "name": "Bryansk International Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 11.976,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:26395",
+        "ident": "UUDL",
+        "iata_code": "IAR",
+        "name": "Golden Ring Yaroslavl International Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 17.48,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:26397",
+        "ident": "UUEM",
+        "iata_code": "KLD",
+        "name": "Migalovo Air Base",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 14.068,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:31846",
+        "ident": "UUOL",
+        "iata_code": "LPK",
+        "name": "Lipetsk Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 10.456,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:32427",
+        "ident": "UUOT",
+        "iata_code": "TBW",
+        "name": "Donskoye Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Moscow",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 10.487,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:26407",
+        "ident": "UWLW",
+        "iata_code": "ULY",
+        "name": "Ulyanovsk Vostochny Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Europe/Samara",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 40.825,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      },
+      {
+        "airport_id": "OA:26409",
+        "ident": "UWOR",
+        "iata_code": "OSW",
+        "name": "Orsk Airport",
+        "join_status": "MATCHED_CODE",
+        "iana_timezone": "Asia/Yekaterinburg",
+        "timezone_null_reason": "",
+        "coordinate_difference_km": 14.321,
+        "geographic_review": "COORDINATES_DIFFER_OVER_10KM"
+      }
+    ]
+  },
+  "coverage": {
+    "ourairports_ru": 1845,
+    "ourairports_ru_iata": 219,
+    "runways_ru": 492,
+    "tochno_cities": 180,
+    "tochno_regions": 85,
+    "city_timezone_matches": 103,
+    "travelpayouts_ru_cities": 343,
+    "city_airport_candidate_links": 255,
+    "transport_rows": 96660,
+    "transport_present_by_mode": {
+      "road": 29756,
+      "rail": 28056,
+      "air": 6618
+    },
+    "transport_null_rows": 32230,
+    "reverse_distance_source_disagreements": 0
+  },
+  "transport_sources": [
+    {
+      "mode": "air",
+      "source": "Aviastats",
+      "rows": 4272
+    },
+    {
+      "mode": "air",
+      "source": "Aviastats, Rosaviation",
+      "rows": 1774
+    },
+    {
+      "mode": "air",
+      "source": "ND",
+      "rows": 25602
+    },
+    {
+      "mode": "air",
+      "source": "Rosaviation",
+      "rows": 400
+    },
+    {
+      "mode": "air",
+      "source": "manual",
+      "rows": 172
+    },
+    {
+      "mode": "rail",
+      "source": "ND",
+      "rows": 4164
+    },
+    {
+      "mode": "rail",
+      "source": "SberIndex",
+      "rows": 28056
+    },
+    {
+      "mode": "road",
+      "source": "ND",
+      "rows": 2464
+    },
+    {
+      "mode": "road",
+      "source": "OSM",
+      "rows": 21872
+    },
+    {
+      "mode": "road",
+      "source": "OSRM",
+      "rows": 7884
+    }
+  ],
+  "transport_missing_reasons": [
+    {
+      "mode": "air",
+      "reason": "CD",
+      "rows": 6618
+    },
+    {
+      "mode": "air",
+      "reason": "Маршрут не найден",
+      "rows": 25602
+    },
+    {
+      "mode": "rail",
+      "reason": "CD",
+      "rows": 28056
+    },
+    {
+      "mode": "rail",
+      "reason": "Маршрут не найден",
+      "rows": 4164
+    },
+    {
+      "mode": "road",
+      "reason": "CD",
+      "rows": 29756
+    },
+    {
+      "mode": "road",
+      "reason": "Маршрут не найден",
+      "rows": 2464
+    }
+  ],
+  "normalized_files": [
+    {
+      "path": "normalized/airport_version.csv",
+      "record_count": 1845,
+      "sha256": "faa65c851d87a2466bdb7e331ef79fedc683591733043cdc312a3c98efeee286",
+      "stored_sha256": "faa65c851d87a2466bdb7e331ef79fedc683591733043cdc312a3c98efeee286",
+      "size_bytes": 624199,
+      "compression": "none"
+    },
+    {
+      "path": "normalized/runway_version.csv",
+      "record_count": 492,
+      "sha256": "e22fc2b20e0633d021a06c8d43e1f59f1cd90ae660ed4aaccb46132f2e5cba7a",
+      "stored_sha256": "e22fc2b20e0633d021a06c8d43e1f59f1cd90ae660ed4aaccb46132f2e5cba7a",
+      "size_bytes": 76863,
+      "compression": "none"
+    },
+    {
+      "path": "normalized/city_version.csv",
+      "record_count": 180,
+      "sha256": "b1e3d2155467e58f616537363471191f0aa0f1c0b6377fc4e0929c40824b1945",
+      "stored_sha256": "b1e3d2155467e58f616537363471191f0aa0f1c0b6377fc4e0929c40824b1945",
+      "size_bytes": 65285,
+      "compression": "none"
+    },
+    {
+      "path": "normalized/access_alternative.csv.gz",
+      "record_count": 96660,
+      "sha256": "8fc34bfb85bad6759ac47f89e615a2d7e8088f31895aa1792a964220367293f1",
+      "stored_sha256": "233edf73cb28015f0df9a659c998575ec51da720172ae37f99627d968faa6994",
+      "size_bytes": 22688108,
+      "compression": "gzip"
+    },
+    {
+      "path": "normalized/city_airport_candidate_links.csv",
+      "record_count": 255,
+      "sha256": "9bb34c400193105920beedb53c36be9630f276b519b64b79185cc9b33b931bf7",
+      "stored_sha256": "9bb34c400193105920beedb53c36be9630f276b519b64b79185cc9b33b931bf7",
+      "size_bytes": 80686,
+      "compression": "none"
+    },
+    {
+      "path": "normalized/airport_timezone_join.csv",
+      "record_count": 219,
+      "sha256": "3dfc9e53d739469fa58c64abb925ef2b0941d4eb93b400aef0fcd9722749f84b",
+      "stored_sha256": "3dfc9e53d739469fa58c64abb925ef2b0941d4eb93b400aef0fcd9722749f84b",
+      "size_bytes": 17560,
+      "compression": "none"
+    },
+    {
+      "path": "normalized/canonical_keys.csv",
+      "record_count": 2368,
+      "sha256": "ee71b409937235a387d491df8410dd55a29f266002e57481b809a58db8bcd157",
+      "stored_sha256": "ee71b409937235a387d491df8410dd55a29f266002e57481b809a58db8bcd157",
+      "size_bytes": 508593,
+      "compression": "none"
+    }
+  ]
+}
