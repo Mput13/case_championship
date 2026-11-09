@@ -5,25 +5,24 @@
 Вписывает всё одним JSON в шаблон src/dashboard_template.html.
 Запуск: python src/build_dashboard.py   (после build_longlist.py)
 """
-import importlib.util
 import json
 from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
 
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+import rules  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
 
-spec = importlib.util.spec_from_file_location("kd", ROOT / "src" / "kover_days.py")
-kd = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(kd)
-
 REF = {"SVX": "Екатеринбург", "OVB": "Новосибирск", "SVO": "Шереметьево", "DME": "Домодедово",
        "VKO": "Внуково", "LED": "Санкт-Петербург", "KRR": "Краснодар"}
-MEDUZA = {"KZN": 51, "AER": 70, "KGD": 1, "VVO": 0, "IKT": 0, "KHV": 0, "OVB": 0}
-COMPETITOR_HUB = {"KJA": "группа «Аэрофлот», хаб (аэропорт, итоги 2025)",
-                  "IKT": "S7, хаб (сайт S7)", "VVO": "«Аврора» и S7, базовые (аэропорт, итоги 2025)"}
+MEDUZA = dict(pd.read_csv(ROOT / "data/manual/kover_validation_meduza.csv")[["iata", "h1_2026_days"]].values)
+_C = pd.read_csv(ROOT / "data/manual/competitor_hubs.csv")
+COMPETITOR_HUB = {r.iata: f"{r.carrier}: {r.evidence}" for r in _C.itertuples() if r.competitor_hub == 1}
 
 
 def num(v):
@@ -62,19 +61,45 @@ def load_dests():
     return out
 
 
-def monthly(posts):
-    p = posts.copy()
-    p["text"] = p.text.fillna("")
-    p = p[p.text.str.contains(kd.AIRPORT_MSG) & ~p.text.str.contains(kd.LIFTED)]
-    p["day"] = p.dt_msk.str[:10]
-    rows = []
-    for r in p.itertuples():
-        for i in kd.find_airports(r.text):
-            rows.append((i, r.day))
-    e = pd.DataFrame(rows, columns=["iata", "day"]).drop_duplicates()
+def load_network():
+    """Шаг 3–4: итоги вариантов, маршруты обоих сценариев и координаты концов маршрутов."""
+    import sys
+    sys.path.insert(0, str(ROOT / "src"))
+    import demand_model as dm
+    from airports_meta import NAME
+    sm = pd.read_csv(P / "network_summary.csv")
+    sm["vkey"] = sm.hub.fillna("").replace("", "DIRECT")
+    rt = pd.read_csv(P / "network_routes.csv")
+    rt["vkey"] = rt.variant.map(lambda v: v.replace("Хаб ", "") if v.startswith("Хаб ") else "DIRECT")
+    n = dm.nodes()
+    ends = set(rt["from"]) | set(rt["to"])
+    nodes = {i: [round(float(n.loc[i, "latitude_deg"]), 3), round(float(n.loc[i, "longitude_deg"]), 3),
+                 NAME.get(i, n.loc[i, "main_city"])] for i in ends if i in n.index}
+    cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "pax_year_segments",
+            "pax_year_local", "load_factor", "direct_now", "range_light", "demand_source"]
+    return {"summary": json.loads(sm.drop(columns=["hub"]).to_json(orient="records", force_ascii=False)),
+            "routes": json.loads(rt[cols].to_json(orient="records", force_ascii=False)), "nodes": nodes}
+
+
+def load_spokes():
+    """Шаг 2: топ-10 направлений по оценке спроса для каждого кандидата."""
+    sp = pd.read_csv(P / "demand_spokes.csv")
+    sp = sp[sp.status != "closed"].sort_values("pax_base", ascending=False)
+    out = {}
+    for hub, g in sp.groupby("hub"):
+        g = g.assign(best=g.pax_best).sort_values("best", ascending=False)
+        out[hub] = [{"city": r.to_city, "km": int(r.km), "base": int(r.best),
+                     "cautious": int(r.best) if r.method.startswith("отчёт") else int(r.pax_cautious),
+                     "direct": bool(r.direct_now), "src": r.method} for r in g.head(10).itertuples()]
+    return out
+
+
+def monthly():
+    """Дни «Ковра» по месяцам: те же события, что в data/processed/kover_days.csv (src/kover_days.py)."""
+    e = pd.read_csv(P / "kover_events.csv")
     e["month"] = e.day.str[:7]
     months = sorted(e.month.unique())[-12:]
-    m = e[e.month.isin(months)].groupby(["iata", "month"]).size()
+    m = e[e.month.isin(months)].groupby(["iata", "month"]).day.nunique()
     return months, {i: [int(m.get((i, mo), 0)) for mo in months] for i in e.iata.unique()}
 
 
@@ -84,7 +109,7 @@ def main():
     ap = pd.read_csv(ROOT / "data/raw/ourairports_airports.csv", keep_default_na=False)
     ap = ap[ap.iata_code != ""].drop_duplicates("iata_code").set_index("iata_code")
     posts = pd.read_csv(ROOT / "data/raw/favt_posts.csv")
-    months, by_month = monthly(posts)
+    months, by_month = monthly()
     w = pd.read_csv(ROOT / "data/assumptions/longlist_weights.csv")
 
     cities = []
@@ -104,7 +129,7 @@ def main():
             "transfer_zone": num(r.transfer_zone), "transfer_src": txt(r.transfer_source),
             "rostec_link": num(r.rostec_link), "rostec_note": txt(r.rostec_note), "rostec_src": txt(r.rostec_source),
             "base_carriers": txt(r.base_carriers), "base_src": txt(r.base_source),
-            "competitor_hub": 1 if r.iata in COMPETITOR_HUB else 0,
+            "competitor_hub": 1 if r.iata in COMPETITOR_HUB else None,  # нет сведений — неизвестно, а не «нет»
             "competitor_note": COMPETITOR_HUB.get(r.iata),
             "utair_mct": num(r.utair_mct_min),
         })
@@ -113,6 +138,8 @@ def main():
             "kov_months": by_month.get(i, [0] * len(months))} for i, n in REF.items()]
     dests = load_dests()
     crit = json.loads((P / "criteria.json").read_text(encoding="utf-8"))
+    net = load_network()
+    spokes = load_spokes()
     geo = json.loads((P / "geo_map.json").read_text(encoding="utf-8"))
     man_p = ROOT / "data/raw/_manifest.json"
     manifest = json.loads(man_p.read_text(encoding="utf-8")) if man_p.exists() else {}
@@ -125,9 +152,10 @@ def main():
                  "posts_from": p.dt_msk.min()[:10], "posts_to": p.dt_msk.max()[:10],
                  "months": months},
         "cities": cities, "ref": ref, "meduza": meduza,
-        "bases": {"MOW": [55.972, 37.415], "SVX": [56.743, 60.803]},
+        "bases": {b: [float(ap.loc[x, "latitude_deg"]), float(ap.loc[x, "longitude_deg"])] for b, x in (("MOW", "SVO"), ("SVX", "SVX"))},
         "dests": dests, "geo": geo, "manifest": manifest,
-        "criteria": crit["criteria"], "values": crit["values"],
+        "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214},
+        "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes,
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
     }

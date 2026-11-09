@@ -9,7 +9,8 @@
 каждую известную пару убираем, подбираем формулу без неё и сравниваем прогноз с фактом.
 
 Что даёт модель: годовой поток на прямой линии между аэропортами, оба направления, как публикуют
-аэропорты. Для пар без прямого рейса это скрытый спрос — сколько полетело бы при прямом рейсе.
+аэропорты. Для пар без прямого рейса это оценка масштаба рынка пары; модель обучена на сегментах
+(в них есть и пересадочные пассажиры), поэтому это не измеренный спрос на новый прямой рейс.
 Три оценки: осторожная (20-й процентиль ошибки), базовая, оптимистичная (80-й).
 Если поток пары известен из отчёта аэропорта, в таблицу идёт он, а модель — для сверки.
 
@@ -36,11 +37,12 @@ ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
 TOCHNO = ROOT / "data/raw/tochno_intercity/data_intercity_connectivity_162_v20260629.csv"
 MOW = {"SVO", "DME", "VKO", "ZIA"}
-RESORT = {"AER", "MRV"}
+RESORT = set(pd.read_csv(ROOT / "data/assumptions/resort_airports.csv").iata)
 BASES = {"MOW", "SVX"}
 # выбрано сравнением вариантов «исключи по одному»: время поездом точнее расстояния (ошибка 56% против 66%)
 FEATS = ["lnPP", "lnRail", "mow", "resort"]
-NO_RAIL_HR = 96  # нет поезда (Калининград, Дальний Восток) = как 4 суток в пути
+_DA = pd.read_csv(ROOT / "data/assumptions/demand.csv").set_index("parameter").value
+NO_RAIL_HR = float(_DA["no_rail_hr"])  # нет поезда (Калининград, Дальний Восток) = как 4 суток в пути
 
 
 def hav(la1, lo1, la2, lo2):
@@ -118,14 +120,15 @@ def main():
     loo = np.array(loo)
     q_lo, q_hi = np.quantile(loo, a_csv["cautious_quantile"]), np.quantile(loo, a_csv["optimistic_quantile"])
     r2 = 1 - (resid ** 2).sum() / ((y - y.mean()) ** 2).sum()
-    ape = np.abs(np.exp(loo) - 1)
+    ape = np.abs(np.exp(loo) - 1)          # |факт / прогноз − 1|
+    ape_fact = np.abs(np.exp(-loo) - 1)    # |прогноз / факт − 1| — ошибка в долях факта (обычная)
     kf.loc[train, "model"] = np.exp(predict(beta, X)).round()
     kf.loc[train, "loo_error_pct"] = ((np.exp(-loo) - 1) * 100).round(0)
     low = ~train
     kf.loc[low, "model"] = np.exp(predict(beta, F.loc[low, FEATS].values)).round()
 
     # все пары, где на одном конце кандидат в хаб или база
-    cand = set(pd.read_csv(P / "longlist.csv").iata) | BASES
+    cand = set(pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").iata) | BASES
     known = {(r.from_iata, r.to_iata): r for r in kf.itertuples()}
     known.update({(b, a): r for (a, b), r in list(known.items())})
     out = []
@@ -135,7 +138,7 @@ def main():
             if not ({a, b} & cand):
                 continue
             f = features(n, a, b, rail)
-            if f["km"] < 250:
+            if f["km"] < a_csv["min_pair_km"]:
                 continue
             mu = predict(beta, np.array([[f[k] for k in FEATS]]))[0]
             hr = rail.get((n.loc[a, "main_city"], n.loc[b, "main_city"]))
@@ -148,10 +151,16 @@ def main():
                 "direct_now": (a, b) in direct, "rail_hr": None if hr is None or pd.isna(hr) else round(float(hr), 1),
                 "pax_cautious": round(np.exp(mu + q_lo)), "pax_base": round(np.exp(mu)), "pax_optimistic": round(np.exp(mu + q_hi)),
                 "observed": obs, "observed_coverage": k.coverage if k is not None else None,
+                "observed_raw_pax": k.pax if k is not None else None,
+                "observed_period": k.period if k is not None else None,
+                "observed_annual_factor": k.annual_factor if k is not None else None,
+                "rail_imputed_96h": hr is None or pd.isna(hr),
                 "observed_source": k.source if k is not None else None,
-                "method": ("отчёт аэропорта" if k is not None and k.coverage != "airline_group" else
+                "method": ("отчёт аэропорта, полугодие × 2" if k is not None and k.annual_factor != 1 else
+                           "отчёт региона (вся область)" if k is not None and k.coverage == "region" else
+                           "отчёт аэропорта" if k is not None and k.coverage != "airline_group" else
                            "модель тяготения (нижняя граница по отчёту группы «Аэрофлот»)" if k is not None else
-                           "модель тяготения, калибровка по data/manual/known_flows.csv"),
+                           "модель тяготения: оценка масштаба рынка пары (сегменты), калибровка по data/manual/known_flows.csv"),
             })
     pairs = pd.DataFrame(out)
 
@@ -177,6 +186,7 @@ def main():
         "n_fit": int(train.sum()), "r2": round(float(r2), 3),
         "coefficients": dict(zip(["const"] + FEATS, [round(float(x), 3) for x in beta])),
         "loo_median_abs_error_pct": round(float(np.median(ape) * 100), 1),
+        "loo_median_abs_error_pct_of_fact": round(float(np.median(ape_fact) * 100), 1),
         "loo_share_within_x2": round(float(np.mean(np.abs(loo) <= np.log(2))), 2),
         "cautious_factor": round(float(np.exp(q_lo)), 2), "optimistic_factor": round(float(np.exp(q_hi)), 2),
         "subsidy_check_pairs": int(len(chk)),

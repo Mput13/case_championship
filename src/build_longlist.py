@@ -53,20 +53,23 @@ def set_font(path):
 def main():
     c = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv")
     c = c[["city", "iata", "pax_2025", "pax_2025_qualifier", "pax_source_url"]].copy()
-    # у двух аэропортов в источнике только «более N» — берём N как нижнюю границу
-    lower = {"GOJ": 1_400_000, "REN": 951_000}  # «более 1,4 млн» / «более 951 тыс.» (pax_notes)
-    for i, v in lower.items():
-        m = (c.iata == i) & c.pax_2025.isna()
-        c.loc[m, "pax_2025"] = v
-        c.loc[m, "pax_2025_qualifier"] = "> (нижняя граница)"
+    # в источнике только «более N» — берём N как нижнюю границу (data/manual/pax_2025_overrides.csv)
+    for r in pd.read_csv(ROOT / "data/manual/pax_2025_overrides.csv").itertuples():
+        m = (c.iata == r.iata) & c.pax_2025.isna()
+        c.loc[m, "pax_2025"] = r.pax_2025
+        c.loc[m, "pax_2025_qualifier"] = r.qualifier
     comp = pd.read_csv(P / "longlist_computed.csv").drop(columns=["city", "source"])
     kov = pd.read_csv(P / "kover_days.csv")
     kov_src = kov.source.iloc[0]
     kov = kov[["iata", "h1_2026_days", "jan_oct_2026_days", "last365_days"]]
     man = pd.read_csv(ROOT / "data/manual/longlist_manual.csv").drop(columns=["city"])
 
+    extra = pd.read_csv(P / "catchment_extra.csv").drop(columns=["source"])          # src/catchment_extra.py
+    tp = pd.read_csv(P / "transfer_potential.csv")                                   # src/transfer_potential.py
+    tech = pd.read_csv(ROOT / "data/manual/airport_tech.csv").drop(columns=["city"])  # ручные сведения со ссылками
     df = c.merge(comp, on="iata", how="left").merge(kov, on="iata", how="left") \
-          .merge(man, on="iata", how="left")
+          .merge(man, on="iata", how="left").merge(extra, on="iata", how="left") \
+          .merge(tp, on="iata", how="left").merge(tech, on="iata", how="left")
     df.to_csv(P / "longlist.csv", index=False, encoding="utf-8")
 
     sources = pd.DataFrame([
@@ -83,6 +86,11 @@ def main():
         ("rostec_link", "Ростех: 2 — завод/ТО по парку RW, 1 — авиапредприятие не по парку", "ссылка в rostec_source"),
         ("base_carriers", "Базовые перевозчики", "ссылка в base_source; доля — после ключа API Яндекс Расписаний"),
         ("utair_mct_min", "Мин. время стыковки у Ютэйр, мин (справочно)", "utair.ru, таблица трансфера багажа"),
+        ("catchment_pop_2025", "Население всех населённых пунктов в 75 км, оценка на 01.01.2025", "«Точно»: населённые пункты (ВПН-2021) × коэффициент муниципалитета Росстат 2025 / перепись; src/catchment_extra.py"),
+        ("wage_2024", "Средняя начисленная зарплата 2024 в зоне, руб./мес.", "Росстат БДМО через «Если быть точным»; src/catchment_extra.py"),
+        ("bad_weather_days", "Дни с морозом ≤ −20 °C или ветром ≥ 12 м/с, в год", "NOAA ISD-Lite 2023–2024; src/catchment_extra.py"),
+        ("transfer_demand_base", "Спрос пар без прямого рейса, которые соединяются через город с крюком ≤ 35%", "модель шага 2; src/transfer_potential.py"),
+        ("ssj_ops / ssj_mro / h24 / rw_support", "SSJ летает · ТО SSJ · круглосуточно · опорный аэропорт Red Wings", "data/manual/airport_tech.csv, ссылки в колонках *_source"),
     ], columns=["column", "meaning", "source"])
 
     out = ROOT / "outputs"

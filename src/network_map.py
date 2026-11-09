@@ -19,6 +19,7 @@ import pandas as pd  # noqa: E402
 from matplotlib.patches import Polygon  # noqa: E402
 
 import demand_model as dm  # noqa: E402
+import rules  # noqa: E402
 from airports_meta import NAME  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -149,6 +150,14 @@ def ru(v, d=0):
     return f"{v:,.{d}f}".replace(",", " ").replace(".", ",")
 
 
+def fit_extent(legs, nodes, pad_lon=6, pad_lat=3):
+    """Рамка карты по концам маршрутов с полями (раньше рамка прямой сети была задана числами в коде)."""
+    ids = set(legs.a) | set(legs.b)
+    lo = nodes.loc[list(ids), "longitude_deg"]
+    la = nodes.loc[list(ids), "latitude_deg"]
+    return (float(lo.min() - pad_lon), float(lo.max() + pad_lon), float(la.min() - pad_lat), float(la.max() + pad_lat))
+
+
 def main():
     import matplotlib.patheffects  # noqa: F401
     nodes = dm.nodes()
@@ -167,7 +176,7 @@ def main():
     draw(legs, nodes, f"Гипотеза 1: хаб в {loc}",
          f"{int(best.routes)} маршрутов · {int(best.aircraft)} самолётов · {ru(best.segments_year/1e3)} тыс. пассажиров в год · "
          f"доля рынка +{ru(best.share_pp, 2)} п. п. · базовый сценарий",
-         "map_hub.png", hub=H, ring_km=2300)
+         "map_hub.png", hub=H, ring_km=rules.GREEN)
     d = b[b.variant.str.startswith("Прямые")]
     dr = sb.loc["Прямые рейсы из Москвы и Екатеринбурга"]
     legs = pd.DataFrame({"a": d["from"], "b": d["to"], "pax": d.pax_year_segments, "freq": d.freq_week_each_way})
@@ -177,7 +186,7 @@ def main():
     draw(legs, nodes, f"Гипотеза 2: прямые рейсы {who}",
          f"{int(dr.routes)} треугольников база — X — Y — база · {int(dr.aircraft)} самолётов · "
          f"{ru(dr.segments_year/1e3)} тыс. пассажиров в год · доля рынка +{ru(dr.share_pp, 2)} п. п. · базовый сценарий",
-         "map_direct.png", extent=(28, 76, 42, 61))
+         "map_direct.png", extent=fit_extent(legs, nodes))
 
 
 if __name__ == "__main__":

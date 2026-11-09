@@ -3,7 +3,7 @@
 Для каждого кандидата берём все аэропорты в зоне SSJ (data/processed/destinations.csv) и оценку
 спроса по паре (data/processed/demand_pairs.csv). Делим на:
   есть прямой рейс  — рынок, где придётся отбирать пассажиров у тех, кто уже летает;
-  нет прямого рейса — скрытый спрос: люди едут поездом, с пересадкой в Москве или не едут вовсе.
+  нет прямого рейса — оценка масштаба рынка пары по модели (люди едут поездом, с пересадкой или не едут).
 Аэропорты Москвы сведены в один узел MOW.
 
 Выход: data/processed/demand_by_candidate.csv (итог по городу)
@@ -28,7 +28,7 @@ def main():
     dest["to"] = dest["to"].where(~dest["to"].isin(MOW), "MOW")
     dest = dest.sort_values("direct", ascending=False).drop_duplicates(["from", "to"])
     dest = dest[dest.in_ssj]
-    ll = pd.read_csv(P / "longlist.csv").set_index("iata")
+    ll = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").set_index("iata")
     spokes = []
     for r in dest.itertuples():
         if (r._1, r.to) not in both.index:
@@ -57,10 +57,10 @@ def main():
     out.to_csv(P / "demand_by_candidate.csv", index=False, encoding="utf-8")
     # подключаемый критерий лонглиста (появится на пульте весов сам, вес 0 — решает команда)
     crit = out[["hub", "pax_no_direct_base"]].rename(columns={"hub": "iata", "pax_no_direct_base": "value"})
-    crit["source"] = "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
-    crit = crit.assign(label="Скрытый спрос без прямых рейсов (модель)", short="Скрытый спрос", direction="+",
+    crit["source"] = "модель src/demand_model.py: оценка масштаба рынка (сегменты) в города зоны SSJ без прямого рейса"
+    crit = crit.assign(label="Спрос без прямых рейсов (оценка модели)", short="Спрос без рейса", direction="+",
                        weight=0, fmt="mln", board=0,
-                       why="сколько пассажиров в год хотели бы лететь из города туда, куда прямого рейса нет")
+                       why="оценка масштаба рынка пар, где прямого рейса нет; модель обучена на сегментах, поэтому это не измеренный спрос (аудит критика)")
     (ROOT / "data" / "criteria").mkdir(parents=True, exist_ok=True)
     crit.to_csv(ROOT / "data" / "criteria" / "demand_gap.csv", index=False, encoding="utf-8")
     pd.set_option("display.width", 250)

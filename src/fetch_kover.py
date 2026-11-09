@@ -12,6 +12,7 @@ from fetch_telegram import MSK, update
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--since", default="2024-11-01")
+    ap.add_argument("--rebuild", action="store_true", help="скачать всю ленту заново (после смены парсера)")
     a = ap.parse_args()
-    total, new = update("favt_info", datetime.fromisoformat(a.since).replace(tzinfo=MSK))
+    total, new = update("favt_info", datetime.fromisoformat(a.since).replace(tzinfo=MSK), rebuild=a.rebuild)
     print(f"favt_info: всего {total}, новых {new}")

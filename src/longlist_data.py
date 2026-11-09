@@ -39,20 +39,10 @@ OUT = ROOT / "data" / "processed" / "longlist_computed.csv"
 CITIES = ROOT / "context" / "07_verification" / "terra_cities_review" / "corrected_cities.csv"
 TOCHNO = RAW / "tochno_intercity" / "data_intercity_connectivity_162_v20260629.csv"
 
-GREEN = 2300          # SSJ, км по прямой, обычные трассы (k=1,10)
-GREEN_SOUTH = 2150    # SSJ, юг и западные границы (k=1,20), docs/17
-RAIL_OK_HR = 12       # поезд «нормальный», если ехать не дольше ночи
-CATCH_KM = 75         # радиус зоны тяготения аэропорта (так же делает «Точно»)
-
-# Регионы, полёты в/из которых идут с обходами (docs/17, раздел 4)
-SOUTH_WEST = {
-    "Краснодарский край", "Республика Адыгея", "Ставропольский край", "Ростовская область",
-    "Республика Дагестан", "Чеченская Республика", "Республика Ингушетия",
-    "Кабардино-Балкарская Республика", "Карачаево-Черкесская Республика",
-    "Республика Северная Осетия — Алания", "Республика Калмыкия", "Астраханская область",
-    "Волгоградская область", "Республика Крым", "Севастополь", "Калининградская область",
-    "Белгородская область", "Курская область", "Брянская область",
-}
+from rules import GREEN, GREEN_SOUTH, SOUTH_WEST  # пороги и регионы — data/assumptions/range.csv, south_west_regions.csv
+_PAR = pd.read_csv(ROOT / "data/assumptions/longlist_params.csv").set_index("parameter").value
+RAIL_OK_HR = float(_PAR["rail_ok_hr"])      # поезд «нормальный», если ехать не дольше ночи
+CATCH_KM = float(_PAR["catchment_km"])      # радиус зоны тяготения аэропорта
 
 
 # аэропорты одного города считаем одним рынком: житель Подмосковья летит через любой из них
@@ -118,8 +108,9 @@ def main():
     rail = t[t.transport_type == "rail"].set_index(["city_from", "city_to"]).distance_hr
 
     cand = pd.read_csv(CITIES)
-    svo = ap.set_index("iata_code").loc["SVO"]
-    svx = ap.set_index("iata_code").loc["SVX"]
+    apx_i = ap.set_index("iata_code")
+    mow = [apx_i.loc[x] for x in ("SVO", "DME", "VKO")]   # до Москвы — до ближайшего из трёх аэропортов
+    svx = apx_i.loc["SVX"]
     rows = []
     dests = []  # направления для карты: каждый аэропорт в зоне SSJ + все текущие прямые рейсы
     for c in cand.itertuples():
@@ -128,7 +119,7 @@ def main():
             print("нет зоны тяготения для", i)
             continue
         a = catch.loc[i]
-        reach_n = reach_pop = direct_n = gap_pop = gap_closed = 0
+        reach_n = reach_pop = direct_n = gap_pop = gap_closed = gap_rail_unknown = 0
         for j, b in catch.iterrows():
             if j == i:
                 continue
@@ -152,14 +143,17 @@ def main():
                 gap_closed += b["pop"]
             elif not has_direct and not rail_ok:
                 gap_pop += b["pop"]
+                if hr is None or pd.isna(hr):  # в «Точно» поезд не найден (missing_reason) — не измеренное время
+                    gap_rail_unknown += b["pop"]
         rows.append({
             "city": c.city, "iata": i, "icao": a.ident, "region": a.region,
             "catchment_pop": int(a["pop"]),
             "runway_m": round(runway.get(a.ident, float("nan"))),
-            "dist_msk_km": round(hav(a.latitude_deg, a.longitude_deg, svo.latitude_deg, svo.longitude_deg)),
+            "dist_msk_km": round(min(hav(a.latitude_deg, a.longitude_deg, m.latitude_deg, m.longitude_deg) for m in mow)),
             "dist_ekb_km": round(hav(a.latitude_deg, a.longitude_deg, svx.latitude_deg, svx.longitude_deg)),
             "ssj_reach_airports": reach_n, "ssj_reach_pop": int(reach_pop),
             "direct_now": direct_n, "gap_pop": int(gap_pop), "gap_pop_closed": int(gap_closed),
+            "gap_pop_rail_unknown": int(gap_rail_unknown),
             "source": "OurAirports (координаты, ВПП); «Если быть точным», транспортная связность "
                       "v2026-06-29, CC BY 4.0 (население ВПН-2021, поезд, прямые рейсы июнь–дек 2026); "
                       "пороги дальности docs/17",

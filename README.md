@@ -14,9 +14,13 @@
 Откуда какие данные — `docs/22_data_sources_longlist.md`. Нужен Python 3.13 с pandas и openpyxl.
 ```
 py -3.13 src/fetch_static.py                      # OurAirports и «Если быть точным»
+py -3.13 src/fetch_social.py                      # население 2025, населённые пункты, зарплаты (Росстат, «Точно»)
+py -3.13 src/fetch_weather.py                     # погода в аэропортах, NOAA 2023–2024
 py -3.13 src/fetch_kover.py --since 2024-11-01    # канал Росавиации об ограничениях, ~25 мин
-py -3.13 src/kover_days.py                        # дни «Ковра» по аэропортам
+# после смены версии парсера: тот же запуск с --rebuild (скачает всё заново)
 py -3.13 src/longlist_data.py                     # население, дальность SSJ, прямые рейсы, поезда
+py -3.13 src/kover_days.py                        # дни «Ковра» по аэропортам (названия берёт из зон тяготения)
+py -3.13 src/catchment_extra.py                   # население 2025 всех пунктов, зарплата, погода
 py -3.13 src/build_longlist.py                    # data/processed/longlist.csv и outputs/longlist.xlsx
 py -3.13 src/build_dashboard.py                   # панель outputs/redwings_panel.html (табло, веса, карта, «Ковёр»)
 ```

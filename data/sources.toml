@@ -283,3 +283,59 @@ stale_days = 60
 min_rows = 30
 license = "цитирование с указанием источника"
 feeds = ["калибровка модели спроса по парам"]
+
+[social]
+name = "Население МО 2025, населённые пункты, зарплаты, туризм"
+owner = "Росстат (копия Internet Archive); «Если быть точным»"
+url = "https://tochno.st/datasets/settlements"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_social.py"
+output = "data/raw/social/tochno_settlements/data_settlements_115_v20240326.csv"
+every_days = 90
+stale_days = 365
+min_rows = 20000
+license = "CC BY 4.0 («Точно»); официальная статистика Росстата"
+feeds = ["население зоны тяготения 2025", "зарплата в зоне", "туризм (справочно)"]
+
+[weather]
+name = "NOAA ISD-Lite: погода в аэропортах 2023–2024"
+owner = "NOAA NCEI (архив на AWS)"
+url = "https://noaa-isd-pds.s3.amazonaws.com/"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_weather.py"
+output = "data/raw/weather/_files.csv"
+every_days = 365
+stale_days = 730
+min_rows = 100
+license = "открытые данные NOAA; обновление ISD остановлено после 24.08.2025"
+feeds = ["непогодные дни"]
+
+[airport_tech]
+name = "Ручные сведения: SSJ, ТО SSJ, режим работы, опорные аэропорты RW"
+owner = "команда (ссылки в колонках *_source)"
+url = "data/manual/airport_tech.csv"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "data/manual/airport_tech.csv"
+every_days = 30
+stale_days = 60
+min_rows = 20
+license = "ссылки на источники в файле"
+feeds = ["ТО для SSJ на месте", "Круглосуточный аэропорт", "SSJ уже летает", "Опорный аэропорт Red Wings"]
+
+[competitor_hubs]
+name = "Ручные сведения: хабы и базы конкурентов"
+owner = "команда (ссылки в колонке source)"
+url = "data/manual/competitor_hubs.csv"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "data/manual/competitor_hubs.csv"
+every_days = 30
+stale_days = 60
+min_rows = 20
+license = "ссылки на источники в файле"
+feeds = ["Нет чужой «крепости»"]

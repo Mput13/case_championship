@@ -20,9 +20,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 UA = "Mozilla/5.0 (case-champ research script)"
 MSK = timezone(timedelta(hours=3))
-TEXT_RE = re.compile(r'tgme_widget_message_text[^>]*>(.*?)</div>', re.S)
+# основной текст поста; у поста-ответа перед ним стоит цитата (js-message_reply_text) — её храним отдельно
+TEXT_RE = re.compile(r'class="tgme_widget_message_text js-message_text[^"]*"[^>]*>(.*?)</div>', re.S)
+REPLY_RE = re.compile(r'class="tgme_widget_message_text js-message_reply_text[^"]*"[^>]*>(.*?)</div>', re.S)
+PARSER_VERSION = "2"  # 1 — брал первый текстовый блок (у ответов это цитата); 2 — только основной текст
 DT_RE = re.compile(r'datetime="([^"]+)"')
-FIELDS = ["id", "dt_utc", "dt_msk", "text"]
+FIELDS = ["id", "dt_utc", "dt_msk", "text", "reply_text", "parser_version"]
 
 
 def out_path(channel):
@@ -51,12 +54,13 @@ def parse(page, channel):
         dt = DT_RE.search(body)
         if not dt:
             continue
-        tx = TEXT_RE.search(body)
-        text = html.unescape(re.sub(r"<br\s*/?>", "\n", tx.group(1))) if tx else ""
-        text = re.sub(r"<[^>]+>", "", text).strip()
+        def clean(m):
+            t = html.unescape(re.sub(r"<br\s*/?>", "\n", m.group(1))) if m else ""
+            return re.sub(r"<[^>]+>", "", t).strip()
+        text, reply = clean(TEXT_RE.search(body)), clean(REPLY_RE.search(body))
         utc = datetime.fromisoformat(dt.group(1))
-        rows.append({"id": int(pid), "dt_utc": utc.isoformat(),
-                     "dt_msk": utc.astimezone(MSK).isoformat(), "text": text})
+        rows.append({"id": int(pid), "dt_utc": utc.isoformat(), "dt_msk": utc.astimezone(MSK).isoformat(),
+                     "text": text, "reply_text": reply, "parser_version": PARSER_VERSION})
     return rows
 
 
@@ -67,10 +71,12 @@ def load(path):
         return {int(r["id"]): r for r in csv.DictReader(f)}
 
 
-def update(channel, since=None, pause=1.0):
-    """Дописывает новые посты. Возвращает (всего, новых)."""
+def update(channel, since=None, pause=1.0, rebuild=False):
+    """Дописывает новые посты (rebuild=True — качает всё заново). Возвращает (всего, новых)."""
     path = out_path(channel)
-    posts = load(path)
+    posts = {} if rebuild else load(path)
+    if posts and any(r.get("parser_version") != PARSER_VERSION for r in posts.values()):
+        print("  в файле есть строки старого парсера — нужен запуск с --rebuild", file=sys.stderr)
     known_max = max(posts) if posts else 0
     if since is None:
         since = datetime.now(MSK) - timedelta(days=90)
@@ -94,7 +100,7 @@ def update(channel, since=None, pause=1.0):
         w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
         for pid in sorted(posts):
-            w.writerow({k: posts[pid][k] for k in FIELDS})
+            w.writerow({k: posts[pid].get(k) or "" for k in FIELDS})
     return len(posts), new
 
 
@@ -102,9 +108,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("channel")
     ap.add_argument("--since", help="самая ранняя дата (МСК), YYYY-MM-DD; по умолчанию 90 дней назад")
+    ap.add_argument("--rebuild", action="store_true", help="скачать всю ленту заново (после смены парсера)")
     a = ap.parse_args()
     since = datetime.fromisoformat(a.since).replace(tzinfo=MSK) if a.since else None
-    total, new = update(a.channel, since)
+    total, new = update(a.channel, since, rebuild=a.rebuild)
     print(f"{a.channel}: всего {total}, новых {new} → {out_path(a.channel)}")
 
 
