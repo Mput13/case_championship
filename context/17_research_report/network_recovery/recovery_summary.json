@@ -1,0 +1,131 @@
+{
+  "schema_version": "network-recovery-summary-v1",
+  "created_at_utc": "2026-11-09T20:29:28.282526+00:00",
+  "input_set_id": "network-recovery-20261109-v1",
+  "status": "BOUNDED_RECOVERY_COMPLETE_WITH_REMAINING_ACCESS_AND_SEMANTIC_GAPS",
+  "source_pins": {
+    "core": "505e24663e5952bae9b9540bb9a5a622663bfc2a",
+    "alternative": "ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+    "hypotheses": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+    "critic": "fd086bad2ae30c46e95d6e38954dc99a18627902"
+  },
+  "inventory_items": 63,
+  "historical_or_invalid_items": 13,
+  "non_network_exclusions": 18,
+  "planned_public_actions": 49,
+  "actual_http_reads": 47,
+  "http_methods": {
+    "GET": 46,
+    "POST_read_only_get_availability": 1
+  },
+  "fetch_outcomes": {
+    "ACCESS_FAILED": 18,
+    "FETCHED": 16,
+    "HTTP_ERROR": 13,
+    "NOT_APPLICABLE": 2
+  },
+  "semantic_outcomes": {
+    "NOT_ACQUIRED": 31,
+    "VERIFIED_SUPPORTING_CONTENT_WITH_LIMIT": 1,
+    "VERIFIED_SUPPORTING_CONTENT": 5,
+    "NOT_APPLICABLE": 2,
+    "VERIFIED_SCOPED": 6,
+    "CONTENT_MISMATCH": 1,
+    "VERIFIED_SCOPED_HISTORICAL": 1,
+    "VERIFIED_SOFTWARE_LICENSE_ONLY": 1,
+    "VERIFIED_PARTIAL_WITH_HOLD": 1
+  },
+  "verified_scoped_current_exact_byte_sources": [
+    "favt_2025_market",
+    "favt_stats_current",
+    "khv_tariff_202611",
+    "mintrans_2025_transport_report",
+    "openflights_airlines",
+    "travelpayouts_airlines"
+  ],
+  "core_baseline": {
+    "cards": 90,
+    "raw_paths": 75,
+    "failed_cards": 15,
+    "restricted_use_cards": 7,
+    "failed_host_groups": {
+      "ourairports.com": 1,
+      "favt.gov.ru": 5,
+      "mintrans.gov.ru": 1,
+      "t.me": 1,
+      "api.travelpayouts.com": 1,
+      "raw.githubusercontent.com": 2,
+      "uvtaero.ru": 1,
+      "azimuth.ru": 1,
+      "yks.aero": 1,
+      "khvaero.ru": 1
+    },
+    "note": "Failed cards and domains are neither independent websites nor proof of Wi-Fi causality"
+  },
+  "restored_main_outputs": {
+    "national_market_observations": 26,
+    "khv_cost_rows": 16,
+    "khv_current_rows": 8,
+    "khv_historical_rows": 8,
+    "khv_revision_differences": 8,
+    "carrier_crosswalk_sample": 9,
+    "telegram_selected_claims": 4,
+    "telegram_airport_claims_held": 1
+  },
+  "material_findings": [
+    {
+      "id": "NR01",
+      "finding": "KHV publisher index links amended November file;700/609RUB per MTOWtonne effective2026-02-10, rather than January562/445",
+      "action": "Reprice applicable KHV cost rows for future experiments; no existing experiment mutated"
+    },
+    {
+      "id": "NR02",
+      "finding": "2025 official national totals acquired as exact bytes:108.85m carrier segments,214.66m airport movements; not interchangeable",
+      "action": "Validate/recompute denominator-based summaries using compatible numerator and period"
+    },
+    {
+      "id": "NR03",
+      "finding": "Failed airport-statistics URL returns200generic catalogue, while two old statistics paths404",
+      "action": "No airportmonthly coverage inferred"
+    },
+    {
+      "id": "NR04",
+      "finding": "Selected favt7184 airport140.3m has literalJan–June clause among eightmonth carrier figures",
+      "action": "Hold period for airport claim; do not silently change period"
+    },
+    {
+      "id": "NR05",
+      "finding": "Airfield registry passport recovered but latest listedDOCX404 and old actuality metadata",
+      "action": "No current certification or dispatch gate closed"
+    }
+  ],
+  "remaining_issues": [
+    "18public reads still fail TLS/DNS/transport",
+    "Azimuth availability403; price and seats UNKNOWN",
+    "Airportmonthly/fullobservedOD/netyield/contractcosts/freefleet remain absent or not established",
+    "Sites publication belongs to parent and was not probed",
+    "Paid model/backend recovery prohibited; no retry",
+    "Telegram full8318audit/eventintervals and remaining5981UNKNOWN not redefined as Wi-Fi failures",
+    "Current KHV extracted public rates are not signed prices or complete airport/fuel basket"
+  ],
+  "no_changes_to": [
+    "frozen_inputs",
+    "peer_worktrees",
+    "models/evaluator",
+    "DNS/proxy/VPN/profiles",
+    "running_processes/services",
+    "Sites"
+  ],
+  "no_paid_model_calls": true,
+  "source_scope_limit": "All inventory rows have fresh results or explicit no-retry reasons. This is the documented bounded source list, not a proof that every historical/network issue or every website has been recovered.",
+  "files": {
+    "report": "report.md",
+    "inventory": "inventory.csv",
+    "history": "historical_inventory.csv",
+    "exclusions": "non_network_exclusions.csv",
+    "semantic_checks": "semantic_validation.json",
+    "data_schema": "parsed/schema.json",
+    "manifest": "manifest.json",
+    "public_source_registry": "source_registry.csv"
+  }
+}

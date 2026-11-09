@@ -1,0 +1,16 @@
+{
+  "input_set_id": "network-recovery-20261109-v1",
+  "created_at_utc": "2026-11-09T20:29:28.282526+00:00",
+  "historical_source_pins": {
+    "core": "505e24663e5952bae9b9540bb9a5a622663bfc2a",
+    "alternative": "ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+    "hypotheses": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+    "critic": "fd086bad2ae30c46e95d6e38954dc99a18627902"
+  },
+  "purpose": "New recovery observations; not admitted model input set",
+  "integration_status": "NOT_INTEGRATED; original frozen001–003 unchanged",
+  "current_KHV_source": "khv_tariff_202611",
+  "historical_KHV_source": "khv_tariff_current",
+  "record_count_semantics": "Parsed selected observations are not total source rows; coverage.csv and schema.json distinguish them",
+  "reproduce": "collect_recovery.py --fetch skips existing receipts; parse_recovery.py and finalize_recovery.py are offline. A genuinely new date must use a new directory/input_set, never erase receipts."
+}
