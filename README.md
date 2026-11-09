@@ -10,6 +10,17 @@
 - `materials/` — исходные материалы организаторов (хранятся локально, в git не входят)
 - `CLAUDE.md` — контекст для Claude Code
 
+## Расчёт: лонглист городов (src/)
+Откуда какие данные — `docs/22_data_sources_longlist.md`. Нужен Python 3.13 с pandas и openpyxl.
+```
+py -3.13 src/fetch_static.py                      # OurAirports и «Если быть точным»
+py -3.13 src/fetch_kover.py --since 2024-11-01    # канал Росавиации об ограничениях, ~25 мин
+py -3.13 src/kover_days.py                        # дни «Ковра» по аэропортам
+py -3.13 src/longlist_data.py                     # население, дальность SSJ, прямые рейсы, поезда
+py -3.13 src/build_longlist.py                    # data/processed/longlist.csv и outputs/longlist.xlsx
+```
+Ручные данные со ссылками — `data/manual/longlist_manual.csv`.
+
 ## Командный пакет (context/)
 [Объяснялка: контекст, решения и ближайшие задачи](explain.html) — непрерывный документ со схемами, реальными примерами данных и двумя интерактивными расчётами. [Решения D01–D12](context/10_decision_guide/decisions.csv) и [задачи T01–T10](context/10_decision_guide/tasks.csv) пока предложены для обсуждения, а не приняты командой.
 
