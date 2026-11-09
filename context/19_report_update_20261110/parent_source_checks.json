@@ -1,0 +1,156 @@
+{
+  "checked_at_utc": "2026-11-09T22:43:18.427099+00:00",
+  "ref": "origin/research/stage1-panel-audit-20261110",
+  "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+  "git_author": "mput",
+  "person_attribution": "Цири; explicit user screenshot + matching new branch",
+  "inputs": [
+    {
+      "path": "context/22_stage1_audit/final_scores.csv",
+      "sha256": "be64068801a0a28b2a49bc992e8d26a3fe7c5d66dd52f713057b2812ffa59ebc"
+    },
+    {
+      "path": "context/22_stage1_audit/final_comparison.csv",
+      "sha256": "69bb2dfcb7df39cc16e933be73c932c45d5d2009ff734b2ecbfd660c4de353cb"
+    },
+    {
+      "path": "context/22_stage1_audit/recommended_weights.csv",
+      "sha256": "067f62d676b490b2f1f1da5a46c2c69a348c3ebaa2d7b0e07dac2fd21be5a776"
+    },
+    {
+      "path": "context/22_stage1_audit/release_note.md",
+      "sha256": "f46ee3df31de60d8c8ad4e99d1af27dd6de1634c0258ef75af5c48af7c24c2f7"
+    },
+    {
+      "path": "context/22_stage1_audit/final_acceptance.md",
+      "sha256": "86098d38598f58f3c79aa5faf7e8c76fd1272819de1ac6dd16387ea1b3ecd839"
+    },
+    {
+      "path": "context/22_stage1_audit/attribution.csv",
+      "sha256": "f2a9690a0360bf8f657d1913e1469565431c910d266081d7fc52e6cb3808f1e1"
+    },
+    {
+      "path": "src/network_model.py",
+      "sha256": "a88247013b779efd8b72cac40dea0f6da7414399b1346a8bad5df07f3ba8375b"
+    },
+    {
+      "path": "src/fetch_telegram.py",
+      "sha256": "e87c11cbbe94df485f8196d9ec5d82d635896ff7d62013caed618ba3feae5524"
+    }
+  ],
+  "weight_total": 100.0,
+  "scenario_count": 140,
+  "network_model_identical_to_2f": true,
+  "telegram_fetch_identical_to_2f": true,
+  "primary_read_checks": [
+    {
+      "url": "https://www.aeroomsk.ru/ob-aeroporte/press-tsentr/novosti/207/",
+      "publication_date": "2024-12-03",
+      "read_method": "native web.open",
+      "confirmed": "Published SSJ maintenance service for RW/Rossiya/Azimuth; eight staff then. Future trainees separate.",
+      "unknown": "2026 contract, full approval scope, free capacity"
+    },
+    {
+      "url": "https://ar-ren.ru/about/news/aeroport-orenburg-obsluzhil-za-2025-god-bolee-950/",
+      "publication_date": "2026-01-15",
+      "read_method": "native web.open",
+      "confirmed": "2025 airport traffic >951000; rounded domestic885500 and international65600",
+      "unknown": "exact annual integer; 951100 derived not observed exact"
+    }
+  ],
+  "acceptance_scope": "Pinned artifact/hash and two selected source claims; no full model replay or operating/market acceptance.",
+  "selected_saved_scenarios": [
+    {
+      "stress": "base",
+      "min_dist_km": "500",
+      "mode": "expansion_allowed",
+      "profile": "balanced",
+      "n": "15",
+      "top3": "OMS / REN / BAX",
+      "top3_cities": "Омск / Оренбург / Барнаул",
+      "third_fourth_gap": "0.0007211482467386343",
+      "score1": "0.6489141347151431",
+      "score2": "0.5508560277945392",
+      "score3": "0.5269528227041733"
+    },
+    {
+      "stress": "base",
+      "min_dist_km": "500",
+      "mode": "strict_new",
+      "profile": "balanced",
+      "n": "11",
+      "top3": "OMS / REN / BAX",
+      "top3_cities": "Омск / Оренбург / Барнаул",
+      "third_fourth_gap": "0.013470303119662463",
+      "score1": "0.6489141347151431",
+      "score2": "0.5508560277945392",
+      "score3": "0.5269528227041733"
+    },
+    {
+      "stress": "base",
+      "min_dist_km": "0",
+      "mode": "expansion_allowed",
+      "profile": "balanced",
+      "n": "20",
+      "top3": "CEK / UFA / OMS",
+      "top3_cities": "Челябинск / Уфа / Омск",
+      "third_fourth_gap": "0.018720784024418125",
+      "score1": "0.6915515853893031",
+      "score2": "0.6505977944018979",
+      "score3": "0.6489141347151431"
+    },
+    {
+      "stress": "base",
+      "min_dist_km": "0",
+      "mode": "strict_new",
+      "profile": "balanced",
+      "n": "16",
+      "top3": "CEK / UFA / OMS",
+      "top3_cities": "Челябинск / Уфа / Омск",
+      "third_fourth_gap": "0.018720784024418125",
+      "score1": "0.6915515853893031",
+      "score2": "0.6505977944018979",
+      "score3": "0.6489141347151431"
+    },
+    {
+      "stress": "common_neutral",
+      "min_dist_km": "500",
+      "mode": "expansion_allowed",
+      "profile": "local_market",
+      "n": "15",
+      "top3": "KUF / OMS / KJA",
+      "top3_cities": "Самара / Омск / Красноярск",
+      "third_fourth_gap": "0.015521122611035332",
+      "score1": "0.5602368547050358",
+      "score2": "0.54532018980716",
+      "score3": "0.513857407878791"
+    },
+    {
+      "stress": "intro_only",
+      "min_dist_km": "500",
+      "mode": "expansion_allowed",
+      "profile": "balanced",
+      "n": "15",
+      "top3": "OMS / REN / KUF",
+      "top3_cities": "Омск / Оренбург / Самара",
+      "third_fourth_gap": "0.005491278212519157",
+      "score1": "0.6489141347151431",
+      "score2": "0.553883550730319",
+      "score3": "0.5343050689528476"
+    },
+    {
+      "stress": "intro_only",
+      "min_dist_km": "500",
+      "mode": "strict_new",
+      "profile": "balanced",
+      "n": "11",
+      "top3": "OMS / REN / VOG",
+      "top3_cities": "Омск / Оренбург / Волгоград",
+      "third_fourth_gap": "0.0018609680361550973",
+      "score1": "0.6489141347151431",
+      "score2": "0.553883550730319",
+      "score3": "0.5288137907403284"
+    }
+  ],
+  "third_fourth_gap_100pt": 0.07211482467386343
+}

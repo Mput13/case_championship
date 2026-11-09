@@ -13,6 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'context/17_research_report'
+TEAM_OUT = ROOT / 'context/19_report_update_20261110'
 PINS = {
     'core': '505e24663e5952bae9b9540bb9a5a622663bfc2a',
     'alternative': 'ef365ac2a936117e5b3bb12ea99c816d7b1a101c',
@@ -20,12 +21,19 @@ PINS = {
     'critic': 'fd086bad2ae30c46e95d6e38954dc99a18627902',
     'coordinator': '7686d1d2cb5fd72130b5028cb8e08b39a1d9b2e6',
     'recovery': '063f13cc535c7e94557df694b92071926acb7669',
+    'nastya_step1': '2f03b693a62c219e9475fcd1e26295039f6a49d7',
+    'tsiri_stage22': '6ec84a7d2a6eb50b547a61df82fc5a424f48f146',
+    'tsiri_economics': '93fa5cf4a10ab67e05c93d19fc5375fc58ef9299',
+    'team_review': 'ea542b0c38771f5ad55e67ac02e14b49f07c142c',
+    'konstantin': '9dbaee7ee53ee10ecb6db64d1cf634a7c0bceba7',
 }
 REPO = 'https://github.com/Mput13/case_championship'
 INPUTS = {}
 
 
 def source_path(role, path):
+    if role in {'nastya_step1', 'tsiri_stage22', 'tsiri_economics', 'team_review', 'konstantin'}:
+        return path
     if role == 'recovery':
         return 'context/17_research_report/network_recovery/' + path
     return 'context/16_agent_research/' + ('' if role == 'coordinator' else role + '/') + path
@@ -100,6 +108,133 @@ def c07_chart(c07):
                    f'<div class="bar-ground" style="width:{ground/7:.4f}%"></div></div>'
                    f'<div class="bar-number">{total}<span>{delta}</span></div></div>'
                    for title, block, ground, total, delta in series)
+
+
+def team_update():
+    """Project saved integrated results; do not run or change any colleague model."""
+    stage = 'context/22_stage1_audit/'
+    for name in ['release_note.md', 'final_acceptance.md', 'main_source_checks.md',
+                 'integration_decisions.md', 'accepted_model_inputs.json', 'model_rules.json',
+                 'recommended_weights.csv', 'evidence_ledger.csv']:
+        read('tsiri_stage22', stage + name)
+    acceptance = json.loads(read('tsiri_stage22', stage + 'final_acceptance.json'))
+    validation = json.loads(read('tsiri_stage22', stage + 'final_validation.json'))
+    profiles = json.loads(read('tsiri_stage22', stage + 'weight_profiles.json'))
+    scores = rows('tsiri_stage22', stage + 'final_scores.csv')
+    comparison = rows('tsiri_stage22', stage + 'final_comparison.csv')
+    research = rows('tsiri_stage22', stage + 'accepted_research.csv')
+    for path in ['docs/HANDOFF.md', 'docs/24_hypotheses_comparison.md', 'docs/25_step1_open_questions.md',
+                 'src/network_model.py', 'src/fetch_telegram.py', 'src/kover_days.py',
+                 'data/processed/network_summary.csv', 'data/processed/network_routes.csv']:
+        read('nastya_step1', path)
+    # stage22 changed the screening layer, not the audited network or reply fetcher.
+    for path in ['src/network_model.py', 'src/fetch_telegram.py']:
+        assert read('tsiri_stage22', path) == read('nastya_step1', path)
+    for path in ['context/18_team_sync/step1_review/report.md',
+                 'context/18_team_sync/step1_review/findings.json',
+                 'context/18_team_sync/night_workflow_proposal.md']:
+        read('team_review', path)
+    for path in ['context/20_strategy_scope/README.md', 'context/21_team_proposals/README.md',
+                 'context/21_team_proposals/validation.json', 'context/21_team_proposals/routes.csv',
+                 'context/18_unit_economics_audit/breakeven.csv']:
+        read('tsiri_economics', path)
+    economy = rows('tsiri_economics', 'context/21_team_proposals/comparison.csv')
+    read('konstantin', 'context/09_additional_research/report.md')
+    primary = sorted((r for r in scores if (r['stress'], r['min_dist_km'], r['mode'], r['profile']) ==
+                     ('base', '500', 'expansion_allowed', 'balanced')), key=lambda r: int(r['rank']))
+    assert [r['iata'] for r in primary[:4]] == ['OMS', 'REN', 'BAX', 'KUF']
+    assert all(abs(float(r['score']) - acceptance['primary']['scores'][r['iata']]) < 1e-12 for r in primary[:4])
+    assert acceptance['verdict'] == 'ACCEPT_WITH_LIMITATIONS' and len(comparison) == 140
+    recommended = profiles['recommended']['criteria']
+    assert sum(c['weight'] for c in recommended) == 100
+    assert validation['total_scenarios'] == 140
+    def fmt(n, places=6):
+        return f'{float(n):.{places}f}'.replace('.', ',')
+    chart = []
+    for r in primary[:4]:
+        chart.append(f'<div class="rank-bar"><span>{esc(r["rank"])}. {esc(r["city"])} <code>{r["iata"]}</code></span>'
+                     f'<span class="rank-track" aria-hidden="true"><i style="width:{float(r["score"])*100:.5f}%"></i></span>'
+                     f'<b>{fmt(r["score"])}</b></div>')
+    selected = [
+        ('Основной · 500 км · развитие опоры', 'base', '500', 'expansion_allowed', 'balanced'),
+        ('Строго новый узел · 500 км', 'base', '500', 'strict_new', 'balanced'),
+        ('Без отсечки 500 км · те же веса', 'base', '0', 'expansion_allowed', 'balanced'),
+        ('Приоритет локального рынка · 500 км', 'base', '500', 'expansion_allowed', 'local_market'),
+        ('Приоритет связности · 500 км', 'base', '500', 'expansion_allowed', 'connectivity'),
+        ('Устойчивость волны · 500 км', 'base', '500', 'expansion_allowed', 'resilience'),
+        ('Без преимущества ручной изученности · 500 км', 'base', '500', 'expansion_allowed', 'evidence_neutral'),
+        ('Только введения «Ковра» · основные веса', 'intro_only', '500', 'expansion_allowed', 'balanced'),
+        ('Локальный рынок + общие нейтральные ячейки', 'common_neutral', '500', 'expansion_allowed', 'local_market'),
+        ('Устойчивость + общие нейтральные ячейки', 'common_neutral', '500', 'expansion_allowed', 'resilience'),
+    ]
+    ranking, chosen = [], []
+    for label, stress, distance, mode, profile in selected:
+        r, = [r for r in comparison if (r['stress'], r['min_dist_km'], r['mode'], r['profile']) ==
+              (stress, distance, mode, profile)]
+        chosen.append({'label': label, **r})
+        names = r['top3_cities'].split(' / ')
+        ranking.append(f'<div class="ranking-case"><div>{esc(label)}</div><ol>' +
+                       ''.join(f'<li><span>{esc(name)}</span><small>{fmt(r["score"+str(i)])}</small></li>'
+                               for i, name in enumerate(names, 1)) + '</ol></div>')
+    meanings = {
+        'gap_pop': ('Население направлений с пробелом связности', 'Где связь могла бы быть полезна; это не число покупателей.'),
+        'last365_days': ('Дни публикаций об ограничениях', 'Меньше — предпочтительнее. Без часов простоя и потерь стыковок.'),
+        'competitor_hub': ('База конкурента', 'Риск входа; отсутствие упоминания не означает отсутствие конкурента.'),
+        'pax_2025': ('Пассажиропоток аэропорта за 2025', 'Масштаб уже обслуженного потока, не свободный спрос.'),
+        'catchment_pop_2025': ('Население зоны 75 км', 'Локальная основа рынка с оговорками о географии и пересчёте населения.'),
+        'transfer_demand_base': ('Геометрия модельных пересадочных пар', 'Показатель связности. Модельные поездки не являются продажами.'),
+        'strategy_region': ('Стратегический приоритет', 'Предпочтение из кейса; денежный эффект отдельно.'),
+        'transfer_zone': ('Возможность трансфера', 'Поддержка пересадки не доказывает время стыковки и сквозной багаж.'),
+        'ssj_mro': ('Опубликованное ТО SSJ', 'Возможность обслуживания отдельно от договора и свободной мощности.'),
+        'wage_2024': ('Зарплата', 'Частичная оценка платёжеспособности с неполным охватом.'),
+        'bad_weather_days': ('Погодный показатель', 'В этом скрининге UNKNOWN у всех; нейтральный центр — импутация.'),
+    }
+    weights = ''.join(f'<tr><th scope="row">{esc(meanings[c["column"]][0])}</th>'
+                      f'<td class="numeric">{c["weight"]}%</td><td>{esc(meanings[c["column"]][1])}</td></tr>'
+                      for c in recommended if c['weight'])
+    alternatives = [profiles['recommended']] + profiles['alternatives']
+    profile_rows = ''.join('<tr><th scope="row">' + esc(meanings[c['column']][0]) + '</th>' +
+                           ''.join(f'<td class="numeric">{next(x["weight"] for x in p["criteria"] if x["column"]==c["column"])}%</td>' for p in alternatives) + '</tr>'
+                           for c in recommended if c['weight'])
+    economic_rows = []
+    for network, name in [('H_UFA_8','Новая база UFA · 8 лучей'), ('H_UFA_4','UFA · ядро из 4 лучей'),
+                          ('D_SVX8','SVX · 8 пар как добавка'), ('D_previous_best8','Прямой ZIA/SVX · 8 пар')]:
+        by_scenario = {r['scenario']: r for r in economy if r['network'] == network}
+        b, c = by_scenario['base'], by_scenario['cautious']
+        assert all(float(r['contribution_before_base_fleet_opportunity']) < 0 for r in (b,c))
+        economic_rows.append(f'<tr><th scope="row">{name}</th><td data-label="Частота на пару в каждом направлении">{2 if network.startswith("H_") else 1}/нед.</td>'
+                             f'<td data-label="Борта: рабочие + резерв">{b["active_allocated"]} + {b["reserve_scenario"]}</td>'
+                             f'<td data-label="Налёт, ч/нед.">{fmt(b["weekly_block_hours"],2)}</td>'
+                             f'<td data-label="Результат: база / осторожный, млн ₽/нед.">{fmt(float(b["contribution_before_base_fleet_opportunity"])/1e6,2)} / {fmt(float(c["contribution_before_base_fleet_opportunity"])/1e6,2)}</td></tr>')
+    links = {
+        'STEP1': ('nastya_step1', 'docs/25_step1_open_questions.md'),
+        'STEP1_COMPARE': ('nastya_step1', 'docs/24_hypotheses_comparison.md'),
+        'TEAM_REVIEW': ('team_review', 'context/18_team_sync/step1_review/report.md'),
+        'NIGHT_PLAN': ('team_review', 'context/18_team_sync/night_workflow_proposal.md'),
+        'STAGE22': ('tsiri_stage22', stage+'release_note.md'),
+        'FINAL_SCORES': ('tsiri_stage22', stage+'final_scores.csv'),
+        'FINAL_COMPARE': ('tsiri_stage22', stage+'final_comparison.csv'),
+        'FINAL_ACCEPT': ('tsiri_stage22', stage+'final_acceptance.md'),
+        'ACCEPTED_RESEARCH': ('tsiri_stage22', stage+'accepted_research.csv'),
+        'WEIGHTS': ('tsiri_stage22', stage+'weight_profiles.json'),
+        'STAGE_RULES': ('tsiri_stage22', stage+'model_rules.json'),
+        'SOURCE_CHECKS': ('tsiri_stage22', stage+'main_source_checks.md'),
+        'ECONOMICS': ('tsiri_economics', 'context/21_team_proposals/README.md'),
+        'ECONOMICS_CSV': ('tsiri_economics', 'context/21_team_proposals/comparison.csv'),
+        'STRATEGY_SCOPE': ('tsiri_economics', 'context/20_strategy_scope/README.md'),
+        'KONSTANTIN': ('konstantin', 'context/09_additional_research/report.md'),
+    }
+    replacements = {'TEAM_RANK_BARS': ''.join(chart), 'TEAM_RANKING': ''.join(ranking),
+                    'TEAM_WEIGHTS': weights, 'PROFILE_WEIGHTS': profile_rows,
+                    'TEAM_ECONOMICS': ''.join(economic_rows)}
+    replacements.update({'LINK_'+label:link(role,path) for label,(role,path) in links.items()})
+    facts = {'primary_top4': [{k:r[k] for k in ('iata','city','score','unknown_weight_share','rank_best','rank_worst')} for r in primary[:4]],
+             'selected_scenarios': chosen, 'scenario_count':len(comparison), 'weight_sum':100,
+             'acceptance':acceptance['verdict'], 'network_model_unchanged_from_step1':True,
+             'telegram_fetch_unchanged_from_step1':True, 'kover_financial_module':'NOT_IMPLEMENTED',
+             'night_workflow':'PROPOSED_NOT_STARTED', 'model_replay':'NOT_RUN',
+             'new_research':'NOT_PERFORMED', 'accepted_research_rows':len(research)}
+    return replacements, facts
 
 
 def main():
@@ -178,6 +313,8 @@ def main():
         'C07': (data['C07'], [('variant','Сценарий'),('legs_candidate','Плеч'),('block_candidate_minutes','Block, мин'),('elapsed_candidate_minutes','Оборот, мин'),('return_delay_vs_reference_minutes','Δ к 255 мин'),('donor_id','Донор')], 'Три варианта оборота C07'),
     }
     replacements = {'CANDIDATE_ROWS': candidate_table(candidates,inherited), 'C07_CHART': c07_chart(data['C07'])}
+    team_replacements, team_checks = team_update()
+    replacements.update(team_replacements)
     for key, (selected, columns, caption) in excerpts.items():
         assert selected
         replacements[key + '_EXAMPLE'] = table(selected, columns, caption, *specs[key])
@@ -195,7 +332,8 @@ def main():
     for label, (role,path) in sources.items():
         read(role,path)
         replacements['LINK_'+label] = link(role,path)
-    replacements['PIN_ROWS'] = ''.join(f'<tr><th scope="row">{role}</th><td><a href="{REPO}/tree/{sha}"><code>{sha}</code></a></td></tr>' for role,sha in PINS.items())
+    pin_labels = {'nastya_step1':'Настя · шаг 1', 'tsiri_stage22':'Цири · stage22', 'tsiri_economics':'Цири · экономика', 'team_review':'Михаил · review и план context18', 'konstantin':'Константин · методы'}
+    replacements['PIN_ROWS'] = ''.join(f'<tr><th scope="row">{pin_labels.get(role, role)}</th><td><a href="{REPO}/tree/{sha}"><code>{sha}</code></a></td></tr>' for role,sha in PINS.items())
     document = (ROOT/'templates/research-report.html').read_text()
     for key,value in replacements.items():
         document = document.replace('@@'+key+'@@',value)
@@ -213,6 +351,20 @@ def main():
     (OUT/'input_manifest.json').write_text(json.dumps({'pins':PINS,'inputs':list(INPUTS.values()),
         'export_policy':'Selected normalized columns and authored explanation; no raw/private/full-text copies',
         'acceptance':'Presentation and consistency checks; no new market or launch acceptance'},ensure_ascii=False,indent=2)+'\n')
+    TEAM_OUT.mkdir(parents=True, exist_ok=True)
+    team_inputs = [v for v in INPUTS.values() if v['role'] in {'nastya_step1','tsiri_stage22','tsiri_economics','team_review','konstantin'}]
+    (TEAM_OUT/'team_update_manifest.json').write_text(json.dumps({
+        'attribution':{'nastya_step1':'Настя / kiruha355; explicit user identification',
+                       'tsiri_stage22':'Цири / mput; explicit user identification',
+                       'tsiri_economics':'Цири / mput; earlier economics version',
+                       'team_review':'Михаил / Mput13; coordinator package, distinct from mput',
+                       'konstantin':'Константин; attribution retained from team synthesis'},
+        'pins':PINS,'inputs':team_inputs,'output':'research-report.html',
+        'output_sha256':hashlib.sha256(document.encode()).hexdigest(),
+        'excluded_as_final':'context/22_stage1_audit/model_outputs/scenario_summary.csv: BASELINE_ONLY_RESEARCH_NOT_INTEGRATED',
+        'scope':'Saved artifacts and report presentation; no publication, push, new research or model replay',
+    },ensure_ascii=False,indent=2)+'\n')
+    (TEAM_OUT/'team_update_checks.json').write_text(json.dumps(team_checks,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(checks,ensure_ascii=False))
 
 if __name__ == '__main__':
