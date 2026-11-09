@@ -1,0 +1,38 @@
+{
+  "version": "c07-conditional-calendar-v1",
+  "source_commit": "b264780e65a0e04afd42da811652039c70fc1def",
+  "input_set_id": "CORE-C07-CONDITIONAL:0b1289b1041a78514f7c558e5d16facf53c962c2f06a30c235ce60ffc6553dcd",
+  "inputs": [
+    {
+      "path": "context/16_agent_research/core/integration_v1/operating/service_rules.csv",
+      "source_commit": "b264780e65a0e04afd42da811652039c70fc1def",
+      "sha256": "8875db7646a005ab0c3ca582e1ca6f57908783cee4762395ed67585be329746d"
+    },
+    {
+      "path": "context/16_agent_research/core/integration_v1/operating/dated_instances.csv",
+      "source_commit": "b264780e65a0e04afd42da811652039c70fc1def",
+      "sha256": "e53b6f66f01819275a9de3b958de028cc25c1cdf2b627619841b7b3ac29e90a0"
+    }
+  ],
+  "conditions": "Explicit same-OMS-local-turn-date assumption; SVX source year unchanged UNKNOWN",
+  "output_files": [
+    {
+      "path": "calendar_candidates.csv",
+      "sha256": "9b31748d0be44bccf21db4e7556ca4250abf656308f55d9bd0822abd78a0f15d"
+    },
+    {
+      "path": "resource_constraints.csv",
+      "sha256": "ad975d8f2890e262a992e1fd9427c57d06293430028b97d700757fc1dff32668"
+    }
+  ],
+  "validation": {
+    "candidate_rows": 2,
+    "conditional_gaps_minutes": [
+      4410,
+      90
+    ],
+    "published_linked_return_departure_gap_minutes": 50,
+    "source_rule_not_modified": true
+  },
+  "acceptance": "CONDITIONAL CALENDAR ARITHMETIC ONLY; no donor/aircraft/MCT/ticket/interline/product/economics/OD acceptance"
+}
