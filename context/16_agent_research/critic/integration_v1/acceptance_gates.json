@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-11-09T15:37:18.818941+00:00",
-  "status": "IN_PROGRESS",
+  "generated_at_utc": "2026-11-09T15:49:16.423757+00:00",
+  "status": "BOUNDED_CYCLE_COMPLETE_SCOPE_LIMITED",
   "policy": "Arithmetic, conditional calendar/resource, market/launch acceptance separate",
   "gates": [
     {
@@ -113,9 +113,40 @@
       "input_git_sha": "f92f21e143c923c79656e15776e6f66732f70f50",
       "evidence": "132publichashes5productinputs;24anchorcases/12returns; general40primaryrulewith exceptions;3storedrawbytes checked; booked/transfer/MRVspecific/boarding/fareUNKNOWN",
       "path": "reviews/alternative_f92/reproduction.json"
+    },
+    {
+      "gate_id": "F16",
+      "topic": "late_core003_join_C14calendarflex_adapter",
+      "status": "PASS_LATE_JOIN_FLEX_ARITHMETIC_ONLY",
+      "input_git_sha": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+      "evidence": "7inputs;7key10requirement7rule12datedsource joins;24flexcases10positive1/2/3nights2outsidehorizon; no sourceblankfilled",
+      "path": "reviews/late_phase2/reproduction.json"
+    },
+    {
+      "gate_id": "F17",
+      "topic": "front2272_OD_segment_conservation",
+      "status": "CHANGES_P2",
+      "input_git_sha": "2272e9fac19cdebf68086a46f7ddc48c0fb2d9c8",
+      "evidence": "8/10hubrows violateS=OD+T beyondrounding; OMS-9494/UFA-21694/VOG-43313; code mechanisms/scalar fixtures reproduced; fullmodel NOT_RUN",
+      "path": "reviews/front2272/reproduction.json"
+    },
+    {
+      "gate_id": "F18",
+      "topic": "alternative_ef_typed_carrier_adapter",
+      "status": "PASS_SELECTED_ADAPTER_FIELDS_ONLY",
+      "input_git_sha": "ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+      "evidence": "6ruleslegalrolesNULL/componentsOBSERVEDvsDERIVED;4selectedartifacthashes; sourceclock/calendar retained; C10/receptionunreviewed",
+      "path": "reviews/late_phase2/reproduction.json"
     }
   ],
   "audited_experiment_git_sha": "1a6844511d9f18b11473d02b2f0cb5963f9f173b",
   "audited_run": "c26661067277af20",
-  "audited_input_set002_git_sha": "eac4ed472c834c8520e94ebeff160211d1f675e2"
+  "audited_input_set002_git_sha": "eac4ed472c834c8520e94ebeff160211d1f675e2",
+  "strategy_launch_acceptance": "NOT_READY",
+  "not_reviewed_late_components": [
+    "alternativeefoptionalC10semantictruth",
+    "alternativeefnewreceptionPDFextract",
+    "core505C07reconciliationconditionaltest",
+    "fullfront2272networkmodelreplay"
+  ]
 }
