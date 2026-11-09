@@ -31,6 +31,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from airports_meta import CLOSED, NAME
+
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "processed" / "longlist_computed.csv"
@@ -101,6 +103,9 @@ def main():
     catch["main_city"] = main.city
     catch["region"] = main.region
     catch = catch.join(ap.set_index("iata_code")[["latitude_deg", "longitude_deg", "ident"]])
+    # зоны тяготения всех аэропортов — нужны модели спроса по парам (src/demand_model.py)
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    catch.rename_axis("iata").to_csv(OUT.parent / "catchments.csv", encoding="utf-8")
 
     # прямые рейсы: пары аэропортов из комментария «UFA — IKT»
     air = t[(t.transport_type == "air") & t.distance_km.notna()]
@@ -123,7 +128,7 @@ def main():
             print("нет зоны тяготения для", i)
             continue
         a = catch.loc[i]
-        reach_n = reach_pop = direct_n = gap_pop = 0
+        reach_n = reach_pop = direct_n = gap_pop = gap_closed = 0
         for j, b in catch.iterrows():
             if j == i:
                 continue
@@ -133,17 +138,19 @@ def main():
             hr = rail.get((a.main_city, b.main_city))
             rail_ok = hr is not None and pd.notna(hr) and hr <= RAIL_OK_HR
             if km <= lim or has_direct:
-                dests.append({"from": i, "to": j, "to_city": b.main_city, "to_region": b.region,
+                dests.append({"from": i, "to": j, "to_city": NAME.get(j, b.main_city), "to_region": b.region,
                               "lat": round(b.latitude_deg, 3), "lon": round(b.longitude_deg, 3),
                               "pop": int(b["pop"]), "km": round(km), "in_ssj": km <= lim,
                               "direct": has_direct, "rail_hr": None if hr is None or pd.isna(hr) else round(hr, 1),
-                              "status": "direct" if has_direct else ("rail" if rail_ok else "gap")})
+                              "status": "closed" if j in CLOSED else "direct" if has_direct else ("rail" if rail_ok else "gap")})
             if km > lim:
                 continue
             reach_n += 1
             reach_pop += b["pop"]
             direct_n += has_direct
-            if not has_direct and not rail_ok:
+            if j in CLOSED:  # закрытый аэропорт: сейчас туда не полететь, считаем отдельно
+                gap_closed += b["pop"]
+            elif not has_direct and not rail_ok:
                 gap_pop += b["pop"]
         rows.append({
             "city": c.city, "iata": i, "icao": a.ident, "region": a.region,
@@ -152,7 +159,7 @@ def main():
             "dist_msk_km": round(hav(a.latitude_deg, a.longitude_deg, svo.latitude_deg, svo.longitude_deg)),
             "dist_ekb_km": round(hav(a.latitude_deg, a.longitude_deg, svx.latitude_deg, svx.longitude_deg)),
             "ssj_reach_airports": reach_n, "ssj_reach_pop": int(reach_pop),
-            "direct_now": direct_n, "gap_pop": int(gap_pop),
+            "direct_now": direct_n, "gap_pop": int(gap_pop), "gap_pop_closed": int(gap_closed),
             "source": "OurAirports (координаты, ВПП); «Если быть точным», транспортная связность "
                       "v2026-06-29, CC BY 4.0 (население ВПН-2021, поезд, прямые рейсы июнь–дек 2026); "
                       "пороги дальности docs/17",

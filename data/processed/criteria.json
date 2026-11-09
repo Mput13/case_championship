@@ -1,0 +1,1278 @@
+{
+ "criteria": [
+  {
+   "key": "gap_pop",
+   "label": "Недообслуженный спрос",
+   "short": "«Дыра»",
+   "dir": "+",
+   "weight": 20.0,
+   "why": "люди в зоне SSJ без прямого рейса и без поезда до 12 ч — их и может забрать хаб",
+   "fmt": "mln",
+   "board": 1,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "last365_days",
+   "label": "Устойчивость к «Ковру»",
+   "short": "«Ковёр»",
+   "dir": "-",
+   "weight": 20.0,
+   "why": "каждый день ограничений ломает волну пересадок в хабе (docs/16)",
+   "fmt": "days",
+   "board": 1,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "competitor_hub",
+   "label": "Нет чужой «крепости»",
+   "short": "Чужой хаб",
+   "dir": "-",
+   "weight": 15.0,
+   "why": "в хабе S7/«Аэрофлота» Red Wings проигрывает по частотам (docs/03, docs/15)",
+   "fmt": "yesno",
+   "board": 0,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "pax_2025",
+   "label": "Размер рынка аэропорта",
+   "short": "Пассажиры",
+   "dir": "+",
+   "weight": 10.0,
+   "why": "пассажиропоток 2025",
+   "fmt": "mln",
+   "board": 1,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "catchment_pop",
+   "label": "Население зоны тяготения",
+   "short": "Население",
+   "dir": "+",
+   "weight": 10.0,
+   "why": "свои пассажиры хаба",
+   "fmt": "mln",
+   "board": 0,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "dist_bases_km",
+   "label": "Удалённость от своих баз",
+   "short": "До базы",
+   "dir": "+",
+   "weight": 10.0,
+   "why": "хаб рядом с Екатеринбургом или Москвой дублирует базу",
+   "fmt": "km",
+   "board": 1,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "strategy_region",
+   "label": "Приоритет акционеров",
+   "short": "Акционеры",
+   "dir": "+",
+   "weight": 5.0,
+   "why": "Урал, ДФО, СКФО, ЮФО",
+   "fmt": "yesno",
+   "board": 0,
+   "fill": null,
+   "origin": "основной"
+  },
+  {
+   "key": "transfer_zone",
+   "label": "Зона трансфера",
+   "short": "Трансфер",
+   "dir": "+",
+   "weight": 5.0,
+   "why": "пересадка без выхода в город; неизвестно = 0,5",
+   "fmt": "yesno",
+   "board": 0,
+   "fill": 0.5,
+   "origin": "основной"
+  },
+  {
+   "key": "rostec_link",
+   "label": "Связь с Ростехом",
+   "short": "Ростех",
+   "dir": "+",
+   "weight": 5.0,
+   "why": "ТО и заводы рядом; неизвестно = 0",
+   "fmt": "level",
+   "board": 0,
+   "fill": 0.0,
+   "origin": "основной"
+  },
+  {
+   "key": "demand_gap",
+   "label": "Скрытый спрос без прямых рейсов (модель)",
+   "short": "Скрытый спрос",
+   "dir": "+",
+   "weight": 0.0,
+   "why": "сколько пассажиров в год хотели бы лететь из города туда, куда прямого рейса нет",
+   "fmt": "mln",
+   "board": 0,
+   "fill": null,
+   "origin": "demand_gap.csv"
+  },
+  {
+   "key": "pax_2019",
+   "label": "Пассажиропоток 2019 (до ограничений)",
+   "short": "Пасс. 2019",
+   "dir": "+",
+   "weight": 0.0,
+   "why": "размер рынка до ковида и «Ковра»; вес 0, пока команда не решит его учитывать",
+   "fmt": "mln",
+   "board": 0,
+   "fill": null,
+   "origin": "pax_2019.csv"
+  }
+ ],
+ "values": {
+  "KUF": {
+   "gap_pop": {
+    "v": 13640627.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 133.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 3570000.0,
+    "t": null,
+    "s": "https://ar-kuf.ru/about/news/passazhiropotok-aeroporta-kurumoch-prevysil-3-5-milliona/"
+   },
+   "catchment_pop": {
+    "v": 1858008.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 765.0,
+    "t": null,
+    "s": "Москва 864 км · Екатеринбург 765 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": "ОДК-Кузнецов (двигатели НК), к парку Red Wings не относится — проверить",
+    "s": null
+   },
+   "demand_gap": {
+    "v": 895188.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2999252.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Самара(Курумоч)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "UFA": {
+   "gap_pop": {
+    "v": 14559599.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 63.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 4929715.0,
+    "t": null,
+    "s": "https://www.airportufa.ru/news/2025/mezhdunarodnyy-aeroport-ufa-podvel-itogi-2025-goda/"
+   },
+   "catchment_pop": {
+    "v": 1144809.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 393.0,
+    "t": null,
+    "s": "Москва 1178 км · Екатеринбург 393 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 1.0,
+    "t": null,
+    "s": "https://www.airportufa.ru/scoreboard/transfer/ (стерильная зона для пересадки со сквозной регистрацией)"
+   },
+   "rostec_link": {
+    "v": 1.0,
+    "t": "ОДК-УМПО: центр алюминиевого литья, в т.ч. детали ПД-8 (07.2025)",
+    "s": "https://www1.ru/news/2025/07/26/novyi-centr-aliuminievogo-litia-otkrylsia-v-ufe.html"
+   },
+   "demand_gap": {
+    "v": 752427.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 3556533.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Уфа», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "KZN": {
+   "gap_pop": {
+    "v": 3135708.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 127.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 5384816.0,
+    "t": null,
+    "s": "https://pravo.tatarstan.ru/file/npa/2026-02/1794855/npa_1794856.pdf"
+   },
+   "catchment_pop": {
+    "v": 1308660.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 724.0,
+    "t": null,
+    "s": "Москва 744 км · Екатеринбург 724 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 1.0,
+    "t": null,
+    "s": "заявление Nordwind о «полноценном транзитном узле» (01.2025), не аэропорта: https://www.evening-kazan.ru/obshhestvo/news/v-nordwind-zayavili-chto-v-aeroportu-kazani-sozdali-polnocennyy-tranzitnyy-uzel/amp"
+   },
+   "rostec_link": {
+    "v": 2.0,
+    "t": "КАЗ им. Горбунова собирает Ту-214; глава ОАК: поставки Red Wings с 2027",
+    "s": "https://www1.ru/news/2026/06/04/cetyre-importozameshhennyx-tu-214-postaviat-v-2026-godu-kto-ix-polucit.html"
+   },
+   "demand_gap": {
+    "v": 203645.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": null,
+    "t": "скрыто Росавиацией",
+    "s": "Росавиация, открытые данные, «Казань», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "GOJ": {
+   "gap_pop": {
+    "v": 14139446.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 112.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 1400000.0,
+    "t": "≥",
+    "s": "https://www.aviaport.ru/news/nizhegorodskiy-aeroport-za-god-obsluzhil-bolee-1-4-mln-passazhirov/"
+   },
+   "catchment_pop": {
+    "v": 1444706.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 398.0,
+    "t": null,
+    "s": "Москва 398 км · Екатеринбург 1044 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 842045.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 1114056.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Нижний Новгород(Стригино)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "PEE": {
+   "gap_pop": {
+    "v": 20249216.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 58.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 2004861.0,
+    "t": null,
+    "s": "https://t.me/s/permairport?before=328"
+   },
+   "catchment_pop": {
+    "v": 1034002.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 315.0,
+    "t": null,
+    "s": "Москва 1147 км · Екатеринбург 315 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": 2.0,
+    "t": "ОДК-Пермские моторы выпускают ПС-90А — двигатель Ту-214",
+    "s": "https://www1.ru/news/2025/08/25/komissiia-rosaviacii-nagrianula-s-proverkoi-k-proizvoditeliu-aviadvigatelei-pd-14-i-ps-90a.html"
+   },
+   "demand_gap": {
+    "v": 947824.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": null,
+    "t": "скрыто Росавиацией",
+    "s": "Росавиация, открытые данные, «Пермь(Большое Савино)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "CEK": {
+   "gap_pop": {
+    "v": 20036144.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 16.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 2160421.0,
+    "t": null,
+    "s": "https://up74.ru/articles/news/168314/"
+   },
+   "catchment_pop": {
+    "v": 1337331.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 166.0,
+    "t": null,
+    "s": "Москва 1508 км · Екатеринбург 166 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "УФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 1128838.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 1840533.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Челябинск(Баландино)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "TJM": {
+   "gap_pop": {
+    "v": 18890985.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 13.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 2760338.0,
+    "t": null,
+    "s": "https://www.aviastat.ru/news/291500-passazhiropotok-aeroporta-roschino-za-2025-god-prevysil-276-mln-chelovek"
+   },
+   "catchment_pop": {
+    "v": 847488.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 279.0,
+    "t": null,
+    "s": "Москва 1704 км · Екатеринбург 279 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "УФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 822484.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2039007.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Тюмень(Рощино)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "OMS": {
+   "gap_pop": {
+    "v": 20005184.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 7.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 1629761.0,
+    "t": null,
+    "s": "https://newsomsk.ru/news/158086-passajiropotok_omskogo_aeroporta_v_proshlom_godu_s/"
+   },
+   "catchment_pop": {
+    "v": 1125695.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 804.0,
+    "t": null,
+    "s": "Москва 2242 км · Екатеринбург 804 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "СФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 0.0,
+    "t": null,
+    "s": "docs/04: транзитной зоны нет до нового аэропорта Фёдоровка (~2027–2028)"
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 981421.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 1348505.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Омск(Центральный)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "MRV": {
+   "gap_pop": {
+    "v": 4886122.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 2.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 4600000.0,
+    "t": null,
+    "s": "https://www.aviaport.ru/news/aeroport-minvod-v-2025-godu-snizil-passazhiropotok-na-4-6/"
+   },
+   "catchment_pop": {
+    "v": 393652.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 1367.0,
+    "t": null,
+    "s": "Москва 1367 км · Екатеринбург 1862 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "СКФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 711483.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2526419.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Минеральные Воды», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "AER": {
+   "gap_pop": {
+    "v": 3434178.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 163.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 12500000.0,
+    "t": null,
+    "s": "https://www.kommersant.ru/doc/8362906"
+   },
+   "catchment_pop": {
+    "v": 466078.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 1405.0,
+    "t": null,
+    "s": "Москва 1405 км · Екатеринбург 2081 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "ЮФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 436562.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 6760567.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Сочи», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "MCX": {
+   "gap_pop": {
+    "v": 5247273.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 25.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 2800000.0,
+    "t": null,
+    "s": "https://www.finmarket.ru/news/6583334"
+   },
+   "catchment_pop": {
+    "v": 744394.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 1637.0,
+    "t": null,
+    "s": "Москва 1637 км · Екатеринбург 1807 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "СКФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 231724.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 1500690.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Махачкала(Уйташ)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "KGD": {
+   "gap_pop": {
+    "v": 7468279.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 1.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 5000000.0,
+    "t": null,
+    "s": "https://kaliningradnews.online/fn_1818985.html"
+   },
+   "catchment_pop": {
+    "v": 490449.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 1063.0,
+    "t": null,
+    "s": "Москва 1063 км · Екатеринбург 2484 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "СЗФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 451334.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2370157.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Калининград(Храброво)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "GSV": {
+   "gap_pop": {
+    "v": 19409241.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 210.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 1064000.0,
+    "t": null,
+    "s": "https://news.sarbc.ru/main/2026/01/20/315287.html"
+   },
+   "catchment_pop": {
+    "v": 1126789.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 745.0,
+    "t": null,
+    "s": "Москва 745 км · Екатеринбург 1100 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 906992.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 327968.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Саратов(Центральный)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "VOG": {
+   "gap_pop": {
+    "v": 22076861.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 136.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 1540280.0,
+    "t": null,
+    "s": "https://gorvesti.ru/transport/1-540-280-passazhirov-obsluzhil-aeroport-volgograda-216876.html"
+   },
+   "catchment_pop": {
+    "v": 1349515.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 928.0,
+    "t": null,
+    "s": "Москва 928 км · Екатеринбург 1412 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "ЮФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 1155298.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 1214216.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Волгоград(Гумрак)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "REN": {
+   "gap_pop": {
+    "v": 22625124.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 57.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 951000.0,
+    "t": "≥",
+    "s": "https://ar-ren.ru/about/news/aeroport-orenburg-obsluzhil-za-2025-god-bolee-950/"
+   },
+   "catchment_pop": {
+    "v": 543654.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 650.0,
+    "t": null,
+    "s": "Москва 1268 км · Екатеринбург 650 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "ПФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 654321.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 783647.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Оренбург(Центральный)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "KJA": {
+   "gap_pop": {
+    "v": 4279369.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 0.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 1.0,
+    "t": "да",
+    "s": "группа «Аэрофлот» — хаб (аэропорт, итоги 2025)"
+   },
+   "pax_2025": {
+    "v": 4263566.0,
+    "t": null,
+    "s": "https://team.kja.aero/media/aeroport-krasnoyarsk-po-itogam-2025-goda-1-1"
+   },
+   "catchment_pop": {
+    "v": 1187771.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 1930.0,
+    "t": null,
+    "s": "Москва 3327 км · Екатеринбург 1930 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "СФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 1.0,
+    "t": null,
+    "s": "аэропорт: расширение трансферных зон в 2025, https://team.kja.aero/media/aeroport-krasnoyarsk-po-itogam-2025-goda-1-1"
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 321660.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2481914.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Красноярск», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "IKT": {
+   "gap_pop": {
+    "v": 3453364.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 0.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 1.0,
+    "t": "да",
+    "s": "S7 — хаб (сайт S7)"
+   },
+   "pax_2025": {
+    "v": 4048738.0,
+    "t": null,
+    "s": "https://www.aviaru.net/pr/75903/"
+   },
+   "catchment_pop": {
+    "v": 838560.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 2808.0,
+    "t": null,
+    "s": "Москва 4213 км · Екатеринбург 2808 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "СФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 0.0,
+    "t": null,
+    "s": "трансферной зоны для иностранных транзитных пассажиров нет (сайт аэропорта); внутренний трансфер — проверить"
+   },
+   "rostec_link": {
+    "v": 1.0,
+    "t": "Иркутский авиазавод (Яковлев, ОАК) — МС-21, к парку Red Wings не относится — проверить",
+    "s": null
+   },
+   "demand_gap": {
+    "v": 235673.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2433794.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Иркутск», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "VVO": {
+   "gap_pop": {
+    "v": 0.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 0.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 1.0,
+    "t": "да",
+    "s": "«Аврора» и S7 — базовые (аэропорт, итоги 2025)"
+   },
+   "pax_2025": {
+    "v": 3261000.0,
+    "t": null,
+    "s": "https://aerovlad.ru/ru/press-centr/novosti/mezdunarodnyi-aeroport-vladivostok-soxranil-lidiruiushhie-pozicii-po-razvitiiu-aviasoobshheniia-s-kitaem-po-itogam-2025-goda"
+   },
+   "catchment_pop": {
+    "v": 893468.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 5050.0,
+    "t": null,
+    "s": "Москва 6406 км · Екатеринбург 5050 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "ДФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 1.0,
+    "t": null,
+    "s": "https://aerovlad.ru/ru/passengers/special-categories-of-passengers/transit-and-transfer-passengers"
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 0.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 3079344.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Владивосток(Кневичи)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "KHV": {
+   "gap_pop": {
+    "v": 0.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 0.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 2578000.0,
+    "t": null,
+    "s": "https://khv.aero/airport/news/v-mezhdunarodnom-aeroportu-khabarovsk-podveli-itogi-raboty-za-2025-god/"
+   },
+   "catchment_pop": {
+    "v": 617441.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 4847.0,
+    "t": null,
+    "s": "Москва 6138 км · Екатеринбург 4847 км"
+   },
+   "strategy_region": {
+    "v": 1.0,
+    "t": null,
+    "s": "ДФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": 1.0,
+    "t": null,
+    "s": "зона трансфера во внутреннем терминале, стыковка до 2 ч: https://khv.aero/airport/news/zona-transfera-v-aeroportu-khabarovsk-prinyala-pervykh-passazhirov/"
+   },
+   "rostec_link": {
+    "v": null,
+    "t": "рядом Комсомольск-на-Амуре (завод SSJ), ~400 км — проверить роль",
+    "s": null
+   },
+   "demand_gap": {
+    "v": 0.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 2185051.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Хабаровск(Новый)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  },
+  "BAX": {
+   "gap_pop": {
+    "v": 15415947.0,
+    "t": null,
+    "s": "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"
+   },
+   "last365_days": {
+    "v": 0.0,
+    "t": null,
+    "s": "Росавиация, t.me/s/favt_info"
+   },
+   "competitor_hub": {
+    "v": 0.0,
+    "t": "не найден",
+    "s": "доля перевозчиков появится после ключа Яндекса"
+   },
+   "pax_2025": {
+    "v": 792600.0,
+    "t": null,
+    "s": "https://barnaul.press/news/passazhiropotok-barnaulskogo-aeroporta-v-proshlom-godu-sostavil-pochti-800-tysyach-chelovek.html"
+   },
+   "catchment_pop": {
+    "v": 630877.0,
+    "t": null,
+    "s": "города больше 100 тыс. в 75 км, перепись 2021"
+   },
+   "dist_bases_km": {
+    "v": 1489.0,
+    "t": null,
+    "s": "Москва 2926 км · Екатеринбург 1489 км"
+   },
+   "strategy_region": {
+    "v": 0.0,
+    "t": null,
+    "s": "СФО · Урал, ДФО, СКФО, ЮФО"
+   },
+   "transfer_zone": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "rostec_link": {
+    "v": null,
+    "t": null,
+    "s": null
+   },
+   "demand_gap": {
+    "v": 570643.0,
+    "t": null,
+    "s": "модель спроса src/demand_model.py: пассажиров в год в города зоны SSJ без прямого рейса"
+   },
+   "pax_2019": {
+    "v": 519743.0,
+    "t": null,
+    "s": "Росавиация, открытые данные, «Барнаул(Имени Г.С.Титова)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+   }
+  }
+ }
+}

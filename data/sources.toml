@@ -241,3 +241,45 @@ stale_days = 7
 min_rows = 1
 license = "публичный канал аэропорта"
 feeds = ["входящие: пассажиропоток, рейсы"]
+
+[favt_airports]
+name = "Росавиация: пассажиропоток аэропортов 2007–2020"
+owner = "Росавиация"
+url = "https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_favt_airports.py"
+output = "data/criteria/pax_2019.csv"
+every_days = 365
+stale_days = 3650
+min_rows = 20
+license = "открытые данные госоргана"
+feeds = ["пассажиропоток 2019 (подключаемый критерий)"]
+
+[favt_subsidy]
+name = "Росавиация: субсидируемые маршруты 2026"
+owner = "Росавиация"
+url = "https://favt.gov.ru/dejatelnost-vozdushnye-perevozki-subsidirovanie-regiony/"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_subsidy.py"
+output = "data/raw/favt_subsidy_2026.csv"
+every_days = 30
+stale_days = 60
+min_rows = 300
+license = "открытые данные госоргана"
+feeds = ["проверка модели спроса", "субсидии"]
+
+[known_flows]
+name = "Известные потоки по парам городов 2025"
+owner = "аэропорты (отчёты), собрано вручную"
+url = "data/manual/known_flows.csv"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "data/manual/known_flows.csv"
+every_days = 30
+stale_days = 60
+min_rows = 30
+license = "цитирование с указанием источника"
+feeds = ["калибровка модели спроса по парам"]

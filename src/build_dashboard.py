@@ -112,6 +112,7 @@ def main():
             "kov_h1_2026": int(kov.loc[i, "h1_2026_days"]),
             "kov_months": by_month.get(i, [0] * len(months))} for i, n in REF.items()]
     dests = load_dests()
+    crit = json.loads((P / "criteria.json").read_text(encoding="utf-8"))
     geo = json.loads((P / "geo_map.json").read_text(encoding="utf-8"))
     man_p = ROOT / "data/raw/_manifest.json"
     manifest = json.loads(man_p.read_text(encoding="utf-8")) if man_p.exists() else {}
@@ -125,7 +126,8 @@ def main():
                  "months": months},
         "cities": cities, "ref": ref, "meduza": meduza,
         "bases": {"MOW": [55.972, 37.415], "SVX": [56.743, 60.803]},
-        "dests": dests, "geo": geo, "manifest": manifest, "inbox": inbox,
+        "dests": dests, "geo": geo, "manifest": manifest,
+        "criteria": crit["criteria"], "values": crit["values"],
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
     }
