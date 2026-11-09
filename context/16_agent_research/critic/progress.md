@@ -27,3 +27,9 @@ Gemini завершился FAILED/NOT_PRODUCED, backend502; read-only диаг�
 359ad3c добавил stage18: независимые деньги/пороги/топливные тесты и4остаточных LP сошлись; новых P1/P2 в этой области не найдено. Сценарный знак отдельных пар меняется после источниковой привязки масштаба; это не observed OD и не запуск. Ведущий отдельно сохранил2primary налоговых источника сwhitelist headers, декодирование UTF-8/Windows-1251 воспроизводимо.
 
 Финальный core manifest12:43 UTC совпал с текущими4ранее изменёнными normalized-файлами: публикационное замечание закрыто, история сохранена. Остальные новые86core/217alternative/122hypotheses entries не объявлены прошедшими сплошной semantic audit.
+
+## Новый срез critic-0.3 — 2026-11-09T13:38:48.966921+00:00
+
+front9d9a874 (kiruha355):1428predictions+20sums свелись; endpoint/transfer causal claims HOLD, H1×2/region status mismatch, частота70k/year исправляется8.41RT/week при100LF80 всего рынка. Rail24–168stress не меняет modeltop3; criteriondefault0. Три цитируемых secondary страницы дополнительно получены root,13чисел/контекст проверены; это не primary airport series.
+
+Pinned alternative5819 и hypotheses46d7 проверены отдельно:17 694rawcells/18 360increments/1 530profiles, корпоративные keys безразмножения,35cards/9queue/107attributed ancestors,не прогноз. Первый checkpoint582cdef pushed; собирается следующий содержательный push, acceptance не повышается.

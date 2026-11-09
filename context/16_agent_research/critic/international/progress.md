@@ -1,8 +1,8 @@
 # Research Progress: International & Domestic Regional Airline Comparables for Red Wings Benchmarking
 
-**Sub-agent**: Gemini 3.8 Flash medium via Antigravity  
-**Target Path**: `/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109/context/16_agent_research/critic/international/`  
-**Start Timestamp**: 2026-11-09T14:02:15+03:00  
+**Sub-agent**: Gemini 3.8 Flash medium via Antigravity
+**Target Path**: `/Users/a/.t3/worktrees/case_championship/research-case5-data-critic-20261109/context/16_agent_research/critic/international/`
+**Start Timestamp**: 2026-11-09T14:02:15+03:00
 **Status**: Initialized. Beginning source search and raw data collection.
 
 ## Planned Comparables (4-6 Models)

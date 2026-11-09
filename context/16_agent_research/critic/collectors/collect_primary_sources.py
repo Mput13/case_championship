@@ -46,6 +46,18 @@ SOURCES = [
          url='https://nalog.garant.ru/fns/nk/948c9c0734b6e944a4727660f2d5a027/', filename='fns_linked_nk_article200.html',
          period='text available2026-11-09; effective clauses require dated interpretation', grain='legal article clause',
          coverage='Conditional excise deduction mechanism; not RW eligibility or net payment', license='UNKNOWN'),
+    dict(dataset_id='C08', name='front_CEK_calibration_secondary', organization='Эксперт-Урал',
+         url='https://expert-ural.com/news/pochti-na-55-viros-passazhiropotok-iz-aeroportov-chelyabinskoy-oblasti.html', filename='front_cek_secondary.html',
+         period='reported2025; inspect original article', grain='regional airport passenger-count news article', source_tier='SECONDARY',
+         coverage='Chelyabinsk oblast; exact airport allocation and endpoint OD unknown', license='UNKNOWN'),
+    dict(dataset_id='C09', name='front_OVB_calibration_secondary', organization='АБН24',
+         url='https://abnews.ru/siberia/news/novosibirsk/2025/7/20/dalnevostochnye-goroda-stali-liderami-sredi-avianapravlenij-iz-tolmachevo', filename='front_ovb_secondary.html',
+         period='2025H1; publication2025-07-20', grain='airport-pair passenger-count news article', source_tier='SECONDARY',
+         coverage='Novosibirsk named routes; not observed full year or endpoint OD', license='UNKNOWN'),
+    dict(dataset_id='C10', name='front_OMS_calibration_secondary', organization='СуперОмск',
+         url='https://superomsk.ru/news/157499-omskiy_aeroport_opublikoval_top_10_populyarnx_napr/', filename='front_oms_secondary.html',
+         period='2025; publication2026-01-16', grain='airport route ranking news article', source_tier='SECONDARY',
+         coverage='Omsk airport named route counts; original airport dataset not obtained', license='UNKNOWN'),
 ]
 
 def main():
@@ -77,7 +89,7 @@ def main():
     manifest=dict(generated_at_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
                   path_base='context/16_agent_research/critic',datasets=records)
     (BASE/'dataset_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    fields=['dataset_id','organization','name','source_url','publication_date','retrieved_at_utc','period','grain',
+    fields=['dataset_id','organization','name','source_tier','source_url','publication_date','retrieved_at_utc','period','grain',
             'geographic_coverage','units','key_fields','license','acquisition_status','raw_path','sha256','byte_size','limitations']
     with (BASE/'source_registry.csv').open('w',newline='') as f:
         w=csv.DictWriter(f,fields,extrasaction='ignore');w.writeheader();w.writerows(records)

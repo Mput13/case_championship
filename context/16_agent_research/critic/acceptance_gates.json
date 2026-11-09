@@ -1,7 +1,7 @@
 {
-  "protocol_version": "critic-0.2",
-  "generated_at_utc": "2026-11-09T13:05:34.830441+00:00",
-  "overall": "NOT_READY_FOR_LAUNCH; scoped conditional arithmetic and first cross-role checks available; not full case acceptance",
+  "protocol_version": "critic-0.3",
+  "generated_at_utc": "2026-11-09T13:38:48.966921+00:00",
+  "overall": "NOT_READY_FOR_LAUNCH; HOLD front endpoint/transfer forecasts; scoped arithmetic and descriptive source checks available",
   "levels": [
     "ARITHMETIC_PASS",
     "SCREENING_READY",
@@ -70,7 +70,7 @@
       "topic": "OD_and_yield",
       "level": "CONDITIONAL_COMPARISON_READY",
       "status": "PASS_CONDITIONAL",
-      "evidence": "Stages15–18 remain conditional; stage18 historical pair segments improve scale anchor but endpoint fraction/season/capture/net yield remain scenario",
+      "evidence": "Stages15–18 remain conditional; stage18 historical pair segments improve scale anchor but endpoint fraction/season/capture/net yield remain scenario; front9d9a874 regression fits airport-segment totals, endpoint and transfer-residual interpretation not identified",
       "evidence_path": "raw/conditional_decision/; raw/aircraft_route_review/",
       "minimum_next_action": "Keep assumptions visible and compare thresholds/rank switches; calibrate directional seasonal OD and net realised yield separately"
     },
@@ -124,9 +124,19 @@
       "topic": "cross_role_integration",
       "level": "CONDITIONAL_COMPARISON_READY",
       "status": "PARTIAL_SCOPED_CHECKS",
-      "evidence": "Core7raw hashes/counts, unique keys and consistent current timezone auxiliary; hypotheses geometry81paths/144legs; NOAA83archives/996months independently checked. No operational/market feature accepted",
-      "evidence_path": "cross_role_review.md; evidence/cross_role_checks.json; weather_audit/reproduction.json",
-      "minimum_next_action": "Current four-file core final inventory matches; carry NOAA coverage into join; validate chosen airport/station identity and review later input versions"
+      "evidence": "Core7raw hashes/counts, unique keys and consistent current timezone auxiliary; hypotheses geometry81paths/144legs; NOAA83archives/996months independently checked. No operational/market feature accepted; published alternative5819 tourism/business transforms and HYP46d7 structural evidence links checked within scope",
+      "evidence_path": "cross_role_review.md; evidence/cross_role_checks.json; weather_audit/reproduction.json; published_packages_review.md; evidence/published_packages_checks.json",
+      "minimum_next_action": "Preserve source measurement object and period; transfer/source IDs are not causal market evidence; NOAA hour coverage and station applicability remain gates"
+    },
+    {
+      "id": "G14",
+      "topic": "front_demand_measurement",
+      "level": "CONDITIONAL_COMPARISON_READY",
+      "status": "FAIL_ENDPOINT_TRANSFER_INTERPRETATION",
+      "input_sha": "9d9a874b1568c2cebec9cd3fc1f33ef76f37f450",
+      "evidence": "1428numbers reconcile, but segment outcomes do not identify endpoint/no-service demand or transfer residual;4H1x2+1region lose status; prospective80percent claim unsupported; defaultcriterion0",
+      "evidence_path": "front_demand_audit/audit.md; front_demand_audit/reproduction.json; evidence/front_source_context_checks.json",
+      "minimum_next_action": "Relabel conditional segment scale; retain raw period/geography/annualization; calibrate target-compatible endpoint/product/capture/displacement; fix whole-market frequency units and use grouped independent validation"
     }
   ],
   "feature_acceptance_rules": [
