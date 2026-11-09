@@ -1,0 +1,47 @@
+{
+  "omsk": {
+    "domestic_rows": 76,
+    "exceptions": 1,
+    "carriers": 13
+  },
+  "uvt_week": {
+    "endpoint_date_rows": 171,
+    "arrival_time_conflicts": 2,
+    "nonstop_departure_total": "UNKNOWN; endpoint offers include through flights"
+  },
+  "omsk_week": {
+    "directional_departure_instances": 98,
+    "carrier_destination_groups": 21,
+    "missing_airport_keys": 0,
+    "missing_timezones": 0
+  },
+  "selected_costs": {
+    "selected_visually_checked_rows": 30,
+    "airports": 2,
+    "contract_cost_observations": 0
+  },
+  "two_source_join": {
+    "source1_dataset_id": "uvt_schedule_current",
+    "source1_row": "18",
+    "source1_origin_city": "Казань",
+    "source1_destination_city": "Омск",
+    "source1_flight": "ЮВ(RT)-651",
+    "source1_period": "05.11.26-31.12.26",
+    "source1_weekdays": "Чт",
+    "source1_departure": "04-30",
+    "source1_arrival": "11-15",
+    "source2_dataset_id": "omsk_winter_2026",
+    "source2_text_line": "88",
+    "source2_full_routing": "Казань - Тобольск - Омск - Тобольск - Казань",
+    "source2_weekdays": "4",
+    "source2_period": "05.11.26 - 31.12.26",
+    "source2_origin_departure": "04.30",
+    "source2_omsk_arrival": "11.15",
+    "join_method": "carrier identity RT/ЮВ + flight651 + Kazan/Omsk endpoints + intersecting explicit period; independent publishers",
+    "departure_time_match": true,
+    "arrival_time_match": true,
+    "finding": "UVT endpoint offer is a through flight via Tobolsk; NOT nonstop Kazan-Omsk",
+    "decision_use": "Do not use endpoint pair listings as direct-capacity inventory; preserve intermediate airport and stop time",
+    "value_status": "DERIVED"
+  }
+}

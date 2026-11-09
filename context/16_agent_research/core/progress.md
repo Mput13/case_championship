@@ -31,3 +31,13 @@
 Общий реестр: 88 карточек получения, 73 raw-пути после двух новых primary SVX публикаций (annual2025 и January2025); байтовые проверки в diagnostics/bundle_validation.json. Значения SVX ещё не разобраны в общую таблицу. Последняя содержательная независимая проверка: canonical keys2453; airport join215/219, 4unmatched; 9timezone conflicts held; municipal2024 clean join2022 с6 прямыми raw-cell traces. 32230 transport durations NULL, остальные64430 MODEL_ESTIMATE. Operating metadata дописывает восстановленный агент; первый commit не объявляет его работу завершённой.
 
 Разрешение пользователя на push получено. Публикационный фильтр удерживает большие raw и raw/рендеры с UNKNOWN clearance/официальными именами/подписями/контактами локально, без удаления. Полные пути, SHA и причины — publication_manifest.json; крупные CSV дополнительно передаются как gzip. Доходности, свободного парка и OD не получено.
+
+## Завершённый содержательный срез, 2026-11-09T13:59:00.656753+00:00
+
+Обе независимые части завершены. Operating:32sourcecards,28raw/dependencies,52нормализованных/диагностическихфайла, offline replay идентичен; новых загрузок при восстановлении не было. Общий bundle после их включения:90acquisitioncards,75зарегистрированныхrawpaths, всеSHApass;15ACCESS_FAILED,7RESTRICTED_USE. Общие canonical keys2457:1845airports+180OKTMOcities+343travelmarkets+85regions+4source-supportedcarrieraliases (неофициальныйregistry).
+
+Две первичные публикацииSVX получены какHTML и разобраны в10числовыхутверждений среальнымпериодом/qualifier; noODclaim. Общие findings/integration/debt готовы. Raw headers whitelist проверен, cookie/auth не сохранялись в публикуемых метаданных. Publicationholds и абсолютныеlocalpaths сохранены. Первыйcheckpointcommit daa2d8f есть локально; HTTPpush дважды408, HTTP1.1остановлен каксобственнаякоманда после8минбезвывода и remoteabsence; SSH443push выполняется. ДоуспешногоremoteSHA не считаем опубликованным.
+
+## Публикация и финальные входы, 2026-11-09T14:01:57.249526+00:00
+
+Первый checkpoint daa2d8f6d2a5d9bac8bf95e8b16f3a278cafec33 успешно передан через SSH443; exactSHA подтверждён через origin ls-remote, upstream настроен. ДиагностикаHTTP408 сохранена безauth. Второй checkpoint готов: операционный пакет+общиевыводы; staged scope толькоcore, maxновыйфайл<1МБ, проверкапаттерновсекретов/headerwhitelistчиста. Новые refs stages19/20 зарегистрированыPENDING_PRIMARY_AUDIT, модели не запускались; это не утверждённыйreplacementbaseline или ODприбавка.
