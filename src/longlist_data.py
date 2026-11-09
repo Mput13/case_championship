@@ -20,7 +20,9 @@
                        и нет поезда быстрее 12 часов. Это «недообслуженный» спрос, который мог бы
                        забрать хаб.
 
-Выход: data/processed/longlist_computed.csv
+Выход: data/processed/longlist_computed.csv,
+       data/processed/destinations.csv — по каждому кандидату: аэропорты в зоне SSJ и все текущие
+       прямые рейсы, статус direct / rail (поезд ≤ 12 ч) / gap (ни того, ни другого)
 Запуск: python src/longlist_data.py
 """
 import re
@@ -49,6 +51,14 @@ SOUTH_WEST = {
     "Волгоградская область", "Республика Крым", "Севастополь", "Калининградская область",
     "Белгородская область", "Курская область", "Брянская область",
 }
+
+
+# аэропорты одного города считаем одним рынком: житель Подмосковья летит через любой из них
+GROUP = {"SVO": "MOW", "DME": "MOW", "VKO": "MOW", "ZIA": "MOW"}
+
+
+def grp(code):
+    return GROUP.get(code, code)
 
 
 def hav(la1, lo1, la2, lo2):
@@ -98,14 +108,15 @@ def main():
     for cm in air.comment.dropna():
         m = re.match(r"\s*([A-Z0-9]{3})\s*—\s*([A-Z0-9]{3})", cm)
         if m:
-            direct.add((m.group(1), m.group(2)))
-            direct.add((m.group(2), m.group(1)))
+            direct.add((grp(m.group(1)), grp(m.group(2))))
+            direct.add((grp(m.group(2)), grp(m.group(1))))
     rail = t[t.transport_type == "rail"].set_index(["city_from", "city_to"]).distance_hr
 
     cand = pd.read_csv(CITIES)
     svo = ap.set_index("iata_code").loc["SVO"]
     svx = ap.set_index("iata_code").loc["SVX"]
     rows = []
+    dests = []  # направления для карты: каждый аэропорт в зоне SSJ + все текущие прямые рейсы
     for c in cand.itertuples():
         i = c.iata
         if i not in catch.index:
@@ -118,14 +129,20 @@ def main():
                 continue
             km = hav(a.latitude_deg, a.longitude_deg, b.latitude_deg, b.longitude_deg)
             lim = GREEN_SOUTH if (a.region in SOUTH_WEST or b.region in SOUTH_WEST) else GREEN
+            has_direct = (grp(i), grp(j)) in direct
+            hr = rail.get((a.main_city, b.main_city))
+            rail_ok = hr is not None and pd.notna(hr) and hr <= RAIL_OK_HR
+            if km <= lim or has_direct:
+                dests.append({"from": i, "to": j, "to_city": b.main_city, "to_region": b.region,
+                              "lat": round(b.latitude_deg, 3), "lon": round(b.longitude_deg, 3),
+                              "pop": int(b["pop"]), "km": round(km), "in_ssj": km <= lim,
+                              "direct": has_direct, "rail_hr": None if hr is None or pd.isna(hr) else round(hr, 1),
+                              "status": "direct" if has_direct else ("rail" if rail_ok else "gap")})
             if km > lim:
                 continue
             reach_n += 1
             reach_pop += b["pop"]
-            has_direct = (i, j) in direct
             direct_n += has_direct
-            hr = rail.get((a.main_city, b.main_city))
-            rail_ok = hr is not None and pd.notna(hr) and hr <= RAIL_OK_HR
             if not has_direct and not rail_ok:
                 gap_pop += b["pop"]
         rows.append({
@@ -143,6 +160,7 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     df = pd.DataFrame(rows)
     df.to_csv(OUT, index=False, encoding="utf-8")
+    pd.DataFrame(dests).to_csv(OUT.parent / "destinations.csv", index=False, encoding="utf-8")
     print(df.drop(columns="source").to_string())
 
 

@@ -18,6 +18,7 @@ py -3.13 src/fetch_kover.py --since 2024-11-01    # канал Росавиац�
 py -3.13 src/kover_days.py                        # дни «Ковра» по аэропортам
 py -3.13 src/longlist_data.py                     # население, дальность SSJ, прямые рейсы, поезда
 py -3.13 src/build_longlist.py                    # data/processed/longlist.csv и outputs/longlist.xlsx
+py -3.13 src/build_dashboard.py                   # панель outputs/redwings_panel.html (табло, веса, карта, «Ковёр»)
 ```
 Ручные данные со ссылками — `data/manual/longlist_manual.csv`.
 
