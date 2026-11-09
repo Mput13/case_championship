@@ -7,9 +7,9 @@
       "links": 37
     },
     "final_explain.html": {
-      "sha256": "119ee7641fc1f27eef73fcf8e64b7531763c640900722608e8209a58b1fd8531",
-      "ids": 17,
-      "links": 59
+      "sha256": "940f5d25c1e83e4b46ae54868f2a8800c92678a951921fdf04716adea7b4449c",
+      "ids": 511,
+      "links": 467
     }
   },
   "preserved_argon_original_sha256": "22babee5c93969ce142c12652b1961a5a4d1fa58d4952d1015557687dca5e130",
@@ -26,7 +26,7 @@
   "verification": {
     "context_check": "PASS 165 files, 45 CSV, 32 JSON, 205 local links, five source hashes before this audit JSON was added",
     "links_and_anchors": "PASS both documents",
-    "javascript_syntax": "PASS guide; team has no JavaScript",
+    "javascript_syntax": "PASS guide and final_explain; latter now contains source-anchor disclosure and mobile table labels",
     "browser_preview": [
       "team full: 1200 dark and 390 dark; focused chapters 7/8 at 728 and 390; final focused chapter8 728 light",
       "guide:728 dark,390 light/dark; zero document overflow at390",
@@ -54,5 +54,27 @@
     "from": "team-overview.html",
     "to": "final_explain.html",
     "content_change": "Removed whitespace-only line endings; content and layout unchanged; incoming links updated"
+  },
+  "contributor_revision": {
+    "date": "2026-11-09",
+    "git_authors": [
+      "kiruha355",
+      "mput / Mput13",
+      "Konstantin Tarasenko"
+    ],
+    "chapters": 14,
+    "embedded_sources": 45,
+    "pinned_source_hashes": "PASS all 45 match Git bytes, including CSV CRLF",
+    "source_library": "Self-contained Markdown/CSV/JSON/Python reading; source URLs are secondary pinned GitHub references",
+    "coverage": "G1-G6, Н1-Н13, H1-H6, H01-H11, KON01-KON08; five geographic clusters and product options; all 24 kiruha artifacts",
+    "html_checks": "PASS unique IDs, internal anchors, no unresolved local URLs, exact rebuild",
+    "browser_checks": [
+      "1200 dark: author overview and mput sections",
+      "390 light: kiruha section with stacked tables",
+      "728 dark: Konstantin and full document start",
+      "Live T3 at 539px: scrollWidth539, right gutter22, 45 embedded sources, 180 mobile labels",
+      "Live clicks open original kiruha index, audit report, network comparison CSV and knowledge JSON in document"
+    ],
+    "limits": "No fresh external factcheck of all embedded originals. Archives retain original assumptions and disputed claims; editorial guide distinguishes them. Git attribution is package authorship."
   }
 }
