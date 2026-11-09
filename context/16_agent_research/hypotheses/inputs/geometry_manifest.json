@@ -1,0 +1,33 @@
+{
+  "dataset_id": "HYP-S03",
+  "source_url": "https://davidmegginson.github.io/ourairports-data/airports.csv",
+  "organisation": "OurAirports community / upstream data repository",
+  "publication_date": "UNKNOWN",
+  "retrieved_at_utc": "2026-11-09T10:56:10.707909+00:00",
+  "raw_path": "raw/external/ourairports_global.csv.gz",
+  "sha256": "3c8a627dcf3f4abc06876ba4cbbd9494c280638892ca0f26ddabd45c2624658d",
+  "size_bytes": 3801040,
+  "compression": "gzip",
+  "uncompressed_sha256": "1b46b6c1bd27d12c50ace581130faf7c69f7a2df5268dcb4ebaaa06d530d2d28",
+  "uncompressed_size_bytes": 12758669,
+  "record_count": 86350,
+  "geographic_coverage": "global; normalized subset iso_country=RU",
+  "temporal_coverage": "snapshot; per-record validity UNKNOWN",
+  "grain": "airport",
+  "key_fields": [
+    "id",
+    "ident"
+  ],
+  "units": "coordinates in decimal degrees; elevation in feet",
+  "acquisition_status": "PARSED",
+  "value_type": "OBSERVED",
+  "http_status": 200,
+  "license": "OurAirports public domain, policy not independently fetched in this run",
+  "limitations": "Community-maintained coordinates only; not dispatch data; no IANA timezone, market catchment or operating eligibility. The RU classification is a source field, not a legal determination.",
+  "collector_version": "geometry-collect-v1",
+  "command": "python3 context/16_agent_research/hypotheses/collectors/collect_geometry.py",
+  "transformation": "gzip.decompress raw; csv.DictReader; exact iso_country == RU filter",
+  "derived_path": "normalized/airports_ru.csv",
+  "derived_sha256": "408b1c4cb07c99dd7271c493fd5188cc85ea8f95ce923c0d4c071413a39211c5",
+  "derived_record_count": 1845
+}

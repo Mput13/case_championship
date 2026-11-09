@@ -1,0 +1,110 @@
+[
+  {
+    "dataset_id": "SA00",
+    "source_url": "https://mai-way.ru/tasks/red-wings/",
+    "organisation": "МАИ, страница кейса",
+    "publication_date": "UNKNOWN",
+    "grain": "case requirement",
+    "geographic_coverage": "Russia",
+    "temporal_coverage": "2026 case; horizon 2028",
+    "join_keys": "section;requirement",
+    "units": "requirements",
+    "limitations": "Отраслевая справка страницы требует проверки; требования не являются доказательством фактических поставок и доступности флота."
+  },
+  {
+    "dataset_id": "SA01",
+    "source_url": "https://azimuth.ru/ru/news/aviakompaniya-azimut-nachinaet-polety-v-kirov-iz-mineralnyh-vod",
+    "organisation": "Азимут",
+    "publication_date": "2024-01-24",
+    "grain": "route launch announcement",
+    "geographic_coverage": "KVX;MRV",
+    "temporal_coverage": "summer 2024",
+    "join_keys": "carrier;flight_no;period",
+    "units": "flights/week;local HH:MM",
+    "limitations": "Анонс расписания 2024 года, не доказательство выполнений и не действующее расписание 2026. Рекламная минимальная цена не net fare."
+  },
+  {
+    "dataset_id": "SA02",
+    "source_url": "https://privmtu.favt.ru/novosti-novosti/?id=13703",
+    "organisation": "Приволжское МТУ Росавиации; сообщение аэропорта Победилово",
+    "publication_date": "2026-10-12",
+    "grain": "route announcement",
+    "geographic_coverage": "KVX;MRV",
+    "temporal_coverage": "from 2026-10-12",
+    "join_keys": "carrier;pair;effective_from",
+    "units": "days of week",
+    "limitations": "Перепубликация сообщения аэропорта; факт объявления, не исполнение и не пассажиропоток."
+  },
+  {
+    "dataset_id": "SA03",
+    "source_url": "https://www.utair.ru/about/news/yuteyr-zaklyuchil-dogovor-s-irkutskoy-neftyanoy-kompaniey/",
+    "organisation": "ЮТэйр",
+    "publication_date": "2023-12-06",
+    "grain": "corporate transport agreement announcement",
+    "geographic_coverage": "IKT;UKX",
+    "temporal_coverage": "2023 agreement; total cooperation period unspecified",
+    "join_keys": "buyer;carrier;pair;agreement_date",
+    "units": "people planned over unspecified agreement period",
+    "limitations": "75 тысяч сотрудников и жителей - заявленный будущий объём за время сотрудничества, не наблюдаемый годовой OD; нет цены и разбивки по сегментам."
+  },
+  {
+    "dataset_id": "SA04",
+    "source_url": "https://irkutskoil.ru/sustainability/social-responsibility/territory/territory-of-the-future.php",
+    "organisation": "Иркутская нефтяная компания",
+    "publication_date": "UNKNOWN",
+    "grain": "corporate public implementation statement",
+    "geographic_coverage": "IKT;UKX",
+    "temporal_coverage": "snapshot 2026-11-09; service launch date unspecified",
+    "join_keys": "buyer;carrier;pair",
+    "units": "seats",
+    "limitations": "Подтверждает сообщение предприятия о запуске; не даёт текущей частоты, договора или выполненного потока. 70 мест относится к ATR-72 в этой программе, не к RW."
+  },
+  {
+    "dataset_id": "SA05",
+    "source_url": "https://www.rossiya-airlines.ru/about/news/dalnevostochnye_subsidiruemye_reysy_avrory_na_samoletakh_rossii/",
+    "organisation": "Россия",
+    "publication_date": "2024-07-17",
+    "grain": "joint service announcement",
+    "geographic_coverage": "KJA;UUD;UUS;YKS",
+    "temporal_coverage": "2024 summer announcement",
+    "join_keys": "operating_carrier;marketing_carrier;pair;period",
+    "units": "programme;frequency;fare as published",
+    "limitations": "Партнёрский и субсидируемый продукт 2024 года; для 2026/2027 нужны действующие правила, расписание и оператор. Не доказательство права RW на эту поддержку."
+  },
+  {
+    "dataset_id": "SA06",
+    "source_url": "https://klf.aero/press/news/informatsiya-ob-otmene-reysov-v-sankt-peterburg-i-mineralnye-vody25/",
+    "organisation": "Аэропорт Калуга",
+    "publication_date": "2025-07-22",
+    "grain": "dated disruption announcement",
+    "geographic_coverage": "KLF;LED;MRV",
+    "temporal_coverage": "2025-07-22 notice",
+    "join_keys": "carrier;flight_no;notice_date",
+    "units": "cancelled flight notices",
+    "limitations": "Один опубликованный эпизод, не длительность закрытий и не распределение вероятностей; полные даты затронутых рейсов нужно подтвердить."
+  },
+  {
+    "dataset_id": "SA07",
+    "source_url": "https://kislovodsk.plaza.spa/about/faq/",
+    "organisation": "Санаторий Плаза СПА Кисловодск",
+    "publication_date": "UNKNOWN",
+    "grain": "product conditions",
+    "geographic_coverage": "Kislovodsk;MRV catchment",
+    "temporal_coverage": "snapshot 2026-11-09",
+    "join_keys": "facility;product;condition",
+    "units": "nights;check-in rules",
+    "limitations": "Продукт одного санатория: не размер медицинского рынка, не origin гостей и не спрос на самолёт. Никаких персональных медицинских данных."
+  },
+  {
+    "dataset_id": "SA08",
+    "source_url": "https://flyredwings.com/flight-board/?frm=homescreen&target=form",
+    "organisation": "Red Wings",
+    "publication_date": "2026-11-09 snapshot",
+    "grain": "flight board snapshot",
+    "geographic_coverage": "SVX;BAX;HTA;UFA;NUX and others",
+    "temporal_coverage": "live snapshot 2026-11-09",
+    "join_keys": "operating_flight_no;local_date;origin;destination",
+    "units": "local HH:MM;status",
+    "limitations": "Динамическое табло: один срез не регулярное расписание. Следование двух рейсов по времени не доказывает общий борт или доступный ресурс."
+  }
+]

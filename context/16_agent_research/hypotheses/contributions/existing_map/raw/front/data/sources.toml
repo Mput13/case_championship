@@ -1,0 +1,243 @@
+# Реестр источников данных. Один источник — одна секция.
+# Его читает src/update.py: решает, что пора обновить, запускает загрузчик, проверяет результат
+# и пишет журнал (data/raw/_manifest.json, data/raw/_runs.csv). Панель показывает свежесть отсюда.
+#
+# Поля:
+#   name      — как источник называется для людей
+#   owner     — кто публикует
+#   url       — где лежат данные
+#   kind      — telegram | http_file | manual | api
+#   role      — data (данные для расчёта) | watch (лента для поиска новых цифр, см. src/scan_news.py)
+#   cmd       — команда загрузки (пусто у ручных источников)
+#   output    — файл, который появляется после загрузки
+#   every_days — как часто обновлять
+#   stale_days — через сколько дней без обновления данные считаются устаревшими
+#   min_rows  — меньше строк = загрузка сломалась
+#   license   — условия использования
+#   feeds     — какие критерии или шаги расчёта питает
+
+[favt_info]
+name = "Росавиация: ограничения аэропортов"
+owner = "Росавиация"
+url = "https://t.me/s/favt_info"
+kind = "telegram"
+role = "data"
+cmd = "src/fetch_kover.py"
+output = "data/raw/favt_posts.csv"
+every_days = 1
+stale_days = 3
+min_rows = 8000
+license = "публичные сообщения госоргана"
+feeds = ["дни «Ковра»", "сценарии"]
+
+[ourairports]
+name = "OurAirports: аэропорты и полосы"
+owner = "OurAirports"
+url = "https://ourairports.com/data/"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_static.py"
+output = "data/raw/ourairports_airports.csv"
+every_days = 30
+stale_days = 90
+min_rows = 70000
+license = "Public Domain"
+feeds = ["координаты", "дальность SSJ", "длина полосы", "расстояние до баз"]
+
+[tochno_intercity]
+name = "«Если быть точным»: связность 180 городов"
+owner = "«Если быть точным»"
+url = "https://tochno.st/datasets/intercity_connectivity"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_static.py"
+output = "data/raw/tochno_intercity/data_intercity_connectivity_162_v20260629.csv"
+every_days = 30
+stale_days = 180
+min_rows = 90000
+license = "CC BY 4.0"
+feeds = ["население", "время поездом", "прямые рейсы", "«дыра» в сообщении"]
+
+[natural_earth]
+name = "Natural Earth: контуры карты"
+owner = "Natural Earth"
+url = "https://www.naturalearthdata.com"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_geo.py"
+output = "data/processed/geo_map.json"
+every_days = 365
+stale_days = 730
+min_rows = 0
+license = "Public Domain"
+feeds = ["карта"]
+
+[airports_pax]
+name = "Пассажиропоток аэропортов 2025"
+owner = "аэропорты (пресс-релизы), сверка команды"
+url = "context/07_verification/terra_cities_review/corrected_cities.csv"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "context/07_verification/terra_cities_review/corrected_cities.csv"
+every_days = 365
+stale_days = 400
+min_rows = 20
+license = "цитирование с указанием источника"
+feeds = ["размер рынка аэропорта"]
+
+[manual_longlist]
+name = "Ручные данные лонглиста"
+owner = "команда"
+url = "data/manual/longlist_manual.csv"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "data/manual/longlist_manual.csv"
+every_days = 7
+stale_days = 14
+min_rows = 20
+license = "собрано командой, ссылка в каждой строке"
+feeds = ["зона трансфера", "Ростех", "базовые перевозчики", "приоритет акционеров"]
+
+[yandex_rasp]
+name = "Яндекс Расписания API"
+owner = "Яндекс"
+url = "https://yandex.ru/dev/rasp/raspapi/"
+kind = "api"
+role = "data"
+cmd = ""
+output = "data/raw/yandex_rasp/schedule.csv"
+every_days = 7
+stale_days = 14
+min_rows = 1
+license = "условия API Яндекса; нужен ключ в .env (YANDEX_RASP_KEY)"
+feeds = ["доля базового перевозчика", "частоты рейсов"]
+
+[rosstat_mo]
+name = "Росстат: население муниципальных образований"
+owner = "Росстат"
+url = "https://rosstat.gov.ru/compendium/document/13282"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "data/raw/BUL_MO_2024.xlsx"
+every_days = 365
+stale_days = 730
+min_rows = 0
+license = "типовые условия Росстата"
+feeds = ["население 2024"]
+
+# --- ленты для поиска новых цифр (src/scan_news.py) ---
+
+[mintrans]
+name = "Минтранс России"
+owner = "Минтранс"
+url = "https://t.me/s/Mintrans_Russia"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py Mintrans_Russia"
+output = "data/raw/telegram/Mintrans_Russia.csv"
+every_days = 1
+stale_days = 3
+min_rows = 1
+license = "публичные сообщения госоргана"
+feeds = ["входящие: пассажиропоток, субсидии, аэропорты"]
+
+[atorus]
+name = "АТОР"
+owner = "Ассоциация туроператоров"
+url = "https://t.me/s/atorus"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py atorus"
+output = "data/raw/telegram/atorus.csv"
+every_days = 1
+stale_days = 3
+min_rows = 1
+license = "публичный канал; цитаты с указанием источника"
+feeds = ["входящие: рейсы, ограничения, туризм"]
+
+[flyredwings]
+name = "Red Wings"
+owner = "Red Wings"
+url = "https://t.me/s/flyredwings"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py flyredwings"
+output = "data/raw/telegram/flyredwings.csv"
+every_days = 1
+stale_days = 3
+min_rows = 1
+license = "публичный канал авиакомпании"
+feeds = ["входящие: новые рейсы Red Wings"]
+
+[s7newsroom]
+name = "S7 Newsroom"
+owner = "S7"
+url = "https://t.me/s/s7newsroom"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py s7newsroom"
+output = "data/raw/telegram/s7newsroom.csv"
+every_days = 1
+stale_days = 3
+min_rows = 1
+license = "публичный канал авиакомпании"
+feeds = ["входящие: конкурент, хабы"]
+
+[airportkazan]
+name = "Аэропорт Казань"
+owner = "Аэропорт Казань"
+url = "https://t.me/s/airportkazan"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py airportkazan"
+output = "data/raw/telegram/airportkazan.csv"
+every_days = 1
+stale_days = 7
+min_rows = 1
+license = "публичный канал аэропорта"
+feeds = ["входящие: пассажиропоток, рейсы"]
+
+[permairport]
+name = "Аэропорт Пермь"
+owner = "Аэропорт Пермь"
+url = "https://t.me/s/permairport"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py permairport"
+output = "data/raw/telegram/permairport.csv"
+every_days = 1
+stale_days = 7
+min_rows = 1
+license = "публичный канал аэропорта"
+feeds = ["входящие: пассажиропоток, рейсы"]
+
+[aeroaer]
+name = "Аэропорт Сочи"
+owner = "Аэропорт Сочи"
+url = "https://t.me/s/aeroaer"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py aeroaer"
+output = "data/raw/telegram/aeroaer.csv"
+every_days = 1
+stale_days = 7
+min_rows = 1
+license = "публичный канал аэропорта"
+feeds = ["входящие: пассажиропоток, рейсы"]
+
+[airportbaikal]
+name = "Аэропорт Байкал (Улан-Удэ)"
+owner = "Аэропорт Байкал"
+url = "https://t.me/s/airportbaikal"
+kind = "telegram"
+role = "watch"
+cmd = "src/fetch_telegram.py airportbaikal"
+output = "data/raw/telegram/airportbaikal.csv"
+every_days = 1
+stale_days = 7
+min_rows = 1
+license = "публичный канал аэропорта"
+feeds = ["входящие: пассажиропоток, рейсы"]

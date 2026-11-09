@@ -1,0 +1,167 @@
+{
+  "ref": "origin/front",
+  "commit": "71b493d0051dc3acf2a7619801e5b0eb022bddd3",
+  "reviewed_on": "2026-11-09",
+  "appeared_at_final_fetch": true,
+  "longlist_changes": [
+    {
+      "iata": "KZN",
+      "column": "direct_now",
+      "prior": "41",
+      "front": "43"
+    },
+    {
+      "iata": "KZN",
+      "column": "gap_pop",
+      "prior": "6074971",
+      "front": "4193389"
+    },
+    {
+      "iata": "GOJ",
+      "column": "direct_now",
+      "prior": "13",
+      "front": "16"
+    },
+    {
+      "iata": "PEE",
+      "column": "direct_now",
+      "prior": "16",
+      "front": "18"
+    },
+    {
+      "iata": "PEE",
+      "column": "gap_pop",
+      "prior": "23585194",
+      "front": "21306897"
+    },
+    {
+      "iata": "CEK",
+      "column": "direct_now",
+      "prior": "14",
+      "front": "16"
+    },
+    {
+      "iata": "CEK",
+      "column": "gap_pop",
+      "prior": "23372122",
+      "front": "21093825"
+    },
+    {
+      "iata": "TJM",
+      "column": "direct_now",
+      "prior": "18",
+      "front": "20"
+    },
+    {
+      "iata": "TJM",
+      "column": "gap_pop",
+      "prior": "22226963",
+      "front": "19948666"
+    },
+    {
+      "iata": "OMS",
+      "column": "direct_now",
+      "prior": "17",
+      "front": "19"
+    },
+    {
+      "iata": "OMS",
+      "column": "gap_pop",
+      "prior": "22944447",
+      "front": "21062865"
+    },
+    {
+      "iata": "MRV",
+      "column": "direct_now",
+      "prior": "29",
+      "front": "30"
+    },
+    {
+      "iata": "MRV",
+      "column": "gap_pop",
+      "prior": "7519479",
+      "front": "5943803"
+    },
+    {
+      "iata": "AER",
+      "column": "direct_now",
+      "prior": "33",
+      "front": "34"
+    },
+    {
+      "iata": "AER",
+      "column": "gap_pop",
+      "prior": "6067535",
+      "front": "4491859"
+    },
+    {
+      "iata": "MCX",
+      "column": "direct_now",
+      "prior": "23",
+      "front": "24"
+    },
+    {
+      "iata": "MCX",
+      "column": "gap_pop",
+      "prior": "7880630",
+      "front": "6304954"
+    },
+    {
+      "iata": "GSV",
+      "column": "direct_now",
+      "prior": "9",
+      "front": "11"
+    },
+    {
+      "iata": "GSV",
+      "column": "gap_pop",
+      "prior": "21687538",
+      "front": "19409241"
+    },
+    {
+      "iata": "VOG",
+      "column": "direct_now",
+      "prior": "7",
+      "front": "9"
+    },
+    {
+      "iata": "VOG",
+      "column": "gap_pop",
+      "prior": "25016124",
+      "front": "23134542"
+    },
+    {
+      "iata": "REN",
+      "column": "direct_now",
+      "prior": "8",
+      "front": "11"
+    },
+    {
+      "iata": "REN",
+      "column": "gap_pop",
+      "prior": "26267008",
+      "front": "23682805"
+    }
+  ],
+  "candidate_news_rows": 170,
+  "all_candidate_statuses": [
+    "на проверке"
+  ],
+  "new_file_semantics": "destinations.csv is city-grouped listed accessibility, not dated airport-specific supply or OD",
+  "critical_limit": "MOW grouping can mark ZIA direct when only a different Moscow airport is listed; do not import as ZIA nonstop proof. Missing rail still not measured demand.",
+  "decision_check": "Targeted review of candidate snippets and flyredwings/permairport/airportkazan primary feed rows found no admissible paid OD/net settlements/base contract for selected pairs. No numerical model input adopted.",
+  "model_impact": "gap_pop/direct_now change screening utilities, not OD/cost model; all used numerical model inputs remain unchanged",
+  "read_files": [
+    "docs/HANDOFF.md",
+    "src/longlist_data.py",
+    "data/processed/longlist.csv",
+    "data/inbox/candidates.csv",
+    "data/processed/destinations.csv",
+    "data/raw/_manifest.json",
+    "data/raw/telegram/flyredwings.csv",
+    "data/raw/telegram/permairport.csv",
+    "data/raw/telegram/airportkazan.csv"
+  ],
+  "unverified_news": "Do not promote 170 pending classifier rows, airport-size categories, bus subsidies or overseas tour announcements to route demand. Handoff mentions252, committed CSV has170.",
+  "preservation": "No front files merged or edited; raw Telegram and session paths not copied into this result."
+}

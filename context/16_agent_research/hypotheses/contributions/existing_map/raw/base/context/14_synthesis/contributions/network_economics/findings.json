@@ -1,0 +1,1464 @@
+{
+  "audit_id": "network_economics_91fdbe10_20261109",
+  "status": "COMPLETE_WITH_EDITORIAL_CORRECTIONS_AND_EXPLICIT_LIMITATIONS",
+  "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+  "ref": "origin/research/red-wings-city-screening-20261108",
+  "as_of": "2026-11-09",
+  "scope": "All43files in context/12_network_economics, both scripts, required11_screeninginputs; compare current07_verification and12_network_risk",
+  "authority": "Research audit and editor material, not team decision or launch recommendation",
+  "reproduction": {
+    "python": "3.11.9",
+    "command": "python3 scripts/build_network_economics.py",
+    "environment": "minimal temporary source/input copy; stdlib only; offline calculation",
+    "exit_code": 0,
+    "script_status": "PASS",
+    "csv_row_counts_equal": true,
+    "csv_text_cells_equal": true,
+    "csv_max_absolute_numeric_difference": 1.4156103134155273e-07,
+    "byte_identical_all_outputs": false,
+    "reason": "Floating point representation/accumulation only; no material result difference",
+    "not_run": [
+      "Historical rawHTML parser replay",
+      "Browser visual/interactive QA",
+      "Live booking fare search",
+      "Paid OD acquisition",
+      "Dispatch/crew/maintenance/slot validation",
+      "Commercial E2E or investment acceptance"
+    ]
+  },
+  "main_results": [
+    {
+      "network": "A",
+      "scenario": "base",
+      "weekly_legs": "96",
+      "weekly_block_hours": "233.0",
+      "sold_pax": "3873.8390847507494",
+      "migrated_RW_pax": "541.6316356378928",
+      "net_new_pax": "3332.2074491128565",
+      "segment_pax": "5350.827574633389",
+      "gross_revenue": "44785125.06205131",
+      "foregone_RW_revenue": "5627258.793251346",
+      "incremental_revenue": "39157866.26879997",
+      "new_pax_variable": "2675413.7873166944",
+      "saved_old_pax_variable": "463811.81112918793",
+      "local_pax": "2396.85059486811",
+      "transfer_pax": "1476.9884898826397",
+      "offered_pax": "4644.039181503633",
+      "seats": "9600",
+      "load_factor": "0.5573778723576447",
+      "flight_fixed_cost": "75020276.0",
+      "incremental_operating_cost": "77231877.97618751",
+      "contribution_before_base_and_fleet": "-38074011.70738754"
+    },
+    {
+      "network": "B0",
+      "scenario": "base",
+      "weekly_legs": "72",
+      "weekly_block_hours": "195.75",
+      "sold_pax": "2811.040125110596",
+      "migrated_RW_pax": "536.5123243057384",
+      "net_new_pax": "2274.5278008048576",
+      "segment_pax": "2811.040125110596",
+      "gross_revenue": "25815171.501999468",
+      "foregone_RW_revenue": "3786022.8750477633",
+      "incremental_revenue": "22029148.626951702",
+      "new_pax_variable": "1405520.062555298",
+      "saved_old_pax_variable": "346876.156657171",
+      "local_pax": "2811.040125110596",
+      "transfer_pax": "0",
+      "offered_pax": "2811.040125110596",
+      "seats": "7200",
+      "load_factor": "0.3904222395986939",
+      "flight_fixed_cost": "61832071.8",
+      "incremental_operating_cost": "62890715.70589812",
+      "contribution_before_base_and_fleet": "-40861567.07894642"
+    },
+    {
+      "network": "B",
+      "scenario": "base",
+      "weekly_legs": "92",
+      "weekly_block_hours": "238.58333333333334",
+      "sold_pax": "3084.916939576071",
+      "migrated_RW_pax": "611.4389467937009",
+      "net_new_pax": "2473.4779927823697",
+      "segment_pax": "3084.916939576071",
+      "gross_revenue": "28164276.48996983",
+      "foregone_RW_revenue": "4301491.205916759",
+      "incremental_revenue": "23862785.284053072",
+      "new_pax_variable": "1542458.4697880354",
+      "saved_old_pax_variable": "388403.0800007579",
+      "local_pax": "3084.916939576071",
+      "transfer_pax": "0",
+      "offered_pax": "3084.916939576071",
+      "seats": "9200",
+      "load_factor": "0.33531705864957295",
+      "flight_fixed_cost": "75948080.73333333",
+      "incremental_operating_cost": "77102136.1231206",
+      "contribution_before_base_and_fleet": "-53239350.83906754"
+    },
+    {
+      "network": "A",
+      "scenario": "cautious",
+      "weekly_legs": "96",
+      "weekly_block_hours": "233.0",
+      "sold_pax": "1270.2734126343885",
+      "migrated_RW_pax": "293.7054604908728",
+      "net_new_pax": "976.5679521435158",
+      "segment_pax": "1844.4917282742504",
+      "gross_revenue": "10825600.312278507",
+      "foregone_RW_revenue": "2608217.2610667185",
+      "incremental_revenue": "8217383.051211787",
+      "new_pax_variable": "1198919.6233782626",
+      "saved_old_pax_variable": "344048.5438099099",
+      "local_pax": "696.0550969945268",
+      "transfer_pax": "574.2183156398618",
+      "offered_pax": "1270.2734126343885",
+      "seats": "9600",
+      "load_factor": "0.19213455502856774",
+      "flight_fixed_cost": "110178022.08",
+      "incremental_operating_cost": "111032893.15956835",
+      "contribution_before_base_and_fleet": "-102815510.10835657"
+    },
+    {
+      "network": "B0",
+      "scenario": "cautious",
+      "weekly_legs": "72",
+      "weekly_block_hours": "195.75",
+      "sold_pax": "687.7471680054707",
+      "migrated_RW_pax": "202.81588130014273",
+      "net_new_pax": "484.931286705328",
+      "segment_pax": "687.7471680054707",
+      "gross_revenue": "4819729.624900104",
+      "foregone_RW_revenue": "1184068.3190000511",
+      "incremental_revenue": "3635661.3059000527",
+      "new_pax_variable": "447035.65920355596",
+      "saved_old_pax_variable": "178526.64882715538",
+      "local_pax": "687.7471680054707",
+      "transfer_pax": "0",
+      "offered_pax": "687.7471680054707",
+      "seats": "7200",
+      "load_factor": "0.09552044000075982",
+      "flight_fixed_cost": "90870186.96",
+      "incremental_operating_cost": "91138695.9703764",
+      "contribution_before_base_and_fleet": "-87503034.66447635"
+    },
+    {
+      "network": "B",
+      "scenario": "cautious",
+      "weekly_legs": "92",
+      "weekly_block_hours": "238.58333333333334",
+      "sold_pax": "752.3939735839565",
+      "migrated_RW_pax": "227.9843933788417",
+      "net_new_pax": "524.4095802051148",
+      "segment_pax": "752.3939735839565",
+      "gross_revenue": "5237781.268449996",
+      "foregone_RW_revenue": "1326158.8570572543",
+      "incremental_revenue": "3911622.411392741",
+      "new_pax_variable": "489056.08282957174",
+      "saved_old_pax_variable": "197351.43968540378",
+      "local_pax": "752.3939735839565",
+      "transfer_pax": "0",
+      "offered_pax": "752.3939735839565",
+      "seats": "9200",
+      "load_factor": "0.08178195365043005",
+      "flight_fixed_cost": "111585005.36",
+      "incremental_operating_cost": "111876710.00314416",
+      "contribution_before_base_and_fleet": "-107965087.59175143"
+    }
+  ],
+  "conditional_thresholds": {
+    "comparison_cost": [
+      {
+        "scenario": "base",
+        "advantage_A_before_base": "2787555.3715588823",
+        "additional_common_rub_per_hour_for_tie": "74833.70124990288",
+        "additional_common_rub_per_flight_for_tie": "116148.1404816201",
+        "additional_common_fuel_rub_per_t_for_tie": "44574.14146006606",
+        "condition": "each parameter changes separately; fixed sales, incumbent fares, no base/fleet cost; negative means A already loses"
+      },
+      {
+        "scenario": "cautious",
+        "advantage_A_before_base": "-15312475.443880215",
+        "additional_common_rub_per_hour_for_tie": "-411073.1662786635",
+        "additional_common_rub_per_flight_for_tie": "-638019.8101616757",
+        "additional_common_fuel_rub_per_t_for_tie": "-199446.114540934",
+        "condition": "each parameter changes separately; fixed sales, incumbent fares, no base/fleet cost; negative means A already loses"
+      }
+    ],
+    "fixed_OD_capture": [
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "0",
+        "reference": "best_direct",
+        "required_transfer_pax": "1308.7470866756835",
+        "transfer_capture_multiplier": "0.662630143874641",
+        "max_transfer_pax": "1728.155515074848",
+        "status": "CONDITIONAL_CAPTURE_THRESHOLD_FIXED_OD"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "0",
+        "reference": "no_launch",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1728.155515074848",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "best_direct",
+        "required_transfer_pax": "1367.241714227182",
+        "transfer_capture_multiplier": "0.7289650100133273",
+        "max_transfer_pax": "1728.155515074848",
+        "status": "CONDITIONAL_CAPTURE_THRESHOLD_FIXED_OD"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "no_launch",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1728.155515074848",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "best_direct",
+        "required_transfer_pax": "1481.018663435159",
+        "transfer_capture_multiplier": "1.0393558066958417",
+        "max_transfer_pax": "1728.155515074848",
+        "status": "CONDITIONAL_CAPTURE_THRESHOLD_FIXED_OD"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "no_launch",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1728.155515074848",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "0",
+        "reference": "best_direct",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1829.2102047398444",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "0",
+        "reference": "no_launch",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1829.2102047398444",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "best_direct",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1829.2102047398444",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "no_launch",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1829.2102047398444",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "best_direct",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1829.2102047398444",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "no_launch",
+        "required_transfer_pax": "",
+        "transfer_capture_multiplier": "",
+        "max_transfer_pax": "1829.2102047398444",
+        "status": "NO_CROSSING_ON_CAPTURE_GRID_WITH_FIXED_OD"
+      }
+    ],
+    "transfer_market_growth": [
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "0",
+        "reference": "best_direct",
+        "required_transfer_pax_week": "1119.2959129741855",
+        "required_transfer_OD_multiplier": "0.5298744927472625",
+        "status": "FIRST_SCENARIO_CROSSING_ON_GRID",
+        "max_transfer_pax": "1728.155515074848",
+        "winning_market_multiplier_windows": "roots=0.52987,2.06417; tested positive range=0.55..2.05"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "0",
+        "reference": "no_launch",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "1728.155515074848",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "best_direct",
+        "required_transfer_pax_week": "1235.7927279161045",
+        "required_transfer_OD_multiplier": "0.6012237949782274",
+        "status": "FIRST_SCENARIO_CROSSING_ON_GRID",
+        "max_transfer_pax": "1728.155515074848",
+        "winning_market_multiplier_windows": "roots=0.60122,1.78848; tested positive range=0.65..1.75"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "no_launch",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "1728.155515074848",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "best_direct",
+        "required_transfer_pax_week": "1422.1885525974722",
+        "required_transfer_OD_multiplier": "0.7912765644347702",
+        "status": "FIRST_SCENARIO_CROSSING_ON_GRID",
+        "max_transfer_pax": "1728.155515074848",
+        "winning_market_multiplier_windows": "roots=0.79128,0.95989; tested positive range=0.8..0.95"
+      },
+      {
+        "scenario": "base",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "no_launch",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "1728.155515074848",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "0",
+        "reference": "best_direct",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "2198.9654533525127",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "0",
+        "reference": "no_launch",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "2198.9654533525127",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "best_direct",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "2198.9654533525127",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "50000000",
+        "reference": "no_launch",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "2198.9654533525127",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "best_direct",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "2198.9654533525127",
+        "winning_market_multiplier_windows": "none on tested grid"
+      },
+      {
+        "scenario": "cautious",
+        "base_cost_annual_equivalent": "150000000",
+        "reference": "no_launch",
+        "required_transfer_pax_week": "",
+        "required_transfer_OD_multiplier": "",
+        "status": "NO_CROSSING_ON_GRID_0_TO_10_AND_SATURATION",
+        "max_transfer_pax": "2198.9654533525127",
+        "winning_market_multiplier_windows": "none on tested grid"
+      }
+    ],
+    "reinforcement": [
+      {
+        "scenario": "base",
+        "pair": "AER-GSV",
+        "added_legs": "8",
+        "added_cost": "7024865.333333334",
+        "added_pax": "162.54448398422238",
+        "added_passenger_margin": "1471027.580057213",
+        "incremental_contribution": "-5553837.753276121",
+        "required_added_pax": "776.2282136279924",
+        "added_seats": "800",
+        "required_OD_per_direction_if_uncapped": "2865.289038181098",
+        "exact_required_OD_per_direction_week": "1524.014941577434",
+        "exact_threshold_status": "SCENARIO_THRESHOLD_WITH_CAPACITY",
+        "saturated_market_incremental_contribution": "215134.66666666605",
+        "caveat": "uncapped linear extrapolation is illustrative only; exact threshold uses capacity in both B and B0"
+      },
+      {
+        "scenario": "base",
+        "pair": "OMS-SVX",
+        "added_legs": "12",
+        "added_cost": "7091143.6",
+        "added_pax": "111.33233048125243",
+        "added_passenger_margin": "267197.5931550056",
+        "incremental_contribution": "-6823946.006844994",
+        "required_added_pax": "2954.6431666666685",
+        "added_seats": "1200",
+        "required_OD_per_direction_if_uncapped": "9288.63254602825",
+        "exact_required_OD_per_direction_week": "",
+        "exact_threshold_status": "NO_BREAK_EVEN_EVEN_WITH_SATURATED_MARKET",
+        "saturated_market_incremental_contribution": "-131143.6000000001",
+        "caveat": "uncapped linear extrapolation is illustrative only; exact threshold uses capacity in both B and B0"
+      },
+      {
+        "scenario": "cautious",
+        "pair": "AER-GSV",
+        "added_legs": "8",
+        "added_cost": "10325483.84",
+        "added_pax": "37.9270462629852",
+        "added_passenger_margin": "234863.2339835359",
+        "incremental_contribution": "-10090620.606016465",
+        "required_added_pax": "1667.417656842955",
+        "added_seats": "800",
+        "required_OD_per_direction_if_uncapped": "8792.763060329677",
+        "exact_required_OD_per_direction_week": "",
+        "exact_threshold_status": "NO_BREAK_EVEN_EVEN_WITH_SATURATED_MARKET",
+        "saturated_market_incremental_contribution": "-5371483.839999999",
+        "caveat": "uncapped linear extrapolation is illustrative only; exact threshold uses capacity in both B and B0"
+      },
+      {
+        "scenario": "cautious",
+        "pair": "OMS-SVX",
+        "added_legs": "12",
+        "added_cost": "10389334.56",
+        "added_pax": "26.719759315500582",
+        "added_passenger_margin": "17902.238741385365",
+        "incremental_contribution": "-10371432.321258616",
+        "required_added_pax": "15506.469492537335",
+        "added_seats": "1200",
+        "required_OD_per_direction_if_uncapped": "69640.46034744829",
+        "exact_required_OD_per_direction_week": "",
+        "exact_threshold_status": "NO_BREAK_EVEN_EVEN_WITH_SATURATED_MARKET",
+        "saturated_market_incremental_contribution": "-5169334.5600000005",
+        "caveat": "uncapped linear extrapolation is illustrative only; exact threshold uses capacity in both B and B0"
+      }
+    ],
+    "labels_need_corrections": [
+      "NE-01",
+      "NE-02",
+      "NE-03"
+    ]
+  },
+  "findings": [
+    {
+      "id": "NE-01",
+      "severity": "P2",
+      "kind": "presentation_error",
+      "status": "CONFIRMED",
+      "title": "Тариф пересадочного продукта показан до применённого дисконта",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            210,
+            210
+          ]
+        },
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            350,
+            356
+          ]
+        },
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            628,
+            632
+          ]
+        },
+        {
+          "path": "context/12_network_economics/pair_results.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            21
+          ]
+        },
+        {
+          "path": "context/12_network_economics/itinerary_sales.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            107
+          ]
+        }
+      ],
+      "observed": "MRV-OMS base fare=18500 в pair_results, фактический gross/sold=16650=18500×0.90. Осторожный коэффициент 0.85 тоже скрыт в таблице «Чистый билет».",
+      "impact": "Неверная интерпретация unit economics и воспроизведение чисел читателем; основной денежный расчёт правильный.",
+      "smallest_fix": "Показывать reference_market_fare и project_realised_fare; либо добавить явный коэффициент и эффективный тариф для transfer.",
+      "falsification_test": "Для каждой строки itinerary_sales gross_revenue/sold_pax должен совпасть с указанным эффективным тарифом с учётом сценария; отдельный тест для общих OD в А и Б 0."
+    },
+    {
+      "id": "NE-02",
+      "severity": "P2",
+      "kind": "output_label_error",
+      "status": "CONFIRMED",
+      "title": "max_transfer_pax в cautious не максимум проверенной сетки",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            458,
+            476
+          ]
+        },
+        {
+          "path": "context/12_network_economics/capture_transfer_thresholds.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            8,
+            13
+          ]
+        },
+        {
+          "path": "context/12_network_economics/capture_sensitivity.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            312,
+            409
+          ]
+        }
+      ],
+      "observed": {
+        "claimed_max": 1829.2102047398464,
+        "capture_at_claimed": 1000,
+        "higher_grid_value": 1920.2865187378936,
+        "capture_at_higher": 5.3,
+        "difference": 91.0763139980472
+      },
+      "impact": "Смешиваются endpoint при q→1 и максимум greedy allocation. Знак вывода об отсутствии окупаемости на проверенной сетке не меняется.",
+      "smallest_fix": "Переименовать в transfer_pax_at_saturated_capture; если нужен max, брать максимум всей сетки и указывать значение параметра, не называть глобальным optimum.",
+      "falsification_test": "Сверить max(rows.transfer_pax) и max_field для каждого сценария; отдельно показывать contribution и смесь OD."
+    },
+    {
+      "id": "NE-03",
+      "severity": "P2",
+      "kind": "interpretation_error",
+      "status": "CONFIRMED",
+      "title": "Standalone-порог ошибочно назван необходимым для хабового луча",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            357,
+            367
+          ]
+        },
+        {
+          "path": "context/12_network_economics/pair_thresholds.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            4
+          ]
+        },
+        {
+          "path": "context/12_network_economics/README.md",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            57,
+            57
+          ]
+        }
+      ],
+      "observed": "Поле assumption содержит necessary not sufficient for A. Порог 120.1187 pax/вылет на GOJ-KUF построен только по местному прямому тарифу; трансферы могут покрыть недостающий вклад луча.",
+      "impact": "Читатель может ошибочно отвергнуть луч/хаб из-за недостижения local-only порога. README уже содержит более корректную оговорку.",
+      "smallest_fix": "Оставить standalone direct service без фразы necessary for A; объяснить, что решение по лучу требует общего сетевого вклада с transfer revenue один раз.",
+      "falsification_test": "Рассчитать контрпример, где местный поток ниже standalone threshold, а дополнительный общий результат с трансферами положителен; порог местного потока не должен автоматически отклонять луч."
+    },
+    {
+      "id": "NE-04",
+      "severity": "P3",
+      "kind": "reproducibility_gap",
+      "status": "CONFIRMED",
+      "title": "В input hash manifest отсутствует ranking.csv",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            540,
+            548
+          ]
+        },
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            555,
+            556
+          ]
+        },
+        {
+          "path": "context/12_network_economics/validation.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "update_city_ranking читает context/11_practical_screening/ranking.csv, но его SHA256 нет в validation.input_sha256. Git commit сам файл фиксирует.",
+      "impact": "Manifest отдельно от Git не защищает воспроизведение рейтингов. Основная экономика не зависит от ranking.csv.",
+      "smallest_fix": "Добавить ranking.csv в список хешируемых входов.",
+      "falsification_test": "Изменить копию ranking.csv и убедиться, что входной manifest обнаруживает отличие."
+    },
+    {
+      "id": "NE-05",
+      "severity": "P3",
+      "kind": "configuration_gap",
+      "status": "CONFIRMED",
+      "title": "Параметры planning_cap/spare не управляют полной проверкой ресурса",
+      "evidence": [
+        {
+          "path": "context/12_network_economics/inputs.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "selector": "planning_cap_block_h; spare_scenario"
+        },
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            278,
+            338
+          ]
+        }
+      ],
+      "observed": "Лимит 10 часов жёстко зашит в расчёте; spare_scenario=1 не добавляет размещение/стоимость/восстановление резерва. При текущем входе 10 нет арифметического расхождения.",
+      "impact": "Будущая смена поля inputs может не менять расчёт; декларация резерва не равна проверке.",
+      "smallest_fix": "Читать planning_cap из INPUT; резерв подписать как непросчитанное допущение до отдельного расписания/стоимости.",
+      "falsification_test": "Изменение planning_cap в временной копии должно менять флаги/раскладку; изменение spare не должно считаться проверенным без recovery модели."
+    },
+    {
+      "id": "NE-06",
+      "severity": "material_limitation",
+      "kind": "unidentified_demand",
+      "status": "EXPLICIT_ASSUMPTIONS",
+      "title": "Ни OD, ни выбор, ни realised fare не оценены по целевым продажам",
+      "evidence": [
+        {
+          "path": "context/12_network_economics/inputs.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "selector": "markets; scenarios"
+        },
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            197,
+            217
+          ]
+        },
+        {
+          "path": "context/12_network_economics/README.md",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            45,
+            57
+          ]
+        }
+      ],
+      "observed": "31 рынок задан сценарием, symmetric directions, equal daily booking allocation; qmax/exp(-f/3) и каннибализация не калиброваны. 47k KUF-MRV/2025 — другой сегментный агрегат.",
+      "impact": "Все объёмы/прибыли/пороги условны; не заявлять forecast, confidence interval, measured demand или решение команды.",
+      "smallest_fix": "Сохранить маркировку assumptions рядом с каждым output; собрать OD×месяц×направление и контрольные пары/периоды.",
+      "falsification_test": "Holdout на фактических OD и booking curves; сравнить предсказанные доли/цены/асимметрию с наблюдаемыми."
+    },
+    {
+      "id": "NE-07",
+      "severity": "material_limitation",
+      "kind": "resource_comparability",
+      "status": "PARTIAL",
+      "title": "Равный подтверждённый ресурс для сравнения не доказан",
+      "evidence": [
+        {
+          "path": "context/12_network_economics/network_comparison.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            2,
+            7
+          ]
+        },
+        {
+          "path": "context/12_network_economics/operational_audit.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        },
+        {
+          "path": "context/12_network_economics/hub_reassignment.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            2,
+            7
+          ]
+        },
+        {
+          "path": "context/12_network_economics/operational_stress.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "А 233 ч, Б 0195.75 ч, Б 238.583 ч; А 4 активных после перестановки при base,5/6 при+10/+20%. Б имеет 4 исходных самолёто-дня 13.83 ч. Общий spare для двух баз не оценён.",
+      "impact": "Результаты сравнивают заданные продукты, не оптимальные стратегии при доказанно равных доступных ресурсах.",
+      "smallest_fix": "В объяснялке разделить экономику и ресурсную выполнимость; следующий расчёт ограничить общим парком/резервом и оценить opportunity cost свободных часов.",
+      "falsification_test": "Одинаковые доступные борта/экипажи/ТО/слоты/резерв, полные dated chains и weekly wrap, ни одного нарушения в accepted schedule."
+    },
+    {
+      "id": "NE-08",
+      "severity": "material_limitation",
+      "kind": "transfer_product",
+      "status": "UNCONFIRMED",
+      "title": "75-минутная волна GOJ не является подтверждённым защищённым продуктом",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            179,
+            192
+          ]
+        },
+        {
+          "path": "context/12_network_economics/project_flights.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            3,
+            16
+          ]
+        },
+        {
+          "path": "context/12_network_economics/ufa_check.md",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "Генератор проверяет wait60..240 и detour≤1.6, фактическая волна 75 мин. Нет договора GOJ MCT, сквозного багажа, ticketing/reprotection и задержек; UFA1..4h не переносится автоматически.",
+      "impact": "Часть сценарного transfer revenue может быть недоступна даже при достаточном OD.",
+      "smallest_fix": "Подписать геометрически/временно допустимую гипотезу; включать в launch case только после договора и операционной проверки.",
+      "falsification_test": "Утверждённая MCT/багажная технология и задержки показывают, что 75 мин не обеспечивает принятый уровень стыковок."
+    },
+    {
+      "id": "NE-09",
+      "severity": "material_limitation",
+      "kind": "competition_and_fares",
+      "status": "INCOMPLETE",
+      "title": "Пробелы текущего календаря и финальных котировок существенны для выбора",
+      "evidence": [
+        {
+          "path": "context/12_network_economics/competition.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            80,
+            96,
+            98
+          ]
+        },
+        {
+          "path": "context/12_network_economics/schedule_date_conflicts.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            2
+          ]
+        },
+        {
+          "path": "context/12_network_economics/fare_checks.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        },
+        {
+          "path": "context/12_network_economics/advertised_fares.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "Часть OD UNKNOWN; KUF-SVX13vs12; matched one-way20kg final quote отсутствует. Рекламные минимумы не эквивалент realised fare.",
+      "impact": "qmax/transfer_competition_factor нельзя считать эмпирическим ответом рынка; отсутствие записи не отсутствие конкуренции.",
+      "smallest_fix": "Сохранить UNKNOWN и полный продукт/дату; доснять оба направления, поезд/доступ, фактическую частоту/цену конкурентов.",
+      "falsification_test": "Первичный календарь/цена обнаруживают доступный более привлекательный конкурентный продукт на supposedly open pair."
+    },
+    {
+      "id": "NE-10",
+      "severity": "material_limitation",
+      "kind": "baseline_and_cannibalisation",
+      "status": "SCENARIO_NOT_OBSERVED",
+      "title": "Результат добавления не переносится на сценарий замены",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            200,
+            233
+          ]
+        },
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            490,
+            505
+          ]
+        },
+        {
+          "path": "context/12_network_economics/incumbent_migration_caps.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        },
+        {
+          "path": "context/12_network_economics/incumbent_redeployment_bound.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "Старые рейсы продолжаются; миграция долевая, ограничена seats только на 3 прямых парах. Кредит снятия старых полётов использует сценарную стоимость проекта, без полной потери старого бизнеса.",
+      "impact": "Порядок А/Б 0 может измениться; кредит не доказывает лучшую replacement strategy.",
+      "smallest_fix": "Держать additive/replacement раздельно и определить baseline снимаемых рейсов, revenue/pax/costs и recapture.",
+      "falsification_test": "Полный baseline balance показывает, что потеря старого дохода и оставшиеся обязательства превышают предполагаемый кредит."
+    },
+    {
+      "id": "NE-11",
+      "severity": "material_limitation",
+      "kind": "cost_and_units",
+      "status": "PARTLY_PRIMARY_PARTLY_ASSUMED",
+      "title": "Публичные цены Уфы не контрактная себестоимость сети",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            235,
+            257
+          ]
+        },
+        {
+          "path": "context/12_network_economics/inputs.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "selector": "reference_basket; scenarios"
+        },
+        {
+          "path": "context/12_network_economics/published_cost_reference.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "Тарифы PDF перепроверены с совпадениемSHA, корзина 96089.4 верна; burn/MRO/crew/nav/deice probability — допущения. Фиксированный парк/база/капитал/нерегулярность/сезонный cash отсутствуют.",
+      "impact": "Условный operating contribution не бухгалтерская прибыль, NPV или финансовая потребность. Термин yield в имени файла не соответствует ₽/поездку.",
+      "smallest_fix": "Разделить первичный price и его сценарное применение; денежные границы определить без двойного вычета сборов, показывать net revenue per one-way journey.",
+      "falsification_test": "Сопоставить контрактный fuel/uplift, tail-specific burn, ledger статей и все fixed/avoidable расходы с исходным сценарием."
+    },
+    {
+      "id": "NE-12",
+      "severity": "material_limitation",
+      "kind": "operational_risk",
+      "status": "NOT_MODELLED_FULLY",
+      "title": "Временная чувствительность не оценка восстановления и денежного риска",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            322,
+            338
+          ]
+        },
+        {
+          "path": "context/12_network_economics/operational_stress.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        },
+        {
+          "path": "context/12_network_risk/research.json",
+          "revision": "current_worktree",
+          "selector": "METH07; K03; K04; K06; K08"
+        }
+      ],
+      "observed": "Есть +10/+20%block и 45/60turn; нет задержек/отмен/закрытияузла/AOG/потери стыковок/стоимости подмены/коррелированных шоков.",
+      "impact": "Нельзя объявить robust schedule, безопасный reserve или ожидаемый риск.",
+      "smallest_fix": "Называть time stress; сценарии recovery и месячного cash считать отдельно после приемлемой сети.",
+      "falsification_test": "Один common shock или недоступный борт разрушает цепочки/стыковки сильнее, чем допускает экономический запас."
+    },
+    {
+      "id": "NE-13",
+      "severity": "material_limitation",
+      "kind": "city_score",
+      "status": "SENSITIVITY_ONLY",
+      "title": "Обновлённый рейтинг UFA не расчёт её сетевой экономики",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            555,
+            589
+          ]
+        },
+        {
+          "path": "context/12_network_economics/city_ranking_update.csv",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "csv_physical_lines": [
+            2,
+            6,
+            10,
+            14
+          ]
+        },
+        {
+          "path": "context/12_network_economics/ufa_check.md",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "Технический 75 — середина интервала, basing80 — сценарий. Экономическая модель имеет hubGOJ, не UFA.",
+      "impact": "Нельзя выбрать hub по score и приписать ему результатыА; наличие допуска не договор базы/ТО.",
+      "smallest_fix": "Показать UFA как кандидата на сопоставимый независимый сетевой расчёт, сохранить интервал технической неизвестности.",
+      "falsification_test": "Сеть UFA с её OD/слотами/договорами/конкурентами даёт иной порядок, чем баллы."
+    },
+    {
+      "id": "NE-14",
+      "severity": "scope_boundary",
+      "kind": "provenance",
+      "status": "OFFLINE_REBUILD_PASS_PARSER_NOT_RUN",
+      "title": "Воспроизведён расчёт frozenJSON; полное воспроизведение parser из историческогоHTML недоступно безcache",
+      "evidence": [
+        {
+          "path": "scripts/collect_network_sources.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            58,
+            113
+          ]
+        },
+        {
+          "path": "context/12_network_economics/sources.json",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        },
+        {
+          "path": "context/12_network_economics/README.md",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            147,
+            155
+          ]
+        }
+      ],
+      "observed": "RawHTML/PDFнехранятся вGit; sources содержит hashes/URLs. accessedберётся изmtime. Parser structure может дрейфовать; архивный cache не использован в этом аудите.",
+      "impact": "Совпадение модели не есть независимая сверка всех 116 строк с исходными страницами. Два критичных PDF отдельно перепроверены/hash-match.",
+      "smallest_fix": "Не называть весь source extraction повторённым; для последующих snapshots сохранять точное fetch time, parse status и минимальное допустимое evidence представление.",
+      "falsification_test": "Replay того же rawcache должен восстановить 116 правил/18fare records и hashes; parsefailure не должен становиться NOT_LISTED."
+    },
+    {
+      "id": "NE-15",
+      "severity": "scope_boundary",
+      "kind": "chart_interpretation",
+      "status": "SOURCE_VERIFIED_BROWSER_NOT_RUN",
+      "title": "Интерактивный график меняет лишь fixedcostА и не подтверждает стратегию",
+      "evidence": [
+        {
+          "path": "scripts/build_network_economics.py",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+          "lines": [
+            592,
+            602
+          ]
+        },
+        {
+          "path": "context/12_network_economics/comparison_chart.html",
+          "revision": "91fdbe10e4454c94a20aeca6db38ffc68633ea48"
+        }
+      ],
+      "observed": "Встроены 6 сценарныхΔ; слайдер вычитаетbase/52 только изА. Нет reoptimisation/elasticity/probability/риска.",
+      "impact": "Визуальный результат нельзя назвать оптимизацией/инвестиционным решением или прогнозом.",
+      "smallest_fix": "Подписать сценарный operating contribution и omittedcosts; дать сравнение сNO_LAUNCH и отдельно две разные оси market/capture sensitivity.",
+      "falsification_test": "Проверкаgraphdata противnetwork_comparison; browserQA длявсех 2×41 состояний слайдера при необходимости, без утверждения чтоона уже пройдена."
+    }
+  ],
+  "current_comparison_inputs": [
+    {
+      "path": "context/12_network_risk/research.json",
+      "sha256": "069874a4c3ee761a9c0821447fd1cf1b36e12d637843a477392c717613c04e52",
+      "revision": "current_worktree",
+      "tracked_head": "f4b8e320e9c8e3b62e0469ca48ac4829ce49edb5"
+    },
+    {
+      "path": "context/12_network_risk/README.md",
+      "sha256": "b1e85bcce3bce35aedde30a84e9289e46dd550429293bb5adb1c7d4acf7fddef",
+      "revision": "current_worktree",
+      "tracked_head": "f4b8e320e9c8e3b62e0469ca48ac4829ce49edb5"
+    },
+    {
+      "path": "context/07_verification/terra_methods_data_review/usable_methods.md",
+      "sha256": "20d22b461c3eb9acfc6c42c9c938ef19edd368ae261076475b90cd2ecfc433ac",
+      "revision": "current_worktree",
+      "tracked_head": "f4b8e320e9c8e3b62e0469ca48ac4829ce49edb5"
+    },
+    {
+      "path": "context/07_verification/terra_data/data_model.md",
+      "sha256": "1983397ecf9446fb0f42661155f9d2cfc37af863a72f0012826df7c42fe890b9",
+      "revision": "current_worktree",
+      "tracked_head": "f4b8e320e9c8e3b62e0469ca48ac4829ce49edb5"
+    },
+    {
+      "path": "context/07_verification/terra_cities_review/corrected_cities.csv",
+      "sha256": "95ceb115685a8d7382a9102c12e699ae39344f01ca90d78638b55f6c41322d15",
+      "revision": "current_worktree",
+      "tracked_head": "f4b8e320e9c8e3b62e0469ca48ac4829ce49edb5"
+    },
+    {
+      "path": "context/07_verification/terra_facts/claims.csv",
+      "sha256": "ee5a3a3fbb7930de9c2323f0e364087e9725f76ea59a93051389912eaf0e9734",
+      "revision": "current_worktree",
+      "tracked_head": "f4b8e320e9c8e3b62e0469ca48ac4829ce49edb5"
+    }
+  ],
+  "source_rechecks": [
+    {
+      "url": "https://ar-kuf.ru/about/news/itogi-raboty-v-novogodnie-prazdnik/",
+      "publisher": "Курумоч / Аэропорты Регионов",
+      "published": "2026-01-14",
+      "period": "2025 calendar year",
+      "checked": "2026-11-09",
+      "status": "PRIMARY_RECHECKED",
+      "supports": "47000 passengers on Mineralnye Vody route",
+      "limits": "No OD or winter directional profile; two-direction/symmetry normalization is assumption"
+    },
+    {
+      "url": "https://flyredwings.com/about/park/",
+      "publisher": "Red Wings",
+      "period": "Undated page available at audit",
+      "checked": "2026-11-09",
+      "status": "PRIMARY_RECHECKED",
+      "supports": "SSJ100 100 seats",
+      "limits": "Not available additional fleet"
+    },
+    {
+      "url": "https://www.airportufa.ru/upload/medialibrary/38c/4agy8jfom9bcf7504sc6m053wnfjo646.pdf",
+      "publisher": "АО Международный аэропорт Уфа",
+      "period": "effective 2026-08-17",
+      "checked": "2026-11-09",
+      "pages_1_based": [
+        1
+      ],
+      "status": "PRIMARY_RECHECKED_HASH_MATCH",
+      "sha256": "2099eebce85b10435715ce3aae126866c51b4938f74affbba43432e9ea1bf644",
+      "supports": "133200 RUB/t excluding VAT",
+      "limits": "Public UFA reference, not network contract"
+    },
+    {
+      "url": "https://www.airportufa.ru/upload/medialibrary/be3/76qp5v5bwi8cc5ka59wyd0q179l3biy6.pdf",
+      "publisher": "АО Международный аэропорт Уфа",
+      "period": "effective 2026-11-01",
+      "checked": "2026-11-09",
+      "pages_1_based": [
+        1,
+        2,
+        3
+      ],
+      "status": "PRIMARY_RECHECKED_HASH_MATCH",
+      "sha256": "5466152033894f99f00cb36bf003081a0245e3741bb6c439cd6f89e0a9fa9037",
+      "supports": "553/499 RUB per MTOW tonne,70.5/268 per domestic pax,19300 stairs,8100 bus,1696 uplift,49970/65000 deice,16668 SSJ release/receipt",
+      "limits": "Basket composition, materials, rebates and RW contracts unknown"
+    }
+  ],
+  "artifact_manifest": [
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/README.md",
+      "sha256": "5610d3ccdb72db024ba2477654e65f0ef614361db8e0a27ae69963d8901c9e07",
+      "bytes": 40040,
+      "role": "Авторская интерпретация результатов; не решение команды"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/access_log.json",
+      "sha256": "ee2bcda07290407000b0c3340d0c3979a654ade7664d1439471e41ecc7b9c254",
+      "bytes": 7456,
+      "role": "Метаданные успешных/неуспешных GET; ошибка доступа не отсутствие рейса"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/advertised_fares.json",
+      "sha256": "2db4bbe59d43b20e14b3d672eef5df59d16cf203a16a4e78c464e10ec1d0817b",
+      "bytes": 8516,
+      "role": "Рекламные минимумы; не matched quote/realised fare"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/block_times.csv",
+      "sha256": "2d7350883be049d9bf7d019d1fa2e241281bc2ff0d3f1359738480dc2e3002f6",
+      "bytes": 7301,
+      "role": "Время по направлению: SSJ/иной реактивный аналог/сценарий"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/break_even_yield_cost.csv",
+      "sha256": "71d060588a943d99631027b420817323946f8c726d93fee4740a5ad8ecfdf877",
+      "bytes": 3291,
+      "role": "Условная граница дохода на поездку и рейсовых затрат; fixed sales"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/capture_sensitivity.csv",
+      "sha256": "999a7a0cbf8c9ab0f932de77c7ba5df060ce371ad5a83a0f37f689d9b93529c6",
+      "bytes": 27748,
+      "role": "Меняется capture А при фиксированном рынке; не рост OD"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/capture_transfer_thresholds.csv",
+      "sha256": "ebd601c2645deaeff37d5f58cfcfb8a2ec36263d03bcb72f5f9afbf160595a7e",
+      "bytes": 1267,
+      "role": "Пороги capture; поле max требует исправления NE-02"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/city_data_inventory.csv",
+      "sha256": "ced7fd4f01a0a54a67a633b603afde4f5ead2be30f796248e9454d0dd7d2a68a",
+      "bytes": 5301,
+      "role": "10 городов, указатель известных и отсутствующих показателей"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/city_ranking_update.csv",
+      "sha256": "f19b045b0730e10085a34fba2fba64caffa2276b05527f8960bcaeb6c9de5bdf",
+      "bytes": 1951,
+      "role": "4 постановки ×4 веса; чувствительность score"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/city_ranking_update_full.csv",
+      "sha256": "4c7529b624ad38afdea20a9525eb43c34b7b74eac6423eec81e4c79ed363ab7f",
+      "bytes": 7128,
+      "role": "Полный порядок8 кандидатов в16 сочетаниях; не экономика UFA"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/comparison_chart.html",
+      "sha256": "b039672d139565cd08cb761c80904870ed47084a588f7f2d0669a97beae3e10e",
+      "bytes": 3948,
+      "role": "Шесть итогов и линейный расход базы; browser QA NOT_RUN"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/comparison_cost_thresholds.csv",
+      "sha256": "d6b5ed8ca520c3ca12f366e78cfc2b0d4cd42fdfa17693444b761aee1ff39046",
+      "bytes": 563,
+      "role": "Однофакторные границы равенства А/Б0"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/competition.csv",
+      "sha256": "6d114450d772031a12095e29e881c9af718ebef742ad6b2bec7bbaa7077ae699",
+      "bytes": 36695,
+      "role": "31пара ×2направления ×2недели; UNKNOWN отдельно от NOT_LISTED"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/evidence_notes.md",
+      "sha256": "3efa1c144eb020641f140591e1b73cf4645ca156758cb070cc90ee0661501ccd",
+      "bytes": 13275,
+      "role": "Происхождение, PDF pages, ошибки и ограничения источников"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/fare_checks.json",
+      "sha256": "c9d5dd2573f889bbc5f8dcc92405d3d9a33708323551fcecac0545f74bbe3c74",
+      "bytes": 9151,
+      "role": "Попытки сопоставимой цены; результата бронирования нет"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/flight_costs.csv",
+      "sha256": "7bf679422a95cfbadd9d883af12f9d80f63c65891f5dc7c22c967b84fe061916",
+      "bytes": 68909,
+      "role": "Расходы каждого рейса в каждом сценарии; passengers separately"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/hub_base_sensitivity.csv",
+      "sha256": "2bc79cfe4ea4f38587fcecb0af6b44a3902a7b6eed535ecb8fc7ce0bd03c2766",
+      "bytes": 43612,
+      "role": "Общий рост13 OD, общий рынок также для Б0; окна преимущества"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/hub_reassigned_flights.csv",
+      "sha256": "77af9f056cb00221f56138ac73dad550ade9a37899f68b10be354a6085e69613",
+      "bytes": 3730,
+      "role": "А после перестановки оборотов; без crew/ТО/slots"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/hub_reassignment.csv",
+      "sha256": "43ff481a0ecba897db67fcb5d32b00448a16bbac054279b6619520e785d19079",
+      "bytes": 1008,
+      "role": "Проверенная раскладка4бортов в базе"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/incumbent_migration_caps.csv",
+      "sha256": "5c805986f4c4e0fdcf79f5075dbc3b6659ff25af43b529f0f72e2951e6b7b736",
+      "bytes": 596,
+      "role": "6направлений прежних прямыхRW, потолки мест, не пассажиры"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/incumbent_redeployment_bound.csv",
+      "sha256": "304d199697c6f7b9e18b819613ab8cfa9868a99e7c80e0dfbfa0a3d4e2af3ccc",
+      "bytes": 1401,
+      "role": "Сценарный кредит снятия рейсов; не полный replacement case"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/inputs.json",
+      "sha256": "fa01af9c7146a03f5a77789c7b74324d7984cdb88ef023e7bade0f54fccf1e93",
+      "bytes": 35888,
+      "role": "31рынок, два сценария, единицы и явные допущения"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/itinerary_sales.csv",
+      "sha256": "1426fc912f4496da0b514e208c1d3b60cd09c1bac13bfef3b850907ec23c0c1c",
+      "bytes": 146783,
+      "role": "Продажа одной направленной датированной поездки/сценария; связи flight_ids"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/network_comparison.csv",
+      "sha256": "2250f654f5012ac4b18e0a7c80e2baaa93586052ab9d075b08f469e7279acd96",
+      "bytes": 2167,
+      "role": "6итогов; operating contribution доfixed fleet/base"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/operational_audit.csv",
+      "sha256": "3633bdeab550fac7d94e0aa3414406fc78fa24da85b72a5d89d04f707de757d4",
+      "bytes": 3846,
+      "role": "72 самолёто-дня исходных цепочек; нарушения не скрыты"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/operational_stress.csv",
+      "sha256": "c250855f17c6649ec1638a9812d26b44bd19a2b5ca6cbee44ff0b0a7dd4c4bec",
+      "bytes": 2269,
+      "role": "3времени ×2turn ×3сети; только time stress"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/pair_results.csv",
+      "sha256": "f0878baf7c3b316c691e24313d1a584c09e851e99ac849e27d3447b7b8d5b153",
+      "bytes": 9625,
+      "role": "90пар/сценариев/сетей; fare исходный, требует NE-01"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/pair_thresholds.csv",
+      "sha256": "919b760e4364a198c397397887229c1c8922604749b85d24d52e90ec6128cc5d",
+      "bytes": 12941,
+      "role": "Отдельный прямой продукт без перетока/базы; не прибыль луча хаба"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/project_flights.csv",
+      "sha256": "26c61bec07623cb6e86f24a5a017ed020a966fd57c668e22ccf40fc9b6783284",
+      "bytes": 9330,
+      "role": "260проектных legs трёх альтернатив; исходная привязка бортов"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/published_cost_reference.csv",
+      "sha256": "371bfc1552bd5c2a541c0586d1bde213055e2750a6fd77bfc93b789fd958af46",
+      "bytes": 785,
+      "role": "11ценовых ориентиров Уфы с датой/страницей"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/published_flight_dates.csv",
+      "sha256": "af87c0b1627f67d28751aa493e631331a9dda54f0a4e3f3f1a9b40331af7966b",
+      "bytes": 20729,
+      "role": "180датированных строк после дедупликации двух недель"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/questions.md",
+      "sha256": "5eb44916dd2733fb4569718b91794fa8632ae88a07c52f1585ef077208ba3dda",
+      "bytes": 4699,
+      "role": "Открытые решения периода,baseline,ресурса,продукта,критерия"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/reinforcement_test.csv",
+      "sha256": "3c66b6b144160118057945f5d7a4494d48510061bf12a2b75ca1e56697b9a8f7",
+      "bytes": 1432,
+      "role": "4теста добавокБ кБ0; capacity-aware и uncapped пороги раздельно"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/result.json",
+      "sha256": "ac5a956393a57071f08df494b739ba6349f77064856d17ae561cc45d3633ce9e",
+      "bytes": 14728,
+      "role": "Машиночитаемая копия summaries/extra/thresholds/reassignment"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/robustness.csv",
+      "sha256": "6112eba5f1beac42f5ee511d2ffc738c1830f10beeba2885a7acfffadce4d54a",
+      "bytes": 3917,
+      "role": "48выходов8проверок ×3сети ×2сценария; вероятностей нет"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/schedule_date_conflicts.csv",
+      "sha256": "b7783c4bf2d7fd1cabbf452608631b75cff89447a0e88d18efdbac8a7c83704c",
+      "bytes": 914,
+      "role": "KUF→SVX13против12 задекабрьскуюнеделю"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/schedule_rules.json",
+      "sha256": "8654bb51dcaaf31be3a5a7008ff0950f9c967e1e4968a5ef4c1d42a6a68af5f0",
+      "bytes": 35087,
+      "role": "116извлечённых правил; published plan"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/schedule_time_conflicts.csv",
+      "sha256": "31320f82969d043b7d4cb7d2e53f616a1863892b71e832fef46659462574ee57",
+      "bytes": 2236,
+      "role": "23расхождениячасов; выбористочникавылета"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/sources.json",
+      "sha256": "03982ae0e5ed228cffce68518d6f0580e555111959e579bab255bf1bdb47f2ae",
+      "bytes": 10866,
+      "role": "18URL,hash,size,date; rawHTMLнеархивирован"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/tables.md",
+      "sha256": "32063059c92be4ad94e27ce39936cfd23b0ae3de9d4fa3658d1c5a158a4ab0f7",
+      "bytes": 28263,
+      "role": "Сгенерированные поясняющие таблицы; учесть NE-01"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/transfer_thresholds.csv",
+      "sha256": "e074e82d20badea704c6cd54dfffe11cda59eef7820510d1675fd5a556c67fb5",
+      "bytes": 1654,
+      "role": "Рострынка, а не capture; первые пересечения и окна"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/ufa_check.md",
+      "sha256": "36b5f7237a95c03ee47d39af98711c5c86cff871dd6f73b794056fb759299d2d",
+      "bytes": 8030,
+      "role": "Техническое уточнение UFA с границами допуска/ТО/контракта"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/12_network_economics/validation.json",
+      "sha256": "567f1d31ea4987bd7d38f0e057f88b46e6dd4cd7fda0aa9a04a0dc8fc6263f84",
+      "bytes": 1698,
+      "role": "Offline инварианты и hashes; ranking.csv не включён"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "scripts/build_network_economics.py",
+      "sha256": "2b241d3c263ea015f8c482e2c5f84c774795f496a84e7ab0aa8b79d89bee3e7c",
+      "bytes": 52888,
+      "role": "audited script"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "scripts/collect_network_sources.py",
+      "sha256": "9af64766fea05c616f8229fdd14888bb79a658efee4a58e87f3907c5c063ae31",
+      "bytes": 7203,
+      "role": "audited script"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/11_practical_screening/coordinates.json",
+      "sha256": "e09b454afadd0b20c2e00fee485aee4bd3b75cf5158b1783c0f7a9ed95278d04",
+      "bytes": 3633,
+      "role": "required upstream input"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/11_practical_screening/inputs.json",
+      "sha256": "cf54685151a083d39219a33dbe9b1b8ad344025f1ac5c55c8f1b2d3946890973",
+      "bytes": 15482,
+      "role": "required upstream input"
+    },
+    {
+      "commit": "91fdbe10e4454c94a20aeca6db38ffc68633ea48",
+      "path": "context/11_practical_screening/ranking.csv",
+      "sha256": "01efeaeb9d1dd816e331a5265de3bc2f0e26282ac54b9908388d25bcabf3a7a0",
+      "bytes": 8176,
+      "role": "required upstream input"
+    }
+  ],
+  "safety_and_scope": {
+    "existing_files_modified": false,
+    "branch_checkout_rebase_commit_push": false,
+    "paid_calls": false,
+    "external_POST": false,
+    "dependencies_installed": false,
+    "services_restarted": false,
+    "subagents_spawned": false,
+    "final_outputs": [
+      "context/14_synthesis/contributions/network_economics/report.md",
+      "context/14_synthesis/contributions/network_economics/findings.json"
+    ]
+  },
+  "memory_used": {
+    "path": "MEMORY.md",
+    "lines": [
+      142,
+      181
+    ],
+    "purpose": "Locate prior metric/provenance boundaries; all substantive claims verified against current source files",
+    "rollout_ids": [
+      "01a1b6bd-f955-7fe2-a69d-78b81fe5df0b",
+      "01a1b6d1-5b21-7113-9b8a-93239e4a29f3"
+    ]
+  }
+}
