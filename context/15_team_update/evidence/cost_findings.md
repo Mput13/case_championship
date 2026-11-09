@@ -1,0 +1,5 @@
+# Public cost evidence update — 2026-11-09
+
+Ufa's inherited public reference is a useful local benchmark, not a network-wide fuel assumption. Fuel is 133,200 RUB/t ex VAT (effective 2026-08-17 as recorded in the existing reference); the Ufa tariff separately lists uplift at 1,696 RUB/t from 2026-11-01. Other published Ufa items include MTOW-based takeoff/landing and security, departing-passenger terminal/service charges, and per-operation ground services.
+
+Important accounting checks for the parent: confirm whether uplift is charged in addition to fuel procurement; confirm passenger-service package overlap; determine whether VAT is recoverable and consistently excluded; establish the MTOW billing event/base and whether charges apply per movement. Do not double count overlapping ground-handling items. Public tariff does not establish a RW contract, discount, network fuel price, crew cost, maintenance cost, or burn rate. Crew/MRO/burn remain scenarios absent primary evidence. No financial calculation performed.

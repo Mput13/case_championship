@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "input_sha256": {
+    "context/12_network_economics/inputs.json": "fa01af9c7146a03f5a77789c7b74324d7984cdb88ef023e7bade0f54fccf1e93",
+    "context/12_network_economics/schedule_rules.json": "8654bb51dcaaf31be3a5a7008ff0950f9c967e1e4968a5ef4c1d42a6a68af5f0",
+    "context/12_network_economics/sources.json": "03982ae0e5ed228cffce68518d6f0580e555111959e579bab255bf1bdb47f2ae",
+    "context/11_practical_screening/coordinates.json": "e09b454afadd0b20c2e00fee485aee4bd3b75cf5158b1783c0f7a9ed95278d04",
+    "context/11_practical_screening/inputs.json": "cf54685151a083d39219a33dbe9b1b8ad344025f1ac5c55c8f1b2d3946890973",
+    "scripts/build_network_economics.py": "2b241d3c263ea015f8c482e2c5f84c774795f496a84e7ab0aa8b79d89bee3e7c"
+  },
+  "tests": [
+    "all segments within 100 seats including saturation stress",
+    "transfer consumes two seats and one fare",
+    "migrated passengers and foregone revenue separately reconciled",
+    "total offers on each directed OD never exceed independent scenario OD, including max capture stress",
+    "migration from confirmed old RW nonstops cannot exceed their published weekly seats; connecting baseline capacity UNKNOWN",
+    "same OD input used in direct and transfer alternatives",
+    "B0 preserved: 72 flights; B:92; A:96",
+    "spatial continuity and 45-minute turns",
+    "published schedule counted by dated flight, duplicates removed"
+  ],
+  "limitations": [
+    "scenario demand and choice coefficients not estimated",
+    "planning-cap violations are reported, not suppressed",
+    "no claim of closed booking fare or OD data",
+    "no annual traffic forecast",
+    "fleet/base fixed costs excluded; thresholds shown"
+  ]
+}

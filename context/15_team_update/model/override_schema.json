@@ -1,0 +1,33 @@
+{
+  "config": "Optional actual model configuration: planning_cap_block_h, turn_minutes, span_cap_h, spare_aircraft, active_aircraft, bank_wait_minutes, fleet_fixed_rub_aircraft_week, opportunity_rub_block_hour, new_base_fixed_rub_week. Null fixed costs stay unknown.",
+  "scenarios": "base/cautious -> existing scenario coefficient names, e.g. capture_uncertain or transfer_fare_factor. These remain assumptions unless calibrated.",
+  "markets": {
+    "A-B canonical alphabetical IATA pair": {
+      "demand_base": "endpoint journeys/week/direction",
+      "demand_cautious": "same unit",
+      "fare_base": "RUB net whole one-way journey",
+      "fare_cautious": "same unit",
+      "empirical_OD_lower": "NULL unless defensible empirical lower",
+      "empirical_OD_upper": "NULL unless defensible empirical upper",
+      "observed_OD": "NULL unless observed for the exact geography/period/direction",
+      "observed_net_fare": "same rule",
+      "rw_direct_seats_A": "confirmed incumbent direct seats/week in direction A to B; use actual IATA instead of A",
+      "evidence": "source URL or source id + extraction/date + period + unit + geography + definition",
+      "source_urls": "optional exact URLs",
+      "sources": "ids in frozen source registry or source_records",
+      "range_basis": "method supporting scenario bounds",
+      "capture_group": "open/competitive/uncertain, not measured share",
+      "cannibal_base": "scenario fraction, not observed traffic"
+    }
+  },
+  "block_minutes": {
+    "ORIGIN-DESTINATION": "directional minutes; not canonical sorted pair; provide exact source/provenance in source_records"
+  },
+  "ranking": {
+    "city_values": "IATA -> field overrides with transfer_source/base_source/etc; original team replay remains frozen",
+    "confirmed_competitor_bases": "IATA list, presence of base is NOT share/dominance",
+    "possible_competitor_bases": "IATA list tested only as lead stress"
+  },
+  "source_records": "list of {id,url,as_of,period,unit,geography,definition,status}; included in override hash",
+  "CSV_NULL": "Empty CSV cell represents JSON null/UNKNOWN; no missing empirical input is imputed as observed zero"
+}
