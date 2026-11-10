@@ -1,0 +1,292 @@
+{
+  "subject": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+  "status": "PASS",
+  "count": 32,
+  "rejected_mutations": 16,
+  "probes": [
+    {
+      "name": "MCT_59.983333333333334",
+      "result": "BOUNDARY_PASS",
+      "wait_minutes": 59.983333333333334,
+      "expected_journeys": 0,
+      "oracle_journeys": 0.0,
+      "owner_solver_journeys": 0.0,
+      "year_boundary": true
+    },
+    {
+      "name": "MCT_60",
+      "result": "BOUNDARY_PASS",
+      "wait_minutes": 60,
+      "expected_journeys": 1,
+      "oracle_journeys": 1.0,
+      "owner_solver_journeys": 1.0,
+      "year_boundary": true
+    },
+    {
+      "name": "MCT_180",
+      "result": "BOUNDARY_PASS",
+      "wait_minutes": 180,
+      "expected_journeys": 1,
+      "oracle_journeys": 1.0,
+      "owner_solver_journeys": 1.0,
+      "year_boundary": true
+    },
+    {
+      "name": "MCT_180.01666666666668",
+      "result": "BOUNDARY_PASS",
+      "wait_minutes": 180.01666666666668,
+      "expected_journeys": 0,
+      "oracle_journeys": 0.0,
+      "owner_solver_journeys": 0.0,
+      "year_boundary": true
+    },
+    {
+      "name": "UTC_offsets_false_wallclock_90",
+      "result": "BOUNDARY_PASS",
+      "wallclock_wait_minutes": 90,
+      "actual_UTC_wait_minutes": -90,
+      "oracle_and_owner_journeys": 0
+    },
+    {
+      "name": "wrong_date_same_clock",
+      "result": "BOUNDARY_PASS",
+      "naive_clock_wait_minutes": 90,
+      "actual_wait_minutes": 2970,
+      "accepted_journeys": 0
+    },
+    {
+      "name": "duplicate_itinerary_shared_market",
+      "result": "BOUNDARY_PASS",
+      "candidate_itineraries": 2,
+      "independent_naive_sales": 10,
+      "accepted_total_journeys": 5.0,
+      "owner_solver_journeys": 5.0,
+      "occupied_seat_segments": 10.0
+    },
+    {
+      "name": "each_leg_capacity",
+      "result": "BOUNDARY_PASS",
+      "inbound_inventory": 10,
+      "outbound_inventory": 4,
+      "demand": 10,
+      "journeys": 4.0,
+      "segments": 8
+    },
+    {
+      "name": "double_fare_for_two_seats",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "fare": 1000,
+      "two_pax_costs": 200,
+      "two_supports": 100,
+      "correct_margin": 900,
+      "mutant_margin": 1900
+    },
+    {
+      "name": "negative_transfer_margin",
+      "result": "BOUNDARY_PASS",
+      "available_demand": 5,
+      "unit_margin": -1,
+      "accepted_journeys": 0
+    },
+    {
+      "name": "weekly_max_instead_of_min",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "case": "DELAY6/base_sub/OMS/2028",
+      "week": "2028-10-30",
+      "daily_working": [
+        3,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "mutant_selected": "AUTHOR_52_48_CONCENTRATED/base_sub/OMS/GREEDY/cap6",
+      "mutant_required": 5,
+      "correct_selected": "AUTHOR_52_48_CONCENTRATED/base_sub/OMS/GREEDY/cap4"
+    },
+    {
+      "name": "Saturday_entry_no_midweek_launch",
+      "result": "BOUNDARY_PASS",
+      "week": "2027-07-26",
+      "availability": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2
+      ],
+      "selected": "KEEP",
+      "next_full_week": "2027-08-02"
+    },
+    {
+      "name": "partial_last_year_week_times_seven",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "year": 2027,
+      "week": "2027-12-27",
+      "days_in_year": 5,
+      "correct_source_transfer_quota": 877.4208757026154,
+      "mutant_quota": 1228.3892259836616
+    },
+    {
+      "name": "leap_year_365_denominator",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "annual_bidirectional_OD": 365000,
+      "correct_daily_both_directions": 997.2677595628415,
+      "mutant_daily": 1000
+    },
+    {
+      "name": "recapture_closed_cautious_days",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "case": "PHASED/cautious_sub/OMS/2028",
+      "week": "2027-12-27",
+      "correct_quota": 75.76534842326419,
+      "mutant_quota": 82.04176781927423
+    },
+    {
+      "name": "year_split_policy_limit",
+      "result": "HELD_OUTSIDE_PINNED_INPUTS",
+      "synthetic_week": "2027-12-27/2028-01-02",
+      "synthetic_daily_working": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "per_year_minima": [
+        2,
+        3
+      ],
+      "whole_week_minimum": 2,
+      "executed_owner_weekly_policy_ids": [
+        "AUTHOR_52_48_CONCENTRATED/base_sub/OMS/GREEDY/cap2",
+        "AUTHOR_52_48_CONCENTRATED/base_sub/OMS/GREEDY/cap4"
+      ],
+      "current_actual_cross_year_program_changes": 0,
+      "claim": "Exact supplied calendars pass; no generalized proof for a changed Jan1 delivery schedule"
+    },
+    {
+      "name": "Sunday_retime_crosses_week_boundary",
+      "result": "OWNER_HELPER_REJECTS",
+      "shift_minutes": 30,
+      "date_before": "2028-08-13",
+      "date_after": "2028-08-14"
+    },
+    {
+      "name": "Monday_negative_retime_crosses_boundary",
+      "result": "OWNER_HELPER_REJECTS",
+      "shift_minutes": -30,
+      "original_date": "2028-08-07"
+    },
+    {
+      "name": "discard_internal_losing_markets",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "correct_signed_delta": 4507578.986112379,
+      "losing_markets": 8
+    },
+    {
+      "name": "repeat_held_local_migration_in_sync_delta",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "fixture_local": 50,
+      "fixture_migrated": 20,
+      "fixture_local_contribution": 16500,
+      "correct_transfer_only_delta": 4507578.986112379,
+      "mutant_delta": 4486578.986112379,
+      "scope": "Synthetic nonzero migration; source OMS12 has zero listed local migration, external loss remains UNKNOWN"
+    },
+    {
+      "name": "annualize_new_week_without_dated_rerun",
+      "result": "HELD_CLAIM",
+      "annual_projection": "NOT_RUN",
+      "scope": "No annual after-retime result exists"
+    },
+    {
+      "name": "prorate_external_block_to_C31_week",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "reserved_seat_segments": 160,
+      "correct_payment": 480000,
+      "mutant_payment": 134400,
+      "overstatement": 345600
+    },
+    {
+      "name": "pay_only_sold_block_seats_cautious",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "sold_journeys": 46.332021994581545,
+      "reserved_segments": 160,
+      "correct_payment": 480000,
+      "mutant_payment": 138996.06598374463
+    },
+    {
+      "name": "repeat_C31_across_whole_C35_month",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "one_week_C31_ceiling": 2117413.6760571776,
+      "correct_joint_ceiling": 2704805.6760571776,
+      "mutant_joint_ceiling": 9057046.70422871
+    },
+    {
+      "name": "old_endpoint_demand_replaces_allmarket_inventory",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "protected_existing_all_market": 85,
+      "new_through": 10,
+      "correct_physical_occupancy": 95,
+      "mutant_small_endpoint": 5,
+      "mutant_total": 15
+    },
+    {
+      "name": "commercial_LF_equals_physical_acceptance",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "physical_capacity": 100,
+      "planning_limit": 85,
+      "occupied": 95,
+      "physical_pass": true,
+      "commercial_policy_pass": false
+    },
+    {
+      "name": "missing_old_Tu_donor",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "correct_at_old_Tu_loss_1m": 1704805.6760571776,
+      "mutant_no_old_Tu": 2704805.6760571776
+    },
+    {
+      "name": "duplicate_C35_own_loss_as_external_donor",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "own_loss_already_in_C35": 200000.0,
+      "correct_ceiling": 2704805.6760571776,
+      "mutant_ceiling": 2504805.6760571776
+    },
+    {
+      "name": "count_common_MRV_old_revenue_again",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "common_MRV_revenue_cancels": 4700024.0,
+      "mutant_joint_ceiling": 7404829.676057178
+    },
+    {
+      "name": "recount_f4_as_increment_over_f2",
+      "result": "REJECTED_BY_REVIEW_ORACLE",
+      "correct_frequency_increment": "f4 - f2",
+      "mutant": "all f4 counted again"
+    },
+    {
+      "name": "signed_external_effect_and_Tu_donor",
+      "result": "BOUNDARY_PASS",
+      "formula": "delta=4,507,578.986 -101*k_shift -K_fixed +D_external; D can have either sign",
+      "joint_formula": "C31_ceiling+C35-L_Tu-Tu_allin-K+other_signed_delta",
+      "old_Tu_negative_contribution": -1000000,
+      "ceiling_if_old_Tu_loss_negative": 3704805.6760571776,
+      "unknown_actual_values": "retained as UNKNOWN; zero values are probes"
+    },
+    {
+      "name": "internal_feed_is_separate",
+      "result": "HELD_VARIANT",
+      "external_payment_applies_to": "external-feed union only",
+      "own_feed": "not in union and not charged external block"
+    }
+  ],
+  "scope": "Synthetic in-memory changes and actual-case mutants; no original source/raw/frozen edits. Owner rejection claimed only where explicitly executed."
+}
