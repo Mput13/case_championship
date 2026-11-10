@@ -1,0 +1,98 @@
+{
+  "verdict": "IMPACT_REVIEW_COMPLETE_WITH_QUALIFICATIONS",
+  "full_model_acceptance": false,
+  "frozen_replacement": false,
+  "findings": [
+    {
+      "id": "LCI-01",
+      "severity": "P2",
+      "status": "FIXED_SCOPED",
+      "title": "Повторный захват физической пары внутри прямой сети исправлен",
+      "evidence": [
+        "b91e0672:src/network_model.py:281-340",
+        "shared_pair_examples.csv",
+        "checks.json"
+      ],
+      "impact": "OMS-MOW base: 87497.790 independent vs 80581.036 pooled; six repeated exported pairs checked",
+      "acceptance": "pool arithmetic and narrow greedy fixture only"
+    },
+    {
+      "id": "LCI-02",
+      "severity": "P2",
+      "status": "OPEN_SEMANTIC_LIMIT",
+      "title": "Новый OD не подключён к сетевым деньгам и пересадочному критерию",
+      "evidence": [
+        "b91e0672:src/network_model.py:43-69",
+        "b91e0672:src/network_model.py:142-153",
+        "b91e0672:src/transfer_potential.py:25-48",
+        "b91e0672:src/od_model.py:120-176"
+      ],
+      "impact": "Segment observations continue to be treated as local/end-to-end trips; numeric economics delta from OD correction is UNKNOWN",
+      "smallest_next_step": "Explicit OD-vs-segment adapter and separate input_set/replay; do not rename current run to corrected OD economics"
+    },
+    {
+      "id": "LCI-03",
+      "severity": "P2",
+      "status": "REPORT_QUALIFICATION_REQUIRED",
+      "title": "Первое место нельзя объявлять безусловно устойчивым",
+      "evidence": [
+        "b91e0672:docs/25_step1_open_questions.md",
+        "compared_top3.csv"
+      ],
+      "impact": "OMS main score 0.616; rank interval 1-8; local-profile robustness is narrower than operational uncertainty",
+      "smallest_next_step": "State first under selected central inputs; retain rank interval and weights AUTHOR_PROPOSAL"
+    },
+    {
+      "id": "LCI-04",
+      "severity": "LIMITATION",
+      "status": "OPEN",
+      "title": "Погодный знаменатель исправлен; операционный эффект не установлен",
+      "evidence": [
+        "b91e0672:src/catchment_extra.py:86-147",
+        "b91e0672:src/fetch_weather.py:33-51",
+        "checks.json"
+      ],
+      "impact": "Sentinel fixture PASS; no raw archive replay, hourly completeness or SJ-100 delay calibration",
+      "smallest_next_step": "Compare with weather UNKNOWN/weight zero and inspect stations before interpreting weight7 as predictive"
+    },
+    {
+      "id": "LCI-05",
+      "severity": "P3",
+      "status": "CONFIRMED_RETAINED_DEFECT",
+      "title": "Интервалы места неверны при точных ничьих произвольных весов",
+      "evidence": [
+        "b91e0672:src/longlist_score.py:107-108",
+        "checks.json:rank_tie_counterexample"
+      ],
+      "impact": "ssj_ops-only example reports worst rank1 for all20; default exported score order unaffected",
+      "smallest_next_step": "Use stable tie precedence in interval rank comparisons; narrow regression on equal scores"
+    },
+    {
+      "id": "LCI-06",
+      "severity": "LIMITATION",
+      "status": "OPEN_POLICY_AND_SOURCE_BOUNDS",
+      "title": "Веса, радиус и границы слабых фактов остаются условными",
+      "evidence": [
+        "b91e0672:data/assumptions/longlist_weights.csv",
+        "b91e0672:data/assumptions/longlist_params.csv",
+        "b91e0672:data/manual/pax_2025_overrides.csv",
+        "b91e0672:src/catchment_extra.py:158-169"
+      ],
+      "impact": "New normalized weights proposed, catchment75km unchanged, greater-than source upper limits assumed",
+      "smallest_next_step": "Keep author proposal and source lower bounds distinct; no silent team acceptance"
+    },
+    {
+      "id": "LCI-07",
+      "severity": "LIMITATION",
+      "status": "OPEN_ECONOMIC_SCOPE",
+      "title": "Экспорт — вклад после переменных затрат; полный бюджет и текущий baseline отсутствуют",
+      "evidence": [
+        "b91e0672:src/network_model.py:18",
+        "b91e0672:src/network_model.py:391-420",
+        "compared_economics.csv"
+      ],
+      "impact": "All12 exported contributions negative; no claim about best corporate strategy or observed profits",
+      "smallest_next_step": "Full budget and matched existing-network baseline before strategic comparison"
+    }
+  ]
+}

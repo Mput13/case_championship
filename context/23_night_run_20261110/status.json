@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "INPUTS_FROZEN_REPORT_ASSEMBLY",
-  "updated_at_utc": "2026-11-10T06:35:21.100833+00:00",
+  "updated_at_utc": "2026-11-10T06:45:03.062339+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -381,7 +381,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-late-colleague-impact-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-late-colleague-impact-20261110-r1",
       "link": "[Sol 6.1: изменения новой модели Насти при freeze](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-late-colleague-impact-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
       "options": [
         {
@@ -390,7 +390,9 @@
         }
       ],
       "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it.",
-      "input_sha": "d8ea350a0388d35f5b559f65a57109d862d2eb85"
+      "input_sha": "d8ea350a0388d35f5b559f65a57109d862d2eb85",
+      "pushed_sha": "60109f632e7f2edd05d1b1e202ce83f404457c3b",
+      "acceptance": "SCOPED_IMPACT_APPENDIX_ONLY"
     }
   ],
   "checkpoints": [
@@ -742,6 +744,15 @@
       "parent_output_hashes_verified": 520,
       "acceptance": "FROZEN_SYNTHESIS_PRIOR_SCOPED_PASSES",
       "frozen": true
+    },
+    "late_colleague_impact": {
+      "sha": "60109f632e7f2edd05d1b1e202ce83f404457c3b",
+      "path": "late_appendices/colleague_b91",
+      "acceptance": "SCOPED_IMPACT_ONLY; POST_FREEZE_APPENDIX",
+      "subject_sha": "b91e0672af396bacd91651abeff8732fa733859d",
+      "parent_output_hashes_verified": 69,
+      "parent_source_git_hashes_verified": 56,
+      "original_contact_metadata_omitted": true
     }
   },
   "queued_tasks": [
@@ -952,14 +963,15 @@
     {
       "request_id": "LATE_COLLEAGUE_IMPACT",
       "role": "late_colleague_impact",
-      "state": "DISPATCHED",
+      "state": "COMPLETED",
       "required_new_delegate_task": true,
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-late-colleague-impact-20261110-r1",
       "input_sha": "d8ea350a0388d35f5b559f65a57109d862d2eb85",
-      "brief": "briefs/late_colleague_impact.md"
+      "brief": "briefs/late_colleague_impact.md",
+      "result_sha": "60109f632e7f2edd05d1b1e202ce83f404457c3b"
     }
   ],
-  "active_sol_count_at_checkpoint": 2,
+  "active_sol_count_at_checkpoint": 1,
   "last_checkpoint": "freeze_0930.json",
   "question_register": "question_register.csv"
 }
