@@ -1,0 +1,42 @@
+{
+  "version": "MR02-primary-checks-v1",
+  "verification_role": "SELF_CHECK_NOT_INDEPENDENT_ACCEPTANCE",
+  "network_requests_in_MR02": 0,
+  "KHV_new_pdf": {
+    "url": "https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf",
+    "sha256": "e0a64e7a328f5eed24b91a287479d7027ed9515a96a03fbf968fcf6819cc2be9",
+    "raw_hash_verified": true,
+    "pages_visually_read_in_this_run": [1, 7],
+    "selected_rows": {
+      "1.1.1_RUB_per_t_MTOW": 700,
+      "1.1.1_effective_from": "2026-02-10",
+      "1.2.1_RUB_per_t_MTOW": 609,
+      "1.2.1_effective_from": "2026-02-10",
+      "1.1.1.1_conditional_surcharge_percent": 40,
+      "1.4.3_40to60t_RUB_per_day": 25224,
+      "1.5.3_40to60t_RUB_per_hour": 1051,
+      "1.6.3_40to60t_RUB_per_month": 133477,
+      "2.1_stairs_RUB_per_unit": 9144,
+      "2.1_effective_from": "2026-01-16",
+      "2.2.1_bus_RUB_per_vehicle": 4740,
+      "2.2.1_effective_from": "2026-01-16"
+    },
+    "VAT_note_page7": "Published rates exclude VAT; VAT added under applicable law. No statutory percentage or RW recoverability inferred.",
+    "publication_date_not_effective_date": "PDF path contains 2026_11; general list starts1Jan2026 and individual rows carry their own dates",
+    "render_recipe": "pdftoppm -f 1 -l 1 -scale-to 1800 -singlefile -png raw_hold/khv_tariff_202611.pdf raw_hold/khv_new_page1; repeat for page7",
+    "publication": "Full primary PDF, text and PNG renders LOCAL_IGNORED_ONLY; selected numeric facts and receipt only in Git"
+  },
+  "KHV_old_pdf": {
+    "sha256": "be2e98cdf0a53fecb7c25a2bbc75335da4dd5079daaedc46145de53b641ee7db",
+    "raw_hash_verified": true,
+    "selected_row_review": "Inherited authorised parent extract, not independently visually reviewed in MR02"
+  },
+  "UFA_OMS": {
+    "source_commit": "505e24663e5952bae9b9540bb9a5a622663bfc2a",
+    "extraction": "Inherited selected tariff rows, dates, units, receipts; author/extract arithmetic checked here",
+    "primary_raw_hash_verification_in_MR02": "NOT_RUN; source-manifest hashes preserved from pinned core",
+    "UFA_fuel_cross_check": "136300 RUB/t exVAT effective11Nov2026 is also in critic@fd086bad and Tsiri override; no independent review inferred from agreement",
+    "RW_contract": "UNKNOWN"
+  },
+  "statistical_claims": "No downtime, cancellation probability, expected profit or confidence interval inferred from publication days"
+}

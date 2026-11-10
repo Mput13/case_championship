@@ -1,11 +1,17 @@
 {
-  "package": "methods-common-v3",
+  "package": "methods-strategy-v4",
   "independent_review": "PENDING",
   "files": [
     {
       "path": ".gitignore",
       "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
       "bytes": 19,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "acceptance_events.json",
+      "sha256": "396980c6defc04beb5833b808eafcf527c6e40da1635b85b50bb3ff36668c8ad",
+      "bytes": 2948,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
@@ -82,13 +88,13 @@
     },
     {
       "path": "change_log.md",
-      "sha256": "dfabad9882cf227290ebead81e26d67f6ae7bbfd569329c314d4d8d07e70ae0a",
-      "bytes": 2097,
+      "sha256": "5aa604c2fb15e6eb19c6ea9fe9e73521350a2f745eb2b325c6627dcc17b7defa",
+      "bytes": 2682,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
       "path": "check_package.py",
-      "sha256": "9921df041ad0ef007a390af0fee607028d712607fe497946d2612cb40cfd91db",
+      "sha256": "b37b821facd69133ce8ca7787a54fbfc3d5d358965d583af975718bc1fc8662a",
       "bytes": 3200,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
@@ -96,6 +102,18 @@
       "path": "checks/budget_v1_lp.json",
       "sha256": "c02256e87cf871f88638800ce91e89761def770f9711b498d34c635aab865534",
       "bytes": 1970,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "checks/kover_timebase/probe.json",
+      "sha256": "04160cab12c8990609de6a6c339cd103158d556690ef019887f462a5f7970056",
+      "bytes": 4524,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "checks/kover_timebase/timestamp_mismatches.csv",
+      "sha256": "a80c515b5d1be243dcff5b85a9e66cdf1464b34f3067eac1bcf3e5f0edac31fe",
+      "bytes": 1868,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
@@ -130,8 +148,8 @@
     },
     {
       "path": "decisions.json",
-      "sha256": "de88b06255e56a7f33af74fc3187d88ef8eec952435361287660b4ce95cd902d",
-      "bytes": 10042,
+      "sha256": "79e9516b5279cda162d3a50a7d705bb5ff15e54c31ba04f78c8912dd3cfa3870",
+      "bytes": 12148,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
@@ -142,9 +160,435 @@
     },
     {
       "path": "handoff.json",
-      "sha256": "73a26d1fd0a07f8755c56262dd98b2078b5741f102d66b0140c70016737fb06e",
-      "bytes": 2881,
+      "sha256": "2ba7f63de0c4b16624fe8cc01c37a6c5ebeafbfe93aabda3ccdfc6bb2c14cca0",
+      "bytes": 3332,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "inputs/budget-review-001/findings.json",
+      "sha256": "2d0ffa95d829d3de3c4c919851c80cc9106e1ba4f904b04cc769c3ce0886d897",
+      "bytes": 6100,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/budget-review-001/handoff.json",
+      "sha256": "3faf03cee173075b8cfff61114c245979b32ea29aeac14966c6619bc7bcdfc22",
+      "bytes": 4328,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/budget-review-001/receipt.json",
+      "sha256": "3db44be9e15d6ef61369e07f1dd0f5feafcccd6500badefbe952ce03742a072c",
+      "bytes": 1529,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/budget-review-001/report.md",
+      "sha256": "acc85c1982425c718e704e06b55dfff439487bf26f4903ebfbbcb2d5a28288a9",
+      "bytes": 29682,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/affected_journeys.csv",
+      "sha256": "d9d1098ba45605c968383a904544854432eb0b8256c4ccdad6413d457efe7e88",
+      "bytes": 171656,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/affected_legs.csv",
+      "sha256": "c6106048c61440748d31bea3205d306ea4f97fa117588054b70fe699be1fe001",
+      "bytes": 99140,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/author_flight_cost_components.csv",
+      "sha256": "f0c0251ef62f79756bb0a80da8138e304c37c5798e90e339068ff94cc1b7f57f",
+      "bytes": 247676,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/baseline_checks.json",
+      "sha256": "38833843ec339c175d22b7af66cab90508c6ff732daba52a059a5b68cd76af16",
+      "bytes": 2722,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/budget_terms.csv",
+      "sha256": "8f9a28bde51c466fb976a0a4bf6402a3b4c9877a138dfe0141f0bc58c9c4e77a",
+      "bytes": 5150,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/build_registry.py",
+      "sha256": "5d840b55ed26cd496d5eeb38df1958ba63a0f4b200e07d7278e27207dd66bc60",
+      "bytes": 17863,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/checks.json",
+      "sha256": "b06d04a26f0803d7a5672ae81b85ab06423572149ef8bd99f53b02b7391d7678",
+      "bytes": 1902,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/checks.py",
+      "sha256": "41066ccfaf255425cd733a33ec42fef222fcd3de7c27024f1db35dc0bcd48761",
+      "bytes": 10096,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/cost_cash_bridge.csv",
+      "sha256": "14d34242277cd91debccd96ba75c4aab8d3a9ef134ee5d711a46158f69549e8a",
+      "bytes": 61502,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/cost_parameters.csv",
+      "sha256": "724f9ff05ae50710586b5dc73e5c461a2f5026dc90509554d938e912e4e8543e",
+      "bytes": 59345,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/findings.md",
+      "sha256": "9c381bb6e6173757773720594d30a5c4f04702ebbd74cefeb83fd9eb635c65e1",
+      "bytes": 25955,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/freeze_inputs.py",
+      "sha256": "7e6091bf9d02c6f87590f6cf33f17358f2f4fc1520d1443686a49b8f9307d94d",
+      "bytes": 8968,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/handoff.json",
+      "sha256": "34b2f3d920fd0fafd9bfe443762e7fbf9e0b089a291ca7dd086bdb28d4a44b0b",
+      "bytes": 5221,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/core_registry.csv",
+      "sha256": "5727ce0df3b9e606240f46db928ebf0a82dacb262ed43f4a9f90db15d83c10ef",
+      "bytes": 33324,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/critic_ufa_fuel.json",
+      "sha256": "2eb3507fb7ee4330a6039f88841721ac41cc4dc0a76800475074929b7f941131",
+      "bytes": 522,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/khv_cost_components.csv",
+      "sha256": "193a1538671748fb7193b8a376805d3b9a558707d3abfd8dced2584d5aa599c0",
+      "bytes": 11745,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/khv_revision_differences.csv",
+      "sha256": "c01aeb1b2f09cd1b8315fa088afb656da034fc663d479f903636c2a0a396af70",
+      "bytes": 1232,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/khv_tariff_202611.json",
+      "sha256": "4547d7991148ccf95d0f7183e3e419e7efb1659f2e7339b0de84ba469bc37438",
+      "bytes": 1476,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/khv_tariff_current.json",
+      "sha256": "e9d1458238dc48f726688307843d33797d90e038df8908c7997c292c6e525834",
+      "bytes": 1478,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/khv_tariff_index.json",
+      "sha256": "47c70122f8c4a2f196157804400e57e41847a15d491591a2845d84fea3b16474",
+      "bytes": 1366,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/methods_comparison_spec.md",
+      "sha256": "be281ebaf9d98fc17315c654d29f045bbf4b866162a5671cc906aecf5147472c",
+      "bytes": 34874,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/methods_decisions.json",
+      "sha256": "aa12ad7ca699477970b5232657d9ebab97bf632a0f913e56cd740779693e0260",
+      "bytes": 5532,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/methods_requests.json",
+      "sha256": "109664cc1cbb4a385a26ba6164a7a0cf840d81c3f66760033689d3ba65260409",
+      "bytes": 4157,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/nastya_network.csv",
+      "sha256": "76817e7e2e7a6fd597823b88459b123a69aaac17c28d65088c176cb9d23c4fe6",
+      "bytes": 5839,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/nastya_network_model.py",
+      "sha256": "a88247013b779efd8b72cac40dea0f6da7414399b1346a8bad5df07f3ba8375b",
+      "bytes": 22996,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/primary_ufa_oms.csv",
+      "sha256": "b79b6b8376bcb7ebe38a2ea5fe09703b800acb8b10d7b4203b3a46663ba38b67",
+      "bytes": 15170,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/block_metadata_audit.csv",
+      "sha256": "e991af30c34561870cc34c0871d932f231cc15609ff9c85780bd2cc626e4e788",
+      "bytes": 583150,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/block_metadata_summary.csv",
+      "sha256": "7f3057d186318c15aa5d7415f6e8e14ea3824830c43f20c67f8a22f56178ef0e",
+      "bytes": 617,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/budget_contract.json",
+      "sha256": "b471839786d2508314d3095dcd74b6482cf2877f294d765bd18c0564bf205329",
+      "bytes": 3193,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/budget_readout.md",
+      "sha256": "4353fa8ab766c43a217d3982f801729e7d1dc2f29ed42a9d357c8a741e7723bb",
+      "bytes": 19927,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/flight_capacity.csv",
+      "sha256": "3042915bdc1e63abf3761b5181dc46d5da13747ac8497c68febb936c5f4ab013",
+      "bytes": 23881,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/itinerary_sales.csv",
+      "sha256": "90364402a2bb3422ab6bca3db81082ac5ab92bfcf144b0f818d5b85024312cf3",
+      "bytes": 58642,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/principal_calendar.csv",
+      "sha256": "e2839934a76b3fde33f137d2bb2d84c251780c5b0d24685b3dc09488d3c0cca6",
+      "bytes": 29237,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/replay_validation.json",
+      "sha256": "34fc04d6ded9a68690ccf666a8af3054b8823b54db6cb251aa951ad96439c5e7",
+      "bytes": 3218,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/reference_set002/status.json",
+      "sha256": "8e11aadcc9a81d26747ae3f596cd923e3f32e7b37e30212c7f94dcb6e5bbabc0",
+      "bytes": 506,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_capacity.csv",
+      "sha256": "220c46f619ec9a32eef6cd53ab5902489a08b6e33a0c7f2d72b40cbd3ea2d447",
+      "bytes": 520139,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_comparison.csv",
+      "sha256": "6954bec2d2ca5e7b546a342f7521765532f3fc8fe376cb6574bf941afd42d30e",
+      "bytes": 49482,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_core_model.py",
+      "sha256": "a7f0b9d5bebdcd7f335814b3d6eee16c2cbb7a68ff4da68b871c1e4977675819",
+      "bytes": 91240,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_cost_registry.csv",
+      "sha256": "f5f4bfb5396987b57ea298b19271da52d737b08a8efbb34fdefb8d7acd7c37d3",
+      "bytes": 6597,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_flights.csv",
+      "sha256": "d69ff07134728a147abb8bb04890b597a372b04ea8843de4825f87a5613d7ea3",
+      "bytes": 359081,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_inputs.json",
+      "sha256": "fa01af9c7146a03f5a77789c7b74324d7984cdb88ef023e7bade0f54fccf1e93",
+      "bytes": 35888,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_overrides.json",
+      "sha256": "04032391adbdb0f2bd015b4ac8a8b17b4bbf563fbccd867b25a2d67557b9f4ea",
+      "bytes": 1933,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_proposals.csv",
+      "sha256": "cdd6251071cb0050889ae70e1f2977123076040f0fba4d5a86892f4a91285d89",
+      "bytes": 4249,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_route_model.py",
+      "sha256": "ef64cf42f9be02efc2115071f41bbefcc2eb91a28b6f7bba0f45aab452d23515",
+      "bytes": 25169,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_sales.csv",
+      "sha256": "c305c94669b25fe9f88008c343bc1cbaed80b8ba9262bd691d51dcf7a32b73d1",
+      "bytes": 1044740,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_stage16_assumptions.json",
+      "sha256": "057c95f3cf1caa8c0b3cdd45d8ae6d0be89a9267c75d77ba7061f85f090847c6",
+      "bytes": 2374,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/inputs/tsiri_stage17_assumptions.json",
+      "sha256": "6eedfe9bb93bc8c1b14e72b1c7a4efe06ab216b7f767d1b17248138fed73dc72",
+      "bytes": 1498,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/output_manifest.json",
+      "sha256": "430f6162a2fbc3f8221bb50b680867314c95270a8b1ba9043da80bddbb0c521e",
+      "bytes": 18442,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/overlay.py",
+      "sha256": "d983ca5f9fe0173ec4354cccabda8523d9cb047f7bcc8da98f84f6171a9d168e",
+      "bytes": 23392,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/parameter_provenance.csv",
+      "sha256": "b125f7f18e91c27252a8e69bfe9d3fb1438d6c3b61c401075f1bb56a3794e1a8",
+      "bytes": 44625,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/physical_leg_status.csv",
+      "sha256": "70580d7a32ac70a26e20822dc1af30854fbf1b5a9d8dff8b21f6c65457c94f81",
+      "bytes": 446373,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/primary_checks.json",
+      "sha256": "2dbeae1864d5b70091b4b06d5ed6a62129aab1a44f250f41963993a5ce441fa0",
+      "bytes": 2390,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/progress.md",
+      "sha256": "7b133e33e96fe3baa351c74f75f4640b75228e73afd1acdc99d0855f5a514fd2",
+      "bytes": 2614,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/publication_checks.json",
+      "sha256": "6aba55e3b56a404488330c3615831d25b399f646c11cd520abb46b1824647da4",
+      "bytes": 573,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/range_registry.csv",
+      "sha256": "871186f7997d2d802b653b5c7086fb76c54e4b09fb2bc6ccc7034cc3d11d98f4",
+      "bytes": 1045,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/receipt.json",
+      "sha256": "cd164d7bda03919a6aac9eaa751126ce46693c47d7340ed0df4685f646b54cfb",
+      "bytes": 29331,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/reference_impact.json",
+      "sha256": "f85507c8ea6b44087cc97a4ce3401ed5cf6f6e368f9728a42fea27845773696f",
+      "bytes": 2316,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/reference_impact.py",
+      "sha256": "8fe753c0da9eb1df02da27c7d322390b30386323e09d392c2e54253cfd3e4496",
+      "bytes": 3383,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/reference_input_manifest.json",
+      "sha256": "146f3ac749742c272f503c3b23e1bb21c272bcae679d0c562922c0e89e200835",
+      "bytes": 4067,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/run_all.py",
+      "sha256": "2ef08273b0de7d5278f3f6700c51bb81182982565a76997de181485160d3712c",
+      "bytes": 488,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/scenario_definitions.json",
+      "sha256": "423491b3cdfa7ffeadd6a5d9f5c020fa2c51679cd46d52f3db4edf672b04b8e4",
+      "bytes": 4993,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/scenario_summary.csv",
+      "sha256": "a2d6089be82f1917d5bde423cca01077695e757c4a70524dd41bee67d9ee4352",
+      "bytes": 29351,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/source_manifest.json",
+      "sha256": "813a7483e9ef2dad0bcd4b79ccdc675f5f8660ba84789a7b394558a48e489afa",
+      "bytes": 18098,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/table_dictionary.csv",
+      "sha256": "ca3407dea7c2874c075d3358a27dceb3f755afa84807a49e364e14b77f21e22e",
+      "bytes": 3311,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/thresholds.csv",
+      "sha256": "f9175852a31166978f9088943d96060d076b5ff933e337d5987bba339f383ac0",
+      "bytes": 10328,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/unit_reconciliation.csv",
+      "sha256": "28318bb23e2058314e0d50edbc7cc256fa5e4ee9b3e6bf2e3cc611f9384c8577",
+      "bytes": 2405,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/cost-kover-001/verify_package.py",
+      "sha256": "d0ec4c952aa7579f76b30fb7e5d131ecb393f91af31d5a83f26934cb1cbea7f3",
+      "bytes": 5689,
+      "grain": "pinned source; see source_manifest"
     },
     {
       "path": "inputs/data-bridge-001/adapters/mapping.csv",
@@ -534,6 +978,120 @@
       "path": "inputs/primary-001/svx_observations.csv",
       "sha256": "e1c4c766778a7514e4d3110aca727cb045aca362130eef273dcfaee00ade0871",
       "bytes": 4565,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/README.md",
+      "sha256": "5d8a061dc5f44d276ba470e6264ac689a49de6f1e2af2f68e7cbb8abe074f325",
+      "bytes": 3224,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/build.py",
+      "sha256": "1642105f54004386a02371b7b9d1982f13f905d1ff7825cafb3863f91db46174",
+      "bytes": 10388,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/candidate_endpoint_mapping.csv",
+      "sha256": "d8ebee9eb0f42aa38282d8510b4e2db80ced57214564b08d1e26adc055724cc1",
+      "bytes": 340562,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/card_snapshot_bindings.csv",
+      "sha256": "259265add342cc9a20447e4bf785ed9fb50d26d66b2a699ca2ba510e13667bea",
+      "bytes": 11273,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/dated_evidence.csv",
+      "sha256": "689e9d5ebe115c6f3d8fd01f176326c35cb6b0799f73583ca9134668151c46e7",
+      "bytes": 126707,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/handoff.json",
+      "sha256": "b21aa9592c6d8b8a4e53f448c38a3bae18b6e6a34084efb2a10a5c3eb9e3ec21",
+      "bytes": 895,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/historical_snapshot_registry.csv",
+      "sha256": "b4a136b58faa5027f8f395207e1ed7627761791415c41f0ad033868976799105",
+      "bytes": 741,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/inherited_service_receipts.json",
+      "sha256": "87a4ee3631c82567aa859bc36052a08d5f8f4b7958ecb42efddad3e4b3f1a1cc",
+      "bytes": 1412,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/output_manifest.json",
+      "sha256": "be2784d5eecd54cf492a7823dc54b1dfd7f18d078f2f21977e7ea6b94be1e4f2",
+      "bytes": 4193,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/receipt.json",
+      "sha256": "2e7bf47d922aeb2b9aa81ff3a6574c6997b249a9312eed52915ba1d305dec707",
+      "bytes": 6652,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/registry_changes.csv",
+      "sha256": "b0ce4cad69b4abfd4eac2a4a2214554a5818c21e5bfa96ebca8aeb50f798ec1f",
+      "bytes": 1278,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/source_lock.json",
+      "sha256": "70cc54d8dec03519dd85f328b1d364fb6e9b2a1956be1fefc964abc7dacd8ff0",
+      "bytes": 7518,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/source_registry.csv",
+      "sha256": "a2f709edc8dcf8c7fe010ca9ba6586ba8577f958d83bd80628389d03fa8d00aa",
+      "bytes": 35196,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/unchanged_original_outputs.json",
+      "sha256": "f8a5961d1ef9ee723384ec2fdb4ad1edb59d10ba4798a4c06b6604526aab18fe",
+      "bytes": 8663,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/primary-lineage-002/validation.json",
+      "sha256": "de94ae1287c08368e4d6fa3f90a4448ba8809a4f4970ed951d8969a9126f51c8",
+      "bytes": 1043,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/repair-review-001/findings.json",
+      "sha256": "d5d0ac435b1b4ae17782e4af38cccf798bd80898545b77144a55c0ca62a95333",
+      "bytes": 6436,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/repair-review-001/handoff.json",
+      "sha256": "bdcbf064f578843a934e7d027ecce8e844e3f43c3be83b893e624e41d2e3411b",
+      "bytes": 3177,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/repair-review-001/receipt.json",
+      "sha256": "b0b1950f2c5480603681ceaba1b9c77821b13c3004dd92ab845454bbe5f2cc84",
+      "bytes": 1539,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/repair-review-001/report.md",
+      "sha256": "20dbaf371b02e5b93d8ef4611c92745210b7a7fefacd7a54472c641991d70b26",
+      "bytes": 19769,
       "grain": "pinned source; see source_manifest"
     },
     {
@@ -933,15 +1491,63 @@
       "grain": "pinned source; see source_manifest"
     },
     {
+      "path": "inputs/source-review-001/findings.json",
+      "sha256": "4a1e750754fa5c35840ff213d408b83f81a264e641a9c01ecbd7c845502d830d",
+      "bytes": 4556,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/source-review-001/handoff.json",
+      "sha256": "506e8424e8365d7244e14bd39018fdebd1667b65ccee0806edaf6b73c5f0115f",
+      "bytes": 3158,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/source-review-001/receipt.json",
+      "sha256": "fc61a12f06745fb4e9ac84a444cc981963e8d55723562d4e2fe9a0423a31d2ad",
+      "bytes": 1548,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
+      "path": "inputs/source-review-001/report.md",
+      "sha256": "bdcf4f898839bfd2d988976365c0f9c3f9169007e260af473c96f841e5be8b94",
+      "bytes": 21441,
+      "grain": "pinned source; see source_manifest"
+    },
+    {
       "path": "model_inventory.csv",
       "sha256": "2a416839208d71cced5e5fe1bc66e825295104b6e7c631ec25acf4d2bc50a757",
       "bytes": 4428,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
+      "path": "portfolio_comparison.py",
+      "sha256": "587eae6c3b95a69e6f0df79354014ec15c984399de3d1e2c3df2c864fca94e4c",
+      "bytes": 7382,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "portfolio_contract.json",
+      "sha256": "ce112a3131bbb0f6996313caea6ea79b7bc4245cdcc3f6d61036b9612c2fb8fe",
+      "bytes": 2834,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "probe_kover_timebase.py",
+      "sha256": "c28595abd1dd3cbedf986049b04f7bed80382066dcedc9d95a5765278fb46006",
+      "bytes": 4439,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "product_accounting_bridge.py",
+      "sha256": "9bf9a2e182f9884345b2c2594879e11fc1384ebb1403c1b8092616627af3b5ba",
+      "bytes": 4723,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
       "path": "progress.md",
-      "sha256": "efa4e4b283b45a70a5fbc8aeecd5712fc77c75e8e754a3a9cefa6436b500e4a5",
-      "bytes": 3906,
+      "sha256": "546f786686d6a324653706cb26bc77e66bef0f525e1d2fab8e20b07a22d0c05e",
+      "bytes": 4927,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
@@ -964,14 +1570,20 @@
     },
     {
       "path": "reproduce.md",
-      "sha256": "a103c308dc448021e4269e1327a703da847c9fbf6a3907226db2d647eddbb9f7",
-      "bytes": 3633,
+      "sha256": "376315eacc3cb787dea5eb159a3bb8d134f028261dfe51ec527cbc3a20ddbd02",
+      "bytes": 4273,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
       "path": "requests.json",
-      "sha256": "a7680fbe96d9f92daa8406de675ab0faa866e7100236c35d91b310911d6d5ceb",
-      "bytes": 6584,
+      "sha256": "f9a561bb65ba6c5cfe1eb2de8e73cf22d1f6785419414cb7dab2eee073e09378",
+      "bytes": 7550,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "resource_comparison.py",
+      "sha256": "68318f3877cd71981c7e9f378d8a20ba565108bc0d329dcb3d160422553f482b",
+      "bytes": 3510,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
@@ -1161,9 +1773,81 @@
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {
+      "path": "runs/portfolio_v1/calendar_checks.csv",
+      "sha256": "bbc9ffd2d112d0b034b26db342a54347e73919e507ca4240dac34700b879f624",
+      "bytes": 1734,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/portfolio_v1/case_checks.csv",
+      "sha256": "73e780d1221c23e4bc92e4765216b91204f98278da920fde612ee57ecc93705d",
+      "bytes": 6560,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/portfolio_v1/pair_portfolio_itineraries.csv",
+      "sha256": "61429a49ff7e8c6d2325e4af1171089f37f61430a4aca98e7cf4dd5ae3ccbba4",
+      "bytes": 655091,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/portfolio_v1/shared_market_audit.csv",
+      "sha256": "f3f2350d88cc957f1d15461d9cbd9af0b709ec9d68b9d16d7fb94aeeec33f6eb",
+      "bytes": 92865,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/portfolio_v1/summary.csv",
+      "sha256": "ac6a3a0e1e9e209d343e7cb0711644778aec359e764da02eae893cd8e5ee5510",
+      "bytes": 32415,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/portfolio_v1/validation.json",
+      "sha256": "b829b2ad33e7aa29e7f87ef437860c398178625a7aec355c7e19901210465b96",
+      "bytes": 263,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/product_bridge_v1/c07_cost_recipe_bridge.csv",
+      "sha256": "d731cc7fa634b26d224c6af3357feb92d4a838bc381d96e147e111668fb3af15",
+      "bytes": 1274,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/product_bridge_v1/journey_segment_unit_bridge.csv",
+      "sha256": "fa65950e53ea01ae4e7daeede48653902135e43806e14512cbc37aa4e2f18617",
+      "bytes": 1623,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/product_bridge_v1/status.json",
+      "sha256": "9ec763f3f22e8e2dbf061bbcedaef275f33d9281506bdb90c66bd4a08716419d",
+      "bytes": 277,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/resource_v1/resource_envelopes.csv",
+      "sha256": "141c747ae79c3179fb2404f4f0e8036f46543890e0b4916654a352a122c8b477",
+      "bytes": 4173,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "runs/resource_v1/status.json",
+      "sha256": "5c627335ab050524ec273c122e6bc7a7690ca7a6679b2e23b5c20445d6c764f4",
+      "bytes": 278,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
       "path": "source_manifest.json",
       "sha256": "2ddb38d213b1da61e113e1a043ea6400c9beb350170afc8357dad7d1373d2ba0",
       "bytes": 53790,
+      "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
+    },
+    {
+      "path": "strategy_accounting_readout.md",
+      "sha256": "f727e1d8fc893623b6950cacf1119c1108f16b15e2f81324e5ea8a53128020d1",
+      "bytes": 18735,
       "grain": "methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce"
     },
     {

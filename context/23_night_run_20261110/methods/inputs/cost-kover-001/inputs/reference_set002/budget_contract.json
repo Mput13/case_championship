@@ -1,0 +1,26 @@
+{
+  "experiment_id":"methods-budget-v1",
+  "input_set_id":"set001",
+  "source_package_commit":"344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4",
+  "mode":"COMMON_COMPARISON",
+  "decision_status":"AGENT_PROPOSAL",
+  "question":"Which sales, yield or additional-cost thresholds could change the result of the four frozen dated Tsiri programs, and when is more demand alone insufficient?",
+  "baseline":"Each context21 author-exported program and scenario, existing RW flights retained; unchanged dated supply and flight costs.",
+  "period_start":"2026-12-07",
+  "period_end":"2026-12-13",
+  "currency":"RUB",
+  "money_basis":"Conditional carrier net yield and author cost basis; no matched contracts or actual profit claim.",
+  "null_policy":"Unknown full-budget costs stay NULL. Zero extra burden is explicitly an optimistic relaxation, not an estimate.",
+  "experiments":[
+    {"id":"B01","change":"Scale new and foregone old fares together at fixed author sales and flight/pax cost","effect":"Solve exact zero-contribution fare multiplier; distinguish new-only repricing.","refusal":"Cannot call fare multiplier a demand forecast or assume unchanged sales at changed prices."},
+    {"id":"B02","change":"Remove every demand cap and own migration, allow all nominal seats sold on existing itineraries","effect":"Compute a certified optimistic contribution upper bound using per-leg local fares and itinerary incidence.","refusal":"Negative bound excludes only this dated supply at these fares/costs; it does not exclude every network, cost change or future aircraft."},
+    {"id":"B03","change":"Add per-allocated-tail and new-base weekly costs as explicit unknown parameters","effect":"Show exact affine pairwise boundaries; future fixed resource costs charged only where incremental.","refusal":"No winner across different case-compliance levels or unobserved budgets; lower loss is not launch."},
+    {"id":"B04","change":"Compute donor and retained-own-sales effects by full baseline/candidate states","effect":"Demonstrate algebraic equality to incremental formula and detect double count.","refusal":"Illustrative numeric fixtures do not select an actual donor or actual replacement."},
+    {"id":"B05","change":"Separate operating result, deposits and dated cash flows","effect":"Reconcile positive result with earlier funding need without expensing working capital twice.","refusal":"Illustrative fixture is not a company cash forecast."}
+  ],
+  "supply_certificate":"For each leg l, lambda_l = local_fare_l - passenger_cost_l. Verify lambda>=0 and sum(lambda_l for l in itinerary)>=through_fare - itinerary_pax_cost. Then sum(capacity_l*lambda_l)-flight_cost is an upper bound. Filling every leg with local journeys attains it in the relaxed model.",
+  "comparability":"All four Tsiri programs share the source week and 4+1 maximum. This does not yet make Anastasia annual programs numerically comparable.",
+  "remaining_unknowns":["paid endpoint demand","true payload","realised net yield","actual incremental base/fleet/startup/exit costs","working capital timing","donor","operational approval","financial disruption overlay"],
+  "no_new_sources":true,
+  "no_distribution_assumed":true
+}

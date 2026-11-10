@@ -1,0 +1,71 @@
+{
+  "events": [
+    {
+      "id": "SOURCE_SVX_LINEAGE_HOLD_001",
+      "received_utc": "2026-11-10T03:31:00Z",
+      "source": "Coordinator explicit delivery; independent source/join reviewer finding, correction SHA pending",
+      "affected_input": "primary_evidence@17b4f348f15ea8695688d9435933cb4965568408",
+      "severity": "P2",
+      "finding": "svx_schedule and svx_schedule_arr registry use context12 receipts08Nov (890d43ff/1b1c9c15) while129 SVX publication rows refer to context17 raw09Nov (7dd62cd4/7400ae30)",
+      "correct_reference": "tsiri@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299:context/17_aircraft_route_review/evidence/sources.json",
+      "holds": [
+        "source support and raw lineage for129 SVX publication rows"
+      ],
+      "does_not_establish": [
+        "wrong numerical clocks",
+        "wrong row counts",
+        "wrong demand experiment arithmetic"
+      ],
+      "numerical_impact_on_common_demand_v1": "NONE; primary evidence was context only and did not set demand, fare, cost or schedule",
+      "other_holds": "KUF clock conflicts retained",
+      "status": "HOLD_AWAITING_EXACT_CORRECTION_PACKAGE; original primary input immutable"
+    },
+    {
+      "id": "SOURCE_SVX_LINEAGE_CORRECTION_002",
+      "source": "Coordinator immutable delivery",
+      "package": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+      "path": "inputs/primary-lineage-002",
+      "status": "PARENT_METADATA_JOIN_CHECKED_ONLY",
+      "effect": "New snapshot bindings;209dated and386mapping original cells retained; original17bCHANGES remains",
+      "independent_review": "NOT_RUN_FOR_CORRECTION",
+      "raw_parse": "NOT_RUN_NEW",
+      "clock_holds": 12
+    },
+    {
+      "id": "BUDGET_REVIEW_001",
+      "package": "2278b184bbc83c590238c9f461581e3b045a11d0",
+      "reviewed": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
+      "verdict": "APPROVE_SCOPED",
+      "qualifications": [
+        "enumerated products and fixed fares/cost/seats only",
+        "1M cash at period boundaries; payment-first same totals1.8M",
+        "UFA4notfinal8-12routecase"
+      ]
+    },
+    {
+      "id": "MODEL_REPAIR_REVIEW_001",
+      "package": "445a5d523d4b57d8c89b2344e1913de2e5f9dc6b",
+      "reviewed": "27740ffea0821aa404ecd1013d1bb141613261f3",
+      "verdict": "APPROVE_SCOPED",
+      "qualifications": [
+        "QFproposalnotuniquelyrequired",
+        "D-onlycurrentdelta0",
+        "noobservedODorMOWairportassignment"
+      ]
+    },
+    {
+      "id": "COST_KOVER_TIMEBASE_HOLD_001",
+      "package": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "status": "P2_REPRODUCED_METHODS_OWNER",
+      "evidence": "checks/kover_timebase/probe.json",
+      "holds": [
+        "post-day1UTC",
+        "genericepisodehits",
+        "delay_rotation_PASS_and_servedallfeasibility"
+      ],
+      "unaffected": "Day1canceltouchedsetandconditionalmoney",
+      "root_notified": true,
+      "independent_review": "RUNNING_BY_ROOT"
+    }
+  ]
+}

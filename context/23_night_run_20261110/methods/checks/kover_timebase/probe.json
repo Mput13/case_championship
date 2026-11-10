@@ -1,0 +1,137 @@
+{
+  "source_commit": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+  "source_file": "overlay.py",
+  "source_function": "instant",
+  "severity": "P2",
+  "status": "REPRODUCED_BY_METHODS_OWNER",
+  "source_time_unit": "UTC absolute minute from2026-12-07T00Z",
+  "defect": "Adds absolute minutes to each row date; second program day moves to third calendar day",
+  "H_UFA8_timestamp_mismatches": 16,
+  "original_delay_rotation_issues": [],
+  "corrected_delay_rotation_issues": [
+    {
+      "planning_label": "H1",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_000",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_016"
+    },
+    {
+      "planning_label": "H1",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_016",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_001"
+    },
+    {
+      "planning_label": "H1",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_001",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_017"
+    },
+    {
+      "planning_label": "H1",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_002",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_018"
+    },
+    {
+      "planning_label": "H1",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_018",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_003"
+    },
+    {
+      "planning_label": "H1",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_003",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_019"
+    },
+    {
+      "planning_label": "H2",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_004",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_020"
+    },
+    {
+      "planning_label": "H2",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_020",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_005"
+    },
+    {
+      "planning_label": "H2",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_005",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_021"
+    },
+    {
+      "planning_label": "H2",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_006",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_022"
+    },
+    {
+      "planning_label": "H2",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_023",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_007"
+    },
+    {
+      "planning_label": "H3",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_024",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_008"
+    },
+    {
+      "planning_label": "H3",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_008",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_025"
+    },
+    {
+      "planning_label": "H3",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_025",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_009"
+    },
+    {
+      "planning_label": "H3",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_010",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_026"
+    },
+    {
+      "planning_label": "H3",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_026",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_011"
+    },
+    {
+      "planning_label": "H3",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_011",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_027"
+    },
+    {
+      "planning_label": "H4",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_012",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_028"
+    },
+    {
+      "planning_label": "H4",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_028",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_013"
+    },
+    {
+      "planning_label": "H4",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_013",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_029"
+    },
+    {
+      "planning_label": "H4",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_014",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_030"
+    },
+    {
+      "planning_label": "H4",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_030",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_015"
+    },
+    {
+      "planning_label": "H4",
+      "left": "ROUTE_INPUTS_UPPER_100_H_UFA_8_015",
+      "right": "ROUTE_INPUTS_UPPER_100_H_UFA_8_031"
+    }
+  ],
+  "original_day2_hit_count": 0,
+  "correct_day2_hit_count": 16,
+  "baseline_peak_simultaneous_flights": 4,
+  "shifted_peak_simultaneous_flights": 8,
+  "minimum_airborne_tails_for_same_shifted_times": 8,
+  "day1_cancel_money_effect": "No change in touched set; source cancel arithmetic not falsified by this probe",
+  "hold": "Published post-day1 timestamps, generic episode detection, delay-bank claimed continuity and served-all feasibility",
+  "minimal_fix": "Use period-start UTC epoch for absolute minutes; rebuild new projection and keep delay rotation conflicts unresolved unless explicit recovery resource is supplied",
+  "no_original_files_modified": true
+}

@@ -15,3 +15,7 @@
 Приёмка: scoped arithmetic PASS; full author replay здесь NOT_RUN; source-supported OD, полный реальный бюджет, продажи/ресурс и запуск UNKNOWN/NOT_ACCEPTED. Никакие спорные решения не названы TEAM_ACCEPTED.
 
 Третий пакет: common_comparison_readout.md и общий опыт context21. Импортированы отдельные immutable primary17b/model_repair27740/bridgeabc09/MR05b0b. Ничего не слито по имени модели.8baseline/224строки продаж воспроизведены,160стоимостей рейса рассчитаны,84общих сценария и151линейный участок проверены. Граница ранга base α=0.683509; full budget неизвестен. Новый MR08 готов для очереди root. MR07 выполняется по2a74; его scope не расширен.
+
+Входящее P2 источниковой проверки:129 SVX publication rows primary17b удержаны по source-support/raw-lineage, mismatch context12/context17 receipts. Числа/часы не объявлены ошибочными. Root готовит отдельную correction projection; ожидание exact SHA без polling. Общий спрос v3 не зависит от этих публикаций. Событие сохранено в acceptance_events.json.
+
+Четвёртый пакет: strategy_accounting_readout.md.60portfolio cases,20resource rows,productunit/cost bridges. Импортированы exact reviews budget2278/repair445a/source944b, parentlineagef177, costafadee. MR07APPROVE узко; MR08работает наabb1. Лично выявлен timebaseP2 вafadee, rootуведомлён:16day2times +24h, false delayPASS ->23conflicts/peak8flights. Первичные оригиналы не менялись; day1cancelmoney не опровергнут.

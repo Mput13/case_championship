@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parent
 def inventory():
     return [p for p in sorted(ROOT.rglob('*')) if p.is_file()
             and '__pycache__' not in p.parts and p.suffix!='.pyc'
-            and p.name!='output_manifest.json']
+            and p!=ROOT/'output_manifest.json']
 
 
 def main():

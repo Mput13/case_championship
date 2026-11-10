@@ -1,12 +1,12 @@
 {
-  "version": "methods-common-v3",
+  "version": "methods-strategy-v4",
   "dispatch_owner": "coordinator_only",
   "note": "Requests may be satisfied by already running packages; do not create duplicate work. Methods runs no subagents and does not poll other folders.",
   "requests": [
     {
       "id": "MR01",
       "priority": "P1",
-      "status": "RECEIVED_27740ffe_REVIEW_PENDING",
+      "status": "RECEIVED_27740ffe_INDEPENDENT_SCOPED_APPROVE_445a5d52",
       "inputs": [
         "nastya@2f03b693a62c219e9475fcd1e26295039f6a49d7",
         "tsiri@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
@@ -19,7 +19,7 @@
     {
       "id": "MR02",
       "priority": "P1",
-      "status": "ASSIGNED_COST_KOVER_BY_ROOT",
+      "status": "RECEIVED_afadee_INDEPENDENT_REVIEW_RUNNING_TIMEBASE_P2_METHODS_HOLD",
       "inputs": [
         "methods/comparison_spec.md budget and kover sections",
         "author cost assumptions"
@@ -31,7 +31,7 @@
     {
       "id": "MR03",
       "priority": "P1",
-      "status": "RECEIVED_17b4_AND_abc09_SOURCE_JOIN_REVIEW_PENDING",
+      "status": "SJR944b_CHANGES_PRIMARY_LINEAGE; CORRECTION_f177_PARENT_METADATA_ONLY",
       "inputs": [
         "core@505e24663e5952bae9b9540bb9a5a622663bfc2a",
         "alternative@ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
@@ -71,7 +71,7 @@
     {
       "id": "MR06",
       "priority": "P2",
-      "status": "RECEIVED_27740ffe_NUMBERS_PRESERVED_METADATA_REPAIR_REVIEW_PENDING",
+      "status": "SCOPED_APPROVE_445a5d52_NO_NUMERICAL_CHANGE",
       "inputs": [
         "93fa5cf scripts/build_aircraft_route_review.py:19-29",
         "context/17_aircraft_route_review/model/flights.csv"
@@ -83,7 +83,7 @@
     {
       "id": "MR07",
       "priority": "P1",
-      "status": "INDEPENDENT_REVIEW_RUNNING_ON_EXACT_2a74",
+      "status": "APPROVE_SCOPED_2278b184_EXACT2a74",
       "inputs": [
         "new methods-budget-v2 exact SHA in delivery",
         "budget_contract.json",
@@ -98,7 +98,7 @@
     {
       "id": "MR08",
       "priority": "P1",
-      "status": "READY_NEW_COMMON_PACKAGE_ROOT_SCHEDULES",
+      "status": "INDEPENDENT_REVIEW_RUNNING_ON_EXACT_abb1",
       "inputs": [
         "methods-common-v3 exact SHA from delivery",
         "common_demand.py",
@@ -109,6 +109,21 @@
       "question": "Independently check the common demand-input experiment and exact decision boundaries, including complete keyed joins and source-grain limits.",
       "acceptance": "Reproduce8baseline/224itinerary rows; verify160 per-flight formulas/full IDs; challenge missing/duplicate/cost mutations; recompute84cases and151affine regions, alpha crossing and saturation claims; ensure no annual-money merge or conditional16 leakage; preserve UNKNOWN evidence.",
       "dependency": "New immutable package; do not expand/restart MR05, MR07 or model_repair/source reviews. Root alone chooses free slot."
+    },
+    {
+      "id": "MR09",
+      "priority": "P2",
+      "status": "READY_STRATEGY_V4_FRESH_REVIEW_IF_ROOT_PRIORITIZES",
+      "inputs": [
+        "methods-strategy-v4 exact SHA from delivery",
+        "portfolio_comparison.py",
+        "resource_comparison.py",
+        "product_accounting_bridge.py",
+        "strategy_accounting_readout.md"
+      ],
+      "question": "Review new mixed/resource/unit synthesis separately from activeMR08; verify finite-scope claims, shared market/own-cap budgets and future-resource limits.",
+      "acceptance": "Singleton16cases match, sharedMRV-SVX pooling isproposalnotDbreach, fulltailnamespace, no duplicatebase/reserve,240hboundnecessaryonly, C01unit67vs72 and C07costrecipe not actualmarketbudget.",
+      "dependency": "Root alone prioritizes; no expansion/restart ofMR08. TimebaseP2 is already delivered to root for existingMR02scope, no duplicate dispatcher."
     }
   ]
 }

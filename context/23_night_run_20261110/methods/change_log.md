@@ -10,3 +10,7 @@
 ## methods-common-v3
 
 Добавлен общий опыт изменения только рецепта спроса на context21; исходные авторские и budgetv1 результаты сохранены. Новые manifests фиксируют четыре переданных пакета. MR05 original verdict CHANGES сохранён; current-label closure не распространяется на новые выводы. В160строках затрат нового адаптера квалифицированы отсутствующие metadata, суммы не менялись.
+
+## methods-strategy-v4
+
+Отдельные mixed/resource/product bridges; исходные commonv3 и budgetv2 runs неизменны. Подключены новые exact reviews с сохранением scopes; primarylineage parentcorrection не стала independent/source acceptance. MR02timebaseP2 удержан до отдельного исправления. Манифест теперь включает вложенные output_manifest.json как обычные входы; исключается только собственный корневой manifest.

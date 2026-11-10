@@ -30,3 +30,14 @@ python3 context/23_night_run_20261110/methods/check_package.py
 ```
 
 Стандартная библиотека Python; никаких новых зависимостей, сети или авторских файлов вне inputs не требуется.
+
+### Стратегии v4 и диагностический P2
+
+```sh
+python3 context/23_night_run_20261110/methods/portfolio_comparison.py
+python3 context/23_night_run_20261110/methods/resource_comparison.py
+python3 context/23_night_run_20261110/methods/product_accounting_bridge.py
+python3 -B context/23_night_run_20261110/methods/probe_kover_timebase.py
+```
+
+Последняя команда импортирует pinned overlay без main и без записи pycache; толькоinstant заменяется в памяти дляконтрпримера. Исходный код и frozeninput не редактируются.
