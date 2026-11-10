@@ -1,0 +1,6 @@
+join_id,left_rows,output_rows,matched_left_rows,unmatched_left_rows,cardinality,conservation,note
+J_SALES_FLIGHT,860,1092,860,0,1:N intentional itinerary leg expansion,Journeys counted once in itinerary; seats once per physical leg; revenue stays in money_ledger,Do not sum itinerary revenue after joining to itinerary_leg
+J_ITINERARY_POOL,860,860,860,0,N:1,,
+J_PRODUCT_AIRPORT,225,225,216,9,N:1 unique directory or explicit HOLD; path tokens retained,,
+J_CANDIDATE_TOURISM,350,624,104,244,incidence→6 distinct indicators; repeated regional context NOT ADDITIVE,,Same region can attach to multiple gateways/products; do not sum by itinerary/candidate
+J_AIRPORT_WEATHER,63,432,36,27,"airport→station→month, explicitly versioned ID",,No averaging stations or twelve months into cancellation probability

@@ -1,0 +1,164 @@
+{
+  "checks": [
+    {
+      "check_id": "CSV_SHAPE",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "JSON_VALID",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "SANITIZER_NO_SECRETS_RAW_OR_LARGE_FILES",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "WRITE_SCOPE_ONLY_OWN_FOLDER",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "ALL_PINNED_INPUT_HASHES",
+      "status": "PASS",
+      "detail": {
+        "inputs": 42,
+        "failures": []
+      }
+    },
+    {
+      "check_id": "CONTRACT_PIN_MATCH",
+      "status": "PASS",
+      "detail": "Current local contract bytes equal ingested contract"
+    },
+    {
+      "check_id": "PARENT_MANIFEST_PIN_MATCH",
+      "status": "PASS",
+      "detail": "Frozen manifest bytes unchanged"
+    },
+    {
+      "check_id": "SUPPLEMENTAL_PINNED_INPUT_HASHES",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "NORMALIZED_PRIMARY_KEYS",
+      "status": "PASS",
+      "detail": {
+        "itineraries": 860,
+        "physical_legs": 376,
+        "pools": 288
+      }
+    },
+    {
+      "check_id": "NORMALIZED_LEG_FOREIGN_KEYS",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "NORMALIZED_JOURNEY_SEGMENT_CONSERVATION",
+      "status": "PASS",
+      "detail": {
+        "itineraries": 860,
+        "leg_rows": 1092,
+        "failures": []
+      }
+    },
+    {
+      "check_id": "NORMALIZED_ONE_WHOLE_FARE",
+      "status": "PASS",
+      "detail": {
+        "itineraries": 860,
+        "failures": []
+      }
+    },
+    {
+      "check_id": "NORMALIZED_SEAT_BOUND",
+      "status": "PASS",
+      "detail": {
+        "flight_scenario_keys": 628,
+        "failures": []
+      }
+    },
+    {
+      "check_id": "NORMALIZED_COMMON_OD_POOL_BOUND",
+      "status": "PASS",
+      "detail": {
+        "strategy_OD_groups": 572,
+        "failures": []
+      }
+    },
+    {
+      "check_id": "NORMALIZED_HOLDS_NOT_BYPASSED",
+      "status": "PASS",
+      "detail": {
+        "held": [
+          "BAX",
+          "IAR",
+          "MOW",
+          "MQF",
+          "NER",
+          "NOZ",
+          "OSW",
+          "PES",
+          "PKC",
+          "STW",
+          "TOF",
+          "ULY"
+        ],
+        "weather_bypasses": [],
+        "resolution_bypasses": []
+      }
+    },
+    {
+      "check_id": "UNKNOWN_TOURISM_UNITS_NOT_ADMITTED",
+      "status": "PASS",
+      "detail": {
+        "candidate_incidence_rows": 624,
+        "held_incidence_rows": 208,
+        "unique_source_cells_held": 14
+      }
+    },
+    {
+      "check_id": "UNKNOWN_FULL_BUDGET_NOT_ZERO",
+      "status": "PASS",
+      "detail": {
+        "rows": 42
+      }
+    },
+    {
+      "check_id": "FIELD_DICTIONARY_COVERS_NORMALIZED_TABLES",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "check_id": "FIELD_DICTIONARY_CANONICAL_CLASSES",
+      "status": "PASS",
+      "detail": {
+        "fields": 625,
+        "note": "Row-dependent rules and missing/HOLD overrides remain explicit"
+      }
+    },
+    {
+      "check_id": "UPSTREAM_CHECK_RESULTS",
+      "status": "PASS",
+      "detail": {
+        "adapter_checks": 44,
+        "raw_checks": 4
+      }
+    }
+  ],
+  "failed": 0,
+  "passed": 20,
+  "counts": {
+    "csv": 53,
+    "json": 7,
+    "bytes": 7724193,
+    "files": 68
+  },
+  "acceptance": "PACKAGE_AND_JOIN_RECOMPUTATION_ONLY; NOT_INDEPENDENT_REVIEW",
+  "network_used": false,
+  "sanitizer": "Own-package text/CSV/JSON + scoped diff; raw kept outside Git; no credentials requested/read/copied"
+}
