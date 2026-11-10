@@ -37,6 +37,9 @@ def main():
     for r in sources['files']:
         assert hashlib.sha256((ROOT/r['path']).read_bytes()).hexdigest()==r['sha256'],r['path']
         assert r['grain'] and len(r['source_commit'])==40
+    for receipt in (ROOT/'inputs').glob('*/receipt.json'):
+        for r in json.loads(receipt.read_text())['files']:
+            assert hashlib.sha256((ROOT/r['path']).read_bytes()).hexdigest()==r['sha256'],r['path']
     decisions=json.loads((ROOT/'decisions.json').read_text())['decisions']
     assert not any(d['status']=='TEAM_ACCEPTED' for d in decisions)
     check=json.loads((ROOT/'analysis/set001/checks.json').read_text())
@@ -46,7 +49,8 @@ def main():
         records=[dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest(),bytes=p.stat().st_size,
                       grain='pinned source; see source_manifest' if 'inputs' in p.relative_to(ROOT).parts else
                             'methodology document, row-level calculation or machine-readable decision; see comparison_spec and reproduce')for p in files]
-        manifest_path.write_text(json.dumps(dict(package='methods-spec-v1',independent_review='PENDING',files=records),ensure_ascii=False,indent=2)+'\n')
+        package=json.loads((ROOT/'handoff.json').read_text())['package']
+        manifest_path.write_text(json.dumps(dict(package=package,independent_review='PENDING',files=records),ensure_ascii=False,indent=2)+'\n')
     else:
         saved=json.loads(manifest_path.read_text())
         assert set(r['path']for r in saved['files'])==set(str(p.relative_to(ROOT))for p in files),'manifest file set'

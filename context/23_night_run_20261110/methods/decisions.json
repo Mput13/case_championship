@@ -1,22 +1,157 @@
 {
-  "version": "methods-spec-v1",
-  "independent_review": "PENDING",
+  "version": "methods-spec-v2",
+  "independent_review": "V1_RUNNING_ON_344f4425; V2_BUDGET_PENDING",
   "decisions": [
-    {"id":"M01","status":"USER_CONSTRAINT","subject":"Scope and authorship","decision":"Only methods/ is writable; author/corrected/common results remain separate; no model winner or team acceptance inferred.","basis":"briefs/methods.md and contract.md"},
-    {"id":"M02","status":"CONFIRMED_ERROR","subject":"Shared capture in Nastya direct programs","decision":"Independent program capture lacks a common pair budget; repeat MOW-OMS reproduced on exact 2f03. A fix must constrain the same market during marginal selection.","evidence":"analysis/set001/shared_pair_examples.csv; pinned src/network_model.py:233-292","limit":"Real saved repeats do not exceed the entire supplied annual market; whole corrected network NOT_RUN here."},
-    {"id":"M03","status":"AGENT_PROPOSAL","subject":"Aggregate capture implementation","decision":"Test author capture at total unique frequency, then allocate under dated seat and shared market caps. Compare proportional and contribution-priority allocation where relevant.","basis":"Author leg_share formula and conservation","limit":"One defensible scenario, not calibrated demand and not uniquely mandated by the defect."},
-    {"id":"M04","status":"AGENT_PROPOSAL","subject":"Primary common period","decision":"Use 2026-12-07/2026-12-13 as the first dated unit experiment; preserve separate annual/seasonal budgets.","basis":"Available Tsiri dated inventory","limit":"Winter week is not annual or future 2027-2028 forecast."},
-    {"id":"M05","status":"OPEN_DECISION","subject":"Route definition for case compliance","options":["Unique unordered physical airport pairs","Author service programs with explicit physical pairs alongside"],"evidence":"Eight Nastya triangles produce 20/18 physical pairs in base/cautious; Tsiri eight-ray network has eight pairs.","proposal":"Use physical pairs for common reporting and retain author program_count; confirm exact case interpretation."},
-    {"id":"M06","status":"OPEN_DECISION","subject":"Screening radius and node scope","options":["No hard radius with actual market overlap analysis","Explicit 300/500/800 km policy scenarios","Strict new node versus development of existing support"],"basis":"screening@82dffa package; independent review pending","limit":"No default changed in dashboard; radius does not estimate own cannibalization."},
-    {"id":"M07","status":"OPEN_DECISION","subject":"Weights and UNKNOWN","decision":"Keep Nastya and Tsiri author profiles and the hypothesis queue separate. No new weight is TEAM_ACCEPTED.","basis":"User contract; screening pending independent review"},
-    {"id":"M08","status":"AGENT_PROPOSAL","subject":"Future fleet envelopes","decision":"Run resource envelopes 4+1 and 9+1 from the author assumptions as conditional limits; future N and arrival date are parameters.","limit":"Not a claim that Red Wings will receive these counts or that all ceiling capacity must be used."},
-    {"id":"M09","status":"USER_CONSTRAINT","subject":"No-kover baseline and other risk","decision":"Preserve no-kover baseline; financial overlay separate; removing kover does not remove weather, technical or sanctions-related constraints.","limit":"No forecast end date, no probability from publication-day counts."},
-    {"id":"M10","status":"AGENT_PROPOSAL","subject":"Full budget definition","decision":"Separate contribution, full accrual result and cash funding peak; retain unknown base/fleet/startup/working-capital/exit items as NULL or thresholds.","limit":"Working capital is not a second operating expense."},
-    {"id":"M11","status":"AGENT_PROPOSAL","subject":"Donor and own migration","decision":"Compare KEEP, CANCEL_WITHOUT_REPLACEMENT and REPLACE states; subtract donor contribution only once. Do not also deduct its revenue or its alternative margin if already in baseline.","limit":"No donor selected, OMS/REN not declared weak."},
-    {"id":"M12","status":"AGENT_PROPOSAL","subject":"Mixed network","decision":"Pool endpoint OD across direct and transfer products; keep itinerary-specific fare/quality/legs. Do not infer product type from the first itinerary in an OD list.","basis":"Pinned RouteModel.evaluate and Model.itineraries; separate-network source use need not violate conservation."},
-    {"id":"M13","status":"USER_CONSTRAINT","subject":"Research queue","decision":"Keep 35 hypotheses and useful new evidence in parallel queue with influence and refusal tests; integration does not delete or downgrade them.","basis":"User brief"},
-    {"id":"M14","status":"OPEN_DECISION","subject":"Objective and risk tolerance","options":["Full-budget nonnegative outcome plus case passenger/share requirement","Explicit strategic support budget with quantified passenger benefit","Defer program while testing demand/resource conditions"],"limit":"An agent cannot assign company risk appetite or approved loss budget."},
-    {"id":"M15","status":"AUTHOR_PROPOSAL","subject":"Tsiri next test","decision":"Check one real donor replacement to SVX-MRV; retain UFA hub as conditional alternative.","basis":"93fa5cf context/21_team_proposals/README.md","limit":"Not team choice, not a computed replacement, not authorization to fly."},
-    {"id":"M16","status":"AGENT_PROPOSAL","subject":"Acceptance and review","decision":"Keep AUTHOR_REPLAY_MATCHED distinct from export arithmetic; this package has only listed scoped checks until independent review and full replay arrive.","evidence":"analysis/set001/checks.json"}
+    {
+      "id": "M01",
+      "status": "USER_CONSTRAINT",
+      "subject": "Scope and authorship",
+      "decision": "Only methods/ is writable; author/corrected/common results remain separate; no model winner or team acceptance inferred.",
+      "basis": "briefs/methods.md and contract.md"
+    },
+    {
+      "id": "M02",
+      "status": "CONFIRMED_ERROR",
+      "subject": "Shared capture in Nastya direct programs",
+      "decision": "Independent program capture lacks a common pair budget; repeat MOW-OMS reproduced on exact 2f03. A fix must constrain the same market during marginal selection.",
+      "evidence": "analysis/set001/shared_pair_examples.csv; pinned src/network_model.py:233-292",
+      "limit": "Real saved repeats do not exceed the entire supplied annual market; whole corrected network NOT_RUN here."
+    },
+    {
+      "id": "M03",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Aggregate capture implementation",
+      "decision": "Test author capture at total unique frequency, then allocate under dated seat and shared market caps. Compare proportional and contribution-priority allocation where relevant.",
+      "basis": "Author leg_share formula and conservation",
+      "limit": "One defensible scenario, not calibrated demand and not uniquely mandated by the defect."
+    },
+    {
+      "id": "M04",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Primary common period",
+      "decision": "Use 2026-12-07/2026-12-13 as the first dated unit experiment; preserve separate annual/seasonal budgets.",
+      "basis": "Available Tsiri dated inventory",
+      "limit": "Winter week is not annual or future 2027-2028 forecast."
+    },
+    {
+      "id": "M05",
+      "status": "OPEN_DECISION",
+      "subject": "Route definition for case compliance",
+      "options": [
+        "Unique unordered physical airport pairs",
+        "Author service programs with explicit physical pairs alongside"
+      ],
+      "evidence": "Eight Nastya triangles produce 20/18 unique model endpoint pairs including MOW; operating airport routes not established. Tsiri eight rays use eight airport pairs in a scenario calendar.",
+      "proposal": "Use physical pairs for common reporting and retain author program_count; confirm exact case interpretation."
+    },
+    {
+      "id": "M06",
+      "status": "OPEN_DECISION",
+      "subject": "Screening radius and node scope",
+      "options": [
+        "No hard radius with actual market overlap analysis",
+        "Explicit 300/500/800 km policy scenarios",
+        "Strict new node versus development of existing support"
+      ],
+      "basis": "screening@82dffa, independent review@6a038b9b approved derived arithmetic and bounded source checks only; radius remains OPEN_DECISION",
+      "limit": "No default changed in dashboard; radius does not estimate own cannibalization."
+    },
+    {
+      "id": "M07",
+      "status": "OPEN_DECISION",
+      "subject": "Weights and UNKNOWN",
+      "decision": "Keep Nastya and Tsiri author profiles and the hypothesis queue separate. No new weight is TEAM_ACCEPTED.",
+      "basis": "User contract; screening pending independent review"
+    },
+    {
+      "id": "M08",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Future fleet envelopes",
+      "decision": "Run resource envelopes 4+1 and 9+1 from the author assumptions as conditional limits; future N and arrival date are parameters.",
+      "limit": "Not a claim that Red Wings will receive these counts or that all ceiling capacity must be used."
+    },
+    {
+      "id": "M09",
+      "status": "USER_CONSTRAINT",
+      "subject": "No-kover baseline and other risk",
+      "decision": "Preserve no-kover baseline; financial overlay separate; removing kover does not remove weather, technical or sanctions-related constraints.",
+      "limit": "No forecast end date, no probability from publication-day counts."
+    },
+    {
+      "id": "M10",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Full budget definition",
+      "decision": "Separate contribution, full accrual result and cash funding peak; retain unknown base/fleet/startup/working-capital/exit items as NULL or thresholds.",
+      "limit": "Working capital is not a second operating expense."
+    },
+    {
+      "id": "M11",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Donor and own migration",
+      "decision": "Compare KEEP, CANCEL_WITHOUT_REPLACEMENT and REPLACE states; subtract donor contribution only once. Do not also deduct its revenue or its alternative margin if already in baseline.",
+      "limit": "No donor selected, OMS/REN not declared weak."
+    },
+    {
+      "id": "M12",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Mixed network",
+      "decision": "Pool endpoint OD across direct and transfer products; keep itinerary-specific fare/quality/legs. Do not infer product type from the first itinerary in an OD list.",
+      "basis": "Pinned RouteModel.evaluate and Model.itineraries; separate-network source use need not violate conservation."
+    },
+    {
+      "id": "M13",
+      "status": "USER_CONSTRAINT",
+      "subject": "Research queue",
+      "decision": "Keep 35 hypotheses and useful new evidence in parallel queue with influence and refusal tests; integration does not delete or downgrade them.",
+      "basis": "User brief"
+    },
+    {
+      "id": "M14",
+      "status": "OPEN_DECISION",
+      "subject": "Objective and risk tolerance",
+      "options": [
+        "Full-budget nonnegative outcome plus case passenger/share requirement",
+        "Explicit strategic support budget with quantified passenger benefit",
+        "Defer program while testing demand/resource conditions"
+      ],
+      "limit": "An agent cannot assign company risk appetite or approved loss budget."
+    },
+    {
+      "id": "M15",
+      "status": "AUTHOR_PROPOSAL",
+      "subject": "Tsiri next test",
+      "decision": "Check one real donor replacement to SVX-MRV; retain UFA hub as conditional alternative.",
+      "basis": "93fa5cf context/21_team_proposals/README.md",
+      "limit": "Not team choice, not a computed replacement, not authorization to fly."
+    },
+    {
+      "id": "M16",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Acceptance and review",
+      "decision": "Keep AUTHOR_REPLAY_MATCHED distinct from export arithmetic; this package has only listed scoped checks until independent review and full replay arrive.",
+      "evidence": "analysis/set001/checks.json; runs/budget_v1/validation.json; checks/budget_v1_lp.json (same-owner alternative computation)"
+    },
+    {
+      "id": "M17",
+      "status": "USER_CONSTRAINT",
+      "subject": "Model endpoints versus operating routes",
+      "decision": "20/18 counts in Nastya include MOW. Call them unique model endpoint pairs; physical airport and dated operating-route counts remain NULL.",
+      "basis": "Coordinator correction, 10 November 2026"
+    },
+    {
+      "id": "M18",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Necessary economics condition",
+      "decision": "At fixed cautious Tsiri programs, fares and nominal capacity, even unlimited demand and zero own migration leave all four contribution upper bounds negative. More demand alone is insufficient in this bounded setting.",
+      "evidence": "runs/budget_v1/supply_upper_bounds.csv and supply_dual_certificates.csv",
+      "limit": "Does not exclude another network, cost reduction, ancillary revenue, changed fares or future fleet; new module review pending."
+    },
+    {
+      "id": "M19",
+      "status": "USER_CONSTRAINT",
+      "subject": "Radius comparison",
+      "decision": "Do not select radius using sums of scores over different admitted city sets. Keep 0/300/500/800 OPEN_DECISION.",
+      "basis": "Coordinator delivery of independent screening review 6a038b9b"
+    }
   ]
 }
