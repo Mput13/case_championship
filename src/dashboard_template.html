@@ -46,7 +46,11 @@ h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.01em}
 .dep th[title]{cursor:help}
 .panel .w small{display:none}
 .panel.why-on .w small{display:block}
-.why-btn{justify-self:start;border:0;background:none;padding:0;font:inherit;font-size:13px;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
+.why-btn{display:flex;align-items:center;gap:10px;width:100%;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;text-align:left}
+.why-btn:hover{background:var(--ink);color:#fff}
+.why-btn .ic{display:inline-grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:700;font-style:normal}
+.why-btn .ch{margin-left:auto;transition:transform .2s;font-style:normal}
+.why-btn[aria-expanded=true] .ch{transform:rotate(180deg)}
 .plane{width:30px;height:30px;flex:none}
 .tscroll{overflow-x:auto}
 table.dep{width:100%;border-collapse:separate;border-spacing:0 5px;min-width:820px;font-variant-numeric:tabular-nums}
@@ -340,7 +344,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 
     <aside class="panel" aria-labelledby="w-title">
       <div><h2 id="w-title" style="font-size:20px">Пульт весов</h2><div class="hint">Веса в сумме 100. Шкала каждого критерия — по всем 20 городам и не меняется от фильтра.</div></div>
-      <button class="why-btn" id="why-btn" type="button" aria-expanded="false">Показать пояснения к весам</button>
+      <button class="why-btn" id="why-btn" type="button" aria-expanded="false"><i class="ic">i</i><span>Что значит каждый вес</span><i class="ch">▾</i></button>
       <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Хаб ближе 500 км к Москве или Екатеринбургу во многом повторял бы уже существующие базы Red Wings.</small></div>
       <div class="w"><div class="w-top"><span style="color:var(--ink)">Опорные аэропорты Red Wings</span></div><div class="seg" id="mode" role="group" aria-label="Режим допуска"></div><small>Самару, Казань, Сочи и Махачкалу Red Wings 27.10.2026 называет опорными. «Строго новый хаб» убирает их из рейтинга.</small></div>
       <div class="w"><div class="w-top"><label for="profile" style="color:var(--ink)">Набор весов</label></div><select id="profile" class="psel"></select><small>Основной набор сбалансирован, остальные усиливают одну группу критериев.</small></div>
@@ -574,7 +578,7 @@ function weights(){
   [[false,'Развитие опоры можно'],[true,'Строго новый хаб']].forEach(([v,t])=>{ const b=h('button',{type:'button','aria-pressed':String(v===STRICT)},t); b.addEventListener('click',()=>{ STRICT=v; weights(); update(); }); ms.append(b); });
   const pp=document.getElementById('profile'); if(!pp.options.length){ for(const p of D.profiles){ pp.append(h('option',{value:p.id},p.label)); } pp.addEventListener('change',()=>{ PROFILE=pp.value; W={...D.profiles.find(p=>p.id===PROFILE).weights}; for(const w of CR) if(W[w.key]==null) W[w.key]=0; update(); }); }
   pp.value=PROFILE;
-  const wb=document.getElementById('why-btn'); if(wb&&!wb.onclick) wb.onclick=()=>{ const pn=document.querySelector('.main>.panel'), on=pn.classList.toggle('why-on'); wb.setAttribute('aria-expanded',String(on)); wb.textContent=on?'Скрыть пояснения':'Показать пояснения к весам'; };
+  const wb=document.getElementById('why-btn'); if(wb&&!wb.onclick) wb.onclick=()=>{ const pn=document.querySelector('.main>.panel'), on=pn.classList.toggle('why-on'); wb.setAttribute('aria-expanded',String(on)); wb.querySelector('span').textContent=on?'Скрыть пояснения к весам':'Что значит каждый вес'; };
   const box=document.getElementById('wlist'); if(box.childElementCount) return;
   for(const w of CR){ if(ZERO.has(w.key)) continue;
     const inp=h('input',{type:'range',min:0,max:40,step:1,value:W[w.key],id:'w-'+w.key});
