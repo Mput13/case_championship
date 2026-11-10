@@ -1,22 +1,25 @@
-"""Баллы лонглиста, топ-3, диапазон из-за пропусков и проверка устойчивости к весам.
+"""Баллы лонглиста, топ-3, диапазон мест из-за неизвестных и слабых значений, проверка устойчивости.
 
-Вход: data/processed/criteria.json (src/build_criteria.py) — все критерии, основные и подключаемые;
+Вход: data/processed/criteria.json (src/build_criteria.py) — критерии и значения со ссылками;
       data/processed/longlist.csv — названия городов и расстояния для фильтра;
-      data/assumptions/longlist_params.csv (min_dist_bases_km), data/assumptions/weight_scenarios.csv.
-Метод (тот же, что в панели):
-  1. Каждый критерий переводим в шкалу 0–1 (min–max по городам в фильтре или фиксированная шкала lo–hi;
-     «−» — переворачиваем). Пропуск: если задан fill — подставляем его до нормировки; иначе 0,5.
-  2. Балл = сумма (вес × оценка) / сумма весов.
-  3. Диапазон из-за пропусков (идея коллег, context/15_team_update/model/city_scores.csv):
-     нижний балл — все неизвестные значения города худшие (0), верхний — лучшие (1).
-     Лучшее возможное место: у города неизвестное лучшее, у остальных худшее; худшее место — наоборот.
-     Доля веса на пропусках показывает, насколько балл держится на незнании.
-  4. Устойчивость: (а) каждый вес по очереди ×0,5 и ×1,5; (б) 2000 случайных наборов весов (×0,5…1,5);
-     (в) сценарии весов по группам критериев (рынок, география, эксплуатация, конкуренция).
-Выход: data/processed/longlist_scores.csv и longlist_scores_min<N>.csv, longlist_sensitivity[_minN].csv,
-       longlist_scenarios[_minN].csv
-Запуск: python src/longlist_score.py               (оба варианта: все города и без ближних к базам)
-        python src/longlist_score.py --min-dist 0  (только один вариант)
+      data/assumptions/longlist_params.csv (min_dist_bases_km — решение команды 10.11.2026: 500 км),
+      data/assumptions/weight_profiles.csv — наборы весов (основной — предложение коллег, сумма 100).
+Метод (тот же, что в панели; правки по аудиту коллег context/22_stage1_audit учтены):
+  1. Шкала критерия — фиксированная lo–hi или минимум–максимум по всем 20 городам лонглиста.
+     Шкала не пересчитывается после фильтра 500 км, поэтому баллы в разных режимах сравнимы.
+     «−» — шкалу переворачиваем.
+  2. Неизвестное значение: центр — fill (если задан) или середина 0,5; диапазон — от 0 до 1.
+     Слабое значение (чужой хаб по Википедии, косвенное ТО, «более N», «дыра» с неизвестным поездом):
+     центр — само значение, диапазон — из его границ.
+  3. Балл = сумма (вес × оценка) / сумма весов. Веса должны быть неотрицательными с положительной суммой.
+  4. Места: сначала сортировка по полному баллу, потом округление; при точном равенстве — исходный
+     порядок городов (как в панели). Лучшее место: у города верхний балл, у остальных нижний; худшее — наоборот.
+  5. Устойчивость: каждый вес ×0,5 и ×1,5; 2000 случайных наборов весов ×0,5…1,5 — тот же генератор
+     Mulberry32, что в панели; все наборы весов из weight_profiles.csv; режим «строго новый хаб»
+     (без опорных аэропортов Red Wings по первичному источнику).
+Выход: data/processed/longlist_scores.csv, longlist_scores_min<N>.csv, longlist_scores_min<N>_strict.csv,
+       longlist_sensitivity[_minN].csv, longlist_profiles[_minN].csv
+Запуск: python src/longlist_score.py
 """
 import argparse
 import json
@@ -30,46 +33,80 @@ P = ROOT / "data" / "processed"
 PAR = pd.read_csv(ROOT / "data/assumptions/longlist_params.csv").set_index("parameter").value
 
 
-def normalize(iatas, crit, vals):
-    """z — оценка 0–1 с подстановкой пропусков; miss — где значение неизвестно (и не задано fill)."""
-    z, miss = pd.DataFrame(index=iatas), pd.DataFrame(index=iatas)
+def scales(crit, vals):
+    """Шкала каждого критерия по всем городам лонглиста, а не по прошедшим фильтр."""
+    out = {}
     for c in crit:
-        x = pd.Series({i: vals[i][c["key"]]["v"] for i in iatas}, dtype=float)
-        miss[c["key"]] = x.isna()
-        if c.get("fill") is not None:
-            x = x.fillna(c["fill"])
-        lo = c["lo"] if c.get("lo") is not None else x.min()
-        hi = c["hi"] if c.get("hi") is not None else x.max()
-        v = (x - lo) / (hi - lo) if hi > lo else x * 0
-        v = 1 - v if c["dir"] == "-" else v
-        z[c["key"]] = v.fillna(0.5)
-    return z, miss
+        xs = []
+        for i in vals:
+            x = vals[i].get(c["key"], {})
+            xs += [v for v in (x.get("v"), x.get("lo"), x.get("hi")) if v is not None]
+        lo = c["lo"] if c.get("lo") is not None else (min(xs) if xs else 0.0)
+        hi = c["hi"] if c.get("hi") is not None else (max(xs) if xs else 0.0)
+        out[c["key"]] = (lo, hi)
+    return out
+
+
+def utility(v, lo, hi, d):
+    if v is None or not hi > lo:
+        return 0.5
+    z = min(1.0, max(0.0, (v - lo) / (hi - lo)))
+    return 1 - z if d == "-" else z
+
+
+def tables(iatas, crit, vals, sc):
+    """Центр, нижняя и верхняя оценка 0–1 и признаки «неизвестно» / «слабое» по каждой ячейке."""
+    z, a, b, unk, weak = (pd.DataFrame(index=iatas, dtype=float) for _ in range(5))
+    for c in crit:
+        k, (lo, hi) = c["key"], sc[c["key"]]
+        for i in iatas:
+            x = vals[i].get(k, {})
+            v = x.get("v")
+            if v is None:
+                u = utility(c["fill"], lo, hi, c["dir"]) if c.get("fill") is not None else 0.5
+                ua, ub, un, wk = 0.0, 1.0, True, False
+            else:
+                u = utility(v, lo, hi, c["dir"])
+                if x.get("lo") is not None:
+                    p, q = utility(x["lo"], lo, hi, c["dir"]), utility(x["hi"], lo, hi, c["dir"])
+                    ua, ub = min(p, q, u), max(p, q, u)
+                else:
+                    ua = ub = u
+                un, wk = False, x.get("lo") is not None
+            z.loc[i, k], a.loc[i, k], b.loc[i, k], unk.loc[i, k], weak.loc[i, k] = u, ua, ub, un, wk
+    return z, a, b, unk.astype(bool), weak.astype(bool)
 
 
 def score(z, w):
-    return (z * w).sum(axis=1) / (w.sum() or 1)
+    if not np.isfinite(w.to_numpy()).all() or (w < 0).any() or w.sum() <= 0:
+        raise ValueError("Нужны конечные неотрицательные веса с положительной суммой")
+    return (z[w.index] * w).sum(axis=1) / w.sum()
 
 
-def ranks(s):
-    return s.rank(ascending=False, method="min").astype(int)
+def mulberry32(seed=42):
+    """Тот же генератор, что rng() в панели: одинаковые 2000 наборов весов в Python и JS."""
+    m = 0xFFFFFFFF
+    while True:
+        seed = (seed + 0x6D2B79F5) & m
+        t = ((seed ^ (seed >> 15)) * (1 | seed)) & m
+        t = (t ^ ((t + (((t ^ (t >> 7)) * (61 | t)) & m)) & m)) & m
+        yield ((t ^ (t >> 14)) & m) / 4294967296
 
 
-def run(min_dist, crit, vals, ll, scen):
-    iatas = [i for i in ll.index if ll.loc[i, "dist_bases_km"] >= min_dist]
-    if min_dist:
-        print(f"Фильтр: ближе {min_dist:.0f} км к базам — убраны {', '.join(ll.loc[~ll.index.isin(iatas), 'city'])}")
-    z, miss = normalize(iatas, crit, vals)
+def top3(s):
+    """Три лучших по полному баллу; при равенстве — исходный порядок городов."""
+    return list(s.iloc[np.argsort(-s.to_numpy(), kind="stable")].index[:3])
+
+
+def run(min_dist, crit, vals, ll, profiles, sc, strict=False):
+    rw = {i for i in vals if (vals[i].get("rw_support") or {}).get("v") == 1}
+    iatas = [i for i in ll.index if ll.loc[i, "dist_bases_km"] >= min_dist and not (strict and i in rw)]
+    z, a, b, unk, weak = tables(iatas, crit, vals, sc)
     w = pd.Series({c["key"]: c["weight"] for c in crit}, dtype=float)
-    s = score(z, w)
-    lo_s, hi_s = score(z.mask(miss, 0.0), w), score(z.mask(miss, 1.0), w)
-    best_rank, worst_rank = {}, {}
-    for i in iatas:  # лучшее место: у города лучшее неизвестное, у остальных худшее; худшее — наоборот
-        sb = lo_s.copy(); sb[i] = hi_s[i]
-        sw = hi_s.copy(); sw[i] = lo_s[i]
-        best_rank[i], worst_rank[i] = ranks(sb)[i], ranks(sw)[i]
-    unk = (miss * w).sum(axis=1) / (w.sum() or 1)
-    base = set(s.nlargest(3).index)
-
+    s, lo_s, hi_s = score(z, w), score(a, w), score(b, w)
+    best = {i: 1 + int((lo_s.drop(i) > hi_s[i]).sum()) for i in iatas}
+    worst = {i: 1 + int((hi_s.drop(i) > lo_s[i]).sum()) for i in iatas}
+    base = set(top3(s))
     one = []
     for k in w.index:
         if w[k] == 0:
@@ -77,41 +114,45 @@ def run(min_dist, crit, vals, ll, scen):
         for f in (0.5, 1.5):
             ww = w.copy()
             ww[k] *= f
-            t = set(score(z, ww).nlargest(3).index)
+            t = set(top3(score(z, ww)))
             one.append({"weight": k, "factor": f, "top3": ", ".join(sorted(t)), "same_as_base": t == base})
-    rng = np.random.default_rng(42)
+    g = mulberry32(42)
     hits = pd.Series(0, index=iatas)
     for _ in range(2000):
-        for i in score(z, w * rng.uniform(0.5, 1.5, len(w))).nlargest(3).index:
+        ww = pd.Series([w[k] * (0.5 + next(g)) for k in w.index], index=w.index)
+        for i in top3(score(z, ww)):
             hits[i] += 1
-    group = {c["key"]: c.get("group", "прочее") for c in crit}
-    sc_rows = []
-    for r in scen.itertuples():
-        ww = w.copy()
-        if r.group != "все":
-            ww[[k for k in w.index if group[k] == r.group]] *= r.multiplier
-        ss = score(z, ww)
-        top = list(ss.nlargest(3).index)
-        sc_rows.append({"scenario": r.scenario, "label": r.label, "top3": ", ".join(ll.loc[top, "city"]),
-                        "top3_iata": ", ".join(top), "same_as_base": set(top) == base})
-    out = pd.DataFrame({"city": ll.loc[iatas, "city"], "score": s.round(3),
-                        "score_low": lo_s.round(3), "score_high": hi_s.round(3),
-                        "rank_best": pd.Series(best_rank), "rank_worst": pd.Series(worst_rank),
-                        "unknown_weight_share": unk.round(2),
-                        "top3_share_random": (hits / 2000).round(2)})
-    out = out.join(z.round(3)).sort_values("score", ascending=False)
+    prof = []
+    for pid, gp in profiles.groupby("profile", sort=False):
+        pw = gp.set_index("column").weight.reindex(w.index).fillna(0.0)
+        t = top3(score(z, pw))
+        prof.append({"profile": pid, "label": gp.label.iloc[0], "top3": ", ".join(ll.loc[t, "city"]),
+                     "top3_iata": ", ".join(t), "same_as_base": set(t) == base})
+    order = np.argsort(-s.to_numpy(), kind="stable")
+    out = pd.DataFrame({"city": ll.loc[iatas, "city"], "score": s, "score_low": lo_s, "score_high": hi_s,
+                        "rank_best": pd.Series(best), "rank_worst": pd.Series(worst),
+                        "unknown_weight_share": (unk * w).sum(axis=1) / w.sum(),
+                        "weak_weight_share": (weak * w).sum(axis=1) / w.sum(),
+                        "top3_share_random": hits / 2000}).iloc[order]
+    out = out.join(z.round(3))
     out.insert(0, "rank", range(1, len(out) + 1))
-    sfx = f"_min{int(min_dist)}" if min_dist else ""
+    for c in ("score", "score_low", "score_high"):
+        out[c] = out[c].round(3)
+    for c in ("unknown_weight_share", "weak_weight_share", "top3_share_random"):
+        out[c] = out[c].round(2)
+    sfx = (f"_min{int(min_dist)}" if min_dist else "") + ("_strict" if strict else "")
     out.to_csv(P / f"longlist_scores{sfx}.csv", index_label="iata", encoding="utf-8")
-    pd.DataFrame(one).to_csv(P / f"longlist_sensitivity{sfx}.csv", index=False, encoding="utf-8")
-    pd.DataFrame(sc_rows).to_csv(P / f"longlist_scenarios{sfx}.csv", index=False, encoding="utf-8")
+    if not strict:
+        pd.DataFrame(one).to_csv(P / f"longlist_sensitivity{sfx}.csv", index=False, encoding="utf-8")
+    pd.DataFrame(prof).to_csv(P / f"longlist_profiles{sfx}.csv", index=False, encoding="utf-8")
+    head = f"Фильтр {int(min_dist)} км" if min_dist else "Все города"
+    print(f"\n=== {head}{' · строго новый хаб (без опорных аэропортов Red Wings)' if strict else ''}")
     pd.set_option("display.width", 200)
     print(out[["rank", "city", "score", "score_low", "score_high", "rank_best", "rank_worst",
-               "unknown_weight_share", "top3_share_random"]].to_string())
-    same = sum(r["same_as_base"] for r in one)
-    print(f"\nТоп-3: {', '.join(out.city.head(3))}")
-    print(f"Один вес ×0,5 или ×1,5: топ-3 тот же в {same} из {len(one)} вариантов")
-    for r in sc_rows:
+               "unknown_weight_share", "weak_weight_share", "top3_share_random"]].to_string())
+    print(f"Топ-3: {', '.join(out.city.head(3))}; один вес ×0,5/×1,5 — тройка та же в "
+          f"{sum(r['same_as_base'] for r in one)} из {len(one)}")
+    for r in prof:
         print(f"  {r['label']}: {r['top3']}")
 
 
@@ -120,13 +161,16 @@ def main():
     ap.add_argument("--min-dist", type=float, default=None)
     a = ap.parse_args()
     data = json.loads((P / "criteria.json").read_text(encoding="utf-8"))
+    crit, vals = data["criteria"], data["values"]
     ll = pd.read_csv(P / "longlist.csv").set_index("iata")
     ll["dist_bases_km"] = ll[["dist_msk_km", "dist_ekb_km"]].min(axis=1)
-    scen = pd.read_csv(ROOT / "data/assumptions/weight_scenarios.csv")
-    dists = [a.min_dist] if a.min_dist is not None else [0.0, float(PAR["min_dist_bases_km"])]
+    profiles = pd.read_csv(ROOT / "data/assumptions/weight_profiles.csv")
+    sc = scales(crit, vals)
+    main_d = float(PAR["min_dist_bases_km"])
+    dists = [a.min_dist] if a.min_dist is not None else [main_d, 0.0]
     for d in dists:
-        run(d, data["criteria"], data["values"], ll, scen)
-        print()
+        run(d, crit, vals, ll, profiles, sc)
+    run(main_d, crit, vals, ll, profiles, sc, strict=True)
 
 
 if __name__ == "__main__":

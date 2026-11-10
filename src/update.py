@@ -31,7 +31,8 @@ MANIFEST = ROOT / "data" / "raw" / "_manifest.json"
 RUNS = ROOT / "data" / "raw" / "_runs.csv"
 # цепочка пересчёта (каждый шаг читает выход предыдущих)
 BUILD = ["src/longlist_data.py", "src/kover_days.py", "src/catchment_extra.py",
-         "src/demand_model.py", "src/demand_summary.py", "src/transfer_potential.py",
+         "src/demand_model.py", "src/demand_summary.py", "src/od_model.py", "src/demand_compare.py",
+         "src/transfer_potential.py",
          "src/build_longlist.py", "src/build_criteria.py", "src/longlist_score.py",
          "src/network_model.py", "src/network_map.py", "src/build_workbook.py",
          "src/scan_news.py", "src/build_dashboard.py"]

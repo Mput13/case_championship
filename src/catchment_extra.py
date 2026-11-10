@@ -83,39 +83,68 @@ def wages():
     return w.groupby("mo8").indicator_value.mean()
 
 
+def weather_counts(rows, t_lim, w_lim):
+    """Valid daily denominators; all-sentinel day is UNKNOWN.
+
+    Combined event needs at least one valid t and w on that day. This does not
+    establish complete hourly coverage or aircraft operating limits.
+    """
+    d = pd.DataFrame(rows, columns=['day','t','w'])
+    if d.empty:
+        return dict(frost=0, wind=0, either=0, valid_temp_days=0, valid_wind_days=0,
+                    valid_joint_days=0, record_days=0, observations=0)
+    d['valid_t'] = d.t.notna() & d.t.ne(-9999)
+    d['valid_w'] = d.w.notna() & d.w.ne(-9999)
+    d['frost'] = d.valid_t & (d.t/10 <= t_lim)
+    d['wind'] = d.valid_w & (d.w/10 >= w_lim)
+    g = d.groupby('day')[['valid_t','valid_w','frost','wind']].any()
+    joint = g.valid_t & g.valid_w
+    return dict(frost=int(g.frost.sum()), wind=int(g.wind.sum()),
+                either=int(((g.frost | g.wind) & joint).sum()),
+                valid_temp_days=int(g.valid_t.sum()), valid_wind_days=int(g.valid_w.sum()),
+                valid_joint_days=int(joint.sum()), record_days=len(g), observations=len(d))
+
+
 def weather():
-    """По каждому аэропорту — станция с самым полным рядом; дни пересчитаны на 365 наблюдённых дней."""
-    files = pd.read_csv(RAW / "weather/_files.csv")
-    files = files[files.status == "ok"]
-    t_lim, w_lim = float(WPAR["frost_c"]), float(WPAR["wind_ms"])
-    min_days = float(WPAR["min_observed_days"])
+    """Select station by valid joint days, never count sentinel rows as fair weather."""
+    files = pd.read_csv(RAW / 'weather/_files.csv')
+    files = files[files.status == 'ok']
+    t_lim, w_lim = float(WPAR['frost_c']), float(WPAR['wind_ms'])
+    min_days = float(WPAR['min_observed_days'])
     cache, out = {}, {}
-    for icao, g in files.groupby("icao"):
+    for icao, g in files.groupby('icao'):
         best = None
-        for st, gs in g.groupby("station"):
-            fr = wi = ei = days = 0
+        for st, gs in g.groupby('station'):
+            total = None
             for f in gs.file:
+                path = RAW/'weather'/f
+                if not path.exists():
+                    continue
                 if f not in cache:
                     rows = []
-                    for line in gzip.open(RAW / "weather" / f, "rt"):
-                        q = line.split()
-                        rows.append((q[0] + q[1] + q[2], int(q[4]), int(q[8])))
-                    d = pd.DataFrame(rows, columns=["day", "t", "w"])
-                    d["frost"] = (d.t != -9999) & (d.t / 10 <= t_lim)
-                    d["wind"] = (d.w != -9999) & (d.w / 10 >= w_lim)
-                    g2 = d.groupby("day")[["frost", "wind"]].any()
-                    cache[f] = (int(g2.frost.sum()), int(g2.wind.sum()), int((g2.frost | g2.wind).sum()), len(g2))
-                a, b_, e, n = cache[f]
-                fr, wi, ei, days = fr + a, wi + b_, ei + e, days + n
+                    with gzip.open(path, 'rt') as fh:
+                        for line in fh:
+                            q = line.split()
+                            rows.append((f'{int(q[0]):04d}-{int(q[1]):02d}-{int(q[2]):02d}', int(q[4]), int(q[8])))
+                    cache[f] = weather_counts(rows,t_lim,w_lim)
+                counts = cache[f]
+                if total is None: total = {k:0 for k in counts}
+                for k,v in counts.items(): total[k] += v
+            if total is None: continue
             years = len(gs)
-            if best is None or days > best[4]:
-                best = (st, fr, wi, ei, days, years)
-        st, fr, wi, ei, days, years = best
-        ok = days / years >= min_days
-        out[icao] = {"frost_days": round(fr / days * 365, 1) if ok else None,
-                     "wind_days": round(wi / days * 365, 1) if ok else None,
-                     "bad_weather_days": round(ei / days * 365, 1) if ok else None,
-                     "weather_days_observed": round(days / years), "weather_station": st, "weather_years": years}
+            if best is None or total['valid_joint_days'] > best[1]['valid_joint_days']:
+                best = (st,total,years)
+        if best is None:
+            out[icao] = dict(bad_weather_days=None,weather_status='UNKNOWN_missing_local_archives')
+            continue
+        st,t,years = best
+        def rate(event,denom):
+            n=t[denom]
+            return round(t[event]/n*365,1) if n and n/years >= min_days else None
+        out[icao] = dict(frost_days=rate('frost','valid_temp_days'), wind_days=rate('wind','valid_wind_days'),
+            bad_weather_days=rate('either','valid_joint_days'),weather_days_observed=round(t['valid_joint_days']/years),
+            weather_station=st,weather_years=years,**t,
+            weather_status='valid_daily_fields_only_hourly_coverage_unverified')
     return out
 
 

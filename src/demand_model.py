@@ -14,7 +14,7 @@
 Три оценки: осторожная (20-й процентиль ошибки), базовая, оптимистичная (80-й).
 Если поток пары известен из отчёта аэропорта, в таблицу идёт он, а модель — для сверки.
 
-Проверка на независимых данных: провозная ёмкость субсидируемых маршрутов 2026 (data/raw/favt_subsidy_2026.csv)
+Грубая проверка масштаба (не проверка точности): плановая ёмкость субсидируемых маршрутов 2026 (data/raw/favt_subsidy_2026.csv)
 × загрузка (data/assumptions/demand.csv).
 
 Вход: data/processed/catchments.csv (src/longlist_data.py), data/manual/known_flows.csv,
@@ -164,7 +164,7 @@ def main():
             })
     pairs = pd.DataFrame(out)
 
-    # независимая сверка: субсидируемые маршруты 2026
+    # проверка масштаба: плановые кресла субсидий 2026 × допущение о загрузке; точность модели этим не проверяется
     sub = pd.read_csv(ROOT / "data/raw/favt_subsidy_2026.csv", dtype=str)
     num = lambda s: pd.to_numeric(s.str.replace(r"[\s\xa0]", "", regex=True).str.replace(",", "."), errors="coerce")
     sub["cap"] = 2 * num(sub.round_trips_2026) * num(sub.seats)

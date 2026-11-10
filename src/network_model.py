@@ -275,24 +275,67 @@ def direct_network(D, A, scen, nodes_all):
             out.append(dict(L, freq=f, carried_dir_week=carried, block_h=bh, lf=carried / (f * A["seats"])))
         return hours, cost, rev, seg, out
 
-    scored = []
+    # Общий спрос физической пары (аудит коллег, B3 в context/18_team_sync/step1_review): если пара
+    # Москва — Омск входит в несколько треугольников, доля рынка считается один раз от суммы их частот,
+    # а перевезённые делятся между треугольниками пропорционально частотам.
+    def joint(sel):
+        agg = {}
+        for t, (B, X, Y, f, legs) in enumerate(sel):
+            for n, L in enumerate(legs):
+                g = agg.setdefault(frozenset((L["a"], L["b"])), {"L": L, "F": 0, "members": []})
+                g["F"] += f
+                g["members"].append((t, n, f))
+        carried = {}
+        for g in agg.values():
+            L, F = g["L"], g["F"]
+            tot = min(L["dem"] * leg_share(L, F, A), F * A["seats"] * A["lf_max"])
+            for t, n, f in g["members"]:
+                carried[(t, n)] = tot * f / F
+        res = []
+        for t, (B, X, Y, f, legs) in enumerate(sel):
+            hours = cost = rev = seg = 0.0
+            out = []
+            for n, L in enumerate(legs):
+                c_ = carried[(t, n)]
+                bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
+                hours += 2 * f * bh
+                cost += 2 * f * c
+                rev += 2 * c_ * fare(A, L["km"])
+                seg += 2 * c_
+                out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"])))
+            res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out))
+        return res
+
+    def totals(res):
+        return sum(r[6] - r[5] for r in res), sum(r[4] for r in res)
+
+    # кандидаты: лучшие треугольники по отдельной оценке; дальше жадный отбор по приросту всей сети
+    pre = []
     for B, X, Y, legs in tri:
-        h, c, r, s, out = tri_eval(B, X, Y, legs)
-        scored.append(((r - c) / h, B, X, Y, h, c, r, s, out))
-    scored.sort(key=lambda x: -x[0])
-    chosen, used_pairs, H = [], set(), 0.0
-    for sc in scored:
-        _, B, X, Y, h, c, r, s, out = sc
-        if (X, Y) in used_pairs or H + h > max_h:
-            continue
-        if sc[0] <= 0 and len(chosen) >= A["min_routes"]:
+        h, c, r, s_, out = tri_eval(B, X, Y, legs)
+        pre.append(((r - c) / h, B, X, Y, out[0]["freq"], legs))
+    pre.sort(key=lambda x: -x[0])
+    pre = pre[:int(A["direct_candidates"])]
+    sel, used_pairs, cur = [], set(), (0.0, 0.0)
+    while len(sel) < A["max_routes"]:
+        best = None
+        for sc, B, X, Y, f, legs in pre:
+            if (X, Y) in used_pairs:
+                continue
+            res = joint(sel + [(B, X, Y, f, legs)])
+            m, h = totals(res)
+            if h > max_h:
+                continue
+            gain, dh = m - cur[0], h - cur[1]
+            score = gain / dh if dh > 0 else -1e18
+            if best is None or score > best[0]:
+                best = (score, (B, X, Y, f, legs), (m, h))
+        if best is None or (best[0] <= 0 and len(sel) >= A["min_routes"]):
             break
-        chosen.append(sc)
-        used_pairs.add((X, Y))
-        H += h
-        if len(chosen) >= A["max_routes"]:
-            break
-    return chosen
+        sel.append(best[1])
+        used_pairs.add((best[1][1], best[1][2]))
+        cur = best[2]
+    return joint(sel)
 
 
 def kover_map():

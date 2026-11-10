@@ -94,6 +94,31 @@ def load_spokes():
     return out
 
 
+def load_demand(n_regions):
+    """Шаг 2: все пары с городом-кандидатом — оценки в двух мерах, метод, сезонность, сверка с коллегами."""
+    d = pd.read_csv(P / "demand_estimates.csv")
+    s = json.loads((P / "demand_estimates.json").read_text(encoding="utf-8"))
+    cand = set(pd.read_csv(P / "longlist.csv").iata)
+    out = {}
+    num_ = lambda v: None if v is None or (isinstance(v, float) and v != v) else float(v)
+    for r in d.itertuples():
+        for c, o, oc in ((r.a, r.b, r.city_b), (r.b, r.a, r.city_a)):
+            if c not in cand:
+                continue
+            g = rules.green_limit(n_regions.get(c), n_regions.get(o))
+            out.setdefault(c, []).append({
+                "to": o, "city": oc, "km": int(r.km), "ssj": bool(r.km <= g), "closed": bool(r.closed),
+                "now": "прямой рейс" if r.direct_now else (r.od_route_now if isinstance(r.od_route_now, str) else "нет рейса"),
+                "seg": num_(r.segments_base), "seg_lo": num_(r.segments_cautious), "od": num_(r.od_base), "od_lo": num_(r.od_cautious),
+                "share": num_(r.own_trips_share), "unc": bool(r.uncertain), "how": r.segments_method, "od_how": r.od_method,
+                "m": num_(r.seg_model), "an": num_(r.seg_analog) if r.direct_now else None, "sch": num_(r.seg_schedule), "sch_lo": num_(r.seg_schedule_lower),
+                "obs": num_(r.observed), "col": num_(r.colleagues_od_base) if not (r.colleagues_zia_only is True) else None,
+                "sum": num_(r.summer_factor), "win": num_(r.winter_factor)})
+    for c in out:
+        out[c].sort(key=lambda x: -(x["seg"] or 0))
+    return {"pairs": out, "summary": s}
+
+
 def monthly():
     """Дни «Ковра» по месяцам: те же события, что в data/processed/kover_days.csv (src/kover_days.py)."""
     e = pd.read_csv(P / "kover_events.csv")
@@ -140,6 +165,14 @@ def main():
     crit = json.loads((P / "criteria.json").read_text(encoding="utf-8"))
     net = load_network()
     spokes = load_spokes()
+    pr = pd.read_csv(ROOT / "data/assumptions/weight_profiles.csv")
+    profiles = [{"id": k, "label": g.label.iloc[0], "weights": {r.column: float(r.weight) for r in g.itertuples()}}
+                for k, g in pr.groupby("profile", sort=False)]
+    import demand_model as dm  # noqa: E402
+    _n = dm.nodes()
+    demand = load_demand(_n.region.to_dict())
+    from airports_meta import NAME as _NAME
+    names = {i: _NAME.get(i, _n.loc[i, "main_city"]) for i in _n.index}
     geo = json.loads((P / "geo_map.json").read_text(encoding="utf-8"))
     man_p = ROOT / "data/raw/_manifest.json"
     manifest = json.loads(man_p.read_text(encoding="utf-8")) if man_p.exists() else {}
@@ -155,7 +188,7 @@ def main():
         "bases": {b: [float(ap.loc[x, "latitude_deg"]), float(ap.loc[x, "longitude_deg"])] for b, x in (("MOW", "SVO"), ("SVX", "SVX"))},
         "dests": dests, "geo": geo, "manifest": manifest,
         "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214},
-        "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes,
+        "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes, "demand": demand, "profiles": profiles, "names": names,
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
     }

@@ -100,15 +100,34 @@ def airport_positions(text):
 
 
 def airport_events(text):
-    """{IATA: 'intro' | 'lift'} — статус берётся из ближайшего слова-статуса после названия аэропорта
-    (в постах Росавиации сначала идут аэропорты, потом «ВВЕДЕНЫ» или «СНЯТЫ»); если после названия
-    статуса нет (сводки «не принимают рейсы аэропорты: ...»), — из ближайшего до него."""
+    """{IATA: 'intro' | 'lift'} — статус для каждого аэропорта поста.
+
+    1. Своя пометка: слово-статус между названием аэропорта и следующим аэропортом на той же строке
+       («САМАРА (Курумоч) ограничения сняты около 06:00» относится только к Самаре).
+    2. Иначе — первое слово-статус после названия, кроме чужих личных пометок: так общий статус
+       списка («— НИЖНИЙ НОВГОРОД / — САМАРА … сняты / — ЧЕБОКСАРЫ / ВВЕДЕНЫ») достаётся Нижнему
+       и Чебоксарам (пост 6495 от 25.07.2026, замечание аудита коллег).
+    3. Если после названия статуса нет (сводки «не принимают рейсы аэропорты: …»), — ближайший до него."""
     kws = sorted([(m.start(), "lift") for m in LIFT_KW.finditer(text)] +
                  [(m.start(), "intro") for m in INTRO_KW.finditer(text)])
+    aps = airport_positions(text)
+    line = lambda pos: text.count(chr(10), 0, pos)  # номер строки поста
+    own, personal = {}, set()
+    for n, (pos, iata) in enumerate(aps):
+        nxt = aps[n + 1][0] if n + 1 < len(aps) else len(text)
+        mine = [k for k in kws if pos < k[0] < nxt and line(k[0]) == line(pos)]
+        if mine:
+            own[iata] = mine[0][1]
+            alone = not any(line(p2) == line(pos) for p2, i2 in aps if i2 != iata)
+            if alone:
+                personal.add(mine[0][0])
     ev = {}
-    for pos, iata in airport_positions(text):
-        after = [k for k in kws if k[0] > pos]
-        before = [k for k in kws if k[0] < pos]
+    for pos, iata in aps:
+        if iata in own:
+            ev[iata] = own[iata]
+            continue
+        after = [k for k in kws if k[0] > pos and k[0] not in personal]
+        before = [k for k in kws if k[0] < pos and k[0] not in personal]
         st = after[0][1] if after else (before[-1][1] if before else None)
         if st:
             ev[iata] = st

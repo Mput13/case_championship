@@ -23,6 +23,7 @@ DROP = ROOT / "data" / "criteria"
 OUT = P / "criteria.json"
 # сведения о хабах и базах конкурентов — data/manual/competitor_hubs.csv (1 — есть, 0 — проверено, что нет)
 COMP = pd.read_csv(ROOT / "data/manual/competitor_hubs.csv").set_index("iata")
+PAX_UP = pd.read_csv(ROOT / "data/manual/pax_2025_overrides.csv").set_index("iata")
 FMTS = {"mln", "days", "km", "int", "yesno", "level", "pct", "num"}
 
 
@@ -83,6 +84,20 @@ def core(ll, w):
         if str(r.pax_2025_qualifier).startswith(">"):
             v["pax_2025"] = (v["pax_2025"][0], "≥", v["pax_2025"][2])
         vals[i] = {k: {"v": a, "t": b, "s": c} for k, (a, b, c) in v.items()}
+        # диапазоны для слабых значений (аудит коллег, context/22_stage1_audit): в диапазоне мест они
+        # считаются неопределёнными; центр — само значение
+        lvl = COMP.loc[i, "evidence_level"] if i in COMP.index and "evidence_level" in COMP.columns else None
+        if vals[i]["competitor_hub"]["v"] is not None and txt(lvl) and lvl != "первичный источник":
+            vals[i]["competitor_hub"].update(lo=0.0, hi=1.0, weak=f"слабый источник: {lvl}")
+        if vals[i]["ssj_mro"]["v"] is not None and 0 < vals[i]["ssj_mro"]["v"] < 1:
+            vals[i]["ssj_mro"].update(lo=0.0, hi=1.0, weak="косвенный вывод")
+        if i in PAX_UP.index and vals[i]["pax_2025"]["v"] is not None:
+            vals[i]["pax_2025"].update(lo=vals[i]["pax_2025"]["v"], hi=float(PAX_UP.loc[i, "upper_bound"]),
+                                       weak=txt(PAX_UP.loc[i, "upper_note"]))
+        gru = num(getattr(r, "gap_pop_rail_unknown", None)) or 0
+        if gru > 0 and vals[i]["gap_pop"]["v"] is not None:
+            vals[i]["gap_pop"].update(lo=vals[i]["gap_pop"]["v"] - gru, hi=vals[i]["gap_pop"]["v"],
+                                      weak=f"у {gru / 1e6:.2f} млн человек время поезда неизвестно")
     crit = []
     for x in w.itertuples():
         crit.append({"key": x.column, "label": x.criterion, "short": x.short, "dir": x.direction,
