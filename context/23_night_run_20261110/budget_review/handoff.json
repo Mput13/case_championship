@@ -10,7 +10,7 @@
   "author_tests_used_as_acceptance": false,
   "source_access": "git show only; no moving input upgrades",
   "package_path": "context/23_night_run_20261110/budget_review/",
-  "bounded_package_finished_moscow": "2026-11-10 before 07:15; exact artifact commit timestamp in Git",
+  "bounded_package_finished_moscow": "2026-11-10T06:33:37+03:00",
   "report": "report.md",
   "findings": "findings.json",
   "reproduce": [
@@ -28,7 +28,7 @@
     "pairwise_boundary_rows": 12,
     "singleton_threshold_rows": 12,
     "numeric_checks": 2970,
-    "maximum_absolute_numeric_difference": 7.450580596923828e-9,
+    "maximum_absolute_numeric_difference": 7.450580596923828e-09,
     "source_manifest_hashes": 62,
     "output_manifest_hashes": 103,
     "source_manifest_matches": true,
@@ -47,8 +47,23 @@
     "F/B/O are additional unknown costs, with included_in and avoidability required; reserve cannot be double charged",
     "Cash 1M is a period-boundary/netted fixture peak; same period totals can require 1.8M with payments first; actual peak UNKNOWN"
   ],
-  "acceptance_stages": ["RAW_HASH_VERIFIED_FOR_MANIFEST_ENTRIES", "CONSERVATION_PASS_BUDGET_SCOPE", "CONDITIONAL_ECONOMICS_CHECKED_ENUMERATED_BUDGET_SCOPE"],
-  "outside_scope": ["MR05 broad model review", "external source verification", "actual paid demand and net yield", "operational approval and payload", "actual donor", "full company budget", "normative network choice", "launch", "new disruption probabilities", "annual forecast"],
+  "acceptance_stages": [
+    "RAW_HASH_VERIFIED_FOR_MANIFEST_ENTRIES",
+    "CONSERVATION_PASS_BUDGET_SCOPE",
+    "CONDITIONAL_ECONOMICS_CHECKED_ENUMERATED_BUDGET_SCOPE"
+  ],
+  "outside_scope": [
+    "MR05 broad model review",
+    "external source verification",
+    "actual paid demand and net yield",
+    "operational approval and payload",
+    "actual donor",
+    "full company budget",
+    "normative network choice",
+    "launch",
+    "new disruption probabilities",
+    "annual forecast"
+  ],
   "mr05_scope_preserved": true,
   "source_originals_unchanged": true,
   "actual_unknown_coefficients_replaced_with_zero": false,
@@ -56,8 +71,8 @@
   "delivery": {
     "remote": "origin",
     "ref": "refs/heads/research/night-budget-review-20261110",
-    "artifact_commit": null,
-    "artifact_commit_note": "Filled after committing the complete bounded result, before the final handoff commit",
+    "artifact_commit": "82770bbfa3012dbc8d3e818dbeec49d8f2d051f6",
+    "artifact_commit_note": "Complete bounded report, numerical evidence, code and manifests committed2026-11-10T06:33:37+03:00; this final metadata commit names that immutable content commit",
     "delivery_head_resolution": "git log -1 --format=%H -- context/23_night_run_20261110/budget_review/handoff.json",
     "remote_verification_command": "git ls-remote origin refs/heads/research/night-budget-review-20261110",
     "exact_delivery_remote_SHA": "Reported in final automatic handoff after push; self-referential commit SHA is not embedded in its own tracked content",
@@ -65,5 +80,16 @@
     "merge": false,
     "rebase": false,
     "pull_request": false
-  }
+  },
+  "reviewer": "Fresh independent Sol6.1 xhigh reviewer in prepared checkout",
+  "instructions_read": [
+    {
+      "path": "context/23_night_run_20261110/contract.md",
+      "sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174"
+    },
+    {
+      "path": "context/23_night_run_20261110/briefs/budget_review.md",
+      "sha256": "2d680f8edad9c463db8d605dec55a0dd2e6acbe4ce426408d8be1001fb29f9fd"
+    }
+  ]
 }
