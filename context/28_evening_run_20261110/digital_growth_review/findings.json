@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "review_id": "EV-DIGITAL-FINAL",
+  "subject_sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
+  "subject_branch": "t3/digital-growth-research",
+  "scope": "context/28_evening_run_20261110/digital_growth/",
+  "verdict": "APPROVE_SCOPED",
+  "blocking_findings": [],
+  "non_blocking_findings": [
+    {
+      "id": "EV-DIGITAL-N01",
+      "severity": "P3",
+      "subject_sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
+      "path": "context/28_evening_run_20261110/digital_growth/cards.md",
+      "line": 39,
+      "title": "Не переносить неподтверждённый признак «регулярный» в eligibility rule",
+      "evidence": [
+        {
+          "path": "context/28_evening_run_20261110/digital_growth/evidence/D03_returnability_facts.json",
+          "line": 6
+        },
+        "https://flyredwings.com/services/vozvratnost-bileta/"
+      ],
+      "repro": "В cards.md предлагаемая развилка различает «регулярный прямой международный/иной». Официальное условие различает прямой международный рейс без слова «регулярный». Прямой международный чартер попал бы в «иной», если трактовать фразу как gate.",
+      "impact": "Недоказанное сужение правил при будущей реализации; не ошибка числовой модели и не доказательство доступности услуги на чартере.",
+      "minimum_fix": "До реализации удалить «регулярный» либо пометить charter eligibility UNKNOWN и подтвердить владельцем.",
+      "blocking": false,
+      "reason_non_blocking": "Research-only proposal already requires policy-owner reconciliation; no deployed rule or claimed legal outcome."
+    }
+  ],
+  "not_admitted": [
+    "paidE2E",
+    "business causality",
+    "full approved budget",
+    "complete primary numerical ranking",
+    "deliveryN(t)/freefleet/demand/networkplan"
+  ]
+}
