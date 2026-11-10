@@ -1,0 +1,22 @@
+--- a/src/network_model.py
++++ b/src/network_model.py
+@@ -173,6 +173,8 @@
+ 
+ 
+ def capture(qmax, f, A):
++    if not all(math.isfinite(v) for v in (qmax, f, A["capture_freq_scale"])) or not 0 <= qmax <= 1 or f < 0 or A["capture_freq_scale"] <= 0:
++        raise ValueError("Некорректные параметры захвата спроса")
+     return qmax * (1 - math.exp(-f / A["capture_freq_scale"]))
+ 
+ 
+@@ -191,6 +193,10 @@
+ 
+ 
+ def freq_for(pax_week_dir, A):
++    if not all(math.isfinite(A[k]) and A[k] > 0 for k in ("seats", "lf_max", "min_freq_week", "max_freq_week")) or A["min_freq_week"] > A["max_freq_week"]:
++        raise ValueError("Нужны положительная вместимость, загрузка и согласованные частоты")
++    if not math.isfinite(pax_week_dir) or pax_week_dir < 0:
++        raise ValueError("Спрос должен быть конечным и неотрицательным")
+     need = math.ceil(pax_week_dir / (A["seats"] * A["lf_max"])) if pax_week_dir > 0 else 0
+     return int(min(A["max_freq_week"], max(A["min_freq_week"], need)))
+ 

@@ -1,0 +1,59 @@
+--- a/src/network_model.py
++++ b/src/network_model.py
+@@ -201,9 +201,33 @@
+     return int(min(A["max_freq_week"], max(A["min_freq_week"], need)))
+ 
+ 
++class NoFeasibleService(RuntimeError):
++    """Explicit unsupported no-service case, never a profitable numeric alternative.
++
++    Zero completed operations do not imply zero market demand. Fixed costs,
++    FullPnL and cash cannot be inferred from this variable-flow model.
++    Consumers main/ramp deliberately propagate this error before unpacking.
++    """
++    def __init__(self, status):
++        self.status = status
++        self.operations = dict(aircraft_working=0, aircraft_reserved=0, flights_week=0,
++                               segments_year=0, od_trips_year=0, sales=0,
++                               variable_cost=0, subsidy=0, migrated=0, forgone=0)
++        self.fixed_cost = self.full_pnl = self.cash = None
++        super().__init__(status + ": no service; numeric comparison/export unsupported")
++
++
++def require_working_resource(A):
++    if not all(math.isfinite(A[k]) and A[k] >= 0 for k in ("fleet_cap", "spare_aircraft")):
++        raise ValueError("Fleet and spare must be finite and nonnegative")
++    if A["fleet_cap"] <= A["spare_aircraft"]:
++        raise NoFeasibleService("NO_WORKING_RESOURCE")
++
++
+ def hub_network(H, D, A, scen, cand_nodes):
+     """Сеть из хаба H. Потоки считаются один раз из общей таблицы поездок (местные и пересадочные),
+     чтобы выполнялось тождество: сегменты = местные поездки + 2 × пересадочные (аудит критика front2272)."""
++    require_working_resource(A)
+     W = A["weeks_per_year"]
+     spokes = []
+     for X in cand_nodes:
+@@ -309,10 +333,13 @@
+             break
+         chosen.append(cand[1])
+         best = cand[2]
++    if best is None:
++        raise NoFeasibleService("NO_FEASIBLE_SERVICE")
+     return chosen, best
+ 
+ 
+ def direct_network(D, A, scen, nodes_all):
++    require_working_resource(A)
+     W = A["weeks_per_year"]
+     bases = ["MOW", "SVX"]
+     max_h = (A["fleet_cap"] - A["spare_aircraft"]) * A["block_h_per_day"] * 7
+@@ -431,6 +458,8 @@
+         sel.append(best[1])
+         used_pairs.add((best[1][1], best[1][2]))
+         cur = best[2]
++    if not sel:
++        raise NoFeasibleService("NO_FEASIBLE_SERVICE")
+     return joint(sel)
+ 
+ 

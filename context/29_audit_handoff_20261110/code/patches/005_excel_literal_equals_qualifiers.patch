@@ -1,0 +1,14 @@
+--- a/src/build_longlist.py
++++ b/src/build_longlist.py
+@@ -98,6 +98,11 @@
+     xlsx = out / "longlist.xlsx"
+     with pd.ExcelWriter(xlsx) as xw:
+         df.to_excel(xw, sheet_name="longlist", index=False)
++        # Literal qualifier equals sign is text, never an empty Excel formula.
++        for col_index, column in enumerate(df.columns, 1):
++            for row_index, value in enumerate(df[column], 2):
++                if isinstance(value, str) and value == "=":
++                    xw.book["longlist"].cell(row_index, col_index).data_type = "s"
+         sources.to_excel(xw, sheet_name="sources", index=False)
+     set_font(xlsx)
+     print(df[["city", "pax_2025", "catchment_pop", "ssj_reach_pop", "direct_now", "gap_pop",

@@ -1,0 +1,13 @@
+--- a/src/network_model.py
++++ b/src/network_model.py
+@@ -407,7 +407,9 @@
+     pre = []
+     for B, X, Y, legs in tri:
+         h, c, r, s_, out = tri_eval(B, X, Y, legs)
+-        pre.append(((r - c) / h, B, X, Y, out[0]["freq"], legs))
++        f = out[0]["freq"]
++        single = joint([(B, X, Y, f, legs)])[0]
++        pre.append((single[0], B, X, Y, f, legs))
+     pre.sort(key=lambda x: -x[0])
+     pre = pre[:int(A["direct_candidates"])]
+     sel, used_pairs, cur = [], set(), (0.0, 0.0)

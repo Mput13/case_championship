@@ -1,0 +1,18 @@
+--- a/src/network_model.py
++++ b/src/network_model.py
+@@ -554,7 +554,14 @@
+         "variant": "Вариант", "route": "Маршрут", "km": "Км", "pax_year_segments": "Пассажиров в год (база)",
+         "pax_cautious": "Пассажиров в год (осторожно)", "freq_week_each_way": "Рейсов в неделю в одну сторону",
+         "load_factor": "Загрузка", "direct_now": "Прямой рейс уже есть", "demand_source": "Откуда спрос пары"})
+-    mt["Откуда частота"] = freq_method(AS["base"])
++    mt["Откуда частота"] = [freq_method(dict(AS["base"], max_freq_week=AS["base"]["direct_max_freq_week"])) if str(v).startswith("Прямые") else freq_method(AS["base"]) for v in mt["Вариант"]]
++    # Complete case table, one row per scenario/program leg, without inventing airport for MOW.
++    full = rt.copy()
++    full["route_unit"] = full.variant.map(lambda v: "hub_spoke" if v.startswith("Хаб ") else "triangle_leg")
++    full["airport_scope"] = ["MOW_city_market_airport_unresolved" if "MOW" in (a, b) else "IATA_pair" for a, b in zip(full["from"], full["to"])]
++    full["period_weeks"] = [AS[s]["weeks_per_year"] for s in full.scenario]
++    full["frequency_method"] = [freq_method(dict(AS[s], max_freq_week=AS[s]["direct_max_freq_week"])) if u == "triangle_leg" else freq_method(AS[s]) for s, u in zip(full.scenario, full.route_unit)]
++    full.to_csv(P / "mandatory_routes_all_scenarios.csv", index=False, encoding="utf-8")
+     mt.to_csv(P / "mandatory_routes_table.csv", index=False, encoding="utf-8")
+     sm.to_csv(P / "network_summary.csv", index=False, encoding="utf-8")
+     # Шаг 4: как сеть выбранного хаба растёт по мере поставок самолётов (data/assumptions/choice.csv)

@@ -1,0 +1,24 @@
+--- a/src/longlist_score.py
++++ b/src/longlist_score.py
+@@ -104,8 +104,8 @@
+     z, a, b, unk, weak = tables(iatas, crit, vals, sc)
+     w = pd.Series({c["key"]: c["weight"] for c in crit}, dtype=float)
+     s, lo_s, hi_s = score(z, w), score(a, w), score(b, w)
+-    best = {i: 1 + int((lo_s.drop(i) > hi_s[i]).sum()) for i in iatas}
+-    worst = {i: 1 + int((hi_s.drop(i) > lo_s[i]).sum()) for i in iatas}
++    best = {i: 1 + sum(lo_s[j] > hi_s[i] or (lo_s[j] == hi_s[i] and iatas.index(j) < iatas.index(i)) for j in iatas if j != i) for i in iatas}
++    worst = {i: 1 + sum(hi_s[j] > lo_s[i] or (hi_s[j] == lo_s[i] and iatas.index(j) < iatas.index(i)) for j in iatas if j != i) for i in iatas}
+     base = set(top3(s))
+     one = []
+     for k in w.index:
+--- a/src/dashboard_template.html
++++ b/src/dashboard_template.html
+@@ -501,7 +501,7 @@
+   const zl=cells.map(q=>Object.fromEntries(CR.map(w=>[w.key,q[w.key].a]))), zh=cells.map(q=>Object.fromEntries(CR.map(w=>[w.key,q[w.key].b])));
+   const sl=scoreAll(zl,W), sh=scoreAll(zh,W), tw=wsum(W);
+   const rows=set.map((c,i)=>({c,score:s[i],z:z[i],share:hits[i]/N,lo:sl[i],hi:sh[i],idx:i,
+-    best:1+sl.filter((v,j)=>j!==i&&v>sh[i]).length, worst:1+sh.filter((v,j)=>j!==i&&v>sl[i]).length,
++    best:1+sl.filter((v,j)=>j!==i&&(v>sh[i]||(v===sh[i]&&j<i))).length, worst:1+sh.filter((v,j)=>j!==i&&(v>sl[i]||(v===sl[i]&&j<i))).length,
+     unk:CR.reduce((a,w)=>a+(cells[i][w.key].unk?W[w.key]:0),0)/tw,
+     weak:CR.reduce((a,w)=>a+(cells[i][w.key].weak?W[w.key]:0),0)/tw})).sort((a,b)=>b.score-a.score||a.idx-b.idx); rows.forEach((x,i)=>x.rank=i+1);
+   return {rows,out,same,total,byIata:Object.fromEntries(rows.map(x=>[x.c.iata,x]))};
