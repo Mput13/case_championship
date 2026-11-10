@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "RUNNING",
-  "updated_at_utc": "2026-11-10T03:05:25.068458+00:00",
+  "updated_at_utc": "2026-11-10T03:11:19.914291+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -25,7 +25,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-20261110-r1",
       "link": "[Sol 6.1: исправление общего захвата и учёта поездок](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
       "providerInstanceId": "codex",
       "options": [
@@ -34,7 +34,10 @@
           "value": "xhigh"
         }
       ],
-      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it.",
+      "pushed_sha": "27740ffea0821aa404ecd1013d1bb141613261f3",
+      "payload_sha": "dc5c65d12e0236f5aaa6182ca83bda0d52c10f57",
+      "acceptance": "AUTHOR_REPLAY_AND_CONSERVATION_REPORTED; INDEPENDENT_REVIEW_PENDING"
     },
     {
       "role": "data_bridge",
@@ -192,6 +195,18 @@
       "path": "integration/primary_evidence/17b4f348",
       "independent_review": "PENDING_COMBINED_SOURCE_JOIN_REVIEW",
       "model_input_status": "CANDIDATE_INPUT_ONLY; NO_AUTOMATIC_REPLACEMENT"
+    },
+    "model_repair": {
+      "sha": "27740ffea0821aa404ecd1013d1bb141613261f3",
+      "payload_sha": "dc5c65d12e0236f5aaa6182ca83bda0d52c10f57",
+      "path": "integration/model_repair/27740ffe",
+      "independent_review": "READY_FOR_DISPATCH"
+    },
+    "methods_budget_v2": {
+      "sha": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
+      "path": "integration/methods/2a74b051",
+      "independent_review": "PENDING_NEW_MR07",
+      "prior_review_covers_new_module": false
     }
   },
   "queued_tasks": [
@@ -216,6 +231,22 @@
       "role": "source_join_review",
       "state": "WAITING_FOR_DATA_BRIDGE_PACKAGE_AND_SLOT",
       "input_sha": "17b4f348f15ea8695688d9435933cb4965568408",
+      "priority": "P1",
+      "required_new_delegate_task": true
+    },
+    {
+      "request_id": "MODEL_REPAIR_REVIEW",
+      "role": "model_repair_review",
+      "state": "READY_TO_DISPATCH",
+      "input_sha": "27740ffea0821aa404ecd1013d1bb141613261f3",
+      "priority": "P1",
+      "required_new_delegate_task": true
+    },
+    {
+      "request_id": "MR07",
+      "role": "budget_review",
+      "state": "WAITING_FOR_SOL_SLOT",
+      "input_sha": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
       "priority": "P1",
       "required_new_delegate_task": true
     }
