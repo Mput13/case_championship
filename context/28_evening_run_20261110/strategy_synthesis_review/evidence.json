@@ -1,0 +1,449 @@
+{
+  "alignment_commit": "d125f87d2caeb3b08cfa3c6471d9aeb000f6c605",
+  "mixed11": [
+    {
+      "scenario": "base",
+      "weekly_oneway_OD": 357.63461538461536,
+      "open": true,
+      "q2_both_directions": 226.2245459337721,
+      "q4_both_directions": 342.37210056154566,
+      "naive_overlap": 452.4490918675442,
+      "raw_oneway_q2": 113.11227296688605,
+      "raw_oneway_q4": 171.18605028077283,
+      "planning_seats_oneway_f2": 170.0,
+      "planning_seats_oneway_f4": 340.0,
+      "fare": 11581.605057185796,
+      "pax_cost": 500.0,
+      "naive_total": -17688639.2317603,
+      "corrected_total": -18908468.975296643,
+      "correction": -1219829.743536342,
+      "journey_correction": -110.07699130599849,
+      "capped_counterexample": {
+        "oneway_OD": 10000,
+        "actual_q2": 340.0,
+        "actual_q4": 680.0,
+        "wrong_closed_form_q4": 514.5618204710813
+      }
+    },
+    {
+      "scenario": "cautious",
+      "weekly_oneway_OD": 125.45192307692308,
+      "open": true,
+      "q2_both_directions": 61.04275815367088,
+      "q4_both_directions": 92.38315518273185,
+      "naive_overlap": 122.08551630734176,
+      "raw_oneway_q2": 30.52137907683544,
+      "raw_oneway_q4": 46.19157759136593,
+      "planning_seats_oneway_f2": 160.0,
+      "planning_seats_oneway_f4": 320.0,
+      "fare": 8835.290821166367,
+      "pax_cost": 650.0,
+      "naive_total": -51751460.94754146,
+      "corrected_total": -51994583.4114217,
+      "correction": -243122.46388024092,
+      "journey_correction": -29.702361124609865,
+      "capped_counterexample": {
+        "oneway_OD": 10000,
+        "actual_q2": 320.0,
+        "actual_q4": 640.0,
+        "wrong_closed_form_q4": 484.29347809042946
+      }
+    }
+  ],
+  "pair_grain_counterexamples": [
+    {
+      "option": "AUTHOR_52_48_CONCENTRATED/base/DIRECT/SIGNED_CITY_PAIRS/cap4",
+      "program_rows": 9,
+      "unique_pairs": 8,
+      "duplicate_pair": [
+        "MOW",
+        "MRV"
+      ],
+      "frequencies": [
+        "7",
+        "3"
+      ]
+    }
+  ],
+  "resource_boundaries": [
+    {
+      "date": "2028-04-30",
+      "working": 3,
+      "entered": 4,
+      "grounded": 0,
+      "reserve": 1
+    },
+    {
+      "date": "2028-05-01",
+      "working": 5,
+      "entered": 6,
+      "grounded": 0,
+      "reserve": 1
+    },
+    {
+      "date": "2028-07-30",
+      "working": 5,
+      "entered": 6,
+      "grounded": 0,
+      "reserve": 1
+    },
+    {
+      "date": "2028-09-10",
+      "working": 6,
+      "entered": 8,
+      "grounded": 1,
+      "reserve": 1
+    },
+    {
+      "date": "2028-09-11",
+      "working": 7,
+      "entered": 8,
+      "grounded": 0,
+      "reserve": 1
+    }
+  ],
+  "selected_source_cells": [
+    {
+      "id": "C01",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C01_synchronization.csv",
+      "line": 2,
+      "column": "delta_contribution_rub_week",
+      "value": "1695505.7500616387",
+      "selectors": {
+        "local_loss_fraction_south": "0"
+      },
+      "unit": "RUB incremental sync ceiling before K and other loss",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C01",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C01_synchronization.csv",
+      "line": 5,
+      "column": "delta_contribution_rub_week",
+      "value": "897307.7104317499",
+      "selectors": {
+        "local_loss_fraction_south": "0"
+      },
+      "unit": "RUB incremental sync ceiling before K and other loss",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C03",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C03_base_comparison.csv",
+      "line": 2,
+      "column": "Kmax_extra_KUF_base_minus_deployment_lodging_rub_week",
+      "value": "1136182.3759248164",
+      "selectors": {},
+      "unit": "RUB avoided weekly ferry ceiling",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C03",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C03_base_comparison.csv",
+      "line": 3,
+      "column": "Kmax_extra_KUF_base_minus_deployment_lodging_rub_week",
+      "value": "1663976.3302454636",
+      "selectors": {},
+      "unit": "RUB avoided weekly ferry ceiling",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C04",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/fixed_programs.csv",
+      "line": 5,
+      "column": "contribution_rub_week",
+      "value": "-12841455.532602016",
+      "selectors": {
+        "network": "OMS8"
+      },
+      "unit": "RUB local OMS8 contribution",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C04",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/fixed_programs.csv",
+      "line": 9,
+      "column": "contribution_rub_week",
+      "value": "-35316573.97142186",
+      "selectors": {
+        "network": "OMS8"
+      },
+      "unit": "RUB local OMS8 contribution",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C07",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C07_extension.csv",
+      "line": 3,
+      "column": "delta_contribution_rub_week",
+      "value": "-1754011.114649373",
+      "selectors": {
+        "turn_minutes": "45"
+      },
+      "unit": "RUB full rotation delta",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C07",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C07_extension.csv",
+      "line": 6,
+      "column": "delta_contribution_rub_week",
+      "value": "-3755185.580875518",
+      "selectors": {
+        "turn_minutes": "45"
+      },
+      "unit": "RUB full rotation delta",
+      "period": "DIAGNOSTIC_WEEK"
+    },
+    {
+      "id": "C33",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C33_retiming.csv",
+      "line": 10,
+      "column": "delta_contribution_rub_week",
+      "value": "555719.0707868015",
+      "selectors": {
+        "occupied_state": "planning_lf_sold_allow100",
+        "local_loss_fraction_trunk": "0.15"
+      },
+      "unit": "RUB K ceiling at85/80sold allow100 physical and15pct timingloss",
+      "period": "DIAGNOSTIC_WEEK_2026_12_07"
+    },
+    {
+      "id": "C33",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/C33_retiming.csv",
+      "line": 22,
+      "column": "delta_contribution_rub_week",
+      "value": "219364.53094170074",
+      "selectors": {
+        "occupied_state": "planning_lf_sold_allow100",
+        "local_loss_fraction_trunk": "0.15"
+      },
+      "unit": "RUB K ceiling at85/80sold allow100 physical and15pct timingloss",
+      "period": "DIAGNOSTIC_WEEK_2026_12_07"
+    },
+    {
+      "id": "C10",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C10_contract_thresholds.csv",
+      "line": 5,
+      "column": "minimum_guarantee_return_per_person",
+      "value": "32082.592954666667",
+      "selectors": {
+        "phase": "launch_closed",
+        "cohorts": "1",
+        "K_probe": "0"
+      },
+      "unit": "RUB launch return guarantee before K",
+      "period": "CLOSED_28DAY_LAUNCH_RETURN_CLIENT"
+    },
+    {
+      "id": "C10",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C10_contract_thresholds.csv",
+      "line": 23,
+      "column": "minimum_guarantee_return_per_person",
+      "value": "71564.375232",
+      "selectors": {
+        "phase": "launch_closed",
+        "cohorts": "1",
+        "K_probe": "0"
+      },
+      "unit": "RUB launch return guarantee before K",
+      "period": "CLOSED_28DAY_LAUNCH_RETURN_CLIENT"
+    },
+    {
+      "id": "C14",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C14_full_package_thresholds.csv",
+      "line": 2,
+      "column": "minimum_package_price_per_person",
+      "value": "169127.37459674076",
+      "selectors": {
+        "K_probe": "0"
+      },
+      "unit": "RUB full package floor per return customer before K",
+      "period": "SIX_COHORTS_2027_11_01_TO_12_20"
+    },
+    {
+      "id": "C14",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C14_full_package_thresholds.csv",
+      "line": 5,
+      "column": "minimum_package_price_per_person",
+      "value": "267862.78376533336",
+      "selectors": {
+        "K_probe": "0"
+      },
+      "unit": "RUB full package floor per return customer before K",
+      "period": "SIX_COHORTS_2027_11_01_TO_12_20"
+    },
+    {
+      "id": "C17",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C17_seasonal_thresholds.csv",
+      "line": 2,
+      "column": "minimum_summer_paid_people_each_leg",
+      "value": "163.9406638094946",
+      "selectors": {
+        "year": "2027",
+        "summer_people_each_leg_probe": "40",
+        "K_probe": "0"
+      },
+      "unit": "summer paid people per flight needed for2027 whole recipe before K",
+      "period": "INTEGER_YEAR_2027_AND2028"
+    },
+    {
+      "id": "C17",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C17_seasonal_thresholds.csv",
+      "line": 14,
+      "column": "minimum_summer_paid_people_each_leg",
+      "value": "290.6178420705488",
+      "selectors": {
+        "year": "2027",
+        "summer_people_each_leg_probe": "40",
+        "K_probe": "0"
+      },
+      "unit": "summer paid people per flight needed for2027 whole recipe before K",
+      "period": "INTEGER_YEAR_2027_AND2028"
+    },
+    {
+      "id": "C31",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C31_replacement_frontier.csv",
+      "line": 2,
+      "column": "maximum_tu_new_allin_cost_plus_K",
+      "value": "2117413.6760571776",
+      "selectors": {
+        "demand_layer": "nastya_primary",
+        "additional_mrv_paid_each_leg_probe": "0",
+        "foregone_tu_old_mission_contribution_probe": "0",
+        "tu_new_allin_cost_probe": "2000000"
+      },
+      "unit": "RUB Tu new allin +oldTu loss +K ceiling zeroextraMRV",
+      "period": "WEEK_2027_07_05_TO_11"
+    },
+    {
+      "id": "C31",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/C31_replacement_frontier.csv",
+      "line": 74,
+      "column": "maximum_tu_new_allin_cost_plus_K",
+      "value": "3045419.376058144",
+      "selectors": {
+        "demand_layer": "nastya_primary",
+        "additional_mrv_paid_each_leg_probe": "0",
+        "foregone_tu_old_mission_contribution_probe": "0",
+        "tu_new_allin_cost_probe": "2000000"
+      },
+      "unit": "RUB Tu new allin +oldTu loss +K ceiling zeroextraMRV",
+      "period": "WEEK_2027_07_05_TO_11"
+    },
+    {
+      "id": "C35",
+      "scenario": "base",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/addendum_C35_internal_KEEP.csv",
+      "line": 2,
+      "column": "maximum_integration_retime_risk_K",
+      "value": "987392.0",
+      "selectors": {
+        "fare_case": "original_no_support_fare",
+        "K_probe": "0.0"
+      },
+      "unit": "RUB integration K ceiling ownKEEP no additionalgrant",
+      "period": "25DAY_2027_07_06_TO_30"
+    },
+    {
+      "id": "C35",
+      "scenario": "cautious",
+      "path": "context/28_evening_run_20261110/methods/inputs/products_3889/outputs/addendum_C35_internal_KEEP.csv",
+      "line": 8,
+      "column": "maximum_integration_retime_risk_K",
+      "value": "65761.35541800929",
+      "selectors": {
+        "fare_case": "original_no_support_fare",
+        "K_probe": "0.0"
+      },
+      "unit": "RUB integration K ceiling ownKEEP no additionalgrant",
+      "period": "25DAY_2027_07_06_TO_30"
+    }
+  ],
+  "semantic_boundaries": {
+    "base": {
+      "C10_launch": 32082.592954666667,
+      "C10_steady": 16541.296477333333,
+      "C14_airline_floor": 57687.37459674075,
+      "C14_full_package_floor": 169127.37459674076,
+      "C35_own_K": 987392.0,
+      "C35_external_block_seat_price": 6671.2
+    },
+    "cautious": {
+      "C10_launch": 71564.375232,
+      "C10_steady": 36432.187616,
+      "C14_airline_floor": 143658.78376533333,
+      "C14_full_package_floor": 267862.78376533336,
+      "C35_own_K": 65761.35541800929,
+      "C35_external_block_seat_price": 599.2323107155457
+    },
+    "mixed_slot_basis": {
+      "KUF4": 1,
+      "OMS8": 2
+    },
+    "C31_single_cap_boundary": {
+      "cap": 2117413.6760571776,
+      "Tu_allin": 2000000,
+      "old_Tu_lost_net": 200000,
+      "other_K": 100000,
+      "result": -182586.3239428224,
+      "explanation": "Each component individually below cap, joint sum exceeds it; no C31/C35 union replay"
+    },
+    "C35_segment_boundary": {
+      "new_RW_segments_external": 160.0,
+      "displaced_old_journeys": 40.0,
+      "one_old_RW_segment_net": 120,
+      "two_old_RW_segments_net": 80,
+      "explanation": "Same160 new external-feed RW segments minus40 old journeys need old RW-segment count;120 is not unconditional company growth"
+    },
+    "cash_ordering_boundary": {
+      "same_day_outflow": 480000,
+      "same_day_receipt": 480000,
+      "day_net": 0,
+      "outflow_before_receipt_funding": 480000,
+      "explanation": "Reviewer ordering counterexample: zero day-end cash does not show intraday funding sufficiency"
+    }
+  },
+  "original_portfolio_columns": [
+    "id",
+    "title",
+    "family",
+    "family_label",
+    "planning_reason",
+    "historical_disposition",
+    "historical_rejection",
+    "historical_scope",
+    "proposed_next_test",
+    "scenario_economics",
+    "limits",
+    "current_new_evaluation",
+    "planned_owner",
+    "audit_commit",
+    "audit_path",
+    "source_commit"
+  ],
+  "budget_rows": 21,
+  "scope_exclusions": [
+    "EV-MR03 integer annual/MCT/LP/sync/C31C35 calculation NOT_RUN",
+    "No live market/source validity, free fleet, award, operational acceptance, full PnL, gross cash or team acceptance",
+    "No owner verifier execution; no 480-hash/325-copy/442-v3 preservation rerun"
+  ]
+}
