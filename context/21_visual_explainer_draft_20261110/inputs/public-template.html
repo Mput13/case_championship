@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Wings — исследование команды</title>
+<meta name="description" content="Данные, методика, три ограниченных опыта и границы готовности исследования маршрутной сети Red Wings. Срез 10 ноября 2026 года; версии и ограничения командных пакетов.">
+<style>
+:root{color-scheme:light;--background:transparent;--foreground:#25282e;--muted:#61666e;--card:#f3f1ec;--popover:#fff;--secondary:#e9e6df;--border:#d6d2ca;--ring:#ba262d;--primary:#b22028;--accent:#e32a2f;--warning:#f5b841;--code-background:#eae7e1;--radius:10px;--font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:ui-monospace,SFMono-Regular,Consolas,monospace;--board:#111318;--board-text:#f3f1ec;--chart-1:#f3f1ec;--chart-2:#f5b841}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;color:var(--foreground);font:17px/1.67 var(--font-sans);background:transparent}a{color:var(--primary);text-underline-offset:3px;overflow-wrap:anywhere}a:hover{text-decoration-thickness:2px}button,input,select{font:inherit}button,summary,select{cursor:pointer}:focus-visible{outline:3px solid var(--ring);outline-offset:4px}code{font: .83em/1.5 var(--font-mono);overflow-wrap:anywhere}h1,h2,h3{line-height:1.2;letter-spacing:-.025em;color:var(--foreground)}h1{font-size:clamp(31px,4.2vw,49px);font-weight:730;margin:12px 0 22px;max-width:18ch}h2{font-size:31px;margin:0 0 24px}h3{font-size:22px;margin:38px 0 15px}p,ul,ol{margin:0 0 20px}li{margin-bottom:9px}p,li{overflow-wrap:break-word}b,strong{font-weight:680}figure{margin:28px 0}figcaption{font-size:14px;color:var(--muted);margin-top:14px}section{margin:0 0 76px;scroll-margin-top:28px}section+section{border-top:1px solid var(--border);padding-top:42px}.layout{display:grid;grid-template-columns:208px minmax(0,1fr);gap:52px;max-width:1290px;width:calc(100% - 128px);margin:36px auto 90px;align-items:start}.article{min-width:0;max-width:910px}.article p,.article>section>ul,.article>section>ol{max-width:72ch}.article header{margin-bottom:44px}.eyebrow{color:var(--muted);font-size:13px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:16px}.lead{font-size:20px;line-height:1.55;max-width:66ch}.toc{position:sticky;top:24px;font-size:14px;line-height:1.4;max-height:650px;overflow:auto;scrollbar-width:thin}.toc-title{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding:4px 10px 17px}.toc a{display:block;padding:8px 10px;color:var(--muted);text-decoration:none;border-left:2px solid transparent}.toc a[aria-current="location"]{color:var(--foreground);border-left-color:var(--accent);background:var(--card)}.toc a:hover{color:var(--foreground)}.toc small{display:inline-block;width:27px;font-variant-numeric:tabular-nums;color:var(--muted)}#toc-toggle{display:none}.skip{position:absolute;left:16px;top:-80px;z-index:9;background:var(--popover);padding:12px}.skip:focus{top:8px}.note{background:var(--card);padding:22px 26px;border-left:3px solid var(--border);margin:25px 0}.note p:last-child{margin:0}.note.important{border-left-color:var(--accent)}.status{font-size:13px;letter-spacing:.04em;font-weight:650;color:var(--primary)}.readiness{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}.readiness>div{padding:20px 24px 20px 0}.readiness>div+div{padding-left:25px;border-left:1px solid var(--border)}.readiness h3{font-size:18px;margin:0 0 10px}.readiness p{margin:0;font-size:15px}.source{font-size:13px;line-height:1.5;color:var(--muted);margin:12px 0 26px}.table-scroll{overflow-x:auto;max-width:100%;margin:22px 0 0;scrollbar-width:thin;border-bottom:1px solid var(--border)}table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.5;text-align:left}td.numeric{white-space:nowrap}caption{text-align:left;font-size:15px;font-weight:650;color:var(--foreground);padding:0 0 12px}th,td{vertical-align:top;padding:13px 12px;border-top:1px solid var(--border);overflow-wrap:anywhere}thead th{font-size:12px;font-weight:600;color:var(--muted);background:var(--card)}thead code{display:block;font-size:11px;max-width:24ch;margin-bottom:5px}thead th span{display:block}tbody th{font-weight:600}tbody tr:hover{background:color-mix(in srgb,var(--card) 62%,transparent)}.table-scroll table:not(.programs){min-width:620px}.table-scroll table.compact{min-width:480px}.diagram{background:var(--board);color:var(--board-text);padding:26px;border-radius:var(--radius);margin:28px 0}.diagram h3,.diagram strong{color:var(--board-text)}.diagram h3{margin:0 0 18px;font-size:19px}.diagram p{font-size:14px;color:#c6c6c8}.pipeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.pipeline.evidence{grid-template-columns:repeat(4,minmax(0,1fr))}.pipeline>div{position:relative;border-top:2px solid #5f6269;padding-top:13px;font-size:14px;line-height:1.5}.pipeline strong{display:block;margin-bottom:8px}.pipeline span{color:#c3c4c9}.pipeline>div:not(:last-child)::after{content:'→';position:absolute;right:-11px;top:-16px;color:var(--warning);font-size:19px}.diagram .diagram-caption{margin:20px 0 0;color:#d2cfc8}.path{display:flex;align-items:center;justify-content:space-between;gap:12px}.path-node{border:1px solid #575a62;padding:13px 16px;min-width:94px;text-align:center;font-size:14px;line-height:1.4}.path-node b{display:block;font:700 23px var(--font-mono);color:var(--board-text);margin-bottom:5px}.path-arrow{color:var(--warning);font-size:22px}.path-labels{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px;padding-top:18px;border-top:1px solid #41434a;font-size:14px}.path-labels strong{display:block}.timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.timeline>div{border-left:2px solid var(--warning);padding-left:15px;font-size:14px}.timeline time{display:block;font-weight:700;color:var(--board-text);font-size:18px;margin-bottom:8px}.formula{font:15px/1.8 var(--font-mono);background:var(--card);padding:21px 25px;margin:25px 0;overflow-wrap:anywhere}.filters{display:flex;gap:16px;flex-wrap:wrap;align-items:end;margin:26px 0 15px}.filters label{display:flex;flex:1;min-width:190px;flex-direction:column;font-size:13px;color:var(--muted);gap:7px}.filters input,.filters select{color:var(--foreground);background:var(--popover);border:1px solid var(--border);border-radius:5px;min-height:43px;padding:8px 10px;width:100%;font-size:15px}.filter-count{font-size:13px;color:var(--muted);margin-bottom:9px}.programs{table-layout:fixed;min-width:0}.programs th:first-child{width:36%}.programs th:nth-child(2){width:29%}.programs th:nth-child(3){width:35%}.programs td,.programs th{padding:14px 11px}.program-id{display:block;font:13px var(--font-mono);color:var(--primary);margin-bottom:6px}.program-state{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:8px}.routes{font:12px/1.8 var(--font-mono);word-break:normal;overflow-wrap:anywhere}.programs details{font-size:13px}.programs summary{color:var(--primary);line-height:1.5}.programs details p{font-size:13px;margin:15px 0 0}.programs details ul{margin-top:15px;padding-left:18px}.programs details li{font-size:12px}.programs [hidden]{display:none!important}.chart-row{display:grid;grid-template-columns:167px minmax(0,1fr) 83px;gap:14px;align-items:center;margin:23px 0;font-size:14px}.bar-track{display:flex;height:27px;background:repeating-linear-gradient(90deg,#2b2e35 0,#2b2e35 calc(25% - 1px),#4c4e56 calc(25% - 1px),#4c4e56 25%)}.bar-block{background:var(--chart-1);height:27px}.bar-ground{background:var(--chart-2);height:27px}.bar-number{font:700 19px var(--font-mono);text-align:right}.bar-number span{display:block;font:12px var(--font-sans);color:var(--warning);margin-top:3px}.chart-legend{display:flex;flex-wrap:wrap;gap:20px;font-size:12px;margin-top:25px}.chart-legend span::before{content:'';display:inline-block;width:10px;height:10px;background:var(--chart-1);margin-right:8px}.chart-legend span+span::before{background:var(--chart-2)}.chart-scale{display:flex;justify-content:space-between;margin:0 97px 0 181px;font:11px var(--font-mono);color:#b7bac0}.compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:24px 0}.compare-grid>div{border-top:2px solid var(--border);padding-top:17px}.compare-grid h3{margin:0 0 12px;font-size:18px}.compare-grid p{font-size:14px;margin:0}.task-list{padding-left:24px}.task-list li{padding-left:6px;margin-bottom:20px}.pin-table code{font-size:11px}.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--border);padding-top:25px;margin-top:50px}.section-number{font-size:13px;color:var(--primary);display:block;margin-bottom:11px;font-family:var(--font-mono)}#program-empty{padding:18px;background:var(--card)}
+@media(min-width:1500px){.layout{width:calc(100% - 180px)}}
+@media(max-width:1000px){.layout{grid-template-columns:170px minmax(0,1fr);gap:32px;width:calc(100% - 80px)}.toc{font-size:13px}.chart-row{grid-template-columns:130px minmax(0,1fr) 70px;gap:10px}.chart-scale{margin-left:140px;margin-right:80px}.pipeline{grid-template-columns:repeat(3,minmax(0,1fr))}.pipeline.evidence{grid-template-columns:repeat(2,minmax(0,1fr))}.pipeline>div::after{display:none}}
+@media(max-width:760px){html{scroll-padding-top:78px}.layout{display:block;width:calc(100% - 40px);margin-top:0}.toc{position:sticky;top:0;background:var(--popover);z-index:5;max-height:560px;border-bottom:1px solid var(--border);margin-bottom:35px;padding:8px 0}.toc-title{display:none}#toc-toggle{display:block;background:none;border:0;padding:8px 0;color:var(--foreground);font-size:14px;font-weight:650;width:100%;text-align:left}.toc-links{display:grid;grid-template-columns:1fr 1fr;max-height:420px;overflow:auto}.enhanced .toc:not(.is-open) .toc-links{display:none}.toc a{font-size:12px;padding:7px 4px}.toc small{width:22px}h1{font-size:34px}h2{font-size:27px}h3{font-size:21px}body{font-size:16px;line-height:1.65}.lead{font-size:18px}section{margin-bottom:56px;scroll-margin-top:76px}section+section{padding-top:30px}.readiness{display:block}.readiness>div+div{padding-left:0;border-left:0;border-top:1px solid var(--border)}.note{padding:19px 20px}.diagram{padding:22px 18px}.pipeline,.pipeline.evidence{grid-template-columns:1fr;gap:18px}.pipeline>div{padding-top:9px}.timeline{grid-template-columns:1fr}.path{gap:6px}.path-node{padding:12px 8px;min-width:70px;font-size:12px}.path-node b{font-size:19px}.path-arrow{font-size:18px}.path-labels{grid-template-columns:1fr;gap:12px}.compare-grid{grid-template-columns:1fr;gap:20px}.chart-row{grid-template-columns:minmax(0,1fr) 67px;gap:8px;margin:22px 0}.bar-label{grid-column:1/-1}.bar-track,.bar-block,.bar-ground{height:25px}.chart-scale{margin-left:0;margin-right:75px}.chart-legend{gap:12px;font-size:11px}.table-scroll table.decision-table{min-width:0}.decision-table,.decision-table tbody{display:block;width:100%}.decision-table thead{display:none}.decision-table tbody tr{display:block;padding:18px 0;border-top:1px solid var(--border)}.decision-table tbody th,.decision-table tbody td{display:block;border:0;padding:0 0 12px;width:100%;font-size:15px}.decision-table td::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.programs,.programs tbody{display:block;width:100%}.programs thead{display:none}.programs tbody tr{display:block;padding:17px 0;border-top:1px solid var(--border)}.programs tbody th,.programs tbody td{display:block;width:100%!important;border:0;padding:3px 0 10px}.programs tbody th{font-size:16px}.programs .routes{font-size:12px;line-height:1.8}.program-state{font-size:12px}.programs details{font-size:14px}.programs details p{font-size:14px}.filters{gap:12px}.filters label{min-width:100%}.table-scroll table{font-size:13px}.formula{padding:17px;font-size:13px}.eyebrow{font-size:11px}.pin-table td{max-width:270px}.source{font-size:12px}.article header{margin-bottom:35px}}
+.rank-figure{margin:28px 0}.rank-bar{display:grid;grid-template-columns:170px minmax(0,1fr) 86px;gap:14px;align-items:center;font-size:14px;margin:17px 0}.rank-bar code{color:var(--muted);font-size:11px}.rank-track{display:block;height:10px;background:var(--secondary)}.rank-track i{display:block;height:10px;background:var(--primary)}.rank-bar b{font:13px var(--font-mono);text-align:right}.ranking-list{border-top:1px solid var(--border);margin:24px 0}.ranking-case{display:grid;grid-template-columns:205px minmax(0,1fr);gap:18px;border-bottom:1px solid var(--border);padding:15px 0;font-size:14px;line-height:1.5}.ranking-case>div{color:var(--muted)}.ranking-case ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0;padding-left:20px}.ranking-case li{padding-left:1px;margin:0}.ranking-case small{display:block;color:var(--muted);font:11px var(--font-mono);margin-top:4px}.person-card{border-top:1px solid var(--border);padding:24px 0 8px}.person-card h3{margin:0 0 16px}.person-card p{font-size:16px}.person-card p:last-child{margin-bottom:12px}
+@media(max-width:760px){.rank-bar{grid-template-columns:125px minmax(0,1fr) 70px;gap:8px;font-size:13px}.rank-bar b{font-size:11px}.rank-bar code{display:block}.ranking-case{grid-template-columns:1fr;gap:10px}.ranking-case ol{gap:16px;font-size:13px;padding-left:18px}.ranking-case small{font-size:10px}.person-card p{font-size:15px}}
+@media(max-width:760px){.table-scroll table.weights-table{min-width:0}.weights-table,.weights-table tbody{display:block;width:100%}.weights-table thead{display:none}.weights-table tbody tr{display:grid;grid-template-columns:minmax(0,1fr) 40px;gap:8px;padding:14px 0;border-top:1px solid var(--border)}.weights-table tbody th,.weights-table tbody td{display:block;border:0;padding:0;font-size:14px}.weights-table tbody td:nth-child(2){text-align:right}.weights-table tbody td:nth-child(3){grid-column:1/-1;color:var(--muted)}}
+.issues-table{table-layout:fixed}.issues-table thead th:first-child{width:26%}
+@media(max-width:760px){.table-scroll table.pin-table{min-width:0;table-layout:fixed}.pin-table thead th:first-child{width:39%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.layout{display:block;width:100%;margin:0}.toc,.filters{display:none}.article{max-width:none}.diagram{break-inside:avoid}section{margin-bottom:30px}a{color:inherit}.table-scroll{overflow:visible}.programs details{display:none}.programs tr[hidden]{display:table-row!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#report">К отчёту</a>
+<div class="layout">
+<nav class="toc" aria-label="Оглавление">
+<div class="toc-title">Red Wings · исследование</div>
+<button id="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-links">Оглавление <span aria-hidden="true">⌄</span></button>
+<div class="toc-links" id="toc-links">
+<a href="#result"><small>01</small>Итог и готовность</a>
+<a href="#team-context"><small>02</small>Подходы, веса и shortlist</a>
+<a href="#inputs"><small>03</small>Данные и примеры CSV</a>
+<a href="#method"><small>04</small>Методика и код</a>
+<a href="#programs"><small>05</small>35 программ</a>
+<a href="#c14"><small>06</small>C14 · санаторная поездка</a>
+<a href="#c01"><small>07</small>C01 · волна в Уфе</a>
+<a href="#c07"><small>08</small>C07 · оборот через Омск</a>
+<a href="#issues"><small>09</small>Ошибки и ограничения</a>
+<a href="#methods-value"><small>10</small>Что даёт методика</a>
+<a href="#kover"><small>11</small>«Ковёр» и адаптация</a>
+<a href="#change"><small>12</small>Масштаб изменения сети</a>
+<a href="#next"><small>13</small>Следующие работы</a>
+<a href="#access"><small>14</small>Доступ к источникам</a>
+<a href="#people"><small>15</small>Вклад людей</a>
+<a href="#sources"><small>16</small>Версии и проверка</a>
+</div>
+</nav>
+<main class="article" id="report">
+<header>
+<p class="eyebrow">10 ноября 2026 · исследование команды</p>
+<h1>Исследование маршрутной сети Red Wings</h1>
+<p class="lead">Настя подготовила модель выбора узла и сети; вклад Цири — уточнённый скрининг и сравнение новой базы с развитием существующей. Наш пакет сохраняет данные по России, идеи команды и три ограниченных опыта. Сейчас есть условные варианты для следующей проверки; итоговая сеть и её прибыль ещё не определены.</p>
+</header>
+<section id="result">
+<span class="section-number">01</span><h2>Итог и готовность</h2>
+<p>Автономное исследование завершило два рабочих цикла четырёх ролей: основные данные, дополнительные сигналы, гипотезы и расчёт, независимая критика. Поиск охватил Россию шире первоначального списка городов. Подготовлены справочники, транспортные связи, социальная статистика, туризм, историческая погода, корпоративная география и части наблюдаемого предложения перевозчиков.</p>
+<p>Практический результат — проверяемые входы и конкретные условия, при которых идея может оказаться полезной. Для санаторной поездки выявлены несовпадения дат; для хаба — необходимость одновременно разместить пассажиров на двух плечах; для цепочки — цена дополнительного времени самолёта. Это позволяет задавать следующий исследовательский вопрос точнее и останавливать несопоставимые сравнения.</p>
+<div class="readiness">
+<div><h3>Можно использовать</h3><p>Версионные таблицы, происхождение идей, три ограниченных опыта и интегрированный скрининг шага 1: условный список Омск–Оренбург–Барнаул при предложенных весах и фильтре 500 км.</p></div>
+<div><h3>Нужно завершить</h3><p>Спрос по конечным парам, получаемую выручку, доступный парк, совместную загрузку и сравнение законченных сетей на одинаковом ресурсе.</p></div>
+</div>
+<p>Шаг 1 Цири принят как <b>ACCEPT_WITH_LIMITATIONS</b>: вычислительный скрининг при заданных правилах. Эта приёмка не распространяется на сетевую экономику и не снимает нашу находку о повторном захвате одной пары в прямой сети.</p>
+<p>У коллег уже есть условные восьмимаршрутные контуры и финансовые сценарии. Окончательно выбранная сеть из <b>8–12 направлений</b>, обоснованные годовая выручка и прирост доли рынка, план до <b>2028 года</b> и итоговые материалы защиты пока не готовы. Независимый критик зафиксировал <span class="status">NOT_READY_FOR_STRATEGY_OR_LAUNCH</span>: это не отменяет выполненные сценарные расчёты.</p>
+<p>Рынок нельзя восстановить одним бесплатным источником: фактический конечный спрос, чистый тариф, реально свободный самолёт и ценность его текущего задания остаются <b>UNKNOWN</b>. Подтверждение хеша доказывает сохранность файла; совпадение арифметики доказывает расчёт при заданных входах. Ни одно из них само по себе не доказывает продажи.</p>
+<p class="source"><a href="@@LINK_SUMMARY@@">Завершающий срез координатора</a> · <a href="@@LINK_CRITIC@@">Независимая проверка</a></p>
+</section>
+<section id="team-context">
+<span class="section-number">02</span><h2>Подходы команды и условный shortlist</h2>
+<p><b>Настя / kiruha355</b> в версии <code>2f03b69</code> соединила лонглист, признаки доступности и операционной поддержки, ограничения и модель сети. Её исходный скрининг с отсечкой 500 км дал Омск–Оренбург–Самару; без неё — Пермь–Уфу–Челябинск. Это исторический результат данной версии, а не последний интегрированный рейтинг.</p>
+<p><b>Цири / mput</b>: stage22 <code>6ec84a7</code> использует эту версию как основу и проверяет, как выбор меняют качество свидетельств, фиксированные шкалы и предложенные веса. Прежний пакет <code>93fa5cf</code> сравнивает экономику добавления программ и предлагает следующей проверкой постепенное развитие из SVX. Это два разных уровня: скрининг города не выбирает автоматически прибыльную сеть.</p>
+<p><b>Наш пакет — Михаил / координатор Mput13</b> — даёт более широкий слой данных, календарь поездки, ресурсные и денежные пороги C14/C01/C07, независимые проверки. <b>Константин</b> принёс методы синхронизации, альтернативного использования борта и устойчивости сети. Эти вклады дополняют сравнение; окончательного решения команды из их объединения пока не следует.</p>
+<p class="source"><a href="@@LINK_STEP1@@">Настя: исходный срез шага 1</a> · <a href="@@LINK_STAGE22@@">Цири: интегрированный выпуск</a> · <a href="@@LINK_ECONOMICS@@">Цири: прежняя экономика</a> · <a href="#people">Вклад каждого человека</a></p>
+<h3>Основной условный список</h3>
+<p>Правило: <b>500 км, развитие существующей опоры допустимо, профиль balanced</b>. Балл 0–1 — взвешенная полезность нормированных признаков. Он не измеряет прибыль, долю рынка или вероятность успеха.</p>
+<figure class="rank-figure" aria-label="Рейтинг основных четырёх кандидатов при предложенных правилах">
+@@TEAM_RANK_BARS@@
+<figcaption>Барнаул опережает Самару всего на 0,000721 балла. Шкала полос — от 0 до 1; это центральные сценарные оценки.</figcaption>
+</figure>
+<p>У Омска, Оренбурга и Барнаула вес полностью неизвестных ячеек — <b>22%, 30% и 30%</b>. По закодированным диапазонам каждый из этих городов может занимать место <b>1–15</b>. Это не статистические интервалы: неопределённость исходных сведений существенно шире разницы третьего и четвёртого баллов.</p>
+<h3>Что меняет состав тройки</h3>
+<div class="ranking-list" aria-label="Три первых города при разных правилах и весах">@@TEAM_RANKING@@</div>
+<p>Во всех строках сохранены шкалы исходных 20 городов: изменение фильтра само по себе не меняет балл оставшегося города. «Общие нейтральные ячейки» означает, что конкурент, ТО и трансфер у <em>всех</em> городов заменены одинаковым нейтральным значением. В сочетании с приоритетом локального рынка это выводит Самару на первое место. Лидерство Омска при любых разумных допущениях не доказано.</p>
+<p><b>Чувствительность ≠ вероятность.</b> Доля попаданий в топ‑3 при 2 000 случайных наборах весов зависит от способа их генерации. Она показывает реакцию на предпочтения, а не шанс построить успешный хаб. Наблюдённых продаж и вероятностной модели успеха здесь нет.</p>
+<p class="source"><a href="@@LINK_FINAL_SCORES@@">Интегрированные баллы</a> · <a href="@@LINK_FINAL_COMPARE@@">Все 140 сохранённых конфигураций</a> · <a href="@@LINK_FINAL_ACCEPT@@">Независимая приёмка с ограничениями</a>. Промежуточный <code>model_outputs/scenario_summary.csv</code> имеет статус <code>BASELINE_ONLY_RESEARCH_NOT_INTEGRATED</code> и не используется как итог.</p>
+<h3>Веса и смысл критериев</h3>
+<p>Ниже — <b>предложенные Цири веса, ещё не утверждённые командой</b>. Их сумма 100%. Центральный балл — сумма полезностей признаков, умноженных на веса; шкалы зафиксированы до фильтра, крайние значения ограничены шкалой. Для UNKNOWN берётся нейтральный центр 0,5 и сценарный диапазон [0; 1]. Это способ считать при пропуске, а не половинное подтверждение факта.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Основные предложенные веса"><table class="compact weights-table"><thead><tr><th scope="col">Критерий</th><th scope="col">Вес</th><th scope="col">Что означает</th></tr></thead><tbody>@@TEAM_WEIGHTS@@</tbody></table></div>
+<p>Рыночные признаки вместе имеют вес 45%: они частично описывают один масштаб и не становятся независимыми оценками спроса. Расстояние, Ростех, H24, факт прилёта SSJ, опорный статус RW, дополнительный модельный спрос и поток 2019 оставлены справочно с весом 0. Близость завода не доказывает доступное ТО.</p>
+<details><summary>Веса четырёх альтернативных профилей</summary>
+<p>«Локальный рынок» повышает роль населения и наблюдаемого масштаба; «связность» — модельных пересадочных пар; «устойчивость» — ограничений и операционной поддержки. Последний профиль обнуляет конкурент/ТО/трансфер, чтобы проверять преимущество более подробно изученных городов.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Веса пяти профилей"><table><thead><tr><th>Критерий</th><th>Баланс</th><th>Локальный рынок</th><th>Связность</th><th>Устойчивость</th><th>Без преимущества изученности</th></tr></thead><tbody>@@PROFILE_WEIGHTS@@</tbody></table></div></details>
+<p class="source"><a href="@@LINK_WEIGHTS@@">Полные профили и объяснения весов</a> · <a href="@@LINK_STAGE_RULES@@">Применённые правила</a></p>
+<h3>500 км и смысл нового хаба</h3>
+<p><b>500 км — не требование кейса.</b> Это сохранённое в основном скрининге предварительное правило отбора по ортодромическому расстоянию до исторического набора SVO/DME/VKO/SVX. Оно исключает Пермь, Уфу, Нижний Новгород, Челябинск и Тюмень. Порог не откалиброван по каннибализации; прямая дистанция не равна времени дороги. Отдельная чувствительность ZIA+SVX не выполнена.</p>
+<p><code>expansion_allowed</code> допускает развитие опорной точки. <code>strict_new</code> симметрично исключает подтверждённые опоры среди кандидатов — Самару, Казань, Сочи и Махачкалу. Опорный аэропорт, физическая база борта/экипажа и действующий пересадочный хаб — разные вещи. У остальных UNKNOWN означает условный допуск, а не доказанную новизну. Самару сохраняем как альтернативу развития опоры.</p>
+<h3>Что улучшено фактами, что остаётся предположением</h3>
+<ul>
+<li><b>Омск: опубликованное ТО SSJ.</b> В источнике аэропорта от 03.12.2024 описана действующая услуга. Это улучшает основание признака ТО; договор на 2026, свободная мощность и полная область допуска остаются UNKNOWN. База RW и отсутствие базы конкурента не подтверждены.</li>
+<li><b>Оренбург: уточнена точность потока 2025.</b> Первичный текст от 15.01.2026 сообщает <b>более 951 000</b>. Сумма округлённых компонентов 885 500 + 65 600 ≈ 951 100 не является точным итогом. Диапазон 951 000–951 200 — сценарий при допущении округления компонентов до сотни, не гарантированная граница источника.</li>
+<li><b>Слабые сведения отделены от фактов.</b> Неупоминание конкурента в Википедии и косвенное ТО не принимаются за доказанное отсутствие/наличие. ТО и трансфер Самары/Оренбурга, фактический OD, текущие ресурсы и погода этого скрининга остаются UNKNOWN. Нейтральные значения не закрывают эти пробелы.</li>
+</ul>
+<p>В stage22 исправлены согласованность RNG Python/JS, сортировка до округления, нулевой знаменатель, обработка погодных пропусков и зависимость шкал от фильтра. Это вычислительные улучшения. Старые веса суммой 125 нормировались кодом: сама сумма не была ошибкой арифметики; ошибочно было читать их как проценты и объявлять первые два места устойчивыми во всех профилях.</p>
+<p class="source"><a href="@@LINK_ACCEPTED_RESEARCH@@">Принятые свидетельства, периоды и UNKNOWN</a> · <a href="@@LINK_SOURCE_CHECKS@@">Точные границы адресных проверок источников</a></p>
+</section>
+<section id="inputs">
+<span class="section-number">03</span><h2>Данные и примеры CSV</h2>
+<p>У каждой таблицы своя единица строки, период и область применения. Её соединяют по явным ключам, сохраняя неизвестные и исключения. Число строк ниже описывает покрытие пакета, а не число пассажиров или степень готовности стратегии.</p>
+<h3>Аэропорты и географические ключи</h3>
+<p><b>1 845 объектов RU</b> в OurAirports — справочные объекты, включая разные типы аэродромов. Это не число действующих аэропортов России. Отдельно получены 492 полосы и 219 объектов с IATA; 215 из них сопоставлены с Travelpayouts. Одна строка <code>airport_version</code> — объект справочника на срез 9 ноября 2026, с координатами, ключом и статусом сопоставления.</p>
+@@AIRPORT_EXAMPLE@@
+<p>Код аэропорта переводится в устойчивый ID, затем в версию аэропорта, территорию и часовой пояс IANA. Муниципалитет из справочника не становится автоматически зоной тяготения. Девять конфликтных сущностей поясов удержаны; 19 расхождений координат более 10 км требуют разбора. Длина полосы и флаг регулярного сообщения не подтверждают допуск самолёта или наличие рейса.</p>
+<h3>Транспортная матрица 180 городов</h3>
+<p>Tochno даёт <b>96 660 строк = 180 × 179 × 3</b>: направленная пара территорий и вид транспорта. Время и расстояние помечены <code>MODEL_ESTIMATE</code>. Методика использует средние скорости; обратные пары скопированы издателем. Дата поездки отсутствует, период источника смешанный, зимнее расписание не установлено.</p>
+@@ACCESS_EXAMPLE@@
+<p>Ключи ОКТМО соединяют с территориями; затем матрица служит предварительным признаком наземной доступности. Значение 42,4 часа в показанной строке нельзя выдать за конкретный автобус, поезд или расписание «от двери до двери». Отсутствие связи в этом наборе не доказывает отсутствие рейса.</p>
+<h3>Муниципальные зарплаты и население</h3>
+<p>Нормализованный региональный пакет содержит 308 569 строк по 131 индикатору. В отдельном примере за <b>2024 год</b> соединены зарплата и среднегодовое население <b>2 022 муниципальных образований</b>. Число 2 022 — количество городских округов, муниципальных округов и районных образований, а не год наблюдения и не число городов.</p>
+@@MUNICIPAL_EXAMPLE@@
+<p>Соединение использует муниципальный ключ, год и проверку типа территории. Зарплата — начисленная месячная, без малых предприятий; она не равна располагаемому доходу путешественника. Из 2 299 wage-left ключей приняты 2 022, ещё <b>277 удержаны</b>; <b>286 population-only</b> находятся вне этого знаменателя. Вложенные территории не складываются. Критик сверил 4 044 исходные ячейки и 42 региональные строки. Превращение муниципалитета в аэропортовый спрос потребует отдельной модели доступа и поведения.</p>
+<h3>Туризм и санаторная сезонность</h3>
+<p>В первичном пакете ЕМИСС <b>17 694 статистические ячейки</b>. Полные профили 2025 года есть для 85 территориальных компонентов по размещению и 68 по санаториям. Строка хранит показатель, территорию, месяц, накопленное значение и единицу. После нормализации формируется сетка из 18 360 месячных строк, включая пропуски; её нельзя путать с числом полученных исходных ячеек.</p>
+@@TOURISM_EXAMPLE@@
+<p>Поток за месяц получаем как разность накопленных значений: <code>YTD(m) − YTD(m−1)</code>, январь берём напрямую. Накопленные месяцы не суммируем. Названия территорий приводятся к явным ключам; профили помогают выбрать сезон проверки. Они не измеряют место отправления туриста и способ его поездки. Конфликт метаданных 62302 сохранён, умножение на 1 000 не принято; 14 строк с неизвестной единицей удержаны.</p>
+<h3>Историческая погода NOAA</h3>
+<p>Получены <b>83 из 84 станций</b>, <b>519 366 часовых записей за 2024 год</b>, 996 месяцев станций. Агрегирование сохраняет покрытие часов: в январе Якутска доступны 743 из 744. Точный join по ICAO дал 74 совпадения и 9 NULL, без размножения строк.</p>
+@@WEATHER_EXAMPLE@@
+<p>Станционный месяц соединяют с аэропортом только по проверенной связи; пространственную применимость проверяют отдельно. Это исторический погодный фон для стрессов и сезонности. Порог температуры или ветра из исследовательской агрегации не является эксплуатационным минимумом, текущей вероятностью отмены или денежным эффектом задержки.</p>
+<h3>Корпоративная география</h3>
+<p>Пакет СИБУРа включает 46 площадок, из них 35 в РФ в 19 регионах; по Газпрому сохранены 12 наблюдений уровня группы и года. Одна строка площадки фиксирует её публикацию на карте компании, адрес и координаты источника на 9 ноября. Регион и населённый пункт выделяются как отдельные производные поля.</p>
+@@BUSINESS_EXAMPLE@@
+<p>Такой слой помогает искать причину поездки и адресата будущей проверки. Он не доказывает поток между всеми площадками группы. Численность вахтовиков группы нельзя распределить по аэропортам и назвать пассажирами. Почтовый адрес также может отличаться от производственного входа и удобного аэропорта.</p>
+<h3>Расписания, выполнение, цена и полученная выручка</h3>
+<p>Собраны 153 правила UVT, 1 730 endpoint-записей IrAero, 482 правила SVX, включая 80 RW; по Омску — 76 правил и 98 плановых вылетов на 7–13 декабря. В отдельных рыночных наблюдениях сохранены 24 записи с раздельными периодами и единицами.</p>
+@@MARKET_EXAMPLE@@
+<div class="diagram" role="img" aria-label="Правило расписания порождает плановые экземпляры; выполнение, оферта и фактическая выручка проверяются отдельными свидетельствами.">
+<h3>Четыре разных свидетельства</h3>
+<div class="pipeline evidence">
+<div><strong>Правило → план</strong><span>Период, день недели, местные часы → конкретная дата</span></div>
+<div><strong>Факт выполнения</strong><span>Состоялся ли физический рейс; нужен отдельный факт</span></div>
+<div><strong>Ценовая оферта</strong><span>Дата поиска, наличие, багаж, возвратность, условия</span></div>
+<div><strong>Полученная выручка</strong><span>Продажи после согласованных сборов, возвратов и комиссий</span></div>
+</div><p class="diagram-caption">Переход к следующему уровню требует новых данных. Публикация плана не подтверждает остальные уровни.</p>
+</div>
+<p>Operating carrier — фактический перевозчик, marketing carrier — продающий код. Два кода не создают два самолёта. Промежуточная посадка не равна nonstop, а endpoint-запись не описывает автоматически все физические плечи. Неизвестные роли и остановки остаются пустыми с причиной; даты прилёта без основания не достраиваются.</p>
+<p>В реестрах <a href="@@LINK_CORE_REGISTRY@@">core — 90</a> и <a href="@@LINK_ALT_REGISTRY@@">alternative — 264 карточки acquisition</a>: отдельные файлы, попытки, станции и срезы. <b>Это не 354 независимых источника.</b> Независимость организаций и свидетельств требует отдельного учёта. Raw с удержанными правами или лицензией UNKNOWN в этот отчёт не копируются; здесь только ограниченные проекции нормализованных результатов и ссылки.</p>
+</section>
+<section id="method">
+<span class="section-number">04</span><h2>Методика и реализованный код</h2>
+<p>Исходный документ сохраняют со временем получения и хешем. Парсер выделяет наблюдения, не меняя их смысл. Затем данные соединяют с версиями ключей и явными правилами единиц. Сценарные параметры хранят отдельно от наблюдений, а проверку принимают только в её фактическом объёме.</p>
+<figure class="diagram">
+<div class="pipeline">
+<div><strong>Raw</strong><span>Байты, URL, дата, права, SHA-256</span></div>
+<div><strong>Parsed</strong><span>Строки и ячейки исходного содержания</span></div>
+<div><strong>Derived</strong><span>Ключи, UTC, join, месячные разности</span></div>
+<div><strong>Scenario</strong><span>Даты, ресурс, условные тарифы и разрывы</span></div>
+<div><strong>Validated</strong><span>Независимо проверенная часть результата</span></div>
+</div><figcaption style="color:#c3c4c9">Validated не меняет природу входа: проверенный сценарий остаётся сценарием.</figcaption>
+</figure>
+<p>На уровне пассажира отделяем конечную поездку <b>OD</b> — откуда и куда человек едет — от посадки на конкретное плечо. Одна пересадочная поездка использует два сегмента. Туда и обратно через хаб: две односторонние поездки, четыре посадки, один клиент. Аэропортовые потоки, пассажиры перевозчика и уникальные люди имеют разные правила учёта.</p>
+<p>На уровне ресурса справочный парк не равен свободному парку. Нужны конкретный борт, календарь занятости, экипаж, технические окна и следующее задание. При замене рейса сравниваем сохраняемую и теряемую маржу донора; неизбегаемый лизинг не становится экономией от отмены. Один самолёт нельзя одновременно отдать двум программам.</p>
+<p>Сейчас реализованы ограниченный сценарный календарь и ресурсный расчёт, датированный C14, денежные пороги, типизированное соединение с operating-слоем и перенос обратной даты. Первый проверенный проход содержал 62 плеча, 72 пути, 36 поездок, 108 денежных и 228 ресурсных строк. Это строки вариантов, а не столько независимых рынков. Поздние модули имеют собственные версии и отдельные проверки.</p>
+<p>Генератор конкретизировал идеи, расчёт применил контракт к замороженным входам, критик независимо воспроизвёл выбранные соединения и формулы. Полный автономный поиск и внешняя валидация «лучшей сети» не реализованы. Обучающего и отложенного набора целевых OD/продаж нет; прогнозное преимущество туризма, корпоративной географии и погоды ещё предстоит измерить.</p>
+<p class="source"><a href="@@LINK_CORE@@">Состав интеграционного слоя</a> · <a href="@@LINK_CRITIC_SCOPE@@">Точный объём независимой проверки</a></p>
+</section>
+<section id="programs">
+<span class="section-number">05</span><h2>35 программ и их происхождение</h2>
+<p>Сведены <b>107 атрибутированных записей</b>: семейства идей, версии, повторы, отдельные сценарии и методы оценки. Это не 107 независимых новых идей. Реестр сохраняет вклад kiruha355, mput, Константина, прежних ИИ-исследований и командного контекста; где личное авторство неизвестно, оно так и обозначено. Роль гипотез GPT-6 Astra подготовила 35 конкретных спецификаций с этими основаниями.</p>
+<p>В очередь углубления вошли 9 программ, три получили ограниченные опыты. Порядок ниже — исходные ID, <b>без ранжирования</b>. Денежная оценка всей программы у всех 35 остаётся <code>NOT_EVALUATED</code>. Показанный маршрут — исследовательское предложение; в частности, C30 не означает, что перечисленные аэропорты открыты.</p>
+<div class="filters">
+<label for="program-search">Программа, аэропорт или автор<input id="program-search" type="search" placeholder="Например, Уфа, OMS, kiruha355" autocomplete="off"></label>
+<label for="program-scope">Объём исследования<select id="program-scope"><option value="all">Все 35 программ</option><option value="queue">Очередь углубления · 9</option><option value="tested">Ограниченные опыты · 3</option></select></label>
+</div>
+<p class="filter-count" id="program-count" role="status" aria-live="polite">Показано 35 из 35</p>
+<div class="table-scroll" aria-label="Реестр 35 программ"><table class="programs"><thead><tr><th scope="col">Программа и состояние</th><th scope="col">Предложенные пути · IATA</th><th scope="col">Продукт и основания</th></tr></thead><tbody id="program-body">@@CANDIDATE_ROWS@@</tbody></table></div>
+<p id="program-empty" hidden>По выбранному фильтру программ нет.</p>
+<p class="source"><a href="@@LINK_HYPOTHESES@@">35 исходных спецификаций</a> · <a href="@@LINK_ANCESTRY@@">107 записей происхождения</a>. В раскрытиях сохранены условия отказа и ссылки на исходные вклады.</p>
+</section>
+<section id="c14">
+<span class="section-number">06</span><h2>C14: Киров — Минводы и санаторий</h2>
+<p>Проверялся законченный путь: вылет из Кирова, прибытие в Минеральные Воды, дорога до названного санатория, допуск к заселению, проживание и возврат. Наблюдаемые рейсы относятся к опубликованному предложению с A4/«Азимут»; это не подтверждённый продукт RW. Новая выгрузка аэропорта показывает <b>понедельник и четверг</b>, отдельно от старого объявления и раннего сценария Mon/Fri.</p>
+@@RULE_EXAMPLE@@
+<p>ISO 1 — понедельник, 4 — четверг. Вылет 7 декабря в 20:50 прибывает <b>8 декабря в 00:20</b>; вылет 10 декабря в 23:20 — <b>11 декабря в 02:15</b>, местное время. Шесть правил дали 12 плановых экземпляров 7–27 декабря. Пересечение двух вылетов, двух объектов проживания, 7/10/14 ночей и двух трактовок даты заезда сформировало <b>24 условных календарных варианта</b>.</p>
+<figure class="diagram"><h3>Ночной прилёт меняет договорную дату</h3><div class="timeline">
+<div><time datetime="2026-12-07T20:50:00+03:00">7 декабря · 20:50</time>Вылет KVX. Бронирование с 7 декабря потребует подтверждённого допуска после полуночи.</div>
+<div><time datetime="2026-12-08T00:20:00+03:00">8 декабря · 00:20</time>Прилёт MRV. Это время аэропорта; фактическое заселение ещё позже и не установлено.</div>
+<div><time datetime="2026-12-15">15 → 17 декабря</time>При заезде с 8-го семь ночей заканчиваются 15-го; следующий захваченный возврат — 17-го.</div>
+</div><figcaption style="color:#c3c4c9">Последний шаг условен: более поздний возврат требует ещё двух ночей и согласия клиента.</figcaption></figure>
+@@C14_EXAMPLE@@
+<p>Круглосуточная регистрация заезда не гарантирует свободную комнату, сохранение категории или право приехать на сутки позже. Десять из 12 календарных совпадений возврата требуют бронирования с даты отправления и допуска после полуночи, два — с даты прилёта. Это повторное использование тех же рейсов в вариантах, а не 12 независимых продаваемых пакетов.</p>
+<p>Поздний модуль разрешил поиск следующего возврата вместо точного совпадения. В <b>10 строках</b> потребовались дополнительные <b>1, 2 или 3 ночи</b>; ещё <b>две строки</b> выходят за горизонт захваченных правил и остаются UNKNOWN. Неизвестные наличие, цена и согласие пассажира не превращены в успешный продукт.</p>
+@@FLEX_EXAMPLE@@
+<p>Публичный тариф 7 760 ₽/человеко-койко-день в одном объекте — отдельная единица. <b>Умножать его на число ночей без правил биллинга нельзя.</b> Цена всей поездки, минимальный срок, подтверждённая дата бронирования, ночной трансфер, билет и комната неизвестны. Временной бюджет до регистрации посчитан условно; общий cutoff не доказывает совместимость конкретного трансфера и посадки. Отсутствие строки в железнодорожной выборке не означает отсутствия поезда.</p>
+<p>Результат C14 — проверяемое календарное препятствие и способ его исследовать. Ни конечного OD, ни реализованного тарифа, ни полной оферты этот опыт не получил.</p>
+<p class="source"><a href="@@LINK_C14@@">Календарь C14</a> · <a href="@@LINK_FLEX@@">Перенос возврата</a> · <a href="@@LINK_LATE@@">Независимая проверка поздних модулей</a></p>
+</section>
+<section id="c01">
+<span class="section-number">07</span><h2>C01: согласованная волна в Уфе</h2>
+<p>Контрфакт сохраняет <b>те же физические рейсы</b> и сравнивает несогласованные часы с синхронизацией. Так можно выделить ценность пересадки, не подарив хабу дополнительные самолёты. Программа шире опыта: новая база в Уфе требует отдельного доказательства, а сам опыт пока сценарный.</p>
+<figure class="diagram"><h3>Один пассажир занимает место на каждом плече</h3><div class="path">
+<div class="path-node"><b>NJC</b>Нижневартовск</div><div class="path-arrow" aria-hidden="true">→</div><div class="path-node"><b>UFA</b>Уфа</div><div class="path-arrow" aria-hidden="true">→</div><div class="path-node"><b>MRV</b>Минводы</div>
+</div><div class="path-labels"><div><strong>Одна поездка и один тариф</strong>Конечная пара NJC → MRV.</div><div><strong>Два места на физических плечах</strong>Вместе с местными и другими пересадочными пассажирами.</div></div></figure>
+@@C01_EXAMPLE@@
+<p>Синхронизация SOUTH сдвигает первый вылет на 120 минут, возвращение на <b>135 минут</b>, при этом добавляет лишь <b>15 минут занятости</b>. Эти числа совместимы: время старта тоже изменилось. NORTH в этом сравнении не меняется. Полётные минуты и число физических рейсов равны, но совместимость следующего задания борта неизвестна.</p>
+@@RESOURCE_EXAMPLE@@
+<p>Местные продажи и пересадки должны одновременно помещаться в остаточные кресла каждого плеча. Перенос времени способен вытеснить местных пассажиров и старые связи. База, ночёвка, экипажи, обработка багажа и защита пересадки не становятся бесплатными из-за равного числа рейсов; денежные эффекты этих изменений UNKNOWN.</p>
+<div class="note"><p><b>Порог продаж имеет условие применимости.</b> Пример критика задаёт разрыв 500 000 ₽, нетто-тариф 8 000 ₽ за одностороннюю поездку и пассажирские расходы 500 ₽. Нужно 34 клиента туда/обратно: <code>ceil(500000 / (2 × (8000 − 500)))</code>. Вклад после разрыва — +10 000 ₽.</p></div>
+<p>Но при 80 занятых креслах других продуктов на каждом 100-местном плече получается <b>34 + 80 = 114 / 100</b>. Реально остаётся 20 мест, при которых тот же пример даёт <b>−200 000 ₽</b>. Это воспроизводимый контрпример границе применения номинального порога, <b>не ошибка арифметики автора</b> и не измеренные бронирования. Сначала нужен общий пассажирский поток по всем плечам; затем выручка и затраты из него.</p>
+<p class="source"><a href="@@LINK_CAPACITY@@">Проверка условной ёмкости</a> · <a href="@@LINK_MONEY@@">Пороговые расчёты с ключами продуктов</a></p>
+</section>
+<section id="c07">
+<span class="section-number">08</span><h2>C07: оборот SVX — OMS — KJA</h2>
+<p>Цепочка Екатеринбург → Омск → Красноярск → Омск → Екатеринбург содержит <b>четыре физических плеча</b>. Сравнение с двухплечевым исходным заданием должно учитывать весь оборот и возвращение в ту же точку. Наземный turn — выбранное время между плечами; block — время от начала до конца полётного плеча в замороженных часовых прокси.</p>
+<figure class="diagram" aria-labelledby="c07-chart-title"><h3 id="c07-chart-title">Время оборота · минуты</h3>
+@@C07_CHART@@
+<div class="chart-scale" aria-hidden="true"><span>0</span><span>175</span><span>350</span><span>525</span><span>700</span></div>
+<div class="chart-legend"><span>Полётные block-прокси</span><span>Межрейсовое время</span></div>
+<figcaption style="color:#c3c4c9">Один масштаб для всех строк. 205 + 50 = 255; 475 + 3 × turn = 565 / 610 / 655. Добавочное окно — 310 / 355 / 400 минут.</figcaption></figure>
+@@C07_EXAMPLE@@
+<p>Даже сумма четырёх block-прокси <b>475 минут</b> превышает исходные 255 минут. В пределах этих входов и фиксированного начала сохранить прежнее окно нельзя. Это условный ресурсный вывод, а не инженерный запрет на любую цепочку с такими городами.</p>
+<p>Реальный донор, назначенный борт, экипаж, эксплуатационные block-времена и следующее задание <b>UNKNOWN</b>. Нельзя объявить слабый по условной экономике рейс свободным донором. Для решения «сохранить / заменить / убрать» нужна его наблюдаемая маржа и ресурс. Местный клиент OMS–KJA туда/обратно даёт две посадки; сквозной SVX–KJA — четыре. Выручку и кресла этих продуктов нельзя смешивать.</p>
+<p>Поздний <code>core505 C07 reconciliation</code> существует отдельно, но <b>вне независимого semantic scope</b> финального критика. Его наличие не превращает этот опыт в подтверждённый датированный продукт RW и не наследует приёмку ранней версии.</p>
+</section>
+<section id="issues">
+<span class="section-number">09</span><h2>Ошибки и ограничения</h2>
+<p>Найденные дефекты ограничивают конкретные выводы. Исправление ключей не доказывает спрос, а ошибка поздней модели не обнуляет полезные таблицы и идеи коллег.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Состояние существенных проблем"><table class="compact decision-table issues-table"><thead><tr><th scope="col">Проблема</th><th scope="col">Что установлено</th><th scope="col">Что ещё нельзя заключать</th></tr></thead><tbody>
+<tr><th scope="row">Telegram main/reply · исправление проверено</th><td data-label="Что установлено">В 2f03b69 основной текст отделён от цитаты; все 8 329 строк favt имеют version 2. Независимо воспроизведены 4 027 airport-day событий.</td><td data-label="Что ещё нельзя заключать">Свежий Telegram и первичные HTML не перечитывались. Остаётся ошибка границы пунктов для отдельных аэропортов; дни публикаций не являются временем простоя.</td></tr>
+<tr><th scope="row">Front2272 · старый flow bug исправлен в 2f03b69</th><td data-label="Что установлено">Общий принятый local/transfer поток теперь даёт оба плеча, места и деньги. Проверены 12 итогов, 128 плеч и synthetic fixture; у 10 хабовых итогов расхождение не более одного пассажира из-за округления.</td><td data-label="Что ещё нельзя заключать">Это ограниченная проверка сохранённых результатов и механизма, полный replay NOT_RUN. Исправление бухгалтерии не подтверждает спрос и прибыль.</td></tr>
+<tr><th scope="row">Общая пара в прямых треугольниках · OPEN</th><td data-label="Что установлено">MOW–OMS захватывается отдельно в нескольких цепочках: в базе 87 497 против 80 581 по той же формуле на общей частоте; разница 6 916.</td><td data-label="Что ещё нельзя заключать">Нужен общий бюджет спроса пары при отборе сети. Stage22 не исправляет дефект: network_model.py совпадает с 2f03b69. Итоговую экономику ранжировать нельзя.</td></tr>
+<tr><th scope="row">Stage22 · два остаточных дефекта</th><td data-label="Что установлено">В панели некоторые UNKNOWN показаны как «нет»; при отдельных точных равенствах произвольных весов диапазон места расходится с порядком сортировки.</td><td data-label="Что ещё нельзя заключать">Основной порядок 140 сохранённых конфигураций подтверждён; панель не самостоятельная таблица фактов. Произвольные веса и все rank‑ties не приняты без ограничений.</td></tr>
+<tr><th scope="row">Endpoint-demand regression</th><td data-label="Что установлено">37 записей потоков пар, 31 для подгонки дают воспроизводимую оценку масштаба сегментов.</td><td data-label="Что ещё нельзя заключать">Конечный OD не идентифицирован: пересадки, частоты, цена и отбор обслуживаемых пар не отделены. Остаток нельзя назвать эффектом хаба.</td></tr>
+<tr><th scope="row">CM01 · периоды</th><td data-label="Что установлено">Коллизия смысловых ID исправлена; 24 наблюдения сохранены с отдельными периодами и версиями.</td><td data-label="Что ещё нельзя заключать">План, бюджет и факт по-прежнему разные наблюдения; исправление ID не делает их сопоставимой выручкой.</td></tr>
+<tr><th scope="row">TOX / Тобольск</th><td data-label="Что установлено">Две спорные привязки очищены и удержаны; 98 омских отправлений сохранены.</td><td data-label="Что ещё нельзя заключать">RMZ не подставлен по догадке. Идентичность остаётся UNKNOWN до свидетельства.</td></tr>
+<tr><th scope="row">География и часы</th><td data-label="Что установлено">19 coordinate flags и 9 timezone conflicts остаются HOLD. Ранее исправленные timezone-ошибки не объявлены вновь.</td><td data-label="Что ещё нельзя заключать">Europe/Kirov и Europe/Moscow совпадают по offset в данном окне, но это не универсальная взаимозаменяемость зон.</td></tr>
+</tbody></table></div>
+<p>Старый независимый аудит Front2272 сохраняется как история ошибки, а актуальный аудит 2f03b69 фиксирует её исправление. Новая проблема общего захвата пары проходит тождество <code>S = OD + transfer_OD</code>: согласованные суммы сами по себе не защищают от повторного присвоения спроса. Сначала нужен один OD-budget, затем новый отбор, кресла и выручка.</p>
+<p>Остаточный пример «Ковра»: в посте 6495 от 25.07.2026 алгоритм переносит самарское «сняты» на соседний Нижний Новгород. В сохранённом дне есть другие события, поэтому изменение общего числа дней или рейтинга из этого примера не доказано. Нужна проверка границ пунктов. Stage22 проверяет скрининг и не означает исправления всех парсеров и сетевой модели.</p>
+<p class="source"><a href="@@LINK_FLOW@@">Исторический аудит Front2272</a> · <a href="@@LINK_TEAM_REVIEW@@">Наш независимый аудит 2f03b69: исправления и открытые дефекты</a> · <a href="@@LINK_FINAL_ACCEPT@@">Stage22: приёмка и остаточные ограничения</a></p>
+</section>
+<section id="methods-value">
+<span class="section-number">10</span><h2>Что даёт методика</h2>
+<p>Реестры, очистка, единицы, географические ключи, конкуренты и календарь — стандартная аналитическая работа. Их большой объём здесь объясняется неоднородностью данных и ошибками ранних материалов. Сам по себе pipeline hygiene не является инновацией.</p>
+<p>Более содержательны четыре приёма: проверка всей датированной поездки с возвратом; учёт занятого ресурса и альтернативного использования борта; обратный расчёт необходимых продаж; разделение генератора, расчётчика и независимого критика. Эти методы не объявляются уникальными в отрасли.</p>
+<div class="formula">q* = ceil(G / (2 × (f − v))), если f &gt; v<br>G — заданный разрыв для пары дат; f — нетто-выручка за одну поездку;<br>v — пассажирские расходы; q* — клиентов туда/обратно.</div>
+<p>Такой порог отвечает на вопрос «сколько нужно продать при заданных условиях». Он не отвечает на вопрос «сколько купят». Дополнительно нужны остаточные кресла всех плеч, подтверждённый ресурс и корректное включение потерь baseline в G. Если f ≤ v при положительном G, продажами этот разрыв в такой постановке не закрыть.</p>
+<p>Чтобы измерить дополнительную прогнозную ценность новых сигналов, потребуется сравнение обычной базы с той же моделью плюс tourism/corporate/weather на отложенных датах или парах с реальными метками. Сейчас ни такого holdout, ни измеренного predictive edge нет.</p>
+</section>
+<section id="kover">
+<span class="section-number">11</span><h2>«Ковёр» и адаптация сети</h2>
+<p><b>Отдельный денежный модуль «Ковра» — NOT_IMPLEMENTED.</b> Параметр <code>weeks_per_year = 52 / 48</code> в Front2272 означает сценарное предположение о четырёх потерянных неделях, смешивающее временные ограничения с погодой. Он не идентифицирует стоимость «Ковра». Main/reply bug исправлен в проверенных границах версии 2. Дни публикаций о введении или снятии по-прежнему не дают длительности ограничений, потерь волн или денег; остаются отдельные неоднозначности статуса аэропорта.</p>
+<p>Сравнительный контур без денежного модуля «Ковра» (<b>no-kover comparator</b>) и исходный <code>experiment_v1</code> сохраняются неизменными. Их не переименовываем задним числом в проверенную экономику «без ограничений». Дополнение должно получить собственные входы, оценщик и манифест; общие исправления потока применяются отдельной версией ко всем сравниваемым режимам.</p>
+<div class="compare-grid">
+<div><h3>1. Текущие ограничения</h3><p>Проверенные события или явно условные стрессы воздействуют на рейсы, пересадки, экипажи, следующие задания и расходы восстановления.</p></div>
+<div><h3>2. Снять только «Ковёр»</h3><p>Та же сеть и парк. Сохраняются погода, техника, санкции и прочие условия. Другие закрытые аэропорты автоматически открытыми не считаются.</p></div>
+<div><h3>3. Постепенная адаптация</h3><p>Изменять резерв, волны и частоты с учётом времени, договоров и цены перехода. Улучшение надёжности конкурентов учитывать отдельно.</p></div>
+</div>
+<p>План трёх режимов остаётся предложением: <b>PROPOSED, NOT STARTED</b>. В каждом режиме кандидат сравнивается с baseline <b>в том же режиме</b>, с ценой перехода, донором и каннибализацией собственных продаж. Возвраты и потерянную выручку одной поездки нельзя вычитать дважды; неизбегаемые расходы не считать избегаемыми. Нужны уходы, дополнительные посадки, размещение, перебронирование, позиционирование экипажей и каскад последующих срывов.</p>
+<p>Конкуренты тоже могут выиграть от улучшения надёжности; уменьшение собственных расходов не гарантирует сохранение преимущества. Дата окончания войны, снятие санкций и поставки самолётов не прогнозируются. Пока входов недостаточно, результат будущего модуля — условные пороги переключения и устойчивости, а не оценка вероятности политического исхода.</p>
+<p class="source"><a href="@@LINK_KOVER@@">Постановка трёх режимов и денежного учёта</a></p>
+</section>
+<section id="change">
+<span class="section-number">12</span><h2>Масштаб изменения сети</h2>
+<div class="note important"><p>Пользователь предполагает, что авиакомпания, вероятно, не захочет радикально менять сеть. Это <b>предпочтение и рабочая гипотеза пользователя</b>, а не подтверждённая политика Red Wings. Нижеследующая лестница сравнения — proposal; она ещё не посчитана на результатах исследования.</p></div>
+<p>Для одинакового полезного результата следует предпочитать меньшие вложения и изменения. Это не означает, что текущая сеть идеальна, и не снимает обязательную гипотезу нового хаба. Новый хаб должен доказать материальное преимущество после полной стоимости перехода, а небольшая корректировка — собственный положительный эффект относительно сохранения сети.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Ступени изменения сети"><table class="compact decision-table"><thead><tr><th scope="col">Ступень</th><th scope="col">Что сравнивать с сохранением сети</th><th scope="col">Ключевое условие</th></tr></thead><tbody>
+<tr><th scope="row">Сохранить baseline</th><td data-label="Сравнение">Наблюдаемое текущее использование парка, продажи, маржа и ограничения.</td><td data-label="Условие">Сам baseline нужно восстановить; он не принят оптимальным.</td></tr>
+<tr><th scope="row">Ретайминг / партнёрский продукт</th><td data-label="Сравнение">Полезные часы, защита стыковки или подвоз без нового базирования.</td><td data-label="Условие">Цена изменения слотов, договоров и потерянных собственных связей.</td></tr>
+<tr><th scope="row">Ограниченный сезонный пилот</th><td data-label="Сравнение">Конкретный продукт на существующей базе и в доступном окне.</td><td data-label="Условие">Названный ресурс, измеримые продажи, срок остановки и возврата к базе.</td></tr>
+<tr><th scope="row">Перераспределить ресурс</th><td data-label="Сравнение">Сохранить / заменить / убрать реальное задание-донора.</td><td data-label="Условие">Донор наблюдён; учитываются его маржа и следующее задание.</td></tr>
+<tr><th scope="row">Открыть новую базу / хаб</th><td data-label="Сравнение">Законченная сеть с базой, резервом и переходными расходами.</td><td data-label="Условие">Материальное преимущество относительно менее затратных ступеней.</td></tr>
+</tbody></table></div>
+<p>По каждой альтернативе нужны изменения <b>бортов, экипажей, плеч, контрактов, одноразовых затрат, времени подготовки и обратимости</b>. Отсутствующие значения остаются UNKNOWN. Ни полная ведомость этих изменений, ни граница «материального преимущества» ещё не рассчитаны и не согласованы. Не следует выдавать эту новую проверку за уже полученную рекомендацию.</p>
+<h3>Цири: постепенное развитие SVX и новая база UFA</h3>
+<p>В прежнем экономическом пакете Цири сравнила <b>добавление</b> целых программ на неделю <b>7–13 декабря 2026</b>. Общий потолок — 4 рабочих борта + 1 резерв; фактически выделенные борта, частоты и налёт различаются. Поэтому восемь физических пар — условие сопоставимого кейсового контура, а не требование потратить одинаковый ресурс. Ядро UFA из четырёх лучей — диагностическая часть, оно не выполняет восьмипарный контур само по себе.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Экономические контуры Цири"><table class="compact decision-table"><thead><tr><th>Контур</th><th>Частота на пару</th><th>Рабочие + резерв</th><th>Налёт, ч/нед.</th><th>Результат база / осторожный, млн ₽/нед.</th></tr></thead><tbody>@@TEAM_ECONOMICS@@</tbody></table></div>
+<p>Результат — вклад до базы, части фиксированных расходов и альтернативной стоимости парка. Все показанные добавки отрицательны <b>при конкретных предпосылках</b> спроса, захвата, нетто-дохода и затрат. Это не вывод о нерентабельности всех хабов или о превосходстве любого прямого рейса. 100 мест — верхнее предложение сценария, не подтверждение допустимой коммерческой нагрузки конкретного SSJ.</p>
+<p><b>Предложение Цири для следующей проверки:</b> постепенное развитие из существующей SVX, сначала один датированный оборот SVX–MRV вместо действительно слабого задания. AER сохранён в более широком варианте; новая UFA остаётся альтернативой. Конкретный донор не выбран; SVX–OMS и SVX–REN слабыми действующими рейсами не объявлены. Замена должна выиграть у сохранения донора и допустимой отмены без замены, после потерянных продаж и всех сохраняющихся расходов. Экономика такой замены и сезонной программы ещё не рассчитана.</p>
+<p>Условные пороги добавления SVX–MRV/AER нельзя переносить на замену. Для действующей базы нужны применимые расходы и окно борта; для новой — также запуск базы, экипажи, резерв, ТО и переход. Меньший условный убыток не является решением летать.</p>
+<p class="source"><a href="@@LINK_ECONOMICS@@">Предложения Цири и предпосылки</a> · <a href="@@LINK_ECONOMICS_CSV@@">Точные сохранённые результаты</a> · <a href="@@LINK_STRATEGY_SCOPE@@">Добавление, замена и сезон: границы сравнения</a></p>
+</section>
+<section id="next">
+<span class="section-number">13</span><h2>Следующие работы и решения человека</h2>
+<ol class="task-list">
+<li><b>Закрыть повторный захват общей пары прямой сети.</b> Старое нарушение conservation исправлено; следующий барьер — единый спрос MOW–OMS и других общих пар при marginal selection. После этого повторить отбор, кресла и деньги на сохранённых входах.</li>
+<li><b>Согласовать критерий выбора узла.</b> Утвердить или изменить предложенные веса, определение нового хаба и статус отсечки 500 км. До этого показывать развитие опоры и строго новый узел отдельно, сохраняя альтернативные профили.</li>
+<li><b>Восстановить baseline и ресурс.</b> Назвать действующие задания, tail/crew/технические окна, маржу и цену отмены или переноса. Сопоставить сохранить сеть, небольшую настройку, пилот, перераспределение и новый хаб.</li>
+<li><b>Закрыть по одному датированному продукту.</b> C14 — билет, договорные даты и ночной трансфер; C01 — общая загрузка и стоимость базы/ночёвки; C07 — наблюдённый донор и совместимое окно.</li>
+<li><b>Реализовать отдельные режимы ограничений.</b> Проверенные интервалы → распространение сбоев → деньги; затем тот же график без «Ковра» и допустимая адаптация с ценой перехода.</li>
+<li><b>Собрать несколько законченных сетей.</b> На одном потолке ресурса, с конкурентным ответом и сезонностью. После этого — 8–12 направлений, годовые показатели, условия окупаемости и дорожная карта до 2028.</li>
+</ol>
+<p><b>Ночной workflow — PROPOSED, NOT STARTED.</b> Документированный план не является журналом запущенной работы. Для конкурсной рекомендации допустимы явно обоснованные оценки с чувствительностью; ошибки двойного учёта и невыполнимый ресурс нужно исправить до выбора. Итогом должен стать условный выбор с порогами, а не бесконечное расширение реестра UNKNOWN.</p>
+<p class="source"><a href="@@LINK_NIGHT_PLAN@@">Сохранённое предложение цикла</a> · <a href="@@LINK_TEAM_REVIEW@@">Что действительно проверено</a></p>
+<p>Человеку действительно нужно определить допустимый масштаб изменений, цель и горизонт решения, отношение к обратимости и пилоту, а также обеспечить разрешённый доступ к внутренним продажам, ротациям и договорам. Перед запуском потребуются коммерческое и операционное решения уполномоченных лиц. Назначать от пользователя произвольные коэффициенты загрузки, топлива или спроса не требуется: их сбор, оценка и проверка остаются задачей аналитики.</p>
+<p>Организаторам нужен выбранный вариант с понятными альтернативами, ресурсным планом, экономикой, конкурентной реакцией и условиями адаптации. Сейчас можно передать доказательную основу и три опыта с ограничениями. Аналитическая система помогает обосновать ответ, но сама по себе не закрывает требования кейса.</p>
+</section>
+<section id="access">
+<span class="section-number">14</span><h2>Доступ к источникам</h2>
+<p>После сообщения о восстановленном Wi-Fi выполнена повторная проверка задокументированных ограничений: <b>63 пункта инвентаризации и 47 прямых публичных чтений</b>. В 16 случаях получены ответы с байтами; шесть источников дали проверенные в указанном объёме числовые данные или справочники. Остальные ответы включают вспомогательные страницы, старую редакцию и неподходящий каталог. Это не 16 восстановленных наборов данных и не проверка всех сайтов за историю проекта.</p>
+<p>Компромиссы действительно были: национальные итоги подтверждались выбранными официальными Telegram-сообщениями и поисковыми копиями; часть социальной статистики поступала через документированные перепубликации; цена конкретного перелёта оставалась неизвестной. Где удалось получить прямой источник, теперь сохранены его байты и выбранные извлечения. Причина прежних отказов не установлена: улучшение доступа не доказывает, что каждый 403, 502 или сбой сертификата был вызван Wi-Fi.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Результаты повторного получения источников"><table><thead><tr><th scope="col">Что восстановлено</th><th scope="col">Что теперь известно</th><th scope="col">Что это меняет</th></tr></thead><tbody>
+<tr><th scope="row">Росавиация: первичный текст и историческая таблица</th><td>Итог 2025 года — 108,85 млн перевозок авиакомпаниями; 214,66 млн обслуживаний аэропортами учитываются отдельно. Также получены выбранные национальные значения за 2023–2024 годы.</td><td>Можно уточнить национальные знаменатели и периоды. Это не конечный OD и не дополнительная оценка спроса каждого города.</td></tr>
+<tr><th scope="row">Доклад Минтранса за 2025 год</th><td>Получен PDF из 45 страниц; извлечены шесть выбранных годовых ячеек за 2024–2025 годы.</td><td>Доступен прямой первичный документ. Совпадение с Росавиацией не делает административную статистику независимыми измерениями.</td></tr>
+<tr><th scope="row">Сборы аэропорта Хабаровска</th><td>В редакции, связанной с официальным индексом, взлёт-посадка — 700 руб./т МВМ, транспортная безопасность — 609 руб./т МВМ; обе ставки действуют с 10.02.2026, без НДС, для российских потребителей.</td><td>Для будущих вариантов с KHV нужны применимые актуальные компоненты. Это не договорная цена RW и не полная стоимость аэропорта, топлива или базы.</td></tr>
+<tr><th scope="row">Справочники перевозчиков</th><td>Получены Travelpayouts и OpenFlights; подготовлена выборка сопоставления кодов.</td><td>Улучшается проверка идентичности. Исторический флаг active не доказывает текущую эксплуатацию или юридическую роль оператора рейса.</td></tr>
+</tbody></table></div>
+<p>В январской редакции два указанных сбора KHV составляли 562 и 445 руб./т МВМ. Разница опубликованных редакций — <b>302 руб./т МВМ без НДС</b> по этим двум компонентам. Если прежний будущий расчёт использовал январские значения для декабря, его нужно пересчитать. Это не измеренное изменение расходов Red Wings и не основание менять результаты трёх frozen-экспериментов, где новый KHV-вход не применялся.</p>
+<p>Остаются 13 HTTP-ошибок и 18 отказов TLS/DNS/транспорта среди прямых чтений. Ценовой запрос Азимута Киров → Минводы на 7–14 декабря снова вернул 403; билет, места и оферта не восстановлены. Часть файлов Росстата и наземных источников также недоступна. Один восстановленный Telegram-пост имеет конфликт периода аэропортового показателя — он удержан, а не исправлен догадкой. По этим пунктам компромиссы доступа пока устранить не удалось.</p>
+<p>Отдельно остаются <b>несетевые</b> задачи: восстановление интервалов ограничений после scoped‑исправления main/reply, проверка неоднозначных статусов по аэропортам, согласование поездок и сегментов, оценка фактического OD, net fare и свободного парка. Историческая ошибка Gemini backend 502 не объяснена причиной Wi-Fi; повторного платного запуска и принятого международного пакета нет.</p>
+<p>Новый пакет восстановленных источников сохранён отдельно: <span class="status">NOT_INTEGRATED</span> в экономические модели. Координатор сверил 162 хеша файлов, число пунктов и выбранные компоненты KHV; содержательная проверка новых первоисточников выполнена сборщиком. Независимое одобрение основной версии HTML не переносится автоматически на этот добавленный раздел. Старые источники и frozen001–003 не перезаписывались.</p>
+<p class="source"><a href="@@LINK_RECOVERY@@">Полный отчёт о восстановлении доступа</a> · <a href="@@LINK_RECOVERY_INVENTORY@@">Все 63 пункта и результаты</a> · <a href="@@LINK_RECOVERY_COSTS@@">Выбранные ставки KHV с датами и условиями</a></p>
+</section>
+<section id="people">
+<span class="section-number">15</span><h2>Вклад людей и их гипотезы</h2>
+<div class="person-card" id="person-nastya"><h3>Настя · kiruha355</h3>
+<p><b>Принесла:</b> объединённый шаг 1, сравнение городов, социальные и погодные признаки, пересадочный потенциал, обработку публикаций об ограничениях и сетевую модель. В 2f03b69 исправлены прежний поток хаба и main/reply в проверенном объёме.</p>
+<p><b>Гипотеза:</b> выбирать узел по пробелу связности, поддержке и рискам, затем сравнивать хаб с прямой сетью. Исходная тройка 500 км — Омск–Оренбург–Самара; это сохранённый этап до stage22. Новый shortlist не стирает её работу и не наследует автоматически все старые выводы.</p>
+<p><b>Открыто:</b> общий захват повторяющейся пары прямой сети, конечный OD, физический ресурс и спрос. <a href="@@LINK_STEP1@@">Версия Насти</a> · <a href="@@LINK_TEAM_REVIEW@@">Границы независимой проверки</a>.</p></div>
+<div class="person-card" id="person-tsiri"><h3>Цири · mput</h3>
+<p><b>Вклад:</b> прежняя экономика новой базы в Уфе и программ из существующей базы; затем адресный аудит панели Насти, доказательность слабых ячеек, предложенные веса, фиксированные шкалы и интегрированные сценарии stage22.</p>
+<p><b>Гипотезы:</b> проверять постепенное развитие SVX–MRV до открытия новой базы; для выбора города отделять наблюдённый факт от импутации и предпочтений. При основных предложенных правилах shortlist — Омск–Оренбург–Барнаул; Самара остаётся содержательной альтернативой.</p>
+<p><b>Открыто:</b> донор и экономика замены/сезона, согласование весов, эксплуатационные сведения, UNKNOWN и остаточные дефекты панели. <a href="@@LINK_ECONOMICS@@">Экономика 93fa5cf</a> · <a href="@@LINK_STAGE22@@">Выпуск 6ec84a7</a>. mput коллеги — не Mput13 координатора; личность уточнена пользователем.</p></div>
+<div class="person-card" id="person-konstantin"><h3>Константин · методические предложения</h3>
+<p><b>Принёс:</b> в командном синтезе за ним сохранены методы синхронизации расписания, учёта альтернативы поездке и доступного борта, отказа узла и каскада задержек; примеры Avelo/airBaltic и условия пилота/выхода. Первичные авторы исследований указаны в источнике; это не личное авторство научных результатов.</p>
+<p><b>Гипотеза:</b> связность и устойчивость определяются календарём, ресурсом и поведением пассажира, а не одной географией. AMPL/OR-Tools и NetworkX предложены как инструменты расчёта оборотов и стыковок.</p>
+<p><b>Открыто:</b> российская применимость и контрольный эксперимент. Международные коэффициенты не перенесены, идеи не приняты как готовая стратегия. <a href="@@LINK_KONSTANTIN@@">Сохранённый материал</a> · <a href="@@LINK_ANCESTRY@@">Записи KON01–KON08</a>.</p></div>
+<div class="person-card" id="person-mikhail"><h3>Михаил · Mput13 · координатор</h3>
+<p><b>Наш вклад:</b> источники и нормализация по России, реестр авторства, 35 спецификаций и ограниченные C14/C01/C07; независимые проверки потоков, единиц, календаря и приёмки. Автоматические роли core/alternative/hypotheses/critic — исполнители внутри пакета, а не дополнительные люди команды.</p>
+<p><b>Рабочая гипотеза:</b> сначала сравнить сохранение сети, небольшой продукт и перераспределение ресурса, затем новую базу — с одним учётом спроса и полной ценой изменения. Предпочтение менее радикальных изменений обозначено как гипотеза пользователя, а не политика RW.</p>
+<p><b>Открыто:</b> законченные сети, экономика ограничения/адаптации и дорожная карта; ночной цикл только предложен. <a href="#c14">C14</a> · <a href="#c01">C01</a> · <a href="#c07">C07</a> · <a href="@@LINK_NIGHT_PLAN@@">Предложенный план</a>.</p></div>
+</section>
+<section id="sources">
+<span class="section-number">16</span><h2>Версии и границы проверки</h2>
+<p>Текст сохраняет прежние четыре исследовательских пакета, срез координатора и восстановление доступа, добавляя точные версии Насти, двух этапов Цири и нашего аудита context18. Ссылки ведут на GitHub HTTPS с конкретным коммитом либо на якоря этого документа; содержание отчёта не зависит от локальных markdown-файлов. Полные raw, приватные материалы и секреты в HTML не встроены.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Закреплённые коммиты"><table class="compact pin-table"><thead><tr><th scope="col">Пакет</th><th scope="col">Exact SHA</th></tr></thead><tbody>@@PIN_ROWS@@</tbody></table></div>
+<p>Независимая приёмка охватывает указанные критиком входы, арифметику, часть первичных ячеек, календарей и соединений. Поздний core505 C07 reconciliation и optional C10/reception extract alternativeef находятся вне её semantic scope. Полный replay Front2272 и новой сети 2f03b69 не выполнен. Scoped‑проверка 2f03b69 подтверждает исправление старого flow bug; stage22 отдельно имеет ACCEPT_WITH_LIMITATIONS только для скрининга шага 1. Старый review context18 остаётся историческим snapshot: позднее подтверждение ТО Омска и уточнение потока REN взяты из stage22. Авторский повторный расчёт позднего модуля и проверка хеша не наследуют автоматически независимую приёмку предыдущего.</p>
+<p>При сборке этого отчёта повторно прочитаны pinned-байты, записаны SHA-256 входов и проверены ключевые числовые тождества. Это проверка представления результатов, без новых покупок, бронирований, запросов к людям или рыночной приёмки.</p>
+<p class="source"><a href="@@LINK_CRITIC_SCOPE@@">Манифест scope прежнего критика</a> · <a href="@@LINK_FINAL_ACCEPT@@">Приёмка stage22</a> · <a href="@@LINK_TEAM_REVIEW@@">Независимый сетевой review context18</a> · <a href="@@LINK_ACCEPTED_RESEARCH@@">Новые факты и UNKNOWN</a></p>
+</section>
+<footer class="foot">Исследовательский отчёт команды · срез 10 ноября 2026. UNKNOWN — данных недостаточно; HOLD — показатель удержан; SCENARIO — заданное условие; NOT_RUN — проверка не выполнялась.</footer>
+</main>
+</div>
+<script>
+(() => {
+  'use strict';
+  document.documentElement.classList.add('enhanced');
+  const toc = document.querySelector('.toc');
+  const toggle = document.getElementById('toc-toggle');
+  toggle.addEventListener('click', () => {
+    const open = toc.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  const navLinks = Array.from(document.querySelectorAll('.toc-links a'));
+  navLinks.forEach(link => link.addEventListener('click', () => {
+    toc.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+  const input = document.getElementById('program-search');
+  const scope = document.getElementById('program-scope');
+  const programs = Array.from(document.querySelectorAll('[data-program]'));
+  function filterPrograms() {
+    const query = input.value.trim().toLocaleLowerCase('ru');
+    let count = 0;
+    programs.forEach(row => {
+      const inScope = scope.value === 'all' || (scope.value === 'queue' && row.dataset.queue === 'true') ||
+        (scope.value === 'tested' && row.dataset.tested === 'true');
+      const show = inScope && row.dataset.search.includes(query);
+      row.hidden = !show;
+      if (show) count += 1;
+    });
+    document.getElementById('program-count').textContent = `Показано ${count} из ${programs.length}`;
+    document.getElementById('program-empty').hidden = count !== 0;
+  }
+  input.addEventListener('input', filterPrograms);
+  scope.addEventListener('change', filterPrograms);
+  filterPrograms();
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  let scheduled = false;
+  function updateLocation() {
+    const line = window.innerWidth <= 760 ? 120 : 100;
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= line) active = section;
+    }
+    navLinks.forEach(link => {
+      if (link.hash === '#' + active.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    scheduled = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!scheduled) { scheduled = true; window.requestAnimationFrame(updateLocation); }
+  }, { passive: true });
+  window.addEventListener('resize', updateLocation);
+  updateLocation();
+})();
+</script>
+</body>
+</html>
