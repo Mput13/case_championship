@@ -1,0 +1,60 @@
+{
+  "synthetic": true,
+  "known_direct_cap": 5.0,
+  "can": 0.6,
+  "desired_upper": 20.0,
+  "leg_capacity": 20.0,
+  "directed_market_D": 20.0,
+  "required_linear_gate_upper": 12.0,
+  "gate_pass": false,
+  "kink_sales": 8.333333333333334,
+  "points": [
+    {
+      "x": 0.0,
+      "direct_migration": 0.0,
+      "unverified_migration": 0,
+      "saved_old_segments": 0.0
+    },
+    {
+      "x": 5.0,
+      "direct_migration": 3.0,
+      "unverified_migration": 0,
+      "saved_old_segments": 3.0
+    },
+    {
+      "x": 10.0,
+      "direct_migration": 5,
+      "unverified_migration": 1.0,
+      "saved_old_segments": 7.0
+    },
+    {
+      "x": 20.0,
+      "direct_migration": 5,
+      "unverified_migration": 7.0,
+      "saved_old_segments": 19.0
+    }
+  ],
+  "reason": "saved old segments slope changes from can to 2*can; one LP coefficient is invalid",
+  "owner_refusal_probe": {
+    "modification": "in-memory positive-known source caps to0.001, D_SVX8/base; original Git bytes unchanged",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 11, in <module>\n  File \"<temporary_replay_scope>/allocation_diagnostic.py\", line 46, in main\n    assert can*upper<=known+1e-7,('binding migration kink; LP held',case,k,can*upper,known)\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('binding migration kink; LP held', 'D_SVX8|base|C|1.0', ('KUF', 'SVX'), 15.30730922901538, 0.001)\n",
+    "normalization": "Only temporary directory path replaced; exception text and source line unchanged"
+  },
+  "zero_unknown_cases": [
+    {
+      "known_cap": 0,
+      "known_direct_migrated": 0,
+      "unverified": 12.0,
+      "saved_segments": 24.0
+    },
+    {
+      "known_cap": null,
+      "known_direct_migrated": 0,
+      "unverified": 12.0,
+      "saved_segments": 24.0
+    }
+  ],
+  "zero_unknown_not_evidence_of_zero_actual_RW_migration": true
+}
