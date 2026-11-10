@@ -1,0 +1,32 @@
+{
+  "status": "PASS_ARITHMETIC_WITH_DECLARED_LIMITATIONS",
+  "reviewed_commit": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+  "scope": "Independent source/method/replay audit, one main and one addressed round; no owner model/strategy edits",
+  "checks": {
+    "replayed_owner_versions": 3,
+    "ledger_rows": 48,
+    "od_rows": 36,
+    "legs": 12,
+    "bounded_candidates": 1682,
+    "shortlist_overlap": 392,
+    "shortlist_size": 400,
+    "display_rounding_fixes": 6,
+    "slider_checks": 744,
+    "json_files_parsed": 18,
+    "source_files_unchanged": 389,
+    "original_working_files_unchanged": 167
+  },
+  "conclusion": {
+    "contribution_rub_model_year": 387722372.7102387,
+    "same_network_support0_rub": -706409621.3819437,
+    "modeled_support_rub": 1094131994.0921826,
+    "fullPnL": null,
+    "cash": null,
+    "legal_support_rate": null,
+    "winner_after_shortlist_change": null
+  },
+  "source_acceptance": "partial; observed endpoint sales/yields and applicable fuel quote not established. False absent-row/formula claims rejected and CSV repaired. Primary subsidy rules not fully revalidated due timeouts.",
+  "resolved_semantics": "Fare source declares scenario net yield; gross_before_migration is not retail gross. No automatic further VAT or commissions deduction.",
+  "command": "python3 context/27_oms388_independent_audit_20261110/verify_audit.py --financial-python /path/to/python-with-replay-requirements",
+  "further_rounds": 0
+}

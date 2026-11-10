@@ -1,0 +1,213 @@
+{
+  "label": "owner4a976",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "csv_checks": {
+    "network_summary.csv": {
+      "pass": true,
+      "rows": 24,
+      "byte_equal": false
+    },
+    "network_routes.csv": {
+      "pass": true,
+      "rows": 265,
+      "byte_equal": false
+    },
+    "mandatory_routes_table.csv": {
+      "pass": true,
+      "rows": 64,
+      "byte_equal": false
+    },
+    "fleet_ramp.csv": {
+      "pass": true,
+      "rows": 16,
+      "byte_equal": false
+    }
+  },
+  "base_spokes": [
+    "MOW",
+    "IKT",
+    "GOJ",
+    "VOG",
+    "NOZ",
+    "KUF",
+    "GSV",
+    "UUD"
+  ],
+  "base": {
+    "ticket_gross_rub_year": 4221663149.2761393,
+    "foregone_rw_rub_year": 144755158.71722305,
+    "ticket_after_migration_rub_year": 4076907990.558916,
+    "subsidy_rub_year": 0.0,
+    "total_revenue_rub_year": 4076907990.558916,
+    "variable_cost_rub_year": 4443969619.460084,
+    "contribution_rub_year": -367061628.90116817,
+    "segments_year": 337557.3865558625,
+    "local_trips_year": 150012.92615121254,
+    "transfer_trips_year": 93772.23020232498,
+    "od_trips_year": 243785.15635353752,
+    "migrated_year": 8840.0,
+    "block_hours_year": 13906.540455055641,
+    "flights_year": 4264.0,
+    "aircraft": 5,
+    "routes": 8,
+    "full_pnl_rub_year": null
+  },
+  "build_ast_sha256": "ae6d90f04fb69e6021c3add0bf7e0069f9c8ed722bcd8d79a68601e36331106f",
+  "base_sub_spokes": [
+    "MOW",
+    "IKT",
+    "GOJ",
+    "VOG",
+    "NOZ",
+    "KUF",
+    "GSV",
+    "UFA",
+    "KJA",
+    "TOF",
+    "CEK",
+    "IAR"
+  ],
+  "base_sub": {
+    "ticket_gross_rub_year": 6535806631.089788,
+    "foregone_rw_rub_year": 0.0,
+    "ticket_after_migration_rub_year": 6535806631.089788,
+    "subsidy_rub_year": 1094131994.0921826,
+    "total_revenue_rub_year": 7629938625.181971,
+    "variable_cost_rub_year": 7242216252.471732,
+    "contribution_rub_year": 387722372.7102387,
+    "segments_year": 640550.8128730373,
+    "local_trips_year": 174701.97703779457,
+    "transfer_trips_year": 232924.41791762132,
+    "od_trips_year": 407626.3949554159,
+    "migrated_year": 0.0,
+    "block_hours_year": 21995.081622592934,
+    "flights_year": 7904.0,
+    "aircraft": 8,
+    "routes": 12,
+    "full_pnl_rub_year": null
+  },
+  "transfer_rw_existing_pairs": [],
+  "ledger_checks": {
+    "leg_count": 12,
+    "od_count": 36,
+    "ticket_od_vs_leg": true,
+    "subsidy_od_vs_leg": true,
+    "cost_vs_model": true,
+    "revenue_vs_model": true,
+    "contribution_vs_model": true,
+    "segment_identity": true,
+    "capacity": true
+  },
+  "thresholds": {
+    "eligible_od_for_OD_scenario": 384183.30576663266,
+    "subsidy_eligible_segments": 617107.7236842542,
+    "support_fraction_for_zero": 0.645634736207547,
+    "rub_per_eligible_segment_for_zero": 1144.7103872959808,
+    "max_omitted_cost_if_old_delta_zero_rub_year": 387722372.7102387,
+    "max_omitted_cost_per_aircraft_month_rub": 4038774.715731653,
+    "ticket_receipt_fraction_for_zero": 0.9406771964663235
+  },
+  "direct_counts": [
+    {
+      "scenario": "base",
+      "programs": 8,
+      "leg_rows": 24,
+      "unique_city_pairs": 18,
+      "sum_rounded_segments": 753601,
+      "duplicated_pair_demand": "pooled_once_in_owner_joint; not_independent_sales"
+    },
+    {
+      "scenario": "base_sub",
+      "programs": 8,
+      "leg_rows": 24,
+      "unique_city_pairs": 19,
+      "sum_rounded_segments": 826450,
+      "duplicated_pair_demand": "pooled_once_in_owner_joint; not_independent_sales"
+    },
+    {
+      "scenario": "cautious",
+      "programs": 8,
+      "leg_rows": 24,
+      "unique_city_pairs": 21,
+      "sum_rounded_segments": 363567,
+      "duplicated_pair_demand": "pooled_once_in_owner_joint; not_independent_sales"
+    },
+    {
+      "scenario": "cautious_sub",
+      "programs": 8,
+      "leg_rows": 24,
+      "unique_city_pairs": 20,
+      "sum_rounded_segments": 372520,
+      "duplicated_pair_demand": "pooled_once_in_owner_joint; not_independent_sales"
+    }
+  ],
+  "direct_pair_checks": [
+    {
+      "scenario": "base",
+      "support": 0.0,
+      "physical_pairs": 18,
+      "max_week_direction_pax_residual": 5.684341886080802e-14,
+      "max_migration_residual": 0.0,
+      "pass_check": true
+    },
+    {
+      "scenario": "base",
+      "support": 1.0,
+      "physical_pairs": 19,
+      "max_week_direction_pax_residual": 5.684341886080802e-14,
+      "max_migration_residual": 0.0,
+      "pass_check": true
+    },
+    {
+      "scenario": "cautious",
+      "support": 0.0,
+      "physical_pairs": 21,
+      "max_week_direction_pax_residual": 2.842170943040401e-14,
+      "max_migration_residual": 0.0,
+      "pass_check": true
+    },
+    {
+      "scenario": "cautious",
+      "support": 1.0,
+      "physical_pairs": 20,
+      "max_week_direction_pax_residual": 5.684341886080802e-14,
+      "max_migration_residual": 0.0,
+      "pass_check": true
+    }
+  ],
+  "fixed_support_checks": [
+    {
+      "network": "base8",
+      "flights_sales_costs_unchanged": true,
+      "subsidy_effect_residual_rub": 2.384185791015625e-07,
+      "pass_check": true
+    },
+    {
+      "network": "base_sub12",
+      "flights_sales_costs_unchanged": true,
+      "subsidy_effect_residual_rub": -2.384185791015625e-07,
+      "pass_check": true
+    }
+  ],
+  "cautious_sub": {
+    "ticket_gross_rub_year": 805874610.5683248,
+    "foregone_rw_rub_year": 0.0,
+    "ticket_after_migration_rub_year": 805874610.5683248,
+    "subsidy_rub_year": 111123976.40221179,
+    "total_revenue_rub_year": 916998586.9705367,
+    "variable_cost_rub_year": 3182635696.235996,
+    "contribution_rub_year": -2265637109.265459,
+    "segments_year": 89540.62197167025,
+    "local_trips_year": 59961.93108651732,
+    "transfer_trips_year": 14789.345442576465,
+    "od_trips_year": 74751.2765290938,
+    "migrated_year": 0.0,
+    "block_hours_year": 6816.209548344026,
+    "flights_year": 2304.0,
+    "aircraft": 4,
+    "routes": 8,
+    "full_pnl_rub_year": null
+  }
+}

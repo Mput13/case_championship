@@ -1,0 +1,40 @@
+{
+  "pin": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+  "scope": "sources/round2 only",
+  "checks": [
+    {
+      "command": "git rev-parse HEAD",
+      "result": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+      "status": "PASS"
+    },
+    {
+      "command": "nl -ba context/27_oms388_independent_audit_20261110/replay/ledger.csv | sed -n '1,8p'",
+      "result": "OMS-IKT at line 3; requested KUF-KJA/VOG-KJA values absent in inspected lines",
+      "status": "PARTIAL"
+    },
+    {
+      "command": "rg -n '133200|1696' data/assumptions/network.csv",
+      "result": "line 23 only",
+      "status": "PASS"
+    },
+    {
+      "command": "python -c 'print(23351.5*15037.21601431249)'",
+      "result": "351141549.7582181",
+      "status": "PASS"
+    }
+  ],
+  "unknowns": [
+    "Primary observed demand and price source, dates, periods, geographies, endpoint transformation, and fare formula for all three requested route rows",
+    "Primary source/date/tax basis/uplift status and geographic applicability of Ufa fuel basket",
+    "Quantified effect of unresolved lineage on +388 million rubles"
+  ],
+  "arithmetic_bug_found": false,
+  "assumption_vs_fact": "Ufa amounts are model inputs attributed to a colleague, not fully sourced primary facts; route prices and trips are model outputs unless independently evidenced.",
+  "stop": true,
+  "coordinator_acceptance": "PARTIAL: rows/formulas corrected; primary market validation not established",
+  "csv_repaired": true,
+  "rejected_initial_claims": [
+    "target rows absent based on first8 lines",
+    "fare formula UNKNOWN despite explicit implementation"
+  ]
+}
