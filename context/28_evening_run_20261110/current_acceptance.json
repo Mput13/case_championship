@@ -1,5 +1,5 @@
 {
-  "as_of_msk": "2026-11-10T21:27:14.569855+03:00",
+  "as_of_msk": "2026-11-10T21:46:34.269306+03:00",
   "events": [
     {
       "id": "EV-MR01",
@@ -138,6 +138,20 @@
         "ramp/search/calendar/resource limits remain",
         "not latestdc1 fuel"
       ]
+    },
+    {
+      "id": "EV-LATE-FUEL",
+      "subject_sha": "dc1eb38d4c6b7c18386b3db4b1750166bb010ffd",
+      "review_sha": "c5ec29f7a89e457ed104026877b8f8d3b6101ca9",
+      "verdict": "APPROVE_SCOPED_ARITHMETIC_CONDITIONAL_APPLICABILITY_CHANGES_ROUTE_GRANT",
+      "root_check": "intake/late_fuel_review_checks.json",
+      "limits": [
+        "No actual RW tax ledger/payment acceptance",
+        "No 2027/28 compensation forecast or full PnL/cash",
+        "Route grant and fare CHANGES persists",
+        "Allocated route contribution is not marginal effect",
+        "Frozen annual comparison unchanged"
+      ]
     }
   ],
   "current_data_combination": {
@@ -145,6 +159,12 @@
     "use_corrected_cards_and_route_context": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
     "correction_review": "bb80c5902461fc7861d16c53aae13eca98a2d94f"
   },
-  "late_fuel": "PENDING_SEPARATE_DC1",
+  "late_fuel": {
+    "subject_sha": "dc1eb38d4c6b7c18386b3db4b1750166bb010ffd",
+    "review_sha": "c5ec29f7a89e457ed104026877b8f8d3b6101ca9",
+    "status": "APPROVE_SCOPED_ARITHMETIC_CONDITIONAL_APPLICABILITY_CHANGES_ROUTE_GRANT",
+    "artifact": "decision_handoff/fuel_readout.md",
+    "frozen_inputs_unchanged": true
+  },
   "market_fleet_award_fullPnL_UI_accepted": false
 }

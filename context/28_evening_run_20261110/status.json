@@ -1,5 +1,5 @@
 {
-  "phase": "FINAL_ASSEMBLY_REVIEW",
+  "phase": "BOUNDED_DELIVERY_COMPLETE_WITH_OPEN_BUSINESS_GAPS",
   "started_at_msk": "2026-11-10T19:11:48.991056+03:00",
   "deadline": "2026-11-10T22:00:00+03:00",
   "brief_commit": "4a9971beeacbc40559943eae05b9004c90165917",
@@ -122,11 +122,9 @@
     }
   ],
   "review_queue": "review_queue.json",
-  "updated_at_msk": "2026-11-10T21:30:43.252493+03:00",
-  "active_sol_roles": [
-    "late_fuel_review"
-  ],
-  "sol_currently_active": 1,
+  "updated_at_msk": "2026-11-10T21:46:34.269306+03:00",
+  "active_sol_roles": [],
+  "sol_currently_active": 0,
   "completed_production_roles": [
     "network",
     "products",
@@ -189,9 +187,10 @@
     }
   ],
   "colleague_ref_check": {
-    "at_utc": "2026-11-10T18:23:58.569901+00:00",
+    "at_utc": "2026-11-10T18:43:07.292026+00:00",
     "nastya_sha": "dc1eb38d4c6b7c18386b3db4b1750166bb010ffd",
-    "nastya_changed_since_previous_check": true,
+    "nastya_changed_since_previous_check": false,
+    "new_refs": "own checkpoint and completed EV-FUEL review",
     "merge_rebase": false
   },
   "completed_review_ids": [
@@ -205,7 +204,8 @@
     "EV-MR04",
     "EV-DASHBOARD",
     "EV-DASHBOARD-CORRECTION",
-    "EV-LATE-NASTYA"
+    "EV-LATE-NASTYA",
+    "EV-LATE-FUEL"
   ],
   "review_admissions": [
     {
@@ -345,9 +345,23 @@
         "ramp/search/calendar/resource limits remain",
         "not latestdc1 fuel"
       ]
+    },
+    {
+      "id": "EV-LATE-FUEL",
+      "subject_sha": "dc1eb38d4c6b7c18386b3db4b1750166bb010ffd",
+      "review_sha": "c5ec29f7a89e457ed104026877b8f8d3b6101ca9",
+      "verdict": "APPROVE_SCOPED_ARITHMETIC_CONDITIONAL_APPLICABILITY_CHANGES_ROUTE_GRANT",
+      "root_check": "intake/late_fuel_review_checks.json",
+      "limits": [
+        "No actual RW tax ledger/payment acceptance",
+        "No 2027/28 compensation forecast or full PnL/cash",
+        "Route grant and fare CHANGES persists",
+        "Allocated route contribution is not marginal effect",
+        "Frozen annual comparison unchanged"
+      ]
     }
   ],
-  "evaluation_completion_meaning": "Ten scenario evaluations and eight scoped calculation/source reviews delivered; original assembly CHANGES with separately approved correction; late fuel input under independent review. No operating or investment acceptance.",
+  "evaluation_completion_meaning": "Ten scenario evaluations; 12 completed scoped review packages including assembly correction and late colleague changes. Bounded delivery complete; full strategy/market/fleet/PnL/cash acceptance not claimed.",
   "strategy_complete": false,
   "handoff_build": {
     "status": "DELIVERED_ORIGINAL_CHANGES_CORRECTION_APPROVED",
@@ -398,7 +412,8 @@
     "no_changed_calculations": true,
     "independent_reviews_extended": false,
     "global_input_cutoff_msk": "2026-11-10T21:15:00+03:00",
-    "root_task_complete": false
+    "root_task_complete": true,
+    "root_completion_meaning": "bounded evening delivery; strategy_complete remains false"
   },
   "root_decision_proposal": {
     "path": "decision_handoff/README.md",
@@ -417,15 +432,19 @@
     "author": "kiruha355",
     "published_msk": "2026-11-10T21:22:28+03:00",
     "observed_at_utc": "2026-11-10T18:23:58.569901+00:00",
-    "status": "MATERIAL_LATE_APPENDIX_UNDER_REVIEW",
-    "change": "fuel compensation base32930/caut3024; source eligibility and fixed-network effect pending",
+    "status": "REVIEWED_SCOPED_LATE_APPENDIX",
+    "change": "Conditional positive contribution; source mechanism confirmed, actual RW applicability and future credit unknown",
     "frozen_originals_unchanged": true,
     "preliminary_report": {
       "at_msk": "2026-11-10T21:30:43.252493+03:00",
       "reported_by": "EV-LATE-FUEL",
       "status": "INTERIM_NOT_ADMITTED",
       "message": "Reviewer found a real fuel compensation mechanism and primary FNS sources; fixed-network effect, series arithmetic and applicability are still being isolated. Positive reoptimised OMS and old smaller OMS are different networks. No final immutable review yet."
-    }
+    },
+    "review_sha": "c5ec29f7a89e457ed104026877b8f8d3b6101ca9",
+    "root_intake": "intake/late_fuel_review_checks.json"
   },
-  "delivery_status": "ASSEMBLED_WAITING_MATERIAL_FUEL_REVIEW"
+  "delivery_status": "DELIVERED_WITH_EXPLICIT_CONDITIONS",
+  "working_window_complete": true,
+  "automatic_extension": false
 }

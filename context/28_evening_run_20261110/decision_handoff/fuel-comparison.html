@@ -1,0 +1,60 @@
+<section id="rw-fuel-comparison">
+  <h2>Омск: зависимость вклада от топливной компенсации</h2>
+  <p class="context">Базовые спрос и тариф. Модельный год, без маршрутного гранта, до исключённых затрат.</p>
+  <div class="column-labels"><span>Компенсация, ₽/т</span><span>Вклад, млн ₽</span></div>
+  <section class="network">
+    <h3>8 лучей · 4 ВС по модели</h3>
+    <svg class="fuel-bars" data-network="old" role="img" aria-label="При компенсации 0, 3024 и 32930 рублей на тонну вклад прежней сети составляет минус 186,480, минус 138,853 и плюс 332,154 миллиона рублей."></svg>
+    <p class="threshold">Порог положительного вклада: 11 840 ₽/т</p>
+  </section>
+  <section class="network">
+    <h3>12 лучей · 7 ВС по модели</h3>
+    <svg class="fuel-bars" data-network="new" role="img" aria-label="При компенсации 0, 3024 и 32930 рублей на тонну вклад расширенной сети составляет минус 636,344, минус 531,715 и плюс 503,022 миллиона рублей."></svg>
+    <p class="threshold">Порог положительного вклада: 18 392 ₽/т</p>
+  </section>
+  <p class="qualification">32 930 ₽/т — сценарий среднего января–сентября 2026, не прогноз. 3 024 ₽/т — сценарий без демпфера при налоговой применимости. В обеих строках остаются базовые спрос, тариф и остальные затраты.</p>
+  <p class="source">Источник: <a href="https://github.com/Mput13/case_championship/blob/c5ec29f7a89e457ed104026877b8f8d3b6101ca9/context/28_evening_run_20261110/late_fuel_review/report.md">проверка модели Насти dc1eb38d</a>. Полная прибыль и фактический парк не подтверждены.</p>
+</section>
+<style>
+#rw-fuel-comparison { color:var(--foreground); font-family:var(--font-sans); }
+#rw-fuel-comparison h2 { font-weight:500; margin:0 0 .5em; }
+#rw-fuel-comparison h3 { font-weight:500; margin:0; }
+#rw-fuel-comparison p { margin:.5em 0 0; }
+#rw-fuel-comparison .context, #rw-fuel-comparison .qualification, #rw-fuel-comparison .source, #rw-fuel-comparison .column-labels { color:var(--muted-foreground); }
+#rw-fuel-comparison .column-labels { display:flex; justify-content:space-between; gap:1em; margin-top:1em; }
+#rw-fuel-comparison .network { margin-top:1em; }
+#rw-fuel-comparison .fuel-bars { display:block; width:100%; height:180px; overflow:visible; }
+#rw-fuel-comparison svg text { fill:var(--foreground); font:inherit; font-variant-numeric:tabular-nums; }
+#rw-fuel-comparison svg .axis-text { fill:var(--muted-foreground); }
+#rw-fuel-comparison .threshold { margin:0; }
+#rw-fuel-comparison a { color:var(--info); }
+</style>
+<script type="application/json" id="rw-fuel-values">{"source_sha":"c5ec29f7a89e457ed104026877b8f8d3b6101ca9","unit":"RUB per model year","credits":[0,3024,32930],"old":[-186479510.49105832,-138852831.77933443,332153601.27384377],"new":[-636344414.6807967,-531715056.96477777,503022235.3154022]}</script>
+<script>
+(() => {
+  const root = document.getElementById('rw-fuel-comparison');
+  const data = JSON.parse(document.getElementById('rw-fuel-values').textContent);
+  const number = new Intl.NumberFormat('ru-RU', {maximumFractionDigits:1,minimumFractionDigits:1,signDisplay:'exceptZero'});
+  const ns = 'http://www.w3.org/2000/svg';
+  function el(tag,attrs,text) { const n=document.createElementNS(ns,tag); for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v); if(text!==undefined)n.textContent=text; return n; }
+  function draw(svg) {
+    const width=svg.clientWidth; if(width<1)return;
+    svg.replaceChildren(); svg.setAttribute('viewBox',`0 0 ${width} 180`);
+    const left=76,right=width-72, x=v=>left+(v+700)/1300*(right-left), zero=x(0);
+    const key=svg.dataset.network, color=key==='old'?'var(--chart-1)':'var(--chart-2)';
+    svg.append(el('line',{x1:zero,y1:8,x2:zero,y2:148,stroke:'var(--border)','stroke-width':1}));
+    data[key].forEach((value,i)=>{
+      const y=27+i*46, v=value/1e6, end=x(v);
+      svg.append(el('text',{x:0,y:y+5},new Intl.NumberFormat('ru-RU').format(data.credits[i])));
+      const bar=el('rect',{x:Math.min(zero,end),y:y-11,width:Math.abs(end-zero),height:22,fill:color});
+      bar.append(el('title',{},`${data.credits[i]} ₽/т: ${number.format(v)} млн ₽`));svg.append(bar);
+      svg.append(el('text',{x:width,y:y+5,'text-anchor':'end'},number.format(v)));
+    });
+    svg.append(el('line',{x1:left,y1:151,x2:right,y2:151,stroke:'var(--border)','stroke-width':1}));
+    [-600,0,500].forEach(v=>svg.append(el('text',{x:x(v),y:173,'text-anchor':'middle',class:'axis-text'},v>0?'+'+v:String(v))));
+  }
+  const svgs=[...root.querySelectorAll('.fuel-bars')];
+  const redraw=()=>svgs.forEach(draw); redraw();
+  if(typeof ResizeObserver!=='undefined')new ResizeObserver(redraw).observe(root);
+})();
+</script>
