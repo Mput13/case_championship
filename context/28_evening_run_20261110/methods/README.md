@@ -21,3 +21,7 @@ python3 context/28_evening_run_20261110/methods/package_manifest.py --check
 Нужны имеющиеся Python/numpy/pandas; новые зависимости не устанавливались. Public TOCHNO gz взят из exact audit5905; временный распакованный CSV создаётся только в игнорируемом `.runtime/`. Архив и его raw hash сохранены. В author files ничего не записывается.
 
 Ограничения: bounded greedy/candidate search, не global optimum; городские MOW-пары не physical airport assignment; часовой ресурс не dispatch; поддержка не подтверждённый award; рынок, полный бюджет и cash не приняты. Отдельные годовой календарь, парк/KEEP и интеграция десяти гипотез продолжаются в новом окне до22:00.
+
+## Срез v2
+
+[Датированный календарь, ресурс и бюджет](annual_readout.md): четыре основные ветвиN(t), условные годовые деньги и ограничения поддержки/тарифа. Первыйselection_v1 сохранён без изменений; новые scoped reviews не наследуются.
