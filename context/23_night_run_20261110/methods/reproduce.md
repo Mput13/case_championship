@@ -93,8 +93,12 @@ Guard запускается отдельным первым шагом пере
 
 ## Текущий guard: MR14 и отдельная коррекция
 
-Original7e65 `admit_frozen_interaction.py` сохраняетCHANGES(MR14-P2-01) по самостоятельнойпривязкеoracle receipt. Его baselineчисла не опровергнуты. Root-projection4a89 находится в отдельномpackage `context/23_night_run_20261110/input_admission_correction/`; здесьсохраненатолькоприкреплённаяreference. Не запускать copiedcorrected.py вinputs каксамостоятельный pipeline. Воспроизведениеполнойroot-projectionописановеёREADME; MR15покаpending. Никакойавтозащитыoldinteractionилиновыхinputsets не заявлено.
+Original7e65 `admit_frozen_interaction.py` сохраняетCHANGES(MR14-P2-01) по самостоятельнойпривязкеoracle receipt. Его baselineчисла не опровергнуты. Root-projection4a89 находится в отдельномpackage `context/23_night_run_20261110/input_admission_correction/`; здесьсохраненатолькоприкреплённаяreference. Не запускать copiedcorrected.py вinputs каксамостоятельный pipeline. Воспроизведениеполнойroot-projectionописановеёREADME; На момент v10 MR15 был pending; текущая квалификация приведена ниже. Никакойавтозащитыoldinteractionилиновыхinputsets не заявлено.
 
 ## MR15: текущая квалификация отдельной root-projection
 
 Review325368b8e5cd50fb5fa48d1c99574780758a1eb4 принимает binding толькоcorrection4a89bf1c04b24224a6a85a6cb9b6ca1cad032ab0 наexactfrozeninput. Original7e65guard сохраняетCHANGES; oldinteraction не подключён автоматически. Кодне переносилсявmethods: reproducible отдельнаяroot-projection иеёreview остаютсяисточникамиприёмки. Историческиеpending поля baselineoutputs не переписаны.
+
+## Замороженный handoff v12
+
+`freeze_manifest.json` фиксирует исходный срез, 26 immutable receipts, текущие exact review qualifications и хеши сохранённых входов/результатов/кода. `checks/freeze_preservation.json` — проверка байтовой сохранности, не повтор экономических расчётов. Проверка пакета: `python3 context/23_night_run_20261110/methods/check_package.py`. Исторические pending/CHANGES не переписаны; текущая квалификация находится в admission_v7 и отдельных acceptance events. Поздние пакеты не заменяют frozen inputs.

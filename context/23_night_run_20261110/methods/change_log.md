@@ -30,3 +30,5 @@ Cost-timebase correction87ee импортирована отдельно; зад
 - v10: новыеimmutablepassport/MR14/correction references,admission_v6; толькостатусы икомпактныйhandoff. Ownerguardиoldnumericruns неизменны.
 
 - v11: MR15reviewreceipt иотдельноеacceptanceevent,admission_v7. Экономика,источниковыезначенияиoriginalguard неизменны.
+
+- v12: freeze входов в 09:30 МСК. Добавлены точный индекс receipts и проверка сохранности; текущие документы handoff отражают freeze. Приёмка и численные результаты не расширены.
