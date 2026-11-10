@@ -1,5 +1,5 @@
 {
-  "updated_at_msk": "2026-11-10T20:07:21.991076+03:00",
+  "updated_at_msk": "2026-11-10T20:15:47.009681+03:00",
   "dispatch_rule": "root only; fresh delegate; <=4 active Sol; no task polling",
   "requests": [
     {
@@ -19,20 +19,24 @@
       "id": "EV-NETWORK-FINAL",
       "subject_sha": "b47118a48b6d5480217077bf8699a63665c0eb7a",
       "partial_sha": "941d9ebfe97c86baa210da2c56bb1f94cbe298b0",
-      "status": "RUNNING",
+      "status": "COMPLETE_APPROVE_SCOPED",
       "scope": "C01/C03/C04/C07/C33 final v2: same-leg retime, local/ideal-bank differences, full cycle/donor, physical seats and old slots; first941d retained",
       "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-network-review-20261110-r1",
       "launch_receipt": "intake/dispatch_2006.json",
-      "root_intake": "intake/network_final_checks.json"
+      "root_intake": "intake/network_final_checks.json",
+      "review_sha": "cccc728b401d3a1234045220f42496ac48e0d475",
+      "review_intake": "intake/network_digital_review_checks.json"
     },
     {
       "id": "EV-DIGITAL-FINAL",
       "subject_sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
-      "status": "RUNNING",
+      "status": "COMPLETE_APPROVE_SCOPED",
       "scope": "D01-D03 units, thresholds and power; S01 carrier/group boundary, resources and stock equivalents; sources/claim limits; no live checkout or UIQA",
       "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-digital-growth-review-20261110-r1",
       "launch_receipt": "intake/dispatch_2006.json",
-      "root_intake": "intake/digital_final_checks.json"
+      "root_intake": "intake/digital_final_checks.json",
+      "review_sha": "10464979fd510380aafe7e421d241a8f176d538d",
+      "review_intake": "intake/network_digital_review_checks.json"
     },
     {
       "id": "EV-EVIDENCE-FINAL",
@@ -67,6 +71,17 @@
       "launch_receipt": "intake/calendar_review_dispatch.json",
       "review_sha": "8cb5fde05c51ae05f7b72e3cb996f0cb4fa26550",
       "review_intake": "intake/calendar_review_checks.json"
+    },
+    {
+      "id": "EV-MR03",
+      "subject_sha": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "status": "RUNNING",
+      "priority": 1,
+      "scope": "integer dated annual sales and shared seats/OD; same-flight retime; one-week C31 plus full C35 contract; source and prior review boundaries retained",
+      "root_intake": "intake/methods_dated_checks.json",
+      "owner_request": "methods/requests.json",
+      "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dated-comparison-review-20261110-r1",
+      "launch_receipt": "intake/dated_review_dispatch.json"
     }
   ]
 }

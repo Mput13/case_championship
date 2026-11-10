@@ -18,7 +18,7 @@
   "reserve_count": 25,
   "sol_tasks_launched": 4,
   "sol_limit": 4,
-  "methods_delivery": "v2 exact aa777 reviewed intake; v3 dated connections/common integration in progress",
+  "methods_delivery": "v3 exact f99d with dated allocations, retime and joint products; independent review running; final synthesis in progress",
   "review_policy": "fresh task on immutable output after production slot frees",
   "task_ids": {
     "network": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-network-ten-20261110-r1",
@@ -27,7 +27,8 @@
     "digital_growth": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-digital-growth-ten-20261110-r1",
     "network_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-network-review-20261110-r1",
     "digital_growth_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-digital-growth-review-20261110-r1",
-    "products_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-products-review-20261110-r1"
+    "products_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-products-review-20261110-r1",
+    "dated_comparison_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dated-comparison-review-20261110-r1"
   },
   "completion_delivery": "automatic; no task polling",
   "new_evaluations_completed": 10,
@@ -89,16 +90,27 @@
         "joint market/resource bridge",
         "final integration"
       ]
+    },
+    {
+      "role": "methods_dated_v3",
+      "sha": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "intake_file": "intake/methods_dated_checks.json",
+      "independent_review": "RUNNING_EV-MR03",
+      "sent_to_methods": true,
+      "remaining": [
+        "fresh independent review",
+        "compact strategy and ten-card synthesis",
+        "final requirement and dashboard handoff"
+      ]
     }
   ],
   "review_queue": "review_queue.json",
-  "updated_at_msk": "2026-11-10T20:07:21.991076+03:00",
+  "updated_at_msk": "2026-11-10T20:15:47.009681+03:00",
   "active_sol_roles": [
-    "network_review",
-    "digital_growth_review",
-    "products_review"
+    "products_review",
+    "dated_comparison_review"
   ],
-  "sol_currently_active": 3,
+  "sol_currently_active": 2,
   "completed_production_roles": [
     "network",
     "products",
@@ -111,17 +123,19 @@
     "EV-MR02",
     "EV-NETWORK-FINAL",
     "EV-DIGITAL-FINAL",
-    "EV-PRODUCTS-FINAL"
+    "EV-PRODUCTS-FINAL",
+    "EV-MR03"
   ],
   "completed_packages": [
     {
       "role": "digital_growth",
       "sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
       "intake": "5inputs/47artifact hashes,6digital/16resource/4power/2share/3mixed arithmetic checked",
-      "independent_review": "RUNNING_EV-DIGITAL-FINAL",
+      "independent_review": "APPROVE_SCOPED_EV-DIGITAL-FINAL",
       "accepted_business_effect": false,
       "sent_to_methods": true,
-      "intake_file": "intake/digital_final_checks.json"
+      "intake_file": "intake/digital_final_checks.json",
+      "review_sha": "10464979fd510380aafe7e421d241a8f176d538d"
     },
     {
       "role": "evidence",
@@ -137,9 +151,10 @@
       "role": "network",
       "sha": "b47118a48b6d5480217077bf8699a63665c0eb7a",
       "intake_file": "intake/network_final_checks.json",
-      "independent_review": "RUNNING_EV-NETWORK-FINAL",
+      "independent_review": "APPROVE_SCOPED_EV-NETWORK-FINAL",
       "accepted_business_effect": false,
-      "sent_to_methods": true
+      "sent_to_methods": true,
+      "review_sha": "cccc728b401d3a1234045220f42496ac48e0d475"
     },
     {
       "role": "products",
@@ -151,7 +166,7 @@
     }
   ],
   "colleague_ref_check": {
-    "at_utc": "2026-11-10T16:57:14.502921+00:00",
+    "at_utc": "2026-11-10T17:09:54.982979+00:00",
     "nastya_sha": "14354571b90545cd0618548481a857bf6b388d4a",
     "nastya_changed_since_previous_check": false,
     "merge_rebase": false
@@ -159,7 +174,9 @@
   "completed_review_ids": [
     "EV-MR01",
     "EV-EVIDENCE-FINAL",
-    "EV-MR02"
+    "EV-MR02",
+    "EV-NETWORK-FINAL",
+    "EV-DIGITAL-FINAL"
   ],
   "review_admissions": [
     {
@@ -197,6 +214,29 @@
         "no dated MCT/shared dated seat acceptance in aa777",
         "no actual awards/freefleet/fullPnL/grosscash",
         "not finalSol or methods v3"
+      ]
+    },
+    {
+      "id": "EV-NETWORK-FINAL",
+      "subject_sha": "b47118a48b6d5480217077bf8699a63665c0eb7a",
+      "review_sha": "cccc728b401d3a1234045220f42496ac48e0d475",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/network_digital_review_checks.json",
+      "limits": [
+        "not actual market/freefleet/fullPnL/cash",
+        "OMS negative ideal-bank bound conditional on LF85/80; physical100 is separate sensitivity"
+      ]
+    },
+    {
+      "id": "EV-DIGITAL-FINAL",
+      "subject_sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
+      "review_sha": "10464979fd510380aafe7e421d241a8f176d538d",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/network_digital_review_checks.json",
+      "limits": [
+        "not actual market/freefleet/fullPnL/cash",
+        "D03 P3 regular-only label removed in root projection; charter eligibility UNKNOWN",
+        "no measured business effect or paid E2E"
       ]
     }
   ],
