@@ -1,0 +1,127 @@
+{
+  "status": "PASS_BYTE_IDENTICAL",
+  "new_outputs": 15,
+  "files": [
+    {
+      "path": "runs/admission_v2/acceptance_matrix.csv",
+      "bytes": 3602,
+      "sha256": "c15279aa3b32d010298e9a1f9b3a8b5e43b783a7e3dba2b2d724f55dcfaf16f1",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/admission_v2/market_source_qualification.csv",
+      "bytes": 94566,
+      "sha256": "91b5e569b068b81ccca89f4530c6528e88a6007a16ea2e05d926648476991f21",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/admission_v2/status.json",
+      "bytes": 263,
+      "sha256": "944e577fa1712a61c39dccf75f2ea1c2e95788001de8bf23fd02d3b7e26d44d8",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/allocation_chart.html",
+      "bytes": 2666,
+      "sha256": "3f54ce1e96482bda4c6d97ed54c85d4c38bc4426530af2b03152d13a3c8b7124",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/allocations.csv",
+      "bytes": 439531,
+      "sha256": "3347a08b2a49205d2455c50ec14016ccbdcf2e764e952df45801e3cebd852f41",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/constraint_duals.csv",
+      "bytes": 161657,
+      "sha256": "189e3de4e3f4ce48d6e9d59d9306b5f21139e30c1e50685932217ab3f6ee04d6",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/local_first_reference.csv",
+      "bytes": 1550,
+      "sha256": "49aedf7d48cc97a8e8af0912d6cfb4b2242b66df1463548017d84c7559a4928c",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/migration_linearity_gates.csv",
+      "bytes": 46753,
+      "sha256": "f0dd4cd6c21771c96a57c8701c47393b0e989b2bca1e9757ad4b86152bd574e9",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/offer_dual_certificates.csv",
+      "bytes": 116665,
+      "sha256": "9177310e76fe933bc3306b8dfb8b2506bf8b103a41407d834283c54e3db24ed3",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/summary.csv",
+      "bytes": 17564,
+      "sha256": "118fc8415a356876bea525f240dc358452b6f3ba757b3ecba7e9ba1900b2c4dc",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/allocation_v1/validation.json",
+      "bytes": 455,
+      "sha256": "662962f94016451227975d5e66d4855d3a6850e1ab3426c9f7cc53f829b1a339",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/final_variants_v1/budget_conditions.csv",
+      "bytes": 36636,
+      "sha256": "d295abf5720cfe3125cccce735cf415f228d5adcbe2f22261deba73ef50594e1",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/final_variants_v1/network_pair_members.csv",
+      "bytes": 55102,
+      "sha256": "7051aa6f9b8653271ec2c626551c876758e11a63553748f7100433b0007f4880",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/final_variants_v1/network_union.csv",
+      "bytes": 4411,
+      "sha256": "719e2b46a792476f374be8f3c83f7b8c42b4a98dd96d457ff2262c5b9a008378",
+      "byte_identical": true
+    },
+    {
+      "path": "runs/final_variants_v1/validation.json",
+      "bytes": 340,
+      "sha256": "c3be3c834455b13fa5141cd10302c65518c851a0bc25b05d35f658319fa3353b",
+      "byte_identical": true
+    }
+  ],
+  "commands": [
+    {
+      "script": "allocation_diagnostic.py",
+      "returncode": 0,
+      "stdout": "{\"cases\": 16, \"objectives\": 48, \"max_profit_gain\": 228567.5359408483}\n",
+      "stderr": ""
+    },
+    {
+      "script": "final_variant_synthesis.py",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS_OWNER_SET_UNION_AND_BUDGET_IDENTITY\", \"portfolio_count\": 15, \"joint_count_resource_gates_pass\": 5, \"budget_rows\": 90, \"independent_review\": \"PENDING_NEW_SYNTHESIS_SCOPE\", \"complete_case_acceptance\": false, \"routes_are_model_airport_endpoint_pairs\": true, \"observed_market\": false, \"full_budget\": false}\n",
+      "stderr": ""
+    },
+    {
+      "script": "update_acceptance_v6.py",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "script": "render_allocation_chart.py",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "supplementary_only": true,
+  "independent_oracle_is_reconstruction_not_owner_replay": true,
+  "temporary_runtime_removed": true,
+  "new_dependencies": false,
+  "network_calls": false
+}

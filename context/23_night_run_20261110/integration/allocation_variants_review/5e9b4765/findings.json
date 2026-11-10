@@ -1,0 +1,46 @@
+{
+  "review_id": "MR12",
+  "subject_commit": "ba9f6b85b4f8c9847948ae428ef3fbcfca9e2009",
+  "subject_prefix": "context/23_night_run_20261110/methods/",
+  "verdicts": {
+    "A": "APPROVE_SCOPED",
+    "B": "APPROVE_SCOPED"
+  },
+  "counts": {
+    "P1": 0,
+    "P2": 0,
+    "P3_nonblocking": 1
+  },
+  "findings": [],
+  "observations": [
+    {
+      "id": "MR12-O01",
+      "severity": "P3",
+      "blocking": false,
+      "scope": "A presentation only",
+      "file": "context/23_night_run_20261110/methods/decision_conditions.md",
+      "line": 25,
+      "title": "В ключевом примере неточно переписаны segments и transfer journeys",
+      "evidence": {
+        "file": "context/23_night_run_20261110/methods/runs/allocation_v1/summary.csv",
+        "line": 37,
+        "key": "H_UFA_8|base|C|1.0 / PASSENGER_SEGMENTS",
+        "segments": 1786.193148851081,
+        "transfers": 542.4439973311994,
+        "independent_artifact": "key_counterexample.json"
+      },
+      "impact": "Две prose величины до трёх знаков не совпадают с CSV. Разности, optimum, деньги, ограничения и substantive conclusion сохранены.",
+      "smallest_fix": "Только в decision_conditions.md:25 заменить1786,197→1786,193 и542,443→542,444; owner outputs не менять.",
+      "owner_changed": false
+    }
+  ],
+  "unknowns": [
+    "observed endpoint OD and realized fares",
+    "actual working/reserve fleet and base availability",
+    "full PnL and peak cash",
+    "named external donor delta",
+    "future aircraft delivery dates",
+    "operating and launch acceptance"
+  ],
+  "prior_reviews_expanded": false
+}
