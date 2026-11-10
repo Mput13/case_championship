@@ -17,6 +17,8 @@ from pathlib import Path
 
 import pandas as pd
 
+import rules
+
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
 DROP = ROOT / "data" / "criteria"
@@ -54,19 +56,19 @@ def core(ll, w):
     for r in ll.itertuples():
         i = r.iata
         v = {
-            "gap_pop": (num(r.gap_pop), None, "«Если быть точным»: нет прямого рейса и поезда ≤12 ч"),
+            "gap_pop": (num(r.gap_pop), None, f"«Если быть точным»: нет прямого рейса и поезда ≤{rules.RAIL_OK_HR:.0f} ч"),
             "last365_days": (num(r.last365_days), None, "Росавиация, t.me/s/favt_info"),
             # неизвестный конкурент — пропуск (fill 0,5), а не «хаба нет» (аудит критика команды, 09.11.2026)
             "competitor_hub": comp_value(i),
             "pax_2025": (num(r.pax_2025), None, txt(r.pax_source_url)),
-            "catchment_pop": (num(r.catchment_pop), None, "города больше 100 тыс. в 75 км, перепись 2021"),
+            "catchment_pop": (num(r.catchment_pop), None, f"города больше 100 тыс. в {rules.CATCH_KM:.0f} км, перепись 2021"),
             "dist_bases_km": (min(num(r.dist_msk_km), num(r.dist_ekb_km)), None,
                               f"Москва {int(r.dist_msk_km)} км · Екатеринбург {int(r.dist_ekb_km)} км"),
             "strategy_region": (num(r.strategy_region), None, f"{r.fed_district} · Урал, ДФО, СКФО, ЮФО"),
             "transfer_zone": (num(r.transfer_zone), None, txt(r.transfer_source)),
             "rostec_link": (num(r.rostec_link), txt(r.rostec_note), txt(r.rostec_source)),
             "catchment_pop_2025": (num(r.catchment_pop_2025), None,
-                                   f"все пункты в 75 км, перепись 2021 × Росстат 2025; без координат "
+                                   f"все пункты в {rules.CATCH_KM:.0f} км, перепись 2021 × Росстат 2025; без координат "
                                    f"{num(r.pop_coord_imputed_share) or 0:.0%}, коэффициент региона {num(r.pop25_region_factor_share) or 0:.0%}"),
             "wage_2024": (num(r.wage_2024), None, f"Росстат БДМО 2024, охват населения зоны {num(r.wage_pop_coverage) or 0:.0%}"),
             "bad_weather_days": (num(r.bad_weather_days), None,
@@ -80,7 +82,7 @@ def core(ll, w):
             "rw_support": (num(r.rw_support), None, txt(r.rw_support_source)),
         }
         # старое определение населения — справочно для сравнения
-        v["catchment_pop"] = (num(r.catchment_pop), None, "города больше 100 тыс. в 75 км, перепись 2021")
+        v["catchment_pop"] = (num(r.catchment_pop), None, f"города больше 100 тыс. в {rules.CATCH_KM:.0f} км, перепись 2021")
         if str(r.pax_2025_qualifier).startswith(">"):
             v["pax_2025"] = (v["pax_2025"][0], "≥", v["pax_2025"][2])
         vals[i] = {k: {"v": a, "t": b, "s": c} for k, (a, b, c) in v.items()}

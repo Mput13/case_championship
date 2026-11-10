@@ -38,7 +38,7 @@ def txt(v):
     return None if v is None or (isinstance(v, float) and v != v) else str(v)
 
 
-MOW = {"SVO", "DME", "VKO", "ZIA"}
+MOW = rules.MOW_AIRPORTS
 
 
 def load_dests():
@@ -77,13 +77,14 @@ def load_network():
     nodes = {i: [round(float(n.loc[i, "latitude_deg"]), 3), round(float(n.loc[i, "longitude_deg"]), 3),
                  NAME.get(i, n.loc[i, "main_city"])] for i in ends if i in n.index}
     cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "pax_year_segments",
-            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source"]
+            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source", "subsidy_rule"]
     # допущения расчёта — прямо из data/assumptions/network.csv, чтобы панель не расходилась с моделью
     na = pd.read_csv(ROOT / "data/assumptions/network.csv").set_index("parameter")
     asm = {k: [float(na.loc[k, "base"]), float(na.loc[k, "cautious"])] for k in
-           ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_pax", "min_freq_week", "max_freq_week", "capture_open",
+           ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_flight", "subsidy_months", "subsidy_max_prior_pax", "min_freq_week", "max_freq_week", "capture_open",
             "capture_competitive", "capture_transfer", "transfer_fare_factor", "weeks_per_year", "fleet_cap",
-            "spare_aircraft", "max_routes", "rw_existing_lf")}
+            "spare_aircraft", "max_routes", "rw_existing_lf", "rw_pax_2025", "market_pax_2025",
+            "min_routes", "direct_max_freq_week", "thin_route_pax_day")}
     # вторая модель: неделя 7–13.12.2026 по опубликованному расписанию (data/external/colleagues)
     cc = pd.read_csv(ROOT / "data/external/colleagues/night_common_comparison.csv")
     check = []
@@ -94,9 +95,56 @@ def load_network():
                       "lo": round(float(ctr.min()), 1), "hi": round(float(ctr.max()), 1),
                       "be_lo": round(float(be.min())), "be_hi": round(float(be.max())),
                       "pax_lo": round(float(g.segment_pax.min())), "pax_hi": round(float(g.segment_pax.max()))})
+    # как сравнивать сценарии словами: отношение осторожного к базовому по спросу, тарифу и расходам рейса на 1000 км
+    est = pd.read_csv(P / "demand_estimates.csv")
+    import network_model as nmod
+    AS = nmod.load_assumptions()
+    fare1000 = [nmod.fare(AS[k], 1000) for k in ("base", "cautious")]
+    cost1000 = [nmod.leg_cost(AS[k], 1000, False, 100 * AS[k]["lf_max"])[1] for k in ("base", "cautious")]
+    cmp_ = {"demand": float(est.od_cautious.sum() / est.od_base.sum()), "fare": fare1000[1] / fare1000[0], "cost": cost1000[1] / cost1000[0]}
     return {"summary": json.loads(sm.drop(columns=["hub"]).to_json(orient="records", force_ascii=False)),
             "routes": json.loads(rt[cols].to_json(orient="records", force_ascii=False)), "nodes": nodes,
-            "asm": asm, "check": check}
+            "asm": asm, "check": check, "cmp": cmp_, "now": route_now(rt)}
+
+
+def route_now(rt):
+    """Как летят сейчас по каждой паре сети и кто там летает: расписание недели 7–13.12.2026 (карточки маршрутов,
+    вылеты из Омска) и ручной файл data/manual/route_competitors.csv. Пустой ответ — данных о перевозчиках нет."""
+    norm = pd.read_csv(ROOT / "data/manual/carrier_names.csv").set_index("raw").name.to_dict()
+    key = lambda a, b: "-".join(sorted((a, b)))
+    g = lambda x: "MOW" if x in MOW else x
+    car = {}
+    def add(a, b, c, f, src):
+        if not isinstance(c, str) or not c.strip():
+            return
+        d = car.setdefault(key(g(a), g(b)), {})
+        n = norm.get(c.strip(), c.strip())
+        d[n] = (max(d.get(n, (0, ""))[0], float(f or 0)), src)
+    cards = pd.read_csv(ROOT / "data/external/colleagues/route_product_cards.csv")
+    for r in cards.itertuples():
+        if pd.isna(r.via_airports):
+            add(r.origin, r.destination, r.carrier, r.one_way_departures, "расписание 7–13.12.2026")
+    om = pd.read_csv(ROOT / "data/external/colleagues/omsk_outbound_week_20261207.csv")
+    for (dst, c), n in om.groupby(["destination_airport_iata", "carrier_raw"]).size().items():
+        add("OMS", dst, c, n, "расписание аэропорта Омск 7–13.12.2026")
+    man = pd.read_csv(ROOT / "data/manual/route_competitors.csv")
+    for r in man.itertuples():
+        add(r.a, r.b, r.carrier, r.flights_week_each_way, str(r.source_url))
+    od = pd.read_csv(P / "od_pairs.csv").set_index(["a", "b"]).route.to_dict()
+    out = {}
+    for a, b in {tuple(sorted((r["from"], r["to"]))) for _, r in rt.iterrows()}:
+        now = od.get((a, b)) or od.get((b, a)) or "сейчас авиамаршрута нет"
+        c = car.get(key(a, b), {})
+        out[key(a, b)] = {"now": now, "car": sorted([[n, round(f, 1), s_] for n, (f, s_) in c.items()], key=lambda x: -x[1])}
+    # список пар, где перевозчики ещё не собраны, — задание на сбор данных (docs/27)
+    from airports_meta import NAME
+    import demand_model as dm
+    _n = dm.nodes()
+    nm = lambda x: NAME.get(x, _n.loc[x, "main_city"] if x in _n.index else x)
+    todo = [{"a": a, "b": b, "city_a": nm(a), "city_b": nm(b), "now": v["now"]}
+            for k, v in sorted(out.items()) if not v["car"] for a, b in [k.split("-")]]
+    pd.DataFrame(todo).to_csv(ROOT / "data/manual/route_competitors_todo.csv", index=False, encoding="utf-8")
+    return out
 
 
 def load_spokes():
@@ -266,15 +314,43 @@ def main():
         t = datetime.fromtimestamp((path if path is not None and path.exists() else ROOT / "data/assumptions/network.csv").stat().st_mtime)
         manifest[k] = {"name": name, "kind": kind, "status": "manual" if kind == "manual" else "ok", "rows": rows,
                        "url": url or "", "fetched_at": t.isoformat(), "role": "data"}
-    # шаги 2, 4, 5: конкуренты, выбор и рост сети, дорожная карта и риски
-    rd = lambda f: pd.read_csv(ROOT / f, dtype=str).fillna("").to_dict("records")
+    # шаги 2, 4, 5: конкуренты, выбор и рост сети, дорожная карта и риски.
+    # Числа в текстах карточек — подстановки {…} из расчёта, чтобы тексты не расходились с моделью.
+    choice = pd.read_csv(ROOT / "data/assumptions/choice.csv").set_index("parameter").value.to_dict()
+    ramp_df = pd.read_csv(P / "fleet_ramp.csv")
+    sm_df = pd.read_csv(P / "network_summary.csv")
+    H = choice["chosen_hub"]
+    rb = ramp_df[(ramp_df.scenario == "base_sub") & (ramp_df.hub == H)].drop_duplicates("aircraft")
+    r0 = ramp_df[(ramp_df.scenario == "base") & (ramp_df.hub == H)]
+    nm_ = lambda codes: ", ".join(names.get(x, x) for x in codes)
+    est = pd.read_csv(P / "demand_estimates.csv")
+    hp = est[((est.a == H) | (est.b == H)) & ~est.closed.astype(bool)]
+    via_ovb = hp[hp.od_route_now.astype(str).str.endswith("Новосибирск")].od_base.sum()
+    na_ = pd.read_csv(ROOT / "data/assumptions/network.csv").set_index("parameter")
+    pct_ = lambda v: f"{float(v) * 100:.0f}%"
+    hub_rows = sm_df[(sm_df.hub == H)]
+    dir_rows = sm_df[sm_df.hub.isna() | (sm_df.hub == "")]
+    rng_ = lambda xs: f"{min(xs):.0f}–{max(xs):.0f}" if min(xs) != max(xs) else f"{min(xs):.0f}"
+    z4 = r0.sort_values("result_mln_year", ascending=False).iloc[0] if len(r0) else None
+    fill = {"via_ovb": f"{via_ovb / 1000:.0f} тыс.",
+            "ramp_routes": f"от {rb.routes.min()} до {rb.routes.max()} лучей",
+            "ramp_first": "; ".join(f"на {a} самолётах {r} лучей" for a, r in zip(rb.aircraft.head(2), rb.routes.head(2))),
+            "ramp_full": f"{rng_(rb.routes.tail(2))} лучей на {rng_(rb.aircraft.tail(2))} самолётах",
+            "ramp_fleet_first": rng_(rb.aircraft.head(2)), "ramp_fleet_full": rng_(rb.aircraft.tail(2)),
+            "pilot_spokes": nm_(str(rb.iloc[0].spokes).split(";")[:3]) if len(rb) else "",
+            "kover_hub": rng_(hub_rows.kover_days_avg[hub_rows.scenario.str.startswith("base")]),
+            "kover_direct": rng_(dir_rows.kover_days_avg[dir_rows.scenario.str.startswith("base")]),
+            "nosub_fleet": str(int(z4.aircraft)) if z4 is not None else "", "nosub_loss": f"{abs(z4.result_mln_year):.0f}" if z4 is not None else "",
+            "cap_comp_b": pct_(na_.loc["capture_competitive", "base"]), "cap_comp_c": pct_(na_.loc["capture_competitive", "cautious"])}
+    def rd(f):
+        recs = pd.read_csv(ROOT / f, dtype=str).fillna("").to_dict("records")
+        return [{k: (v.format(**fill) if isinstance(v, str) and "{" in v else v) for k, v in r.items()} for r in recs]
     cj = json.loads((ROOT / "context/13_competitors/competitors.json").read_text(encoding="utf-8"))
     scale = [{"name": c["name"], "pax": c["pax_million"], "rw": c["id"] == "rw"} for c in cj["carriers"]]
-    ramp = pd.read_csv(P / "fleet_ramp.csv").to_dict("records")
-    choice = pd.read_csv(ROOT / "data/assumptions/choice.csv").set_index("parameter").value.to_dict()
+    ramp = ramp_df.to_dict("records")
     steps = {"competitors": rd("data/manual/competitor_bases.csv"), "scale": scale, "ramp": ramp, "choice": choice,
              "roadmap": rd("data/manual/roadmap.csv"), "risks": rd("data/manual/risks.csv"),
-             "rw_share_2025": 2.7 / 108.85 * 100}
+             "rw_share_2025": float(na_.loc["rw_pax_2025", "base"]) / float(na_.loc["market_pax_2025", "base"]) * 100}
     p = posts.copy()
     data = {
         "meta": {"built": datetime.now().strftime("%d.%m.%Y %H:%M"), "posts": int(len(posts)),
@@ -283,7 +359,7 @@ def main():
         "cities": cities, "ref": ref, "meduza": meduza,
         "bases": {b: [float(ap.loc[x, "latitude_deg"]), float(ap.loc[x, "longitude_deg"])] for b, x in (("MOW", "SVO"), ("SVX", "SVX"))},
         "dests": dests, "geo": geo, "manifest": manifest,
-        "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214},
+        "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214, "rail_hr": rules.RAIL_OK_HR, "min_dist": rules.MIN_DIST_KM},
         "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes, "demand": demand, "profiles": profiles, "names": names, "steps": steps,
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],

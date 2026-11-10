@@ -257,7 +257,17 @@ td .sub{color:var(--steel);font-size:11.5px;display:block}
 .steps a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 5px;font-size:13.5px}
 .steps a:hover{border-color:var(--ink)}
 .steps b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:12px}
-.eyebrow{color:var(--red);font-size:12.5px;font-weight:500;margin-bottom:2px}
+.eyebrow{color:var(--red);font-size:12.5px;font-weight:500;margin-bottom:2px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;border-radius:999px;padding:2px 9px;line-height:1.5;white-space:nowrap}
+.tag.live{background:#FDECEC;color:#B4232A}
+.tag.live:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red)}
+.tag.fix{background:#EEECE7;color:#5E6675}
+.tag.dark{background:#252A35;color:#C9CED6}
+.b-tagrow{margin-top:6px}
+.tags-legend{margin:10px 0 0;color:var(--muted);font-size:13px;line-height:1.9;max-width:900px}
+.ld-knote{margin:-4px 18px 6px;color:var(--muted);font-size:12.5px;line-height:1.45;max-width:980px}
+.ld-row .selt{display:inline-block;margin-left:6px;font-size:11px;font-weight:500;color:#B4232A;background:#FDECEC;border-radius:999px;padding:1px 7px;vertical-align:1px}
+.mt .car{display:block;color:var(--ink)}
 .anchor{display:block;position:relative;top:-10px}
 .cp-wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;padding:0 18px 18px}
 @media (max-width:900px){.cp-wrap{grid-template-columns:1fr}}
@@ -325,6 +335,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <div>
       <h1>Red Wings: новый хаб или прямые рейсы</h1>
       <p class="lede">Куда направить новые SJ-100, чтобы компания росла быстрее рынка. Пять шагов кейса по порядку; в каждом блоке можно переключать сценарии и города.</p>
+      <p class="tags-legend"><span class="tag live">меняется от города на табло</span> — блок показывает город, выбранный на табло кандидатов. <span class="tag fix">общий вывод</span> — наш расчёт и выводы, от выбора города не зависят.</p>
       <nav class="steps" aria-label="Шаги кейса">
         <a href="#step1"><b>1</b>Лонглист городов</a><a href="#step2"><b>2</b>Конкуренты</a><a href="#step3"><b>3</b>Расчёт гипотез</a><a href="#step4"><b>4</b>Выбор и сеть</a><a href="#step5"><b>5</b>Дорожная карта</a>
       </nav>
@@ -335,7 +346,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   <div class="main" id="step1">
     <section class="board" aria-labelledby="b-title">
       <div class="board-top">
-        <div><div class="board-title" id="b-title">Табло кандидатов</div><div class="board-sub" id="b-sub"></div></div>
+        <div><div class="board-title" id="b-title">Табло кандидатов</div><div class="b-tagrow"><span class="tag dark">шаг 1 · нажмите город, чтобы выбрать его</span></div><div class="board-sub" id="b-sub"></div></div>
         <svg class="plane" viewBox="0 0 100 100" aria-hidden="true"><path fill="#E32A2F" d="M98 50 94 46 86 45 60 45 36 14 27 14 40 45 18 45 10 34 4 34 9 50 4 66 10 66 18 55 40 55 27 86 36 86 60 55 86 55 94 54Z"/></svg>
       </div>
       <div class="tscroll"><table class="dep" id="dep"><thead></thead><tbody></tbody></table></div>
@@ -345,7 +356,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <aside class="panel" aria-labelledby="w-title">
       <div><h2 id="w-title" style="font-size:20px">Пульт весов</h2><div class="hint">Веса в сумме 100. Шкала каждого критерия — по всем 20 городам и не меняется от фильтра.</div></div>
       <button class="why-btn" id="why-btn" type="button" aria-expanded="false"><i class="ic">i</i><span>Что значит каждый вес</span><i class="ch">▾</i></button>
-      <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Хаб ближе 500 км к Москве или Екатеринбургу во многом повторял бы уже существующие базы Red Wings.</small></div>
+      <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Хаб ближе <span class="min-dist"></span> км к Москве или Екатеринбургу во многом повторял бы уже существующие базы Red Wings.</small></div>
       <div class="w"><div class="w-top"><span style="color:var(--ink)">Опорные аэропорты Red Wings</span></div><div class="seg" id="mode" role="group" aria-label="Режим допуска"></div><small>Самару, Казань, Сочи и Махачкалу Red Wings 27.10.2026 называет опорными. «Строго новый хаб» убирает их из рейтинга.</small></div>
       <div class="w"><div class="w-top"><label for="profile" style="color:var(--ink)">Набор весов</label></div><select id="profile" class="psel"></select><small>Основной набор сбалансирован, остальные усиливают одну группу критериев.</small></div>
       <div id="wlist" style="display:grid;gap:12px"></div>
@@ -355,20 +366,20 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </div>
 
   <section style="display:grid;gap:14px" aria-labelledby="t-title">
-    <div class="sec-h"><h2 id="t-title">Посадочный талон города</h2><span class="hint">цвет значения: зелёный — город силён по критерию, красный — слаб</span></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 1 <span class="tag live">меняется от города на табло</span></div><h2 id="t-title">Посадочный талон города</h2></div><span class="hint">цвет значения: зелёный — город силён по критерию, красный — слаб</span></div>
     <article class="ticket" id="ticket"></article>
   </section>
 
   <section class="mapcard" id="step2" aria-labelledby="c-title">
-    <div class="sec-h"><div><div class="eyebrow">Шаг 2</div><h2 id="c-title">Конкуренты с региональными базами</h2><div class="hint">Что сработало у перевозчиков с базами в регионах и что из этого берём для Red Wings</div></div></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 2 <span class="tag fix">общий вывод</span></div><h2 id="c-title">Конкуренты с региональными базами</h2><div class="hint">Что сработало у перевозчиков с базами в регионах и что из этого берём для Red Wings</div></div></div>
     <div class="cp-wrap">
-      <div class="cp-scale"><div class="vs-h">Пассажиров за 2025 год, млн</div><div id="cp-scale"></div><p class="cp-note">Доля рынка Red Wings — 2,5%: 2,7 млн из 108,85 млн пассажиров российских авиакомпаний.</p></div>
+      <div class="cp-scale"><div class="vs-h">Пассажиров за 2025 год, млн</div><div id="cp-scale"></div><p class="cp-note" id="cp-note"></p></div>
       <div class="cp-cards" id="cp-cards"></div>
     </div>
   </section>
 
   <section class="mapcard" id="dem" aria-labelledby="dm-title">
-    <div class="sec-h"><div><div class="eyebrow">Шаг 3 · спрос по парам городов</div><h2 id="dm-title">Куда сейчас пересаживаются</h2></div><div class="seg" id="dm-zone" role="group" aria-label="Направления"></div></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 3 · спрос по парам городов <span class="tag live">меняется от города на табло</span></div><h2 id="dm-title">Куда сейчас пересаживаются</h2></div><div class="seg" id="dm-zone" role="group" aria-label="Направления"></div></div>
     <p class="dm-lead" id="dm-lead"></p>
     <div class="dm-box"><svg id="dmsk" role="img" aria-labelledby="dm-title"></svg></div>
     <div class="dm-legend" id="dm-legend"></div>
@@ -377,11 +388,12 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 
   <section class="mapcard" id="vs" aria-labelledby="vs-title"><span id="step3" class="anchor"></span>
     <div class="sec-h ld-h">
-      <div><div class="eyebrow">Шаг 3 · расчёт обеих гипотез</div><h2 id="vs-title">Хаб или прямые рейсы</h2><div class="hint">Итог сети за год: выручка минус расходы на рейсы, до аренды самолётов</div></div>
+      <div><div class="eyebrow">Шаг 3 · расчёт обеих гипотез <span class="tag live">меняется от города на табло</span></div><h2 id="vs-title">Хаб или прямые рейсы</h2><div class="hint">Итог сети за год: выручка минус расходы на рейсы, до аренды самолётов</div></div>
       <div class="ld-ctl"><div class="seg" id="scen" role="group" aria-label="Сценарий"></div><div class="seg" id="subs" role="group" aria-label="Субсидия"></div></div>
     </div>
     <p class="ld-scen" id="ld-scen"></p>
     <div class="ld-k"><label for="ldk">Тарифы выше на</label><input type="range" id="ldk" min="0" max="30" step="1" value="0"><b id="ldko">0%</b></div>
+    <p class="ld-knote" id="ld-knote"></p>
     <div class="ld-head"><div></div><div class="ld-axis"><span>убыток</span><span>0</span><span>прибыль</span></div><div>самолётов нужно</div></div>
     <div id="ld"></div>
     <p class="ld-sum" id="ld-sum"></p>
@@ -393,7 +405,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </section>
 
   <section class="mapcard" id="step4" aria-labelledby="ch-title">
-    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · выбор</div><h2 id="ch-title"></h2><div class="hint" id="ch-sub"></div></div><button class="btn" id="ch-show" type="button">Показать сеть на карте</button></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · выбор <span class="tag fix">общий вывод</span></div><h2 id="ch-title"></h2><div class="hint" id="ch-sub"></div></div><button class="btn" id="ch-show" type="button">Показать сеть на карте</button></div>
     <div class="ch-facts" id="ch-facts"></div>
     <div class="ch-ramp-h"><div class="vs-h">Сколько самолётов нужно и как сеть растёт по мере поставок SJ-100</div><p class="ld-note" id="ch-ramp-note"></p></div>
     <div class="ch-ramp" id="ch-ramp"></div>
@@ -401,7 +413,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </section>
 
   <section class="mapcard" aria-labelledby="n-title">
-    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · сеть на карте</div><h2 id="n-title">Итоговая сеть</h2></div><span class="hint">вариант, сценарий и субсидия — как в блоке «Хаб или прямые рейсы»; толщина линии — пассажиры в год</span></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · сеть на карте <span class="tag live">меняется от города на табло</span></div><h2 id="n-title">Итоговая сеть</h2></div><span class="hint">показывает хаб в городе, выбранном на табло, или вариант, нажатый в блоке «Хаб или прямые рейсы»; толщина линии — пассажиры в год</span></div>
     <div class="netbox" id="netbox">
       <svg id="netmap" role="img" aria-label="Карта маршрутов выбранного варианта сети"></svg>
       <div class="sched">
@@ -419,7 +431,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </section>
 
   <section class="mapcard" aria-labelledby="m-title">
-    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · дальность</div><h2 id="m-title">Куда долетим из хаба</h2><div class="hint">Город — тот, что выбран на табло кандидатов. Круги показывают, куда SSJ долетит без посадки; линии — куда рейс уже есть, а куда его нет и поезд идёт дольше 12 часов. Колёсико или кнопки справа приближают карту.</div></div></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · дальность <span class="tag live">меняется от города на табло</span></div><h2 id="m-title">Куда долетим из хаба</h2><div class="hint">Город — тот, что выбран на табло кандидатов. Круги показывают, куда SSJ долетит без посадки; линии — куда рейс уже есть, а куда его нет и поезд идёт дольше <span class="rail-hr"></span> часов. Колёсико или кнопки справа приближают карту.</div></div></div>
     <div class="mapbox" id="mapbox">
       <svg id="map" role="img" aria-label="Карта направлений и дальности из выбранного города"></svg>
       <div class="dboard">
@@ -430,21 +442,21 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
       <div class="mapzoom"><button class="btn" id="zin" type="button" aria-label="Приблизить">+</button><button class="btn" id="zout" type="button" aria-label="Отдалить">−</button></div>
       <div class="maplegend">
         <div class="lg"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#E32A2F" stroke-width="2"/></svg>прямой рейс уже есть</div>
-        <div class="lg"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#111318" stroke-width="1.6" stroke-dasharray="4 3"/></svg>нет рейса и поезда до 12 ч — сюда нужен рейс</div>
-        <div class="lg"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#8C96A6" stroke-width="1.4" stroke-dasharray="1 3"/></svg>есть поезд до 12 ч</div>
+        <div class="lg"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#111318" stroke-width="1.6" stroke-dasharray="4 3"/></svg>нет рейса и поезда до <span class="rail-hr"></span> ч — сюда нужен рейс</div>
+        <div class="lg"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#8C96A6" stroke-width="1.4" stroke-dasharray="1 3"/></svg>есть поезд до <span class="rail-hr"></span> ч</div>
         <div class="lg" style="color:var(--muted)">Круги — сколько пролетит самолёт без посадки. На юг и вдоль западной границы SSJ — около <span id="rng-south"></span> км из-за обходов.</div>
       </div>
     </div>
   </section>
 
   <section class="mapcard" id="step5" aria-labelledby="r-title">
-    <div class="sec-h"><div><div class="eyebrow">Шаг 5</div><h2 id="r-title">Дорожная карта до 2028 года и риски</h2><div class="hint">Сеть растёт по мере поставок самолётов; у каждого риска — сигнал, по которому его заметим, и ответ</div></div></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 5 <span class="tag fix">общий вывод</span></div><h2 id="r-title">Дорожная карта до 2028 года и риски</h2><div class="hint">Сеть растёт по мере поставок самолётов; у каждого риска — сигнал, по которому его заметим, и ответ</div></div></div>
     <div class="rm" id="rm"></div>
     <div class="rk" id="rk"></div>
   </section>
 
   <section class="card" aria-labelledby="k-title">
-    <div class="sec-h"><div><div class="eyebrow">Риск: ограничения аэропортов</div><h2 id="k-title" style="font-size:20px">«Ковёр» по месяцам</h2></div><span class="hint" id="k-sub"></span></div>
+    <div class="sec-h"><div><div class="eyebrow">Риск: ограничения аэропортов <span class="tag fix">данные по всем городам</span></div><h2 id="k-title" style="font-size:20px">«Ковёр» по месяцам</h2></div><span class="hint" id="k-sub"></span></div>
     <div class="tscroll"><table class="kov" id="kov"></table></div>
   </section>
 
@@ -460,7 +472,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script>
 const D = /*__DATA__*/null;
-document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('rng-south'); if(e) e.textContent=D.range.ssj_south.toLocaleString('ru-RU');});
+document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('rng-south'); if(e) e.textContent=D.range.ssj_south.toLocaleString('ru-RU'); document.querySelectorAll('.rail-hr').forEach(x=>x.textContent=D.range.rail_hr); document.querySelectorAll('.min-dist').forEach(x=>x.textContent=D.range.min_dist);});
 const ru=(v,d=0)=> v==null||v===''||isNaN(v) ? '—' : Number(v).toLocaleString('ru-RU',{maximumFractionDigits:d,minimumFractionDigits:d});
 const mln=v=> v==null ? '—' : (v>=1e6 ? ru(v/1e6, v>=1e7?1:2)+' млн' : ru(v/1e3,0)+' тыс.');
 const dayW=n=>{ const a=Math.abs(n)%100,b=a%10; return a>10&&a<20?'дней':b===1?'день':b>=2&&b<=4?'дня':'дней'; };
@@ -489,11 +501,12 @@ function normalize(set){ return set.map(c=>Object.fromEntries(CR.map(w=>[w.key,c
 function wsum(ws){ return CR.reduce((a,w)=>a+ws[w.key],0); }
 function scoreAll(z,ws){ const t=wsum(ws); if(!(t>0)) throw new Error('Нужен хотя бы один ненулевой вес'); return z.map(r=>CR.reduce((s,w)=>s+r[w.key]*ws[w.key],0)/t); }
 function top3(s){ return s.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]).slice(0,3).map(x=>x[1]); }
+const NDRAW=2000;
 function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function compute(){
   const set=D.cities.filter(c=>Math.min(c.dist_msk_km,c.dist_ekb_km)>=MIN&&!(STRICT&&isRW(c.iata))), out=D.cities.filter(c=>!set.includes(c));
   const z=normalize(set), s=scoreAll(z,W), base=top3(s).slice().sort().join();
-  const hits=new Array(set.length).fill(0), r=rng(42), N=2000;
+  const hits=new Array(set.length).fill(0), r=rng(42), N=NDRAW;
   for(let k=0;k<N;k++){ const ww={}; for(const w of CR) ww[w.key]=W[w.key]*(0.5+r()); top3(scoreAll(z,ww)).forEach(i=>hits[i]++); }
   let same=0,total=0; for(const w of CR) if(W[w.key]>0) for(const f of [0.5,1.5]){ const ww={...W}; ww[w.key]*=f; total++; if(top3(scoreAll(z,ww)).sort().join()===base) same++; }
   // диапазон мест: неизвестное — от худшего до лучшего, слабое — в своих границах (как src/longlist_score.py)
@@ -538,10 +551,10 @@ const COLS=[
 ];
 const COLTIP={rank:'Место города при текущих весах',city:'',code:'Код аэропорта',
   score:'Итоговая оценка от 0 до 100: взвешенная сумма всех критериев при весах с пульта справа',
-  share:'Как часто город попадает в тройку, если каждый вес случайно уменьшить или увеличить в полтора раза (2 000 проверок)',
+  share:`Как часто город попадает в тройку, если каждый вес случайно уменьшить или увеличить в полтора раза (${NDRAW.toLocaleString('ru-RU')} проверок)`,
   unk:'Какая доля веса приходится на критерии, где данных о городе нет; там ставится середина шкалы',
   weak:'Какая доля веса приходится на критерии со слабым значением (только Википедия, «более N», косвенные данные)',
-  st:'«Посадка» — город в тройке лучших; «ожидание» — остальные; «вне фильтра» — ближе 500 км к Москве или Екатеринбургу'};
+  st:`«Посадка» — город в тройке лучших; «ожидание» — остальные; «вне фильтра» — ближе ${D.range.min_dist} км к Москве или Екатеринбургу`};
 function colTip(c){ if(COLTIP[c.k]!=null) return COLTIP[c.k]; const w=CR.find(x=>x.key===c.k); return w?w.label+(w.dir==='-'?' (меньше — лучше)':'')+'. '+(w.why||''):''; }
 function boardLegend(){ const dl=document.getElementById('b-legend'); if(!dl||dl.childElementCount) return;
   COLS.filter(c=>c.k!=='rank'&&c.k!=='city'&&c.k!=='code').forEach(c=>dl.append(h('div',{},h('dt',{},c.t),h('dd',{},colTip(c))))); }
@@ -715,7 +728,9 @@ function sources(){
 /* --- шаг 3: хаб или прямые --- */
 let SCEN='base', NETV=null;
 const NS_=D.net||{summary:[],routes:[],nodes:{}};
-function vrows(){ return NS_.summary.filter(r=>r.scenario===scenKey()); }
+function vrows(){ return NS_.summary.filter(r=>r.scenario===scenKey()&&(r.main||r.vkey===SEL)); }
+let LASTSEL=null;
+function syncNet(){ if(SEL===LASTSEL) return; LASTSEL=SEL; if(NS_.summary.some(r=>r.vkey===SEL)){ NETV=SEL; vsBoard(); netUpdate(); } }
 const pl=(n,a,b,c)=>{ const m=n%10,x=n%100; return `${n} ${m===1&&x!==11?a:(m>=2&&m<=4&&(x<12||x>14)?b:c)}`; };
 const ac=n=>pl(n,'самолёт','самолёта','самолётов');
 let SUB=false;
@@ -724,14 +739,16 @@ function scenKey(){ return SCEN+(SUB?'_sub':''); }
 function ldDraw(){
   const rows=vrows(); if(!rows.length) return;
   const k=+document.getElementById('ldk').value/100; document.getElementById('ldko').textContent=Math.round(k*100)+'%';
+  const A_=NS_.asm, ki=SCEN==='base'?0:1;
+  document.getElementById('ld-knote').textContent=`Ползунок меняет только цену билета: сейчас ${ru(A_.fare_fixed_rub[ki]*(1+k))} ₽ + ${ru(A_.fare_per_km_rub[ki]*(1+k),1)} ₽ за км. Число пассажиров при этом не меняется — как спрос отвечает на цену, мы не считали. Карта и таблица маршрутов ниже показывают сеть при нынешних тарифах.`;
   const res=(r,kk)=>(r.revenue_mln_year-r.subsidy_mln_year)*(1+kk)+r.subsidy_mln_year-r.var_cost_mln_year;
   const S=Math.max(1,...rows.flatMap(r=>[Math.abs(res(r,0)),Math.abs(res(r,.3))]));
   const mln=v=>(v<0?'−':'+')+ru(Math.abs(Math.round(v)))+' млн ₽';
   const box=document.getElementById('ld'); box.textContent='';
   rows.slice().sort((a,b)=>res(b,0)-res(a,0)).forEach(r=>{
-    const v=res(r,k), w=Math.min(Math.abs(v)/S*50,50), pos=v>=0, name=r.vkey==='DIRECT'?'Прямые рейсы':r.variant;
+    const v=res(r,k), w=Math.min(Math.abs(v)/S*50,50), pos=v>=0, name=r.vkey==='DIRECT'?'Прямые рейсы':r.variant, isSel=r.vkey===SEL;
     const row=h('div',{class:'ld-row'+(r.vkey===NETV?' pick':''),tabindex:0,role:'button','aria-label':`${name}: ${mln(v)}`});
-    const n=h('div',{class:'ld-n'},h('b',{},name),h('small',{},`${ru(Math.round(r.segments_year/1000))} тыс. пасс. в год · доля +${ru(r.share_pp,2)} п. п.`),
+    const n=h('div',{class:'ld-n'},h('b',{},name,isSel?h('span',{class:'selt'},'выбран на табло'):''),h('small',{},`${ru(Math.round(r.segments_year/1000))} тыс. пасс. в год · доля +${ru(r.share_pp,2)} п. п.`),
       h('small',{},r.transfer_od_year?`с пересадкой ${ru(Math.round(r.transfer_od_year/1000))} тыс. · «Ковёр» ${r.kover_days_avg} дн.`:`без пересадок · «Ковёр» ${r.kover_days_avg} дн.`));
     const bar=h('div',{class:'ld-bar'},h('i',{}));
     const em=h('em',{}); em.style.cssText=`${pos?'left':'right'}:50%;width:${w}%;background:${pos?'#3FA772':'#E32A2F'}`;
@@ -746,12 +763,12 @@ function ldDraw(){
   // вывод под лестницей — из тех же чисел
   const ok=rows.filter(r=>res(r,k)>=0).map(r=>r.vkey==='DIRECT'?'прямые рейсы':r.variant.replace('Хаб ','хаб '));
   const best=rows.slice().sort((a,b)=>res(b,k)-res(a,k))[0], dir=rows.find(r=>r.vkey==='DIRECT');
-  const sp=SCEN==='base'?NS_.asm.subsidy_rub_per_pax[0]:NS_.asm.subsidy_rub_per_pax[1];
+  const sp=SCEN==='base'?NS_.asm.subsidy_rub_per_flight[0]:NS_.asm.subsidy_rub_per_flight[1];
   const dmow=NS_.routes.filter(x=>x.scenario===scenKey()&&x.vkey==='DIRECT'), mshare=dmow.length?Math.round(dmow.filter(x=>x.from==='MOW'||x.to==='MOW').reduce((a,x)=>a+x.pax_year_segments,0)/dmow.reduce((a,x)=>a+x.pax_year_segments,0)*100):0;
   let t;
   if(ok.length) t=`${k?`При тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} в плюсе: ${ok.join(', ')}. `;
   else t=`${k?`Даже при тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} ни одна сеть не окупает рейсы. Ближе всех к нулю — ${best.vkey==='DIRECT'?'прямые рейсы':best.variant.replace('Хаб ','хаб ')}: ${best.fare_up_to_breakeven_pct>0?`нужны тарифы выше на ${best.fare_up_to_breakeven_pct}%`:'не хватает немного'}. `;
-  if(SUB&&dir) t+=`Субсидия — около ${ru(sp)} ₽ на пассажира рейса в обход Москвы. Прямой сети она помогает мало: ${mshare}% её пассажиров летят через Москву, а такие рейсы субсидию не получают.`;
+  if(SUB&&dir) t+=`Субсидия — около ${ru(sp)} ₽ за рейс и только на лучах, которые проходят правила программы Росавиации: один конец — узловой аэропорт, без Москвы, пара пока тонкая, с октября по апрель. Это первый год новой пары: когда поток вырастет больше ${ru(NS_.asm.subsidy_max_prior_pax?NS_.asm.subsidy_max_prior_pax[0]:8000)} пассажиров, федеральная субсидия кончится, если её не софинансирует регион. У прямой сети ${mshare}% пассажиров летят через Москву, такие рейсы субсидию не получают.`;
   else if(!SUB) t+='Включите субсидию, чтобы увидеть сети с господдержкой рейсов в обход Москвы.';
   document.getElementById('ld-sum').textContent=t;
 }
@@ -759,8 +776,8 @@ function vsBoard(){
   const seg=document.getElementById('scen'); seg.textContent='';
   [['base','Базовый сценарий'],['cautious','Осторожный сценарий']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SCEN===k)},t); b.addEventListener('click',()=>{ SCEN=k; vsBoard(); netUpdate(); }); seg.append(b); });
   document.getElementById('ld-scen').textContent=SCEN==='base'
-    ? 'Базовый сценарий: спрос по средней оценке шага 2, тарифы как сейчас на этих парах, загрузка рейса до 85%, 52 недели полётов в году.'
-    : 'Осторожный сценарий — проверка на прочность, если всё пойдёт хуже ожиданий: пассажиров примерно втрое меньше средней оценки, тарифы на четверть ниже, расходы на рейс почти в 1,5 раза выше, загрузка до 80%, 4 недели в году потеряны из-за «Ковра» и погоды.';
+    ? `Базовый сценарий: спрос по средней оценке шага 2, тарифы как сейчас на этих парах, загрузка рейса до ${Math.round(NS_.asm.lf_max[0]*100)}%, ${NS_.asm.weeks_per_year[0]} недели полётов в году.`
+    : `Осторожный сценарий — проверка на прочность, если всё пойдёт хуже ожиданий: пассажиров в ${ru(1/NS_.cmp.demand,1)} раза меньше средней оценки, тарифы на ${Math.round((1-NS_.cmp.fare)*100)}% ниже, расходы на рейс в ${ru(NS_.cmp.cost,1)} раза выше, загрузка до ${Math.round(NS_.asm.lf_max[1]*100)}%, ${NS_.asm.weeks_per_year[0]-NS_.asm.weeks_per_year[1]} недели в году потеряны из-за «Ковра» и погоды.`;
   const sg=document.getElementById('subs'); sg.textContent='';
   [[false,'Без субсидии'],[true,'С субсидией']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SUB===k)},t); b.addEventListener('click',()=>{ SUB=k; vsBoard(); netUpdate(); }); sg.append(b); });
   const rows=vrows(); if(!rows.length) return;
@@ -771,7 +788,7 @@ function vsBoard(){
   const mig=rows.filter(r=>r.rw_migrated_year>0);
   document.getElementById('vs-note').textContent=
     `Хаб: самолёты стоят в городе-хабе и летают лучами, пассажиры между городами лучей пересаживаются в хабе. Прямые рейсы: самолёт с базы в Москве или Екатеринбурге летает треугольником база — город — город — база. `+
-    `Обе сети набираются по одному правилу: сначала маршруты с лучшим результатом на час полёта, от 8 до 12 маршрутов. Спрос пары — поездки «откуда — куда» из шага 2. Прирост доли — только новые для Red Wings пассажиры`+
+    `Обе сети набираются по одному правилу: сначала маршруты с лучшим результатом на час полёта, от ${NS_.asm.min_routes[0]} до ${NS_.asm.max_routes[0]} маршрутов. Спрос пары — поездки «откуда — куда» из шага 2. Прирост доли — только новые для Red Wings пассажиры`+
     (mig.length?`: ${mig.map(r=>`в сети «${r.variant}» ${ru(r.rw_migrated_year)} пассажиров в год пересядут с нынешних рейсов Red Wings, их выручка вычтена`).join('; ')}. `:'. ')+
     `Нажмите на строку, чтобы увидеть сеть на карте ниже.`;
   const A=NS_.asm, k=SCEN==='base'?0:1, pct=x=>Math.round(x*100)+'%';
@@ -783,13 +800,13 @@ function vsBoard(){
    ['Доля пары без прямого рейса',`до ${pct(A.capture_open[k])}`,'растёт с частотой рейсов'],
    ['Доля пары, где уже летают',`до ${pct(A.capture_competitive[k])}`,'делится по частотам с конкурентами'],
    ['Пересадка в хабе',`до ${pct(A.capture_transfer[k])} пары, билет −${pct(1-A.transfer_fare_factor[k])}`,'пересадочный пассажир платит один билет'],
-   ['Субсидия',`${ru(A.subsidy_rub_per_pax[k])} ₽ на пассажира`,SCEN==='base'?'7,98 млрд ₽ на программу 2026 / 4,5 млн пассажиров; только рейсы в обход Москвы':'с объявленным сокращением программы на 7,6%'],
+   ['Субсидия',`${ru(A.subsidy_rub_per_flight[k])} ₽ за рейс, ${A.subsidy_months[k]} мес. в году`,'по правилам Росавиации: один конец — узловой аэропорт, тонкая пара, без Москвы и без лета; сценарий первого года новой пары'],
    ['Год',`${A.weeks_per_year[k]} недель`,SCEN==='base'?'без потерь':'4 недели потеряны из-за «Ковра» и погоды'],
    ['Самолётов на сеть',`до ${A.fleet_cap[k]}, ${A.spare_aircraft[k]} в резерве`,'сколько SJ-100 получит Red Wings, пока неизвестно']]
    .forEach(([a,b,c])=>asm.append(h('div',{},a,h('b',{},b),c)));
   const NN={D_SVX8:'Прямые из Екатеринбурга, 8 пар',H_UFA_4:'Хаб Уфа, 4 луча',H_UFA_8:'Хаб Уфа, 8 лучей'};
   const ch=(NS_.check||[]).filter(r=>r.scenario===SCEN);
-  document.getElementById('vs-chk-lead').textContent='Неделя 7–13 декабря 2026: рейсы по опубликованному расписанию, тарифы по ценам на эти даты, две оценки спроса, без субсидий. Итог за неделю, млн ₽. Во второй модели ни один вариант тоже не окупает рейсы.';
+  document.getElementById('vs-chk-lead').textContent='Неделя 7–13 декабря 2026: рейсы по опубликованному расписанию, тарифы по ценам на эти даты, две оценки спроса, без субсидий. Итог за неделю, млн ₽. '+(ch.length&&ch.every(r=>r.hi<0)?'Во второй модели ни один вариант тоже не окупает рейсы.':'');
   const box=document.getElementById('vs-chk'); box.textContent='';
   ch.forEach(r=>box.append(h('div',{class:'chk'},h('div',{},NN[r.network]||r.network,h('small',{},` · ${ac(r.aircraft)}`)),
     h('div',{class:'v'},`${mln1(r.hi)}…${mln1(r.lo)}`),h('small',{},`${ru(r.pax_lo)}–${ru(r.pax_hi)} пассажиров за неделю`),h('small',{class:'v'},`тарифы +${r.be_lo}…${r.be_hi}%`))));
@@ -876,6 +893,7 @@ function compBoard(){
   const mx=Math.max(...ST.scale.map(x=>x.pax));
   ST.scale.slice().sort((a,b)=>b.pax-a.pax).forEach(x=>{ const i=h('i',{}); i.style.width=(x.pax/mx*100)+'%';
     sc.append(h('div',{class:'cp-bar'+(x.rw?' rw':'')},h('span',{},x.name),h('div',{},i),h('span',{},ru(x.pax,1)))); });
+  const A_=NS_.asm; document.getElementById('cp-note').textContent=`Доля рынка Red Wings — ${ru(A_.rw_pax_2025[0]/A_.market_pax_2025[0]*100,1)}%: ${ru(A_.rw_pax_2025[0]/1e6,1)} млн из ${ru(A_.market_pax_2025[0]/1e6,2)} млн пассажиров российских авиакомпаний в 2025 году.`;
   const cc=document.getElementById('cp-cards'); cc.textContent='';
   ST.competitors.forEach(c=>{ const urls=c.sources.split(';').filter(Boolean);
     const src=h('div',{class:'src'},'Источники: ',...urls.flatMap((u,i)=>[i?', ':'',h('a',{href:u,target:'_blank',rel:'noopener'},new URL(u).hostname.replace('www.',''))]));
@@ -894,13 +912,18 @@ function choiceBoard(){
   document.getElementById('ch-sub').textContent='Гипотеза 1 — новый региональный хаб. Ниже — почему этот город, сколько самолётов нужно и как вырастет доля рынка.';
   const f=document.getElementById('ch-facts'); f.textContent='';
   const lr=R&&R.rows?R.rows.findIndex(x=>x.c.iata===H)+1:0;
-  [[lr?`${lr}-е место`:'—','в лонглисте при основных весах; первое место в четырёх наборах весов из пяти'],
-   [mln(s1.result_mln_year),`итог за год со средней субсидией; прямые рейсы — ${mln(d1.result_mln_year)}`],
-   [ru(Math.round(s1.transfer_od_year/1000))+' тыс.','пассажиров с пересадкой в год — больше, чем у других хабов'],
+  const setC=D.cities.filter(c=>Math.min(c.dist_msk_km,c.dist_ekb_km)>=MIN&&!(STRICT&&isRW(c.iata))), zC=normalize(setC);
+  const firsts=D.profiles.filter(pf=>{ const ws={}; for(const w of CR) ws[w.key]=pf.weights[w.key]||0; return setC[top3(scoreAll(zC,ws))[0]]?.iata===H; }).length;
+  const mains=NS_.summary.filter(r=>r.scenario==='base_sub'&&r.main&&r.vkey!=='DIRECT').sort((a,b)=>b.transfer_od_year-a.transfer_od_year), trRank=mains.findIndex(r=>r.vkey===H)+1;
+  [[lr?`${lr}-е место`:'—',`в лонглисте при основных весах; первое место в ${firsts} из ${D.profiles.length} наборов весов`],
+   (()=>{ const all=NS_.summary.filter(r=>r.scenario==='base_sub'&&r.vkey!=='DIRECT').sort((a,b)=>b.result_mln_year-a.result_mln_year), rk=all.findIndex(r=>r.vkey===H)+1, lead=all[0];
+      const allC=NS_.summary.filter(r=>r.scenario==='cautious_sub'&&r.vkey!=='DIRECT').sort((a,b)=>b.result_mln_year-a.result_mln_year), rkC=allC.findIndex(r=>r.vkey===H)+1;
+      return [mln(s1.result_mln_year),`итог за год со средней субсидией: ${rk}-е место из ${all.length} городов`+(rk>1?`; выше — ${lead.variant.replace('Хаб ','')} (${mln(lead.result_mln_year)}), но в его сети ${lead.kover_days_avg} дней «Ковра» за год`:'')+`. В осторожном сценарии — ${rkC}-е место. Прямые рейсы — ${mln(d1.result_mln_year)}`]; })(),
+   [ru(Math.round(s1.transfer_od_year/1000))+' тыс.',`пассажиров с пересадкой в год — ${trRank===1?'больше всех':trRank+'-е место'} среди ${mains.length} хабов сравнения`],
    [s1.kover_days_avg+' дн.',`«Ковра» за год в среднем по аэропортам сети; у прямых рейсов — ${d1.kover_days_avg}`]]
    .forEach(([a,b])=>f.append(h('div',{},h('b',{},a),b)));
   const rb=ST.ramp.filter(r=>r.scenario==='base_sub'&&r.hub===H), r0=ST.ramp.filter(r=>r.scenario==='base'&&r.hub===H);
-  const WHEN={3:'II полугодие 2027',4:'конец 2027 — начало 2028',6:'2028',8:'2028, полная сеть'};
+  const WHEN=Object.fromEntries(String(ST.choice.ramp_when||'').split(';').filter(Boolean).map(x=>{ const i=x.indexOf(':'); return [+x.slice(0,i),x.slice(i+1)]; }));
   const box=document.getElementById('ch-ramp'); box.textContent='';
   const seen=new Set();
   rb.forEach(r=>{ if(seen.has(r.aircraft)) return; seen.add(r.aircraft);
@@ -910,8 +933,8 @@ function choiceBoard(){
       h('span',{},`${ru(Math.round(r.segments_year/1000))} тыс. пасс. в год · доля +${ru(r.share_pp,2)} п. п.`),
       h('span',{class:'res',style:`color:${r.result_mln_year>=0?'#2E8A5B':'#C0262B'}`},`${mln(r.result_mln_year)} в год с субсидией`),
       h('span',{},nm.join(', ')))); });
-  const z4=r0.find(r=>r.fleet_cap===4);
-  document.getElementById('ch-ramp-note').textContent=`Новые SJ-100 придут не раньше II полугодия 2027 года, сколько получит Red Wings — неизвестно. Поэтому сеть растёт шагами по числу пришедших самолётов, один самолёт в каждом шаге — резерв. До поставок пилот можно начать на нынешних SSJ, если найдутся свободные. Без субсидии разумный предел — ${z4?z4.routes:8} лучей на 4 самолётах: ${z4?mln(z4.result_mln_year):'—'} в год. Сроки у шагов — наше допущение.`;
+  const z4=r0.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year)[0];
+  document.getElementById('ch-ramp-note').textContent=`Новые SJ-100 придут не раньше II полугодия 2027 года, сколько получит Red Wings — неизвестно. Поэтому сеть растёт шагами по числу пришедших самолётов, один самолёт в каждом шаге — резерв. До поставок пилот можно начать на нынешних SSJ, если найдутся свободные. ${z4?`Без субсидии разумный предел — ${z4.routes} лучей на ${z4.aircraft} самолётах: ${mln(z4.result_mln_year)} в год.`:''} Сроки у шагов — наше допущение.`;
   const base=ST.rw_share_2025;
   document.getElementById('ch-share').innerHTML='';
   document.getElementById('ch-share').append(h('small',{},'Эффект для доли рынка Red Wings (полная сеть, базовый сценарий, с субсидией)'),
@@ -920,18 +943,23 @@ function choiceBoard(){
 }
 
 /* --- шаг 4: таблица маршрутов (требование кейса) --- */
+function nowCell(r){ const k=[r.from,r.to].sort().join('-'), x=(NS_.now||{})[k];
+  if(!x) return h('td',{},'—');
+  const how=x.now==='прямой рейс'?'прямой рейс есть':x.now.startsWith('с пересадкой')?x.now.replace('с пересадкой:','с пересадкой в городе'):x.now;
+  const car=x.car.length?x.car.map(c=>`${c[0]}${c[1]?' · '+ru(c[1])+'/нед':''}`).join(', '):(x.now==='прямой рейс'?'перевозчики пока не собраны':'');
+  return h('td',{},how,car?h('small',{class:x.car.length?'car':''},car):''); }
 const WKS=()=>NS_.asm.weeks_per_year[SCEN==='base'?0:1];
 function routeTable(rs,sm){
   const t=document.getElementById('mt'); if(!t) return;
   const N=NS_.nodes, nm=i=>(N[i]||[0,0,i])[2];
   document.getElementById('mt-title').textContent=`Маршруты: пассажиры, рейсы и источники · ${sm?sm.variant:''}`;
-  document.getElementById('mt-note').textContent='Пассажиры — сегменты за год в обе стороны, как в статистике. Частота — рейсов в неделю в одну сторону: захваченные пассажиры делятся на 100 кресел × загрузку, не реже 3 и не чаще 14 рейсов. Источник спроса пары — из шага 2: поток на рейсе по отчёту аэропорта или расписанию, пересчитанный в поездки, или модель поездок, если рейса сейчас нет.';
+  document.getElementById('mt-note').textContent=`Перевозчики — по расписаниям на 7–13 декабря 2026 года (карточки маршрутов и табло аэропорта Омск); по остальным парам данные ещё собираются. Пассажиры — сегменты за год в обе стороны, как в статистике. Частота — рейсов в неделю в одну сторону: захваченные пассажиры делятся на ${NS_.asm.seats[0]} кресел × загрузку, не реже ${NS_.asm.min_freq_week[0]} и не чаще ${NS_.asm.max_freq_week[0]} рейсов (у треугольников прямой сети — ${NS_.asm.direct_max_freq_week[0]}). Источник спроса пары — из шага 2: поток на рейсе по отчёту аэропорта или расписанию, пересчитанный в поездки, или модель поездок, если рейса сейчас нет.`;
   t.tHead.textContent=''; t.tBodies[0].textContent='';
-  t.tHead.append(h('tr',{},h('th',{},'Маршрут'),h('th',{class:'r'},'Км'),h('th',{class:'r'},'Пассажиров в год'),h('th',{class:'r'},'Рейсов в неделю'),h('th',{class:'r'},'Загрузка'),h('th',{},'Откуда пассажиропоток'),h('th',{},'Откуда частота')));
+  t.tHead.append(h('tr',{},h('th',{},'Маршрут'),h('th',{class:'r'},'Км'),h('th',{class:'r'},'Пассажиров в год'),h('th',{class:'r'},'Рейсов в неделю'),h('th',{class:'r'},'Загрузка'),h('th',{},'Как летят сейчас и кто летает'),h('th',{},'Откуда пассажиропоток'),h('th',{},'Откуда частота'),h('th',{},'Субсидия по правилам')));
   rs.slice().sort((a,b)=>b.pax_year_segments-a.pax_year_segments).forEach(r=>{
     t.tBodies[0].append(h('tr',{},h('td',{},`${nm(r.from)} — ${nm(r.to)}`,h('small',{},r.direct_now?'на паре уже летают другие':'новая пара')),
       h('td',{class:'r'},ru(r.km)),h('td',{class:'r'},ru(r.pax_year_segments)),h('td',{class:'r'},r.freq_week_each_way),h('td',{class:'r'},Math.round(r.load_factor*100)+'%'),
-      h('td',{},r.demand_source),h('td',{},`по спросу: пассажиры в неделю в одну сторону / (100 кресел × загрузка), от 3 до ${r.vkey==='DIRECT'?7:14} рейсов`))); });
+      nowCell(r),h('td',{},r.demand_source),h('td',{},`спрос ÷ (${NS_.asm.seats[0]} кресел × загрузка), ${NS_.asm.min_freq_week[0]}–${r.vkey==='DIRECT'?NS_.asm.direct_max_freq_week[0]:NS_.asm.max_freq_week[0]} в неделю`),h('td',{},r.subsidy_rule||'—'))); });
 }
 
 /* --- шаг 5: дорожная карта и риски --- */
@@ -981,8 +1009,8 @@ function netUpdate(){
   const rows=document.getElementById('sc-rows'); rows.textContent='';
   const N=NS_.nodes, nm=i=>(N[i]||[0,0,i])[2];
   const WK=NS_.asm.weeks_per_year[SCEN==='base'?0:1];
-  const thin=rs.filter(r=>r.pax_year_segments/(2*WK*7)<25).length;
-  if(sm) document.getElementById('sc-sub').textContent+=thin?` · ${thin} маршр. тоньше 25 пасс. в день в одну сторону`:' · все маршруты не тоньше 25 пасс. в день';
+  const TH=NS_.asm.thin_route_pax_day[0], thin=rs.filter(r=>r.pax_year_segments/(2*WK*7)<TH).length;
+  if(sm) document.getElementById('sc-sub').textContent+=thin?` · ${thin} маршр. тоньше ${TH} пасс. в день в одну сторону`:` · все маршруты не тоньше ${TH} пасс. в день`;
   rs.slice().sort((a,b)=>b.pax_year_segments-a.pax_year_segments).forEach(r=>{
     rows.append(h('div',{class:'sr'},h('div',{},h('b',{},`${nm(r.from)} — ${nm(r.to)}`),h('small',{},`${ru(r.km)} км · загрузка ${Math.round(r.load_factor*100)}% · ${r.direct_now?'на паре уже летают другие':'новая пара'}`),h('small',{},`дальность: ${r.range_light.split(' ')[0]} · спрос: ${dsrc(r.demand_source)}`)),
       h('div',{class:'f'},`${r.freq_week_each_way}/нед`,h('small',{},ru(r.pax_year_segments)+' пасс.'),h('small',{},`≈${ru(r.pax_year_segments/(2*WK*7))} в день`))));
@@ -1008,7 +1036,7 @@ function netUpdate(){
 
 function update(){
   R=compute(); if(!SEL) SEL=R.rows[0].c.iata;
-  board(); weightLabels(); ticket(); demBoard(); destBoard(); if(NS_.summary.length) choiceBoard(); if(window.d3) mapUpdate();
+  board(); weightLabels(); ticket(); demBoard(); destBoard(); if(NS_.summary.length){ choiceBoard(); syncNet(); } if(window.d3) mapUpdate();
 }
 document.getElementById('reset').addEventListener('click',()=>{ W={...DEFAULT_W}; MIN=500; STRICT=false; PROFILE='balanced'; weights(); update(); });
 meta(); weights(); kov(); sources(); NETV=(D.steps&&D.steps.choice.chosen_hub)||null; vsBoard(); compBoard(); choiceBoard(); roadBoard(); netInit(); netUpdate();

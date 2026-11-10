@@ -31,14 +31,16 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import rules
+
 from airports_meta import CLOSED, NAME
 
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
 TOCHNO = ROOT / "data/raw/tochno_intercity/data_intercity_connectivity_162_v20260629.csv"
-MOW = {"SVO", "DME", "VKO", "ZIA"}
+MOW = rules.MOW_AIRPORTS
 RESORT = set(pd.read_csv(ROOT / "data/assumptions/resort_airports.csv").iata)
-BASES = {"MOW", "SVX"}
+BASES = set(rules.BASES)
 # выбрано сравнением вариантов «исключи по одному»: время поездом точнее расстояния (ошибка 56% против 66%)
 FEATS = ["lnPP", "lnRail", "mow", "resort"]
 _DA = pd.read_csv(ROOT / "data/assumptions/demand.csv").set_index("parameter").value

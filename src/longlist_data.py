@@ -31,6 +31,8 @@ from pathlib import Path
 
 import pandas as pd
 
+import rules
+
 from airports_meta import CLOSED, NAME
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,7 +48,7 @@ CATCH_KM = float(_PAR["catchment_km"])      # радиус зоны тяготе
 
 
 # аэропорты одного города считаем одним рынком: житель Подмосковья летит через любой из них
-GROUP = {"SVO": "MOW", "DME": "MOW", "VKO": "MOW", "ZIA": "MOW"}
+GROUP = {x: "MOW" for x in rules.MOW_AIRPORTS}
 
 
 def grp(code):

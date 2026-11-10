@@ -14,9 +14,11 @@ from pathlib import Path
 
 import pandas as pd
 
+import rules
+
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
-MOW = {"SVO", "DME", "VKO", "ZIA"}
+MOW = rules.MOW_AIRPORTS
 
 
 def main():

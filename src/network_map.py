@@ -163,11 +163,12 @@ def main():
     nodes = dm.nodes()
     r = pd.read_csv(P / "network_routes.csv")
     s = pd.read_csv(P / "network_summary.csv")
-    b = r[r.scenario == "base"]
-    sb = s[s.scenario == "base"].set_index("variant")
-    hubs = sb[sb.hub.notna() & (sb.hub != "")]
-    best = hubs.sort_values("result_mln_year", ascending=False).iloc[0]
-    H = best.hub
+    # карта гипотезы 1 — выбранный хаб (data/assumptions/choice.csv) в базовом сценарии с субсидией
+    H = pd.read_csv(ROOT / "data/assumptions/choice.csv").set_index("parameter").value["chosen_hub"]
+    scen = "base_sub" if (s.scenario == "base_sub").any() else "base"
+    b = r[r.scenario == scen]
+    sb = s[s.scenario == scen].set_index("variant")
+    best = sb[sb.hub == H].iloc[0]
     hl = b[b.variant == f"Хаб {H}"]
     legs = pd.DataFrame({"a": hl["from"], "b": hl["to"], "pax": hl.pax_year_segments, "freq": hl.freq_week_each_way})
     city = best.name.replace("Хаб ", "")

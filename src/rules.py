@@ -14,6 +14,12 @@ GREEN_SOUTH = float(_R["ssj_green_south_km"])
 TU204 = float(_R["tu204_green_km"])
 TU214 = float(_R["tu214_green_km"])
 SOUTH_WEST = set(pd.read_csv(ROOT / "data/assumptions/south_west_regions.csv").region)
+# аэропорты Москвы сводятся в один узел MOW; базы Red Wings по брифу — Москва и Екатеринбург (data/assumptions/bases.csv)
+_B = pd.read_csv(ROOT / "data/assumptions/bases.csv")
+MOW_AIRPORTS = set(_B[_B.node == "MOW"].iata)
+BASES = list(dict.fromkeys(_B.node))
+_LP = pd.read_csv(ROOT / "data/assumptions/longlist_params.csv").set_index("parameter").value
+RAIL_OK_HR, CATCH_KM, MIN_DIST_KM = float(_LP["rail_ok_hr"]), float(_LP["catchment_km"]), float(_LP["min_dist_bases_km"])
 
 
 def is_south(region):

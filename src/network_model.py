@@ -28,6 +28,8 @@ data/processed/demand_estimates.csv, затем data/processed/od_pairs.csv, д�
 import json
 import math
 import re
+import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -52,9 +54,61 @@ def load_assumptions():
     return out
 
 
-def sub(A, a, b):
-    """Субсидия на одного нового пассажира плеча: только рейсы в обход Москвы (программа межрегиональных перевозок)."""
-    return A["subsidy_rub_per_pax"] * A["use_subsidy"] if "MOW" not in (a, b) else 0.0
+SUB_HUBS = set(pd.read_csv(ROOT / "data/assumptions/subsidy_hub_airports.csv").iata)
+_SFE = pd.read_csv(ROOT / "data/assumptions/siberia_fareast_regions.csv")
+SIB_FE, FAR_EAST = set(_SFE.region), set(_SFE[_SFE.district == "Дальневосточный"].region)
+SUB_CAP = pd.read_csv(ROOT / "data/assumptions/subsidy_cap_84_103.csv").sort_values("min_km")
+_fs = pd.read_csv(ROOT / "data/raw/favt_subsidy_2026.csv", dtype=str)
+_SUB_HELD = {}   # пара → перевозчики, за которыми маршрут закреплён в перечне 2026
+
+
+def _load_held(D):
+    if _SUB_HELD:
+        return
+    c2i = {}
+    for i, r in D.n.iterrows():
+        c2i.setdefault(str(r.main_city), i)
+    for i, nm_ in NAME.items():
+        c2i.setdefault(nm_, i)
+    for r in _fs.itertuples():
+        a, b = c2i.get(r.origin), c2i.get(r.destination)
+        if a and b:
+            _SUB_HELD.setdefault(frozenset((a, b)), set()).add(str(r.airline))
+
+
+def sub_rule(D, A, a, b):
+    """Подходит ли пара под программу межрегиональных перевозок (решение Росавиации № 22-64160-00191-Р)
+    и сколько платят за рейс. Пустая строка причины — подходит.
+    Правила: не Москва; один конец — узловой аэропорт, другой — нет; дальность до 1 500 км (Сибирь и
+    Дальний Восток — до 3 000); поток пары за прошлый год не больше 8 тыс. (Дальний Восток — 10 тыс.),
+    поэтому сценарий описывает первый год новой пары; маршрут не закреплён за другим перевозчиком.
+    Ставка — средняя по программе за рейс, не выше потолка по дальности; только 7 месяцев (без мая — сентября)."""
+    _load_held(D)
+    if "MOW" in (a, b):
+        return 0.0, "Москва"
+    if (a in SUB_HUBS) == (b in SUB_HUBS):
+        return 0.0, "нужен один узловой аэропорт"
+    ra, rb = D.n.loc[a, "region"], D.n.loc[b, "region"]
+    km = D.km(a, b)
+    lim = A["subsidy_max_km_sib"] if (ra in SIB_FE or rb in SIB_FE) else A["subsidy_max_km"]
+    if km > lim:
+        return 0.0, f"дальше {lim:.0f} км"
+    prior = D.seg_tab.get((a, b), 0.0) if D.has_direct(a, b) else 0.0
+    thr = A["subsidy_max_prior_pax_fe"] if (ra in FAR_EAST or rb in FAR_EAST) else A["subsidy_max_prior_pax"]
+    if prior > thr:
+        return 0.0, f"поток пары больше {thr:.0f} пасс. в год"
+    held = {x for x in _SUB_HELD.get(frozenset((a, b)), set()) if "Ред Вингс" not in x and "Red Wings" not in x}
+    if held:
+        return 0.0, "закреплён за другим перевозчиком"
+    cap = float(SUB_CAP[SUB_CAP.min_km <= km].iloc[-1].cap_rub_per_oneway_flight)
+    return min(A["subsidy_rub_per_flight"], cap) * A["subsidy_months"] / 12, ""
+
+
+def sub(D, A, a, b):
+    """Субсидия за один рейс плеча в среднем за год (с учётом месяцев без субсидии); 0, если не подходит."""
+    if not A["use_subsidy"]:
+        return 0.0
+    return sub_rule(D, A, a, b)[0]
 
 
 class Demand:
@@ -272,10 +326,9 @@ def hub_network(H, D, A, scen, cand_nodes):
             rev += 2 * loc_c[X] * fare(A, L["km"])
             migr += 2 * mg
             forgone += 2 * mg * fare(A, L["km"])
-            subs += 2 * (loc_c[X] - mg) * sub(A, H, X)
+            subs += 2 * f[X] * sub(D, A, H, X)              # платят за выполненный рейс (п. 6 решения)
         for X, Y, dxy, t in tr_c:
             rev += 2 * t * fare(A, dxy) * A["transfer_fare_factor"]
-            subs += 2 * t * (sub(A, H, X) + sub(A, H, Y))
         od_local = 2 * sum(loc_c.values())            # поездок в неделю, оба направления
         od_transfer = 2 * sum(t for *_, t in tr_c)
         seg = 2 * sum(carried.values())               # сегментов в неделю, оба направления
@@ -306,9 +359,40 @@ def hub_network(H, D, A, scen, cand_nodes):
     return chosen, best
 
 
+def search_caps(A):
+    """Лимиты самолётов для перебора (проверка 1 Миши, 10.11.2026): жадный отбор при большом лимите может
+    собрать сеть хуже, чем при меньшем. Считаем сеть при каждом лимите и берём лучшую из тех, где маршрутов
+    не меньше минимума."""
+    lo, step, hi = int(A["fleet_search_min"]), max(int(A["fleet_search_step"]), 1), int(A["fleet_cap"])
+    return sorted(set(range(min(lo, hi), hi + 1, step)) | {hi})
+
+
+def best_of(results, A):
+    ok = [r for r in results if r[0] >= A["min_routes"]]
+    pool = ok or results
+    return max(pool, key=lambda r: (r[1], -r[2]))
+
+
+def hub_best(H, D, A, scen, nodes_all):
+    res = []
+    for cap in search_caps(A):
+        ch, r = hub_network(H, D, dict(A, fleet_cap=float(cap)), scen, nodes_all)
+        res.append((len(ch), (r[4] - r[3]), r[2], ch, r))
+    b = best_of(res, A)
+    return b[3], b[4]
+
+
+def direct_best(D, A, scen, nodes_all):
+    res = []
+    for cap in search_caps(A):
+        ch = direct_network(D, dict(A, fleet_cap=float(cap)), scen, nodes_all)
+        res.append((len(ch), sum(c[6] - c[5] for c in ch), sum(c[4] for c in ch), ch))
+    return best_of(res, A)[3]
+
+
 def direct_network(D, A, scen, nodes_all):
     W = A["weeks_per_year"]
-    bases = ["MOW", "SVX"]
+    bases = rules.BASES
     max_h = (A["fleet_cap"] - A["spare_aircraft"]) * A["block_h_per_day"] * 7
     tri = []
     open_nodes = [x for x in nodes_all if x not in CLOSED and x not in bases]
@@ -388,8 +472,9 @@ def direct_network(D, A, scen, nodes_all):
                 seg += 2 * c_
                 migr += 2 * mg
                 forgone += 2 * mg * fare(A, L["km"])
-                subs += 2 * (c_ - mg) * sub(A, L["a"], L["b"])
-                rev += 2 * (c_ - mg) * sub(A, L["a"], L["b"])
+                s_ = 2 * f * sub(D, A, L["a"], L["b"])   # за выполненный рейс
+                subs += s_
+                rev += s_
                 out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"]), migrated=mg))
             res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out, migr, forgone, subs))
         return res
@@ -482,17 +567,21 @@ def main():
     nodes_all = [x for x in D.n.index]
     scores = pd.read_csv(P / "longlist_scores_min500.csv")
     extra = pd.read_csv(ROOT / "data/assumptions/hub_candidates_extra.csv").iata.tolist()
-    hubs = list(dict.fromkeys(list(scores.sort_values("rank").iata.head(3)) + extra))  # топ-3 + варианты команды
+    main_hubs = list(dict.fromkeys(list(scores.sort_values("rank").iata.head(3)) + extra))  # топ-3 + варианты команды
+    # сеть хаба считается для каждого города лонглиста: на панели её видно для города, выбранного на табло
+    hubs = list(dict.fromkeys(main_hubs + [x for x in ll.iata if x in D.n.index and x not in CLOSED]))
     routes, summary = [], []
     for scen, A in AS.items():
         W = A["weeks_per_year"]
         for H in hubs:
-            chosen, r = hub_network(H, D, A, A["demand_scen"], nodes_all)
+            t0 = time.time()
+            chosen, r = hub_best(H, D, A, A["demand_scen"], nodes_all)
+            print(f"{scen} {H}: {time.time() - t0:.1f} с", file=sys.stderr, flush=True)
             legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs = r
             ac = math.ceil(hours / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
             seg = sum(2 * L["carried_dir_week"] for L in legs.values())
             kv, kcov = kover_avg([(L["a"], L["b"], L["freq"]) for L in legs.values()], K)
-            summary.append({"scenario": scen, "variant": f"Хаб {ll.set_index('iata').city.get(H, H)}", "hub": H,
+            summary.append({"scenario": scen, "variant": f"Хаб {ll.set_index('iata').city.get(H, H)}", "hub": H, "main": H in main_hubs,
                             "routes": len(chosen), "aircraft": int(ac), "flights_week": int(flights),
                             "segments_year": round(seg * W), "od_trips_year": round((od_l + od_t) * W),
                             "transfer_od_year": round(od_t * W), **money(rev, cost, forgone, migr, seg, od_l + od_t, W, A, subs),
@@ -506,8 +595,9 @@ def main():
                                "pax_year_segments": round(2 * L["carried_dir_week"] * W), "load_factor": round(L["lf"], 2),
                                "pax_year_rw_migrated": round(2 * L["migrated"] * W),
                                "demand_source": D.method(H, L["b"]), "direct_now": D.has_direct(H, L["b"]),
+                               "subsidy_rule": sub_rule(D, A, H, L["b"])[1] or "подходит",
                                "range_light": range_light(D, H, L["b"], L["km"])})
-        chosen = direct_network(D, A, A["demand_scen"], nodes_all)
+        chosen = direct_best(D, A, A["demand_scen"], nodes_all)
         hours = sum(c[4] for c in chosen)
         cost = sum(c[5] for c in chosen)
         rev = sum(c[6] for c in chosen)
@@ -518,7 +608,7 @@ def main():
         ac = math.ceil(hours / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
         flights = sum(2 * L["freq"] for c in chosen for L in c[8])
         kv, kcov = kover_avg([(L["a"], L["b"], L["freq"]) for c in chosen for L in c[8]], K)
-        summary.append({"scenario": scen, "variant": "Прямые рейсы из Москвы и Екатеринбурга", "hub": "",
+        summary.append({"scenario": scen, "variant": "Прямые рейсы из Москвы и Екатеринбурга", "hub": "", "main": True,
                         "routes": len(chosen), "aircraft": int(ac), "flights_week": int(flights),
                         "segments_year": round(seg * W), "od_trips_year": round(seg * W), "transfer_od_year": 0,
                         **money(rev, cost, forgone, migr, seg, seg, W, A, subs),
@@ -531,6 +621,7 @@ def main():
                                "pax_year_segments": round(2 * L["carried_dir_week"] * W), "load_factor": round(L["lf"], 2),
                                "pax_year_rw_migrated": round(2 * L["migrated"] * W),
                                "demand_source": D.method(L["a"], L["b"]), "direct_now": D.has_direct(L["a"], L["b"]),
+                               "subsidy_rule": sub_rule(D, A, L["a"], L["b"])[1] or "подходит",
                                "range_light": range_light(D, L["a"], L["b"], L["km"])})
     sm = pd.DataFrame(summary)
     rt = pd.DataFrame(routes)
