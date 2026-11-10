@@ -1,0 +1,564 @@
+{
+  "component": "network_fleet",
+  "status": "PASS",
+  "scope": "source/table/count/schema verification only; no optimizer or financial replay",
+  "source_counts": {
+    "owner_routes": 128,
+    "owner_summary": 12,
+    "methods_union": 15,
+    "prior_dated_legs": 64,
+    "prior_directed_frequencies": 40,
+    "prior_baseline_comparison": 12,
+    "previous_selected_flights": 16
+  },
+  "owner_pair_checks": {
+    "OWNER_base_OMS": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_base_KUF": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_base_REN": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_base_GOJ": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 8,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 0
+    },
+    "OWNER_base_UFA": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_base_DIRECT": {
+      "rows": 24,
+      "unique_geographic_pairs": 20,
+      "unique_airport_pairs": 8,
+      "duplicate_pair_rows": 4,
+      "mow_pairs": 12
+    },
+    "OWNER_cautious_OMS": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_cautious_KUF": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_cautious_REN": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_cautious_GOJ": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 8,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 0
+    },
+    "OWNER_cautious_UFA": {
+      "rows": 8,
+      "unique_geographic_pairs": 8,
+      "unique_airport_pairs": 7,
+      "duplicate_pair_rows": 0,
+      "mow_pairs": 1
+    },
+    "OWNER_cautious_DIRECT": {
+      "rows": 24,
+      "unique_geographic_pairs": 21,
+      "unique_airport_pairs": 10,
+      "duplicate_pair_rows": 3,
+      "mow_pairs": 11
+    }
+  },
+  "dated_component_checks": {
+    "D_SVX8": {
+      "dated_legs": 16,
+      "unique_pairs": 8,
+      "working_label_count": 1,
+      "duplicate_flight_ids": 0,
+      "pairs": [
+        "AER-SVX",
+        "KJA-SVX",
+        "KUF-SVX",
+        "KZN-SVX",
+        "MRV-SVX",
+        "OMS-SVX",
+        "REN-SVX",
+        "SVX-VOG"
+      ]
+    },
+    "H_UFA_4": {
+      "dated_legs": 16,
+      "unique_pairs": 4,
+      "working_label_count": 2,
+      "duplicate_flight_ids": 0,
+      "pairs": [
+        "GSV-UFA",
+        "MRV-UFA",
+        "NJC-UFA",
+        "OMS-UFA"
+      ]
+    },
+    "H_UFA_8": {
+      "dated_legs": 32,
+      "unique_pairs": 8,
+      "working_label_count": 4,
+      "duplicate_flight_ids": 0,
+      "pairs": [
+        "ARH-UFA",
+        "GOJ-UFA",
+        "GSV-UFA",
+        "KUF-UFA",
+        "MRV-UFA",
+        "NJC-UFA",
+        "OMS-UFA",
+        "UFA-VOG"
+      ]
+    },
+    "D_previous_best8": {
+      "dated_legs": 16,
+      "unique_pairs": 8,
+      "working_label_count": 2,
+      "duplicate_flight_ids": 0,
+      "pairs": [
+        "AER-ZIA",
+        "GSV-ZIA",
+        "KUF-VOG",
+        "KUF-ZIA",
+        "KZN-ZIA",
+        "MRV-SVX",
+        "MRV-ZIA",
+        "VOG-ZIA"
+      ]
+    }
+  },
+  "union_checks": [
+    {
+      "portfolio": "D_SVX8",
+      "unique_pairs": 8,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 1,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_previous_best8",
+      "unique_pairs": 8,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 2,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "H_UFA_4",
+      "unique_pairs": 4,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 2,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "H_UFA_8",
+      "unique_pairs": 8,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 4,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+D_previous_best8",
+      "unique_pairs": 15,
+      "duplicate_pairs_removed": 1,
+      "scoped_working_labels": 3,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+H_UFA_4",
+      "unique_pairs": 12,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 3,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+H_UFA_8",
+      "unique_pairs": 16,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 5,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_previous_best8+H_UFA_4",
+      "unique_pairs": 12,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 4,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_previous_best8+H_UFA_8",
+      "unique_pairs": 16,
+      "duplicate_pairs_removed": 0,
+      "scoped_working_labels": 6,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "H_UFA_4+H_UFA_8",
+      "unique_pairs": 8,
+      "duplicate_pairs_removed": 4,
+      "scoped_working_labels": 6,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+D_previous_best8+H_UFA_4",
+      "unique_pairs": 19,
+      "duplicate_pairs_removed": 1,
+      "scoped_working_labels": 5,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+D_previous_best8+H_UFA_8",
+      "unique_pairs": 23,
+      "duplicate_pairs_removed": 1,
+      "scoped_working_labels": 7,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+H_UFA_4+H_UFA_8",
+      "unique_pairs": 16,
+      "duplicate_pairs_removed": 4,
+      "scoped_working_labels": 7,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_previous_best8+H_UFA_4+H_UFA_8",
+      "unique_pairs": 16,
+      "duplicate_pairs_removed": 4,
+      "scoped_working_labels": 8,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    },
+    {
+      "portfolio": "D_SVX8+D_previous_best8+H_UFA_4+H_UFA_8",
+      "unique_pairs": 23,
+      "duplicate_pairs_removed": 5,
+      "scoped_working_labels": 9,
+      "physical_tail_uniqueness": "UNKNOWN; no registrations; source sums component allocations"
+    }
+  ],
+  "format_checks": {
+    "network_options.csv": {
+      "rows": 27,
+      "LF_only": true,
+      "rectangular": true,
+      "sha256": "e9c1617228c9bd564f4802a66a6a38c7a9559814d3060ee86960957ec811fc46"
+    },
+    "route_register.csv": {
+      "rows": 184,
+      "LF_only": true,
+      "rectangular": true,
+      "sha256": "2d66d54673dd55afdd658c96c3eb6420c4e5a949599f4f380cc68d9a43217cbc"
+    },
+    "selected_network_template.csv": {
+      "rows": 12,
+      "LF_only": true,
+      "rectangular": true,
+      "sha256": "6c7040bba1406872abe6794a8730a98a8b721f6032fffbbba567a0ffc6c05830"
+    },
+    "fleet_requirements.csv": {
+      "rows": 27,
+      "LF_only": true,
+      "rectangular": true,
+      "sha256": "5a7560edb2adb5d262c26664c69ef66f3501d5a4991d14e8def354c6cb6d3185"
+    },
+    "fleet_supply_template.csv": {
+      "rows": 3,
+      "LF_only": true,
+      "rectangular": true,
+      "sha256": "2e10368db557d8c35ae4901fee074b735564e305bdf0deae2ff82c6349ab1dd1"
+    },
+    "resource_balance_template.csv": {
+      "rows": 3,
+      "LF_only": true,
+      "rectangular": true,
+      "sha256": "cc90c4706423b1cf2908c7173b9fe6b731b49fb23cc910df5a5259a7d5bebec3"
+    }
+  },
+  "source_checks": [
+    {
+      "source": "1654110dfdc3f6737aebce95e46dd993d631be5b:data/processed/network_routes.csv",
+      "source_sha256": "b46d608aad47206295c098d90b9253260a9139f7703e5c39318ffe89b205a279",
+      "snapshot_sha256": "b46d608aad47206295c098d90b9253260a9139f7703e5c39318ffe89b205a279",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "1654110dfdc3f6737aebce95e46dd993d631be5b:data/processed/network_summary.csv",
+      "source_sha256": "bc896d21d227d6b0d6aa7b32c31cf16ef963623432e929376ad28787cdc23f26",
+      "snapshot_sha256": "bc896d21d227d6b0d6aa7b32c31cf16ef963623432e929376ad28787cdc23f26",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "1654110dfdc3f6737aebce95e46dd993d631be5b:data/assumptions/network.csv",
+      "source_sha256": "a8be86d182360a8470ef9b2e66b61bb68d6be825cfdf9a5db31fb399a8aa7708",
+      "snapshot_sha256": "a8be86d182360a8470ef9b2e66b61bb68d6be825cfdf9a5db31fb399a8aa7708",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "1654110dfdc3f6737aebce95e46dd993d631be5b:src/network_model.py",
+      "source_sha256": "96bb41a66f4bc08cc71da1f36373aef8346655675b42f012850ceb8966659475",
+      "snapshot_sha256": "96bb41a66f4bc08cc71da1f36373aef8346655675b42f012850ceb8966659475",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "a77e4cfbd14e560d26407479b7252cfcb15f4f41:context/23_night_run_20261110/methods/runs/final_variants_v1/network_union.csv",
+      "source_sha256": "719e2b46a792476f374be8f3c83f7b8c42b4a98dd96d457ff2262c5b9a008378",
+      "snapshot_sha256": "719e2b46a792476f374be8f3c83f7b8c42b4a98dd96d457ff2262c5b9a008378",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "79281803e49763d6ff22c3d06efb941b5c86b53b:context/24_network_followup_20261110/model/dated_legs.csv",
+      "source_sha256": "262d991ca7c29d7db7b5f3730a7a3954b4fedca9f1e0764f546acb532c1a42f5",
+      "snapshot_sha256": "262d991ca7c29d7db7b5f3730a7a3954b4fedca9f1e0764f546acb532c1a42f5",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "79281803e49763d6ff22c3d06efb941b5c86b53b:context/24_network_followup_20261110/model/frequencies.csv",
+      "source_sha256": "05e592ad65d3cca5ae5bbf833aaab48209b1c4be246d83ae73e8ed372f9b91e0",
+      "snapshot_sha256": "05e592ad65d3cca5ae5bbf833aaab48209b1c4be246d83ae73e8ed372f9b91e0",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "79281803e49763d6ff22c3d06efb941b5c86b53b:context/24_network_followup_20261110/model/baseline_comparison.csv",
+      "source_sha256": "e815676c5a540906ac55e2d25762db6164b7facb5acf5e9dfe233d1e5a83d3a5",
+      "snapshot_sha256": "e815676c5a540906ac55e2d25762db6164b7facb5acf5e9dfe233d1e5a83d3a5",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "79281803e49763d6ff22c3d06efb941b5c86b53b:context/24_network_followup_20261110/model/network_contract.json",
+      "source_sha256": "c7c36d06fded0680c76a3b36e5d830a52ec97b534094044c505d02520f1decdb",
+      "snapshot_sha256": "c7c36d06fded0680c76a3b36e5d830a52ec97b534094044c505d02520f1decdb",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "a77e4cfbd14e560d26407479b7252cfcb15f4f41:context/23_night_run_20261110/methods/inputs/set001/tsiri_93fa/context/17_aircraft_route_review/model/flights.csv",
+      "source_sha256": "d69ff07134728a147abb8bb04890b597a372b04ea8843de4825f87a5613d7ea3",
+      "snapshot_sha256": "7821f34872e3963b01cac5ba90516b7fc50ccfd009c1dee1d8b53ff36f740726",
+      "selection": "selected CSV rows",
+      "verification": "PASS"
+    },
+    {
+      "source": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299:context/21_team_proposals/comparison.csv",
+      "source_sha256": "cdd6251071cb0050889ae70e1f2977123076040f0fba4d5a86892f4a91285d89",
+      "snapshot_sha256": "cdd6251071cb0050889ae70e1f2977123076040f0fba4d5a86892f4a91285d89",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "1654110dfdc3f6737aebce95e46dd993d631be5b:context/00_brief/case5_requirements.md",
+      "source_sha256": "799071e88ea41b2d6d94940f91002e6b1e53e8545ac70ae2ef4b86fc40aff149",
+      "snapshot_sha256": "799071e88ea41b2d6d94940f91002e6b1e53e8545ac70ae2ef4b86fc40aff149",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "1654110dfdc3f6737aebce95e46dd993d631be5b:docs/01_case_brief.md",
+      "source_sha256": "6800e455e6f6bc09a879d7d14559b59777b8036162a53d9f7c8a095f9ce32af2",
+      "snapshot_sha256": "6800e455e6f6bc09a879d7d14559b59777b8036162a53d9f7c8a095f9ce32af2",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "a460f4686dc267c69001b8fbb18fa01f83ed2af2:context/25_completion_audit_20261110/parent/completion_readout.md",
+      "source_sha256": "66ee5d97e59aef9bdc7b314d285fb9d71ddc8e296af6771357ee06a9414323ab",
+      "snapshot_sha256": "66ee5d97e59aef9bdc7b314d285fb9d71ddc8e296af6771357ee06a9414323ab",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "a460f4686dc267c69001b8fbb18fa01f83ed2af2:context/25_completion_audit_20261110/parent/models_readout.md",
+      "source_sha256": "8ecd5503161de6f405e5f72331666bd887060767c5948b0b24206828e1a0d3b5",
+      "snapshot_sha256": "8ecd5503161de6f405e5f72331666bd887060767c5948b0b24206828e1a0d3b5",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "a460f4686dc267c69001b8fbb18fa01f83ed2af2:context/25_completion_audit_20261110/models/coverage.csv",
+      "source_sha256": "d5d3f6ce87fd0f333e7a291401172845335f8c57b4ca58f35aff69daa6aa75c2",
+      "snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selection": "hash-only supporting audit; completion/model readouts retained",
+      "verification": "PASS"
+    },
+    {
+      "source": "a460f4686dc267c69001b8fbb18fa01f83ed2af2:context/25_completion_audit_20261110/models/report.md",
+      "source_sha256": "2afce8b88722f12dd926f16910778b6368b134829b3cb9741193794f55e12a76",
+      "snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selection": "hash-only supporting audit; completion/model readouts retained",
+      "verification": "PASS"
+    },
+    {
+      "source": "a460f4686dc267c69001b8fbb18fa01f83ed2af2:context/25_completion_audit_20261110/hypotheses/disposition.csv",
+      "source_sha256": "9ba87d9ba01c264b1074d756fee3a124d51e762b6d20cf16cdbd81e39a32d80c",
+      "snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selection": "hash-only supporting audit; completion/model readouts retained",
+      "verification": "PASS"
+    },
+    {
+      "source": "a77e4cfbd14e560d26407479b7252cfcb15f4f41:context/23_night_run_20261110/methods/final_variant_contract.json",
+      "source_sha256": "fde54848a9d42130c846d951255c953c34ab8c652871a666a00f7fad0ce791af",
+      "snapshot_sha256": "fde54848a9d42130c846d951255c953c34ab8c652871a666a00f7fad0ce791af",
+      "selection": "full",
+      "verification": "PASS"
+    },
+    {
+      "source": "a77e4cfbd14e560d26407479b7252cfcb15f4f41:context/23_night_run_20261110/methods/common_demand_contract.json",
+      "source_sha256": "7d93c2b6e698c69d6e2c84ef55c6ced801d9132bb278a461b6e6eabb11850d91",
+      "snapshot_sha256": "7d93c2b6e698c69d6e2c84ef55c6ced801d9132bb278a461b6e6eabb11850d91",
+      "selection": "full",
+      "verification": "PASS"
+    }
+  ],
+  "protected_files": {
+    "checked": 381,
+    "expected": 381,
+    "manifest_sha256": "c5a1b68f0ba75e2f75d0e0ef3d8e0b96525e50936d3d8f28ab1e3cc4e059b847",
+    "mismatches": [],
+    "status": "PASS"
+  },
+  "null_checks": {
+    "csv_null_encoding": "empty cell",
+    "json_null_encoding": "null",
+    "selected_slots": 12,
+    "team_accepted_routes": 0,
+    "unknown_actual_free_preserved": true,
+    "supply_unknown_preserved": true,
+    "balance_unknown_preserved": true
+  },
+  "model_execution": "NOT_RUN",
+  "source_snapshot_sha256": "6b223612733d1919122d20d2ed724344ff158a1652891f6fc9e16957711fba83",
+  "reference_checks": {
+    "csv_source_references": 430,
+    "notes_links": [
+      {
+        "target": "network_options.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "route_register.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "selected_network_template.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "fleet_requirements.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "fleet_supply_template.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "resource_balance_template.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/processed/network_routes.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/processed/network_summary.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/network_model.py",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/runs/final_variants_v1/network_union.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/final_variant_contract.json",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/assumptions/network.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/model/network_contract.json",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/model/dated_legs.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/model/frequencies.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/inputs/set001/tsiri_93fa/context/17_aircraft_route_review/model/flights.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/context/21_team_proposals/comparison.csv",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/a460f4686dc267c69001b8fbb18fa01f83ed2af2/context/25_completion_audit_20261110/parent/models_readout.md",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/context/00_brief/case5_requirements.md",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "https://github.com/Mput13/case_championship/blob/a460f4686dc267c69001b8fbb18fa01f83ed2af2/context/25_completion_audit_20261110/parent/completion_readout.md",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "network_fleet_source_snapshot.json",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      },
+      {
+        "target": "network_fleet_validation.json",
+        "status": "PASS_PINNED_SOURCE_OR_LOCAL_FILE"
+      }
+    ]
+  },
+  "artifact_hashes": {
+    "build_network_fleet_tables.py": "c65a2b63ca6fbeb1397d79f7d83d57b0f0eb5b65b7d96bf41957c77bdb587d0c",
+    "network_fleet_notes.md": "21564d6d428e62773bbeff39bd71a1147a71bade9260f0f6e8d8bf0cbfdac025"
+  }
+}
