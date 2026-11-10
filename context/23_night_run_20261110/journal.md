@@ -45,3 +45,7 @@ P2 MR02: methods сообщил double-day в instant; координатор л
 06:51 МСК: получен methods-strategy-v4@c24bbd36;309output hashes совпали. Новый scope mixed/resource/product bridge передаётсяfreshMR09 в4-йсвободныйслот, не расширяетMR08/MR02. Root timebase projection пересобранадетерминированно; при конфликтной задержке completed/unserved и доступные денежные поляNULL, hypotheticalарифметика сохранена.
 
 06:52 МСК: MR09strategy_accounting_review запущен freshSol наexactc24. Теперь4Sol:MR08,MR02review,frontier,MR09. Timebaseкоррекция87ee52d передана методическому Astra какparent-only; независимыйвердикт наоригиналнеподменён. Журнал/реестроткрытыхвопросов/receipts сохранены, автоматическогопродлениянет.
+
+07:05 МСК: MR08@7a868d12 принят:32 output +66 source Git hashes проверены; координатор повторил8денежных тождеств и alpha из независимых коэффициентов. APPROVE_SCOPED наabb1;151 участок, условная граница0.68350900199, оба вклада−3.168млн/нед. Новый независимый контрпример: смена приоритета local-first на transfer-first меняет знаки H4/H8 при3×C. Это условность алгоритма, не ошибка расчёта. Source lineage129/28/58 HOLD и неизвестный полный бюджет сохранены.
+
+Fetch04:02UTC: MR08 новый; methods/root уже приняты; immutable cost-reviewaf96 содержит прежний P2 и scoped day1 проверки, финальная доставка ожидается штатно. Детей не поллили. Освободившийся4-йслот предназначен fresh MR10: независимая проверка уже готовых root lineage/timebase corrections; никакого нового fix-agent или расширения MR02/MR09.
