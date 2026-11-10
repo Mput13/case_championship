@@ -1,0 +1,15 @@
+{
+  "id": "KOVER_FIXED_SUPPLY_DEMAND_INTERACTION_V1",
+  "status": "AGENT_PROPOSAL",
+  "question": "Does the sign of cancellation's variable contribution change when the already frozen common demand recipe changes?",
+  "sales_input": "methods-common-v3@abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe runs/common_demand_v1/itinerary_at_unit_scale.csv and summary.csv, C and N at multiplier1",
+  "supply": "H_UFA_4/H_UFA_8 context21 original dated flights; base/cautious",
+  "episode": "Synthetic UFA [2026-12-07T00Z,2026-12-08T00Z), no empirical probability",
+  "timebase": "Absolute minutes plus period-start epoch; parent correction87ee52de preserved separately",
+  "policies": ["cancel_pretravel_no_protection", "cancel_usage_billed_sensitivity"],
+  "calculation": "Rejoin each recipe's own itinerary incidence to the cancelled legs; lost fare and saved passenger costs recomputed once per affected itinerary. Fixed supply fuel/cost drivers same. Do not reuse C monetary delta on N sales.",
+  "migration": "Preserve each recipe's own no-kover foregone revenue/saved old passenger costs; no restored old sales without inventory",
+  "excluded": ["delay recovery", "other new products", "portfolios", "reselection", "real compensated passenger counts", "actual cash timing", "full strategy profit"],
+  "acceptance": "C rows reconcile to independently recomputed day1 cancellation ledger; N output remains proposal, not source-supported demand; all outputs before unknown recovery/compensation/fixed costs",
+  "independent_review": "PENDING_NEW_INTERACTION_SCOPE"
+}

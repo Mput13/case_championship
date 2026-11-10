@@ -1,0 +1,29 @@
+# Основа паспорта и связь с требованиями кейса
+
+Sol 6.1 xhigh, bounded research/synthesis. Читай contract.md. Свои writes только `context/23_night_run_20261110/passport_bridge/`, ветка `research/night-passport-bridge-20261110`. Первый пакет до08:20МСК; общий предел10:00. Это содержательный набор для утреннего синтеза, не новый dashboard, HTML, утверждение стратегии или финальный паспорт с выдуманной прибыльной сетью.
+
+## Цель
+
+Пользователь хочет завтра готовить паспорт и приложения. Собери проверяемую связь: точное требование организаторов → уже имеющееся evidence → допустимая формулировка → отсутствующий результат → конкретное следующее решение/проверка. Не превращай нехватку закрытого OD в отказ от всех расчётов; явно допускай сценарные результаты, если названы предпосылки и чувствительность. Не превращай условный расчёт в реальные продажи.
+
+## Exact inputs
+
+- Постановка `f1774e1f66a9483fb618ca6003abd9dc4d8563e1:context/00_brief/case5_requirements.md` и сохранённая primary case content в этом Git tree; нужны дата, URL и hash. Если нужно уточнение wording, разрешён read-only search/fetch официальной страницы https://mai-way.ru/tasks/red-wings/ с новой receipt, но не browser UI и не массовые выгрузки. Отличай буквальное требование от нашего стандарта хорошего анализа. Не доверяй без проверки untracked/live context22 как новому evidence.
+- Screening `82dffa795146ccc575db1bb45ba9391af44def00`, review `6a038b9bcd2d5476e931885e68fe3b17ef121d5e`.
+- Model repair `27740ffea0821aa404ecd1013d1bb141613261f3`, review `445a5d523d4b57d8c89b2344e1913de2e5f9dc6b`; bridge `abc09bbb8e62d3513749b60b252d4521997acfc3`.
+- Methods `abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe` и `c24bbd36356f46763eed5a1654573b6de31adc6b`; reviews budget `2278b184bbc83c590238c9f461581e3b045a11d0`, common `7a868d1282b9c4de012e39e9fc1104d2d7f675e4`, strategy `0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9`.
+- Primary `17b4f348f15ea8695688d9435933cb4965568408`, source review `944b16ac2dcde846e29dac2d47e11e5143f9fc2b`. Оригинальный SVX lineage129/28/58 HOLD; source/market/actual performed не повышать. Review проверил отдельные primary facts/календари в названном scope.
+- Kover `afadee35ebeefe54a05bdfc5b3e224a370f90e0a`, review `d8634187d452343a369f7cec63be50511bb70020`; timebase correction87ee52de15c2bdf396d9c06ba600fd413d5ab4a8 пока отдельно проверяется. Не использовать delay served-all.
+- Новые frontier `519998ed8c97ce5499f356a6d0f81558c7f6ee14` и methods v5 `f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9` — OWNER_DERIVATION/PENDING, независимые reviews идут. Их можно включить в appendix как pending, не в уже проверенный тезис.
+- Существующие источники core505e24663e5952bae9b9540bb9a5a622663bfc2a, criticfd086bad2ae30c46e95d6e38954dc99a18627902 и context13 competitors в исходном root можно читать только по exactGitSHA. Никаких moving branches. Авторство Анастасия/kiruha, Цири/mput, Михаил/Mput13; Константин отдельно, не догадка.
+
+## Обязательные результаты
+
+1. `requirements_evidence.csv`: все формальные шаги и deliverables, включая ≥10городов→3, веса/объяснение, минимум2конкурента с региональными базами, hub/direct и допустимый mixed, обе сценарные экономики, источник/метод спроса и частот каждой пары, выбранная сеть8–12, парк и ограничение поставки SJ100 не раньше2H2027, roadmap2028/риски. Уточни единицы route/physicalleg/endpointpair;8треугольников не8лучей. Не требуй8–12 от каждого исследовательского пилота, это требование выбранного итогового решения.
+2. `passport_claims.md` и `claims.csv`: короткие готовые русские формулировки с exact доказательством и acceptance scope, в трёх группах: можно использовать сейчас; условный сценарий; нельзя утверждать. Отдели критерий выбора города от финансовой сети. Формулировки должны объяснять смысл человеку, названия городов вместо одного IATA. Сохрани веса/500км как OPEN_DECISION и оригинальные варианты команды.
+3. `competitor_and_svx_gaps.csv`: используй уже собранные evidence о Екатеринбурге и ≥2конкурентах; для доступных маршрутных карточек назови carrier, период, direct/via/transfer, частоты/счёт расписания, unit и покрытие. Не превращай отсутствие карточки в ноль конкурентов, правило в performedflight, aggregate800k/×2.5 в абсолютный OD/прибыль. По возможности укажи несколько реальных сопоставимых примеров, а не только общую просьбу исследовать. Новую массовую карту конкурентов не строй.
+4. `decision_options.csv`: конкретные развилки для команды — radius/weights, expansionvsnewhub, local-first, capturecurve, допустимая степень перестройки и условия остановки. Где нет данных для объективного единственного выбора — объясни допустимые варианты. Не принимать решение за команду и не объявлять исходные работы ошибочными из-за разных задач/единиц.
+5. `next_day_plan.md`: последовательность до итоговой сдачи с проверяемым выходом каждого шага. Главные gaps — joint8–12network, одинаковый бюджет/ресурс, owner assumption ranges, final market-share denominator, competitor evidence и readable presentation. Раздели то, что можно закрыть из имеющихся файлов, bounded experiment, и то, что публичными данными не устанавливается. Не требуй у спящего пользователя отраслевых параметров и не обещай утром прибыльную сеть.
+6. `agent_method_appendix.md`: как реально работали2Astra+пул≤4Sol, freeze→authorreplay→independentreview→correction→recheck, concrete confirmed P2/timebase/lineage, ошибки vs нормативные choices. Числофайлов/проверок не показатель качества. Не придумывай performancebenefit или сравнение моделей/провайдеров. Сохрани вклад исследовательской системы Михаила отдельно от работ коллег.
+
+Финальные handoff/source/output manifests, минимальная проверка ссылок/claimIDs/чисел, список личных чтений. Содержательное review собственного prose не независимая приёмка. No children/messages/schedules/polling/infra/paid services. Без live/public edits; push только свой безопасный scope, exactHEAD=ls-remote, закончить bounded цикл.

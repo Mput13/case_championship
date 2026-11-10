@@ -1,0 +1,76 @@
+{
+  "status": "PASS_INDEPENDENT_SCOPED",
+  "input_commit": "c24bbd36356f46763eed5a1654573b6de31adc6b",
+  "checks": [
+    {
+      "check": "source_calendar_and_per_flight_recipe",
+      "status": "PASS",
+      "flight_cost_cases": 160,
+      "planning_label_scenario_rows": 18
+    },
+    {
+      "check": "portfolio_reproduction",
+      "status": "PASS",
+      "cases": 60,
+      "subsets": 15,
+      "distinct_outcomes": 30,
+      "ceiling_pass": 28,
+      "pair_itineraries": 1344,
+      "max_detail_delta": 1.4551915228366852e-10,
+      "max_summary_delta": 2.60770320892334e-08
+    },
+    {
+      "check": "resources",
+      "status": "PASS",
+      "rows": 20,
+      "anastasia_necessary_pass": 3,
+      "calendar_null_not_pass": true
+    },
+    {
+      "check": "relative_budget_boundaries",
+      "status": "PASS",
+      "inequalities": 12,
+      "side_witnesses": 12,
+      "unknown_O_kept": true,
+      "KEEP_relative_zero_not_business_profit": true
+    },
+    {
+      "check": "product_bridge",
+      "status": "PASS",
+      "unit_cases": 6,
+      "cost_cases": 2,
+      "assumption_unit_change_not_author_arithmetic_error": true
+    },
+    {
+      "check": "temporal_resource_counterexample",
+      "status": "PASS",
+      "shifted_legs": 16,
+      "rotation_conflicts": 23,
+      "baseline_peak": 4,
+      "shifted_peak": 8,
+      "half_open": true
+    },
+    {
+      "check": "reviewer_counterexamples",
+      "status": "PASS",
+      "classes": 9,
+      "pure_subject_function_synthetic_tests": 2,
+      "actual_overlap_deltas": true,
+      "new_sources_or_frontier": false
+    }
+  ],
+  "inherited_holds": [
+    "PRIMARY17B_OLD_SVX_LINEAGE_HOLD",
+    "MR02_DOUBLE_TIMEBASE_AND_DELAY_FEASIBILITY_HOLD"
+  ],
+  "not_run": [
+    "MR08 broad common model review",
+    "MR02 source/cost/cash review",
+    "root correction acceptance",
+    "new frontier experiments",
+    "observed demand",
+    "actual dispatch",
+    "full budget",
+    "launch acceptance"
+  ]
+}

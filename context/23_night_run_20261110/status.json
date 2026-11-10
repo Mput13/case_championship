@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "RUNNING",
-  "updated_at_utc": "2026-11-10T04:07:32.172100+00:00",
+  "updated_at_utc": "2026-11-10T04:13:15.427983+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -180,19 +180,23 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1",
       "link": "[Sol 6.1: отбор и проверка следующих гипотез](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
-      "brief": "briefs/hypothesis_frontier.md"
+      "brief": "briefs/hypothesis_frontier.md",
+      "pushed_sha": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+      "acceptance": "OWNER_SCENARIO_CHECKED; INDEPENDENT_REVIEW_PENDING; no market/full money/resource acceptance"
     },
     {
       "role": "strategy_accounting_review",
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-strategy-accounting-review-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-strategy-accounting-review-20261110-r1",
       "link": "[Sol 6.1: проверка смешанных программ и ресурса](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-strategy-accounting-review-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
       "input_sha": "c24bbd36356f46763eed5a1654573b6de31adc6b",
-      "brief": "briefs/strategy_accounting_review.md"
+      "brief": "briefs/strategy_accounting_review.md",
+      "pushed_sha": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9",
+      "acceptance": "INDEPENDENT_APPROVE_SCOPED_MR09; ORIGINAL_SVX_AND_MR02_HOLDS_PRESERVED"
     },
     {
       "role": "correction_review",
@@ -378,7 +382,8 @@
       "sha": "c24bbd36356f46763eed5a1654573b6de31adc6b",
       "path": "integration/methods/c24bbd36",
       "parent_output_hashes_verified": 309,
-      "independent_review": "RUNNING_NEW_MR09"
+      "independent_review": "APPROVE_SCOPED_MR09",
+      "review_sha": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9"
     },
     "common_comparison_review": {
       "sha": "7a868d1282b9c4de012e39e9fc1104d2d7f675e4",
@@ -393,6 +398,27 @@
       "acceptance": "CHANGES_CKR_P2_TIMEBASE; OTHER_DECLARED_SCOPES_PASS",
       "parent_output_hashes_verified": 26,
       "parent_source_git_hashes_verified": 161
+    },
+    "hypothesis_frontier": {
+      "sha": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+      "path": "integration/hypothesis_frontier/519998ed",
+      "parent_output_hashes_verified": 98,
+      "parent_input_git_hashes_verified": 56,
+      "acceptance": "OWNER_SCENARIO_CHECKED; INDEPENDENT_REVIEW_PENDING; no market/full money/resource acceptance"
+    },
+    "strategy_accounting_review": {
+      "sha": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9",
+      "path": "integration/strategy_accounting_review/0cc04348",
+      "parent_output_hashes_verified": 25,
+      "parent_input_git_hashes_verified": 29,
+      "acceptance": "INDEPENDENT_APPROVE_SCOPED_MR09; ORIGINAL_SVX_AND_MR02_HOLDS_PRESERVED"
+    },
+    "methods_integration_v5": {
+      "sha": "f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9",
+      "path": "integration/methods/f7a034dc",
+      "parent_output_hashes_verified": 370,
+      "independent_review": "MR11_BRIEF_READY",
+      "acceptance": "OWNER_DERIVATION_PENDING_INDEPENDENT"
     }
   },
   "queued_tasks": [
@@ -451,11 +477,12 @@
     {
       "request_id": "HYPOTHESIS_FRONTIER",
       "role": "hypothesis_frontier",
-      "state": "DISPATCHED",
+      "state": "COMPLETED",
       "priority": "P2",
       "purpose": "Use the 35 preserved ideas plus new evidence to identify concrete changes to fare, cost, resource or product constraints; retain failed/inconclusive cases. Do not create more city scores or invent OD.",
       "brief": "briefs/hypothesis_frontier.md",
-      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1"
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1",
+      "result_sha": "519998ed8c97ce5499f356a6d0f81558c7f6ee14"
     },
     {
       "request_id": "MR08",
@@ -483,11 +510,12 @@
       "request_id": "MR09",
       "role": "strategy_accounting_review",
       "input_sha": "c24bbd36356f46763eed5a1654573b6de31adc6b",
-      "state": "DISPATCHED",
+      "state": "COMPLETED",
       "priority": "P1",
       "required_new_delegate_task": true,
       "brief": "briefs/strategy_accounting_review.md",
-      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-strategy-accounting-review-20261110-r1"
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-strategy-accounting-review-20261110-r1",
+      "result_sha": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9"
     },
     {
       "request_id": "MR10_CORRECTIONS",
@@ -501,9 +529,34 @@
       ],
       "brief": "briefs/correction_review.md",
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-correction-review-20261110-r1"
+    },
+    {
+      "request_id": "FRONTIER_REVIEW",
+      "role": "hypothesis_frontier_review",
+      "state": "BRIEF_READY",
+      "input_sha": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+      "priority": "P1",
+      "required_new_delegate_task": true,
+      "brief": "briefs/hypothesis_frontier_review.md"
+    },
+    {
+      "request_id": "MR11",
+      "role": "methods_integration_review",
+      "state": "BRIEF_READY",
+      "priority": "P1",
+      "input_sha": "f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9",
+      "required_new_delegate_task": true,
+      "brief": "briefs/methods_integration_review.md"
+    },
+    {
+      "request_id": "PASSPORT_BRIDGE",
+      "role": "passport_bridge",
+      "state": "BRIEF_READY",
+      "priority": "P2",
+      "brief": "briefs/passport_bridge.md"
     }
   ],
-  "active_sol_count_at_checkpoint": 3,
+  "active_sol_count_at_checkpoint": 1,
   "last_checkpoint": "checkpoint_0630.json",
   "question_register": "question_register.csv"
 }
