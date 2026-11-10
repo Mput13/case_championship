@@ -1,0 +1,386 @@
+{
+  "schema": 1,
+  "verdict": "CHANGES_FOR_UNCONDITIONAL_SJ100_PD8_2027_28_CLAIMS",
+  "source_models_changed": false,
+  "overall_winner": null,
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "S1_CLAIM_BOUNDARY",
+      "claim_under_review": "Тип самолёта вообще игнорировался / все числа уже относятся к SJ100_PD8.",
+      "conclusion": "Оба крайних утверждения неверны. Тип/кресла/топливо учитываются через SSJ proxy; Цири дополнительно B/LR mass tests. PD8 model/dispatch/capacity отсутствует.",
+      "minimal_fix": "Подписать SSJ proxy и profile; для SJ100_PD8 отдельный type/route performance input и повтор только затронутой экономики.",
+      "evidence": [
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "data/assumptions/network.csv",
+          "line_start": 2,
+          "line_end": 2,
+          "excerpt": "seats,100,100,кресел,\"факт: SSJ100 Red Wings — 100 мест (docs/09, сайт Red Wings); SJ-100 до сертификации считаем как SSJ-95B (решение команды)\"",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/assumptions/network.csv#L2-L2"
+        },
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "scripts/build_aircraft_route_review.py",
+          "line_start": 34,
+          "line_end": 41,
+          "excerpt": " def payload(self,l,sc):\n  if self.profile not in ['RRJ95B_MASS_TEST','RRJ95LR_MASS_TEST']:return dict(capacity=100,reason='UPPER_SEAT_SUPPLY_ASSUMPTION_NOT_DISPATCH',trip_fuel_kg=None,takeoff_mass_at_100=None)\n  mtow=45880 if self.profile=='RRJ95B_MASS_TEST'else 49450\n  params=self.scenarios[sc];dow=P['dry_operating_weight_scenario_kg'][sc];reserve=P['residual_and_alternate_fuel_scenario_kg'][sc]\n  trip=(params['fuel_t_per_hour']*l['block_minutes']/60+params['fuel_t_per_cycle'])*1000;fuel=trip+reserve\n  allowed=min(40000-dow,mtow-dow-fuel,41000-dow-reserve)-P['additional_cargo_kg']\n  cap=max(0,min(100,math.floor(allowed/P['person_and_baggage_mass_scenario_kg']))) if fuel<=12327 else 0\n  return dict(capacity=cap,reason='ILLUSTRATIVE_MASS_FUEL_BUDGET_NOT_AFM_OR_ROUTE_CLEARANCE',trip_fuel_kg=trip,fuel_with_scenario_reserve_kg=fuel,takeoff_mass_at_100=dow+100*P['person_and_baggage_mass_scenario_kg']+P['additional_cargo_kg']+fuel)",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/scripts/build_aircraft_route_review.py#L34-L41"
+        },
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "scripts/build_aircraft_route_review.py",
+          "line_start": 223,
+          "line_end": 233,
+          "excerpt": "    ref=float(variant['catalog_range_km'])if variant['catalog_range_km']else None\n    previous=m.profile\n    if variant['variant']=='SJ100_PD8':mass_base=mass_caut=None\n    else:\n     m.profile='RRJ95LR_MASS_TEST'if variant['variant']=='RRJ-95LR-100'else'RRJ95B_MASS_TEST';mass_base=m.payload(leg,'base')['capacity'];mass_caut=m.payload(leg,'cautious')['capacity']\n    m.profile=previous\n    labels=block['aircraft_labels']if block else''\n    rows.append(dict(origin=x,destination=y,variant=variant['variant'],great_circle_km=m.distance(x,y),actual_authorized_track_km=None,legacy_distance_screen_rejected=old_rejected,catalog_reference_km=ref,above_catalog_reference=(m.distance(x,y)>ref)if ref else None,catalog_reference_is_clearance=False,mass_test_capacity_base_NOT_DISPATCH=mass_base,mass_test_capacity_cautious_NOT_DISPATCH=mass_caut,\n     published_block_min=None if not block else block['min_published_minutes'],published_block_max=None if not block else block['max_published_minutes'],published_aircraft_labels=labels,block_evidence=None if not block else block['status'],source_urls=variant['source']+(';' +block['source_urls']if block else''),\n     origin_reference_runway_length_m=runways.get(x),destination_reference_runway_length_m=runways.get(y),origin_RRJ_family_admission_evidence=airports.get(x,{}).get('rrj_admission'),destination_RRJ_family_admission_evidence=airports.get(y,{}).get('rrj_admission'),dry_operating_weight_actual=None,AFM_payload_range_for_tail=None,dispatch_pax_limit_confirmed=None,forecast_wind_and_reserves=None,airport_runway_PCN_obstacles_for_date=None,current_NOTAM_AIRAC_route=None,available_RW_tails_of_this_variant=None,\n     status=P['route_status_when_unverified'],evidence_note='Published operation/type label is supporting context only; does not prove tail modification or100pax performance. Reference-range exceedance raises review priority, never deletes route.'))",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/scripts/build_aircraft_route_review.py#L223-L233"
+        },
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/17_aircraft_route_review/assumptions.json",
+          "line_start": 18,
+          "line_end": 18,
+          "excerpt": "  \"future_SJ100\": \"No transfer of B/LR performance to PD8; no allocation or route capacity assigned without specific approved data\"",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/context/17_aircraft_route_review/assumptions.json#L18-L18"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "severity": "S1_VERSION_MIX",
+      "claim_under_review": "Старый прямой результат Насти остаётся текущим / B3 не исправлен.",
+      "conclusion": "NO повторяет OD между треугольниками; NB/NL агрегирует физическую пару. Saved direct base -280->-420 млн/год; cautious-5385->-5578, aircraft7->8. NB=NL для network code/parameters/summary. Parent nastya_network уже NB.",
+      "minimal_fix": "Сохранить старые2f как historical; не переносить его author replay/repair на NB без отдельного label; не требовать повторного того же исправления.",
+      "evidence": [
+        {
+          "ref": "NO",
+          "commit": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 278,
+          "line_end": 298,
+          "excerpt": "    scored = []\n    for B, X, Y, legs in tri:\n        h, c, r, s, out = tri_eval(B, X, Y, legs)\n        scored.append(((r - c) / h, B, X, Y, h, c, r, s, out))\n    scored.sort(key=lambda x: -x[0])\n    chosen, used_pairs, H = [], set(), 0.0\n    for sc in scored:\n        _, B, X, Y, h, c, r, s, out = sc\n        if (X, Y) in used_pairs or H + h > max_h:\n            continue\n        if sc[0] <= 0 and len(chosen) >= A[\"min_routes\"]:\n            break\n        chosen.append(sc)\n        used_pairs.add((X, Y))\n        H += h\n        if len(chosen) >= A[\"max_routes\"]:\n            break\n    return chosen\n\n\ndef kover_map():",
+          "url": "https://github.com/Mput13/case_championship/blob/2f03b693a62c219e9475fcd1e26295039f6a49d7/src/network_model.py#L278-L298"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/network_model.py",
+          "line_start": 278,
+          "line_end": 341,
+          "excerpt": "    # Общий спрос физической пары (аудит коллег, B3 в context/18_team_sync/step1_review): если пара\n    # Москва — Омск входит в несколько треугольников, доля рынка считается один раз от суммы их частот,\n    # а перевезённые делятся между треугольниками пропорционально частотам.\n    def joint(sel):\n        agg = {}\n        for t, (B, X, Y, f, legs) in enumerate(sel):\n            for n, L in enumerate(legs):\n                g = agg.setdefault(frozenset((L[\"a\"], L[\"b\"])), {\"L\": L, \"F\": 0, \"members\": []})\n                g[\"F\"] += f\n                g[\"members\"].append((t, n, f))\n        carried = {}\n        for g in agg.values():\n            L, F = g[\"L\"], g[\"F\"]\n            tot = min(L[\"dem\"] * leg_share(L, F, A), F * A[\"seats\"] * A[\"lf_max\"])\n            for t, n, f in g[\"members\"]:\n                carried[(t, n)] = tot * f / F\n        res = []\n        for t, (B, X, Y, f, legs) in enumerate(sel):\n            hours = cost = rev = seg = 0.0\n            out = []\n            for n, L in enumerate(legs):\n                c_ = carried[(t, n)]\n                bh, c = leg_cost(A, L[\"km\"], L[\"south\"], c_ / f)\n                hours += 2 * f * bh\n                cost += 2 * f * c\n                rev += 2 * c_ * fare(A, L[\"km\"])\n                seg += 2 * c_\n                out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A[\"seats\"])))\n            res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out))\n        return res\n\n    def totals(res):\n        return sum(r[6] - r[5] for r in res), sum(r[4] for r in res)\n\n    # кандидаты: лучшие треугольники по отдельной оценке; дальше жадный отбор по приросту всей сети\n    pre = []\n    for B, X, Y, legs in tri:\n        h, c, r, s_, out = tri_eval(B, X, Y, legs)\n        pre.append(((r - c) / h, B, X, Y, out[0][\"freq\"], legs))\n    pre.sort(key=lambda x: -x[0])\n    pre = pre[:int(A[\"direct_candidates\"])]\n    sel, used_pairs, cur = [], set(), (0.0, 0.0)\n    while len(sel) < A[\"max_routes\"]:\n        best = None\n        for sc, B, X, Y, f, legs in pre:\n            if (X, Y) in used_pairs:\n                continue\n            res = joint(sel + [(B, X, Y, f, legs)])\n            m, h = totals(res)\n            if h > max_h:\n                continue\n            gain, dh = m - cur[0], h - cur[1]\n            score = gain / dh if dh > 0 else -1e18\n            if best is None or score > best[0]:\n                best = (score, (B, X, Y, f, legs), (m, h))\n        if best is None or (best[0] <= 0 and len(sel) >= A[\"min_routes\"]):\n            break\n        sel.append(best[1])\n        used_pairs.add((best[1][1], best[1][2]))\n        cur = best[2]\n    return joint(sel)\n\n\ndef kover_map():",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/network_model.py#L278-L341"
+        },
+        {
+          "ref": "NO",
+          "commit": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/processed/network_summary.csv",
+          "line_start": 7,
+          "line_end": 13,
+          "excerpt": "base,Прямые рейсы из Москвы и Екатеринбурга,,8,10,216,869734,869734,0,10212,10492,-280,0.8,96,1.0,0.0\ncautious,Хаб Омск,OMS,8,6,92,336521,219681,116840,3072,6875,-3803,0.31,49,1.0,0.0\ncautious,Хаб Оренбург,REN,8,5,86,302429,198631,103798,2397,5826,-3428,0.28,51,1.0,0.0\ncautious,Хаб Самара,KUF,8,5,80,285940,225131,60809,2209,5131,-2922,0.26,94,1.0,0.0\ncautious,Хаб Нижний Новгород,GOJ,8,4,56,185981,147815,38166,1300,3336,-2036,0.17,91,1.0,0.0\ncautious,Хаб Уфа,UFA,8,6,94,336553,231765,104788,2702,6462,-3760,0.31,54,1.0,0.0\ncautious,Прямые рейсы из Москвы и Екатеринбурга,,8,7,144,445579,445579,0,4109,9493,-5385,0.41,91,1.0,0.0",
+          "url": "https://github.com/Mput13/case_championship/blob/2f03b693a62c219e9475fcd1e26295039f6a49d7/data/processed/network_summary.csv#L7-L13"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "data/processed/network_summary.csv",
+          "line_start": 7,
+          "line_end": 13,
+          "excerpt": "base,Прямые рейсы из Москвы и Екатеринбурга,,8,10,216,859216,859216,0,10067,10487,-420,0.79,96,1.0,0.0\ncautious,Хаб Омск,OMS,8,6,92,336521,219681,116840,3072,6875,-3803,0.31,49,1.0,0.0\ncautious,Хаб Самара,KUF,8,5,80,285940,225131,60809,2209,5131,-2922,0.26,94,1.0,0.0\ncautious,Хаб Оренбург,REN,8,5,86,302429,198631,103798,2397,5826,-3428,0.28,51,1.0,0.0\ncautious,Хаб Нижний Новгород,GOJ,8,4,56,185981,147815,38166,1300,3336,-2036,0.17,91,1.0,0.0\ncautious,Хаб Уфа,UFA,8,6,94,336553,231765,104788,2702,6462,-3760,0.31,54,1.0,0.0\ncautious,Прямые рейсы из Москвы и Екатеринбурга,,8,8,144,434518,434518,0,3982,9559,-5578,0.4,78,1.0,0.0",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/processed/network_summary.csv#L7-L13"
+        },
+        {
+          "ref": "P",
+          "commit": "f8b94a5c8b28e51664c5fff4a11606fb8f41c4d6",
+          "path": "context/24_decision_dashboard_20261110/build_dashboard.py",
+          "line_start": 8,
+          "line_end": 11,
+          "excerpt": "NIGHT = 'context/23_night_run_20261110/'\nWRITER = '9eb06a3206e477565e1a97ecfe5b9b63e975694e'\nMETHODS = 'a77e4cfbd14e560d26407479b7252cfcb15f4f41'\nNASTYA = 'b91e0672af396bacd91651abeff8732fa733859d'",
+          "url": "https://github.com/Mput13/case_championship/blob/f8b94a5c8b28e51664c5fff4a11606fb8f41c4d6/context/24_decision_dashboard_20261110/build_dashboard.py#L8-L11"
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "severity": "S1_RESOURCE_BOUNDARY",
+      "claim_under_review": "Ceiling10 /4+1 / aircraft row подтверждают доступный парк и поставки2027/28.",
+      "conclusion": "Это ограничения/распределения. У Насти ceil(hours/70)+1 без календаря; у Цири context21 allocation1/2/4 рабочих при ceiling4. Delivered/free N(t) неизвестен.",
+      "minimal_fix": "Отдельные поля allocated, available_by_date, reserve geography, delivery/commissioning dates и delay/no-delivery scenario; UNKNOWN не0.",
+      "evidence": [
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "data/assumptions/network.csv",
+          "line_start": 6,
+          "line_end": 8,
+          "excerpt": "block_h_per_day,10,10,блок-часов на самолёт в сутки,\"допущение коллег: planning_cap_block_h 10 (context/12_network_economics/inputs.json)\"\nspare_aircraft,1,1,самолёт,\"допущение коллег: spare_scenario 1; при исправности SSJ около 77% (docs/17) нужен резерв\"\nfleet_cap,10,10,самолётов на новую сеть,\"допущение: открытый вопрос организаторам — сколько SJ-100 получит Red Wings (docs/00, раздел 8); считаем 10 и отдельно 5\"",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/assumptions/network.csv#L6-L8"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/network_model.py",
+          "line_start": 388,
+          "line_end": 388,
+          "excerpt": "            ac = math.ceil(hours / (A[\"block_h_per_day\"] * 7)) + A[\"spare_aircraft\"]",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/network_model.py#L388-L388"
+        },
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/21_team_proposals/comparison.csv",
+          "line_start": 2,
+          "line_end": 9,
+          "excerpt": "ROUTE_INPUTS_UPPER_100,D_SVX8,base,596.9850599315996,0,596.9850599315996,142.10285400935942,122.45847383212302,19.64438017723641,7138308.537130838,1367197.8359715566,5771110.701159282,298492.5299657999,80873.6170932979,12879822.700000001,13097441.612872502,-7326330.91171322,16,39.5,1600,0.37311566245724975,требует эксплуатационной проверки,1,1,4,8,UNKNOWN_TIME_PLUS60_100,D_case,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,D_SVX8,cautious,153.07309229015374,0,153.07309229015374,53.40550108789809,43.54079069586596,9.864710392032134,1347043.2121533535,401459.69671297655,945583.5154403769,99497.50998859998,41125.63746195465,18624485.279999997,18682857.152526643,-17737273.637086265,16,39.5,1600,0.09567068268134608,требует эксплуатационной проверки,1,1,4,8,UNKNOWN_TIME_PLUS60_100,D_case,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,D_previous_best8,base,576.5753142929125,0,576.5753142929125,28.82876571464564,0,28.82876571464564,6199460.237751228,309973.0118875614,5889487.225863668,288287.65714645624,28828.76571464563,10653198.850000001,10912657.741431812,-5023170.515568144,16,31.25,1600,0.3603595714330703,требует эксплуатационной проверки,2,1,4,8,ROUTE_INPUTS_UPPER_100,D_case,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,D_previous_best8,cautious,149.67146801703922,0,149.67146801703922,14.967146801703933,0,14.967146801703933,1171859.5620879547,123045.25401923532,1048814.3080687195,97286.45421107553,19457.2908422151,15388650.48,15466479.64336886,-14417665.335300142,16,31.25,1600,0.0935446675106495,требует эксплуатационной проверки,2,1,4,8,ROUTE_INPUTS_UPPER_100,D_case,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,H_UFA_4,base,680.5562042255939,220.7353817113932,901.2915859369873,34.027810211279686,0,34.027810211279686,7488955.182923226,389899.235865959,7099055.9470572695,450645.7929684934,34027.8102112797,11305442.200000001,11722060.182757214,-4623004.235699944,16,33.666666666666664,1600,0.563307241210617,требует эксплуатационной проверки,2,1,4,4,ROUTE_INPUTS_UPPER_100,H_UFA_4,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,H_UFA_4,cautious,186.03106204371562,66.3316733257333,252.36273536944898,18.60310620437156,0,18.60310620437156,1479537.3593167227,166321.02320449898,1313216.3361122222,164035.77799014183,24184.038065683028,16336521.28,16476373.019924458,-15163156.683812236,16,33.666666666666664,1600,0.15772670960590562,требует эксплуатационной проверки,2,1,4,4,ROUTE_INPUTS_UPPER_100,H_UFA_4,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,H_UFA_8,base,1236.7878757898484,435.3858708365265,1672.1737466263742,61.83939378949231,0.0,61.83939378949231,12992295.479696117,678463.987766304,12313831.491929818,836086.8733131869,61839.39378949236,21036503.900000002,21810751.3795237,-9496919.88759388,32,61.5,3200,0.522554295820742,требует эксплуатационной проверки,4,1,4,8,ROUTE_INPUTS_UPPER_100,H_UFA_8,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON\nROUTE_INPUTS_UPPER_100,H_UFA_8,cautious,375.3245463839736,168.04023909185764,543.364785475831,37.53245463839735,0,37.53245463839735,2847884.433187675,324641.0119935211,2523243.421194154,353187.1105592901,48792.19102991656,30385078.56,30689473.47952937,-28166230.058335215,32,61.5,3200,0.1698014954611972,требует эксплуатационной проверки,4,1,4,8,ROUTE_INPUTS_UPPER_100,H_UFA_8,ADDITIONAL_FLIGHTS_NOT_ACTUAL_REPLACEMENT_OR_SEASON",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/context/21_team_proposals/comparison.csv#L2-L9"
+        },
+        {
+          "ref": "M",
+          "commit": "a77e4cfbd14e560d26407479b7252cfcb15f4f41",
+          "path": "context/23_night_run_20261110/methods/final_variant_synthesis.py",
+          "line_start": 34,
+          "line_end": 38,
+          "excerpt": "                     working_allocated=working,reserve_assumption=1,new_UFA_base_count=int(any(n.startswith('H_UFA')for n in subset)),\n                     model_8_12_count_gate=8<=len(pairs)<=12,current4_working_gate=working<=4,\n                     joint_model_gates_pass=8<=len(pairs)<=12 and working<=4,\n                     accepted_operating_routes=None,actual_available_aircraft=None,complete_case_acceptance=False,\n                     scope='MODEL_UNION_AND_ASSIGNED_RESOURCE_ONLY; NO_SOURCE_OR_LAUNCH_UPGRADE')",
+          "url": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/final_variant_synthesis.py#L34-L38"
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "severity": "S1_BUDGET_BOUNDARY",
+      "claim_under_review": "Переменный вклад или inverse threshold — полный бюджет/launch decision.",
+      "conclusion": "Существуют symbolic budget,500k stress,cash/donor fixtures; actual fixed/donor/cash/FullPnL отсутствуют. Own migration не равно снятию донорского рейса.",
+      "minimal_fix": "Уточнить contribution before fleet/base/opportunity; заполнить named donor KEEP/CANCEL/REPLACE и датированный incremental PnL/cash.",
+      "evidence": [
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/15_team_update/model/configuration.json",
+          "line_start": 17,
+          "line_end": 19,
+          "excerpt": "    \"fleet_fixed_rub_aircraft_week\": null,\n    \"opportunity_rub_block_hour\": null,\n    \"new_base_fixed_rub_week\": null,",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/context/15_team_update/model/configuration.json#L17-L19"
+        },
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/15_team_update/model/configuration.json",
+          "line_start": 71,
+          "line_end": 74,
+          "excerpt": "  \"accounting\": \"additive; existing flights remain; no cancelled-flight savings credited\",\n  \"date_basis\": \"UTC absolute minute from 2026-12-07T00:00Z; local airport windows UNKNOWN\",\n  \"demand_unit\": \"endpoint journeys/week/direction\",\n  \"money_unit\": \"RUB/model week; net fare RUB/journey\"",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/context/15_team_update/model/configuration.json#L71-L74"
+        },
+        {
+          "ref": "M",
+          "commit": "a77e4cfbd14e560d26407479b7252cfcb15f4f41",
+          "path": "context/23_night_run_20261110/methods/budget_thresholds.py",
+          "line_start": 115,
+          "line_end": 120,
+          "excerpt": "        registry.append(dict(network=r['network'],scenario=scenario,additional_working_tail_allocation=int(r['active_allocated']),\n                             reserve_allocation=int(r['reserve_scenario']),new_base_indicator=int(r['network'].startswith('H_')),\n                             source_variable_contribution=current,\n                             allocated_tail_week_cost=None,new_base_week_cost=None,other_incremental_fixed=None,\n                             formula='Pi=C-(working+reserve)*F-base_indicator*B-O',\n                             note='F is incremental avoidable/new allocation cost; shared sunk reserve is not charged twice'))",
+          "url": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/budget_thresholds.py#L115-L120"
+        },
+        {
+          "ref": "M",
+          "commit": "a77e4cfbd14e560d26407479b7252cfcb15f4f41",
+          "path": "context/23_night_run_20261110/methods/budget_thresholds.py",
+          "line_start": 140,
+          "line_end": 166,
+          "excerpt": "    # Independently stated synthetic accounting examples, never route estimates.\n    donor=dict(revenue=1000000,flight_variable=600000,pax_variable=100000)\n    replacement=dict(revenue=1200000,flight_variable=700000,pax_variable=100000)\n    continuing_fixed=200000;exit_cost=50000\n    keep=donor['revenue']-donor['flight_variable']-donor['pax_variable']-continuing_fixed\n    cancel=-continuing_fixed-exit_cost\n    replace=replacement['revenue']-replacement['flight_variable']-replacement['pax_variable']-continuing_fixed-exit_cost\n    donor_contribution=donor['revenue']-donor['flight_variable']-donor['pax_variable']\n    replacement_contribution=replacement['revenue']-replacement['flight_variable']-replacement['pax_variable']\n    assert replace-keep==replacement_contribution-donor_contribution-exit_cost==50000\n    assert cancel-keep==-donor_contribution-exit_cost==-350000\n    assert replace-cancel==replacement_contribution==400000\n    states=[dict(state=s,full_state_result=v,delta_vs_keep=v-keep,fixture_status='ILLUSTRATIVE_ARITHMETIC_NOT_ACTUAL_DONOR')\n            for s,v in [('KEEP',keep),('CANCEL_WITHOUT_REPLACEMENT',cancel),('REPLACE',replace)]]\n    dump('donor_fixture_states.csv',states)\n    cash_events=[dict(period=0,operating_receipts=0,operating_payments=0,launch_payments=400000,deposit_payment=600000,deposit_return=0),\n                 dict(period=1,operating_receipts=1200000,operating_payments=800000,launch_payments=0,deposit_payment=0,deposit_return=0),\n                 dict(period=2,operating_receipts=1200000,operating_payments=800000,launch_payments=0,deposit_payment=0,deposit_return=600000)]\n    cash=0\n    for e in cash_events:\n        e['net_cash']=e['operating_receipts']-e['operating_payments']-e['launch_payments']-e['deposit_payment']+e['deposit_return']\n        cash+=e['net_cash'];e['cumulative_cash_before_financing']=cash\n        e['fixture_status']='ILLUSTRATIVE_TIMING_NOT_COMPANY_FORECAST'\n    accounting_result=sum(e['operating_receipts']-e['operating_payments']-e['launch_payments']for e in cash_events)\n    peak=max(0,-min(e['cumulative_cash_before_financing']for e in cash_events))\n    assert accounting_result==cash==400000 and peak==1000000\n    dump('cash_fixture.csv',cash_events)",
+          "url": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/budget_thresholds.py#L140-L166"
+        },
+        {
+          "ref": "M",
+          "commit": "a77e4cfbd14e560d26407479b7252cfcb15f4f41",
+          "path": "context/23_night_run_20261110/methods/final_variant_synthesis.py",
+          "line_start": 64,
+          "line_end": 71,
+          "excerpt": "                            n_if_every_working_and_one_reserve_are_incremental=u['working_allocated']+1,\n                            b_if_new_UFA_base_is_incremental=u['new_UFA_base_count'],\n                            full_PnL=None,peak_cash_need=None,\n                            required_external_donor_gain_if_excluded_costs_zero=-c,\n                            required_donor_gain_general='-C + F_incremental + B_incremental + S_excluded + L_recognized',\n                            negative_if_external_donor_zero_and_excluded_costs_nonnegative=c<0,\n                            missing='Named donor delta; incremental fixed contracts; launch recognition; dated gross cash; annual seasonality',\n                            decision_status='CONDITIONAL_COMPARISON_NO_WINNER'))",
+          "url": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/final_variant_synthesis.py#L64-L71"
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "severity": "S1_EXPERIMENT_BOUNDARY",
+      "claim_under_review": "Followup снизил цены/спрос/порог на основании новых данных.",
+      "conclusion": "50findings;0applied;12delta0. Отдельная author sensitivity меняет fuel commodity3100/t, не fares/demand. C/N и пороги при исходных costs сохранены.",
+      "minimal_fix": "Отдельные labels factual admission, fuel-price scenario, C/N quantity experiment; α0.683509 и scale2.461771 не переносить на новыеcosts/PD8.",
+      "evidence": [
+        {
+          "ref": "F",
+          "commit": "79281803e49763d6ff22c3d06efb941b5c86b53b",
+          "path": "context/24_network_followup_20261110/model/final_round/integration_receipt.json",
+          "line_start": 7,
+          "line_end": 15,
+          "excerpt": "  \"applied_findings\": 0,\n  \"cases\": 12,\n  \"protected_all_match\": true,\n  \"full_PnL\": null,\n  \"peak_cash\": null,\n  \"source_review\": \"explicit supplied admission and byte hashes only; not independent market/source approval\",\n  \"actual_operating_acceptance\": false,\n  \"output_sha256\": {\n    \"flight_cost_changes.csv\": \"793a9a388e79d054d3110e48726c8832aff8c2b4f6008edae0012cb2b901bb19\",",
+          "url": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/model/final_round/integration_receipt.json#L7-L15"
+        },
+        {
+          "ref": "F",
+          "commit": "79281803e49763d6ff22c3d06efb941b5c86b53b",
+          "path": "context/24_network_followup_20261110/price_scenario_bridge.json",
+          "line_start": 29,
+          "line_end": 49,
+          "excerpt": "  \"applies_to\": \"all fixed flown legs as an AUTHOR SCENARIO ONLY\",\n  \"before\": {\n    \"commodity\": 136300,\n    \"uplift\": 1696,\n    \"total\": 137996\n  },\n  \"after\": {\n    \"total\": 134896,\n    \"uplift\": 1696,\n    \"commodity_from_total_minus_uplift\": 133200\n  },\n  \"delta_RUB_t\": -3100,\n  \"tax_basis\": \"EX_RECOVERABLE_VAT_AS_AUTHOR_SCENARIO\",\n  \"tax_claim\": \"No invoice/VAT eligibility confirmed, no second VAT removal\",\n  \"cautious\": \"UNCHANGED commodity160000+uplift1696\",\n  \"authoritative_baseline_changed\": false,\n  \"source_prices_verified\": false,\n  \"donor_savings_added\": false,\n  \"subsidy_added\": false,\n  \"alpha_recomputed\": false,\n  \"demand_threshold_recomputed\": false",
+          "url": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/price_scenario_bridge.json#L29-L49"
+        },
+        {
+          "ref": "F",
+          "commit": "79281803e49763d6ff22c3d06efb941b5c86b53b",
+          "path": "context/24_network_followup_20261110/model/scenario_thresholds.csv",
+          "line_start": 2,
+          "line_end": 3,
+          "excerpt": "T01,D_SVX8 vs H_UFA_4,base,alpha,0.6835090019901081,dimensionless C_to_N_market_demand_interpolation,-3168101.76778729,-3168101.7677872907,\"D_pair(alpha)=(1-alpha)*C_pair+alpha*N_pair, alpha in [0,1]; same dated offers, local-first ordering, through fares, migration/caps and costs; no fixed/base/external donor differences\",relative contribution tie; both negative; not empirical share/probability; not transferable to LP or a different allocator\nT02,H_UFA_4,base,common_C_demand_multiplier,2.4617708803940044,dimensionless scale applied to every fixed C directed endpoint D,4.496541805565357e-09,,same local-first dated supply/100-seat caps/net fares/capture/migration/cost; all C endpoint markets scaled together; no excluded costs included,zero contribution before fleet/base/support/start/exit/opportunity; not break-even full PnL or forecast; excluded positive costs raise the required scale",
+          "url": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/model/scenario_thresholds.csv#L2-L3"
+        },
+        {
+          "ref": "F",
+          "commit": "79281803e49763d6ff22c3d06efb941b5c86b53b",
+          "path": "context/24_network_followup_20261110/model/finalize_integration.py",
+          "line_start": 183,
+          "line_end": 224,
+          "excerpt": "    for sc in ('base', 'cautious'):\n        p = config['scenarios'][sc]\n        pp = dict(p)\n        if sc == 'base':\n            require(p['fuel_rub_per_t'] == 136300 and p['fuel_uplift_rub_per_t'] == 1696, 'frozen fuel price')\n            pp['fuel_rub_per_t'] = 134896 - p['fuel_uplift_rub_per_t']\n            require(pp['fuel_rub_per_t'] == 133200, 'total-minus-uplift bridge')\n        require([k for k in p if p[k] != pp[k]] == (['fuel_rub_per_t'] if sc == 'base' else []), 'cost parameter only')\n        for n in NAMES:\n            selected = [r for r in supply if r['common_network'] == n]\n            for leg in selected:\n                h = float(leg['block_minutes']) / 60\n                fuel_t = p['fuel_t_per_hour'] * h + p['fuel_t_per_cycle']\n                old, new = m.flight_cost(float(leg['block_minutes']), p), m.flight_cost(float(leg['block_minutes']), pp)\n                delta = new-old\n                near(delta, fuel_t * (pp['fuel_rub_per_t']-p['fuel_rub_per_t']), 'commodity + uplift exactly once')\n                details.append(dict(network=n, scenario=sc, flight_id=leg['id'], date=leg['date'], fuel_t=fuel_t,\n                                    commodity_before=p['fuel_rub_per_t'], uplift_before=p['fuel_uplift_rub_per_t'], total_before=p['fuel_rub_per_t']+p['fuel_uplift_rub_per_t'],\n                                    commodity_after=pp['fuel_rub_per_t'], uplift_after=pp['fuel_uplift_rub_per_t'], total_after=pp['fuel_rub_per_t']+pp['fuel_uplift_rub_per_t'],\n                                    flight_cost_before=old, flight_cost_after=new, delta_cost=delta, tax_basis=TAX,\n                                    status='AUTHOR_FIXED_LEDGER_SCENARIO_NOT_APPLICABLE_RATE'))\n            ls = [r for r in details if r['network'] == n and r['scenario'] == sc]\n            sums[n, sc] = sum(r['delta_cost'] for r in ls)\n    for b in baseline:\n        n, sc, recipe = b['network'], b['scenario'], b['recipe']\n        ls = [r for r in details if r['network'] == n and r['scenario'] == sc]\n        old_cost = sum(r['flight_cost_before'] for r in ls)\n        near(old_cost, b['flight_variable_cost'], 'frozen per-leg cost equals baseline')\n        delta = sums[n, sc]\n        before = float(b[MONEY_RESULT])\n        after = before-delta\n        row = dict(network=n, scenario=sc, recipe=recipe, variant='SEPARATE_FIXED_LEDGER_PRICE_BASIS_SCENARIO_ONLY',\n                   period_start=PERIOD['start'], period_end=PERIOD['end'], tax_basis=TAX,\n                   model_flown_legs=len(ls), fuel_t=sum(r['fuel_t'] for r in ls), cost_before=old_cost,\n                   cost_after=old_cost+delta, delta_cost=delta, before_contribution=before,\n                   after_contribution=after, delta_contribution=-delta,\n                   initial_contribution_deficit=-before, improvement_pct_of_initial_deficit=100*(-delta)/(-before),\n                   deficit_remaining=-after, initial_deficit_over_improvement=(-before)/(-delta) if delta else None,\n                   sign_changed=(before >= 0) != (after >= 0), full_pnl=None, peak_cash=None,\n                   launch_accepted=False, source_findings='C_RECON_OLD;C_RECON_NEW')\n        row.update({k: float(b[k]) for k in NUMERIC if k not in ('flight_variable_cost', MONEY_RESULT)})\n        near(row['gross_revenue']-row['foregone_RW_revenue']-row['new_pax_variable']+row['saved_old_pax_variable']-row['cost_after'], after, 'scenario money identity')",
+          "url": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/model/finalize_integration.py#L183-L224"
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "severity": "S1_LINEAGE_BOUNDARY",
+      "claim_under_review": "Stage22 заменяет сетевую модель93fa или исправляет её performance.",
+      "conclusion": "Stage22 меняет city screening; steps2-4 retained NOTverified. Его src/network_model blob равен NO; C21/code отсутствуют в этом дереве, но сохранены в93fa/followup.",
+      "minimal_fix": "Хранить отдельные lineage93fa C21 и6ec stage1; не объявлять удалённую в другой ветке экономику отменённой.",
+      "evidence": [
+        {
+          "ref": "S",
+          "commit": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 133,
+          "line_end": 137,
+          "excerpt": "    return dict(criteria=criteria, values=vals, stage1=dict(version='2026-11-10-round2',\n        approval='proposed_not_team_approved', primary_min_km=500, primary_mode='expansion_allowed',\n        strict_excluded=SUPPORT, intro_only={i:int(intro.loc[i]) for i in ll.index}, profiles=[dict(id=p['id'],label=p['label'],weights={c['column']:c['weight'] for c in p['criteria']}) for p in profiles()],\n        interval_scope='Conservative bounds for encoded evidence/model/coverage scenarios; not full real-world uncertainty or probabilities.',\n        other_steps='Steps 2–4 and embedded maps retained; NOT verified by this audit.'))",
+          "url": "https://github.com/Mput13/case_championship/blob/6ec84a7d2a6eb50b547a61df82fc5a424f48f146/src/stage1_audit_rules.py#L133-L137"
+        },
+        {
+          "ref": "S",
+          "commit": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/final_comparison.csv",
+          "line_start": 2,
+          "line_end": 6,
+          "excerpt": "base,500,expansion_allowed,balanced,15,OMS / REN / BAX,Омск / Оренбург / Барнаул,0.0007211482467386343,0.6489141347151431,0.5508560277945392,0.5269528227041733\nbase,500,expansion_allowed,local_market,15,OMS / KUF / KJA,Омск / Самара / Красноярск,0.027116112679102466,0.57532018980716,0.5602368547050358,0.513857407878791\nbase,500,expansion_allowed,connectivity,15,OMS / REN / KUF,Омск / Оренбург / Самара,0.018020929624268378,0.678810231994024,0.6237535795614813,0.5457057563125944\nbase,500,expansion_allowed,resilience,15,OMS / KJA / KHV,Омск / Красноярск / Хабаровск,0.009399664976321498,0.6785295247684737,0.5939537375205707,0.5932161656476491\nbase,500,expansion_allowed,evidence_neutral,15,OMS / REN / KUF,Омск / Оренбург / Самара,0.04530185650838314,0.6281983148675886,0.5570899584475955,0.5543642893982126",
+          "url": "https://github.com/Mput13/case_championship/blob/6ec84a7d2a6eb50b547a61df82fc5a424f48f146/context/22_stage1_audit/final_comparison.csv#L2-L6"
+        },
+        {
+          "ref": "F",
+          "commit": "79281803e49763d6ff22c3d06efb941b5c86b53b",
+          "path": "context/24_network_followup_20261110/provenance.json",
+          "line_start": 4,
+          "line_end": 8,
+          "excerpt": "  \"base_commit\": \"6ec84a7d2a6eb50b547a61df82fc5a424f48f146\",\n  \"remote_check\": \"GitHub API exact SHA; shell git fetch failed TLS twice\",\n  \"owner_tip\": \"54cddfa6a9ac6c58bf8ed87eda9c3765edd674b6\",\n  \"night_tip\": \"b040ae5a37f5af25b4de5c228497d7d460e5f670\",\n  \"night_methods\": \"a77e4cfbd14e560d26407479b7252cfcb15f4f41\",",
+          "url": "https://github.com/Mput13/case_championship/blob/79281803e49763d6ff22c3d06efb941b5c86b53b/context/24_network_followup_20261110/provenance.json#L4-L8"
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "severity": "S2_ROADMAP_PRECISION",
+      "claim_under_review": "Цири совсем не рассматривала2027/28 либо уже рассчитала deliveries/delay.",
+      "conclusion": "Roadmap есть, включаяH22027 иdelay->reduce/defer; численногоN(t),ramp-up,сезонного бюджета нет.",
+      "minimal_fix": "Сохранить qualitative roadmap; добавить delivery and induction ledger, пофазную допустимость/экономику.",
+      "evidence": [
+        {
+          "ref": "C",
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/15_team_update/roadmap_to_2028.csv",
+          "line_start": 2,
+          "line_end": 6,
+          "excerpt": "0,2026-11,Confirm OD/net fares/costs and define baseline,No launch presumed,Current fleet availability UNKNOWN,Same-period route inputs and positive incremental test,No data means retain scenario status\n1,H1 2027,Conditional direct pilot using selected B0 pairs and useful frequencies,Confirmed available SSJ and crews plus defensible route sales,Common agreed aircraft ceiling; count idle hours and geographically located reserve,Observed net incremental cash and completed OD by month,Do not add frequencies just to use hours\n2,H2 2027,Reassess hub and direct portfolio after actual aircraft status,Delivered aircraft and certified support confirmed; case permits SJ100 no earlier H2 2027,Existing SSJ scenario remains if deliveries delay; no assumed airline allocation,Contracts and schedule including MCT/baggage/recovery plus positive seasonal contribution,Delay aircraft means reduce/defer network rather than invent supply\n3,H1 2028,Conditional hub transfer pilot against independent direct alternative,Protected transfer product and actual endpoint OD plus cost of base and fleet,Same fleet ceiling and explicit direct reserve geography,Ticket once; both-leg seats; actual migrated RW; matched baseline and downside,No premium for model score alone\n4,H2 2028,Scale selected 8–12-route network or retain compact direct portfolio,Pilot passes commercial and operational thresholds across seasons,Only confirmed available fleet; opportunity value and fixed cost visible,Full incremental cash including base/capital/recovery and compatible market-share definition,No viable network means no expansion case remains comparator",
+          "url": "https://github.com/Mput13/case_championship/blob/93fa5cf4a10ab67e05c93d19fc5375fc58ef9299/context/15_team_update/roadmap_to_2028.csv#L2-L6"
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "severity": "S2_ATTRIBUTION",
+      "claim_under_review": "Ciri — Константин.",
+      "conclusion": "Проверенные pins не устанавливают это соответствие. Git author/название файла не доказательство личности. Используется только Цири и exact source SHA.",
+      "minimal_fix": "Не приписывать Константину без явного подтверждения; не менять авторство материалов.",
+      "evidence": [
+        {
+          "ref": "M",
+          "commit": "a77e4cfbd14e560d26407479b7252cfcb15f4f41",
+          "path": "context/23_night_run_20261110/methods/common_demand_contract.json",
+          "line_start": 4,
+          "line_end": 12,
+          "excerpt": "  \"question\": \"How much do demand-input recipes change results on the same dated Tsiri context21 supply, fares, cost and booking rules?\",\n  \"mode\": \"COMMON_COMPARISON\",\n  \"claim_scope\": \"Controlled input experiment, not a comparison of complete author strategies or validated demand\",\n  \"baseline\": \"context21 at93fa, exact source_profile/source_network sales and capacity; validate all8 source results before counterfactuals\",\n  \"supply\": \"D_SVX8, H_UFA_4, H_UFA_8 dated2026-12-07/13; working ceiling4 plus1reserve, nominal100seats; actual use preserved\",\n  \"excluded_candidate\": \"D_previous_best8 lacks6ZIA pairs in Nastya matrix; no automatic MOW-to-ZIA mapping\",\n  \"fixed\": [\"dated flights\", \"itinerary support\", \"local-first allocation\", \"author frequency capture\", \"author through-fare factor\", \"net fare scenarios\", \"old-RW migration shares and caps\", \"flight and passenger cost\", \"no-kover baseline\"],\n  \"recipe_C\": \"Tsiri context21 weekly directed OD scenario bands as exported\",\n  \"recipe_N\": \"Nastya Demand.get annual scale at2f03, divided by2directions and52weeks in BOTH scenarios; an explicit average-week proxy stress, not observed winter endpoint OD\",",
+          "url": "https://github.com/Mput13/case_championship/blob/a77e4cfbd14e560d26407479b7252cfcb15f4f41/context/23_night_run_20261110/methods/common_demand_contract.json#L4-L12"
+        }
+      ]
+    },
+    {
+      "id": "F09",
+      "severity": "S2_LATEST_DEMAND_SCOPE",
+      "claim_under_review": "Настя вообще не считала endpointOD/сезонность или еёlatest уже пересчитала ими сетевую экономику.",
+      "conclusion": "В NL есть od_model и demand_compare: link-count inversion с1transfer,таблица кресел по типам,аналоги,сценарная гостиничная сезонность. Они пишут od_pairs/demand_estimates; network_model по-прежнему читает demand_pairs и старый gravity fit.",
+      "minimal_fix": "Сохранить новый модуль отдельным исследовательским результатом; не приписывать ему изменение network contribution/2027-28. Для интеграции нужен явный input contract и новыйrun.",
+      "evidence": [
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/od_model.py",
+          "line_start": 40,
+          "line_end": 85,
+          "excerpt": "def build():\n    n = dm.nodes()\n    direct, rail = dm.links()\n    ids = [i for i in n.index]\n    lat, lon = n.latitude_deg.values, n.longitude_deg.values\n    la, lo = np.radians(lat), np.radians(lon)\n    D = 2 * 6371 * np.arcsin(np.sqrt(np.sin((la[:, None] - la[None, :]) / 2) ** 2 +\n                                      np.cos(la[:, None]) * np.cos(la[None, :]) * np.sin((lo[:, None] - lo[None, :]) / 2) ** 2))\n    k = {x: i for i, x in enumerate(ids)}\n    adj = np.zeros((len(ids), len(ids)), bool)\n    for a, b in direct:\n        if a in k and b in k:\n            adj[k[a], k[b]] = adj[k[b], k[a]] = True\n    # пересадка — только в узлах перевозчиков (data/assumptions/transfer_hubs.csv): по кратчайшему пути\n    # через любой аэропорт слишком много поездок шло через Казань и Новосибирск\n    hubs = set(pd.read_csv(ROOT / \"data/assumptions/transfer_hubs.csv\").iata)\n    is_hub = np.array([x in hubs for x in ids])\n    pairs, X, route = [], [], []\n    for i in range(len(ids)):\n        for j in range(i + 1, len(ids)):\n            a, b = ids[i], ids[j]\n            if D[i, j] < A[\"min_pair_km\"]:\n                continue\n            f = dm.features(n, a, b, rail)\n            if adj[i, j]:\n                via = None\n            else:\n                ok = adj[i] & adj[j] & is_hub\n                ok[[i, j]] = False\n                if not ok.any():\n                    continue\n                det = np.where(ok, D[i] + D[j], np.inf)\n                h = int(det.argmin())\n                if det[h] / D[i, j] > A[\"od_max_circuity\"]:\n                    continue\n                via = ids[h]\n            pairs.append((a, b))\n            X.append([f[c] for c in dm.FEATS])\n            route.append(via)\n    X = np.column_stack([np.ones(len(X)), np.array(X)])\n    # матрица «рейс × поездка»: какие поездки идут по рейсу\n    links = {}\n    for p, ((a, b), via) in enumerate(zip(pairs, route)):\n        legs = [(a, b)] if via is None else [(a, via), (via, b)]\n        for x, y in legs:\n            links.setdefault(frozenset((x, y)), []).append(p)",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/od_model.py#L40-L85"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/demand_compare.py",
+          "line_start": 77,
+          "line_end": 110,
+          "excerpt": "def schedule():\n    \"\"\"Годовой поток пар по расписанию: вылеты недели × кресла типа самолёта × загрузка 89,5% × 52.\n\n    1. Омск — все вылеты из зимнего расписания аэропорта (коллеги, core); обратное направление = прямому.\n    2. Остальные пары — карточки маршрутов коллег на 7–13.12.2026 (night-primary-evidence: расписания\n       Кольцово, Уфы, Курумоча, Чкалова и др.). Один рейс в нескольких источниках не складываем:\n       по каждому перевозчику и направлению берём источник с наибольшим числом вылетов.\n    \"\"\"\n    seats = pd.read_csv(ROOT / \"data/assumptions/aircraft_seats.csv\").drop_duplicates(\"type_raw\").set_index(\"type_raw\").seats\n    lf = A[\"national_load_factor_2025\"]\n    out = {}\n    w = pd.read_csv(EXT / \"omsk_outbound_week_20261207.csv\")\n    t = pd.read_csv(EXT / \"omsk_domestic_timetable_rows.csv\")[[\"source_text_line\", \"aircraft_type_raw\"]]\n    w = w.merge(t, on=\"source_text_line\", how=\"left\")\n    w[\"seats\"] = w.aircraft_type_raw.map(seats)\n    w[\"dest\"] = w.destination_airport_iata.map(lambda x: \"MOW\" if x in dm.MOW else x)\n    for d_, g in w.groupby(\"dest\"):\n        out[key(\"OMS\", d_)] = (float(g.seats.sum() * lf * 2 * 52), \"расписание аэропорта Омск, неделя 7–13.12.2026\")\n    c = pd.read_csv(EXT / \"route_product_cards.csv\")\n    c = c[(c.product_type == \"AIR_PUBLISHED_SERVICE\") & c.one_way_departures.notna()].copy()\n    c[\"carrier_n\"] = c.carrier.map(lambda x: CARRIER.get(x, x))\n    c[\"seats_w\"] = c.one_way_departures * c.aircraft.map(seats)\n    c[\"o\"] = c.origin.map(lambda x: \"MOW\" if x in dm.MOW else x)\n    c[\"d\"] = c.destination.map(lambda x: \"MOW\" if x in dm.MOW else x)\n    per_src = c.groupby([\"o\", \"d\", \"carrier_n\", \"source_ids\"]).seats_w.sum().reset_index()\n    per_car = per_src.groupby([\"o\", \"d\", \"carrier_n\"]).seats_w.max().reset_index()\n    per_dir = per_car.groupby([\"o\", \"d\"]).seats_w.sum()\n    for (o, d_), v in per_dir.items():\n        k = key(o, d_)\n        if k in out and out[k][1].startswith(\"расписание аэропорта Омск\"):\n            continue\n        back = per_dir.get((d_, o))\n        week = v + (back if back is not None else v)\n        out[k] = (float(week * lf * 52), \"карточки маршрутов коллег, неделя 7–13.12.2026\" +",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/demand_compare.py#L77-L110"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/demand_compare.py",
+          "line_start": 145,
+          "line_end": 157,
+          "excerpt": "    NA = pd.read_csv(ROOT / \"data/assumptions/network.csv\").set_index(\"parameter\").base\n    # размах сезонности: гостиницы колеблются сильнее авиаперевозок. Летний индекс авиаперевозок по стране\n    # 2025 = (янв–авг − янв–май) / 3 мес. / (год / 12); размах гостиничного профиля сжимаем до него\n    global ALPHA\n    nat_summer = ((A[\"carrier_pax_2025_jan_aug\"] - A[\"carrier_pax_2025_jan_may\"]) / 3) / (A[\"carrier_pax_2025_year\"] / 12)\n    hs, ws = [], []\n    for r in pairs.itertuples():\n        sa, sb = reg.get(r.a), reg.get(r.b)\n        if sa is not None and sb is not None:\n            hs.append(float(((sa + sb) / 2).loc[[6, 7, 8]].mean()))\n            ws.append(r.pax_base)\n    hotel_summer = float(np.average(hs, weights=ws))\n    ALPHA = (nat_summer - 1) / (hotel_summer - 1)",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/demand_compare.py#L145-L157"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/demand_compare.py",
+          "line_start": 194,
+          "line_end": 218,
+          "excerpt": "        sa, sb = reg.get(r.a), reg.get(r.b)\n        prof = (sa + sb) / 2 if sa is not None and sb is not None else (sa if sa is not None else sb)\n        cm = colmap.get(k)\n        rows.append({\n            \"a\": r.a, \"b\": r.b, \"city_a\": r.city_a, \"city_b\": r.city_b, \"km\": r.km, \"closed\": r.closed,\n            \"direct_now\": r.direct_now, \"observed\": obs,\n            \"seg_model\": r.pax_base, \"seg_model_cautious\": r.pax_cautious, \"seg_analog\": round(a_v), \"analog_pairs\": a_nb,\n            \"seg_schedule\": round(s_v) if s_v else None, \"seg_schedule_lower\": round(s_lb) if s_lb else None,\n            \"schedule_source\": s_src,\n            \"estimates_ratio\": round(ratio, 2), \"uncertain\": obs is None and ratio > A[\"disagreement_ratio\"],\n            \"segments_base\": round(seg_base), \"segments_cautious\": round(seg_lo), \"segments_method\": how,\n            \"own_trips_share\": share, \"od_base\": round(od_base) if od_base is not None else None,\n            \"od_cautious\": round(od_lo) if od_lo is not None else None, \"od_method\": od_how,\n            \"od_route_now\": o.route if o is not None else None,\n            \"summer_factor\": round(1 + ALPHA * (float(prof.loc[[6, 7, 8]].mean()) - 1), 2) if prof is not None else None,\n            \"winter_factor\": round(1 + ALPHA * (float(prof.loc[[12, 1, 2]].mean()) - 1), 2) if prof is not None else None,\n            \"peak_month\": int(prof.idxmax()) if prof is not None else None,\n            \"colleagues_od_cautious\": cm[0] if cm else None, \"colleagues_od_base\": cm[1] if cm else None,\n            \"colleagues_fare_rub\": cm[2] if cm else None, \"colleagues_capture\": cm[3] if cm else None,\n            \"colleagues_zia_only\": cm[4] if cm else None,\n            \"rw_seats_week_each_way\": cm[5] if cm and pd.notna(cm[5]) else None,\n            \"fare_ours_rub\": round(NA[\"fare_fixed_rub\"] + NA[\"fare_per_km_rub\"] * r.km),\n        })\n    d = pd.DataFrame(rows)\n    d.to_csv(P / \"demand_estimates.csv\", index=False, encoding=\"utf-8\")",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/demand_compare.py#L194-L218"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "data/assumptions/demand.csv",
+          "line_start": 3,
+          "line_end": 10,
+          "excerpt": "cautious_quantile,0.20,доля,\"допущение: осторожная оценка = 20-й процентиль ошибок «исключи по одному» на 31 известной паре; покрытие для новых пар не проверено\"\noptimistic_quantile,0.80,доля,\"допущение: оптимистичная оценка = 80-й процентиль\"\nno_rail_hr,96,ч,\"допущение: поезда в данных «Точно» нет (Калининград, Дальний Восток) — как 4 суток в пути; пары помечены rail_imputed_96h\"\nmin_pair_km,250,км,\"допущение: пары ближе 250 км не рассматриваем — там летать не будут\"\nod_max_circuity,1.6,отношение,\"допущение: пересадку выбирают, если путь через пункт пересадки длиннее прямой не больше чем в 1,6 раза (как в тестовых парах коллег, context/11_practical_screening); иначе поездка не авиационная\"\nnational_load_factor_2025,0.895,доля,\"факт: средняя загрузка кресел российских авиакомпаний в 2025 году 89,5% (Росавиация, 30.01.2026; копия коллег context/17_research_report/network_recovery/parsed/national_market_observations.csv)\"\nanalog_k,3,пар,\"допущение: оценка по аналогам — 3 ближайшие известные пары по населению и расстоянию\"\ndisagreement_ratio,2,раз,\"правило docs/19: если оценки расходятся больше чем в 2 раза, пара помечается «неуверенной»\"",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/data/assumptions/demand.csv#L3-L10"
+        },
+        {
+          "ref": "NL",
+          "commit": "1654110dfdc3f6737aebce95e46dd993d631be5b",
+          "path": "src/network_model.py",
+          "line_start": 43,
+          "line_end": 69,
+          "excerpt": "class Demand:\n    \"\"\"Спрос пары за год (оба направления): известный поток → таблица шага 2 → формула шага 2.\"\"\"\n\n    def __init__(self):\n        self.n = dm.nodes()\n        self.direct, self.rail = dm.links()\n        fit = json.loads((P / \"demand_fit.json\").read_text(encoding=\"utf-8\"))\n        co = fit[\"coefficients\"]\n        self.beta = np.array([co[\"const\"]] + [co[k] for k in dm.FEATS])\n        self.f_lo, self.f_hi = fit[\"cautious_factor\"], fit[\"optimistic_factor\"]\n        t = pd.read_csv(P / \"demand_pairs.csv\")\n        self.tab = {}\n        for r in t.itertuples():\n            base = r.observed if pd.notna(r.observed) and r.observed_coverage != \"airline_group\" else r.pax_base\n            v = {\"base\": float(base), \"cautious\": float(r.pax_cautious), \"method\": r.method}\n            self.tab[(r.a, r.b)] = self.tab[(r.b, r.a)] = v\n        self.cache = {}\n\n    def get(self, a, b, scen):\n        if (a, b) in self.tab:\n            return self.tab[(a, b)][scen]\n        key = (min(a, b), max(a, b))\n        if key not in self.cache:\n            f = dm.features(self.n, a, b, self.rail)\n            self.cache[key] = float(np.exp(dm.predict(self.beta, np.array([[f[k] for k in dm.FEATS]]))[0]))\n        v = self.cache[key]\n        return v if scen == \"base\" else v * self.f_lo",
+          "url": "https://github.com/Mput13/case_championship/blob/1654110dfdc3f6737aebce95e46dd993d631be5b/src/network_model.py#L43-L69"
+        }
+      ]
+    }
+  ]
+}
