@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "RUNNING",
-  "updated_at_utc": "2026-11-10T03:11:19.914291+00:00",
+  "updated_at_utc": "2026-11-10T03:12:26.145010+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -109,6 +109,15 @@
       "status": "running",
       "model": "gpt-6.1-sol",
       "brief": "briefs/cost_kover.md"
+    },
+    {
+      "role": "model_repair_review",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-review-20261110-r1",
+      "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-review-20261110-r1",
+      "link": "[Sol 6.1: независимое ревью исправлений модели](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-review-20261110-r1)",
+      "status": "running",
+      "model": "gpt-6.1-sol",
+      "input_sha": "27740ffea0821aa404ecd1013d1bb141613261f3"
     }
   ],
   "checkpoints": [
@@ -200,7 +209,7 @@
       "sha": "27740ffea0821aa404ecd1013d1bb141613261f3",
       "payload_sha": "dc5c65d12e0236f5aaa6182ca83bda0d52c10f57",
       "path": "integration/model_repair/27740ffe",
-      "independent_review": "READY_FOR_DISPATCH"
+      "independent_review": "RUNNING_NEW_REVIEW"
     },
     "methods_budget_v2": {
       "sha": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
@@ -237,10 +246,11 @@
     {
       "request_id": "MODEL_REPAIR_REVIEW",
       "role": "model_repair_review",
-      "state": "READY_TO_DISPATCH",
+      "state": "DISPATCHED",
       "input_sha": "27740ffea0821aa404ecd1013d1bb141613261f3",
       "priority": "P1",
-      "required_new_delegate_task": true
+      "required_new_delegate_task": true,
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-model-repair-review-20261110-r1"
     },
     {
       "request_id": "MR07",
