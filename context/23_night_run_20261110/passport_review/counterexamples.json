@@ -1,0 +1,90 @@
+{
+  "status": "PASS; all examples are constructed or recomputed, not market observations",
+  "cases": [
+    {
+      "id": "CE01",
+      "affected": "C05/X03",
+      "setup": "Те же 800000 в hub aggregate и рост трансфера ×2.5 допускают разные абсолютные transfer bases.",
+      "examples": [
+        {
+          "transfer_2024": 40000,
+          "transfer_2025": 100000
+        },
+        {
+          "transfer_2024": 160000,
+          "transfer_2025": 400000
+        }
+      ],
+      "conclusion": "Абсолютный transfer OD, доля трансфера и P&L не определены."
+    },
+    {
+      "id": "CE02",
+      "affected": "C02/C03/X02",
+      "setup": "Один дополнительный день сообщений BAX в заданной шкале.",
+      "result": "checks.json: one_publication_day_counterexample",
+      "conclusion": "Разрыв BAX/KUF меняет знак. Это sensitivity, а не найденное пропущенное сообщение."
+    },
+    {
+      "id": "CE03",
+      "affected": "S01/X01",
+      "setup": "Точка равных вкладов D_SVX8/H4.",
+      "result": "independent_boundaries.json: оба -3168101.77 RUB/week",
+      "conclusion": "Смена порядка не устанавливает положительную прибыль или финальную сеть."
+    },
+    {
+      "id": "CE04",
+      "affected": "S05/S07/X10",
+      "setup": "Day1 +1440 по 32 датированным UFA8 legs.",
+      "result": "independent_concurrency.csv: peak 8",
+      "conclusion": "Четыре рабочих борта и один резервный не позволяют served-all; recovery/cash UNKNOWN."
+    },
+    {
+      "id": "CE05",
+      "affected": "X12",
+      "setup": "Реальные строки illustrative cash fixture: launch 400000 + deposit 600000 в t0, возврат deposit в t2.",
+      "result": "independent_cash.csv: terminal +400000 при peak funding 1000000",
+      "conclusion": "Положительный терминальный cash не исключает потребности в финансировании. Это не фактический бюджет RW."
+    },
+    {
+      "id": "CE06",
+      "affected": "S06/D05",
+      "setup": "Все standalone программы из exact контекста объединены по directed D.",
+      "result": "independent_original_D_pools.csv: все sales <= D; Q(F) delta -446063.89",
+      "conclusion": "Дельта Q(F) не доказывает исходного превышения D."
+    },
+    {
+      "id": "CE07",
+      "affected": "C09/X04",
+      "setup": "10 конечных двухплечевых поездок, тариф 8000.",
+      "result": {
+        "journeys": 10,
+        "seat_segments": 20,
+        "through_fares": 10,
+        "revenue": 80000,
+        "wrong_revenue_if_twice": 160000
+      },
+      "conclusion": "Расход кресел на двух плечах не удваивает сквозную выручку или число людей."
+    },
+    {
+      "id": "CE08",
+      "affected": "X05/X06",
+      "setup": "Положительная карточка содержит опубликованные вылеты; отсутствие карточки содержит UNKNOWN.",
+      "result": "17 dated card joins; complete market proof absent",
+      "conclusion": "Ни выполнение, ни отсутствие конкуренции из этих статусов не следует."
+    },
+    {
+      "id": "CE09",
+      "affected": "D07/C10",
+      "setup": "Один симметричный annual proxy 10400 может распределяться неравномерно по 52 неделям.",
+      "result": {
+        "flat_week_direction": 100,
+        "winter_week_direction": 0,
+        "winter_weeks": 26,
+        "other_week_direction": 200,
+        "other_weeks": 26,
+        "annual_both_directions": 10400
+      },
+      "conclusion": "annual/104 — сценарная ровная раскладка; не наблюдённый зимний OD. Сценарные расчёты разрешены."
+    }
+  ]
+}
