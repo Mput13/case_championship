@@ -1,0 +1,69 @@
+{
+  "verdict": "ACCEPT_WITH_LIMITATIONS",
+  "source_pin": "14354571b90545cd0618548481a857bf6b388d4a",
+  "branch": "audit/end-to-end-20261110",
+  "full_audit_complete": false,
+  "scope": "Exact sealed inputs and bounded independent checks; not universal numerical/source truth",
+  "owner389_unchanged": true,
+  "inventory_written": false,
+  "included_final_review": true,
+  "included_followup": true,
+  "included_coordinator": true,
+  "included_release": true,
+  "all_current_checks_passed": true,
+  "historical_reviewer_failures_preserved": {
+    "inherited_hash_scope_polarity": "corrected_inherited_denominator",
+    "master_axes_ids": "corrected_OMS_scope_master"
+  },
+  "actual_receipt_rows": 34,
+  "raw_exit_nonzero_rows": 2,
+  "runs": [
+    {
+      "script": "independent_release_check.py",
+      "exit": 1,
+      "reason": "two reviewer expectation errors, superseded explicitly"
+    },
+    {
+      "script": "followup_check.py",
+      "exit": 0
+    },
+    {
+      "script": "final_scope_check.py",
+      "exit": 0
+    }
+  ],
+  "independent_patch010_011": true,
+  "registry_ids": 1035207,
+  "positive_override_axis_rows": 114,
+  "positive_override_unique_ids": 74,
+  "full_audit_gaps": {
+    "numeric_lineage_unresolved": 191794,
+    "numeric_truth_unverified": 307720,
+    "raw_pipeline": 1,
+    "intermediate_pipeline": 12,
+    "blocked_pipeline": 3
+  },
+  "new_finding": "RA-01",
+  "publication_prerequisite": "RA-02",
+  "remaining_issues": [
+    "RA-01",
+    "RA-02",
+    "RA-03",
+    "RA-04",
+    "RA-05",
+    "RA-06",
+    "RA-07"
+  ],
+  "full_greedy_rerun": false,
+  "new_web_research": false,
+  "clean_delivery": {
+    "companions": 411,
+    "entries": 37,
+    "shards": 179,
+    "packed_bytes": 326086647,
+    "remaining_input_rows": 1026549,
+    "bootstrap_verify_query": true
+  },
+  "script_environment": "Python with pandas/numpy; reused existing interpreter read-only. Clean delivery tools stdlib+git.",
+  "release_receipt_sha256": "f77299b51900823c201b895efd3a226b0308f3b1e4a91bf348f3fe6598d6b199"
+}

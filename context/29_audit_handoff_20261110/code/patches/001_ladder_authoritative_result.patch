@@ -1,0 +1,11 @@
+--- a/src/dashboard_template.html
++++ b/src/dashboard_template.html
+@@ -724,7 +724,7 @@
+ function ldDraw(){
+   const rows=vrows(); if(!rows.length) return;
+   const k=+document.getElementById('ldk').value/100; document.getElementById('ldko').textContent=Math.round(k*100)+'%';
+-  const res=(r,kk)=>(r.revenue_mln_year-r.subsidy_mln_year)*(1+kk)+r.subsidy_mln_year-r.var_cost_mln_year;
++  const res=(r,kk)=>r.result_mln_year+(r.revenue_mln_year-r.subsidy_mln_year)*kk;
+   const S=Math.max(1,...rows.flatMap(r=>[Math.abs(res(r,0)),Math.abs(res(r,.3))]));
+   const mln=v=>(v<0?'−':'+')+ru(Math.abs(Math.round(v)))+' млн ₽';
+   const box=document.getElementById('ld'); box.textContent='';

@@ -1,0 +1,462 @@
+{
+  "source_pin": "14354571b90545cd0618548481a857bf6b388d4a",
+  "source_policy": "git archive PIN + exact source hashes; HEAD not required equal PIN",
+  "command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+  "actual_interpreter": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/28_end_to_end_audit_20261110/code/sandbox/venv/bin/python",
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "pandas": "3.1.1",
+  "check_state": "finished",
+  "limited_checks_passed": true,
+  "full_end_to_end_acceptance": false,
+  "checks": [
+    {
+      "id": "CF10-BOUNDARY",
+      "status": "подтверждено",
+      "check_state": "finished",
+      "scope": "4 hub + 2 direct boundaries; zero operations only; no zero demand inference",
+      "evidence": [
+        {
+          "case": "cap0",
+          "status": "NO_WORKING_RESOURCE",
+          "operations": {
+            "aircraft_working": 0,
+            "aircraft_reserved": 0,
+            "flights_week": 0,
+            "segments_year": 0,
+            "od_trips_year": 0,
+            "sales": 0,
+            "variable_cost": 0,
+            "subsidy": 0,
+            "migrated": 0,
+            "forgone": 0
+          },
+          "fixed_cost": "UNKNOWN",
+          "cash": "UNKNOWN",
+          "full_pnl": "UNKNOWN"
+        },
+        {
+          "case": "cap_equal_spare",
+          "status": "NO_WORKING_RESOURCE",
+          "operations": {
+            "aircraft_working": 0,
+            "aircraft_reserved": 0,
+            "flights_week": 0,
+            "segments_year": 0,
+            "od_trips_year": 0,
+            "sales": 0,
+            "variable_cost": 0,
+            "subsidy": 0,
+            "migrated": 0,
+            "forgone": 0
+          },
+          "fixed_cost": "UNKNOWN",
+          "cash": "UNKNOWN",
+          "full_pnl": "UNKNOWN"
+        },
+        {
+          "case": "empty_spokes",
+          "status": "NO_FEASIBLE_SERVICE",
+          "operations": {
+            "aircraft_working": 0,
+            "aircraft_reserved": 0,
+            "flights_week": 0,
+            "segments_year": 0,
+            "od_trips_year": 0,
+            "sales": 0,
+            "variable_cost": 0,
+            "subsidy": 0,
+            "migrated": 0,
+            "forgone": 0
+          },
+          "fixed_cost": "UNKNOWN",
+          "cash": "UNKNOWN",
+          "full_pnl": "UNKNOWN"
+        },
+        {
+          "case": "unfittable_spoke",
+          "status": "NO_FEASIBLE_SERVICE",
+          "operations": {
+            "aircraft_working": 0,
+            "aircraft_reserved": 0,
+            "flights_week": 0,
+            "segments_year": 0,
+            "od_trips_year": 0,
+            "sales": 0,
+            "variable_cost": 0,
+            "subsidy": 0,
+            "migrated": 0,
+            "forgone": 0
+          },
+          "fixed_cost": "UNKNOWN",
+          "cash": "UNKNOWN",
+          "full_pnl": "UNKNOWN"
+        }
+      ],
+      "check_command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+      "confidence_basis": "actual bounded offline execution"
+    },
+    {
+      "id": "CF10-CONSUMERS",
+      "status": "подтверждено",
+      "check_state": "finished",
+      "scope": "actual main call; actual ramp AST loop; failures stop numeric export",
+      "evidence": {
+        "main": 1,
+        "ramp": 2,
+        "delay_case_numeric_result": "UNSUPPORTED"
+      },
+      "check_command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+      "confidence_basis": "actual bounded offline execution"
+    },
+    {
+      "id": "CF10-INVARIANCE",
+      "status": "подтверждено",
+      "check_state": "finished",
+      "scope": "4 real hub controls + 4 synthetic direct controls; AST equivalence; positive published row predicates",
+      "evidence": {
+        "controls": [
+          {
+            "scenario": "base",
+            "hub_chosen": [
+              "KUF",
+              "REN"
+            ],
+            "hours": 30.09394688780651,
+            "direct_programs": 1,
+            "exact_equal": true
+          },
+          {
+            "scenario": "base_sub",
+            "hub_chosen": [
+              "KUF",
+              "REN"
+            ],
+            "hours": 30.09394688780651,
+            "direct_programs": 1,
+            "exact_equal": true
+          },
+          {
+            "scenario": "cautious",
+            "hub_chosen": [
+              "KUF",
+              "REN"
+            ],
+            "hours": 30.09394688780651,
+            "direct_programs": 1,
+            "exact_equal": true
+          },
+          {
+            "scenario": "cautious_sub",
+            "hub_chosen": [
+              "KUF",
+              "REN"
+            ],
+            "hours": 30.09394688780651,
+            "direct_programs": 1,
+            "exact_equal": true
+          }
+        ],
+        "published_population": {
+          "network_summary.csv": 24,
+          "fleet_ramp.csv": 16
+        },
+        "inherited": {
+          "patched_network_comparisons.json": {
+            "sha256": "0160b5b016256d01e53ec0a0b1ae6da62272bcd5aa247ef5aee1b50ddcc25d41",
+            "receipt": {
+              "exit": 0,
+              "comparisons": [
+                {
+                  "path": "data/processed/network_summary.csv",
+                  "rows": 24,
+                  "columns": 23,
+                  "all_values_equal": true,
+                  "tolerance": 1e-06
+                },
+                {
+                  "path": "data/processed/network_routes.csv",
+                  "rows": 265,
+                  "columns": 15,
+                  "all_values_equal": true,
+                  "tolerance": 1e-06
+                },
+                {
+                  "path": "data/processed/mandatory_routes_table.csv",
+                  "rows": 64,
+                  "columns": 11,
+                  "all_values_equal": true,
+                  "tolerance": 1e-06
+                },
+                {
+                  "path": "data/processed/fleet_ramp.csv",
+                  "rows": 16,
+                  "columns": 11,
+                  "all_values_equal": true,
+                  "tolerance": 1e-06
+                }
+              ],
+              "policy_changed": false,
+              "scenario_period_topology_frequencies_fixed": true
+            }
+          },
+          "extended_patch_validation.json": {
+            "sha256": "1ac7f52ff8a219702e6af7afd8f28fe155adcc7d9d18ebafb236828017720521",
+            "receipt": {
+              "patches": [
+                "patches/006_direct_shortlist_same_objective.patch",
+                "patches/007_cautious_concentration_label.patch",
+                "patches/008_complete_scenario_route_export.patch"
+              ],
+              "source_policy_unchanged": true,
+              "complete_route_rows": 265,
+              "all_scenarios_included": true,
+              "delta_rows": 24,
+              "rows_with_economic_change": 0,
+              "hub_rows_unchanged": true,
+              "limits": "Bounded greedy model; full optimum remains unverified. Proposed complete export additional artifact, existing legacy schema retained."
+            }
+          },
+          "patch_stack_apply.json": {
+            "sha256": "de5276482a9a797dc7c75df27d9370202a90b3c5dea478b62a284e2b0916a348",
+            "receipt": {
+              "patches": 9,
+              "all_applied": true,
+              "applications": [
+                {
+                  "patch": "001_ladder_authoritative_result.patch",
+                  "sha256": "9e872c774d1402b2e95d746cb23c3d85fba4d1add9e7720628696eb81a3366bb",
+                  "exit": 0,
+                  "stdout": "patching file src/dashboard_template.html\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "002_finite_nonnegative_weights.patch",
+                  "sha256": "a8be7d5a783a19e50cb0a1c5f723d5ac0037e86d5ff6f81754af0159cef44260",
+                  "exit": 0,
+                  "stdout": "patching file src/dashboard_template.html\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "003_stable_tie_rank_interval.patch",
+                  "sha256": "5593c7e3241502fa6d5dea1a2ee007bce485fa8fa91b6294bfff30ab97fbfbd5",
+                  "exit": 0,
+                  "stdout": "patching file src/longlist_score.py\npatching file src/dashboard_template.html\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "004_reject_invalid_frequency_inputs.patch",
+                  "sha256": "ad85ead36694e2413a61e7fe87340a521f0b048dcc2b5b05c3ab03aab06a3f79",
+                  "exit": 0,
+                  "stdout": "patching file src/network_model.py\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "005_excel_literal_equals_qualifiers.patch",
+                  "sha256": "36b6aa47173a912bfaeb3b6844026fed8281aff6a5cf8e69a4498b7701030954",
+                  "exit": 0,
+                  "stdout": "patching file src/build_longlist.py\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "006_direct_shortlist_same_objective.patch",
+                  "sha256": "9409b2bc952b0671afbeb8c1eac2aad5f5a02cd04652cfbf2c68d1c24d50cfb3",
+                  "exit": 0,
+                  "stdout": "patching file src/network_model.py\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "007_cautious_concentration_label.patch",
+                  "sha256": "87a3b8764de4de3a69f21576f3c4176b0d431ed279387822aef194f99d9ebce4",
+                  "exit": 0,
+                  "stdout": "patching file src/dashboard_template.html\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "008_complete_scenario_route_export.patch",
+                  "sha256": "4a259f47528f7c522bcf3679464a23fc5a5886503ce5500345a40cc39a602c2a",
+                  "exit": 0,
+                  "stdout": "patching file src/network_model.py\n",
+                  "stderr": ""
+                },
+                {
+                  "patch": "009_refresh_derived_transfer_artifacts.patch",
+                  "sha256": "5a4692f36d79b7fb5e8b297fcaffdcb8c2b2a9256ad10a9b8d8a84fa71273a97",
+                  "exit": 0,
+                  "stdout": "patching file data/processed/criteria.json\npatching file data/processed/longlist.csv\npatching file data/processed/longlist_profiles.csv\npatching file data/processed/longlist_profiles_min500.csv\npatching file data/processed/longlist_profiles_min500_strict.csv\npatching file data/processed/longlist_scores.csv\npatching file data/processed/longlist_scores_min500.csv\npatching file data/processed/longlist_scores_min500_strict.csv\npatching file data/processed/longlist_sensitivity.csv\npatching file data/processed/longlist_sensitivity_min500.csv\npatching file data/processed/transfer_potential.csv\npatching file outputs/redwings_panel.html\n",
+                  "stderr": ""
+                }
+              ],
+              "source_policy": "city/weights/scenario numeric inputs not modified",
+              "limits": "derived workbook outputs require documented builder commands; full raw dashboard build still blocked"
+            }
+          }
+        },
+        "full_main_rerun": false
+      },
+      "check_command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+      "confidence_basis": "actual bounded offline execution"
+    },
+    {
+      "id": "CF11-PARSER",
+      "status": "подтверждено",
+      "check_state": "finished",
+      "scope": "all 20 rows; 19 unchanged; Central retained separately; Gagarin UNKNOWN",
+      "evidence": {
+        "raw_sha256": "5a56bbf0277a39a01fdc414485dc4674badf0bfa5b5e916497a1604bd6cc245c",
+        "raw_rows": [
+          {
+            "line": 431,
+            "facility": "Саратов(Гагарин)",
+            "year": "2019",
+            "total": "***"
+          },
+          {
+            "line": 432,
+            "facility": "Саратов(Центральный)",
+            "year": "2019",
+            "total": "327 968"
+          }
+        ],
+        "history": [
+          {
+            "facility": "Саратов(Центральный)",
+            "historical_iata": "",
+            "year": "2019",
+            "value": "327968",
+            "scope": "Central only; not GSV or city annual total",
+            "source": "https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+          }
+        ]
+      },
+      "check_command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+      "confidence_basis": "actual bounded offline execution"
+    },
+    {
+      "id": "CF11-QUALIFIED",
+      "status": "подтверждено",
+      "check_state": "finished",
+      "scope": "actual build_criteria before/after; all other fields exactly unchanged; GSV 2025 preserved",
+      "evidence": {
+        "cities": 20,
+        "criteria": 16,
+        "pax_2025": {
+          "v": 1064000.0,
+          "t": null,
+          "s": "https://news.sarbc.ru/main/2026/01/20/315287.html"
+        },
+        "GSV_2019": {
+          "v": null,
+          "t": "скрыто Росавиацией",
+          "s": "Росавиация, открытые данные, «Саратов(Гагарин)», 2019: https://favt.gov.ru/opendata/7714549744-statperevaeroportpas/"
+        }
+      },
+      "check_command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+      "confidence_basis": "actual bounded offline execution"
+    },
+    {
+      "id": "CF11-RANKING",
+      "status": "подтверждено",
+      "check_state": "finished",
+      "scope": "2 baselines x 3 filters x 6 profiles x 3 score metrics; all candidates per filter",
+      "evidence": {
+        "comparison_rows": 1656,
+        "ranking_cases": 36,
+        "max_delta": 0.0,
+        "full_upstream_replay": false
+      },
+      "check_command": "python -B context/28_end_to_end_audit_20261110/code_followup/tests.py --verify",
+      "confidence_basis": "actual bounded offline execution"
+    }
+  ],
+  "schema": [
+    {
+      "path": "proposed_data_corrections.csv",
+      "row_count": 4,
+      "columns": [
+        "id",
+        "finding",
+        "affected_id",
+        "target",
+        "key",
+        "field",
+        "before",
+        "after",
+        "status",
+        "proposed_status",
+        "scope",
+        "raw_line",
+        "source_sha256"
+      ],
+      "sha256": "9b3891f0a7942a669de3a4a1665c9a1d4133c4d21528456bc6c333c7f1635a07",
+      "strict_csv": true
+    },
+    {
+      "path": "effects.csv",
+      "row_count": 41,
+      "columns": [
+        "id",
+        "finding",
+        "metric",
+        "effect",
+        "unit",
+        "period",
+        "resource",
+        "scope",
+        "status",
+        "check_state",
+        "evidence",
+        "check_command"
+      ],
+      "sha256": "43f27a6928f65acc7c51829e996badec00a510deb19dfbb2b49e89764cd0acb1",
+      "strict_csv": true
+    },
+    {
+      "path": "ranking_deltas.csv",
+      "row_count": 1656,
+      "columns": [
+        "base",
+        "filter",
+        "profile",
+        "metric",
+        "iata",
+        "before",
+        "after",
+        "delta",
+        "rank_before",
+        "rank_after"
+      ],
+      "sha256": "98a4651ae9f884e41941ba294723d4d29a213b86a3dc49cfe3dcf19add7f11aa",
+      "strict_csv": true
+    },
+    {
+      "path": "affected_ids.csv",
+      "row_count": 410,
+      "columns": [
+        "id",
+        "inventory_table",
+        "path",
+        "finding",
+        "scope"
+      ],
+      "sha256": "14e7fe6e302240fd96948802963a3a70f27ddc1293a8c4dd46d25fed592ce645",
+      "strict_csv": true
+    }
+  ],
+  "orphan_ids": 0,
+  "protected_owner_files": {
+    "denominator": 389,
+    "checked": 389,
+    "unchanged": true,
+    "manifest_sha256": "9a03881211b245b325322fd0dffb0f4cde20c208df5bc5a790817beeebb88ea8"
+  },
+  "patches": 11,
+  "elapsed_seconds": 1.87,
+  "limits": [
+    "No review/final_components or integration_final read",
+    "No external research",
+    "No full 600-second main",
+    "Ranking is a projection, not a full upstream build",
+    "Passenger/money/network effects of PF-01 UNKNOWN",
+    "Delay case numeric output unsupported; no cash/FullPnL acceptance"
+  ]
+}
