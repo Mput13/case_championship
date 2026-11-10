@@ -1,0 +1,122 @@
+{
+  "checked_at_utc": "2026-11-10T02:56:20.427008+00:00",
+  "checks": [
+    {
+      "check": "all target-week evidence has explicit date",
+      "pass_": true
+    },
+    {
+      "check": "no null to zero in uncovered market products",
+      "pass_": true
+    },
+    {
+      "check": "no aircraft-type to seats inference",
+      "pass_": true
+    },
+    {
+      "check": "no advertised fare to yield inference",
+      "pass_": true
+    },
+    {
+      "check": "all positive raw receipts linked",
+      "pass_": true
+    },
+    {
+      "check": "all pinned source blobs hash verified",
+      "pass_": true
+    },
+    {
+      "check": "all local acquired bodies hash verified",
+      "pass_": true
+    },
+    {
+      "check": "single-date UFA service UT6111 25Dec is excluded from 7-13Dec",
+      "pass_": true
+    },
+    {
+      "check": "UFA active weekday classes are used",
+      "pass_": true
+    },
+    {
+      "check": "UFA FROM GOJ is inbound with flight829",
+      "pass_": true
+    },
+    {
+      "check": "adapter cards reference existing scoped evidence",
+      "pass_": true
+    },
+    {
+      "check": "UFA evidence points to correct combined CSV row",
+      "pass_": true
+    },
+    {
+      "check": "no unresolved UFA clock conflict enters target-week numerical duration",
+      "pass_": true
+    }
+  ],
+  "raw_hash_verified": 28,
+  "pinned_blobs_verified": 12,
+  "dated_source_rows": 209,
+  "unique_published_service_keys": 173,
+  "duplicate_source_rows": 36,
+  "clock_conflicting_service_keys": 12,
+  "ufa_source_clock_conflicts": 8,
+  "coverage": [
+    {
+      "candidate_id": "D_SVX8",
+      "market_role": "DIRECT_PROGRAM",
+      "directed_markets": 16,
+      "positive_dated_markets": 16,
+      "no_matched_positive_row": 0,
+      "meaning": "finite source coverage; not market absence or forecast quality"
+    },
+    {
+      "candidate_id": "H_UFA_8",
+      "market_role": "HUB_RAY",
+      "directed_markets": 16,
+      "positive_dated_markets": 6,
+      "no_matched_positive_row": 10,
+      "meaning": "finite source coverage; not market absence or forecast quality"
+    },
+    {
+      "candidate_id": "H_UFA_4",
+      "market_role": "HUB_RAY",
+      "directed_markets": 8,
+      "positive_dated_markets": 4,
+      "no_matched_positive_row": 4,
+      "meaning": "finite source coverage; not market absence or forecast quality"
+    },
+    {
+      "candidate_id": "H_UFA_8",
+      "market_role": "ENDPOINT_OD_VIA_UFA",
+      "directed_markets": 56,
+      "positive_dated_markets": 10,
+      "no_matched_positive_row": 46,
+      "meaning": "finite source coverage; not market absence or forecast quality"
+    },
+    {
+      "candidate_id": "H_UFA_4",
+      "market_role": "ENDPOINT_OD_VIA_UFA",
+      "directed_markets": 12,
+      "positive_dated_markets": 2,
+      "no_matched_positive_row": 10,
+      "meaning": "finite source coverage; not market absence or forecast quality"
+    }
+  ],
+  "acceptance_scope": [
+    "RAW_HASH_VERIFIED",
+    "EXTRACTION_CHECKED",
+    "JOIN_CHECKED"
+  ],
+  "outside_scope": [
+    "independent review",
+    "confirmed sales",
+    "realized yield",
+    "seat configuration",
+    "actual flights",
+    "observed endpoint demand",
+    "2027-28 schedules",
+    "network economics/rating replay",
+    "MRO contract/capacity acceptance"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "time_window_utc": "2026-11-10T02:41Z..02:54Z",
+  "method": "native web search/open first; text HTTP GET for local receipts; no browser",
+  "selected_queries": [
+    {
+      "query": "site.ar-ren.ru трансферным пассажирам",
+      "result": "no current primary technology established; historical ORENAIR not admitted"
+    },
+    {
+      "query": "Самара Superjet техническое обслуживание линейная станция site:yakovlev.ru",
+      "result": "Yakovlev30Apr2025 found; TLS error on direct; official Favt1May2025 downloaded"
+    },
+    {
+      "query": "Омск базируется 2026 авиакомпания; primary airport/carrier domains",
+      "result": "no current competitive-base primary established in bounded pass; absence UNKNOWN"
+    },
+    {
+      "query": "Оренбург 2025 951 пассажиров",
+      "result": "airport15Jan2026 confirms >951000; no exact total found; no reset of stage22 acceptance"
+    },
+    {
+      "query": "Уфа Самара Ласточка 2026 расписание primary operator",
+      "result": "samppk primary product and historical cancellations found; target-week frequency not claimed"
+    },
+    {
+      "query": "site.flyredwings.com Екатеринбург трансферных 2025",
+      "result": "04Feb2026 carrierhub2025 report found; parsed from full page"
+    }
+  ],
+  "not_exhaustive": true,
+  "errors": [
+    {
+      "url": "https://yakovlev.ru/press-centre/releases/yakovlev-zapustil-lineynuyu-stantsiyu-tekhnicheskogo-obsluzhivaniya-samoletov-ssj-100-v-aeroportu-sa/",
+      "native_error": "Failed to fetch: TimeoutError",
+      "http_error": "SSL: CERTIFICATE_VERIFY_FAILED self-signed certificate in certificate chain",
+      "action": "different official primary Favt document; no TLS bypass or browser"
+    },
+    {
+      "url": "https://www.favt.gov.ru/novosti-novosti/?id=15460",
+      "native_error": "Failed to fetch: TimeoutError",
+      "http_result": "200; local SHA receipt in http_receipts.json",
+      "action": "per brief text GET; successful response does not erase native timeout"
+    },
+    {
+      "url": "https://www.airportufa.ru/passengers/schedule/",
+      "native_error": "URL not accessible",
+      "http_result": "404",
+      "action": "site-linked /schedule/ route used"
+    },
+    {
+      "url": "https://www.airportufa.ru/schedule/nizhniy_novgorod/",
+      "http_result": "500",
+      "action": "index-linked nizhny_novgorod used; source errors preserved"
+    },
+    {
+      "url": "https://airportvolgograd.ru/",
+      "native_result": "no readable lines",
+      "action": "no inferred route absence; further work bounded"
+    },
+    {
+      "url": "https://www.arh.aero/Passazhiram/Raspisanie-reisov",
+      "native_result": "URL not accessible",
+      "action": "no route absence inferred; not escalated to browser"
+    }
+  ],
+  "infrastructure": "No changes, restarts, agents or providers"
+}
