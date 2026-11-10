@@ -22,3 +22,5 @@ Cost-timebase correction87ee импортирована отдельно; зад
 - v6: новые allocation/final_variant contracts и расчёты; методы исходного local-first и historical runs не изменены. Добавлены exactMR09/MR10/frontier inputs и admission_v2. Границы полного бюджета/доноров/cash собраны в decision_conditions.md.
 
 - v7: sourceC/local-first finite budget domains,58-row semantic projection and cohesive model_comparison.md; отдельные admission_v3 иFRONTIER_REVIEW58a. v6allocation/currentalpha ивсеhistorical inputs/runs сохранены.
+
+- v8: отдельный admission guard наexactf7a,MR11oracle,MR12two-prose-roundingfix,passport46fdcurrentqualification projection. Всеoldnumericruns/inputs неизменны;admission_v4 новое событие.

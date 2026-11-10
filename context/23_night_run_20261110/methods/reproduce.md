@@ -79,3 +79,14 @@ python3 context/23_night_run_20261110/methods/check_package.py
 ```
 
 Первый скрипт сравнивает inputbytes сexactba9 и проверяет все408 inequalities; inactive candidates имеют direct dominance proof. Это условное сравнение старогоlocal-first, не новый LP allocation или фактическая ценаF/B.
+
+## v8
+
+```sh
+python3 context/23_night_run_20261110/methods/admit_frozen_interaction.py
+python3 context/23_night_run_20261110/methods/update_acceptance_v8.py
+python3 context/23_night_run_20261110/methods/qualify_passport_methods.py
+python3 context/23_night_run_20261110/methods/check_package.py
+```
+
+Guard запускается отдельным первым шагом перед повторным использованием interaction-ветви. Он допускает толькостарыеexactf7a data; oldinteractionmain не модифицирован исамостоятельно не становитсяуниверсальнымвалидатором. Новыеinputs требуютnewmanifest/key/oracle review. Все7порчвпамяти;CSVне меняются.

@@ -29,3 +29,7 @@
 ## Срез v7: конечный состав и бюджетные условия
 
 Подготовлены18 постановок выбора поF/B,408 парных неравенств,51 прямое доминирование и39 допустимых свидетелей. Отдельно58 источниковых проекций без годового/недельного денежного смешения. Новые выводы owner-only; MR13готов как узкий новый scope. Frontier58a принят только calendar/capacity/mechanical. Ожидаемые exactMR11/MR12/passport не поллю.
+
+## Срез v8: exact-input admission и паспорт
+
+MR11/MR12 scoped passes импортированы, O01исправлен только вдвухproseзначениях. Новыйfixed-input guard сверяет384keys/12groups/160independentoracle rows иотвергает7mutations; owner-only. Passport46fdподключён безперезаписиas-ofstatuses; currentqualificationsотдельно. ОжидаютсяexactMR13/passportreview, безpolling.
