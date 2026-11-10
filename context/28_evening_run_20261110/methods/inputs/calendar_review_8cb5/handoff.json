@@ -1,0 +1,157 @@
+{
+  "review_id": "EV-MR02",
+  "subject_sha": "aa7779192d809558e38b1eb9bdfa25913a3afdc8",
+  "subject_branch": "research/evening-model-methods-20261110",
+  "review_branch": "t3/review-calendar-budget-v2",
+  "scope": "context/28_evening_run_20261110/methods/",
+  "write_scope": "context/28_evening_run_20261110/calendar_budget_review/",
+  "verdict": "APPROVE_SCOPED",
+  "entrypoint": "report.md",
+  "findings": "findings.json",
+  "completed_at_utc": "2026-11-10T17:03:25.424938+00:00",
+  "independent_checks": {
+    "source_receipts": 105,
+    "output_hashes": 156,
+    "fixed_offer_values": 2916,
+    "complete_unique_offer_universe": 81,
+    "daily_resource": 52632,
+    "delivery_cohorts": 36,
+    "annual_replay": 16128,
+    "signed_headroom": 7488,
+    "signed_donor": 7488,
+    "transfer_boundary": 3010,
+    "monthly_replay": 193536,
+    "selected_daily_programs": 210528,
+    "support_fraction": 1848,
+    "rotation_legs": 13788,
+    "slot_block": 4648,
+    "slot_elapsed": 4648,
+    "dated_leg_block": 13788,
+    "constructed_programs": 216,
+    "coupled_summary": 96,
+    "eta_zero": 10,
+    "route_cap": 205,
+    "route_fare": 166,
+    "coupled_counterexample": 24,
+    "budget_conditions": 2304,
+    "budget_coefficients": 768,
+    "rank_boundaries": 96,
+    "same_resource": 96,
+    "rank_coefficients": 17,
+    "cash_amounts": 1056,
+    "cash_order": 1056,
+    "cash_peak": 12,
+    "cash_end": 12,
+    "linear_fraction": 1
+  },
+  "source_receipts": {
+    "source_manifest": 44,
+    "evidence06cb": 27,
+    "network941d": 25,
+    "digital45c3": 9,
+    "total": 105,
+    "output_hashes": 156,
+    "v1_preservation_checks": 58
+  },
+  "adversarial_mutations_rejected": 18,
+  "recorded_other_boundaries": 8,
+  "owner_tests_separate": {
+    "receipt": "verify/owner_replay.json",
+    "passed_scripts": [
+      "annual_calendar.py",
+      "verify_calendar.py",
+      "support_budget.py",
+      "budget_conditions.py",
+      "package_manifest.py --check"
+    ],
+    "all156manifest_entries_byte_identical": true
+  },
+  "accepted_scope": [
+    "Exact source receipts and immutable output hashes",
+    "Scenario N(t) conservation/readiness/calendar boundaries",
+    "Serialized construction envelope and example-week route/turn/block/frequency checks",
+    "Fixed-offer active-day arithmetic, signed KEEP/cost/donor/rank conditions",
+    "Coupled hypothetical flight-cap and all-economy-fare envelope with explicit eta",
+    "Net-settlement-equivalent timing fixtures only"
+  ],
+  "held_conclusions": [
+    {
+      "id": "H1",
+      "status": "NOT_ACCEPTED",
+      "conclusion": "Actual future fleet, legacy availability, crews/slots/airports and physical MOW dispatch"
+    },
+    {
+      "id": "H2",
+      "status": "NOT_DONE_IN_SUBJECT",
+      "conclusion": "Dated MCT and shared dated seat inventory; all-transfer contribution is conditional, no accepted profit"
+    },
+    {
+      "id": "H3",
+      "status": "NULL_IN_SUBJECT",
+      "conclusion": "Actual future grant/award and signed missing cost/donor amounts;1773/1638 are historical author shadow assumptions"
+    },
+    {
+      "id": "H4",
+      "status": "NULL_IN_SUBJECT",
+      "conclusion": "Full project/company PnL and actual gross cash/complete financing reserve"
+    },
+    {
+      "id": "H5",
+      "status": "OUT_OF_SCOPE",
+      "conclusion": "Final evidence38f, final products/network/digital, joint allocation, future methods v3 and final strategy"
+    }
+  ],
+  "not_run": [
+    "Selection review EV-MR01 full scope not repeated",
+    "MILP/resource_construction search rerun and proven minimal tail allocation",
+    "Live primary-source/legal verification; final evidence38f reviewed separately",
+    "Dated transfer MCT/inventory operating acceptance",
+    "Final network/products/digital, joint allocation, methods v3, final strategy",
+    "Actual receipts/awards/full PnL or gross cash",
+    "UI/browser/Site, paid calls, external messages, provider launches, restarts",
+    "check_colleague_updates.py --fetch (writes outside assigned directory; direct read-only remote ref receipts used)"
+  ],
+  "previous_review": {
+    "subject": "48686bf2276c435d7a260f4de6741c9b65d26e32",
+    "review": "bd2c27d2157d29d04fa1b3201e01392786fb035f",
+    "verdict": "APPROVE_SCOPED",
+    "scope_not_extended": true
+  },
+  "supplied_root_checks": "Context only; independent results above are personal checks",
+  "artifact_paths": [
+    "report.md",
+    "findings.json",
+    "subject_manifest.json",
+    "review_manifest.json",
+    "verify/independent.py",
+    "verify/independent_results.json",
+    "verify/probes.json",
+    "verify/owner_replay.py",
+    "verify/owner_replay.json",
+    "verify/source_receipts.json",
+    "verify/remote_intake.json",
+    "verify/cleanup.json"
+  ],
+  "constraints_observed": {
+    "children": 0,
+    "new_threads": 0,
+    "dependencies_installed": 0,
+    "owner_writes": 0,
+    "runtime_only_under_review": true,
+    "BLAS_threads": 1,
+    "publications": "Only own Git branch; no force/merge/rebase/PR"
+  },
+  "action_after_handoff": "STOP",
+  "runtime_cleanup": {
+    "checked_at_utc": "2026-11-10T17:03:55.765807+00:00",
+    "runtime_path": "verify/.runtime",
+    "active_review_runtime_processes": 0,
+    "open_runtime_files": 0,
+    "container_check": "CHECKED_ACTIVE_MOUNTS_NO_REVIEW_RUNTIME",
+    "removed_only_own_runtime": true,
+    "removed_bytes": 55316672,
+    "removed_files": 158,
+    "dependencies_installed": 0,
+    "servers_or_containers_created": 0
+  }
+}

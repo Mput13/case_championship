@@ -1,0 +1,50 @@
+{
+  "scope": "read-only diagnosis of native web reader vs captured primary bytes; no infrastructure changes",
+  "reported_by": "root intake; independent source review not claimed",
+  "reported_environment": "d463a92a-a497-4213-aeb8-69f0a1470b87",
+  "reported_thread": "c33b699f-e603-452b-bc0a-6f424e0907c8",
+  "reported_window_msk": "2026-11-10 19:29-19:31",
+  "native_failures": [
+    {
+      "url": "https://old.favt.gov.ru/public/materials/0/3/9/e/7/039e77a7205ca81e3070590870e45a3e.pdf",
+      "error": "TimeoutError"
+    },
+    {
+      "url": "https://favt.gov.ru/public/materials/f/c/d/d/4/fcdd4e01332f1ac475410a0a009a66be.pdf",
+      "error": "(400) Timeout fetching"
+    }
+  ],
+  "personally_captured_direct_http": [
+    {
+      "source_id": "favt_regional_rules",
+      "url": "https://old.favt.gov.ru/public/materials/0/3/9/e/7/039e77a7205ca81e3070590870e45a3e.pdf",
+      "retrieved_utc": "2026-11-10T16:14:04.483325+00:00",
+      "status": 200,
+      "final_url": "https://old.favt.gov.ru/public/materials/0/3/9/e/7/039e77a7205ca81e3070590870e45a3e.pdf",
+      "content_type": "application/pdf",
+      "raw_path": "raw/web/favt_regional_rules/source.pdf",
+      "bytes": 1915650,
+      "sha256": "003167eb6c5eaae4297bb655516d7835f2ff8dddff93b17bfbef698ad4c96ecc",
+      "text_path": "raw/web/favt_regional_rules/text.txt",
+      "text_sha256": "a17716b55c7be72674986ed6cb1700857b81d42888833e87ae075f0b93b49e0c"
+    },
+    {
+      "source_id": "favt_2026_pdf",
+      "url": "https://favt.gov.ru/public/materials/f/c/d/d/4/fcdd4e01332f1ac475410a0a009a66be.pdf",
+      "retrieved_utc": "2026-11-10T16:12:57.458664+00:00",
+      "status": 200,
+      "final_url": "https://favt.gov.ru/public/materials/f/c/d/d/4/fcdd4e01332f1ac475410a0a009a66be.pdf",
+      "content_type": "application/pdf",
+      "raw_path": "raw/web/favt_2026_pdf/source.pdf",
+      "bytes": 88412,
+      "sha256": "c0818a670e622a695f6c746b9402a7c64b9f0c69e5db6d0f4d61d0386af11022",
+      "text_path": "raw/web/favt_2026_pdf/text.txt",
+      "text_sha256": "573a3dbc1a31dfdc99f2f988484e31f13a49a49b12acbc26fc0a5cbfb4c43176"
+    }
+  ],
+  "layer_finding": "Native web fetch/extraction path timed out on these calls; earlier directHTTPS GET returned200 and preservedPDF bytes. This distinguishes an access path failure from absent content; exact transport cause inside native service is unknown.",
+  "safe_fallback": "Use pinned PDF bytes with sha256, pdftotext-layout and selected page image. Root reports byte-for-byte independent pdftotext comparison; not repeated here.",
+  "additional_probe": "NOT_RUN: stored successful directHTTP receipts and pinned bytes already sufficient; no repeated retries",
+  "changes": "NONE to T3/server/browser/MCP/profiles/processes; no child or new thread",
+  "created_utc": "2026-11-10T16:38:08.309606+00:00"
+}
