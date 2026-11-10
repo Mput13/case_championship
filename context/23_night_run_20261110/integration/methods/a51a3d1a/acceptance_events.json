@@ -1,0 +1,165 @@
+{
+  "events": [
+    {
+      "id": "SOURCE_SVX_LINEAGE_HOLD_001",
+      "received_utc": "2026-11-10T03:31:00Z",
+      "source": "Coordinator explicit delivery; independent source/join reviewer finding, correction SHA pending",
+      "affected_input": "primary_evidence@17b4f348f15ea8695688d9435933cb4965568408",
+      "severity": "P2",
+      "finding": "svx_schedule and svx_schedule_arr registry use context12 receipts08Nov (890d43ff/1b1c9c15) while129 SVX publication rows refer to context17 raw09Nov (7dd62cd4/7400ae30)",
+      "correct_reference": "tsiri@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299:context/17_aircraft_route_review/evidence/sources.json",
+      "holds": [
+        "source support and raw lineage for129 SVX publication rows"
+      ],
+      "does_not_establish": [
+        "wrong numerical clocks",
+        "wrong row counts",
+        "wrong demand experiment arithmetic"
+      ],
+      "numerical_impact_on_common_demand_v1": "NONE; primary evidence was context only and did not set demand, fare, cost or schedule",
+      "other_holds": "KUF clock conflicts retained",
+      "status": "HOLD_AWAITING_EXACT_CORRECTION_PACKAGE; original primary input immutable"
+    },
+    {
+      "id": "SOURCE_SVX_LINEAGE_CORRECTION_002",
+      "source": "Coordinator immutable delivery",
+      "package": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+      "path": "inputs/primary-lineage-002",
+      "status": "PARENT_METADATA_JOIN_CHECKED_ONLY",
+      "effect": "New snapshot bindings;209dated and386mapping original cells retained; original17bCHANGES remains",
+      "independent_review": "NOT_RUN_FOR_CORRECTION",
+      "raw_parse": "NOT_RUN_NEW",
+      "clock_holds": 12
+    },
+    {
+      "id": "BUDGET_REVIEW_001",
+      "package": "2278b184bbc83c590238c9f461581e3b045a11d0",
+      "reviewed": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
+      "verdict": "APPROVE_SCOPED",
+      "qualifications": [
+        "enumerated products and fixed fares/cost/seats only",
+        "1M cash at period boundaries; payment-first same totals1.8M",
+        "UFA4notfinal8-12routecase"
+      ]
+    },
+    {
+      "id": "MODEL_REPAIR_REVIEW_001",
+      "package": "445a5d523d4b57d8c89b2344e1913de2e5f9dc6b",
+      "reviewed": "27740ffea0821aa404ecd1013d1bb141613261f3",
+      "verdict": "APPROVE_SCOPED",
+      "qualifications": [
+        "QFproposalnotuniquelyrequired",
+        "D-onlycurrentdelta0",
+        "noobservedODorMOWairportassignment"
+      ]
+    },
+    {
+      "id": "COST_KOVER_TIMEBASE_HOLD_001",
+      "package": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "status": "P2_REPRODUCED_METHODS_OWNER",
+      "evidence": "checks/kover_timebase/probe.json",
+      "holds": [
+        "post-day1UTC",
+        "genericepisodehits",
+        "delay_rotation_PASS_and_servedallfeasibility"
+      ],
+      "unaffected": "Day1canceltouchedsetandconditionalmoney",
+      "root_notified": true,
+      "independent_review": "RUNNING_BY_ROOT"
+    },
+    {
+      "id": "COST_TIMEBASE_PARENT_CORRECTION_002",
+      "package": "87ee52de15c2bdf396d9c06ba600fd413d5ab4a8",
+      "status": "PARENT_TIMEBASE_AND_DELTA_CHECK_ONLY",
+      "independent_review": "MR10_RUNNING_NOT_INHERITED",
+      "effect": "4hubdelay rowsHOLD/NULL;40day1arithunchangedbeforegating; originalsimmutable"
+    },
+    {
+      "id": "COMMON_REVIEW_001",
+      "package": "7a868d1282b9c4de012e39e9fc1104d2d7f675e4",
+      "reviewed": "abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe",
+      "verdict": "APPROVE_SCOPED",
+      "boundary": "Fixedlocalfirst/enumeratedproducts;source129/28/58HOLD;doesnotcoverv4/v5"
+    },
+    {
+      "id": "COST_REVIEW_001",
+      "package": "d8634187d452343a369f7cec63be50511bb70020",
+      "reviewed": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "verdict": "CHANGES",
+      "finding": "CKR-P2-TIMEBASE",
+      "scoped_pass": "117parameters/8baseline/40overlayarithmetic/day1cashfixture",
+      "correction_review": "NOT_INHERITED"
+    },
+    {
+      "id": "V6_SCOPED_REVIEW_IMPORTS",
+      "received_utc": "2026-11-10T04:23:45.467994+00:00",
+      "MR09": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9 scopedc24",
+      "MR10": "4604059a675b0be410ff46685ec77fa1dc20933a scopedf177metadata/87eetimebasegating",
+      "frontier": "519998ed8c97ce5499f356a6d0f81558c7f6ee14 owner-only",
+      "projection": "runs/admission_v2; v5 snapshot preserved",
+      "no_inherited_v6_approval": true
+    },
+    {
+      "id": "FRONTIER_REVIEW_V7_EVENT",
+      "received_utc": "2026-11-10T04:37:37.414635+00:00",
+      "review_commit": "58a02028e062b1abd803d99e19f630b75ec80657",
+      "input_commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+      "scope": "62calendar/capacity/mechanical checks only;35retained32untested",
+      "projection": "runs/admission_v3",
+      "no_source_market_actual_resource_fullbudget_upgrade": true
+    },
+    {
+      "id": "V8_MR11_MR12_PASSPORT_EVENT",
+      "received_utc": "2026-11-10T04:51:51.100682+00:00",
+      "MR11": "ea2a9626aef75c121f2da7d778b47edce0d571b7 scopedf7a",
+      "MR12": "5e9b4765c60f4cc7ecb1d1a4dad20d3996235cab scopedba9",
+      "MR12_O01": "two prose rounding substitutions; calculations unchanged",
+      "passport": "46fd52db073cffc46a598f44489d0761c6853410 ownerpending",
+      "projection": "runs/admission_v4",
+      "new_guard_and_passport_projection_independent": "PENDING"
+    },
+    {
+      "id": "MR13_APPROVE_AND_PRE_FREEZE_HANDOFF",
+      "received_utc": "2026-11-10T05:00:34.060600+00:00",
+      "review_commit": "e4a170a034e60d6477246765b5eae3eab5eaa10d",
+      "subject_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "scope": "FiniteC/equalexcludedcosts/F_B_nonnegative choice domains and58sourceprojections only",
+      "pending": "MR14exact7e65;passportreviewexact46fd",
+      "new_calculations": false
+    },
+    {
+      "id": "PASSPORT_APPROVE_AND_MR14_ORACLE_BINDING_HOLD",
+      "received_utc": "2026-11-10T05:14:49.736068+00:00",
+      "passport_review_commit": "26bcb2db6d76d91ec5ddee9055af3aef861066e8",
+      "passport_subject_commit": "46fd52db073cffc46a598f44489d0761c6853410",
+      "passport_verdict": "APPROVE_SCOPED_ORIGINAL_SYNTHESIS_ONLY",
+      "guard_review_commit": "f579eeb888a98554b901afeee628c30a85cc48bf",
+      "guard_subject_commit": "7e65c687e12cf45534852a3c47d6a5c8cf7dda07",
+      "guard_verdict": "CHANGES_ONE_MR14_P2_01",
+      "hold": "Guard claim of exact immutable independent oracle binding; receipt is locally mutable and may be empty",
+      "not_refuted": "Originalf7a calculations;384keys12groups160actualoracle rows; unchangedfrozeninputs; passportqualification projection",
+      "correction_owner": "Root separate input_admission_correction; exact SHA and MR15 pending; methods does not duplicate fix"
+    },
+    {
+      "id": "ROOT_GUARD_CORRECTION_PENDING_REFERENCE",
+      "received_utc": "2026-11-10T05:18:47.486305+00:00",
+      "input_commit": "4a89bf1c04b24224a6a85a6cb9b6ca1cad032ab0",
+      "acceptance": "PARENT_CORRECTION_CHECKS_ONLY; MR15_PENDING",
+      "personal_check": "receiptSHA+3oraclefiles+3baselineoutputshashes only",
+      "correction_not_applied_or_executed_here": true,
+      "original7e65": "CHANGES_RETAINED"
+    },
+    {
+      "id": "MR15_ROOT_CORRECTION_BINDING_ACCEPTANCE",
+      "received_utc": "2026-11-10T05:30:25.189019+00:00",
+      "review_commit": "325368b8e5cd50fb5fa48d1c99574780758a1eb4",
+      "subject_commit": "4a89bf1c04b24224a6a85a6cb9b6ca1cad032ab0",
+      "verdict": "APPROVE",
+      "scope": "MR14-P2-01 closure onlyrootderivedcorrectedguard exactfrozeninput",
+      "original_guard7e65": "CHANGES_RETAINED",
+      "actual_independent_oracle_ea2_and_f7a_baseline_values_not_changed": true,
+      "old_guard_and_interaction_protection_inherited": false,
+      "new_source_market_fleet_fullbudget_acceptance": false
+    }
+  ]
+}

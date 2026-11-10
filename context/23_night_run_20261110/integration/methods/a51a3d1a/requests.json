@@ -1,0 +1,217 @@
+{
+  "version": "methods-integration-v5",
+  "dispatch_owner": "coordinator_only",
+  "note": "Requests may be satisfied by already running packages; do not create duplicate work. Methods runs no subagents and does not poll other folders.",
+  "requests": [
+    {
+      "id": "MR01",
+      "priority": "P1",
+      "status": "RECEIVED_27740ffe_INDEPENDENT_SCOPED_APPROVE_445a5d52",
+      "inputs": [
+        "nastya@2f03b693a62c219e9475fcd1e26295039f6a49d7",
+        "tsiri@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "methods/comparison_spec.md"
+      ],
+      "question": "Provide exact SHA for author/corrected network replay, including shared pair capture, unit conversions, all selected legs and delta.",
+      "acceptance": "Preserved author outputs; numerical replay tolerances; common market budget during selection; per-itinerary seats and one fare; explicit frequency/resource envelope and route definition; corrected result not labelled market-validated.",
+      "dependency": "Network package already assigned by root; methods first common run depends on it."
+    },
+    {
+      "id": "MR02",
+      "priority": "P1",
+      "status": "CHANGES_d863_CKR_P2_TIMEBASE; DAY1_ACCOUNTING_SCOPED_PASS; CORRECTION_MR10_RUNNING",
+      "inputs": [
+        "methods/comparison_spec.md budget and kover sections",
+        "author cost assumptions"
+      ],
+      "question": "Provide exact SHA for cost/kover package and provenance of rates, donor/own-migration accounting, fixed costs and cash timing.",
+      "acceptance": "No-kover baseline unchanged; tax/price/unit and valid dates explicit; event-day counts not downtime; no double-counted donor margin; UNKNOWN budgets preserved; removal of kover leaves other risks.",
+      "dependency": "Coordinator assigned cost_kover due 07:05 MSK; await exact package SHA, no duplicate dispatch."
+    },
+    {
+      "id": "MR03",
+      "priority": "P1",
+      "status": "SJR944b_CHANGES_PRIMARY_LINEAGE; CORRECTION_f177_PARENT_METADATA_ONLY",
+      "inputs": [
+        "core@505e24663e5952bae9b9540bb9a5a622663bfc2a",
+        "alternative@ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+        "methods market_pool/physical_leg definitions"
+      ],
+      "question": "Provide completed join/source package with exact SHA, especially endpoint versus segment grain and competitor coverage for tested OD.",
+      "acceptance": "Source keys/time/unit/coverage preserved; airport totals not renamed OD; absent snapshot not zero competition; marketing duplicates and via-stops separated; unresolved arrivals/units remain NULL.",
+      "dependency": "Data join package; no need for methods to poll source folders."
+    },
+    {
+      "id": "MR04",
+      "priority": "P2",
+      "status": "PRESERVED_PARALLEL_QUEUE",
+      "inputs": [
+        "hypotheses@6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+        "C01/C07/C14"
+      ],
+      "question": "When ready, provide exact SHA of new useful product/evidence experiments and their impact on a named scenario parameter or constraint.",
+      "acceptance": "Candidate, product, period, counterfactual, refusal criterion, cost/resource effect; no inferred sales or financial-model equivalence. Preserve inconclusive and rejected cases.",
+      "dependency": "Parallel hypothesis work; not a gate to publishing current comparison."
+    },
+    {
+      "id": "MR05",
+      "priority": "P1",
+      "status": "COMPLETE_CHANGES_ON344f_CURRENT_LABEL_PARENT_CLOSED_LEGACY_HELD",
+      "inputs": [
+        "methods first published SHA to be supplied in handoff",
+        "comparison_spec.md",
+        "analyze_pinned.py",
+        "analysis/set001/*",
+        "decisions.json"
+      ],
+      "question": "Independently review methodology and numerical examples, especially capture law versus confirmed error, donor double count, cash versus accrual and route units.",
+      "acceptance": "New independent review on exact package; replicate at least shared MOW-OMS, Tsiri itinerary/ledger and C01 threshold; counterexamples for mixed products/shared capacity; actionable P1/P2 with exact evidence and acceptance limits.",
+      "dependency": "Root dispatched a new Sol review; its result does not automatically cover the new budget module."
+    },
+    {
+      "id": "MR06",
+      "priority": "P2",
+      "status": "SCOPED_APPROVE_445a5d52_NO_NUMERICAL_CHANGE",
+      "inputs": [
+        "93fa5cf scripts/build_aircraft_route_review.py:19-29",
+        "context/17_aircraft_route_review/model/flights.csv"
+      ],
+      "question": "Check whether inherited block_method metadata correctly describes RouteModel.block for each profile; retain original and corrected metadata separately if mismatched.",
+      "acceptance": "Per-leg value and provenance must be distinguished; do not change actual flight-time numbers only to match a stale description.",
+      "dependency": "Can be included in existing network audit; no separate agent needed."
+    },
+    {
+      "id": "MR07",
+      "priority": "P1",
+      "status": "APPROVE_SCOPED_2278b184_EXACT2a74",
+      "inputs": [
+        "new methods-budget-v2 exact SHA in delivery",
+        "budget_contract.json",
+        "budget_thresholds.py",
+        "runs/budget_v1/supply_dual_certificates.csv",
+        "budget_readout.md"
+      ],
+      "question": "Independently check supply upper bounds, same-seat/one-fare certificate and cash/donor conclusions when a Sol slot is available.",
+      "acceptance": "Recompute 8 bounds and 224 inequalities; verify zero migration is optimistic; no extrapolation to different supply or full profit; distinguish price thresholds from demand forecasts.",
+      "dependency": "New package separate from active MR05 review; root chooses scheduling."
+    },
+    {
+      "id": "MR08",
+      "priority": "P1",
+      "status": "APPROVE_SCOPED_7a868d12_EXACT_abb1",
+      "inputs": [
+        "methods-common-v3 exact SHA from delivery",
+        "common_demand.py",
+        "common_boundaries.py",
+        "build_comparison_adapter.py",
+        "common_comparison_readout.md"
+      ],
+      "question": "Independently check the common demand-input experiment and exact decision boundaries, including complete keyed joins and source-grain limits.",
+      "acceptance": "Reproduce8baseline/224itinerary rows; verify160 per-flight formulas/full IDs; challenge missing/duplicate/cost mutations; recompute84cases and151affine regions, alpha crossing and saturation claims; ensure no annual-money merge or conditional16 leakage; preserve UNKNOWN evidence.",
+      "dependency": "New immutable package; do not expand/restart MR05, MR07 or model_repair/source reviews. Root alone chooses free slot."
+    },
+    {
+      "id": "MR09",
+      "priority": "P2",
+      "status": "COMPLETED_APPROVE_SCOPED_EXACT_c24",
+      "inputs": [
+        "methods-strategy-v4 exact SHA from delivery",
+        "portfolio_comparison.py",
+        "resource_comparison.py",
+        "product_accounting_bridge.py",
+        "strategy_accounting_readout.md"
+      ],
+      "question": "Review new mixed/resource/unit synthesis separately from activeMR08; verify finite-scope claims, shared market/own-cap budgets and future-resource limits.",
+      "acceptance": "Singleton16cases match, sharedMRV-SVX pooling isproposalnotDbreach, fulltailnamespace, no duplicatebase/reserve,240hboundnecessaryonly, C01unit67vs72 and C07costrecipe not actualmarketbudget.",
+      "dependency": "Root alone prioritizes; no expansion/restart ofMR08. TimebaseP2 is already delivered to root for existingMR02scope, no duplicate dispatcher.",
+      "review_commit": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9"
+    },
+    {
+      "id": "MR10",
+      "priority": "P1",
+      "status": "COMPLETED_APPROVE_SCOPED_DERIVATIVES_ONLY",
+      "inputs": [
+        "primary_lineage_correction@f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+        "cost_kover_timebase_correction@87ee52de15c2bdf396d9c06ba600fd413d5ab4a8"
+      ],
+      "question": "Fresh independent correction recheck assigned by coordinator.",
+      "acceptance": "Corrected snapshot FK/retained originalcells; epoch/horizon/hold/null; no inherited original pass.",
+      "dependency": "Existing root review; methods does not expand it.",
+      "review_commit": "4604059a675b0be410ff46685ec77fa1dc20933a"
+    },
+    {
+      "id": "MR11",
+      "priority": "P1",
+      "status": "COMPLETED_APPROVE_SCOPED_EXACT_f7a",
+      "inputs": [
+        "methods-integration-v5 exact SHA from delivery",
+        "kover_demand_contract.json",
+        "integrate_kover_accounting.py",
+        "kover_demand_interaction.py",
+        "portfolio_guard_comparison.py",
+        "integration_readout.md"
+      ],
+      "question": "Independently review the new fixed-supply C/N cancellation interaction, corrected-context21 join and hard-D portfolio branch.",
+      "acceptance": "Rejoin each recipe own itinerary quantities once; verify8C cancellation deltas/8N deltas and sign changes; no Cdelta transplant, no delay money despiteHOLD, no double donor/migration/refund;30D-only deltas0 plus synthetic300cap; priorv3/v4 outputvalues preserved.",
+      "dependency": "Fresh task on v5, not expansion of completedMR08/activeMR09/MR10; root alone chooses slot. Parentcorrection recheck belongs MR10, original MR02review alreadyscopedCHANGES.",
+      "input_commit": "f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9",
+      "review_commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7"
+    },
+    {
+      "id": "MR12",
+      "priority": "P1",
+      "status": "COMPLETED_APPROVE_SCOPED_A_B_EXACT_ba9",
+      "inputs": [
+        "methods-v6 exact commit from delivery",
+        "allocation_contract.json",
+        "allocation_diagnostic.py",
+        "final_variant_contract.json",
+        "final_variant_synthesis.py",
+        "decision_conditions.md"
+      ],
+      "question": "Independent fixed-offer allocation and final finite-variant synthesis review; prior reviews remain immutable.",
+      "acceptance": "16cases/48primary optima, migrationlinearity gate, primal anddual certificates,32secondary checks; sourcequota andmarket/leg invariants; UFA8Cbase segment-vsjourney counterexample;15union/90budget rows, five jointmodelgates; no8-12operatingacceptance or fullbudget.",
+      "dependency": "Root alone chooses free slot. MR11exactf7a/FRONTIER_REVIEW/passport_bridge notexpanded. ExistingMR09/MR10notrepeated.",
+      "input_commit": "ba9f6b85b4f8c9847948ae428ef3fbcfca9e2009",
+      "review_commit": "5e9b4765c60f4cc7ecb1d1a4dad20d3996235cab"
+    },
+    {
+      "id": "MR13",
+      "priority": "P2",
+      "status": "COMPLETED_APPROVE_SCOPED_EXACT_c6ad",
+      "inputs": [
+        "methods-v7 exact commit from delivery",
+        "budget_choice_contract.json",
+        "budget_choice_domains.py",
+        "budget_choice_readout.md",
+        "final_model_projection.py",
+        "model_comparison.md"
+      ],
+      "question": "Fresh narrow check of finite F/B choice domains under8-12/newbase constraints and source-result semantic projection.",
+      "acceptance": "18problems/90candidate rows/408inequalities;39feasible witnesses and51directdominance proofs;4finalcount Fbreakpoints; newbaseconstraint floor4.473749/13.748565m+B conditional notactualcost;58numericstrings preserved/36QFvariants notmandatoryfix; noannual-weeklyranking orLPthresholdinheritance.",
+      "dependency": "Only if root allocates slot; do not expand activeMR11/MR12 or completedFRONTIER/MR10. No new source collection requested.",
+      "input_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "review_commit": "e4a170a034e60d6477246765b5eae3eab5eaa10d"
+    },
+    {
+      "id": "MR14",
+      "priority": "P2",
+      "status": "COMPLETED_CHANGES_ORIGINAL_ROOT_DERIVATIVE_ACCEPTED_SEPARATELY",
+      "inputs": [
+        "methods-v8 exactcommit fromdelivery",
+        "admit_frozen_interaction.py",
+        "qualify_passport_methods.py",
+        "integration_status.md",
+        "runs/input_admission_v1"
+      ],
+      "question": "New narrow review of fixed-input key/hash/independent-oracle guard and currentqualification projection; no upstream review reruns.",
+      "acceptance": "Exact4filef7a hash pin,384keys/12unitgroups/160MR11oracle rows,7mutationrejects; no universalnewinputacceptance; originalMR11code/runs immutable; MR12O01only2prosechanges; passport26/33originals retained, namespace/status/wordingprecisions scoped.",
+      "dependency": "Root alone may assign; do not expand MR13 orpassportreview; no correction/modelreview repeats.",
+      "input_commit": "7e65c687e12cf45534852a3c47d6a5c8cf7dda07",
+      "review_commit": "f579eeb888a98554b901afeee628c30a85cc48bf",
+      "accepted_derivative_commit": "4a89bf1c04b24224a6a85a6cb9b6ca1cad032ab0",
+      "derivative_review_commit": "325368b8e5cd50fb5fa48d1c99574780758a1eb4",
+      "derivative_scope": "Exactrootbindingonly;original7e65CHANGESretained"
+    }
+  ]
+}
