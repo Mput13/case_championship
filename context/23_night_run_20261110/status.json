@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "RUNNING",
-  "updated_at_utc": "2026-11-10T03:40:44.118786+00:00",
+  "updated_at_utc": "2026-11-10T03:42:01.214694+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -152,6 +152,33 @@
       ],
       "pushed_sha": "944b16ac2dcde846e29dac2d47e11e5143f9fc2b",
       "acceptance": "CHANGES_SJR_P2_001; OTHER_SCOPES_PASS"
+    },
+    {
+      "role": "common_comparison_review",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-common-comparison-review-20261110-r1",
+      "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-common-comparison-review-20261110-r1",
+      "link": "[Sol 6.1: независимая проверка общего сравнения](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-common-comparison-review-20261110-r1)",
+      "status": "running",
+      "model": "gpt-6.1-sol",
+      "brief": "briefs/common_comparison_review.md"
+    },
+    {
+      "role": "cost_kover_review",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1",
+      "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1",
+      "link": "[Sol 6.1: независимая проверка экономики Ковра](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1)",
+      "status": "running",
+      "model": "gpt-6.1-sol",
+      "brief": "briefs/cost_kover_review.md"
+    },
+    {
+      "role": "hypothesis_frontier",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1",
+      "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1",
+      "link": "[Sol 6.1: отбор и проверка следующих гипотез](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1)",
+      "status": "running",
+      "model": "gpt-6.1-sol",
+      "brief": "briefs/hypothesis_frontier.md"
     }
   ],
   "checkpoints": [
@@ -265,7 +292,8 @@
     "cost_kover": {
       "sha": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
       "path": "integration/cost_kover/afadee35",
-      "acceptance": "AUTHOR_SCOPED_PASS; NEW_REVIEW_QUEUED"
+      "acceptance": "AUTHOR_SCOPED_PASS; NEW_REVIEW_QUEUED",
+      "independent_review": "RUNNING_NEW_COST_KOVER_REVIEW"
     },
     "model_repair_review": {
       "sha": "445a5d523d4b57d8c89b2344e1913de2e5f9dc6b",
@@ -285,7 +313,7 @@
     "methods_common_v3": {
       "sha": "abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe",
       "path": "integration/methods/abb1c762",
-      "independent_review": "QUEUED_NEW_MR08",
+      "independent_review": "RUNNING_NEW_MR08",
       "parent_output_hashes_verified": 195,
       "primary_context_lineage_hold": "SJR-P2-001; no reported arithmetic impact"
     },
@@ -296,7 +324,8 @@
       "receipt_sha": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
       "acceptance": "PARENT_METADATA_JOIN_CHECKED; independent_correction_review_NOT_RUN",
       "original_review_verdict": "CHANGES_PRESERVED",
-      "validation": "primary_lineage_correction/validation.json"
+      "validation": "primary_lineage_correction/validation.json",
+      "published_sha": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1"
     }
   },
   "queued_tasks": [
@@ -355,29 +384,32 @@
     {
       "request_id": "HYPOTHESIS_FRONTIER",
       "role": "hypothesis_frontier",
-      "state": "READY_TO_DISPATCH",
+      "state": "DISPATCHED",
       "priority": "P2",
       "purpose": "Use the 35 preserved ideas plus new evidence to identify concrete changes to fare, cost, resource or product constraints; retain failed/inconclusive cases. Do not create more city scores or invent OD.",
-      "brief": "briefs/hypothesis_frontier.md"
+      "brief": "briefs/hypothesis_frontier.md",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-hypothesis-frontier-20261110-r1"
     },
     {
       "request_id": "MR08",
       "role": "common_comparison_review",
       "input_sha": "abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe",
-      "state": "READY_TO_DISPATCH",
+      "state": "DISPATCHED",
       "required_new_delegate_task": true,
       "priority": "P1",
-      "brief": "briefs/common_comparison_review.md"
+      "brief": "briefs/common_comparison_review.md",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-common-comparison-review-20261110-r1"
     },
     {
       "request_id": "MR02_REVIEW",
       "role": "cost_kover_review",
       "input_sha": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
-      "state": "READY_TO_DISPATCH",
+      "state": "DISPATCHED",
       "required_new_delegate_task": true,
       "priority": "P1",
-      "brief": "briefs/cost_kover_review.md"
+      "brief": "briefs/cost_kover_review.md",
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1"
     }
   ],
-  "active_sol_count_at_checkpoint": 0
+  "active_sol_count_at_checkpoint": 3
 }
