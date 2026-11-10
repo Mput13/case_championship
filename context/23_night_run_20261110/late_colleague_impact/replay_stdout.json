@@ -1,0 +1,138 @@
+{
+  "scope": "SCOPED_OFFLINE_FUNCTIONS_AND_EXPORTED_CSV; NOT_FULL_MODEL_ACCEPTANCE",
+  "source_sha": "b91e0672af396bacd91651abeff8732fa733859d",
+  "exact_function_extraction": "AST; executable function bodies unchanged; module IO excluded",
+  "shared_pair_fixture": {
+    "carried_dir_week": 510.0,
+    "expected": 510.0,
+    "status": "PASS"
+  },
+  "exported_shared_pairs": {
+    "checked": 6,
+    "status": "PASS_with_individual_row_rounding"
+  },
+  "single_through_fare_fixture": {
+    "synthetic": true,
+    "local_od_week_both": 164.35134529542498,
+    "transfer_od_week_both": 56.89085029457019,
+    "local_revenue_rub_week": 1379400.8410645018,
+    "through_revenue_rub_week": 623279.0885722226,
+    "total_revenue_rub_week": 2002679.9296367243,
+    "status": "PASS"
+  },
+  "summary_arithmetic": {
+    "rows": 12,
+    "status": "PASS_with_independent_rounding_tolerance_1"
+  },
+  "longlist": [
+    {
+      "mode": "longlist_scores.csv",
+      "rows": 20,
+      "top3": [
+        "CEK",
+        "UFA",
+        "PEE"
+      ],
+      "status": "PASS_center_scores_and_order"
+    },
+    {
+      "mode": "longlist_scores_min500.csv",
+      "rows": 15,
+      "top3": [
+        "OMS",
+        "KUF",
+        "REN"
+      ],
+      "status": "PASS_center_scores_and_order"
+    },
+    {
+      "mode": "longlist_scores_min500_strict.csv",
+      "rows": 11,
+      "top3": [
+        "OMS",
+        "REN",
+        "BAX"
+      ],
+      "status": "PASS_center_scores_and_order"
+    }
+  ],
+  "weather_sentinel": {
+    "result": {
+      "frost": 1,
+      "wind": 1,
+      "either": 1,
+      "valid_temp_days": 1,
+      "valid_wind_days": 1,
+      "valid_joint_days": 1,
+      "record_days": 2,
+      "observations": 2
+    },
+    "status": "PASS"
+  },
+  "full_network_replay": "NOT_RUN: bounded scope; no raw staging or model-wide execution",
+  "od_fit_refit": "NOT_RUN: coefficients and exported diagnostics inspected; no raw/model-wide replay",
+  "weather_archive_replay": "NOT_RUN: no archive staging; function fixture and exported coverage only",
+  "optimizer_global_optimality": "NOT_ESTABLISHED: greedy; standalone top-400 shortlist and fixed standalone frequencies",
+  "dependencies": {
+    "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "numpy": "2.4.3",
+    "pandas": "2.3.3"
+  },
+  "greedy_fixture": {
+    "synthetic": true,
+    "triangles": 3,
+    "physical_pairs": 8,
+    "status": "PASS_pooled_final_flows; NOT_global_optimality_or_full_selection_replay"
+  },
+  "rank_tie_counterexample": {
+    "weights": {
+      "ssj_ops": 1,
+      "all_other_weights": 0
+    },
+    "reported_worst_ranks": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "stable_order_actual_ranks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "status": "CONFIRMED_RETAINED_DEFECT_arbitrary_weights; NOT_default_top3_change"
+  }
+}

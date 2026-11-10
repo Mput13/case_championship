@@ -1,0 +1,774 @@
+diff --git a/data/assumptions/demand.csv b/data/assumptions/demand.csv
+index 974e153..52efbe7 100644
+--- a/data/assumptions/demand.csv
++++ b/data/assumptions/demand.csv
+@@ -4,3 +4,10 @@ cautious_quantile,0.20,доля,"допущение: осторожная оце
+ optimistic_quantile,0.80,доля,"допущение: оптимистичная оценка = 80-й процентиль"
+ no_rail_hr,96,ч,"допущение: поезда в данных «Точно» нет (Калининград, Дальний Восток) — как 4 суток в пути; пары помечены rail_imputed_96h"
+ min_pair_km,250,км,"допущение: пары ближе 250 км не рассматриваем — там летать не будут"
++od_max_circuity,1.6,отношение,"допущение: пересадку выбирают, если путь через пункт пересадки длиннее прямой не больше чем в 1,6 раза (как в тестовых парах коллег, context/11_practical_screening); иначе поездка не авиационная"
++national_load_factor_2025,0.895,доля,"факт: средняя загрузка кресел российских авиакомпаний в 2025 году 89,5% (Росавиация, 30.01.2026; копия коллег context/17_research_report/network_recovery/parsed/national_market_observations.csv)"
++analog_k,3,пар,"допущение: оценка по аналогам — 3 ближайшие известные пары по населению и расстоянию"
++disagreement_ratio,2,раз,"правило docs/19: если оценки расходятся больше чем в 2 раза, пара помечается «неуверенной»"
++carrier_pax_2025_jan_may,40.4,млн пассажиров,"факт: Росавиация, январь–май 2025 (t.me/favt_ru/4262; копия коллег market_observation_v1.csv)"
++carrier_pax_2025_jan_aug,73.7,млн пассажиров,"факт: Росавиация, январь–август 2025 (копия коллег market_observation_v1.csv)"
++carrier_pax_2025_year,108.85,млн пассажиров,"факт: Росавиация, 2025 год (30.01.2026)"
+diff --git a/data/assumptions/longlist_weights.csv b/data/assumptions/longlist_weights.csv
+index 84d162c..f4dd933 100644
+--- a/data/assumptions/longlist_weights.csv
++++ b/data/assumptions/longlist_weights.csv
+@@ -1,17 +1,17 @@
+-criterion,column,direction,weight,why,status,short,fmt,board,fill,lo,hi,group
+-Недообслуженный спрос,gap_pop,+,20,"люди в зоне SSJ без прямого рейса и без поезда до 12 ч — их и может забрать хаб",предложение — команда правит,«Дыра»,mln,1,,,,рынок
+-Устойчивость к «Ковру»,last365_days,-,20,"каждый день ограничений ломает волну пересадок в хабе (docs/16)",предложение — команда правит,«Ковёр»,days,1,,,,эксплуатация
+-Нет чужой «крепости»,competitor_hub,-,15,"в хабе или базе конкурента Red Wings проигрывает по частотам (docs/03, docs/15)","предложение; 1 — база или хаб конкурента по источнику, неизвестно = 0,5 (аудит критика), 0 — проверено, что нет",Чужой хаб,yesno,0,0.5,0,1,конкуренция
+-Размер рынка аэропорта,pax_2025,+,10,пассажиропоток 2025,предложение — команда правит,Пассажиры,mln,1,,,,рынок
+-Население зоны тяготения,catchment_pop_2025,+,10,"свои пассажиры хаба: все населённые пункты в 75 км, оценка на 01.01.2025 (раньше — только города больше 100 тыс., перепись 2021)",предложение — команда правит,Население,mln,0,,,,рынок
+-Удалённость от своих баз,dist_bases_km,+,10,"хаб рядом с Екатеринбургом или Москвой дублирует базу",предложение — команда правит,До базы,km,1,,,,география
+-Пересадочный потенциал,transfer_demand_base,+,10,"сколько пассажиров между парами городов без прямого рейса можно провезти через город с крюком не больше 35% (идея коллег: «география связанности», context/11)",новый — предложение,Пересадки,mln,1,,,,география
+-Приоритет акционеров,strategy_region,+,5,"Урал, ДФО, СКФО, ЮФО",предложение — команда правит,Акционеры,yesno,0,,0,1,стратегия
+-Зона трансфера,transfer_zone,+,5,"пересадка без выхода в город; неизвестно = 0,5",предложение — команда правит,Трансфер,yesno,0,0.5,0,1,эксплуатация
+-Связь с Ростехом,rostec_link,+,5,"ТО и заводы рядом; неизвестно = середина шкалы (раньше 0 — штраф непроверенным городам)",предложение — команда правит,Ростех,level,0,1,0,2,эксплуатация
+-ТО для SSJ на месте,ssj_mro,+,5,"оперативное ТО SSJ в аэропорту: 1 — опубликовано, 0,5 — здесь базируется эксплуатант SSJ (косвенно), неизвестно = середина (идея коллег: «техническая основа», context/11)",новый — предложение,ТО SSJ,level,0,0.5,0,1,эксплуатация
+-Зарплата в зоне тяготения,wage_2024,+,5,"платёжеспособность: средняя зарплата 2024 по муниципалитетам зоны, вес — население (Росстат БДМО)",новый — предложение,Зарплата,int,0,,,,рынок
+-Непогодные дни,bad_weather_days,-,5,"дни с морозом −20 °C и ниже или ветром от 12 м/с, среднее 2023–2024 (NOAA); пороги исследовательские",новый — предложение,Погода,days,0,,,,эксплуатация
+-Круглосуточный аэропорт,h24,+,0,"волна пересадок требует работы ночью; известно только у 4 городов, поэтому вес 0",новый — справочно,24 ч,yesno,0,,0,1,эксплуатация
+-SSJ уже летает в аэропорт,ssj_ops,+,0,"допуск и практика приёма SSJ; подтверждено у всех 20 городов, поэтому города не различает",новый — справочно,SSJ,yesno,0,,0,1,эксплуатация
+-Опорный аэропорт Red Wings,rw_support,+,0,"Red Wings уже называет город опорным (27.10.2026): проще запуск, но это расширение базы, а не новый хаб",новый — справочно,Опора RW,yesno,0,,0,1,стратегия
++criterion,column,direction,weight,why,status,short,fmt,board,fill,lo,hi,group
++Недообслуженный спрос,gap_pop,+,13,"Сколько людей в зоне полёта SSJ живут там, куда из города нет ни прямого рейса, ни поезда быстрее 12 часов: их и может связать хаб.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",«Дыра»,mln,1,,,,рынок
++Устойчивость к «Ковру»,last365_days,-,22,Сколько дней за год Росавиация вводила в аэропорту ограничения: каждый такой день срывает стыковки в хабе.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",«Ковёр»,days,1,,,,эксплуатация
++База конкурента в аэропорту,competitor_hub,-,7,"Есть ли в аэропорту база крупного конкурента, с которым трудно спорить по частоте рейсов.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",Чужой хаб,yesno,0,0.5,0.0,1.0,конкуренция
++Размер рынка аэропорта,pax_2025,+,7,"Сколько пассажиров аэропорт обслужил в 2025 году, то есть насколько велик уже сложившийся рынок.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",Пассажиры,mln,1,,,,рынок
++Население зоны тяготения,catchment_pop_2025,+,10,Сколько людей живёт в 75 км от аэропорта: это собственные пассажиры хаба.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",Население,mln,0,,,,рынок
++Удалённость от своих баз,dist_bases_km,+,0,Расстояние до Москвы или Екатеринбурга; учтено фильтром 500 км.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",До базы,km,1,,,,допуск
++Пересадочный потенциал,transfer_demand_base,+,12,Сколько пассажиров между городами без прямого рейса можно провезти через этот город почти без крюка.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",Пересадки,mln,1,,,,рынок
++Приоритет акционеров,strategy_region,+,3,"Входит ли регион в приоритеты акционеров: Урал, Дальний Восток, Северный Кавказ и юг.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",Акционеры,yesno,0,,0.0,1.0,стратегия
++Зона трансфера,transfer_zone,+,8,"Может ли пассажир пересесть на другой рейс, не выходя в город.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",Трансфер,yesno,0,0.5,0.0,1.0,эксплуатация
++Связь с Ростехом,rostec_link,+,0,Есть ли рядом завод Ростеха по авиационной технике.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",Ростех,level,0,1.0,0.0,2.0,справочно
++ТО для SSJ на месте,ssj_mro,+,8,"Есть ли в аэропорту техническое обслуживание SSJ, без которого самолёт придётся гонять на базу.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",ТО SSJ,level,0,0.5,0.0,1.0,эксплуатация
++Зарплата в зоне тяготения,wage_2024,+,3,"Какая средняя зарплата в зоне аэропорта, то есть смогут ли люди платить за билеты.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",Зарплата,int,0,,,,рынок
++Непогодные дни,bad_weather_days,-,7,"Сколько дней в году бывает сильный мороз или ветер, из-за которых растут задержки и расходы.","предложение коллег (аудит шага 1, 10.11), командой не утверждено",Погода,days,0,,,,эксплуатация
++Круглосуточный аэропорт,h24,+,0,Работает ли аэропорт круглосуточно.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",24 ч,yesno,0,,0.0,1.0,допуск
++SSJ уже летает в аэропорт,ssj_ops,+,0,Летают ли в аэропорт самолёты SSJ уже сейчас.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",SSJ,yesno,0,,0.0,1.0,допуск
++Опорный аэропорт Red Wings,rw_support,+,0,Называет ли Red Wings аэропорт своим опорным.,"предложение коллег (аудит шага 1, 10.11), командой не утверждено",Опора RW,yesno,0,,0.0,1.0,допуск
+diff --git a/data/assumptions/network.csv b/data/assumptions/network.csv
+index 3a24455..faa9c8d 100644
+--- a/data/assumptions/network.csv
++++ b/data/assumptions/network.csv
+@@ -38,3 +38,4 @@ direct_max_freq_week,7,7,рейсов в неделю в одну сторону
+ triangle_detour_factor,2.2,2.2,отношение,"допущение для отсечения заведомо невыгодных треугольников: плечи с базы ≤ 2,2 × расстояние пары + 1 500 км (раньше зашито в коде)"
+ triangle_detour_add_km,1500,1500,км,то же
+ min_routes,8,8,маршрутов,"требование кейса: сеть из 8–12 маршрутов; убыточные маршруты добавляются, только пока их меньше 8"
++direct_candidates,400,400,треугольников,"допущение: для жадного отбора прямой сети берём 400 лучших треугольников по отдельной оценке (ускорение расчёта)"
+diff --git a/data/manual/pax_2025_overrides.csv b/data/manual/pax_2025_overrides.csv
+index b80b77d..801f820 100644
+--- a/data/manual/pax_2025_overrides.csv
++++ b/data/manual/pax_2025_overrides.csv
+@@ -1,3 +1,3 @@
+-iata,pax_2025,qualifier,note,source
+-GOJ,1400000,> (нижняя граница),"в источнике «более 1,4 млн»","context/07_verification/terra_cities_review/corrected_cities.csv, pax_notes; https://www.aviaport.ru/news/nizhegorodskiy-aeroport-za-god-obsluzhil-bolee-1-4-mln-passazhirov/"
+-REN,951000,> (нижняя граница),"в источнике «более 951 тыс.»","context/07_verification/terra_cities_review/corrected_cities.csv, pax_notes"
++iata,pax_2025,qualifier,note,source,upper_bound,upper_note
++GOJ,1400000,> (нижняя граница),"в источнике «более 1,4 млн»","context/07_verification/terra_cities_review/corrected_cities.csv, pax_notes; https://www.aviaport.ru/news/nizhegorodskiy-aeroport-za-god-obsluzhil-bolee-1-4-mln-passazhirov/",1500000,"допущение: «более 1,4 млн» — не больше следующего шага округления 1,5 млн"
++REN,951000,> (нижняя граница),в источнике «более 951 тыс.»,"context/07_verification/terra_cities_review/corrected_cities.csv, pax_notes",952000,"допущение: «более 951 тыс.» — не больше 952 тыс.; сумма округлённых частей 885,5 + 65,6 тыс. ≈ 951,1 тыс. (аудит коллег, main_source_checks.md)"
+diff --git a/src/build_criteria.py b/src/build_criteria.py
+index 336e80d..48963e7 100644
+--- a/src/build_criteria.py
++++ b/src/build_criteria.py
+@@ -23,6 +23,7 @@ DROP = ROOT / "data" / "criteria"
+ OUT = P / "criteria.json"
+ # сведения о хабах и базах конкурентов — data/manual/competitor_hubs.csv (1 — есть, 0 — проверено, что нет)
+ COMP = pd.read_csv(ROOT / "data/manual/competitor_hubs.csv").set_index("iata")
++PAX_UP = pd.read_csv(ROOT / "data/manual/pax_2025_overrides.csv").set_index("iata")
+ FMTS = {"mln", "days", "km", "int", "yesno", "level", "pct", "num"}
+ 
+ 
+@@ -83,6 +84,20 @@ def core(ll, w):
+         if str(r.pax_2025_qualifier).startswith(">"):
+             v["pax_2025"] = (v["pax_2025"][0], "≥", v["pax_2025"][2])
+         vals[i] = {k: {"v": a, "t": b, "s": c} for k, (a, b, c) in v.items()}
++        # диапазоны для слабых значений (аудит коллег, context/22_stage1_audit): в диапазоне мест они
++        # считаются неопределёнными; центр — само значение
++        lvl = COMP.loc[i, "evidence_level"] if i in COMP.index and "evidence_level" in COMP.columns else None
++        if vals[i]["competitor_hub"]["v"] is not None and txt(lvl) and lvl != "первичный источник":
++            vals[i]["competitor_hub"].update(lo=0.0, hi=1.0, weak=f"слабый источник: {lvl}")
++        if vals[i]["ssj_mro"]["v"] is not None and 0 < vals[i]["ssj_mro"]["v"] < 1:
++            vals[i]["ssj_mro"].update(lo=0.0, hi=1.0, weak="косвенный вывод")
++        if i in PAX_UP.index and vals[i]["pax_2025"]["v"] is not None:
++            vals[i]["pax_2025"].update(lo=vals[i]["pax_2025"]["v"], hi=float(PAX_UP.loc[i, "upper_bound"]),
++                                       weak=txt(PAX_UP.loc[i, "upper_note"]))
++        gru = num(getattr(r, "gap_pop_rail_unknown", None)) or 0
++        if gru > 0 and vals[i]["gap_pop"]["v"] is not None:
++            vals[i]["gap_pop"].update(lo=vals[i]["gap_pop"]["v"] - gru, hi=vals[i]["gap_pop"]["v"],
++                                      weak=f"у {gru / 1e6:.2f} млн человек время поезда неизвестно")
+     crit = []
+     for x in w.itertuples():
+         crit.append({"key": x.column, "label": x.criterion, "short": x.short, "dir": x.direction,
+diff --git a/src/catchment_extra.py b/src/catchment_extra.py
+index b346b76..03df32f 100644
+--- a/src/catchment_extra.py
++++ b/src/catchment_extra.py
+@@ -83,39 +83,68 @@ def wages():
+     return w.groupby("mo8").indicator_value.mean()
+ 
+ 
++def weather_counts(rows, t_lim, w_lim):
++    """Valid daily denominators; all-sentinel day is UNKNOWN.
++
++    Combined event needs at least one valid t and w on that day. This does not
++    establish complete hourly coverage or aircraft operating limits.
++    """
++    d = pd.DataFrame(rows, columns=['day','t','w'])
++    if d.empty:
++        return dict(frost=0, wind=0, either=0, valid_temp_days=0, valid_wind_days=0,
++                    valid_joint_days=0, record_days=0, observations=0)
++    d['valid_t'] = d.t.notna() & d.t.ne(-9999)
++    d['valid_w'] = d.w.notna() & d.w.ne(-9999)
++    d['frost'] = d.valid_t & (d.t/10 <= t_lim)
++    d['wind'] = d.valid_w & (d.w/10 >= w_lim)
++    g = d.groupby('day')[['valid_t','valid_w','frost','wind']].any()
++    joint = g.valid_t & g.valid_w
++    return dict(frost=int(g.frost.sum()), wind=int(g.wind.sum()),
++                either=int(((g.frost | g.wind) & joint).sum()),
++                valid_temp_days=int(g.valid_t.sum()), valid_wind_days=int(g.valid_w.sum()),
++                valid_joint_days=int(joint.sum()), record_days=len(g), observations=len(d))
++
++
+ def weather():
+-    """По каждому аэропорту — станция с самым полным рядом; дни пересчитаны на 365 наблюдённых дней."""
+-    files = pd.read_csv(RAW / "weather/_files.csv")
+-    files = files[files.status == "ok"]
+-    t_lim, w_lim = float(WPAR["frost_c"]), float(WPAR["wind_ms"])
+-    min_days = float(WPAR["min_observed_days"])
++    """Select station by valid joint days, never count sentinel rows as fair weather."""
++    files = pd.read_csv(RAW / 'weather/_files.csv')
++    files = files[files.status == 'ok']
++    t_lim, w_lim = float(WPAR['frost_c']), float(WPAR['wind_ms'])
++    min_days = float(WPAR['min_observed_days'])
+     cache, out = {}, {}
+-    for icao, g in files.groupby("icao"):
++    for icao, g in files.groupby('icao'):
+         best = None
+-        for st, gs in g.groupby("station"):
+-            fr = wi = ei = days = 0
++        for st, gs in g.groupby('station'):
++            total = None
+             for f in gs.file:
++                path = RAW/'weather'/f
++                if not path.exists():
++                    continue
+                 if f not in cache:
+                     rows = []
+-                    for line in gzip.open(RAW / "weather" / f, "rt"):
+-                        q = line.split()
+-                        rows.append((q[0] + q[1] + q[2], int(q[4]), int(q[8])))
+-                    d = pd.DataFrame(rows, columns=["day", "t", "w"])
+-                    d["frost"] = (d.t != -9999) & (d.t / 10 <= t_lim)
+-                    d["wind"] = (d.w != -9999) & (d.w / 10 >= w_lim)
+-                    g2 = d.groupby("day")[["frost", "wind"]].any()
+-                    cache[f] = (int(g2.frost.sum()), int(g2.wind.sum()), int((g2.frost | g2.wind).sum()), len(g2))
+-                a, b_, e, n = cache[f]
+-                fr, wi, ei, days = fr + a, wi + b_, ei + e, days + n
++                    with gzip.open(path, 'rt') as fh:
++                        for line in fh:
++                            q = line.split()
++                            rows.append((f'{int(q[0]):04d}-{int(q[1]):02d}-{int(q[2]):02d}', int(q[4]), int(q[8])))
++                    cache[f] = weather_counts(rows,t_lim,w_lim)
++                counts = cache[f]
++                if total is None: total = {k:0 for k in counts}
++                for k,v in counts.items(): total[k] += v
++            if total is None: continue
+             years = len(gs)
+-            if best is None or days > best[4]:
+-                best = (st, fr, wi, ei, days, years)
+-        st, fr, wi, ei, days, years = best
+-        ok = days / years >= min_days
+-        out[icao] = {"frost_days": round(fr / days * 365, 1) if ok else None,
+-                     "wind_days": round(wi / days * 365, 1) if ok else None,
+-                     "bad_weather_days": round(ei / days * 365, 1) if ok else None,
+-                     "weather_days_observed": round(days / years), "weather_station": st, "weather_years": years}
++            if best is None or total['valid_joint_days'] > best[1]['valid_joint_days']:
++                best = (st,total,years)
++        if best is None:
++            out[icao] = dict(bad_weather_days=None,weather_status='UNKNOWN_missing_local_archives')
++            continue
++        st,t,years = best
++        def rate(event,denom):
++            n=t[denom]
++            return round(t[event]/n*365,1) if n and n/years >= min_days else None
++        out[icao] = dict(frost_days=rate('frost','valid_temp_days'), wind_days=rate('wind','valid_wind_days'),
++            bad_weather_days=rate('either','valid_joint_days'),weather_days_observed=round(t['valid_joint_days']/years),
++            weather_station=st,weather_years=years,**t,
++            weather_status='valid_daily_fields_only_hourly_coverage_unverified')
+     return out
+ 
+ 
+diff --git a/src/demand_model.py b/src/demand_model.py
+index 7861bc5..3f774af 100644
+--- a/src/demand_model.py
++++ b/src/demand_model.py
+@@ -14,7 +14,7 @@
+ Три оценки: осторожная (20-й процентиль ошибки), базовая, оптимистичная (80-й).
+ Если поток пары известен из отчёта аэропорта, в таблицу идёт он, а модель — для сверки.
+ 
+-Проверка на независимых данных: провозная ёмкость субсидируемых маршрутов 2026 (data/raw/favt_subsidy_2026.csv)
++Грубая проверка масштаба (не проверка точности): плановая ёмкость субсидируемых маршрутов 2026 (data/raw/favt_subsidy_2026.csv)
+ × загрузка (data/assumptions/demand.csv).
+ 
+ Вход: data/processed/catchments.csv (src/longlist_data.py), data/manual/known_flows.csv,
+@@ -164,7 +164,7 @@ def main():
+             })
+     pairs = pd.DataFrame(out)
+ 
+-    # независимая сверка: субсидируемые маршруты 2026
++    # проверка масштаба: плановые кресла субсидий 2026 × допущение о загрузке; точность модели этим не проверяется
+     sub = pd.read_csv(ROOT / "data/raw/favt_subsidy_2026.csv", dtype=str)
+     num = lambda s: pd.to_numeric(s.str.replace(r"[\s\xa0]", "", regex=True).str.replace(",", "."), errors="coerce")
+     sub["cap"] = 2 * num(sub.round_trips_2026) * num(sub.seats)
+diff --git a/src/longlist_score.py b/src/longlist_score.py
+index 37ad482..2ac26fc 100644
+--- a/src/longlist_score.py
++++ b/src/longlist_score.py
+@@ -1,22 +1,25 @@
+-"""Баллы лонглиста, топ-3, диапазон из-за пропусков и проверка устойчивости к весам.
++"""Баллы лонглиста, топ-3, диапазон мест из-за неизвестных и слабых значений, проверка устойчивости.
+ 
+-Вход: data/processed/criteria.json (src/build_criteria.py) — все критерии, основные и подключаемые;
++Вход: data/processed/criteria.json (src/build_criteria.py) — критерии и значения со ссылками;
+       data/processed/longlist.csv — названия городов и расстояния для фильтра;
+-      data/assumptions/longlist_params.csv (min_dist_bases_km), data/assumptions/weight_scenarios.csv.
+-Метод (тот же, что в панели):
+-  1. Каждый критерий переводим в шкалу 0–1 (min–max по городам в фильтре или фиксированная шкала lo–hi;
+-     «−» — переворачиваем). Пропуск: если задан fill — подставляем его до нормировки; иначе 0,5.
+-  2. Балл = сумма (вес × оценка) / сумма весов.
+-  3. Диапазон из-за пропусков (идея коллег, context/15_team_update/model/city_scores.csv):
+-     нижний балл — все неизвестные значения города худшие (0), верхний — лучшие (1).
+-     Лучшее возможное место: у города неизвестное лучшее, у остальных худшее; худшее место — наоборот.
+-     Доля веса на пропусках показывает, насколько балл держится на незнании.
+-  4. Устойчивость: (а) каждый вес по очереди ×0,5 и ×1,5; (б) 2000 случайных наборов весов (×0,5…1,5);
+-     (в) сценарии весов по группам критериев (рынок, география, эксплуатация, конкуренция).
+-Выход: data/processed/longlist_scores.csv и longlist_scores_min<N>.csv, longlist_sensitivity[_minN].csv,
+-       longlist_scenarios[_minN].csv
+-Запуск: python src/longlist_score.py               (оба варианта: все города и без ближних к базам)
+-        python src/longlist_score.py --min-dist 0  (только один вариант)
++      data/assumptions/longlist_params.csv (min_dist_bases_km — решение команды 10.11.2026: 500 км),
++      data/assumptions/weight_profiles.csv — наборы весов (основной — предложение коллег, сумма 100).
++Метод (тот же, что в панели; правки по аудиту коллег context/22_stage1_audit учтены):
++  1. Шкала критерия — фиксированная lo–hi или минимум–максимум по всем 20 городам лонглиста.
++     Шкала не пересчитывается после фильтра 500 км, поэтому баллы в разных режимах сравнимы.
++     «−» — шкалу переворачиваем.
++  2. Неизвестное значение: центр — fill (если задан) или середина 0,5; диапазон — от 0 до 1.
++     Слабое значение (чужой хаб по Википедии, косвенное ТО, «более N», «дыра» с неизвестным поездом):
++     центр — само значение, диапазон — из его границ.
++  3. Балл = сумма (вес × оценка) / сумма весов. Веса должны быть неотрицательными с положительной суммой.
++  4. Места: сначала сортировка по полному баллу, потом округление; при точном равенстве — исходный
++     порядок городов (как в панели). Лучшее место: у города верхний балл, у остальных нижний; худшее — наоборот.
++  5. Устойчивость: каждый вес ×0,5 и ×1,5; 2000 случайных наборов весов ×0,5…1,5 — тот же генератор
++     Mulberry32, что в панели; все наборы весов из weight_profiles.csv; режим «строго новый хаб»
++     (без опорных аэропортов Red Wings по первичному источнику).
++Выход: data/processed/longlist_scores.csv, longlist_scores_min<N>.csv, longlist_scores_min<N>_strict.csv,
++       longlist_sensitivity[_minN].csv, longlist_profiles[_minN].csv
++Запуск: python src/longlist_score.py
+ """
+ import argparse
+ import json
+@@ -30,46 +33,80 @@ P = ROOT / "data" / "processed"
+ PAR = pd.read_csv(ROOT / "data/assumptions/longlist_params.csv").set_index("parameter").value
+ 
+ 
+-def normalize(iatas, crit, vals):
+-    """z — оценка 0–1 с подстановкой пропусков; miss — где значение неизвестно (и не задано fill)."""
+-    z, miss = pd.DataFrame(index=iatas), pd.DataFrame(index=iatas)
++def scales(crit, vals):
++    """Шкала каждого критерия по всем городам лонглиста, а не по прошедшим фильтр."""
++    out = {}
+     for c in crit:
+-        x = pd.Series({i: vals[i][c["key"]]["v"] for i in iatas}, dtype=float)
+-        miss[c["key"]] = x.isna()
+-        if c.get("fill") is not None:
+-            x = x.fillna(c["fill"])
+-        lo = c["lo"] if c.get("lo") is not None else x.min()
+-        hi = c["hi"] if c.get("hi") is not None else x.max()
+-        v = (x - lo) / (hi - lo) if hi > lo else x * 0
+-        v = 1 - v if c["dir"] == "-" else v
+-        z[c["key"]] = v.fillna(0.5)
+-    return z, miss
++        xs = []
++        for i in vals:
++            x = vals[i].get(c["key"], {})
++            xs += [v for v in (x.get("v"), x.get("lo"), x.get("hi")) if v is not None]
++        lo = c["lo"] if c.get("lo") is not None else (min(xs) if xs else 0.0)
++        hi = c["hi"] if c.get("hi") is not None else (max(xs) if xs else 0.0)
++        out[c["key"]] = (lo, hi)
++    return out
++
++
++def utility(v, lo, hi, d):
++    if v is None or not hi > lo:
++        return 0.5
++    z = min(1.0, max(0.0, (v - lo) / (hi - lo)))
++    return 1 - z if d == "-" else z
++
++
++def tables(iatas, crit, vals, sc):
++    """Центр, нижняя и верхняя оценка 0–1 и признаки «неизвестно» / «слабое» по каждой ячейке."""
++    z, a, b, unk, weak = (pd.DataFrame(index=iatas, dtype=float) for _ in range(5))
++    for c in crit:
++        k, (lo, hi) = c["key"], sc[c["key"]]
++        for i in iatas:
++            x = vals[i].get(k, {})
++            v = x.get("v")
++            if v is None:
++                u = utility(c["fill"], lo, hi, c["dir"]) if c.get("fill") is not None else 0.5
++                ua, ub, un, wk = 0.0, 1.0, True, False
++            else:
++                u = utility(v, lo, hi, c["dir"])
++                if x.get("lo") is not None:
++                    p, q = utility(x["lo"], lo, hi, c["dir"]), utility(x["hi"], lo, hi, c["dir"])
++                    ua, ub = min(p, q, u), max(p, q, u)
++                else:
++                    ua = ub = u
++                un, wk = False, x.get("lo") is not None
++            z.loc[i, k], a.loc[i, k], b.loc[i, k], unk.loc[i, k], weak.loc[i, k] = u, ua, ub, un, wk
++    return z, a, b, unk.astype(bool), weak.astype(bool)
+ 
+ 
+ def score(z, w):
+-    return (z * w).sum(axis=1) / (w.sum() or 1)
++    if not np.isfinite(w.to_numpy()).all() or (w < 0).any() or w.sum() <= 0:
++        raise ValueError("Нужны конечные неотрицательные веса с положительной суммой")
++    return (z[w.index] * w).sum(axis=1) / w.sum()
+ 
+ 
+-def ranks(s):
+-    return s.rank(ascending=False, method="min").astype(int)
++def mulberry32(seed=42):
++    """Тот же генератор, что rng() в панели: одинаковые 2000 наборов весов в Python и JS."""
++    m = 0xFFFFFFFF
++    while True:
++        seed = (seed + 0x6D2B79F5) & m
++        t = ((seed ^ (seed >> 15)) * (1 | seed)) & m
++        t = (t ^ ((t + (((t ^ (t >> 7)) * (61 | t)) & m)) & m)) & m
++        yield ((t ^ (t >> 14)) & m) / 4294967296
+ 
+ 
+-def run(min_dist, crit, vals, ll, scen):
+-    iatas = [i for i in ll.index if ll.loc[i, "dist_bases_km"] >= min_dist]
+-    if min_dist:
+-        print(f"Фильтр: ближе {min_dist:.0f} км к базам — убраны {', '.join(ll.loc[~ll.index.isin(iatas), 'city'])}")
+-    z, miss = normalize(iatas, crit, vals)
+-    w = pd.Series({c["key"]: c["weight"] for c in crit}, dtype=float)
+-    s = score(z, w)
+-    lo_s, hi_s = score(z.mask(miss, 0.0), w), score(z.mask(miss, 1.0), w)
+-    best_rank, worst_rank = {}, {}
+-    for i in iatas:  # лучшее место: у города лучшее неизвестное, у остальных худшее; худшее — наоборот
+-        sb = lo_s.copy(); sb[i] = hi_s[i]
+-        sw = hi_s.copy(); sw[i] = lo_s[i]
+-        best_rank[i], worst_rank[i] = ranks(sb)[i], ranks(sw)[i]
+-    unk = (miss * w).sum(axis=1) / (w.sum() or 1)
+-    base = set(s.nlargest(3).index)
++def top3(s):
++    """Три лучших по полному баллу; при равенстве — исходный порядок городов."""
++    return list(s.iloc[np.argsort(-s.to_numpy(), kind="stable")].index[:3])
+ 
++
++def run(min_dist, crit, vals, ll, profiles, sc, strict=False):
++    rw = {i for i in vals if (vals[i].get("rw_support") or {}).get("v") == 1}
++    iatas = [i for i in ll.index if ll.loc[i, "dist_bases_km"] >= min_dist and not (strict and i in rw)]
++    z, a, b, unk, weak = tables(iatas, crit, vals, sc)
++    w = pd.Series({c["key"]: c["weight"] for c in crit}, dtype=float)
++    s, lo_s, hi_s = score(z, w), score(a, w), score(b, w)
++    best = {i: 1 + int((lo_s.drop(i) > hi_s[i]).sum()) for i in iatas}
++    worst = {i: 1 + int((hi_s.drop(i) > lo_s[i]).sum()) for i in iatas}
++    base = set(top3(s))
+     one = []
+     for k in w.index:
+         if w[k] == 0:
+@@ -77,41 +114,45 @@ def run(min_dist, crit, vals, ll, scen):
+         for f in (0.5, 1.5):
+             ww = w.copy()
+             ww[k] *= f
+-            t = set(score(z, ww).nlargest(3).index)
++            t = set(top3(score(z, ww)))
+             one.append({"weight": k, "factor": f, "top3": ", ".join(sorted(t)), "same_as_base": t == base})
+-    rng = np.random.default_rng(42)
++    g = mulberry32(42)
+     hits = pd.Series(0, index=iatas)
+     for _ in range(2000):
+-        for i in score(z, w * rng.uniform(0.5, 1.5, len(w))).nlargest(3).index:
++        ww = pd.Series([w[k] * (0.5 + next(g)) for k in w.index], index=w.index)
++        for i in top3(score(z, ww)):
+             hits[i] += 1
+-    group = {c["key"]: c.get("group", "прочее") for c in crit}
+-    sc_rows = []
+-    for r in scen.itertuples():
+-        ww = w.copy()
+-        if r.group != "все":
+-            ww[[k for k in w.index if group[k] == r.group]] *= r.multiplier
+-        ss = score(z, ww)
+-        top = list(ss.nlargest(3).index)
+-        sc_rows.append({"scenario": r.scenario, "label": r.label, "top3": ", ".join(ll.loc[top, "city"]),
+-                        "top3_iata": ", ".join(top), "same_as_base": set(top) == base})
+-    out = pd.DataFrame({"city": ll.loc[iatas, "city"], "score": s.round(3),
+-                        "score_low": lo_s.round(3), "score_high": hi_s.round(3),
+-                        "rank_best": pd.Series(best_rank), "rank_worst": pd.Series(worst_rank),
+-                        "unknown_weight_share": unk.round(2),
+-                        "top3_share_random": (hits / 2000).round(2)})
+-    out = out.join(z.round(3)).sort_values("score", ascending=False)
++    prof = []
++    for pid, gp in profiles.groupby("profile", sort=False):
++        pw = gp.set_index("column").weight.reindex(w.index).fillna(0.0)
++        t = top3(score(z, pw))
++        prof.append({"profile": pid, "label": gp.label.iloc[0], "top3": ", ".join(ll.loc[t, "city"]),
++                     "top3_iata": ", ".join(t), "same_as_base": set(t) == base})
++    order = np.argsort(-s.to_numpy(), kind="stable")
++    out = pd.DataFrame({"city": ll.loc[iatas, "city"], "score": s, "score_low": lo_s, "score_high": hi_s,
++                        "rank_best": pd.Series(best), "rank_worst": pd.Series(worst),
++                        "unknown_weight_share": (unk * w).sum(axis=1) / w.sum(),
++                        "weak_weight_share": (weak * w).sum(axis=1) / w.sum(),
++                        "top3_share_random": hits / 2000}).iloc[order]
++    out = out.join(z.round(3))
+     out.insert(0, "rank", range(1, len(out) + 1))
+-    sfx = f"_min{int(min_dist)}" if min_dist else ""
++    for c in ("score", "score_low", "score_high"):
++        out[c] = out[c].round(3)
++    for c in ("unknown_weight_share", "weak_weight_share", "top3_share_random"):
++        out[c] = out[c].round(2)
++    sfx = (f"_min{int(min_dist)}" if min_dist else "") + ("_strict" if strict else "")
+     out.to_csv(P / f"longlist_scores{sfx}.csv", index_label="iata", encoding="utf-8")
+-    pd.DataFrame(one).to_csv(P / f"longlist_sensitivity{sfx}.csv", index=False, encoding="utf-8")
+-    pd.DataFrame(sc_rows).to_csv(P / f"longlist_scenarios{sfx}.csv", index=False, encoding="utf-8")
++    if not strict:
++        pd.DataFrame(one).to_csv(P / f"longlist_sensitivity{sfx}.csv", index=False, encoding="utf-8")
++    pd.DataFrame(prof).to_csv(P / f"longlist_profiles{sfx}.csv", index=False, encoding="utf-8")
++    head = f"Фильтр {int(min_dist)} км" if min_dist else "Все города"
++    print(f"\n=== {head}{' · строго новый хаб (без опорных аэропортов Red Wings)' if strict else ''}")
+     pd.set_option("display.width", 200)
+     print(out[["rank", "city", "score", "score_low", "score_high", "rank_best", "rank_worst",
+-               "unknown_weight_share", "top3_share_random"]].to_string())
+-    same = sum(r["same_as_base"] for r in one)
+-    print(f"\nТоп-3: {', '.join(out.city.head(3))}")
+-    print(f"Один вес ×0,5 или ×1,5: топ-3 тот же в {same} из {len(one)} вариантов")
+-    for r in sc_rows:
++               "unknown_weight_share", "weak_weight_share", "top3_share_random"]].to_string())
++    print(f"Топ-3: {', '.join(out.city.head(3))}; один вес ×0,5/×1,5 — тройка та же в "
++          f"{sum(r['same_as_base'] for r in one)} из {len(one)}")
++    for r in prof:
+         print(f"  {r['label']}: {r['top3']}")
+ 
+ 
+@@ -120,13 +161,16 @@ def main():
+     ap.add_argument("--min-dist", type=float, default=None)
+     a = ap.parse_args()
+     data = json.loads((P / "criteria.json").read_text(encoding="utf-8"))
++    crit, vals = data["criteria"], data["values"]
+     ll = pd.read_csv(P / "longlist.csv").set_index("iata")
+     ll["dist_bases_km"] = ll[["dist_msk_km", "dist_ekb_km"]].min(axis=1)
+-    scen = pd.read_csv(ROOT / "data/assumptions/weight_scenarios.csv")
+-    dists = [a.min_dist] if a.min_dist is not None else [0.0, float(PAR["min_dist_bases_km"])]
++    profiles = pd.read_csv(ROOT / "data/assumptions/weight_profiles.csv")
++    sc = scales(crit, vals)
++    main_d = float(PAR["min_dist_bases_km"])
++    dists = [a.min_dist] if a.min_dist is not None else [main_d, 0.0]
+     for d in dists:
+-        run(d, data["criteria"], data["values"], ll, scen)
+-        print()
++        run(d, crit, vals, ll, profiles, sc)
++    run(main_d, crit, vals, ll, profiles, sc, strict=True)
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/src/network_model.py b/src/network_model.py
+index 5e2f4cf..e9f69fc 100644
+--- a/src/network_model.py
++++ b/src/network_model.py
+@@ -275,24 +275,67 @@ def direct_network(D, A, scen, nodes_all):
+             out.append(dict(L, freq=f, carried_dir_week=carried, block_h=bh, lf=carried / (f * A["seats"])))
+         return hours, cost, rev, seg, out
+ 
+-    scored = []
++    # Общий спрос физической пары (аудит коллег, B3 в context/18_team_sync/step1_review): если пара
++    # Москва — Омск входит в несколько треугольников, доля рынка считается один раз от суммы их частот,
++    # а перевезённые делятся между треугольниками пропорционально частотам.
++    def joint(sel):
++        agg = {}
++        for t, (B, X, Y, f, legs) in enumerate(sel):
++            for n, L in enumerate(legs):
++                g = agg.setdefault(frozenset((L["a"], L["b"])), {"L": L, "F": 0, "members": []})
++                g["F"] += f
++                g["members"].append((t, n, f))
++        carried = {}
++        for g in agg.values():
++            L, F = g["L"], g["F"]
++            tot = min(L["dem"] * leg_share(L, F, A), F * A["seats"] * A["lf_max"])
++            for t, n, f in g["members"]:
++                carried[(t, n)] = tot * f / F
++        res = []
++        for t, (B, X, Y, f, legs) in enumerate(sel):
++            hours = cost = rev = seg = 0.0
++            out = []
++            for n, L in enumerate(legs):
++                c_ = carried[(t, n)]
++                bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
++                hours += 2 * f * bh
++                cost += 2 * f * c
++                rev += 2 * c_ * fare(A, L["km"])
++                seg += 2 * c_
++                out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"])))
++            res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out))
++        return res
++
++    def totals(res):
++        return sum(r[6] - r[5] for r in res), sum(r[4] for r in res)
++
++    # кандидаты: лучшие треугольники по отдельной оценке; дальше жадный отбор по приросту всей сети
++    pre = []
+     for B, X, Y, legs in tri:
+-        h, c, r, s, out = tri_eval(B, X, Y, legs)
+-        scored.append(((r - c) / h, B, X, Y, h, c, r, s, out))
+-    scored.sort(key=lambda x: -x[0])
+-    chosen, used_pairs, H = [], set(), 0.0
+-    for sc in scored:
+-        _, B, X, Y, h, c, r, s, out = sc
+-        if (X, Y) in used_pairs or H + h > max_h:
+-            continue
+-        if sc[0] <= 0 and len(chosen) >= A["min_routes"]:
+-            break
+-        chosen.append(sc)
+-        used_pairs.add((X, Y))
+-        H += h
+-        if len(chosen) >= A["max_routes"]:
++        h, c, r, s_, out = tri_eval(B, X, Y, legs)
++        pre.append(((r - c) / h, B, X, Y, out[0]["freq"], legs))
++    pre.sort(key=lambda x: -x[0])
++    pre = pre[:int(A["direct_candidates"])]
++    sel, used_pairs, cur = [], set(), (0.0, 0.0)
++    while len(sel) < A["max_routes"]:
++        best = None
++        for sc, B, X, Y, f, legs in pre:
++            if (X, Y) in used_pairs:
++                continue
++            res = joint(sel + [(B, X, Y, f, legs)])
++            m, h = totals(res)
++            if h > max_h:
++                continue
++            gain, dh = m - cur[0], h - cur[1]
++            score = gain / dh if dh > 0 else -1e18
++            if best is None or score > best[0]:
++                best = (score, (B, X, Y, f, legs), (m, h))
++        if best is None or (best[0] <= 0 and len(sel) >= A["min_routes"]):
+             break
+-    return chosen
++        sel.append(best[1])
++        used_pairs.add((best[1][1], best[1][2]))
++        cur = best[2]
++    return joint(sel)
+ 
+ 
+ def kover_map():
+diff --git a/src/od_model.py b/src/od_model.py
+new file mode 100644
+index 0000000..4ba623f
+--- /dev/null
++++ b/src/od_model.py
+@@ -0,0 +1,185 @@
++"""Шаг 2, мера «поездки откуда — куда» (гипотеза Н1, docs/19).
++
++Проблема: аэропорты публикуют поток на рейсе (сегменты). В нём сидят и те, кто летит только A — B,
++и те, кто пересаживается в A или B. Опубликованной доли пересадок по аэропортам России нет
++(искали для Шереметьево, Кольцово, Толмачёво, Красноярска 10.11.2026 — не нашли).
++
++Метод — восстановление матрицы поездок по наблюдаемым потокам на рейсах (стандартная задача
++транспортного моделирования, OD matrix estimation from link counts):
++  1. Поездки «откуда — куда» между всеми парами аэропортов задаются той же формулой тяготения,
++     что и в src/demand_model.py: ln T = a + b1·ln(PopA·PopB) + b2·ln(часы поездом) + Москва + курорт.
++  2. Каждая поездка идёт по сети прямых рейсов июня–декабря 2026 («Если быть точным»): напрямую,
++     если рейс есть; иначе с одной пересадкой в узле перевозчика (data/assumptions/transfer_hubs.csv),
++     который даёт самый короткий путь,
++     если путь длиннее прямой не больше od_max_circuity раз; иначе поездка не авиационная.
++  3. Поток на рейсе = сумма всех поездок, которые по нему идут. Коэффициенты подбираются так,
++     чтобы поток на 31 рейсе с известным годовым потоком (data/manual/known_flows.csv) совпал
++     с отчётами (метод наименьших квадратов в логарифмах, итерации Левенберга — Марквардта).
++  4. Точность — «исключи по одному», как у сегментной модели.
++Ограничения: только одна пересадка, путь — самый короткий, международные пересадки (через Москву
++за границу) не моделируются и оседают в поездках до Москвы; новые прямые рейсы обычно поднимают
++спрос пары (здесь не учтено).
++
++Выход: data/processed/od_pairs.csv (поездки и маршрут для каждой пары), data/processed/od_fit.json
++Запуск: python src/od_model.py   (после src/demand_model.py)
++"""
++import json
++from pathlib import Path
++
++import numpy as np
++import pandas as pd
++
++import demand_model as dm
++from airports_meta import CLOSED, NAME
++
++ROOT = Path(__file__).resolve().parents[1]
++P = ROOT / "data" / "processed"
++A = pd.read_csv(ROOT / "data/assumptions/demand.csv").set_index("parameter").value
++
++
++def build():
++    n = dm.nodes()
++    direct, rail = dm.links()
++    ids = [i for i in n.index]
++    lat, lon = n.latitude_deg.values, n.longitude_deg.values
++    la, lo = np.radians(lat), np.radians(lon)
++    D = 2 * 6371 * np.arcsin(np.sqrt(np.sin((la[:, None] - la[None, :]) / 2) ** 2 +
++                                      np.cos(la[:, None]) * np.cos(la[None, :]) * np.sin((lo[:, None] - lo[None, :]) / 2) ** 2))
++    k = {x: i for i, x in enumerate(ids)}
++    adj = np.zeros((len(ids), len(ids)), bool)
++    for a, b in direct:
++        if a in k and b in k:
++            adj[k[a], k[b]] = adj[k[b], k[a]] = True
++    # пересадка — только в узлах перевозчиков (data/assumptions/transfer_hubs.csv): по кратчайшему пути
++    # через любой аэропорт слишком много поездок шло через Казань и Новосибирск
++    hubs = set(pd.read_csv(ROOT / "data/assumptions/transfer_hubs.csv").iata)
++    is_hub = np.array([x in hubs for x in ids])
++    pairs, X, route = [], [], []
++    for i in range(len(ids)):
++        for j in range(i + 1, len(ids)):
++            a, b = ids[i], ids[j]
++            if D[i, j] < A["min_pair_km"]:
++                continue
++            f = dm.features(n, a, b, rail)
++            if adj[i, j]:
++                via = None
++            else:
++                ok = adj[i] & adj[j] & is_hub
++                ok[[i, j]] = False
++                if not ok.any():
++                    continue
++                det = np.where(ok, D[i] + D[j], np.inf)
++                h = int(det.argmin())
++                if det[h] / D[i, j] > A["od_max_circuity"]:
++                    continue
++                via = ids[h]
++            pairs.append((a, b))
++            X.append([f[c] for c in dm.FEATS])
++            route.append(via)
++    X = np.column_stack([np.ones(len(X)), np.array(X)])
++    # матрица «рейс × поездка»: какие поездки идут по рейсу
++    links = {}
++    for p, ((a, b), via) in enumerate(zip(pairs, route)):
++        legs = [(a, b)] if via is None else [(a, via), (via, b)]
++        for x, y in legs:
++            links.setdefault(frozenset((x, y)), []).append(p)
++    return n, pairs, X, route, links, D, k
++
++
++def fit_lm(X, M, y, beta0, iters=200):
++    """Левенберг — Марквардт: ln(M @ exp(Xβ)) ≈ y."""
++    beta, lam = beta0.copy(), 1e-2
++
++    def resid(b):
++        t = np.exp(X @ b)
++        s = M @ t
++        return y - np.log(s), t, s
++
++    r, t, s = resid(beta)
++    cost = (r ** 2).sum()
++    for _ in range(iters):
++        J = (M @ (t[:, None] * X)) / s[:, None]          # d ln s / d beta
++        g = J.T @ r
++        H = J.T @ J
++        step = np.linalg.solve(H + lam * np.diag(np.diag(H) + 1e-9), g)
++        nb = beta + step
++        nr, nt, ns = resid(nb)
++        nc = (nr ** 2).sum()
++        if nc < cost:
++            beta, r, t, s, cost, lam = nb, nr, nt, ns, nc, lam / 3
++            if np.abs(step).max() < 1e-7:
++                break
++        else:
++            lam *= 4
++    return beta
++
++
++def main():
++    n, pairs, X, route, links, D, k = build()
++    kf = pd.read_csv(ROOT / "data/manual/known_flows.csv")
++    kf = kf[(kf.use == "fit") & kf.from_iata.isin(n.index) & kf.to_iata.isin(n.index)].copy()
++    kf["pax_year"] = kf.pax * kf.annual_factor
++    rows = [links.get(frozenset((r.from_iata, r.to_iata))) for r in kf.itertuples()]
++    keep = [i for i, r in enumerate(rows) if r]
++    kf, rows = kf.iloc[keep], [rows[i] for i in keep]
++    M = np.zeros((len(kf), len(pairs)))
++    for i, ps in enumerate(rows):
++        M[i, ps] = 1.0
++    y = np.log(kf.pax_year.values)
++    seg = json.loads((P / "demand_fit.json").read_text(encoding="utf-8"))["coefficients"]
++    beta0 = np.array([seg["const"]] + [seg[c] for c in dm.FEATS])
++    beta = fit_lm(X, M, y, beta0)
++    pred = np.log(M @ np.exp(X @ beta))
++    loo = []
++    for i in range(len(y)):
++        m = np.ones(len(y), bool)
++        m[i] = False
++        b = fit_lm(X, M[m], y[m], beta)
++        loo.append(y[i] - np.log(M[i] @ np.exp(X @ b)))
++    loo = np.array(loo)
++    seg_fit = json.loads((P / "demand_fit.json").read_text(encoding="utf-8"))
++    q_lo, q_hi = np.quantile(loo, A["cautious_quantile"]), np.quantile(loo, A["optimistic_quantile"])
++    T = np.exp(X @ beta)
++    # поток на каждом рейсе и доля «своих» поездок в нём
++    seg_on = {}
++    for key, ps in links.items():
++        seg_on[key] = T[ps].sum()
++    out = []
++    for p, ((a, b), via) in enumerate(zip(pairs, route)):
++        s = seg_on.get(frozenset((a, b))) if via is None else None
++        out.append({"a": a, "b": b, "city_a": NAME.get(a, n.loc[a, "main_city"]), "city_b": NAME.get(b, n.loc[b, "main_city"]),
++                    "km": round(float(D[k[a], k[b]])), "closed": bool({a, b} & set(CLOSED)),
++                    "route": "прямой рейс" if via is None else f"с пересадкой в {NAME.get(via, n.loc[via, 'main_city'])}",
++                    "via": via, "od_base": round(T[p]), "od_cautious": round(T[p] * np.exp(q_lo)),
++                    "od_optimistic": round(T[p] * np.exp(q_hi)),
++                    "segments_on_link": round(s) if s is not None else None,
++                    "od_share_of_link": round(T[p] / s, 3) if s else None})
++    od = pd.DataFrame(out)
++    od.to_csv(P / "od_pairs.csv", index=False, encoding="utf-8")
++    ape_fact = np.abs(np.exp(-loo) - 1)
++    rep = {"method": "восстановление поездок по потокам на рейсах; одна пересадка, кратчайший путь",
++           "n_links_fit": int(len(y)), "pairs_air": int(len(pairs)),
++           "pairs_direct": int(sum(v is None for v in route)), "pairs_one_stop": int(sum(v is not None for v in route)),
++           "coefficients": dict(zip(["const"] + dm.FEATS, [round(float(x), 3) for x in beta])),
++           "fit_r2_log": round(float(1 - ((y - pred) ** 2).sum() / ((y - y.mean()) ** 2).sum()), 3),
++           "loo_median_abs_error_pct_of_fact": round(float(np.median(ape_fact) * 100), 1),
++           "loo_share_within_x2": round(float(np.mean(np.abs(loo) <= np.log(2))), 2),
++           "segment_model_loo_error_pct_of_fact": seg_fit.get("loo_median_abs_error_pct_of_fact"),
++           "cautious_factor": round(float(np.exp(q_lo)), 2), "optimistic_factor": round(float(np.exp(q_hi)), 2),
++           "od_total_air_trips_year": round(float(T.sum())),
++           "segments_total_on_links_year": round(float(sum(seg_on.values()))),
++           "known_links": [{"pair": f"{r.from_iata}-{r.to_iata}", "fact": int(r.pax_year),
++                            "model_segments": int(round(np.exp(pv))),
++                            "own_trips_share": round(float(T[pairs.index((r.from_iata, r.to_iata))] / np.exp(pv)), 2)
++                            if (r.from_iata, r.to_iata) in pairs else
++                            round(float(T[pairs.index((r.to_iata, r.from_iata))] / np.exp(pv)), 2)
++                            if (r.to_iata, r.from_iata) in pairs else None}
++                           for r, pv in zip(kf.itertuples(), pred)]}
++    (P / "od_fit.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
++    print(json.dumps({k2: v for k2, v in rep.items() if k2 != "known_links"}, ensure_ascii=False, indent=1))
++    kl = pd.DataFrame(rep["known_links"])
++    print(kl.to_string(index=False))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/src/update.py b/src/update.py
+index d28bd97..e4bd4ec 100644
+--- a/src/update.py
++++ b/src/update.py
+@@ -31,7 +31,8 @@ MANIFEST = ROOT / "data" / "raw" / "_manifest.json"
+ RUNS = ROOT / "data" / "raw" / "_runs.csv"
+ # цепочка пересчёта (каждый шаг читает выход предыдущих)
+ BUILD = ["src/longlist_data.py", "src/kover_days.py", "src/catchment_extra.py",
+-         "src/demand_model.py", "src/demand_summary.py", "src/transfer_potential.py",
++         "src/demand_model.py", "src/demand_summary.py", "src/od_model.py", "src/demand_compare.py",
++         "src/transfer_potential.py",
+          "src/build_longlist.py", "src/build_criteria.py", "src/longlist_score.py",
+          "src/network_model.py", "src/network_map.py", "src/build_workbook.py",
+          "src/scan_news.py", "src/build_dashboard.py"]
