@@ -1,0 +1,154 @@
+{
+  "probes": [
+    {
+      "name": "default_false_still_rejects_400_over_300",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "repeated_pair_hardD_400_to300",
+      "status": "PASS",
+      "evidence": {
+        "standalone_requested_after_leg_caps": 400,
+        "shared_D": 300,
+        "guard_sales": 300.0,
+        "per_offer": [
+          100.0,
+          100.0,
+          100.0,
+          0
+        ],
+        "default_enforce_market_cap": false
+      }
+    },
+    {
+      "name": "signed_origin_destination_pools_are_distinct",
+      "status": "PASS",
+      "evidence": {
+        "A_to_B": 300.0,
+        "B_to_A": 150.0,
+        "total": 450.0,
+        "incorrect_undirected_cap_would": 300
+      }
+    },
+    {
+      "name": "one_shared_old_direct_seat_budget",
+      "status": "PASS",
+      "evidence": {
+        "shared_known_old_seats": 50,
+        "actual_direct_migration": 50.0,
+        "unverified_connecting": 190.0,
+        "scope": "Connecting migration remains source scenario, not observed recovery inventory"
+      }
+    },
+    {
+      "name": "overlapping_legs_two_seats_one_through_fare",
+      "status": "PASS",
+      "evidence": {
+        "journeys": 100,
+        "seat_segments": 200,
+        "through_revenue_once": 20000,
+        "second_offer_sold": 0.0
+      }
+    },
+    {
+      "name": "cancellation_union_not_sum_of_legs",
+      "status": "PASS",
+      "evidence": {
+        "union_unserved": 15,
+        "wrong_leg_sum_unserved": 25,
+        "one_fare_loss": 1300,
+        "wrong_leg_sum_fare": 2300
+      }
+    },
+    {
+      "name": "simulate_rejects_inconsistent_D_same_direction",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": "('shared market D identity', 301, 300.0)"
+    },
+    {
+      "name": "portfolio_shared_identity_D",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": "('incompatible shared field', 'H_UFA_4', ('MRV', 'UFA'), 'D')"
+    },
+    {
+      "name": "portfolio_shared_identity_fare_once",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": "('incompatible shared field', 'H_UFA_4', ('MRV', 'UFA'), 'fare_once')"
+    },
+    {
+      "name": "portfolio_shared_identity_known_direct_RW_capacity",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": "('incompatible shared field', 'H_UFA_4', ('MRV', 'UFA'), 'known_direct_RW_capacity')"
+    },
+    {
+      "name": "portfolio_shared_identity_transfer",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": "('incompatible shared field', 'H_UFA_4', ('MRV', 'UFA'), 'transfer')"
+    },
+    {
+      "name": "interaction_missing_physical_id",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "portfolio_duplicate_capacity",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "adapter_wrong_source_profile",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "adapter_HOLD_served_NULL_to_zero",
+      "status": "REJECTED_BY_SUBJECT",
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "hypothetical_delay_money_never_accepted",
+      "status": "PASS",
+      "evidence": {
+        "hypothetical_money_and_served_mutated_to": 999999999,
+        "accepted_adapter_bytes_unchanged": true,
+        "held_rows": 4
+      }
+    },
+    {
+      "name": "modified_input_requires_new_admission",
+      "status": "PASS",
+      "evidence": {
+        "owner_interaction_runtime_rejected": false,
+        "duplicate_itinerary_key_rejected_by_independent_oracle": true,
+        "changed_output_keys": [
+          [
+            "H_UFA_4",
+            "base",
+            "N",
+            "cancel_pretravel_no_protection"
+          ],
+          [
+            "H_UFA_4",
+            "base",
+            "N",
+            "cancel_usage_billed_sensitivity"
+          ]
+        ],
+        "scope": "Not a defect in the immutable pinned input; do not reuse exact-package approval as admission of a modified input_set"
+      }
+    }
+  ],
+  "count": 17,
+  "owner_runtime_guard_is_not_general_input_admission": true
+}
