@@ -1,5 +1,5 @@
 {
-  "updated_at_msk": "2026-11-10T19:42:16.280505+03:00",
+  "updated_at_msk": "2026-11-10T19:47:02.142731+03:00",
   "dispatch_rule": "root only; fresh delegate; <=4 active Sol; no task polling",
   "requests": [
     {
@@ -29,10 +29,12 @@
     },
     {
       "id": "EV-EVIDENCE-FINAL",
-      "subject_sha": null,
+      "subject_sha": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
       "partial_sha": "06cb721b3e8e4eb8710c065c7b02078a112626a9",
-      "status": "WAIT_FINAL_PACKAGE_AND_FREE_SLOT",
-      "scope": "primary support identity and fare obligations, route/date/operator joins, fleet/delivery scope; no future award acceptance"
+      "status": "RUNNING",
+      "scope": "primary support identity and fare obligations, route/date/operator joins, fleet/delivery scope; no future award acceptance",
+      "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-evidence-review-20261110-r1",
+      "launch_receipt": "intake/evidence_final_dispatch.json"
     },
     {
       "id": "EV-PRODUCTS-FINAL",
@@ -41,6 +43,15 @@
       "status": "WAIT_FINAL_PACKAGE_AND_FREE_SLOT",
       "scope": "C10 launch versus steady, C14 full dated cycle/beds/package, C17 calendar/OD/rejection scope, C31 both donor tasks, C35 block/capture/fare plus final cash/readiness",
       "root_intake": "intake/products_first_checks.json"
+    },
+    {
+      "id": "EV-MR02",
+      "subject_sha": "aa7779192d809558e38b1eb9bdfa25913a3afdc8",
+      "status": "QUEUED_WAITING_FREE_SOL_SLOT",
+      "priority": 1,
+      "scope": "v2 dated resource construction, annual exposure and N(t), coupled flight grant/fare bound, signed donor and cash proxy; EV-MR01 remains exact48686",
+      "root_intake": "intake/methods_calendar_checks.json",
+      "owner_request": "methods/requests.json"
     }
   ]
 }
