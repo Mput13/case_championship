@@ -1,0 +1,80 @@
+{
+  "review_id": "MR09_STRATEGY_ACCOUNTING",
+  "reviewer": "new independent Sol 6.1 xhigh task",
+  "input_commit": "c24bbd36356f46763eed5a1654573b6de31adc6b",
+  "verdict": "APPROVE_SCOPED",
+  "new_actionable_findings": [],
+  "new_P1_count": 0,
+  "new_P2_count": 0,
+  "scope_verdicts": [
+    {"scope": "finite_portfolio_accounting_60cases_30numeric", "verdict": "APPROVE", "evidence": "portfolio_comparison_checks.csv"},
+    {"scope": "resource_lower_bounds_and_model_calendar_labels", "verdict": "APPROVE", "evidence": "independent_resources.csv; independent_calendar_checks.csv"},
+    {"scope": "conditional_relative_F_B_O_boundaries", "verdict": "APPROVE", "evidence": "independent_budget_boundaries.csv; budget_boundary_sides.csv"},
+    {"scope": "C01_unit_and_C07_cost_recipe_bridge", "verdict": "APPROVE", "evidence": "independent_product_units.csv; independent_c07_costs.csv"},
+    {"scope": "temporal_resource_counterexample", "verdict": "APPROVE", "evidence": "temporal_counterexample.json; independent_temporal_intervals.csv"},
+    {"scope": "same_resource_next_day_recovery_feasibility", "verdict": "CHANGES", "state": "INHERITED_HOLD_CONFIRMED", "evidence": "temporal_counterexample.json"},
+    {"scope": "MR08_exact_abb1_broad_review", "verdict": "NOT_RUN"},
+    {"scope": "MR02_exact_afadee_source_cost_cash_broad_review", "verdict": "NOT_RUN"},
+    {"scope": "old_SVX_lineage_or_parent_root_correction_acceptance", "verdict": "NOT_RUN"},
+    {"scope": "paid_demand_actual_dispatch_full_budget_or_launch", "verdict": "NOT_RUN"}
+  ],
+  "observations": [
+    {
+      "id": "MR09-O01",
+      "severity": "INFO",
+      "status": "REPRODUCED",
+      "source_locator": "c24bbd36356f46763eed5a1654573b6de31adc6b:context/23_night_run_20261110/methods/portfolio_comparison.py:58-70",
+      "claim": "D overlap delta -446063.8886592854 and H overlap delta -1944892.849757962 RUB/week reproduced. Additive122.458<D480 is not a hard-market violation; pooled Q(F) is an assumption.",
+      "evidence": "independent_market_pools.csv; independent_marginals.csv; counterexamples.json"
+    },
+    {
+      "id": "MR09-O02",
+      "severity": "INFO",
+      "status": "REPRODUCED",
+      "source_locator": "c24bbd36356f46763eed5a1654573b6de31adc6b:context/23_night_run_20261110/methods/resource_comparison.py:16-34",
+      "claim": "630 author vs240 common hours;3/12 necessary passes. Ciri hours ceil1/1/1/2 differs from planning-label requirement1/2/2/4. Actual availability remains UNKNOWN.",
+      "evidence": "independent_resources.csv; independent_calendar_checks.csv"
+    },
+    {
+      "id": "MR09-O03",
+      "severity": "INFO",
+      "status": "REPRODUCED",
+      "source_locator": "c24bbd36356f46763eed5a1654573b6de31adc6b:context/23_night_run_20261110/methods/strategy_accounting_readout.md:57-67",
+      "claim": "Relative F/B boundaries and limited dominance hold under stated equal O/additional rates. Unequal O can reverse order; all60 contributions negative. KEEP0 is relative only.",
+      "evidence": "budget_thresholds.json; independent_budget_boundaries.csv; budget_boundary_sides.csv; counterexamples.json"
+    },
+    {
+      "id": "MR09-O04",
+      "severity": "INFO",
+      "status": "REPRODUCED",
+      "source_locator": "c24bbd36356f46763eed5a1654573b6de31adc6b:context/23_night_run_20261110/methods/product_accounting_bridge.py:19-49",
+      "claim": "C01 changes67 to72 return clients only when cost unit changes; C07 adds270block-minutes/2departures and cost1491899.30/2156463.36. Unknown actual tariffs/base/next assignment retained.",
+      "evidence": "independent_product_units.csv; independent_c07_costs.csv"
+    }
+  ],
+  "inherited_holds": [
+    {
+      "id": "MR02_DOUBLE_TIMEBASE_AND_DELAY_FEASIBILITY_HOLD",
+      "severity": "P2",
+      "status": "PRESERVED_RESOURCE_COUNTEREXAMPLE_INDEPENDENTLY_CONFIRMED",
+      "original_package": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "source_locator": "c24bbd36356f46763eed5a1654573b6de31adc6b:context/23_night_run_20261110/methods/inputs/cost-kover-001/overlay.py:65-66",
+      "finding": "Shifting16 day1legs by1440minutes collides with the preserved day2 program. Epoch-based half-open sweep peaks8airborne vs4baseline and5total including reserve;23planning-sequence issues.",
+      "minimal_next_step": "Keep correct common epoch in a separate projection; supply an explicit feasible recovery calendar/resource before changing feasibility HOLD. Do not infer free supply from next day.",
+      "does_not_establish": "New acceptance of source/cost/cash arithmetic, root correction, actual aircraft availability or all actual tail cascades.",
+      "evidence": "temporal_counterexample.json; independent_temporal_conflicts.csv"
+    },
+    {
+      "id": "PRIMARY17B_OLD_SVX_LINEAGE_HOLD",
+      "severity": "P2",
+      "status": "PRESERVED_NOT_REVIEWED",
+      "original_package": "17b4f348f15ea8695688d9435933cb4965568408",
+      "source_locator": "c24bbd36356f46763eed5a1654573b6de31adc6b:context/23_night_run_20261110/methods/acceptance_events.json:3-41",
+      "finding": "Original primary17b lineage CHANGES remains; parent-only metadata projection is not a new independently accepted raw parse. Existing clock holds retained.",
+      "minimal_next_step": "Use the separately scoped lineage/correction review process; MR09 does not reopen it.",
+      "evidence": "source_manifest.json; report.md"
+    }
+  ],
+  "acceptance_scope": ["CONSERVATION_PASS scoped", "CONDITIONAL_ECONOMICS_CHECKED scoped", "MODEL_CALENDAR_LABEL_CHECKED scoped"],
+  "not_granted": ["TEAM_ACCEPTED", "SOURCE_SUPPORTED new rates", "actual dispatch", "real full budget", "launch recommendation"]
+}
