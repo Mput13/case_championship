@@ -104,6 +104,31 @@ def sub_rule(D, A, a, b):
     return min(A["subsidy_rub_per_flight"], cap) * A["subsidy_months"] / 12, ""
 
 
+SPECIAL = pd.read_csv(ROOT / "data/assumptions/subsidy_special_fare.csv").sort_values("min_km")
+
+
+def special_fare(D, a, b):
+    """Специальный тариф программы (приложение 2): потолок цены билета на субсидируемом рейсе."""
+    v = float(SPECIAL[SPECIAL.min_km <= D.km(a, b)].iloc[-1].special_fare_rub)
+    fe = D.n.loc[a, "region"] in FAR_EAST or D.n.loc[b, "region"] in FAR_EAST
+    return v * (1.25 if fe else 1.0)
+
+
+def leg_with_subsidy(D, A, a, b, f, pax_paid, trans_rev=0.0):
+    """Выручка плеча за неделю с учётом выбора: брать субсидию или нет.
+    С субсидией в месяцы программы все места продаются по специальному тарифу (не выше приложения 2),
+    зато за каждый рейс платят субсидию. Берём вариант с большей выручкой. Возвращает (выручка, субсидия)."""
+    fr = fare(A, D.km(a, b))
+    plain = 2 * pax_paid * fr + trans_rev
+    rate = sub(D, A, a, b)
+    if rate <= 0:
+        return plain, 0.0
+    m = A["subsidy_months"] / 12
+    k = min(1.0, special_fare(D, a, b) / fr)
+    capped = (2 * pax_paid * fr + trans_rev) * (1 - m + m * k) + 2 * f * rate
+    return (capped, 2 * f * rate) if capped > plain else (plain, 0.0)
+
+
 def sub(D, A, a, b):
     """Субсидия за один рейс плеча в среднем за год (с учётом месяцев без субсидии); 0, если не подходит."""
     if not A["use_subsidy"]:
@@ -315,35 +340,34 @@ def hub_network(H, D, A, scen, cand_nodes):
             carried[X] += t
             carried[Y] += t
         hours = cost = flights = rev = migr = forgone = subs = 0.0
+        # билет пассажира с пересадкой делится между двумя лучами пропорционально их длине
+        tpart = {X: 0.0 for X in S}
+        for X, Y, dxy, t in tr_c:
+            tk = 2 * t * fare(A, dxy) * A["transfer_fare_factor"]
+            kx, ky = legs[X]["km"], legs[Y]["km"]
+            tpart[X] += tk * kx / (kx + ky)
+            tpart[Y] += tk * ky / (kx + ky)
         for X in S:
             L = legs[X]
             bh, c = leg_cost(A, L["km"], L["south"], carried[X] / f[X])
             mg = min(loc_c[X], L["rw_now"])             # свои пассажиры Red Wings со старого рейса
+            lr, ls = leg_with_subsidy(D, A, H, X, f[X], loc_c[X] - mg, tpart[X])
             L.update(freq=f[X], local_carried=loc_c[X], transfer_carried=carried[X] - loc_c[X],
-                     carried_dir_week=carried[X], block_h=bh, lf=carried[X] / (f[X] * A["seats"]), migrated=mg)
+                     carried_dir_week=carried[X], block_h=bh, lf=carried[X] / (f[X] * A["seats"]), migrated=mg,
+                     rev_week=lr, sub_week=ls, cost_week=2 * f[X] * c, subsidized=ls > 0)
             hours += 2 * f[X] * bh
             cost += 2 * f[X] * c
             flights += 2 * f[X]
-            rev += 2 * loc_c[X] * fare(A, L["km"])
+            rev += lr
+            subs += ls
             migr += 2 * mg
             forgone += 2 * mg * fare(A, L["km"])
-            subs += 2 * f[X] * sub(D, A, H, X)              # платят за выполненный рейс (п. 6 решения)
-            # деньги луча за неделю: местные билеты минус потерянная выручка старых рейсов, субсидия, расходы
-            L.update(rev_week=2 * (loc_c[X] - mg) * fare(A, L["km"]) + 2 * f[X] * sub(D, A, H, X),
-                     sub_week=2 * f[X] * sub(D, A, H, X), cost_week=2 * f[X] * c)
-        for X, Y, dxy, t in tr_c:
-            rev += 2 * t * fare(A, dxy) * A["transfer_fare_factor"]
-            # билет пересадочного пассажира делится между двумя лучами пропорционально их длине
-            tk = 2 * t * fare(A, dxy) * A["transfer_fare_factor"]
-            kx, ky = legs[X]["km"], legs[Y]["km"]
-            legs[X]["rev_week"] += tk * kx / (kx + ky)
-            legs[Y]["rev_week"] += tk * ky / (kx + ky)
         od_local = 2 * sum(loc_c.values())            # поездок в неделю, оба направления
         od_transfer = 2 * sum(t for *_, t in tr_c)
         seg = 2 * sum(carried.values())               # сегментов в неделю, оба направления
         assert abs(seg - (od_local + 2 * od_transfer)) < 1e-6, "сегменты не сходятся с поездками"
         # выручка — чистая: доход, который Red Wings теряет на старом рейсе, вычтен
-        return legs, tr_c, hours, cost, rev - forgone + subs, od_local, od_transfer, flights, migr, forgone, subs
+        return legs, tr_c, hours, cost, rev, od_local, od_transfer, flights, migr, forgone, subs
 
     # жадный отбор лучей: вклад на блок-час, с учётом пересадок к уже выбранным
     chosen, best = [], None
@@ -477,15 +501,14 @@ def direct_network(D, A, scen, nodes_all):
                 bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
                 hours += 2 * f * bh
                 cost += 2 * f * c
-                rev += 2 * (c_ - mg) * fare(A, L["km"])
+                lr, s_ = leg_with_subsidy(D, A, L["a"], L["b"], f, c_ - mg)
+                rev += lr
                 seg += 2 * c_
                 migr += 2 * mg
                 forgone += 2 * mg * fare(A, L["km"])
-                s_ = 2 * f * sub(D, A, L["a"], L["b"])   # за выполненный рейс
                 subs += s_
-                rev += s_
                 out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"]), migrated=mg,
-                                rev_week=2 * (c_ - mg) * fare(A, L["km"]) + s_, sub_week=s_, cost_week=2 * f * c))
+                                rev_week=lr, sub_week=s_, cost_week=2 * f * c))
             res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out, migr, forgone, subs))
         return res
 

@@ -351,7 +351,32 @@ def main():
     cj = json.loads((ROOT / "context/13_competitors/competitors.json").read_text(encoding="utf-8"))
     scale = [{"name": c["name"], "pax": c["pax_million"], "rw": c["id"] == "rw"} for c in cj["carriers"]]
     ramp = ramp_df.to_dict("records")
-    steps = {"competitors": rd("data/manual/competitor_bases.csv"), "scale": scale, "ramp": ramp, "choice": choice,
+    # цель №2: тексты — data/manual/strategy_no2.json, числа — из расчёта сети
+    sb_ = sm_df[(sm_df.scenario == "base_sub") & (sm_df.hub == H)].iloc[0]
+    s0_ = sm_df[(sm_df.scenario == "base") & (sm_df.hub == H)].iloc[0]
+    rt_ = pd.read_csv(P / "network_routes.csv")
+    tri = (rt_[(rt_.scenario == "base") & rt_.variant.str.startswith("Прямые")]
+           .groupby("variant").agg(res=("triangle_result_mln_year", "first")).sort_values("res", ascending=False))
+    pos_tri = [(v, r.res) for v, r in tri.iterrows() if r.res > 0]
+    tri_name = lambda v: " — ".join(names.get(x, x) for x in v.replace("Прямые ", "").split("-")[1:])
+    sg = lambda v: ("+" if v >= 0 else "−") + f"{abs(v):,.0f}".replace(",", " ")
+    fill.update({
+        "hub_line": f"Хаб в городе {names.get(H, H)}: {sg(sb_.result_mln_year)} млн ₽ в год с субсидией ({sg(s0_.result_mln_year)} без неё), "
+                    f"{int(sb_.aircraft)} самолётов, +{sb_.share_pp:.2f} п. п. доли рынка.".replace(".", ",", 1).replace("п, п,", "п. п."),
+        "direct_line": ("Плюс к хабу — прямые рейсы, которые окупаются сами: " + "; ".join(f"{tri_name(v)} ({sg(x)} млн ₽)" for v, x in pos_tri[:4]) + ".")
+                       if pos_tri else "Прямые рейсы по отдельности не окупаются при нынешних допущениях."})
+    no2 = json.loads((ROOT / "data/manual/strategy_no2.json").read_text(encoding="utf-8"))
+    def fmt_(o):
+        if isinstance(o, str):
+            return o.format(**fill) if "{" in o else o
+        if isinstance(o, list):
+            return [fmt_(x) for x in o]
+        if isinstance(o, dict):
+            return {k: fmt_(v) for k, v in o.items()}
+        return o
+    no2 = fmt_(no2)
+    no2["hub_pax"] = float(s0_.segments_year) / 1e6
+    steps = {"no2": no2, "competitors": rd("data/manual/competitor_bases.csv"), "scale": scale, "ramp": ramp, "choice": choice,
              "roadmap": rd("data/manual/roadmap.csv"), "risks": rd("data/manual/risks.csv"),
              "rw_share_2025": float(na_.loc["rw_pax_2025", "base"]) / float(na_.loc["market_pax_2025", "base"]) * 100}
     p = posts.copy()

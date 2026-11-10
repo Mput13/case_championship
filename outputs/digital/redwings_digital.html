@@ -1,0 +1,210 @@
+<title>Цифровые сервисы Red Wings</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600;700&family=Onest:wght@400;500;700&display=swap">
+<style>
+/* Макет: бумажная лента с тёмными «табло» сравнения, как на панели кейса; красный — только для акцентов */
+:root{
+  --paper:#F3F1EC; --card:#FFFFFF; --ink:#111318; --muted:#5E6675; --line:#DDD9D1;
+  --red:#E32A2F; --red-soft:#FDECEC; --red-ink:#B4232A; --good:#2E8A5B; --good-soft:#E7F4EC;
+  --board:#111318; --board-2:#1C2029; --board-fg:#F4F5F7; --board-muted:#8C96A6;
+  --f:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --d:"Montserrat Alternates","Onest",system-ui,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#15171C; --card:#1D2027; --ink:#EEF0F3; --muted:#A3ABB8; --line:#2E333D;
+  --red:#F0484D; --red-soft:#3A1D20; --red-ink:#FF8A8E; --good:#5BC68A; --good-soft:#18301F;
+  --board:#0B0C10; --board-2:#1A1E27; --board-fg:#F4F5F7; --board-muted:#8C96A6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#15171C; --card:#1D2027; --ink:#EEF0F3; --muted:#A3ABB8; --line:#2E333D;
+  --red:#F0484D; --red-soft:#3A1D20; --red-ink:#FF8A8E; --good:#5BC68A; --good-soft:#18301F;
+  --board:#0B0C10; --board-2:#1A1E27; --board-fg:#F4F5F7; --board-muted:#8C96A6; color-scheme:dark}
+body{background:var(--paper);color:var(--ink);font:15px/1.55 var(--f)}
+.wrap{max-width:1120px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:22px}
+h1,h2,h3{font-family:var(--d);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.08}
+h2{font-size:22px}
+h3{font-size:16px}
+.eyebrow{color:var(--red);font-weight:500;font-size:13px}
+.lede{color:var(--muted);max-width:68ch;margin:8px 0 0}
+a{color:inherit}
+.back{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 14px;border:1.5px solid var(--ink);border-radius:10px;text-decoration:none;font-weight:500;font-size:14px}
+.back:hover,.back:focus-visible{background:var(--ink);color:var(--paper);outline:none}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:14px;min-width:0}
+.sub{color:var(--muted);font-size:13.5px;margin:2px 0 0;max-width:80ch}
+.board{background:var(--board);color:var(--board-fg);border-radius:14px;padding:6px 10px;overflow-x:auto}
+.cmp{width:100%;border-collapse:separate;border-spacing:0 5px;min-width:640px;font-size:14px}
+.cmp th{color:var(--board-muted);font-weight:500;font-size:12.5px;text-align:left;padding:6px 10px}
+.cmp td{background:var(--board-2);padding:9px 10px;vertical-align:top}
+.cmp td:first-child{border-radius:8px 0 0 8px;color:var(--board-muted)}
+.cmp td:last-child{border-radius:0 8px 8px 0}
+.cmp td.rw{color:#FFB3B5}
+.rate{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+.rate i{display:block;height:8px;border-radius:3px;background:#5BC68A}
+.rate.low i{background:#F0484D}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.pane{border-radius:12px;padding:12px 14px}
+.pane.good{background:var(--good-soft)} .pane.bad{background:var(--red-soft)}
+.pane h3{font-family:var(--f);font-size:14px;font-weight:700;margin-bottom:6px}
+.pane.good h3{color:var(--good)} .pane.bad h3{color:var(--red-ink)}
+.pane ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.fix{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;border-top:1px solid var(--line);padding-top:14px}
+.fix:first-of-type{border-top:0;padding-top:0}
+@media (max-width:860px){.fix{grid-template-columns:1fr}}
+.fix figure{margin:0}
+.fix img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff;display:block}
+.fix figcaption{font-size:12px;color:var(--muted);margin-top:4px}
+.fix .code{font:700 13px var(--d);color:var(--red)}
+.fix p{margin:0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:6px}
+.kv div{background:var(--paper);border-radius:10px;padding:8px 10px;font-size:12.5px;color:var(--muted)}
+.kv b{display:block;color:var(--ink);font-size:15px;font-variant-numeric:tabular-nums}
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.idea{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:6px;align-content:start}
+.idea p{margin:0;font-size:14px}
+.idea .net{background:var(--red-soft);border-radius:8px;padding:7px 9px;font-size:13px}
+.idea .net b{color:var(--red-ink);font-weight:500}
+.loyal{background:var(--board);color:var(--board-fg);border-radius:14px;padding:16px 18px;display:grid;gap:10px}
+.loyal h3{color:#fff;font-size:18px}
+.loyal ol{margin:0;padding-left:20px;display:grid;gap:6px;color:#C9CED6;font-size:14px}
+.loyal b{color:#fff;font-weight:500}
+.tscroll{overflow-x:auto}
+.inc{width:100%;border-collapse:collapse;min-width:640px;font-size:14px}
+.inc th{font-weight:500;color:var(--muted);font-size:12.5px;text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+.inc td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.inc td:first-child{font-weight:500;white-space:nowrap}
+.src{font-size:12.5px;color:var(--muted)}
+.src ul{margin:6px 0 0;padding-left:18px;display:grid;gap:3px}
+.src a{overflow-wrap:anywhere}
+.mark{display:inline-block;font-size:11.5px;font-weight:500;border-radius:999px;padding:1px 8px;background:var(--paper);color:var(--muted);vertical-align:2px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Red Wings · дополнительный вопрос организаторов</div>
+    <h1>Цифровые сервисы Red Wings</h1>
+    <p class="lede">Можно ли купить билет, добавить услуги и решить основные вопросы в один клик. Что у Red Wings уже хорошо, что проверено на сайте 10 ноября 2026 года и что предлагаем, чтобы цифровые сервисы помогали маршрутной сети и цели стать перевозчиком №2.</p>
+    <a class="back" href="https://claude.ai/artifact/1YnkhPGun1qKHFF8ZRdStv" target="_blank" rel="noopener">← Панель кейса: хаб или прямые рейсы</a>
+  </header>
+
+  <section aria-labelledby="s1">
+    <div><h2 id="s1">Где Red Wings сейчас</h2><p class="sub">Сравнение с двумя крупными конкурентами по магазину приложений RuStore и сайтам авиакомпаний, ноябрь 2026 года.</p></div>
+    <div class="board">
+      <table class="cmp">
+        <thead><tr><th></th><th>Red Wings</th><th>S7</th><th>«Аэрофлот»</th></tr></thead>
+        <tbody>
+          <tr><td>Оценка приложения в RuStore</td>
+            <td class="rw"><div class="rate low"><i style="width:60px"></i>3,0 · 54 оценки</div></td>
+            <td><div class="rate"><i style="width:96px"></i>4,8 · около 8 тыс.</div></td>
+            <td><div class="rate low"><i style="width:66px"></i>3,3 · около 7 тыс.</div></td></tr>
+          <tr><td>Скачивания</td><td class="rw">больше 70 тыс.</td><td>больше 1 млн</td><td>больше 2 млн</td></tr>
+          <tr><td>Программа лояльности</td><td class="rw">нет</td><td>S7 Priority</td><td>«Аэрофлот Бонус»</td></tr>
+          <tr><td>Уведомления об изменении рейса</td><td class="rw">нет, по отзывам</td><td>открытие регистрации, статус рейса</td><td>статус, выход на посадку, задержки, отмены</td></tr>
+          <tr><td>Поддержка</td><td class="rw">контактный центр 24/7</td><td>чат-бот 24/7 с переходом к оператору</td><td>—</td></tr>
+          <tr><td>Вокруг перелёта</td><td class="rw">единый билет самолёт + другой транспорт</td><td>отели, экскурсии, аренда авто; подписка с «Яндекс Плюсом» за 199 ₽ в месяц</td><td>мили у партнёров, подарочные сертификаты</td></tr>
+          <tr><td>Частые жалобы</td><td class="rw">брони не сохраняются, не проходит оплата, сбои входа и регистрации</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="two">
+      <div class="pane good"><h3>Что у Red Wings уже хорошо</h3><ul>
+        <li>Места, багаж, питание, страховка, Fast Track и сертификаты продаются на сайте.</li>
+        <li>Оплата через СБП и SberPay.</li>
+        <li>Питомец на отдельном кресле у иллюминатора до 23 кг — с марта 2026 года, как у «Аэрофлота» и S7.</li>
+        <li>Собака-поводырь и кресло-коляска бесплатно.</li>
+        <li>Единый билет на самолёт и другой транспорт.</li>
+      </ul></div>
+      <div class="pane bad"><h3>Что мешает</h3><ul>
+        <li>Приложение теряет брони и сбоит при оплате.</li>
+        <li>Нет уведомлений о рейсе и программы лояльности.</li>
+        <li>Помощь людям с инвалидностью заказывается только по телефону.</li>
+        <li>На сайте не нашли правил для беременных и для льготных тарифов.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s2">
+    <div><h2 id="s2">Что исправить в существующих сервисах</h2><p class="sub">Три пути пройдены на сайте Red Wings 10.11.2026 на рейсе Екатеринбург — Омск (WZ-5071, 20 ноября). Каждое изменение правит то, что уже работает, без новой системы продаж. Сметы — плановые оценки команды при 20–35 тыс. ₽ за человеко-день; эффект проверяется A/B-тестом до внедрения.</p></div>
+
+    <div class="fix">
+      <div>
+        <div class="code">D01 · покупка без лишних остановок</div>
+        <p>Если пассажир отказался выбирать место, сайт показывает повторное окно с предложением всё-таки выбрать. Предлагаем назвать кнопку «Продолжить без выбора места» и проверить путь без повторного окна. Допуслуги остаются в продаже.</p>
+        <div class="kv"><div><b>0,8–2,0 млн ₽</b>внедрение</div><div><b>0,3–0,6 млн ₽</b>поддержка в год</div><div><b>14 дней</b>тест воронки до решения</div></div>
+      </div>
+      <figure><img src="img/D01_seat_skip_confirmation.png" alt="Шаг выбора места на сайте Red Wings: повторное окно после отказа" loading="lazy"><figcaption>Иллюстрация команды по сайту Red Wings, 10.11.2026</figcaption></figure>
+    </div>
+
+    <div class="fix">
+      <div>
+        <div class="code">D02 · одно правило для цены багажа</div>
+        <p>Справка советует покупать багаж за три часа до вылета, а таблица цен меняет цену на границе 24 часов: багаж 10–23 кг на внутреннем рейсе стоит от 2 700 ₽ раньше и от 3 500 ₽ позже. Предлагаем одно правило для справки, таблицы и предложения при покупке и ссылку в «Мои бронирования».</p>
+        <div class="kv"><div><b>0,6–1,2 млн ₽</b>полный пакет</div><div><b>0,08–0,28 млн ₽</b>только текст и ссылки</div><div><b>800 ₽</b>разница «от»-цен 23 кг</div></div>
+      </div>
+      <figure><img src="img/D02_deadline_discrepancy.png" alt="Сроки покупки багажа на двух страницах сайта Red Wings: 3 часа и 24 часа" loading="lazy"><figcaption>Иллюстрация команды по сайту Red Wings, 10.11.2026</figcaption></figure>
+    </div>
+
+    <div class="fix">
+      <div>
+        <div class="code">D03 · понятные правила возврата и обмена</div>
+        <p>Общая инструкция называет тариф «Лайт» невозвратным и не упоминает платную услугу возвратности, которая уже продаётся. Предлагаем короткие развилки: где куплен билет, есть ли услуга возвратности, сколько осталось до вылета — и сразу нужный канал.</p>
+        <div class="kv"><div><b>0,7–1,5 млн ₽</b>внедрение</div><div><b>60 тыс.</b>обращений за помощью в год (база расчёта)</div><div><b>1,8 млн ₽</b>ресурса в год при −10 п. п. повторных обращений</div></div>
+      </div>
+      <figure><img src="img/D03_returnability.png" alt="Правила возвратности билета на сайте Red Wings" loading="lazy"><figcaption>Иллюстрация команды по сайту Red Wings, 10.11.2026</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="s3">
+    <div><h2 id="s3">Что построить, чтобы цифра работала на сеть</h2><p class="sub">Каждое предложение связано с маршрутной стратегией: хаб в Омске, прямые рейсы между регионами, рост шагами по мере поставок самолётов. <span class="mark">предложение команды</span></p></div>
+    <div class="loyal">
+      <h3>Программа лояльности «Крылья регионов»</h3>
+      <ol>
+        <li><b>Двойные баллы за межрегиональные рейсы и пересадку в Омске.</b> Из Омска около 112 тыс. поездок в год сейчас идут с пересадкой в Новосибирске (оценка модели спроса). Сколько из них перейдёт к Red Wings, покажет пилот: у пассажиров S7 есть свои баллы.</li>
+        <li><b>Абонемент на пару городов</b> для тех, кто летает по одному маршруту каждый месяц. Спрос проверить по данным продаж Red Wings до запуска: вахтовые поездки часто идут поездом, он дешевле.</li>
+        <li><b>Семейный счёт:</b> баллы копятся на всю семью.</li>
+        <li><b>Партнёры:</b> аэропорты «Новапорта», банк с кобрендовой картой, РЖД и автобусы, экосистема Ростеха.</li>
+        <li><b>Корпоративный кабинет</b> для предприятий и регионов: Red Wings нет в рейтинге корпоративных перевозчиков «Аэроклуба».</li>
+        <li><b>Запуск без дорогой системы:</b> сначала кэшбэк баллами и подписка, как у S7 с «Яндекс Плюсом», статусы — потом.</li>
+      </ol>
+    </div>
+    <div class="ideas">
+      <div class="idea"><h3>Пересадка одним заказом</h3><p>Стыковка через Омск и Екатеринбург в одном билете с защитой: если первый рейс опоздал, пассажира пересаживают бесплатно.</p><p class="net"><b>Для сети:</b> продаёт пересадочный хаб без строительства большого узла.</p></div>
+      <div class="idea"><h3>Помощь при «Ковре»</h3><p>При задержке или отмене — уведомление, другой рейс или возврат в один клик, ваучер на питание или отель. Внутри — автоматический пересчёт ротаций самолётов и экипажей.</p><p class="net"><b>Для сети:</b> хаб чувствительнее прямых рейсов к закрытию неба, автоматика удерживает пассажиров у Red Wings.</p></div>
+      <div class="idea"><h3>Надёжная основа и уведомления</h3><p>Сохранение броней, оплата, вход и регистрация без сбоев; уведомления об открытии регистрации, изменении рейса, выходе на посадку. Цель — оценка приложения 4,5 и выше.</p><p class="net"><b>Для сети:</b> меньше брошенных покупок на новых маршрутах.</p></div>
+      <div class="idea"><h3>Допуслуги пакетами</h3><p>Багаж, место и питание одним пакетом и в момент регистрации.</p><p class="net"><b>Для сети:</b> запас на случай, если государство перестанет возвращать часть цены керосина. Без этого возврата хабу в Омске не хватало около 735 ₽ на пассажира — это одна допуслуга.</p></div>
+      <div class="idea"><h3>Чат-бот 24/7 с переходом к человеку</h3><p>Сохранённые документы и карты, подписка на снижение цены.</p><p class="net"><b>Для сети:</b> разгружает контактный центр в дни сбоев.</p></div>
+      <div class="idea"><h3>Внутренняя автоматизация</h3><p>Предиктивное ТО SSJ, планирование экипажей и расписания, наша модель сети как инструмент планирования.</p><p class="net"><b>Для сети:</b> исправность SSJ около 77%; каждый пункт исправности — дополнительные часы в воздухе без покупки самолётов.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s4">
+    <div><h2 id="s4">Забота о всех пассажирах</h2><p class="sub">Что есть у Red Wings по данным сайта и что добавить по опыту других перевозчиков.</p></div>
+    <div class="tscroll"><table class="inc">
+      <thead><tr><th>Для кого</th><th>Сейчас у Red Wings</th><th>Предлагаем</th></tr></thead>
+      <tbody>
+        <tr><td>Люди с инвалидностью</td><td>Помощь через контактный центр или справочную аэропорта; кресло-коляска бесплатно</td><td>Онлайн-заявка при покупке билета, статус заявки, места рядом для сопровождающего</td></tr>
+        <tr><td>Незрячие и слабовидящие</td><td>Собака-поводырь бесплатно</td><td>Сайт и приложение, доступные для экранного диктора; крупный шрифт</td></tr>
+        <tr><td>Глухие и слабослышащие</td><td>—</td><td>Текстовый чат вместо звонка, видеосвязь с сурдопереводчиком, текстовые объявления</td></tr>
+        <tr><td>Дети с аутизмом</td><td>—</td><td>«Репетиция полёта» вместе с аэропортом, как у Air Astana; отметка о скрытой особенности в брони</td></tr>
+        <tr><td>Семьи с детьми</td><td>Перевозка детей без сопровождения</td><td>Места рядом бесплатно, семейный счёт баллов</td></tr>
+        <tr><td>Пассажиры с питомцами</td><td>Салон до 8 кг; отдельное кресло до 23 кг</td><td>Выбор кресла для питомца онлайн, подсказка по ветдокументам</td></tr>
+        <tr><td>Беременные</td><td>Правил на сайте не нашли</td><td>Понятная страница с правилами</td></tr>
+        <tr><td>Льготники</td><td>Правил льготных тарифов на сайте не нашли</td><td>Подсказка «вам положен льготный тариф» при покупке</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="src">
+    Источники:
+    <ul>
+      <li><a href="https://www.rustore.ru/catalog/app/com.flyredwings.redwings/reviews" target="_blank" rel="noopener">RuStore — Red Wings, оценка и отзывы</a></li>
+      <li><a href="https://www.rustore.ru/catalog/app/ru.s7.android" target="_blank" rel="noopener">RuStore — S7</a>; <a href="https://www.rustore.ru/catalog/app/ru.aeroflot" target="_blank" rel="noopener">RuStore — «Аэрофлот»</a></li>
+      <li><a href="https://rozetked.me/news/25472-yandeks-plyus-i-s7-airlines-zapuskayut-sovmestnuyu-podpisku" target="_blank" rel="noopener">Подписка S7 и «Яндекс Плюс»</a></li>
+      <li><a href="https://flyredwings.com/passengers/" target="_blank" rel="noopener">Red Wings — пассажирам</a>; <a href="https://flyredwings.com/categories/disabilities/" target="_blank" rel="noopener">пассажиры с инвалидностью</a>; <a href="https://flyredwings.com/en/baggage/perevozka-zhivotnyx/" target="_blank" rel="noopener">перевозка животных</a></li>
+      <li><a href="https://www.tourdom.ru/news/red-wings-razreshila-passazhiram-pokupat-domashnim-pitomtsam-mesta-u-illyuminatora.html" target="_blank" rel="noopener">Питомец на отдельном кресле, Tourdom</a></li>
+      <li><a href="https://bizmedia.kz/2025-04-02-proekt-autism-friendly-podderzhan-aviakompaniej-air-astana" target="_blank" rel="noopener">Air Astana — Autism Friendly</a></li>
+      <li>Проверка путей D01–D03 на сайте Red Wings и сметы — команда, 10.11.2026; страницы сайта: <a href="https://flyredwings.com/baggage/dopolnitelnyj-bagazh/" target="_blank" rel="noopener">дополнительный багаж</a>, <a href="https://flyredwings.com/faq/uslugi-na-bortu/dopolnitelnye-uslugi/kak-kupit-dopolnitelnyj-bagazh/" target="_blank" rel="noopener">справка о покупке багажа</a></li>
+    </ul>
+  </footer>
+</div>
