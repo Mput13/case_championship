@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "author_exports": [
+    {
+      "file": "network_routes.csv",
+      "rows": 128,
+      "columns": 14,
+      "differing_cells": 0,
+      "semantic_exact_match": true,
+      "byte_exact_match": false,
+      "byte_difference_reason": "source CRLF vs runtime LF; network_summary also signed zero",
+      "expected_sha256": "aa5cac55c2a536a5780f798c97aaea1fb01106afb32e37854926762d5654546c",
+      "replay_sha256": "1adf1e06e06c92bddd6c8f696596cb3d9faa94eee57a0b900323cea3029bdb9d"
+    },
+    {
+      "file": "network_summary.csv",
+      "rows": 12,
+      "columns": 16,
+      "differing_cells": 0,
+      "semantic_exact_match": true,
+      "byte_exact_match": false,
+      "byte_difference_reason": "source CRLF vs runtime LF; network_summary also signed zero",
+      "expected_sha256": "2b48dbe0f4528ec6326b58f60a74537340dcf0fcebf58ff45d87bc0326aedd99",
+      "replay_sha256": "b9ab7c109023fba177522f2e195adb175aedb833856897763df5d42f8afc2dfc"
+    },
+    {
+      "file": "mandatory_routes_table.csv",
+      "rows": 64,
+      "columns": 11,
+      "differing_cells": 0,
+      "semantic_exact_match": true,
+      "byte_exact_match": false,
+      "byte_difference_reason": "source CRLF vs runtime LF; network_summary also signed zero",
+      "expected_sha256": "8feef9468f0379a767c02b3f74d7f3ec83a99e70be34d4a03d2ae7d075cb3541",
+      "replay_sha256": "3604402a4e23801fcf6eb3dc66b129874a0ea1501446979bfd3d7a2fc50b9da6"
+    }
+  ],
+  "corrected_modes": [
+    "CORRECTED_FIXED_SELECTION",
+    "CORRECTED_RESELECTED",
+    "CORRECTED_CLAIM_ALLOCATION"
+  ],
+  "scenarios": 2,
+  "ledger_networks": 48,
+  "network_blocked": true,
+  "environment": {
+    "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "numpy": "2.4.3",
+    "pandas": "2.3.3",
+    "platform": "macOS-26.3.1-arm64-arm-64bit"
+  },
+  "frequency_policy": "AUTHOR_STANDALONE_FIXED; pooled total frequency; marginal network reselection",
+  "acceptance": [
+    "RAW_HASH_VERIFIED",
+    "EXTRACTION_CHECKED",
+    "AUTHOR_REPLAY_MATCHED",
+    "CONSERVATION_PASS"
+  ],
+  "acceptance_scope": "CSV value match and aggregate weekly flow/money accounting; not dated schedule or observed OD",
+  "independent_review": "PENDING",
+  "source_supported_endpoint_demand": false,
+  "full_profitability": false,
+  "methods_commit": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4",
+  "methods_independent_review": "PENDING",
+  "shared_pair_saved_entire_D_exceeded": false,
+  "pooled_curve_status": "AGENT_PROPOSAL_NOT_UNIQUE_OBJECTIVE_CORRECTION",
+  "market_bound_only": "separate extension; preserved frozen financial baseline; no new author replay",
+  "MR06": "1372 frozen leg values match; 1072 metadata corrected; zero time changes"
+}

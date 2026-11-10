@@ -1,0 +1,55 @@
+{
+  "independent_review": "PENDING",
+  "findings": [
+    {
+      "id": "MR-P2-001",
+      "severity": "P2",
+      "classification": "CONFIRMED_ERROR",
+      "subject": "No shared market guard during direct-program selection",
+      "source_commit": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+      "evidence": ["src/network_model.py:249", "src/network_model.py:278", "shared_pair_example.json", "common_market_bounds.csv"],
+      "status": "IMPLEMENTED_GUARD; POLICY_VARIANTS_SEPARATE; INDEPENDENT_REVIEW_PENDING",
+      "minimal_fix": "One market budget per shared pair and physical seat caps; evaluate marginal whole-network contribution.",
+      "limit": "Actual saved repeated-pair sales do not exceed entire D. 6916.754746 is excess over the proposed pooled Q(F), not proven excess over all market demand.",
+      "numeric_effect": "Minimum D-only cap preserves current frozen outputs. Proposed pooled Q at fixed selection reduces base contribution by 139357357.720033 RUB/year."
+    },
+    {
+      "id": "MR-M-002",
+      "severity": "METHOD_CHOICE",
+      "classification": "AGENT_PROPOSAL",
+      "subject": "Capture law and allocation are not uniquely identified",
+      "status": "VARIANTS_PRESERVED",
+      "artifacts": ["corrected_model.py", "market_bound_only_summary.csv", "outputs/CORRECTED_FIXED_SELECTION", "outputs/CORRECTED_RESELECTED", "outputs/CORRECTED_CLAIM_ALLOCATION"],
+      "choices": ["D bound with original claims", "author curve at combined frequency with frequency allocation", "author curve at combined frequency with standalone-claim allocation"],
+      "limit": "Frequency remains author standalone fixed-point policy; no joint global frequency optimisation or empirical capture calibration."
+    },
+    {
+      "id": "MR-P2-003",
+      "severity": "P2",
+      "classification": "CONFIRMED_ERROR",
+      "subject": "Inherited block_method and source do not describe RouteModel.block",
+      "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+      "evidence": ["scripts/build_team_comparison.py:360", "scripts/build_aircraft_route_review.py:19", "ciri/block_metadata_audit.csv"],
+      "status": "CORRECTED_METADATA_IN_SEPARATE_ADAPTER",
+      "impact": "1372 frozen legs match actual function values. 1072 non-relaxed rows require metadata correction; 300 relaxed core rows retained; zero numeric time or financial changes.",
+      "minimal_fix": "Generate provenance from the branch of RouteModel.block that supplied the value, keeping original metadata."
+    },
+    {
+      "id": "MR-OPEN-004",
+      "severity": "OPEN_DECISION",
+      "classification": "OPEN_DECISION",
+      "subject": "Eight triangles versus physical route count",
+      "evidence": ["route_definitions.csv"],
+      "impact": "Author eight triangle programs correspond to 20/18 physical pairs; pooled reselection 20/21. Eight rays in Ciri are eight pairs.",
+      "limit": "No case-route-compliance assertion until route definition is agreed."
+    },
+    {
+      "id": "MR-LIM-005",
+      "severity": "LIMITATION",
+      "classification": "OPEN_DECISION",
+      "subject": "Endpoint OD, calendar and full budget remain incomplete",
+      "status": "OUTSIDE_SCOPE_OR_UNKNOWN",
+      "limit": "Segment-trained scale is used as scenario OD. Anastasia has no dated departure calendar or RW migration ledger. Fixed/base/fleet/startup/cash/donor budgets are incomplete. Conservative 48 weeks mixes weather and kover and is not a pure disruption effect."
+    }
+  ]
+}
