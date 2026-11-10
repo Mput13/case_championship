@@ -32,7 +32,8 @@
     "dashboard_handoff": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-handoff-20261110-r1",
     "dashboard_package_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-package-review-20261110-r1",
     "late_nastya_impact": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-late-nastya-impact-20261110-r1",
-    "dashboard_context_recheck": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-context-recheck-20261110-r1"
+    "dashboard_context_recheck": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-context-recheck-20261110-r1",
+    "late_fuel_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-late-fuel-review-20261110-r1"
   },
   "completion_delivery": "automatic; no task polling",
   "new_evaluations_completed": 10,
@@ -121,12 +122,11 @@
     }
   ],
   "review_queue": "review_queue.json",
-  "updated_at_msk": "2026-11-10T21:15:32.181657+03:00",
+  "updated_at_msk": "2026-11-10T21:30:43.252493+03:00",
   "active_sol_roles": [
-    "late_nastya_impact",
-    "dashboard_context_recheck"
+    "late_fuel_review"
   ],
-  "sol_currently_active": 2,
+  "sol_currently_active": 1,
   "completed_production_roles": [
     "network",
     "products",
@@ -145,7 +145,8 @@
     "EV-MR04",
     "EV-DASHBOARD",
     "EV-LATE-NASTYA",
-    "EV-DASHBOARD-CORRECTION"
+    "EV-DASHBOARD-CORRECTION",
+    "EV-LATE-FUEL"
   ],
   "completed_packages": [
     {
@@ -188,11 +189,9 @@
     }
   ],
   "colleague_ref_check": {
-    "at_utc": "2026-11-10T17:59:45.956720+00:00",
-    "nastya_sha": "066d3e288b41859b9ac33a3e571456a22d877795",
+    "at_utc": "2026-11-10T18:23:58.569901+00:00",
+    "nastya_sha": "dc1eb38d4c6b7c18386b3db4b1750166bb010ffd",
     "nastya_changed_since_previous_check": true,
-    "author": "kiruha355",
-    "impact": "new subsidy, cap search, all20 city hubs, competitor handoff; bounded review running; frozen calculations unchanged",
     "merge_rebase": false
   },
   "completed_review_ids": [
@@ -204,7 +203,9 @@
     "EV-PRODUCTS-FINAL",
     "EV-MR03",
     "EV-MR04",
-    "EV-DASHBOARD"
+    "EV-DASHBOARD",
+    "EV-DASHBOARD-CORRECTION",
+    "EV-LATE-NASTYA"
   ],
   "review_admissions": [
     {
@@ -319,12 +320,37 @@
       "root_check": "intake/dashboard_review_checks.json",
       "correction_sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
       "correction_review": "PENDING_SEPARATE"
+    },
+    {
+      "id": "EV-DASHBOARD-CORRECTION",
+      "subject_sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+      "review_sha": "bb80c5902461fc7861d16c53aae13eca98a2d94f",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/dashboard_correction_review_checks.json",
+      "limits": [
+        "only ROOT-DASH-01 correction; original5101302 CHANGES retained",
+        "no economic/market/UI acceptance"
+      ]
+    },
+    {
+      "id": "EV-LATE-NASTYA",
+      "subject_sha": "066d3e288b41859b9ac33a3e571456a22d877795",
+      "review_sha": "3f54697bdd37c753f7d6911028e1dc0304b67c88",
+      "verdict": "CHANGES_FOR_SUBSIDY_PASSPORT_ADMISSION",
+      "root_check": "intake/late_nastya_impact_checks.json",
+      "scoped_pass": "known OMSbase cap4/cap10 fixed in main summary",
+      "limits": [
+        "routegrant and fare not jointly constrained",
+        "diagnostic local fare delta not corrected PnL",
+        "ramp/search/calendar/resource limits remain",
+        "not latestdc1 fuel"
+      ]
     }
   ],
-  "evaluation_completion_meaning": "Ten scenario evaluations and eight scoped reviews delivered; final serialization review, new colleague impact and conditional roadmap/root handoff remain. No operating acceptance.",
+  "evaluation_completion_meaning": "Ten scenario evaluations and eight scoped calculation/source reviews delivered; original assembly CHANGES with separately approved correction; late fuel input under independent review. No operating or investment acceptance.",
   "strategy_complete": false,
   "handoff_build": {
-    "status": "DELIVERED_INDEPENDENT_REVIEW_RUNNING",
+    "status": "DELIVERED_ORIGINAL_CHANGES_CORRECTION_APPROVED",
     "scope": "context/28_evening_run_20261110/dashboard_handoff",
     "inputs": [
       "b47118a48b6d5480217077bf8699a63665c0eb7a",
@@ -344,15 +370,17 @@
     "methods_final_envelope": "5512f7d474a5db4bb658aae30b10f8b886629861",
     "sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
     "root_intake": "intake/dashboard_handoff_checks.json",
-    "open_finding": "ROOT-DASH-01: KUF-SVX known context not attached to C33",
+    "open_finding": null,
     "provisional_review": "SUPERSEDED_BY_FINAL_CHANGES_C395",
     "root_correction": {
       "path": "integration/dashboard_context_correction",
-      "status": "FRESH_INDEPENDENT_RECHECK_RUNNING",
+      "status": "APPROVE_SCOPED_EXACT_BB80",
       "effect": "34 existing context aliases attached to C33; 16 programme records; all economics/original85 links unchanged",
-      "sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c"
+      "sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+      "review_sha": "bb80c5902461fc7861d16c53aae13eca98a2d94f"
     },
-    "independent_review": "CHANGES_EV-DASHBOARD_EXACT_C395"
+    "independent_review": "CHANGES_EV-DASHBOARD_EXACT_C395",
+    "historical_finding": "ROOT-DASH-01 on original5101302; closed only for correction0f07 by bb80"
   },
   "methods_v4_interim_review": {
     "subject_sha": "9f0b5d25af720107e99e209e1c69b098497358be",
@@ -378,7 +406,26 @@
     "screening_and_competitors": "decision_handoff/screening_and_competitors.md",
     "status": "PROPOSED_NOT_TEAM_ACCEPTED",
     "new_economic_calculations": false,
-    "user_steering": "Need justified growth; lowest loss alone is not a strategy; allow startup investment only with financing/payback/stop conditions"
+    "user_steering": "Need justified growth; lowest loss alone is not a strategy; allow startup investment only with financing/payback/stop conditions",
+    "trajectory": "decision_handoff/trajectory_readout.md",
+    "user_criterion": "Loss reduction is valid economic progress; evidence-grounded path to profit required; no optimistic parameter fitting",
+    "actual_profit_date": "NOT_ESTABLISHED"
   },
-  "input_freeze": "FROZEN_CUTOFF_21_15"
+  "input_freeze": "FROZEN_CUTOFF_21_15",
+  "late_fuel_input": {
+    "sha": "dc1eb38d4c6b7c18386b3db4b1750166bb010ffd",
+    "author": "kiruha355",
+    "published_msk": "2026-11-10T21:22:28+03:00",
+    "observed_at_utc": "2026-11-10T18:23:58.569901+00:00",
+    "status": "MATERIAL_LATE_APPENDIX_UNDER_REVIEW",
+    "change": "fuel compensation base32930/caut3024; source eligibility and fixed-network effect pending",
+    "frozen_originals_unchanged": true,
+    "preliminary_report": {
+      "at_msk": "2026-11-10T21:30:43.252493+03:00",
+      "reported_by": "EV-LATE-FUEL",
+      "status": "INTERIM_NOT_ADMITTED",
+      "message": "Reviewer found a real fuel compensation mechanism and primary FNS sources; fixed-network effect, series arithmetic and applicability are still being isolated. Positive reoptimised OMS and old smaller OMS are different networks. No final immutable review yet."
+    }
+  },
+  "delivery_status": "ASSEMBLED_WAITING_MATERIAL_FUEL_REVIEW"
 }

@@ -1,0 +1,82 @@
+{
+  "task": "EV-LATE-NASTYA",
+  "status": "CHANGES_FOR_SUBSIDY_PASSPORT_ADMISSION",
+  "scoped_approval": "Known OMS base cap4/cap10 counterexample corrected in main summary only",
+  "subject_sha": "066d3e288b41859b9ac33a3e571456a22d877795",
+  "previous_sha": "14354571b90545cd0618548481a857bf6b388d4a",
+  "frozen_author_baseline_sha": "4a9763565f70b9ab1eddde2f5daca07687560948",
+  "frozen_methods_sha": "5512f7d474a5db4bb658aae30b10f8b886629861",
+  "frozen_assembly_sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+  "source_evidence_sha": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
+  "source_review_sha": "13f7c373954cc16b33a53b7c46436ee3f15f753b",
+  "review_branch": "t3/late-nastya-impact-review",
+  "review_commit": "Reported in final delivery after commit; manifest excludes self-reference",
+  "built_at": "2026-11-10T21:17:46.631845+03:00",
+  "write_boundary": "context/28_evening_run_20261110/late_nastya_impact/",
+  "findings": [
+    {
+      "id": "EVL-01",
+      "severity": "HIGH",
+      "topic": "Grant added without joint special fare gate",
+      "counterexample": "OMS-GOJ:13724.006142923401 formula fare versus9987 base grid;56185826.66666667 RUB smoothed annual support; actual award UNKNOWN",
+      "receipt": "subsidy_counterexamples.csv"
+    },
+    {
+      "id": "EVL-02",
+      "severity": "HIGH_FOR_ELIGIBILITY_CLAIMS",
+      "topic": "Mean planned-flight rate, prior-volume proxy/missing0, periods/cofinance/rights incomplete",
+      "receipt": "subsidy_formula_receipt.json"
+    },
+    {
+      "id": "EVL-03",
+      "severity": "MEDIUM",
+      "topic": "Competitor importer drops via/period/checked_at and direction/airport identity",
+      "receipt": "competitor_schema.csv"
+    },
+    {
+      "id": "EVL-04",
+      "severity": "LOW_MEDIUM",
+      "topic": "Stale1773 and Sochi+517 prose contradict current code/outputs",
+      "receipt": "report.md"
+    },
+    {
+      "id": "EVL-C02_C03",
+      "severity": "MEDIUM",
+      "topic": "Ramp bypasses best wrapper; search4/6/8/10 omits feasible hourly cap3 cautious fixture",
+      "receipt": "author_probe.json"
+    }
+  ],
+  "receipts": {
+    "source_manifest": "source_manifest.json",
+    "source_and_formula_checks": "verification.json",
+    "author_probe": "author_probe.json",
+    "impact_matrix": "impact_matrix.csv",
+    "report": "report.md",
+    "competitor_coverage": "competitor_coverage.csv",
+    "summary_delta": "published_summary_delta.csv",
+    "package_manifest": "output_manifest.json"
+  },
+  "scope_counts": {
+    "exact_git_blobs": 73,
+    "other_manifest_entries": 2,
+    "OMS_base_sub_caps": 8,
+    "additional_cautious_caps": 2,
+    "existing_covered_pair_universe": 45,
+    "directional_service_aggregates": 42
+  },
+  "not_run": [
+    "all-hub rerun",
+    "direct rerun",
+    "live collection",
+    "browser/UI QA",
+    "future award/rights",
+    "full PnL/cash",
+    "physical/MCT operational validation",
+    "owner changes",
+    "PR/force/merge/rebase",
+    "children",
+    "outreach",
+    "new cycle"
+  ],
+  "freeze_policy": "Separate immutable late-input addendum. No silent replacement of methods5512 or assembly5101302."
+}

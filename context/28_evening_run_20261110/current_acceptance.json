@@ -1,0 +1,150 @@
+{
+  "as_of_msk": "2026-11-10T21:27:14.569855+03:00",
+  "events": [
+    {
+      "id": "EV-MR01",
+      "subject_sha": "48686bf2276c435d7a260f4de6741c9b65d26e32",
+      "review_sha": "bd2c27d2157d29d04fa1b3201e01392786fb035f",
+      "verdict": "APPROVE_SCOPED",
+      "limits": [
+        "not methods aa777 v2",
+        "not full PnL/cash or market/fleet",
+        "not global optimum",
+        "19-pair diagnostic fails final8-12 gate"
+      ],
+      "root_check": "intake/selection_review_checks.json"
+    },
+    {
+      "id": "EV-EVIDENCE-FINAL",
+      "subject_sha": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
+      "review_sha": "13f7c373954cc16b33a53b7c46436ee3f15f753b",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/evidence_review_checks.json",
+      "limits": [
+        "OLD144 historical primary raw unavailable; no retrospective hash substitution",
+        "not market/bookability/remaining seats",
+        "not future awards/free fleet/economics/final strategy"
+      ]
+    },
+    {
+      "id": "EV-MR02",
+      "subject_sha": "aa7779192d809558e38b1eb9bdfa25913a3afdc8",
+      "review_sha": "8cb5fde05c51ae05f7b72e3cb996f0cb4fa26550",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/calendar_review_checks.json",
+      "limits": [
+        "no dated MCT/shared dated seat acceptance in aa777",
+        "no actual awards/freefleet/fullPnL/grosscash",
+        "not finalSol or methods v3"
+      ]
+    },
+    {
+      "id": "EV-NETWORK-FINAL",
+      "subject_sha": "b47118a48b6d5480217077bf8699a63665c0eb7a",
+      "review_sha": "cccc728b401d3a1234045220f42496ac48e0d475",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/network_digital_review_checks.json",
+      "limits": [
+        "not actual market/freefleet/fullPnL/cash",
+        "OMS negative ideal-bank bound conditional on LF85/80; physical100 is separate sensitivity"
+      ]
+    },
+    {
+      "id": "EV-DIGITAL-FINAL",
+      "subject_sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
+      "review_sha": "10464979fd510380aafe7e421d241a8f176d538d",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/network_digital_review_checks.json",
+      "limits": [
+        "not actual market/freefleet/fullPnL/cash",
+        "D03 P3 regular-only label removed in root projection; charter eligibility UNKNOWN",
+        "no measured business effect or paid E2E"
+      ]
+    },
+    {
+      "id": "EV-PRODUCTS-FINAL",
+      "subject_sha": "388908b6da3539484cb8e2e03ada6ff5cb2204a4",
+      "review_sha": "6cc8c37e23c89488f3113efd96952d13f253f274",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/products_review_checks.json",
+      "limits": [
+        "scenario arithmetic and calendar only",
+        "C35 segment counter not accepted as company-wide growth",
+        "same-day cash lower bound not intraday zero financing",
+        "no market/freefleet/contracts/full actual budget"
+      ]
+    },
+    {
+      "id": "EV-MR03",
+      "subject_sha": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "review_sha": "994c6c0d293ae6053b4e73b279689c5020314e09",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/dated_review_checks.json",
+      "limits": [
+        "all H1-H11 retained",
+        "not actual market/fleet/award/fullPnL/cash",
+        "specific bank not global impossibility; weekly retime not annualised",
+        "C31 one week plus full C35 contract; internal feed separate",
+        "changed January supply requires full-week selection before year split",
+        "not methods v4 9f0"
+      ]
+    },
+    {
+      "id": "EV-MR04",
+      "subject_sha": "9f0b5d25af720107e99e209e1c69b098497358be",
+      "review_sha": "934a32f87ad81adbb6808be3aa50d6072276e779",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/strategy_review_checks.json",
+      "limits": [
+        "conditional owner recommendation, not TEAM_ACCEPTED",
+        "one local mixed11 recipe, not global optimisation",
+        "aggregate resource gates, not operating readiness",
+        "historical support shadow, not awarded grant",
+        "full PnL/cash/market/future company rank not accepted",
+        "EV-MR03 separate exact f99"
+      ]
+    },
+    {
+      "id": "EV-DASHBOARD",
+      "subject_sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+      "review_sha": "c39511430b7578f1f80a71eb77bea512b0afc6a4",
+      "verdict": "CHANGES",
+      "finding": "EV-DASH-01 / ROOT-DASH-01",
+      "root_check": "intake/dashboard_review_checks.json",
+      "correction_sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+      "correction_review": "PENDING_SEPARATE"
+    },
+    {
+      "id": "EV-DASHBOARD-CORRECTION",
+      "subject_sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+      "review_sha": "bb80c5902461fc7861d16c53aae13eca98a2d94f",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/dashboard_correction_review_checks.json",
+      "limits": [
+        "only ROOT-DASH-01 correction; original5101302 CHANGES retained",
+        "no economic/market/UI acceptance"
+      ]
+    },
+    {
+      "id": "EV-LATE-NASTYA",
+      "subject_sha": "066d3e288b41859b9ac33a3e571456a22d877795",
+      "review_sha": "3f54697bdd37c753f7d6911028e1dc0304b67c88",
+      "verdict": "CHANGES_FOR_SUBSIDY_PASSPORT_ADMISSION",
+      "root_check": "intake/late_nastya_impact_checks.json",
+      "scoped_pass": "known OMSbase cap4/cap10 fixed in main summary",
+      "limits": [
+        "routegrant and fare not jointly constrained",
+        "diagnostic local fare delta not corrected PnL",
+        "ramp/search/calendar/resource limits remain",
+        "not latestdc1 fuel"
+      ]
+    }
+  ],
+  "current_data_combination": {
+    "original": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+    "use_corrected_cards_and_route_context": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+    "correction_review": "bb80c5902461fc7861d16c53aae13eca98a2d94f"
+  },
+  "late_fuel": "PENDING_SEPARATE_DC1",
+  "market_fleet_award_fullPnL_UI_accepted": false
+}
