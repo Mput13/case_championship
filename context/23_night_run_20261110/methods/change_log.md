@@ -18,3 +18,5 @@
 ## methods-integration-v5
 
 Cost-timebase correction87ee импортирована отдельно; задержкиHOLD не включены как доступные деньги. C-overlay и C/Ninteraction имеют разныеcontracts/runs. Добавлен portfolioDguard: текущие30deltas0, synthetic400→300. common_demand.simulate получил явный флагDguard, default84cases/151regionsbyteunchanged. Portfolio calendar row order deterministic in separate replay directory; oldv1bytesunchanged. Current acceptance matrix различает original CHANGES и corrected parentchecks.
+
+- v6: новые allocation/final_variant contracts и расчёты; методы исходного local-first и historical runs не изменены. Добавлены exactMR09/MR10/frontier inputs и admission_v2. Границы полного бюджета/доноров/cash собраны в decision_conditions.md.

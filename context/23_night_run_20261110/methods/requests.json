@@ -113,7 +113,7 @@
     {
       "id": "MR09",
       "priority": "P2",
-      "status": "INDEPENDENT_REVIEW_RUNNING_ON_EXACT_c24",
+      "status": "COMPLETED_APPROVE_SCOPED_EXACT_c24",
       "inputs": [
         "methods-strategy-v4 exact SHA from delivery",
         "portfolio_comparison.py",
@@ -123,24 +123,26 @@
       ],
       "question": "Review new mixed/resource/unit synthesis separately from activeMR08; verify finite-scope claims, shared market/own-cap budgets and future-resource limits.",
       "acceptance": "Singleton16cases match, sharedMRV-SVX pooling isproposalnotDbreach, fulltailnamespace, no duplicatebase/reserve,240hboundnecessaryonly, C01unit67vs72 and C07costrecipe not actualmarketbudget.",
-      "dependency": "Root alone prioritizes; no expansion/restart ofMR08. TimebaseP2 is already delivered to root for existingMR02scope, no duplicate dispatcher."
+      "dependency": "Root alone prioritizes; no expansion/restart ofMR08. TimebaseP2 is already delivered to root for existingMR02scope, no duplicate dispatcher.",
+      "review_commit": "0cc043484147cb9f3a23a3d3d2aea9b4a6ce9ed9"
     },
     {
       "id": "MR10",
       "priority": "P1",
-      "status": "ROOT_DISPATCHED_RUNNING_CORRECTIONS_ONLY",
+      "status": "COMPLETED_APPROVE_SCOPED_DERIVATIVES_ONLY",
       "inputs": [
         "primary_lineage_correction@f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
         "cost_kover_timebase_correction@87ee52de15c2bdf396d9c06ba600fd413d5ab4a8"
       ],
       "question": "Fresh independent correction recheck assigned by coordinator.",
       "acceptance": "Corrected snapshot FK/retained originalcells; epoch/horizon/hold/null; no inherited original pass.",
-      "dependency": "Existing root review; methods does not expand it."
+      "dependency": "Existing root review; methods does not expand it.",
+      "review_commit": "4604059a675b0be410ff46685ec77fa1dc20933a"
     },
     {
       "id": "MR11",
       "priority": "P1",
-      "status": "READY_EXACT_INTEGRATION_V5_FRESH_REVIEW",
+      "status": "ROOT_DISPATCHED_RUNNING_EXACT_f7a",
       "inputs": [
         "methods-integration-v5 exact SHA from delivery",
         "kover_demand_contract.json",
@@ -151,7 +153,24 @@
       ],
       "question": "Independently review the new fixed-supply C/N cancellation interaction, corrected-context21 join and hard-D portfolio branch.",
       "acceptance": "Rejoin each recipe own itinerary quantities once; verify8C cancellation deltas/8N deltas and sign changes; no Cdelta transplant, no delay money despiteHOLD, no double donor/migration/refund;30D-only deltas0 plus synthetic300cap; priorv3/v4 outputvalues preserved.",
-      "dependency": "Fresh task on v5, not expansion of completedMR08/activeMR09/MR10; root alone chooses slot. Parentcorrection recheck belongs MR10, original MR02review alreadyscopedCHANGES."
+      "dependency": "Fresh task on v5, not expansion of completedMR08/activeMR09/MR10; root alone chooses slot. Parentcorrection recheck belongs MR10, original MR02review alreadyscopedCHANGES.",
+      "input_commit": "f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9"
+    },
+    {
+      "id": "MR12",
+      "priority": "P1",
+      "status": "READY_EXACT_V6_FRESH_REVIEW",
+      "inputs": [
+        "methods-v6 exact commit from delivery",
+        "allocation_contract.json",
+        "allocation_diagnostic.py",
+        "final_variant_contract.json",
+        "final_variant_synthesis.py",
+        "decision_conditions.md"
+      ],
+      "question": "Independent fixed-offer allocation and final finite-variant synthesis review; prior reviews remain immutable.",
+      "acceptance": "16cases/48primary optima, migrationlinearity gate, primal anddual certificates,32secondary checks; sourcequota andmarket/leg invariants; UFA8Cbase segment-vsjourney counterexample;15union/90budget rows, five jointmodelgates; no8-12operatingacceptance or fullbudget.",
+      "dependency": "Root alone chooses free slot. MR11exactf7a/FRONTIER_REVIEW/passport_bridge notexpanded. ExistingMR09/MR10notrepeated."
     }
   ]
 }

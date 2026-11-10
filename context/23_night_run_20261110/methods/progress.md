@@ -21,3 +21,7 @@
 Четвёртый пакет: strategy_accounting_readout.md.60portfolio cases,20resource rows,productunit/cost bridges. Импортированы exact reviews budget2278/repair445a/source944b, parentlineagef177, costafadee. MR07APPROVE узко; MR08работает наabb1. Лично выявлен timebaseP2 вafadee, rootуведомлён:16day2times +24h, false delayPASS ->23conflicts/peak8flights. Первичные оригиналы не менялись; day1cancelmoney не опровергнут.
 
 Пятый пакет: integration_readout.md. Исправленныйcontext21overlay40rows/4HOLD; отдельныйC/Ninteraction16cases меняет знакbasecancelδ(H4:+255k→−605k;H8:+854k→−998k).30current D-only portfolio deltas0, Qproposal отдельно;90v2cases. MR08exactabb1 APPROVEscoped, MR02exactafadee CHANGES, freshMR10corrections работает. MR11готовдляновогоv5review. Старыеcommonv3/portfolio_v1bytes сохранены; новыйreplaycalendar отсортирован, allvaluesmatch.
+
+## Срез v6: распределение и конечные варианты
+
+Готовы16 фиксированных случаев распределения с48 решениями/dual checks,15 объединений модельных пар и90 символических бюджетных условий. Новая независимая приёмкаPENDING; MR12готов для root. MR09/MR10 импортированы отдельными событиями; frontier519998owner-only. Продолжаю конечное сопоставление до09:30freeze/10:00handoff.

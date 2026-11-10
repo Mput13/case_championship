@@ -1,0 +1,61 @@
+{
+  "review_id": "MR10-independent-correction-review-20261110",
+  "prepared_root": "47de3dfb3d20c29232396f5a28c664a97630b3d9",
+  "decisions": {
+    "A": {
+      "verdict": "APPROVE_SCOPED",
+      "reviewed_commit": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+      "scope": "SVX derivative snapshot metadata, original cells and dependent context-link preservation",
+      "supplied_objection": "SJR-P2-001",
+      "resolution": "CLOSED_FOR_DERIVATIVE_METADATA_ONLY",
+      "original_primary_verdict": "CHANGES remains historical on 17b4f348f15ea8695688d9435933cb4965568408",
+      "source_supported_promoted": false,
+      "supporting_locations": [
+        {"path": "context/23_night_run_20261110/primary_lineage_correction/source_registry.csv", "lines": [47, 48]},
+        {"path": "context/23_night_run_20261110/primary_lineage_correction/dated_evidence.csv", "lines": [2, 75]},
+        {"path": "context/23_night_run_20261110/primary_lineage_correction/candidate_endpoint_mapping.csv", "lines": [64, 65, 70, 71, 137, 138]}
+      ]
+    },
+    "B": {
+      "verdict": "APPROVE_SCOPED",
+      "reviewed_commit": "87ee52de15c2bdf396d9c06ba600fd413d5ab4a8",
+      "scope": "UTC timebase, affected sets, fixed-label calendar conflicts, dependent admission and unchanged day1 arithmetic",
+      "supplied_objection": "CKR-P2-TIMEBASE",
+      "resolution": "TIMEBASE_CORRECTED; FOUR_CONFLICTING_DELAY_CASES_HELD",
+      "original_overlay_verdict": "CHANGES remains historical on afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "supporting_locations": [
+        {"path": "context/23_night_run_20261110/cost_kover_timebase_correction/build.py", "lines": [61, 64, 135, 140, 145, 148, 150]},
+        {"path": "context/23_night_run_20261110/cost_kover_timebase_correction/timestamp_projection.csv", "lines": [126, 127]},
+        {"path": "context/23_night_run_20261110/cost_kover_timebase_correction/scenario_summary.csv", "lines": [5, 10, 15, 20]},
+        {"path": "context/23_night_run_20261110/cost_kover_timebase_correction/physical_leg_status.csv", "lines": [98]},
+        {"path": "context/23_night_run_20261110/cost_kover_timebase_correction/affected_journeys.csv", "lines": [58]},
+        {"path": "context/23_night_run_20261110/cost_kover_timebase_correction/cash_fixture.csv", "lines": [11]}
+      ]
+    }
+  },
+  "new_findings": [],
+  "severity_counts": {"P1": 0, "P2": 0},
+  "minimum_owner_fixes": [],
+  "personal_checks": [
+    "All original dated/mapping cells and row order; snapshot identities and foreign keys",
+    "Context12 versus context17 literal receipts and 129 upstream row joins; 28 cards and 58 mappings; 6 clock HOLDs",
+    "66 legs, 132 events, 70 original wrong events, 350 repeated wrong physical rows",
+    "1885-minute literal example, second-day 0-to-16 affected set, half-open/timezone/rollover/horizon fixtures",
+    "Exact fixed-label adjacent conflict sets: UFA8 23, UFA4 11 per author scenario",
+    "40-group conservation and admission across summary, physical, journeys and cash",
+    "Separate bounded author replay of all 40 original day1 numeric rows before gating",
+    "Frozen no-kover input bytes, unchanged unaffected values, manifests and provenance"
+  ],
+  "supplied_only_outside_scope": [
+    "Original SJR/CKR review conclusions outside the personally repeated joins/timebase/admission scope",
+    "Full MR02 cost, contract, tariff and primary raw-content review"
+  ],
+  "retained_boundaries": [
+    "No new SOURCE_SUPPORTED, observed demand, supply, legal capacity, clock/year/OD or sales acceptance",
+    "Four delay cases are not admitted schedules; actual tails, recovery resources and economics UNKNOWN",
+    "23/11 fixed-label adjacent conflicts do not prove global impossibility of alternative schedules",
+    "Physical capacity/occupied numbers under HOLD remain candidate allocations; cash numeric columns remain hypothetical fixture values",
+    "No actual cash reserve, full budget profit, dispatch or launch acceptance",
+    "Public Site/report/dashboard and owners unchanged"
+  ]
+}

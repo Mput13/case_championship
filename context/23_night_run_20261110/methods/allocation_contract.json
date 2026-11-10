@@ -1,0 +1,17 @@
+{
+  "id": "FIXED_OFFER_ALLOCATION_DIAGNOSTIC_V1",
+  "status": "AGENT_PROPOSAL",
+  "question": "How much of the fixed-rule result depends on passenger allocation, and do journeys and segments imply the same objective?",
+  "inputs": "Original context21 dated supply, C and N unit-scale demand recipes already frozen atabb1; plus UFA4/UFA8 base C×3 exactly matching MR08 allocation counterexamples",
+  "cases": "C all4programs×2scenarios; N3coveredprograms×2scenarios; Cbase×3forUFA4/UFA8; total16cases",
+  "fixed": ["flight calendar and aircraft allocation", "nominal leg capacity", "all enumerated offered itineraries and per-offer requested demand", "fares and costs", "source own-migration share and old direct seat cap", "no-kover baseline"],
+  "variables": "Nonnegative continuous endpoint journeys sold per existing itinerary, bounded by its source desired quantity; original fractional scenario granularity retained",
+  "constraints": ["each physical leg seat cap", "one directed OD market cap", "per-offer desired sales cap"],
+  "migration_linearity_gate": "For each directed market prove its known own-direct cap is at least can times the sum of min(desired,per-itinerary leg bottleneck), or cap is0/UNKNOWN. Otherwise reject this linear-program experiment; do not linearize a binding kink silently.",
+  "objectives": ["maximum variable incremental contribution", "maximum endpoint journeys, then contribution as a tie-break", "maximum occupied passenger segments, then contribution as a tie-break"],
+  "reference": "Exact source local-first simulation on same inputs; independent MR08 transfer-first counterexamples remain separate",
+  "solver": "Installed scipy.optimize.linprog HiGHS; no installation or external service. Validate primal feasibility and nonnegative dual certificate for primary objective, plus actual accounting after tie-break.",
+  "acceptance": "Local-first reproduced; optimizing objective cannot be below feasible local-first; profit bounded by accepted supply certificate; all3unit identities preserved. Any failed migration gate holds affected case.",
+  "not_claimed": ["global network optimum", "observed bookings or paid demand", "optimal pricing/capture/market choice", "integer ticket allocation", "normative team objective", "full budget or launch"],
+  "independent_review": "PENDING_NEW_ALLOCATION_SCOPE"
+}

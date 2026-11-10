@@ -53,3 +53,17 @@ python3 context/23_night_run_20261110/methods/render_kover_chart.py
 ```
 
 Текущий portfolio_comparison.py пишет отдельныйportfolio_v1_replay с отсортированнымиtailrows; историческийportfolio_v1 не перезаписывается. `replay_equivalence.json` показывает allvaluesmatch.
+
+## v6
+
+Из корня checkout; SciPy1.17.1 уже установлен, установки не требуются.
+
+```sh
+python3 context/23_night_run_20261110/methods/allocation_diagnostic.py
+python3 context/23_night_run_20261110/methods/final_variant_synthesis.py
+python3 context/23_night_run_20261110/methods/update_acceptance_v6.py
+python3 context/23_night_run_20261110/methods/render_allocation_chart.py
+python3 context/23_night_run_20261110/methods/check_package.py
+```
+
+allocation primary/secondary primal-dual checks выполняются внутри скрипта. Это owner verification, независимый review новогоscopePENDING. Старыеv3/v4/v5runs не перезаписываются.
