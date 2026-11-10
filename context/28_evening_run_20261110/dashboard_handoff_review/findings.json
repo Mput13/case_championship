@@ -1,0 +1,57 @@
+{
+  "review_id": "EV-DASHBOARD",
+  "subject_sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+  "subject_scope": "context/28_evening_run_20261110/dashboard_handoff/",
+  "verdict": "CHANGES",
+  "severity_counts": {"P0": 0, "P1": 0, "P2": 1, "P3": 0},
+  "findings": [
+    {
+      "id": "EV-DASH-01",
+      "root_observation_alias": "ROOT-DASH-01",
+      "severity": "P2",
+      "title": "KUF-SVX exists in pair registry but C33 receives global absence label and no known context links",
+      "file": "context/28_evening_run_20261110/dashboard_handoff/build.py",
+      "line_start": 228,
+      "line_end": 238,
+      "causal_lines": [229, 231, 232, 234],
+      "output_evidence": {
+        "path": "context/28_evening_run_20261110/dashboard_handoff/route_context.json",
+        "record_id_line": 34674,
+        "false_status_line": 34694,
+        "csv_logical_record_including_header": 638,
+        "record_id": "RC:calculation_pair_gap:PC:network:route_delta:254",
+        "hypothesis_id": "C33",
+        "route": "KUF-SVX",
+        "coverage_status": "NOT_IN_EVIDENCE_PAIR_REGISTRY"
+      },
+      "source_counterexample": {
+        "commit": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
+        "path": "context/28_evening_run_20261110/evidence/pair_registry.csv",
+        "csv_logical_record_including_header": 21,
+        "git_blob": "0986f08da2e22bb188481de53fe84982415283c1",
+        "route": "KUF-SVX",
+        "hypotheses": "C03",
+        "coverage_status": "PARTIAL_POSITIVE_EVIDENCE"
+      },
+      "independently_reproduced": true,
+      "reuse_of_finished_child": false,
+      "impact": {
+        "known_C03_context_rows_not_linked_to_C33": 34,
+        "affected_C33_programme_rows": 16,
+        "numeric_originals_changed": false,
+        "market_absence_inferred": false,
+        "description": "The documented card filter by hypothesis exposes a false registry absence and hides already available route context for C33. Calculation amounts remain unchanged."
+      },
+      "minimal_fix": "Check global route presence separately from hypothesis-route association. Link C33 calculation leg explicitly to existing KUF-SVX context and exact provenance, or expose the missing association with an explicit reference to the known pair. Preserve original85 associations and mark extra calculation links separately. Regenerate only projection and affected manifests/card links; do not force context count639.",
+      "negative_controls": [
+        "TLV-ZIA and SVX-ZIA actually absent from the45-pair source registry",
+        "calculation_pair_gap source_fields are intentionally derived, not literal flight CSV fields",
+        "636 nonderived context source_fields equal their exact source CSV rows"
+      ],
+      "owner_files_edited": false,
+      "root_notified_before_final_package": true,
+      "acceptance_boundary": "Blocks approval of exact projection5101302. Does not reject upstream economic results or accept market/fleet/award/fullPnL/cash."
+    }
+  ],
+  "follow_on_rule": "Any fix receives a new exact scoped receipt; retain this CHANGES for5101302. Stop after one package."
+}
