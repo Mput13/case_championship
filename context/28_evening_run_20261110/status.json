@@ -1,5 +1,5 @@
 {
-  "phase": "REVIEW_AND_INTEGRATION",
+  "phase": "FINAL_ASSEMBLY_REVIEW",
   "started_at_msk": "2026-11-10T19:11:48.991056+03:00",
   "deadline": "2026-11-10T22:00:00+03:00",
   "brief_commit": "4a9971beeacbc40559943eae05b9004c90165917",
@@ -18,7 +18,7 @@
   "reserve_count": 25,
   "sol_tasks_launched": 4,
   "sol_limit": 4,
-  "methods_delivery": "v3 exact f99d with dated allocations, retime and joint products; independent review running; final synthesis in progress",
+  "methods_delivery": "FINAL_FROZEN_5512; numerical work completed, exact scoped reviews recorded",
   "review_policy": "fresh task on immutable output after production slot frees",
   "task_ids": {
     "network": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-network-ten-20261110-r1",
@@ -29,7 +29,9 @@
     "digital_growth_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-digital-growth-review-20261110-r1",
     "products_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-products-review-20261110-r1",
     "dated_comparison_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dated-comparison-review-20261110-r1",
-    "dashboard_handoff": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-handoff-20261110-r1"
+    "dashboard_handoff": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-handoff-20261110-r1",
+    "dashboard_package_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-package-review-20261110-r1",
+    "late_nastya_impact": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-late-nastya-impact-20261110-r1"
   },
   "completion_delivery": "automatic; no task polling",
   "new_evaluations_completed": 10,
@@ -118,16 +120,18 @@
     }
   ],
   "review_queue": "review_queue.json",
-  "updated_at_msk": "2026-11-10T20:50:42.020483+03:00",
+  "updated_at_msk": "2026-11-10T21:02:51.686624+03:00",
   "active_sol_roles": [
-    "dashboard_handoff"
+    "dashboard_package_review",
+    "late_nastya_impact"
   ],
-  "sol_currently_active": 1,
+  "sol_currently_active": 2,
   "completed_production_roles": [
     "network",
     "products",
     "evidence",
-    "digital_growth"
+    "digital_growth",
+    "dashboard_handoff"
   ],
   "reviews_dispatched": [
     "EV-MR01",
@@ -137,7 +141,9 @@
     "EV-DIGITAL-FINAL",
     "EV-PRODUCTS-FINAL",
     "EV-MR03",
-    "EV-MR04"
+    "EV-MR04",
+    "EV-DASHBOARD",
+    "EV-LATE-NASTYA"
   ],
   "completed_packages": [
     {
@@ -180,9 +186,11 @@
     }
   ],
   "colleague_ref_check": {
-    "at_utc": "2026-11-10T17:33:02.188296+00:00",
-    "nastya_sha": "14354571b90545cd0618548481a857bf6b388d4a",
-    "nastya_changed_since_previous_check": false,
+    "at_utc": "2026-11-10T17:59:45.956720+00:00",
+    "nastya_sha": "066d3e288b41859b9ac33a3e571456a22d877795",
+    "nastya_changed_since_previous_check": true,
+    "author": "kiruha355",
+    "impact": "new subsidy, cap search, all20 city hubs, competitor handoff; bounded review running; frozen calculations unchanged",
     "merge_rebase": false
   },
   "completed_review_ids": [
@@ -300,10 +308,10 @@
       ]
     }
   ],
-  "evaluation_completion_meaning": "All ten owner calculation packages and their scoped independent reviews delivered; common synthesis/dated review and final handoff still active; operating acceptance separate",
+  "evaluation_completion_meaning": "Ten scenario evaluations and eight scoped reviews delivered; final serialization review, new colleague impact and conditional roadmap/root handoff remain. No operating acceptance.",
   "strategy_complete": false,
   "handoff_build": {
-    "status": "RUNNING",
+    "status": "DELIVERED_INDEPENDENT_REVIEW_RUNNING",
     "scope": "context/28_evening_run_20261110/dashboard_handoff",
     "inputs": [
       "b47118a48b6d5480217077bf8699a63665c0eb7a",
@@ -320,7 +328,10 @@
     "methods_f99_independent_review": "APPROVE_SCOPED_EV-MR03",
     "UI_changed": false,
     "methods_9f0_independent_review": "APPROVE_SCOPED_EV-MR04",
-    "methods_final_envelope": "5512f7d474a5db4bb658aae30b10f8b886629861"
+    "methods_final_envelope": "5512f7d474a5db4bb658aae30b10f8b886629861",
+    "sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+    "root_intake": "intake/dashboard_handoff_checks.json",
+    "open_finding": "ROOT-DASH-01: KUF-SVX known context not attached to C33"
   },
   "methods_v4_interim_review": {
     "subject_sha": "9f0b5d25af720107e99e209e1c69b098497358be",

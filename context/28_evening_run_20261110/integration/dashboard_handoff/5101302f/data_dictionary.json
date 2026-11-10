@@ -1,0 +1,59 @@
+{
+  "source_row": "One-based logical CSV record including header; first data record2, not physical line for multiline CSV.",
+  "empty": "Empty source numeric field means not supplied; never convert to zero.",
+  "layers": {
+    "city_screening": "Existing owner city scores/weights remain unchanged. A city score is not a programme result.",
+    "proposed_programmes": "Ten scoped calculations and exact source tables.",
+    "finite_options": "24 owner-synthesis options/205 route rows in v4, scopedEV-MR04exact934a; author-concentrated model calendar; not team decision.",
+    "dated_comparison": "f99 dated conditional arithmetic independently checked by994c; exact separate subject.",
+    "team_decision": "NOT_ACCEPTED: city/network/scenario/resources/budget still require decision."
+  },
+  "program_changes_key": [
+    "record_type",
+    "hypothesis_id",
+    "scenario",
+    "network",
+    "variant",
+    "route",
+    "date",
+    "flight_id"
+  ],
+  "route_context_key": [
+    "record_type",
+    "hypothesis_id",
+    "network",
+    "route",
+    "provenance.commit",
+    "provenance.path",
+    "provenance.source_row"
+  ],
+  "join_rules": [
+    "cards.hypothesis_id -> program_changes.hypothesis_id and route_context.hypothesis_id",
+    "route_links retains each source network/role separately; alternatives are context, never ACTION flights",
+    "route_delta.dated_flight_refs matches exact network/variant/flight_id; base/cautious share calendar_common, do not count it twice",
+    "strategy.option_routes.option -> finite_options.option; finite_option_readiness.option -> finite_options.option",
+    "MOW is an unresolved city aggregate. Do not map to DME/SVO or draw a physical flight without a decision."
+  ],
+  "units": {
+    "journey": "One directional endpoint trip; transfer consumes two flight seats and one fare.",
+    "segment": "One passenger on one flight leg; not interchangeable with journeys or unique people.",
+    "RT": "Round trip;2 directed departures per operated route; no blanket annual multiplication.",
+    "annual_contribution_source": "RUB per author model year, source_calendar AUTHOR_52_48_CONCENTRATED; not dated year fullPnL.",
+    "annual_journeys_source": "Expected one-way OD journeys per author model year.",
+    "annual_segments_source": "Passenger segments per author model year.",
+    "days_with_aggregate_resource": "Calendar days of row year/branch satisfying aggregate working slots; not physical operational approval.",
+    "mixed11_budget": "RUB/diagnostic7days, local-only no support; KUF–OMS pooled frequency4 each direction;3 constructed slots, no physical fleet approval.",
+    "whole_company_bridge": "Passenger segments/year2028 conditional plus historical2025 scale; future KEEP/market/rank unknown.",
+    "cash": "RUB by participant and payment dates; daily same-day netting is a financing lower bound, not profit or intraday solvency."
+  },
+  "known_incompatibilities": [
+    "C07 andC33 shareWZ5071/5072",
+    "C33/KUF4/OMS4/OMS8 shareKUF–OMS endpoint demand",
+    "C35external andown-feed share endpoint journeys/seats; never sum independently",
+    "C31newOMSMon/Thu5/8July has no same-dateC35Tue/Fri feed",
+    "OMS1/4/8, KUF4, ideal-bank and physical100 sensitivity are different constructions"
+  ],
+  "q4_rule": "q4=q2*(1+exp(-2/k)) applies only to the open noncapped capture branch used here; do not apply mechanically under capacity caps or competitive capture.",
+  "H11": "Current N(t) are consistent across27Dec2027–2Jan2028. New Jan1 deliveries require a common weekly programme before annual split; do not pick two programmes for one cross-year week.",
+  "coordinates": "Only exact products388908 inputs/ourairports_ru.csv; MOW never resolved by substitution."
+}
