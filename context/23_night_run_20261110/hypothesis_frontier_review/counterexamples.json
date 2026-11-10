@@ -1,0 +1,129 @@
+[
+  {
+    "id": "C01_INDEPENDENT_RANGES_INVALID",
+    "inputs": {
+      "M": 60,
+      "T": 45,
+      "x": 135,
+      "y": 120
+    },
+    "calculation": "Both projection ranges contain the point; SOUTH turn=45+y-x=30<45",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "C01_CONTINUOUS_BOUNDARY",
+    "inputs": {
+      "M": 67.5,
+      "T": 45,
+      "x": 127.5,
+      "y": 127.5
+    },
+    "calculation": "2M+T=180 feasible; M=67.51 implies180.02>180 infeasible; exact real-valued algebra",
+    "rejected": false,
+    "production_defect": false
+  },
+  {
+    "id": "C07_ADVANCE_ONE_MINUTE_SHORT",
+    "inputs": {
+      "T": 45,
+      "L": 180,
+      "advance": 174
+    },
+    "calculation": "delta=355; deadline slack180; required175;174 returns1min late",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "C07_NEXT_TURN_ALREADY_NETTED",
+    "inputs": {
+      "gross_slack": 225,
+      "next_turn": 45
+    },
+    "calculation": "L=180; required175. Treating gross225 as L gives130, misses net deadline45min",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "C14_PROPERTY_POLICY_SUM",
+    "inputs": {
+      "property_policy_pass_rows": 66
+    },
+    "calculation": "66 row-policy passes collapse to11 distinct date/stay requests across all alternatives; no observed customers",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "C14_UNKNOWN_IS_NOT_ZERO",
+    "inputs": {
+      "checkout": "2026-12-25",
+      "capture_end": "2026-12-24"
+    },
+    "calculation": "No captured return on/after checkout; UNKNOWN service, inventory and demand; no zero-sales claim",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "CAPACITY_K500K",
+    "inputs": {
+      "local_load": 80,
+      "seats": 100,
+      "q": 34
+    },
+    "calculation": "80+34=114>100 on each used leg despite positive10000RUB arithmetic threshold contribution",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "OVERLAPPING_ALTERNATIVES",
+    "inputs": {
+      "residual": 20,
+      "alternative_A": 20,
+      "alternative_B": 20
+    },
+    "calculation": "Separate feasible alternatives need40>20 seats if combined; shared pool20 also prohibits40 distinct journeys",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "K_DEPENDS_ON_Q",
+    "inputs": {
+      "K0": 300000,
+      "extra_cost_per_q": 1000
+    },
+    "calculation": "2*7500*q-(300000+1000*q)>=0 needs22/direction; fixed-K q20 loses20000 and q22 exceeds residual20",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "FARE_PER_LEG",
+    "inputs": {
+      "q": 20,
+      "fare": 8000,
+      "legs_per_direction": 2
+    },
+    "calculation": "C01 correct revenue2*20*8000=320000; multiplying by2legs creates640000; seats still80segments",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "DONOR_REVENUE_AND_MARGIN",
+    "inputs": {
+      "lost_revenue": 100000,
+      "avoided_passenger_cost": 20000
+    },
+    "calculation": "Lost contribution80000 once; subtracting100000+80000 duplicates loss by100000",
+    "rejected": true,
+    "production_defect": false
+  },
+  {
+    "id": "PERSON_DAY_TIMES_NIGHTS",
+    "inputs": {
+      "tariff": 7760,
+      "nights": 7
+    },
+    "calculation": "54320 is not an admitted stay quote: billed days, tax inclusion, late admission and inventory UNKNOWN",
+    "rejected": true,
+    "production_defect": false
+  }
+]

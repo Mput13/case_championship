@@ -1,0 +1,172 @@
+{
+  "review_id": "FRONTIER_REVIEW",
+  "reviewed_commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+  "verdict": "APPROVE_SCOPED",
+  "blocking_findings": [],
+  "new_P1_P2": 0,
+  "minimal_required_correction": null,
+  "verified_findings": [
+    {
+      "id": "FRONTIER_REVIEW-C01",
+      "severity": "INFO",
+      "status": "INDEPENDENTLY_CONFIRMED",
+      "claim": "Exact joint polygon, all9profiles; M60/T45 x=y120, waits60/75, SOUTH345min,15min before sync; allM90 infeasible",
+      "references": [
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/run_experiments.py",
+          "line": 25
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/runs/hf01/retiming_boundaries.csv",
+          "line": 6
+        }
+      ],
+      "personal_evidence": [
+        "independent_c01_boundaries.csv",
+        "independent_c01_joint_slices.csv",
+        "independent_c01_resource.csv"
+      ],
+      "numeric_impact": "Matches pinned result; no numeric correction",
+      "minimal_fix": null
+    },
+    {
+      "id": "FRONTIER_REVIEW-C07",
+      "severity": "INFO",
+      "status": "INDEPENDENTLY_CONFIRMED",
+      "claim": "Reference255elapsed/205block; chain475block+3T; advance=max(0,220+3T-L),18cases/54limits,14negative rows",
+      "references": [
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/run_experiments.py",
+          "line": 97
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/findings.md",
+          "line": 66
+        }
+      ],
+      "personal_evidence": [
+        "independent_c07_boundaries.csv",
+        "independent_c07_limit_cases.csv",
+        "independent_c07_boundary_sides.csv",
+        "independent_leg_times.csv"
+      ],
+      "numeric_impact": "Matches pinned result; one minute below required advance fails9active deadlines",
+      "minimal_fix": null
+    },
+    {
+      "id": "FRONTIER_REVIEW-C14",
+      "severity": "INFO",
+      "status": "INDEPENDENTLY_CONFIRMED",
+      "claim": "24requests rebuilt from dates;96policies;6/7/9/11distinct matches;25Dec checkout remains one unknown combination/two properties",
+      "references": [
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/run_experiments.py",
+          "line": 132
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/runs/hf14/tolerance_summary.csv",
+          "line": 2
+        }
+      ],
+      "personal_evidence": [
+        "independent_c14_requests.csv",
+        "independent_c14_policy_rows.csv",
+        "independent_c14_distinct_summary.csv"
+      ],
+      "numeric_impact": "Matches pinned result;66property-policy pass rows are11overlapping distinct requests, not paid travelers",
+      "minimal_fix": null
+    },
+    {
+      "id": "FRONTIER_REVIEW-CAPACITY",
+      "severity": "INFO",
+      "status": "INDEPENDENTLY_CONFIRMED",
+      "claim": "Four mechanical fixtures: residual20; margin7500; max300000; K500000 needs34/direction and114load/leg, rejected",
+      "references": [
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/run_experiments.py",
+          "line": 201
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/runs/economics/capacity_conditioned_thresholds.csv",
+          "line": 3
+        }
+      ],
+      "personal_evidence": [
+        "independent_capacity_fixtures.csv",
+        "counterexamples.json"
+      ],
+      "numeric_impact": "No correction; capacity shortfall14seats per used leg atK500000",
+      "minimal_fix": null
+    },
+    {
+      "id": "FRONTIER_REVIEW-ALL35",
+      "severity": "INFO",
+      "status": "INDEPENDENTLY_CONFIRMED",
+      "claim": "All35retained with original author/ancestors/NOT_EVALUATED; three current tests and32untested; no predictive admission",
+      "references": [
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/build_inventory.py",
+          "line": 22
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/inventory35.md",
+          "line": 5
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/feature_admission.csv",
+          "line": 2
+        }
+      ],
+      "personal_evidence": [
+        "independent_inventory35.csv",
+        "feature_scope_review.csv"
+      ],
+      "numeric_impact": "35/35preserved,0dropped; no city-score or source/market upgrade",
+      "minimal_fix": null
+    }
+  ],
+  "inherited_holds": [
+    {
+      "id": "SJR-P2-001",
+      "severity": "P2",
+      "status": "OPEN_IN_EXACT_ORIGINAL_NOT_REPAIRED_HERE",
+      "scope": "Source-version lineage129SVXpublication rows",
+      "references": [
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/inputs/source_join_review/findings.json",
+          "line": 10
+        },
+        {
+          "commit": "519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+          "path": "context/23_night_run_20261110/hypothesis_frontier/findings.md",
+          "line": 15
+        }
+      ],
+      "this_review_lifts_hold": false,
+      "minimal_required_correction": "Outside review scope; retain original HOLD and review exact correction separately"
+    }
+  ],
+  "unknown": [
+    "source_support",
+    "paid_market",
+    "actual_sales",
+    "actual_margin",
+    "actual_K(q)",
+    "actual_free_resource",
+    "full_budget",
+    "operating_and_launch_acceptance"
+  ],
+  "self_checks_are_not_independent": true
+}

@@ -1,0 +1,36 @@
+{
+  "review_id": "FRONTIER_REVIEW",
+  "validated_at_utc": "2026-11-10T04:29:24.539951+00:00",
+  "commands": [
+    {
+      "command": "python3 -B context/23_night_run_20261110/hypothesis_frontier_review/review.py",
+      "exit_code": 0,
+      "personal_checks": 62,
+      "failures": 0
+    },
+    {
+      "command": "python3 -B context/23_night_run_20261110/hypothesis_frontier_review/finalize.py --verify",
+      "exit_code": 0,
+      "scope": "Repeated regenerated numeric/manifest outputs exactly matched prior seal"
+    },
+    {
+      "command": "git fetch --no-tags origin 519998ed8c97ce5499f356a6d0f81558c7f6ee14",
+      "exit_code": 0,
+      "source_upgrade": false
+    },
+    {
+      "command": "git ls-remote --heads origin research/night-hypothesis-frontier-review-20261110",
+      "exit_code": 0,
+      "result": "Branch absent before publication"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "no_reviewed_code_executed": true,
+  "no_live_folder_inputs": true,
+  "held_raw_copied": false,
+  "secret_pattern_scan_matches": 0,
+  "final_remote_head_verification": "Performed after commit/push; exact SHA delivered in final response, not embedded circularly"
+}
