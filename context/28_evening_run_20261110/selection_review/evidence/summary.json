@@ -1,0 +1,118 @@
+{
+  "subjectSHA": "48686bf2276c435d7a260f4de6741c9b65d26e32",
+  "status": "PASS_INDEPENDENT_SCOPED",
+  "original_author_rounded_checks": 72,
+  "exact_oms_fixtures": 3,
+  "networks_independent_raw_flow_and_ledger": 384,
+  "frontier": {
+    "rows": 303,
+    "groups": 48,
+    "monotonic_transitions": 255
+  },
+  "singleton_score_checks": 10092,
+  "shortlist": [
+    {
+      "calendar": "AUTHOR_52_48_CONCENTRATED",
+      "scenario": "base",
+      "universe": 1682,
+      "replacements": 1,
+      "changed_rows": 2
+    },
+    {
+      "calendar": "AUTHOR_52_48_CONCENTRATED",
+      "scenario": "base_sub",
+      "universe": 1682,
+      "replacements": 8,
+      "changed_rows": 16
+    },
+    {
+      "calendar": "AUTHOR_52_48_CONCENTRATED",
+      "scenario": "cautious",
+      "universe": 1682,
+      "replacements": 1,
+      "changed_rows": 2
+    },
+    {
+      "calendar": "AUTHOR_52_48_CONCENTRATED",
+      "scenario": "cautious_sub",
+      "universe": 1682,
+      "replacements": 7,
+      "changed_rows": 14
+    },
+    {
+      "calendar": "LOST4_UNIFORM_NO_RECAPTURE",
+      "scenario": "cautious",
+      "universe": 1682,
+      "replacements": 1,
+      "changed_rows": 2
+    },
+    {
+      "calendar": "LOST4_UNIFORM_NO_RECAPTURE",
+      "scenario": "cautious_sub",
+      "universe": 1682,
+      "replacements": 8,
+      "changed_rows": 16
+    }
+  ],
+  "counterexamples": [
+    {
+      "probe": "forget_prior_feasible_OMS_cap4_at_cap10",
+      "rejected": true
+    },
+    {
+      "probe": "second_net_VAT_deduction",
+      "rejected": true
+    },
+    {
+      "probe": "double_transfer_fare",
+      "rejected": true
+    },
+    {
+      "probe": "segments_as_journeys",
+      "rejected": true
+    }
+  ],
+  "check_counts": {
+    "original_author_replay": 3706,
+    "raw_demand": 3467,
+    "competitor_exposure": 3467,
+    "old_RW_week": 3467,
+    "block_time": 3614,
+    "hub_transfer_flow": 3890,
+    "hub_local_flow": 2105,
+    "hub_seat_conservation": 2105,
+    "hub_migration": 2105,
+    "independent_ledger": 3861,
+    "shared_market": 1509,
+    "shared_migration": 1509,
+    "exact_OMS_fixture": 3,
+    "frontier_selection": 927,
+    "singleton_raw_score": 10092,
+    "singleton_signed_score": 10092,
+    "shortlist_row_raw": 52,
+    "shortlist_row_signed": 52,
+    "shortlist_only_effect": 4,
+    "reversed_endpoint_shared_pool": 3,
+    "binding_capacity_probe": 3,
+    "LOST4_weekly_exposure": 1,
+    "LOST4_no_rebooking": 1
+  },
+  "owner": {
+    "status": "PASS",
+    "full_replay_files_match_pinned_output_manifest": true,
+    "scripts": [
+      "selection_experiment.py",
+      "verify_selection.py",
+      "package_manifest.py --check"
+    ]
+  },
+  "not_run": [
+    "primary market verification",
+    "dated dispatch and physical MOW airport assignment",
+    "annual N(t)",
+    "new Sol packages",
+    "future support eligibility",
+    "full budget and cash",
+    "global optimum"
+  ]
+}
