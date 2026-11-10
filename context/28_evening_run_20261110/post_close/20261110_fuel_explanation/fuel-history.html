@@ -1,0 +1,26 @@
+<section id="fuel-history" aria-label="Средняя расчётная компенсация за январь–сентябрь, рублей на тонну">
+  <style>
+    #fuel-history { font-family:var(--font-sans); color:var(--foreground); display:grid; gap:16px; }
+    #fuel-history .label { display:flex; justify-content:space-between; gap:12px; margin-bottom:8px; font-variant-numeric:tabular-nums; }
+    #fuel-history .track { display:flex; height:28px; background:var(--muted); }
+    #fuel-history .base { background:var(--chart-1); }
+    #fuel-history .damper { background:var(--chart-2); }
+    #fuel-history .axis { display:flex; justify-content:space-between; color:var(--muted-foreground); font-variant-numeric:tabular-nums; }
+    #fuel-history .legend { display:flex; flex-wrap:wrap; gap:8px 20px; }
+    #fuel-history .legend span { display:inline-flex; align-items:center; gap:6px; }
+    #fuel-history .swatch { width:12px; height:12px; display:inline-block; }
+    #fuel-history .note { color:var(--muted-foreground); }
+  </style>
+  <div>Расчётная компенсация, ₽/т · январь–сентябрь</div>
+  <div role="img" aria-label="2025: среднее 7049,45 рубля на тонну, в том числе базовая часть 3024 и демпфер 4025,45">
+    <div class="label"><span>2025</span><span>7 049 ₽/т</span></div>
+    <div class="track"><div class="base" style="width:8.64%"></div><div class="damper" style="width:11.5012857143%"></div></div>
+  </div>
+  <div role="img" aria-label="2026: среднее 32930,2833 рубля на тонну, в том числе базовая часть 3024 и демпфер 29906,2833">
+    <div class="label"><span>2026</span><span>32 930 ₽/т</span></div>
+    <div class="track"><div class="base" style="width:8.64%"></div><div class="damper" style="width:85.4465238095%"></div></div>
+  </div>
+  <div class="axis" aria-hidden="true"><span>0</span><span>17 500</span><span>35 000</span></div>
+  <div class="legend"><span><i class="swatch base"></i>Базовая часть — 3 024 ₽/т</span><span><i class="swatch damper"></i>Переменный демпфер</span></div>
+  <div class="note">Среднее девяти месячных ставок по расчётам Reuters. Не фактические выплаты Red Wings и не прогноз.</div>
+</section>
