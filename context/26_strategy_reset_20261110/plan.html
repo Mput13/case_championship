@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Red Wings — программа работы до 22:00</title>
+<style>
+:root{font-family:var(--font-sans,system-ui);color:var(--foreground,#222);line-height:1.5}*{box-sizing:border-box}body{margin:0}h1{font-size:27px;line-height:1.2;margin:0 0 12px}h2{font-size:21px;margin:0 0 14px}h3{font-size:16px;margin:0 0 5px}p{margin:8px 0 14px}section{margin:30px 0}small,.muted{color:var(--muted-foreground,#68717c)}.pair,.pool,.outputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.box{border:1px solid var(--border,#d8dee5);border-radius:var(--radius,8px);padding:16px;background:var(--card,transparent)}.primary{border-left:4px solid var(--primary,#b02032)}.box p{font-size:14px;margin:5px 0 0}.flow{text-align:center;font-size:14px;margin:13px 0}.flow strong{display:block;font-size:21px}.phase{color:var(--primary,#b02032);font-weight:650}.time{font-variant-numeric:tabular-nums;white-space:nowrap}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--border,#d8dee5);padding:10px 7px}th{font-weight:650}ul{padding-left:21px;margin:8px 0}.small{font-size:14px}.outline{border-left:3px solid var(--border,#d8dee5);padding-left:16px}nav{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0 24px;font-size:14px}a{color:var(--primary,#b02032)}@media(max-width:500px){.pair,.pool,.outputs{grid-template-columns:1fr}h1{font-size:24px}td,th{padding:8px 4px}.box{padding:13px}}
+</style><body>
+<h1>Red Wings: программа работы до 22:00</h1>
+<p>Основной результат — сравнение хаба и прямых рейсов, сеть 8–12 маршрутов и действия при разных поставках самолётов. Форма — дашборд Насти. Цифровые сервисы и долгосрочный рост к №2 — законченные дополнительные материалы.</p>
+<p class="small muted">Постановка подготовлена. Сейчас запущена отдельная проверка новой версии Насти; основной расчётный цикл ещё не начат.</p>
+<nav aria-label="Разделы"><a href="#work">Приоритеты</a><a href="#agents">Агенты</a><a href="#checks">Проверка</a><a href="#delivery">Передача</a></nav>
+<section id="work"><h2>Что проверяем сначала</h2>
+<div class="outline"><p><b>Новая версия Насти, 17:04.</b> Уже подключены OD-оценки, учёт перехода пассажиров со своих рейсов, субсидийные сценарии и ступени 3/4/6/8 самолётов. Выбор автора — Омск. Проверяем новую логику; старые замечания автоматически не переносим.</p></div>
+<ol><li>Поддержка: какие маршруты имеют право на выплату и при каком её размере меняется выбор.</li><li>Ресурс во времени: поэтапные, частичные, поздние поставки и отсутствие новых самолётов.</li><li>Действующая сеть: что сохраняем, меняем и теряем; откуда самолёт и какова его альтернатива.</li><li>Общие условия сравнения: спрос, кресла, тариф, сезон, расходы, полный добавочный результат и деньги.</li></ol>
+<p class="small">Все 35 прежних идей проходят разбор. Глубина различается по доказанным ограничениям и влиянию на выбор. Прежние три опыта не являются достаточным завершением этой работы.</p></section>
+<section id="agents"><h2>Агенты и передача задач</h2>
+<div class="pair"><div class="box primary"><h3>Astra · координатор</h3><p>Цель и требования, коллеги, приоритеты, задания, приёмка и пакет для Насти.</p></div><div class="box"><h3>Astra · методика</h3><p>Общий сценарный контракт, ресурс, экономика и условия смены решения. Существующий тред.</p></div></div>
+<div class="flow"><strong>↓</strong>Задания и закреплённые пакеты передаёт координатор</div>
+<div class="pool"><div class="box"><h3>Sol · данные</h3><p>Флот, исходная сеть, конкуренты, поддержка, источники и масштаб цели №2.</p></div><div class="box"><h3>Sol · сеть</h3><p>Исходы 35 идей, расчёт сравнимых программ, календарь и экономика финалистов.</p></div><div class="box"><h3>Sol · сервисы</h3><p>Пользовательские пути, коммерческие улучшения, пороги эффекта и иллюстрации.</p></div><div class="box"><h3>Sol · независимая проверка</h3><p>Сейчас — отдельный тред дашборда Насти. Затем свежие проверки конкретных пакетов.</p></div></div>
+<p class="small"><b>Не более четырёх Sol одновременно.</b> Без детей. Только root назначает работу. Отдельный тред Насти входит в этот лимит. Всеобщих рассылок и постоянного опроса агентов нет.</p>
+<div class="flow"><strong>↓</strong>Пакет → независимая проверка → исправление → принятый результат<br><span class="muted">Существенная ошибка возвращается владельцу вместе с воспроизводимым примером.</span></div></section>
+<section id="checks"><h2>Что означает «проверено»</h2><div class="outputs"><div class="box"><h3>Данные и расчёт</h3><p>Источник, период, единицы, покрытие; реальный пример; общее ограничение спроса и кресел; один тариф; затраты и ресурс.</p></div><div class="box"><h3>Ответ на кейс</h3><p>Почему выбран этот вариант; когда выбор меняется; что требуется для запуска; карта и таблица пригодны для решения команды.</p></div></div>
+<p class="small">Коллеги: обновление refs и просмотр содержательных изменений каждые 30–45 минут активной работы и перед сборкой. Наши существенные срезы публикуются в GitHub. Новые входы получают версию; авторские модели и ночной frozen-пакет сохраняются.</p></section>
+<section id="delivery"><h2>Сроки и передача результата</h2>
+<table><thead><tr><th>До, МСК</th><th>Что готово</th></tr></thead><tbody>
+<tr><td class="time">18:00</td><td>Новая версия Насти, точные вопросы к расчёту, общий контракт и первичный разбор всех идей.</td></tr>
+<tr><td class="time">19:00</td><td>Исходная сеть, источники и парковые сценарии; первые связанные расчёты.</td></tr>
+<tr><td class="time">20:00</td><td>Хаб и прямые на общих условиях; вариант без новых самолётов; дополнительные материалы.</td></tr>
+<tr><td class="time">20:45</td><td>Условная рекомендация, состав сети, деньги, доля и условия смены вывода.</td></tr>
+<tr><td class="time">21:15–22:00</td><td>Фиксация входов, итоговая проверка и исправления, данные для дашборда и приложения к паспорту.</td></tr>
+</tbody></table>
+<p>Паспорт получает безопасные тезисы раньше финала. Дальше — короткий перечень изменившихся чисел и выводов. Дополнительные вопросы передаются иллюстрациями с источниками и кратко описываются в паспорте.</p>
+<p class="small muted">№2 — долгосрочная цель без срока; 2027–2028 — первый этап. Рассматриваем весь бизнес Red Wings. Невыполненный обязательный пункт остаётся незавершённым; дедлайн не превращает его в доказанный отказ.</p></section>
+</body></html>
