@@ -1,0 +1,49 @@
+{
+  "status": "PASS_OWNER_REPLAY_SEPARATE_FROM_INDEPENDENT",
+  "commands": [
+    {
+      "script": "annual_calendar.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stdout": "annual rows 576 intervals 1918\nPHASED OMS 2027 154.0 54.924 62.0\nPHASED OMS 2028 366.0 280.772 366.0\nPHASED KUF 2027 154.0 65.648 62.0\nPHASED KUF 2028 366.0 279.9 366.0\nPHASED DIRECT 2027 154.0 -32.699 0.0\nPHASED DIRECT 2028 366.0 -178.492 245.0\nPARTIAL_FIRST4 OMS 2027 154.0 54.924 62.0\nPARTIAL_FIRST4 OMS 2028 366.0 186.067 310.0\nPARTIAL_FIRST4 KUF 2027 154.0 65.648 62.0\nPARTIAL_FIRST4 KUF 2028 366.0 182.37 310.0\nPARTIAL_FIRST4 DIRECT 2027 154.0 -32.699 0.0\nPARTIAL_FIRST4 DIRECT 2028 366.0 -78.296 0.0\nDELAY6 OMS 2027 0.0 0.0 0.0\nDELAY6 OMS 2028 336.0 165.873 245.0\nDELAY6 KUF 2027 0.0 0.0 0.0\nDELAY6 KUF 2028 336.0 182.14 245.0\nDELAY6 DIRECT 2027 0.0 0.0 0.0\nDELAY6 DIRECT 2028 336.0 -97.234 62.0\nNO_NEW OMS 2027 0.0 0.0 0.0\nNO_NEW OMS 2028 0.0 0.0 0.0\nNO_NEW KUF 2027 0.0 0.0 0.0\nNO_NEW KUF 2028 0.0 0.0 0.0\nNO_NEW DIRECT 2027 0.0 0.0 0.0\nNO_NEW DIRECT 2028 0.0 0.0 0.0\n",
+      "stderr": ""
+    },
+    {
+      "script": "verify_calendar.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"PASS_OWNER_SCOPED\", \"constructed_networks\": 216, \"dated_flight_rows\": 13788, \"flight_location_no_overlap_and_block_checks\": 13788, \"resource_days\": 8772, \"monthly_to_annual_identities\": 5184, \"dispatch_acceptance\": false, \"MCT_and_saleable_transfers\": \"NOT_CHECKED_YET; annual all-transfer money conditional\", \"milp\": \"Feasible integer assignments rechecked; no infeasibility claim from timeout\"}\n",
+      "stderr": ""
+    },
+    {
+      "script": "support_budget.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stdout": "networks 24 route_constraints 205\n{'network_id': 'AUTHOR_52_48_CONCENTRATED/base_sub/KUF/GREEDY/cap6', 'scenario': 'base_sub', 'network': 'KUF', 'city_pairs': 11, 'owner_support_rub_year': 860708731.567025, 'owner_ticket_after_migration_rub_year': 4674064216.388824, 'without_support_owner_yield_contribution': -518222849.07624143, 'fare_constrained_net_receipts_upper_eta1': 3715588466.673264, 'all_nonMOW_flight_cap_coefficient1': 1916075720.0, 'contribution_at_eta1_all_flight_caps': 439377121.2081976, 'required_fraction_of_all_caps_at_eta1': 0.7706890616993998, 'minimum_eta_for_variable_zero_at_all_caps': 0.8776860045463136, 'owner_variable_cost_rub_year': 5192287065.465066, 'income_accepted_in_strategy': False, 'scope': 'FIXED_QUANTITIES_DIAGNOSTIC_FUTURE_AWARD_UNKNOWN; all route/month/cofinance gates must be met', 'through_ticket_scope': 'ONE_FARE_MIN_OWNER_NET_AND_SUM_GROSS_LEG_CEILINGS_NECESSARY_UPPER_ENVELOPE', 'VAT': 'NO_AUTOMATIC_SECOND_DEDUCTION; eta parameter is unresolved net/gross realisation, eta1 upper ceiling', 'full_result': 'R_capped(eta) - C_var + accepted_completed_flights*contract_rate*coefficient + D_external - K_excluded'}\n{'network_id': 'AUTHOR_52_48_CONCENTRATED/base_sub/OMS/GREEDY/cap8', 'scenario': 'base_sub', 'network': 'OMS', 'city_pairs': 12, 'owner_support_rub_year': 1094131994.0921826, 'owner_ticket_after_migration_rub_year': 6535806631.089788, 'without_support_owner_yield_contribution': -706409621.381944, 'fare_constrained_net_receipts_upper_eta1': 5553088178.196871, 'all_nonMOW_flight_cap_coefficient1': 2588117168.0, 'contribution_at_eta1_all_flight_caps': 898989093.7251387, 'required_fraction_of_all_caps_at_eta1': 0.652647451653109, 'minimum_eta_for_variable_zero_at_all_caps': 0.8262137898081088, 'owner_variable_cost_rub_year': 7242216252.471732, 'income_accepted_in_strategy': False, 'scope': 'FIXED_QUANTITIES_DIAGNOSTIC_FUTURE_AWARD_UNKNOWN; all route/month/cofinance gates must be met', 'through_ticket_scope': 'ONE_FARE_MIN_OWNER_NET_AND_SUM_GROSS_LEG_CEILINGS_NECESSARY_UPPER_ENVELOPE', 'VAT': 'NO_AUTOMATIC_SECOND_DEDUCTION; eta parameter is unresolved net/gross realisation, eta1 upper ceiling', 'full_result': 'R_capped(eta) - C_var + accepted_completed_flights*contract_rate*coefficient + D_external - K_excluded'}\n",
+      "stderr": ""
+    },
+    {
+      "script": "budget_conditions.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stdout": "budget 576 ranks 96 cash 12\nPHASED OMS TICKET_FIRST_GRANT45 13.14\nPHASED OMS COST_FIRST_GRANT90 635.48\nPHASED OMS COST_FIRST_NO_GRANTED_SUPPORT 1115.006\nPHASED KUF TICKET_FIRST_GRANT45 31.884\nPHASED KUF COST_FIRST_GRANT90 448.173\nPHASED KUF COST_FIRST_NO_GRANTED_SUPPORT 965.845\nDELAY6 OMS TICKET_FIRST_GRANT45 15.401\nDELAY6 OMS COST_FIRST_GRANT90 494.813\nDELAY6 OMS COST_FIRST_NO_GRANTED_SUPPORT 652.866\nDELAY6 KUF TICKET_FIRST_GRANT45 31.749\nDELAY6 KUF COST_FIRST_GRANT90 444.641\nDELAY6 KUF COST_FIRST_NO_GRANTED_SUPPORT 697.244\n",
+      "stderr": ""
+    },
+    {
+      "script": "package_manifest.py",
+      "arguments": [
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"files\": 156, \"status\": \"PASS_HASHES\"}\n",
+      "stderr": ""
+    }
+  ],
+  "unchanged_manifest_entries": 156,
+  "changed_paths": [],
+  "not_run": [
+    "selection_experiment.py / verify_selection.py: previous EV-MR01 scope",
+    "resource_construction.py: MILP not rerun; all serialized constructions independently validated",
+    "primary-source live verification and final evidence38f: separate reviewer"
+  ]
+}
