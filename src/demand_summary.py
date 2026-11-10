@@ -57,7 +57,7 @@ def main():
     out.to_csv(P / "demand_by_candidate.csv", index=False, encoding="utf-8")
     # подключаемый критерий лонглиста (появится на пульте весов сам, вес 0 — решает команда)
     crit = out[["hub", "pax_no_direct_base"]].rename(columns={"hub": "iata", "pax_no_direct_base": "value"})
-    crit["source"] = "модель src/demand_model.py: оценка масштаба рынка (сегменты) в города зоны SSJ без прямого рейса"
+    crit["source"] = "Модель спроса: оценка рынка пар с городами зоны SSJ, куда нет прямого рейса"
     crit = crit.assign(label="Спрос без прямых рейсов (оценка модели)", short="Спрос без рейса", direction="+",
                        weight=0, fmt="mln", board=0,
                        why="оценка масштаба рынка пар, где прямого рейса нет; модель обучена на сегментах, поэтому это не измеренный спрос (аудит критика)")

@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 import network_model as nm
-from airports_meta import CLOSED
+from airports_meta import CLOSED, NAME
 
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
@@ -28,6 +28,7 @@ def main():
     D = nm.Demand()
     nodes = [x for x in D.n.index if x not in CLOSED]
     cand = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").iata
+    cname = lambda x: NAME.get(x, D.n.loc[x, "main_city"])
     rows = []
     for H in cand:
         if H not in D.n.index:
@@ -48,7 +49,7 @@ def main():
                 top.append((v, X, Y))
         top.sort(reverse=True)
         rows.append({"iata": H, "transfer_pairs": n, "transfer_demand_base": round(dem),
-                     "top_pairs": "; ".join(f"{X}–{Y} {v / 1000:.0f} тыс." for v, X, Y in top[:5])})
+                     "top_pairs": "; ".join(f"{cname(X)} — {cname(Y)} {v / 1000:.0f} тыс." for v, X, Y in top[:5])})
     out = pd.DataFrame(rows)
     out.to_csv(P / "transfer_potential.csv", index=False, encoding="utf-8")
     print(out.sort_values("transfer_demand_base", ascending=False).to_string(index=False))

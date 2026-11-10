@@ -71,7 +71,7 @@ def core(ll, w):
             "wage_2024": (num(r.wage_2024), None, f"Росстат БДМО 2024, охват населения зоны {num(r.wage_pop_coverage) or 0:.0%}"),
             "bad_weather_days": (num(r.bad_weather_days), None,
                                  f"NOAA ISD-Lite 2023–2024, станция {txt(r.weather_station) or '—'}; "
-                                 f"мороз {num(r.frost_days)} дн., ветер {num(r.wind_days)} дн."),
+                                 f"мороз {str(num(r.frost_days)).replace('.', ',')} дн., ветер {str(num(r.wind_days)).replace('.', ',')} дн."),
             "transfer_demand_base": (num(r.transfer_demand_base), None,
                                      f"{int(num(r.transfer_pairs) or 0)} пар; крупнейшие: {txt(r.top_pairs) or '—'}"),
             "ssj_mro": (num(r.ssj_mro), None, txt(r.ssj_mro_source)),
@@ -88,16 +88,17 @@ def core(ll, w):
         # считаются неопределёнными; центр — само значение
         lvl = COMP.loc[i, "evidence_level"] if i in COMP.index and "evidence_level" in COMP.columns else None
         if vals[i]["competitor_hub"]["v"] is not None and txt(lvl) and lvl != "первичный источник":
-            vals[i]["competitor_hub"].update(lo=0.0, hi=1.0, weak=f"слабый источник: {lvl}")
+            vals[i]["competitor_hub"].update(lo=0.0, hi=1.0, weak=("Хаб конкурента не указан, но это видно только по Википедии" if vals[i]["competitor_hub"]["v"] < 0.5
+                  else "Хаб конкурента указан только в Википедии, первичного подтверждения нет"))
         if vals[i]["ssj_mro"]["v"] is not None and 0 < vals[i]["ssj_mro"]["v"] < 1:
-            vals[i]["ssj_mro"].update(lo=0.0, hi=1.0, weak="косвенный вывод")
+            vals[i]["ssj_mro"].update(lo=0.0, hi=1.0, weak="Вывод косвенный: здесь базируется эксплуатант SSJ, но станция ТО не подтверждена")
         if i in PAX_UP.index and vals[i]["pax_2025"]["v"] is not None:
             vals[i]["pax_2025"].update(lo=vals[i]["pax_2025"]["v"], hi=float(PAX_UP.loc[i, "upper_bound"]),
-                                       weak=txt(PAX_UP.loc[i, "upper_note"]))
+                                       weak=f"В источнике только «{txt(PAX_UP.loc[i, 'note']).split('«')[-1].rstrip('»')}», точной цифры нет")
         gru = num(getattr(r, "gap_pop_rail_unknown", None)) or 0
         if gru > 0 and vals[i]["gap_pop"]["v"] is not None:
             vals[i]["gap_pop"].update(lo=vals[i]["gap_pop"]["v"] - gru, hi=vals[i]["gap_pop"]["v"],
-                                      weak=f"у {gru / 1e6:.2f} млн человек время поезда неизвестно")
+                                      weak=f"У {gru / 1e6:.2f} млн человек время поезда неизвестно, поэтому «дыра» может быть меньше".replace(".", ",", 1))
     crit = []
     for x in w.itertuples():
         crit.append({"key": x.column, "label": x.criterion, "short": x.short, "dir": x.direction,

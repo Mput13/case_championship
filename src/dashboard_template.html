@@ -145,6 +145,7 @@ input[type=range]{width:100%;accent-color:var(--red);margin:0}
 
 /* шаги 2–4 */
 .vs-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:0 8px 10px}
+td.weakv{text-decoration:underline dotted rgba(244,245,247,.55);text-underline-offset:4px;cursor:help}
 .psel{width:100%;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font:inherit;font-size:13px;background:var(--paper);color:var(--ink)}
 .vs-seg{display:flex;border:1px solid var(--ink-line);border-radius:10px;overflow:hidden}
 .vs-seg button{border:0;background:transparent;color:var(--steel);font:inherit;font-size:13px;padding:7px 14px;cursor:pointer}
@@ -221,7 +222,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 
   <section class="board" id="dem" aria-labelledby="dm-title">
     <div class="vs-top">
-      <div><div class="board-title" id="dm-title">Спрос по парам</div><div class="board-sub" id="dm-sub">Шаг 2 · направления выбранного города · docs/23</div></div>
+      <div><div class="board-title" id="dm-title">Спрос по парам</div><div class="board-sub" id="dm-sub">Шаг 2 · направления выбранного города</div></div>
       <div class="dm-top">
         <div class="vs-seg" id="dm-meas" role="group" aria-label="Мера"></div>
         <div class="vs-seg" id="dm-per" role="group" aria-label="Период"></div>
@@ -236,7 +237,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 
   <section class="board" id="vs" aria-labelledby="vs-title">
     <div class="vs-top">
-      <div><div class="board-title" id="vs-title">Хаб или прямые рейсы</div><div class="board-sub">Шаг 3: одна модель для всех вариантов, до 10 самолётов и 12 маршрутов · результат до аренды самолётов · docs/24</div></div>
+      <div><div class="board-title" id="vs-title">Хаб или прямые рейсы</div><div class="board-sub">Шаг 3: одна модель для всех вариантов, до 10 самолётов и 12 маршрутов · результат до аренды самолётов</div></div>
       <div class="vs-seg" id="scen" role="group" aria-label="Сценарий"></div>
     </div>
     <div class="verdict" id="verdict"></div>
@@ -281,7 +282,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </section>
 
   <section class="board databoard" id="sources" aria-labelledby="s-title">
-    <div class="board-top"><div><div class="board-title" id="s-title">Табло данных</div><div class="board-sub">Откуда берутся цифры и когда они прибыли · реестр data/sources.toml</div></div></div>
+    <div class="board-top"><div><div class="board-title" id="s-title">Табло данных</div><div class="board-sub">Откуда берутся цифры и когда они обновлялись</div></div></div>
     <div class="tscroll"><table id="src"><thead><tr><th>Источник</th><th>Тип</th><th>Прибыл</th><th style="text-align:right">Записей</th><th>Статус</th></tr></thead><tbody></tbody></table></div>
   </section>
 
@@ -344,18 +345,18 @@ function meta(){
   const m=Object.values(D.manifest), ok=m.filter(x=>x.status==='ok'||x.status==='manual').length;
   const el=document.getElementById('meta');
   el.append(h('div',{},'Сборка ',h('b',{},D.meta.built)), h('div',{},'Источников в норме ',h('b',{},`${ok} из ${m.length}`),' · ',h('a',{href:'#sources'},'табло данных')), h('div',{},'Постов Росавиации ',h('b',{},ru(D.meta.posts))));
-  document.getElementById('foot').append('Обновить всё одной командой: ',h('code',{},'py -3.13 src/update.py'),'. Она скачает новое, проверит, пересчитает и соберёт эту страницу заново. Как устроено — docs/HANDOFF.md.');
+  document.getElementById('foot').append('Данные обновляются автоматически: загрузка источников, проверка и пересчёт всех шагов.');
 }
 
 function fmtv(v,f,short,key){ if(v==null) return 'нет данных';
   if(key==='ssj_mro') return v>=1?'есть':v>0?'косвенно':'нет';
   if(f==='mln') return v>=1e6?ru(v/1e6,short?1:2)+' млн':ru(v/1e3,0)+' тыс.';
-  if(f==='days') return short?v+' дн.':`${v} ${dayW(v)}`;
+  if(f==='days'){ const n=ru(v,Number.isInteger(v)?0:1); return short?n+' дн.':`${n} ${dayW(Math.round(v))}`; }
   if(f==='km') return ru(v)+' км'; if(f==='pct') return ru(v,1)+'%'; if(f==='int') return ru(v);
   if(f==='yesno') return v>=1?'да':v>0?'не проверено':'нет'; if(f==='level') return v>=2?'по парку Red Wings':v>=1?'есть':'нет';
   return ru(v,2); }
-function cell(iata,w,short){ const x=(D.values[iata]||{})[w.key]||{}; let t=x.v==null?(x.t&&x.t!=='нет'?x.t:'неизвестно'):fmtv(x.v,w.fmt,short,w.key);
-  if(x.v!=null&&x.weak&&!short) t+=' · '+x.weak; else if(x.v!=null&&x.weak) t+=' ?';
+function cell(iata,w,short,withWeak){ const x=(D.values[iata]||{})[w.key]||{}; let t=x.v==null?(x.t&&x.t!=='нет'?x.t:'неизвестно'):fmtv(x.v,w.fmt,short,w.key);
+  if(x.v!=null&&x.weak&&withWeak) t+=' · '+x.weak;
   if(x.v!=null&&x.t==='≥') t+=' и больше'; else if(x.v!=null&&w.fmt==='yesno'&&x.t) t=x.t; return t; }
 const COLS=[
   {k:'rank',t:'№',v:x=>x.rank?String(x.rank).padStart(2,'0'):'—'},
@@ -363,7 +364,6 @@ const COLS=[
   {k:'code',t:'Код',cls:'code',v:x=>x.c.iata},
   {k:'score',t:'Балл',s:x=>x.score,v:x=>x.score==null?'—':null},
   {k:'share',t:'В топ-3',r:1,s:x=>x.share,v:x=>x.share==null?'—':Math.round(x.share*100)+'%'},
-  {k:'rng',t:'Место: худшее–лучшее',r:1,s:x=>x.worst,v:x=>x.best==null?'—':(x.best===x.worst?String(x.best):`${x.best}–${x.worst}`)},
   {k:'unk',t:'Вес неизвестных',r:1,s:x=>x.unk,v:x=>x.unk==null?'—':Math.round(x.unk*100)+'%'},
   {k:'weak',t:'Вес слабых',r:1,s:x=>x.weak,v:x=>x.weak==null?'—':Math.round(x.weak*100)+'%'},
   ...CR.filter(w=>w.board).map(w=>({k:w.key,t:w.short,r:1,z:w.key,s:x=>{ const v=((D.values[x.c.iata]||{})[w.key]||{}).v; return v==null?-Infinity:v; },v:x=>cell(x.c.iata,w,true)})),
@@ -384,7 +384,8 @@ function board(){
       let td;
       if(c.k==='score'){ td=h('td'); if(x.score==null) td.append('—'); else { const i=h('i',{style:`width:${x.score/maxS*100}%`}); td.append(h('div',{class:'sc'},h('span',{style:'min-width:34px'},ru(x.score*100,1)),h('div',{class:'sbar'},i))); } }
       else if(c.k==='st'){ const top=x.rank&&x.rank<=3; td=h('td',{},x.score==null?h('span',{class:'st off'},STRICT&&isRW(x.c.iata)?'ОПОРА RW':'ВНЕ ФИЛЬТРА'):h('span',{class:'st '+(top?'go':'wait')},top?h('i',{class:'dot'}):'',top?'ПОСАДКА':'ОЖИДАНИЕ')); }
-      else { td=h('td',{class:(c.cls||'')+(c.r?' r':'')+(c.z?' h':'')},c.v(x)); if(c.z&&x.z) td.style.background=heat(x.z[c.z],true); }
+      else { td=h('td',{class:(c.cls||'')+(c.r?' r':'')+(c.z?' h':'')},c.v(x)); if(c.z&&x.z) td.style.background=heat(x.z[c.z],true);
+        const xv=c.z?((D.values[x.c.iata]||{})[c.z]||{}):{}; if(xv.v!=null&&xv.weak){ td.title=xv.weak; td.classList.add('weakv'); } }
       r.append(td);
     }
     tb.append(r);
@@ -420,14 +421,14 @@ function ticket(){
       h('div',{style:'margin-left:auto'},h('div',{class:'t-city'},c.city),h('div',{class:'t-lbl'},c.region+' · '+c.fd))));
   const facts=h('div',{class:'facts'});
   const F=(w)=>{ const x=(D.values[c.iata]||{})[w.key]||{}, z=X&&X.z?X.z[w.key]:null, miss=x.v==null&&w.fill==null;
-    const src=h('span',{}, w.fmt==='level'&&x.t?x.t+' · ':'', link(x.s)||'');
+    const src=h('span',{}, x.v!=null&&x.weak?x.weak+'. ':'', w.fmt==='level'&&x.t?x.t+' · ':'', link(x.s)||'');
     facts.append(h('div',{class:'fact'},h('div',{class:'t-lbl'},w.label),h('span',{class:'chip',style:miss?'background:#ECEAE4;color:#5E6675':z==null?'padding-left:0':'background:'+heat(z)},cell(c.iata,w,false)),h('div',{class:'s'},src))); };
   CR.forEach(F);
   main.append(facts);
   const sp=(D.spokes||{})[c.iata]||[];
   if(sp.length){ const tb=h('tbody');
     sp.forEach(d=>tb.append(h('tr',{},h('td',{},d.city),h('td',{class:'r'},ru(d.km)+' км'),h('td',{class:'r'},d.src.startsWith('отчёт')?mln(d.base)+' (отчёт аэропорта)':mln(d.cautious)+' – '+mln(d.base)),h('td',{},d.direct?'рейс есть':'прямого рейса нет'))));
-    main.append(h('div',{class:'dem'},h('div',{class:'t-lbl'},'Спрос по направлениям · оценка масштаба рынка по модели шага 2 (docs/23), пассажиров в год, осторожно – база'),
+    main.append(h('div',{class:'dem'},h('div',{class:'t-lbl'},'Спрос по направлениям · оценка рынка пары, пассажиров в год, осторожно – база'),
       h('table',{},h('thead',{},h('tr',{},h('th',{},'Куда'),h('th',{class:'r'},'Расстояние'),h('th',{class:'r'},'Пассажиров в год'),h('th',{},'Сейчас'))),tb))); }
   const kv=(l,v)=>h('div',{},h('div',{class:'t-lbl'},l),h('div',{class:'t-val'},v));
   const stub=h('div',{class:'t-stub'});

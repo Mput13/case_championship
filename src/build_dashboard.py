@@ -6,6 +6,7 @@
 Запуск: python src/build_dashboard.py   (после build_longlist.py)
 """
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -119,6 +120,55 @@ def load_demand(n_regions):
     return {"pairs": out, "summary": s}
 
 
+# Панель — материал проекта: служебные пометки (пути к файлам, ссылки на ветки и аудит, статусы
+# согласования) убираем из показываемого текста; ссылки на первоисточники оставляем.
+_TECH = re.compile(r"src/|data/|context/|docs/|research/|\.py\b|\.csv\b|\.json\b|коллег|аудит|критик|черновик|"
+                   r"не утвержд|утверждён|предложени|cities_matrix|-TECH|UNKNOWN|proxy", re.I)
+_REPL = [("калибровка по data/manual/known_flows.csv", "калибровка по отчётам аэропортов"),
+         ("модель src/demand_model.py:", "модель спроса:"), ("модель тяготения (src/demand_model.py)", "модель тяготения")]
+
+
+def clean_text(t):
+    for a_, b_ in _REPL:
+        t = t.replace(a_, b_)
+    t2 = re.sub(r"\bdocs/[\w./-]+:?\s*", "", t)   # «docs/04: транзитной зоны нет…» → «Транзитной зоны нет…»
+    if t2 != t:
+        t = t2[:1].upper() + t2[1:]
+    if not _TECH.search(t):
+        return t
+
+    def par(m):
+        inner = m.group(1)
+        if not _TECH.search(inner):
+            return m.group(0)
+        urls = re.findall(r"https?://[^\s;,)]+", inner)
+        return f"({'; '.join(urls)})" if urls else ""
+    t = re.sub(r"\(([^()]*)\)", par, t)
+    parts = [x for x in re.split(r";\s*|\s·\s", t)]
+    keep = []
+    for x in parts:
+        if _TECH.search(x):
+            urls = re.findall(r"https?://[^\s;,)]+", x)
+            keep += urls
+        else:
+            keep.append(x)
+    t = "; ".join(x.strip() for x in keep if x.strip())
+    return re.sub(r"\s{2,}", " ", t).strip(" ;·,")
+
+
+SKIP_KEYS = {"key", "fmt", "dir", "id", "iata", "to", "from", "vkey", "group", "origin", "status_code"}
+
+
+def clean(o, k=None):
+    if isinstance(o, dict):
+        return {kk: (vv if kk in SKIP_KEYS else clean(vv, kk)) for kk, vv in o.items()}
+    if isinstance(o, list):
+        return [clean(x, k) for x in o]
+    if isinstance(o, str) and k not in ("geo",):
+        return clean_text(o)
+    return o
+
+
 def monthly():
     """Дни «Ковра» по месяцам: те же события, что в data/processed/kover_days.csv (src/kover_days.py)."""
     e = pd.read_csv(P / "kover_events.csv")
@@ -192,6 +242,7 @@ def main():
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
     }
+    data = clean(data)
     tpl = (ROOT / "src/dashboard_template.html").read_text(encoding="utf-8")
     js = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     out = ROOT / "outputs/redwings_panel.html"
