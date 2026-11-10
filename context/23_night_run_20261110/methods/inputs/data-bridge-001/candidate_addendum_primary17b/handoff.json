@@ -1,0 +1,32 @@
+{
+  "ready_for_review": true,
+  "package_id": "DATA_BRIDGE_CANDIDATE_PRIMARY17B",
+  "baseline_commit": "7180bf5e03905a7892b3031f2447c5b33d10e244",
+  "source_commit": "17b4f348f15ea8695688d9435933cb4965568408",
+  "baseline_input_set_replaced": false,
+  "baseline_bytes_changed": [],
+  "mappings": 386,
+  "cards": 112,
+  "source_candidate_links": 134,
+  "source_card_status_counts": {
+    "PUBLISHED_PLAN_NOT_SALES": 46,
+    "PUBLISHED_PLAN_YEAR_ASSIGNED_NOT_SALES": 10,
+    "UNKNOWN": 56
+  },
+  "source_service_rows": 209,
+  "source_service_keys": 173,
+  "source_rows_are_physical_flights": false,
+  "acceptance": "CANDIDATE_CONTEXT_MAPPING_ONLY; NO_ECONOMICS_OR_PREDICTIVE_UPLIFT",
+  "primary_independent_review": "PENDING",
+  "checks_passed": 8,
+  "checks_failed": 0,
+  "holds": [
+    "12conflicting service clocks; exact connection time HOLD",
+    "KUF/GSV year assignment remains inferred",
+    "H_UFA4 proposal composition differs from old RELAXED; no identifier-based variant merge",
+    "Unknown/duplicate publication cards not additive",
+    "KUF MRO event2025 not current RW access/capacity",
+    "SVX reported outcomes2025 not target-week OD/transfer share/P&L"
+  ],
+  "reproduce": "PYTHONDONTWRITEBYTECODE=1 python3 context/23_night_run_20261110/data_bridge/candidate_addendum_primary17b/build_addendum.py"
+}

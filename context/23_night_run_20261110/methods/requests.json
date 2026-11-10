@@ -1,12 +1,12 @@
 {
-  "version": "methods-budget-v2",
+  "version": "methods-common-v3",
   "dispatch_owner": "coordinator_only",
   "note": "Requests may be satisfied by already running packages; do not create duplicate work. Methods runs no subagents and does not poll other folders.",
   "requests": [
     {
       "id": "MR01",
       "priority": "P1",
-      "status": "AWAITING_COORDINATOR_PACKAGE",
+      "status": "RECEIVED_27740ffe_REVIEW_PENDING",
       "inputs": [
         "nastya@2f03b693a62c219e9475fcd1e26295039f6a49d7",
         "tsiri@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
@@ -31,7 +31,7 @@
     {
       "id": "MR03",
       "priority": "P1",
-      "status": "AWAITING_COORDINATOR_PACKAGE",
+      "status": "RECEIVED_17b4_AND_abc09_SOURCE_JOIN_REVIEW_PENDING",
       "inputs": [
         "core@505e24663e5952bae9b9540bb9a5a622663bfc2a",
         "alternative@ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
@@ -56,7 +56,7 @@
     {
       "id": "MR05",
       "priority": "P1",
-      "status": "INDEPENDENT_REVIEW_RUNNING_ON_EXACT_344f4425",
+      "status": "COMPLETE_CHANGES_ON344f_CURRENT_LABEL_PARENT_CLOSED_LEGACY_HELD",
       "inputs": [
         "methods first published SHA to be supplied in handoff",
         "comparison_spec.md",
@@ -71,7 +71,7 @@
     {
       "id": "MR06",
       "priority": "P2",
-      "status": "AWAITING_EXISTING_NETWORK_PACKAGE",
+      "status": "RECEIVED_27740ffe_NUMBERS_PRESERVED_METADATA_REPAIR_REVIEW_PENDING",
       "inputs": [
         "93fa5cf scripts/build_aircraft_route_review.py:19-29",
         "context/17_aircraft_route_review/model/flights.csv"
@@ -83,7 +83,7 @@
     {
       "id": "MR07",
       "priority": "P1",
-      "status": "READY_AFTER_BUDGET_PUBLICATION",
+      "status": "INDEPENDENT_REVIEW_RUNNING_ON_EXACT_2a74",
       "inputs": [
         "new methods-budget-v2 exact SHA in delivery",
         "budget_contract.json",
@@ -94,6 +94,21 @@
       "question": "Independently check supply upper bounds, same-seat/one-fare certificate and cash/donor conclusions when a Sol slot is available.",
       "acceptance": "Recompute 8 bounds and 224 inequalities; verify zero migration is optimistic; no extrapolation to different supply or full profit; distinguish price thresholds from demand forecasts.",
       "dependency": "New package separate from active MR05 review; root chooses scheduling."
+    },
+    {
+      "id": "MR08",
+      "priority": "P1",
+      "status": "READY_NEW_COMMON_PACKAGE_ROOT_SCHEDULES",
+      "inputs": [
+        "methods-common-v3 exact SHA from delivery",
+        "common_demand.py",
+        "common_boundaries.py",
+        "build_comparison_adapter.py",
+        "common_comparison_readout.md"
+      ],
+      "question": "Independently check the common demand-input experiment and exact decision boundaries, including complete keyed joins and source-grain limits.",
+      "acceptance": "Reproduce8baseline/224itinerary rows; verify160 per-flight formulas/full IDs; challenge missing/duplicate/cost mutations; recompute84cases and151affine regions, alpha crossing and saturation claims; ensure no annual-money merge or conditional16 leakage; preserve UNKNOWN evidence.",
+      "dependency": "New immutable package; do not expand/restart MR05, MR07 or model_repair/source reviews. Root alone chooses free slot."
     }
   ]
 }

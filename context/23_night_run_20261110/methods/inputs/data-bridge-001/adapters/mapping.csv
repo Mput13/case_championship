@@ -1,0 +1,15 @@
+model_id,source,target,fields,transform,compatibility
+nastya:screening,criteria.json values[IATA][criterion],parameter_registry,value/status/unit/default_weight,"Preserve v=NULL, source explanation and author default weight",Screening proxy only
+nastya:network,network_routes.csv scenario/variant/from/to,route_program,origin/destination/frequency/annual segments,No dated physical leg invented; MOW left as group,No seat-ledger equivalence
+nastya:network,network_summary.csv,evaluation_summary,segments/journeys/revenue/contribution,millionRUB×1e6; keep annual horizon and rounding,No common weekly price/tax/resource basis
+ciri:conditional16,markets.csv pair demand_base/cautious,market_pool,directed OD/scenario week,Expand unordered pair into two directions with same author scenario bound,Alternative networks use same pool but are mutually exclusive
+ciri:conditional16,sales.csv flight_ids,itinerary / itinerary_leg / capacity_allocation,sold_journeys/whole fare/dated flight FK,"Split ; IDs; one fare per itinerary, one seat per leg","All fractional scenario, no observed sales"
+ciri:conditional16,flights.csv + capacity.csv,physical_leg / money_ledger,network/flight/scenario cost,"Join network+id, then scenario+priority; physical cost once per flight",Published/source fare or schedule is not observed dispatch
+ciri:conditional16,resources.csv + comparison.csv,resource_ledger / evaluation_summary,week/block/active/reserve/contribution,Keep unknown fleet/opportunity/full_budget NULL,Not complete strategy budget
+hypotheses:register35,candidates.csv,candidate_register / product_path_template,candidate/path/purpose/status,Preserve author path semantics: a loop is not one sold passenger itinerary,"No inferred demand, fare, fleet or financial winner"
+hypotheses:experiment3,runs/c26661067277af20/physical_legs.csv,physical_leg,leg/variant/UTC/nominal seats,Separate model_id and run/scenario boundary,"Scenario physical requirements, not observed capacity"
+hypotheses:experiment3,cost_resource/6cf441ef38e2c6c5/conditional_thresholds_with_product_keys.csv,hypothesis_thresholds,cohort gap/fare/journeys/boardings,"Preserve cohort, not rename weekly/annual forecast",Actual funding gap/fare/residual seats/demand unknown
+ciri_stage1:screening,scores_samara_excluded_min500_base.csv,ciri_stage1_scores,IATA/score/interval/rank,Different branch/rules; original score copied with origin metadata,Not automatic replacement of Nastya score or Ciri economics
+core,airport_keys.csv,entity_resolution / candidate_airport_link,OA id/version/IANA,"Unique IATA lookup, preserve quarantine; downstream weather by OA id",No name-only/city-only joins
+core+alternative,airport_keys + join_airport_station_mapping + weather_monthly_2024,airport_weather_month,OA:id → station_id → month,Check IATA/ICAO; preserve station and sample denominators,"Historical point context, no cancellation probability"
+core,gateway_region_crosswalk + gateway_region_context_2024,candidate_regional_tourism,airport → region → indicator/year,Use seven reviewed mappings; ND rows held; repeated context not additive,No municipality/catchment/OD inference

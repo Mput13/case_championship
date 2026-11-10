@@ -13,3 +13,5 @@
 Следующая работа: общий market/accounting adapter, приём переданных immutable пакетов и review, затем сравнение на согласуемых входах. Широкие гипотезы остаются в параллельной очереди, dispatch только у root.
 
 Приёмка: scoped arithmetic PASS; full author replay здесь NOT_RUN; source-supported OD, полный реальный бюджет, продажи/ресурс и запуск UNKNOWN/NOT_ACCEPTED. Никакие спорные решения не названы TEAM_ACCEPTED.
+
+Третий пакет: common_comparison_readout.md и общий опыт context21. Импортированы отдельные immutable primary17b/model_repair27740/bridgeabc09/MR05b0b. Ничего не слито по имени модели.8baseline/224строки продаж воспроизведены,160стоимостей рейса рассчитаны,84общих сценария и151линейный участок проверены. Граница ранга base α=0.683509; full budget неизвестен. Новый MR08 готов для очереди root. MR07 выполняется по2a74; его scope не расширен.

@@ -18,3 +18,15 @@ python3 context/23_night_run_20261110/methods/check_package.py
 Бюджетный модуль использует те же frozen source inputs, новый заранее записанный `budget_contract.json` и standard library. `runs/budget_v1/supply_dual_certificates.csv` содержит достаточные неравенства для аналитического верхнего предела; `validation.json` фиксирует scope. `verify_budget_lp.py` — дополнительный повтор той же задачи через уже установленный SciPy 1.17.1/HiGHS, без импорта основного модуля. Для обязательного аналитического повторения SciPy не нужен; новая установка не выполнялась. Эта альтернативная проверка тем же владельцем не названа независимым review.
 
 `receive_input.py` вызывается только для переданного координатором exact SHA и явного списка файлов; receipt каждого нового set хранится рядом с ними. Он не опрашивает moving branches или чужие папки.
+
+### Общий опыт v3
+
+```sh
+python3 context/23_night_run_20261110/methods/build_comparison_adapter.py
+python3 context/23_night_run_20261110/methods/common_demand.py
+python3 context/23_night_run_20261110/methods/common_boundaries.py
+python3 context/23_night_run_20261110/methods/render_common_chart.py
+python3 context/23_night_run_20261110/methods/check_package.py
+```
+
+Стандартная библиотека Python; никаких новых зависимостей, сети или авторских файлов вне inputs не требуется.

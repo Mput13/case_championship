@@ -1,10 +1,10 @@
 {
-  "package": "methods-budget-v2",
+  "package": "methods-common-v3",
   "branch": "research/night-model-methods-20261110",
   "scope": "context/23_night_run_20261110/methods/",
-  "status": "SECOND_PACKAGE_READY_WORK_CONTINUES",
+  "status": "THIRD_PACKAGE_READY_WORK_CONTINUES",
   "exact_package_commit": "Resolve from the coordinator delivery message; self-commit is not embedded in hashed content.",
-  "entrypoint": "budget_readout.md",
+  "entrypoint": "common_comparison_readout.md",
   "required_outputs": [
     "comparison_spec.md",
     "model_inventory.csv",
@@ -24,23 +24,32 @@
     "runs/budget_v1/supply_upper_bounds.csv",
     "runs/budget_v1/supply_dual_certificates.csv",
     "checks/budget_v1_lp.json",
-    "inputs/screening-review-001/receipt.json"
+    "inputs/screening-review-001/receipt.json",
+    "common_demand_contract.json",
+    "runs/common_demand_v1/validation.json",
+    "runs/common_demand_v1/boundary_validation.json",
+    "runs/common_demand_v1/recipe_rank_boundaries.csv",
+    "runs/adapter_v1/status.json",
+    "inputs/primary-001/receipt.json",
+    "inputs/model-repair-001/receipt.json",
+    "inputs/data-bridge-001/receipt.json",
+    "inputs/methods-review-001/receipt.json"
   ],
   "three_findings": [
-    "All four cautious dated Tsiri programs have negative certified contribution upper bounds even with unlimited demand and no own migration; fixed fares, costs and nominal seats only.",
-    "Unknown fixed costs can change relative order: UFA4 versus ZIA/SVX8 base difference is 400166.28 RUB/week before base and other cost differences; no launch implied.",
-    "20/18 Nastya pairs are model endpoints including MOW, not accepted operating routes. Screening review approves arithmetic only; radius remains OPEN_DECISION."
+    "Fixed context21 supply: C versus N demand recipes change base D_SVX8/H_UFA_4 order at alpha0.683509; both remain negative. Not a validated demand estimate or team choice.",
+    "With own migration preserved, D_SVX8 never reaches zero contribution by demand scaling even in base; H_UFA_4/H_UFA_8 first zero C multipliers2.46177/2.91944, before unknown full-budget costs.",
+    "Conditional16 and context21 remain separate; primary evidence is context only. New adapter rejects missing/duplicate legs and cost inconsistencies, including complete160flight formula checks."
   ],
-  "validation": "Scoped independent arithmetic by methods owner; exact checks in analysis/set001/checks.json.",
-  "independent_review": "V1_RUNNING; V2_BUDGET_PENDING",
+  "validation": "8context21 baseline cases/224itineraries independently reimplemented by methods owner; 160flight formulas,8adapter cases,4mutation probes;84controlled cases;151affine regions and453numeric point checks.",
+  "independent_review": "MR05_CHANGES_EXACT344f_CURRENT_LABEL_PARENT_CLOSED; MR07_EXACT2a74_RUNNING; V3_PENDING",
   "not_run": [
     "full author pipelines by methods",
-    "corrected whole-network replay by methods",
-    "common cross-author dated optimisation",
+    "common cross-author dated network optimisation",
     "actual paid market validation",
-    "complete real strategy budget"
+    "complete real strategy budget",
+    "independent review of v3"
   ],
-  "next_work": "Receive exact model_repair/data_bridge/primary/cost_kover packages, preserve separate sets, build common market/accounting comparison and integrate reviews.",
+  "next_work": "Receive exact review/cost-kover/hypothesis packages, apply scoped corrections and common strategy accounting; continue through10:00MSK.",
   "deadline_msk": "2026-11-10T10:00:00+03:00",
   "first_package_commit": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4"
 }

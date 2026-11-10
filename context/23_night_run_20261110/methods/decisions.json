@@ -1,5 +1,5 @@
 {
-  "version": "methods-spec-v2",
+  "version": "methods-common-v3",
   "independent_review": "V1_RUNNING_ON_344f4425; V2_BUDGET_PENDING",
   "decisions": [
     {
@@ -152,6 +152,43 @@
       "subject": "Radius comparison",
       "decision": "Do not select radius using sums of scores over different admitted city sets. Keep 0/300/500/800 OPEN_DECISION.",
       "basis": "Coordinator delivery of independent screening review 6a038b9b"
+    },
+    {
+      "id": "M20",
+      "status": "USER_CONSTRAINT",
+      "subject": "Variant identity",
+      "decision": "Use context21 for current economic comparison; conditional16 baseline remains separate. No join by H_UFA_4 or model name without variant/profile/source/input_set.",
+      "basis": "Coordinator delivery data_bridge abc09bbb"
+    },
+    {
+      "id": "M21",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Controlled input comparison",
+      "decision": "Fixed Tsiri context21 supply/capture/prices/costs; compare C bands with N annual proxy divided104. N is not observed winter endpoint OD; exclude six missing ZIA pairs without MOW substitution.",
+      "evidence": "common_demand_contract.json; runs/common_demand_v1"
+    },
+    {
+      "id": "M22",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Demand recipe choice boundary",
+      "decision": "Base D_SVX8/H_UFA_4 ranking changes at convex demand recipe alpha0.68350900199, both contribution -3168101.77 RUB/week. Fixed/base/fleet costs can move relative choice separately.",
+      "evidence": "runs/common_demand_v1/recipe_rank_boundaries.csv",
+      "limit": "New independent review pending; alpha is not a probability or measured parameter."
+    },
+    {
+      "id": "M23",
+      "status": "CONFIRMED_ERROR",
+      "subject": "Legacy endpoint label and review scope",
+      "decision": "Retain MR05 CHANGES on344f. Current2a74 endpoint projection resolved by parent; legacy v1 physical_pair_count label held. Counts unchanged20/18; physical countNULL.",
+      "evidence": "inputs/methods-review-001/findings.json; runs/budget_v1/endpoint_pair_counts.csv"
+    },
+    {
+      "id": "M24",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Money metadata qualification",
+      "decision": "Fill absent metadata in160 model_repair flight-cost rows only by unique model/source/candidate/profile/scenario/leg then exact summary. Amounts unchanged; original immutable.",
+      "evidence": "runs/adapter_v1/money_metadata_lineage.csv",
+      "limit": "Model repair review pending; own semantic checks not source acceptance."
     }
   ]
 }

@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "shared_pair_multiple_triangles",
+      "status": "PASS",
+      "original_code_rejected": true
+    },
+    {
+      "name": "marginal_selection_shared_pool",
+      "status": "PASS"
+    },
+    {
+      "name": "asymmetric_frequency_reverse_pair",
+      "status": "PASS"
+    },
+    {
+      "name": "capacity_spill_and_redistribution",
+      "status": "PASS"
+    },
+    {
+      "name": "mandatory_D_cap_distinct_from_scenario_capture_curve",
+      "status": "PASS",
+      "source_saved_pairs_exceed_D": false,
+      "synthetic_original_exceeds_D": true
+    },
+    {
+      "name": "hub_asymmetric_local_transfer_one_through_fare_return_vs_oneway",
+      "status": "PASS",
+      "frequencies": [
+        14,
+        6
+      ],
+      "old_front2272_defect_reintroduced": false
+    },
+    {
+      "name": "all_actual_output_rows_conservation_and_money",
+      "status": "PASS",
+      "networks": 50,
+      "itineraries": 892,
+      "incidences": 1224,
+      "physical_legs": 513,
+      "corrected_pools": 155
+    },
+    {
+      "name": "two_allocation_variants_economics_invariant_at_fixed_frequencies",
+      "status": "PASS"
+    },
+    {
+      "name": "ciri_actual_dated_incidence_fare_migration_budgets",
+      "status": "PASS",
+      "reference": "ciri/replay_validation.json",
+      "comparisons": 8,
+      "dated_legs": 160
+    },
+    {
+      "name": "MR06_pinned_block_values_match_actual_function",
+      "status": "PASS",
+      "legs": 1372,
+      "metadata_corrected_separately": true,
+      "financial_replay_repeated": false
+    },
+    {
+      "name": "common_adapter_join_incidence_time_and_money",
+      "status": "PASS",
+      "dated_legs": 160,
+      "itineraries": 224,
+      "cross_model_economic_comparison": false
+    },
+    {
+      "name": "raw_projection_native_links_exact_equivalence",
+      "status": "PASS",
+      "air_links": 1224,
+      "rail_rows": 32220
+    }
+  ],
+  "check_groups": 12,
+  "author_baseline_expected_to_fail_shared_pair": true,
+  "independent_review": "PENDING",
+  "not_run": [
+    "Anastasia dated schedule capacity: no input calendar",
+    "Anastasia cannibalization: absent from author model",
+    "observed endpoint OD validation",
+    "commercial execution",
+    "full strategy budget"
+  ]
+}
