@@ -1,0 +1,114 @@
+{
+  "version": "methods-common-v3",
+  "dispatch_owner": "coordinator_only",
+  "note": "Requests may be satisfied by already running packages; do not create duplicate work. Methods runs no subagents and does not poll other folders.",
+  "requests": [
+    {
+      "id": "MR01",
+      "priority": "P1",
+      "status": "RECEIVED_27740ffe_REVIEW_PENDING",
+      "inputs": [
+        "nastya@2f03b693a62c219e9475fcd1e26295039f6a49d7",
+        "tsiri@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "methods/comparison_spec.md"
+      ],
+      "question": "Provide exact SHA for author/corrected network replay, including shared pair capture, unit conversions, all selected legs and delta.",
+      "acceptance": "Preserved author outputs; numerical replay tolerances; common market budget during selection; per-itinerary seats and one fare; explicit frequency/resource envelope and route definition; corrected result not labelled market-validated.",
+      "dependency": "Network package already assigned by root; methods first common run depends on it."
+    },
+    {
+      "id": "MR02",
+      "priority": "P1",
+      "status": "ASSIGNED_COST_KOVER_BY_ROOT",
+      "inputs": [
+        "methods/comparison_spec.md budget and kover sections",
+        "author cost assumptions"
+      ],
+      "question": "Provide exact SHA for cost/kover package and provenance of rates, donor/own-migration accounting, fixed costs and cash timing.",
+      "acceptance": "No-kover baseline unchanged; tax/price/unit and valid dates explicit; event-day counts not downtime; no double-counted donor margin; UNKNOWN budgets preserved; removal of kover leaves other risks.",
+      "dependency": "Coordinator assigned cost_kover due 07:05 MSK; await exact package SHA, no duplicate dispatch."
+    },
+    {
+      "id": "MR03",
+      "priority": "P1",
+      "status": "RECEIVED_17b4_AND_abc09_SOURCE_JOIN_REVIEW_PENDING",
+      "inputs": [
+        "core@505e24663e5952bae9b9540bb9a5a622663bfc2a",
+        "alternative@ef365ac2a936117e5b3bb12ea99c816d7b1a101c",
+        "methods market_pool/physical_leg definitions"
+      ],
+      "question": "Provide completed join/source package with exact SHA, especially endpoint versus segment grain and competitor coverage for tested OD.",
+      "acceptance": "Source keys/time/unit/coverage preserved; airport totals not renamed OD; absent snapshot not zero competition; marketing duplicates and via-stops separated; unresolved arrivals/units remain NULL.",
+      "dependency": "Data join package; no need for methods to poll source folders."
+    },
+    {
+      "id": "MR04",
+      "priority": "P2",
+      "status": "PRESERVED_PARALLEL_QUEUE",
+      "inputs": [
+        "hypotheses@6ed8788882e7b4d07044b4f6e686ff71eadd8ac5",
+        "C01/C07/C14"
+      ],
+      "question": "When ready, provide exact SHA of new useful product/evidence experiments and their impact on a named scenario parameter or constraint.",
+      "acceptance": "Candidate, product, period, counterfactual, refusal criterion, cost/resource effect; no inferred sales or financial-model equivalence. Preserve inconclusive and rejected cases.",
+      "dependency": "Parallel hypothesis work; not a gate to publishing current comparison."
+    },
+    {
+      "id": "MR05",
+      "priority": "P1",
+      "status": "COMPLETE_CHANGES_ON344f_CURRENT_LABEL_PARENT_CLOSED_LEGACY_HELD",
+      "inputs": [
+        "methods first published SHA to be supplied in handoff",
+        "comparison_spec.md",
+        "analyze_pinned.py",
+        "analysis/set001/*",
+        "decisions.json"
+      ],
+      "question": "Independently review methodology and numerical examples, especially capture law versus confirmed error, donor double count, cash versus accrual and route units.",
+      "acceptance": "New independent review on exact package; replicate at least shared MOW-OMS, Tsiri itinerary/ledger and C01 threshold; counterexamples for mixed products/shared capacity; actionable P1/P2 with exact evidence and acceptance limits.",
+      "dependency": "Root dispatched a new Sol review; its result does not automatically cover the new budget module."
+    },
+    {
+      "id": "MR06",
+      "priority": "P2",
+      "status": "RECEIVED_27740ffe_NUMBERS_PRESERVED_METADATA_REPAIR_REVIEW_PENDING",
+      "inputs": [
+        "93fa5cf scripts/build_aircraft_route_review.py:19-29",
+        "context/17_aircraft_route_review/model/flights.csv"
+      ],
+      "question": "Check whether inherited block_method metadata correctly describes RouteModel.block for each profile; retain original and corrected metadata separately if mismatched.",
+      "acceptance": "Per-leg value and provenance must be distinguished; do not change actual flight-time numbers only to match a stale description.",
+      "dependency": "Can be included in existing network audit; no separate agent needed."
+    },
+    {
+      "id": "MR07",
+      "priority": "P1",
+      "status": "INDEPENDENT_REVIEW_RUNNING_ON_EXACT_2a74",
+      "inputs": [
+        "new methods-budget-v2 exact SHA in delivery",
+        "budget_contract.json",
+        "budget_thresholds.py",
+        "runs/budget_v1/supply_dual_certificates.csv",
+        "budget_readout.md"
+      ],
+      "question": "Independently check supply upper bounds, same-seat/one-fare certificate and cash/donor conclusions when a Sol slot is available.",
+      "acceptance": "Recompute 8 bounds and 224 inequalities; verify zero migration is optimistic; no extrapolation to different supply or full profit; distinguish price thresholds from demand forecasts.",
+      "dependency": "New package separate from active MR05 review; root chooses scheduling."
+    },
+    {
+      "id": "MR08",
+      "priority": "P1",
+      "status": "READY_NEW_COMMON_PACKAGE_ROOT_SCHEDULES",
+      "inputs": [
+        "methods-common-v3 exact SHA from delivery",
+        "common_demand.py",
+        "common_boundaries.py",
+        "build_comparison_adapter.py",
+        "common_comparison_readout.md"
+      ],
+      "question": "Independently check the common demand-input experiment and exact decision boundaries, including complete keyed joins and source-grain limits.",
+      "acceptance": "Reproduce8baseline/224itinerary rows; verify160 per-flight formulas/full IDs; challenge missing/duplicate/cost mutations; recompute84cases and151affine regions, alpha crossing and saturation claims; ensure no annual-money merge or conditional16 leakage; preserve UNKNOWN evidence.",
+      "dependency": "New immutable package; do not expand/restart MR05, MR07 or model_repair/source reviews. Root alone chooses free slot."
+    }
+  ]
+}

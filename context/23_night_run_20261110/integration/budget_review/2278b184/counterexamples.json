@@ -1,0 +1,69 @@
+{
+  "anchor": "H_UFA_4/cautious",
+  "original_upper": "-5776521.2799999988",
+  "examples": [
+    {
+      "id": "EXPENSIVE_NEW_TRANSFER",
+      "change": "Add a new two-leg product at sum of those local fares +60000 RUB; sell100 and remove100 locals on each used leg",
+      "delta": 6000000,
+      "new_result": "223478.7200000012",
+      "witness": {
+        "origin": "GSV",
+        "via": "UFA",
+        "destination": "NJC",
+        "flight_ids": [
+          "ROUTE_INPUTS_UPPER_100_H_UFA_4_001",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_4_002"
+        ],
+        "original_transfer_fare": "8925.0",
+        "sum_local_fares": "14500",
+        "new_through_fare": "74500",
+        "through_sold": 100,
+        "local_sold_on_these_legs": 0,
+        "local_sold_on_each_other_leg": 100,
+        "capacity_each_leg": 100
+      },
+      "boundary_broken": "product universe / through yield; same physical seats; original author arithmetic remains valid"
+    },
+    {
+      "id": "ANCILLARY",
+      "change": "Add4000 RUB net ancillary margin to each of1600 local journeys",
+      "delta": 6400000,
+      "new_result": "623478.7200000012",
+      "boundary_broken": "No other revenue/margin"
+    },
+    {
+      "id": "NEGATIVE_OLD_MARGIN",
+      "change": "Hypothetical1600 old migrants, each with old revenue100 and avoidable old passenger cost5100; no donor flight saving",
+      "delta": 8000000,
+      "new_result": "2223478.7200000012",
+      "boundary_broken": "Old lost contribution nonnegative; incompatible with pinned positive old margins"
+    },
+    {
+      "id": "LOWER_FLIGHT_COST",
+      "change": "Reduce retained weekly flight cost by40 percent",
+      "delta": "6534608.51199999952",
+      "new_result": "758087.23200000072",
+      "boundary_broken": "Fixed flight cost"
+    },
+    {
+      "id": "LARGER_CAPACITY",
+      "change": "Scale nominal sellable seats100 to200 on every dated leg, keep per-passenger fare/cost and flight cost",
+      "delta": "10560000",
+      "new_result": "4783478.7200000012",
+      "boundary_broken": "Fixed100-seat capacity; mathematical only, no SSJ payload or dispatch assertion"
+    }
+  ],
+  "negative_margin_with_pinned_passenger_cost": {
+    "old_fare": 100,
+    "old_legs": 2,
+    "pax_per_segment": 650,
+    "migrated_journeys": 1600,
+    "old_margin_per_journey": -1200,
+    "improvement": 1920000,
+    "new_result": "-3856521.2799999988",
+    "interpretation": "Invalidates the claimed numerical upper bound outside its old-margin assumption; does not itself reverse the cautious sign with these smaller savings"
+  },
+  "unchanged_valid_case": "Increasing actual payload only up to the already assumed100 seats cannot defeat the negative nominal100 upper bound",
+  "status": "Boundary demonstrations; no real demand/cost/aircraft evidence; no author arithmetic defect"
+}
