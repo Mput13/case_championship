@@ -1,6 +1,6 @@
 # Методика: результаты и оставшиеся решения
 
-Подготовленный handoff до freeze **09:30 МСК 10 ноября**; предел работы10:00. Прибыльная принятая сеть не установлена. Ниже разделены проверенные условные расчёты и неизвестные, которые нужны для выбора. MR14 нового guard и независимый passport review ещё ожидаются; их будущие verdict не предполагаются.
+Подготовленный handoff до freeze **09:30 МСК 10 ноября**; предел работы10:00. Прибыльная принятая сеть не установлена. Ниже разделены проверенные условные расчёты и неизвестные, которые нужны для выбора. Passport review26bcb2db — APPROVE_SCOPED exact46fd. MR14f579eeb8 — CHANGES только в привязке oracle receipt уguard7e65; root-correction4a89bf1c закреплена отдельной проекцией, MR15 её recheck ещёpending.
 
 ## Проверенные выводы
 
@@ -38,6 +38,6 @@
 |Полный бюджет/риски|Получить только добавочные fleet/base/support/start/exit расходы, donor delta и cash dates. «Ковёр» без прогноза даты снятия, weather/техника/санкции отдельно; feasible recovery покаUNKNOWN|
 |Командные решения|Цель(деньги/поездки/сегменты), веса/radius, захватD-only/Q(F), allocator, выбранный состав и допустимые потери. Ни одно не объявленоTEAM_ACCEPTED|
 
-Frontier review58a02028 принял календарную/механическую часть трёх опытов; все35 гипотез сохранены,32untested. Очередь полезного сбора не удалена. Passport46fd исходные26 требований/33 тезиса сохранены; текущие методы-квалификации отдельны. Новый guard7e65 допускает только exactf7a данные и сверяется с160 independent oracle rows; changed inputs требуют нового key/hash/oracle admission. MR14 этого guard ещёpending.
+Frontier review58a02028 принял календарную/механическую часть трёх опытов; все35 гипотез сохранены,32untested. Очередь полезного сбора не удалена. Passport46fd исходные26 требований/33 тезиса сохранены и получили отдельный scoped review26bcb2db; текущие методы-квалификации отдельны. MR14 подтвердил384keys/12groups/160oracle rows и неизменные результаты, но обнаружил, чтоguard7e65 доверяет изменяемому receipt и может неверно заявить exact независимую provenance. Только это утверждениеHOLD/PENDING_CORRECTION; реальныеfrozenoracle bytes иMR11числа не опровергнуты. Root-correction4a89bf1c проверяет hash receipt доjson parse; сохранена какpendingreference доMR15. Originalv8CHANGES сохраняется, собственныйguard здесь не изменён. Changed inputs требуют нового key/hash/oracle admission.
 
-Оригинальные/исправленные/common варианты, exact review связи и ограничения — в [текущей матрице](runs/admission_v5/acceptance_matrix.csv) и последующих явных событиях [acceptance_events.json](acceptance_events.json). Полный состав и хеши — [output_manifest.json](output_manifest.json); воспроизведение — [reproduce.md](reproduce.md).
+Оригинальные/исправленные/common варианты, exact review связи и ограничения — в [текущей матрице](runs/admission_v6/acceptance_matrix.csv) и последующих явных событиях [acceptance_events.json](acceptance_events.json). Полный состав и хеши — [output_manifest.json](output_manifest.json); воспроизведение — [reproduce.md](reproduce.md).

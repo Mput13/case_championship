@@ -37,3 +37,7 @@ MR11/MR12 scoped passes импортированы, O01исправлен тол
 ## Срез v9: компактный pre-freeze handoff
 
 MR13exactc6ad APPROVE_SCOPED. Подготовленhandoff_compact.md с принятымиусловнымирасчётами/границами/конкретными8–12/resource/share gaps. Новыхрасчётов/модулейнет. MR14exact7e65 иpassportreview46fd ожидаются; freeze09:30 ещёне выполнен.
+
+## Срез v10: паспорт принят, guard-binding удержан
+
+Passport26bcb scoped46fd принят. MR14f579CHANGES однаP2 exactoraclebinding; реальныеfrozenчисла иqualificationprojection passed. Root4a89pendingreference, MR15ожидается; receipt/3oracle/3baselinehashes matched, коррекцияздесьнеприменялась/неисполнялась. Компактныйhandoffактуализирован.

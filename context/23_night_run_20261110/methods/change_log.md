@@ -26,3 +26,5 @@ Cost-timebase correction87ee импортирована отдельно; зад
 - v8: отдельный admission guard наexactf7a,MR11oracle,MR12two-prose-roundingfix,passport46fdcurrentqualification projection. Всеoldnumericruns/inputs неизменны;admission_v4 новое событие.
 
 - v9: exactMR13e4a receipt,admission_v5 икомпактныйhandoff; numericoutputs unchanged. Приоритет толькоremaining reviews/materialfixes/freeze.
+
+- v10: новыеimmutablepassport/MR14/correction references,admission_v6; толькостатусы икомпактныйhandoff. Ownerguardиoldnumericruns неизменны.

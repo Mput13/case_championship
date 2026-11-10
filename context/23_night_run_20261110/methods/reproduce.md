@@ -90,3 +90,7 @@ python3 context/23_night_run_20261110/methods/check_package.py
 ```
 
 Guard запускается отдельным первым шагом перед повторным использованием interaction-ветви. Он допускает толькостарыеexactf7a data; oldinteractionmain не модифицирован исамостоятельно не становитсяуниверсальнымвалидатором. Новыеinputs требуютnewmanifest/key/oracle review. Все7порчвпамяти;CSVне меняются.
+
+## Текущий guard: MR14 и отдельная коррекция
+
+Original7e65 `admit_frozen_interaction.py` сохраняетCHANGES(MR14-P2-01) по самостоятельнойпривязкеoracle receipt. Его baselineчисла не опровергнуты. Root-projection4a89 находится в отдельномpackage `context/23_night_run_20261110/input_admission_correction/`; здесьсохраненатолькоприкреплённаяreference. Не запускать copiedcorrected.py вinputs каксамостоятельный pipeline. Воспроизведениеполнойroot-projectionописановеёREADME; MR15покаpending. Никакойавтозащитыoldinteractionилиновыхinputsets не заявлено.
