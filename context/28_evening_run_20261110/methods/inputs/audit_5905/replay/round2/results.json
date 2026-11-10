@@ -1,0 +1,308 @@
+{
+  "pass_check": true,
+  "source_sha": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+  "round": "single_final_addressed_round",
+  "scope": "M06, M09, executable rounding patch and audit publication preflight only; no owner main/optimizer/strategy change",
+  "units": "Trip demand annual both directions; weekly scores RUB/block-hour; contribution RUB/model year. Modelled future horizon, not observed sales.",
+  "input_raw_sha256": "aed8463339b988a7c9ac81aa976a4fc25c152e4066b551d25cbdcc16ebe16d53",
+  "protected_before": {
+    "files": 389,
+    "mismatches": [],
+    "pass": true
+  },
+  "protected_after": {
+    "files": 389,
+    "mismatches": [],
+    "pass": true
+  },
+  "weeks": {
+    "pass_check": true,
+    "source_sha": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+    "pair": [
+      "OMS",
+      "GOJ"
+    ],
+    "source_locations": [
+      "src/network_model.py:215",
+      "src/network_model.py:227",
+      "src/network_model.py:468",
+      "data/assumptions/network.csv:32",
+      "data/processed/demand_estimates.csv:480"
+    ],
+    "demand_method": "Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах",
+    "demand_scenario": "cautious",
+    "annual_market_trips_both_directions": 11250.0,
+    "reference_weeks": 52.0,
+    "operating_weeks": 48.0,
+    "freq_week_each_way": 3,
+    "capture_share": 0.31606027941427883,
+    "competitive": false,
+    "uncapped": true,
+    "reference_vs_operating": [
+      {
+        "weeks": 52.0,
+        "market_trips_week_direction": 108.17307692307692,
+        "sold_trips_week_direction": 34.18921291740997,
+        "capacity_week_direction": 240.0,
+        "sold_trips_year_both_directions": 3555.6781434106365
+      },
+      {
+        "weeks": 48.0,
+        "market_trips_week_direction": 117.1875,
+        "sold_trips_week_direction": 37.038313993860804,
+        "capacity_week_direction": 240.0,
+        "sold_trips_year_both_directions": 3555.678143410637
+      }
+    ],
+    "full_rebooking_sold_trips_year": 3555.678143410637,
+    "no_rebooking_sold_trips_year": 3282.1644400713567,
+    "no_rebooking_lost_trips_year": 273.51370333927974,
+    "algebra": "D/(2W)*q*2W=D*q; cancellation uniform-reference case: D*q*48/52; partial rebooking: D*q*(48+alpha*(52-48))/52, 0<=alpha<=1, subject to seats",
+    "interpretation": "Current formula concentrates annual demand; cancellation example assumes uniform reference-week demand and fixed noncompetitive capture, not observed seasonality/recovery.",
+    "limits": "Fixed frequency algebra on an existing selected OMS leg, not a new network or cautious full-network rerun. Competitive share, frequency feedback and capacity can change totals. Actual alpha/calendar/cost of recovery UNKNOWN.",
+    "owner_base388_effect_rub": 0
+  },
+  "shortlist": {
+    "pass_check": true,
+    "source_sha": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+    "scenario": "base_sub",
+    "demand_scenario": "base",
+    "source_locations": [
+      "src/network_model.py:314",
+      "src/network_model.py:335",
+      "src/network_model.py:362",
+      "src/network_model.py:387",
+      "src/network_model.py:391",
+      "src/network_model.py:404",
+      "src/network_model.py:406",
+      "src/network_model.py:418",
+      "data/assumptions/network.csv:41"
+    ],
+    "scope": "All original admissible triangles, one tri_eval and one singleton joint each. Empty sel objective gain/dh equals joint singleton score; no greedy selection or new frequency optimization.",
+    "universe_count": 1682,
+    "universe_sha256": "5b1627861a09982732c6063e63d941b3945aab81bfca6b5626410c5e2fcf6db9",
+    "extracted_original_functions_ast_sha256": {
+      "tri_eval": "0e4597ef0805c337237a947c63784a8f238be99e501471a50c14de7112cadecb",
+      "joint": "7087993ffb5ac3d9c98b424714d9c5c020c3761ab794951f047aee9cccfd5850",
+      "totals": "7cd98092114de27e224a89de441f956fda4b77ad4f5933e864a68e5de65a1a93"
+    },
+    "all_candidates_pass_initial_fleet_cap": true,
+    "shortlist_size": 400,
+    "overlap": 392,
+    "raw_only": 8,
+    "joint_only": 8,
+    "top400_changes": true,
+    "raw_cutoff": {
+      "candidate": "MOW/GSV/KVX",
+      "base": "MOW",
+      "x": "GSV",
+      "y": "KVX",
+      "freq_week_each_way": 3,
+      "hours_week": 29.223121146585505,
+      "flight_and_pax_cost_rub_week": 10669020.548100356,
+      "gross_ticket_rub_week": 6008749.001151148,
+      "foregone_rw_rub_week": 0.0,
+      "support_rub_week": 135582.7011033969,
+      "migrated_segments_week": 0.0,
+      "raw_score_rub_block_hour": -159472.067462367,
+      "joint_initial_score_rub_block_hour": -154832.49797821426,
+      "joint_initial_contribution_rub_year": -235283819.98398218,
+      "passes_initial_fleet_hours": true,
+      "raw_rank": 400,
+      "joint_initial_rank": 387
+    },
+    "joint_cutoff": {
+      "candidate": "MOW/MQF/NNM",
+      "base": "MOW",
+      "x": "MQF",
+      "y": "NNM",
+      "freq_week_each_way": 3,
+      "hours_week": 48.93165052421135,
+      "flight_and_pax_cost_rub_week": 15817109.525936885,
+      "gross_ticket_rub_week": 8129531.872524368,
+      "foregone_rw_rub_week": 0.0,
+      "support_rub_week": 6528.367298427665,
+      "migrated_segments_week": 0.0,
+      "raw_score_rub_block_hour": -157108.48849475675,
+      "joint_initial_score_rub_block_hour": -156975.070405882,
+      "joint_initial_contribution_rub_year": -399414562.87793267,
+      "passes_initial_fleet_hours": true,
+      "raw_rank": 384,
+      "joint_initial_rank": 400
+    },
+    "best_omitted_under_joint_initial_objective": {
+      "candidate": "SVX/LED/ULY",
+      "base": "SVX",
+      "x": "LED",
+      "y": "ULY",
+      "freq_week_each_way": 3,
+      "hours_week": 42.98898632569792,
+      "flight_and_pax_cost_rub_week": 14170206.06207742,
+      "gross_ticket_rub_week": 7263998.827568313,
+      "foregone_rw_rub_week": 0.0,
+      "support_rub_week": 1025076.4877700738,
+      "migrated_segments_week": 0.0,
+      "raw_score_rub_block_hour": -160650.61832780924,
+      "joint_initial_score_rub_block_hour": -136805.5227490539,
+      "joint_initial_contribution_rub_year": -305818798.83042973,
+      "passes_initial_fleet_hours": true,
+      "raw_rank": 410,
+      "joint_initial_rank": 270
+    },
+    "entering_candidates": [
+      "SVX/LED/ULY",
+      "SVX/BWO/MRV",
+      "SVX/CSY/KRR",
+      "SVX/MRV/ULY",
+      "MOW/ARH/GSV",
+      "SVX/ESL/LED",
+      "MOW/CEK/IWA",
+      "MOW/GRV/KZN"
+    ],
+    "leaving_candidates": [
+      "MOW/KUF/MMK",
+      "MOW/ESL/GDZ",
+      "MOW/KRR/ULY",
+      "MOW/RMZ/UUA",
+      "MOW/NOJ/PES",
+      "MOW/GDZ/SKX",
+      "MOW/STW/ULY",
+      "MOW/MQF/ULV"
+    ],
+    "cutoff_rank_inversion": {
+      "raw_preferred": {
+        "candidate": "MOW/KUF/MMK",
+        "base": "MOW",
+        "x": "KUF",
+        "y": "MMK",
+        "freq_week_each_way": 3,
+        "hours_week": 46.21594478410668,
+        "flight_and_pax_cost_rub_week": 15162297.220590191,
+        "gross_ticket_rub_week": 8110710.929742979,
+        "foregone_rw_rub_week": 1392092.8004112572,
+        "support_rub_week": 0.0,
+        "migrated_segments_week": 97.98658812541179,
+        "raw_score_rub_block_hour": -152579.07901240612,
+        "joint_initial_score_rub_block_hour": -182700.5621263895,
+        "joint_initial_contribution_rub_year": -439071312.7454404,
+        "passes_initial_fleet_hours": true,
+        "raw_rank": 366,
+        "joint_initial_rank": 551
+      },
+      "joint_initial_preferred": {
+        "candidate": "SVX/LED/ULY",
+        "base": "SVX",
+        "x": "LED",
+        "y": "ULY",
+        "freq_week_each_way": 3,
+        "hours_week": 42.98898632569792,
+        "flight_and_pax_cost_rub_week": 14170206.06207742,
+        "gross_ticket_rub_week": 7263998.827568313,
+        "foregone_rw_rub_week": 0.0,
+        "support_rub_week": 1025076.4877700738,
+        "migrated_segments_week": 0.0,
+        "raw_score_rub_block_hour": -160650.61832780924,
+        "joint_initial_score_rub_block_hour": -136805.5227490539,
+        "joint_initial_contribution_rub_year": -305818798.83042973,
+        "passes_initial_fleet_hours": true,
+        "raw_rank": 410,
+        "joint_initial_rank": 270
+      }
+    },
+    "score_identity": "joint0 = raw - foregone_rw/h + support/h; initial greedy gain/dh = joint0",
+    "owner_base388_effect_rub": 0,
+    "winner_change": "UNKNOWN; no comparable full selector/network run; later joint scores depend on shared markets and sel",
+    "global_optimality": "UNKNOWN; greedy and forced min_routes remain heuristic"
+  },
+  "rounding_patch": {
+    "pass_check": true,
+    "rows": 24,
+    "zero_slider_all_rows": true,
+    "mismatches_fixed": 6,
+    "mismatches": [
+      {
+        "scenario": "base",
+        "vkey": "KUF",
+        "old": -282,
+        "correct": -283
+      },
+      {
+        "scenario": "base",
+        "vkey": "REN",
+        "old": -487,
+        "correct": -486
+      },
+      {
+        "scenario": "base_sub",
+        "vkey": "KUF",
+        "old": 343,
+        "correct": 342
+      },
+      {
+        "scenario": "base_sub",
+        "vkey": "GOJ",
+        "old": 38,
+        "correct": 37
+      },
+      {
+        "scenario": "cautious",
+        "vkey": "REN",
+        "old": -2334,
+        "correct": -2333
+      },
+      {
+        "scenario": "cautious",
+        "vkey": "GOJ",
+        "old": -1945,
+        "correct": -1946
+      }
+    ],
+    "slider": {
+      "min": 0,
+      "max": 30,
+      "step": 1
+    },
+    "slider_evaluations": 744,
+    "source_sha": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+    "source_locations": [
+      "src/dashboard_template.html:723",
+      "src/network_model.py:468",
+      "src/network_model.py:469"
+    ],
+    "patch_sha256": "aab5536a607bc24d12900202634d86d402d42ef42cbb074c788d74c492d67fff",
+    "applied_in_disposable_copy": true,
+    "patched_inline_script_syntax_checks": 1,
+    "owner_model_effect_rub": 0,
+    "limits": "Executable patch and extracted JS arithmetic only. No DOM/browser acceptance; nonzero slider slope still uses rounded ticket millions, not exact monetary model."
+  },
+  "publication": {
+    "pass_check": true,
+    "source_pin": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+    "head_equality_required": false,
+    "mocked_nonpin_HEAD_guard_calls": [
+      [
+        "rev-parse",
+        "d4a6eabb42671e5b16d44abedcdc6ceafb692528^{commit}"
+      ]
+    ],
+    "protected_owner_bytes_still_required": 389,
+    "private_input_files_required": false,
+    "inputs": "Pinned git objects plus included hash-verified public gzip and protected_owner_files.json; no .local.json, external services or private paths",
+    "audit_script_sha256": {
+      "reproduce.py": "90f12a26fbd293543e2f15c6aba286796383e038f42737700905c1c37869a7c7",
+      "check_results.py": "0812fcbe4db0d373ba76cb343d2b946faae175aae6d317d34103a75ff802d800",
+      "round2/checks.py": "9d96466b3f3716c7b52d55245500452d886775e68465957f40e79905f958931b"
+    },
+    "limits": "No audit commit created. Nonpin HEAD guard tested and HEAD equality removed; full main replay deliberately not rerun."
+  },
+  "residual_unknowns": {
+    "rebooking_and_cancelled_demand": "UNKNOWN",
+    "seasonality_and_dated_recovery": "UNKNOWN",
+    "changed_shortlist_final_network_or_winner": "UNKNOWN",
+    "global_optimality": "UNKNOWN",
+    "support_entitlement_and_net_yield": "UNKNOWN",
+    "excluded_costs_fullPnL_cash_and_dispatch": "UNKNOWN"
+  },
+  "stopped_after_requested_checks": true,
+  "further_rounds": 0
+}
