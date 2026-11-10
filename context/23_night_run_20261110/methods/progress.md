@@ -33,3 +33,7 @@
 ## Срез v8: exact-input admission и паспорт
 
 MR11/MR12 scoped passes импортированы, O01исправлен только вдвухproseзначениях. Новыйfixed-input guard сверяет384keys/12groups/160independentoracle rows иотвергает7mutations; owner-only. Passport46fdподключён безперезаписиas-ofstatuses; currentqualificationsотдельно. ОжидаютсяexactMR13/passportreview, безpolling.
+
+## Срез v9: компактный pre-freeze handoff
+
+MR13exactc6ad APPROVE_SCOPED. Подготовленhandoff_compact.md с принятымиусловнымирасчётами/границами/конкретными8–12/resource/share gaps. Новыхрасчётов/модулейнет. MR14exact7e65 иpassportreview46fd ожидаются; freeze09:30 ещёне выполнен.

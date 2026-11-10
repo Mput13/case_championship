@@ -24,3 +24,5 @@ Cost-timebase correction87ee импортирована отдельно; зад
 - v7: sourceC/local-first finite budget domains,58-row semantic projection and cohesive model_comparison.md; отдельные admission_v3 иFRONTIER_REVIEW58a. v6allocation/currentalpha ивсеhistorical inputs/runs сохранены.
 
 - v8: отдельный admission guard наexactf7a,MR11oracle,MR12two-prose-roundingfix,passport46fdcurrentqualification projection. Всеoldnumericruns/inputs неизменны;admission_v4 новое событие.
+
+- v9: exactMR13e4a receipt,admission_v5 икомпактныйhandoff; numericoutputs unchanged. Приоритет толькоremaining reviews/materialfixes/freeze.
