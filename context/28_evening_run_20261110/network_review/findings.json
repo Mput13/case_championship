@@ -1,0 +1,64 @@
+{
+  "review_id": "EV-NETWORK-FINAL",
+  "subjectSHA": "b47118a48b6d5480217077bf8699a63665c0eb7a",
+  "subject_branch": "t3/network-hypothesis-calcs",
+  "scope": "context/28_evening_run_20261110/network/",
+  "verdict": "APPROVE_SCOPED",
+  "findings": [],
+  "blocking_findings": 0,
+  "observations": [
+    {
+      "id": "EV-NETWORK-OBS-01",
+      "classification": "SCENARIO_BOUNDARY_NOT_DEFECT",
+      "subjectSHA": "b47118a48b6d5480217077bf8699a63665c0eb7a",
+      "severity": null,
+      "locations": [
+        {
+          "path": "context/28_evening_run_20261110/network/v2/README.md",
+          "line": 30
+        },
+        {
+          "path": "context/28_evening_run_20261110/network/v2/calculate.py",
+          "line": 302
+        }
+      ],
+      "statement": "OMS ideal-bank negativity is conditional on planning LF85/80; physical100% is a distinct sensitivity, not an accepted operating network.",
+      "repro": "Run probes/review.py; details.banks[].physical100pct_sensitivity_contribution",
+      "physical100pct_base_rub_week": {
+        "OMS4": 466733.62833126634,
+        "OMS8": 2663176.4476325586
+      },
+      "minimal_fix": "No subject fix required; preserve LF qualifier in downstream claims."
+    }
+  ],
+  "ownchecks": {
+    "passed": 1006,
+    "failed": 0,
+    "receipt": "probes/results.json",
+    "independent_3pool_vertex_oracle": true,
+    "independent_packing_simplex_with_dual_certificate": true,
+    "directed_OD_capacity_oracle": true,
+    "edge_cases": 126
+  },
+  "owner_checks_separate": {
+    "passed": 101,
+    "receipt": "probes/owner_replay.log",
+    "independent_acceptance": false
+  },
+  "not_run": [
+    "full primary evidence38f/source parser audit (separate assigned reviewer)",
+    "live booking, PNR, baggage/protection and residual seats",
+    "actual tail assignments, crew duty, MRO/reserve and slot approval",
+    "supported joint special-fare/net-yield PnL or future RW award",
+    "actual full PnL, contracts, cash/payment timing",
+    "future company KEEP, N(t), annual seasonality, market share",
+    "general greedy, annualisation or methods v2 review",
+    "browser/UI/Site, external messages, paid services, new providers, restarts"
+  ],
+  "retained_holds": [
+    "actual resource and next assignment UNKNOWN",
+    "other former transfer clients not assumed absent",
+    "supported compliant PnL NOT_CALCULATED",
+    "full PnL/cash and future fleet NOT_ACCEPTED"
+  ]
+}
