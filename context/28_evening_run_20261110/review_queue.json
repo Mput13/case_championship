@@ -1,5 +1,5 @@
 {
-  "updated_at_msk": "2026-11-10T19:50:17.140458+03:00",
+  "updated_at_msk": "2026-11-10T20:07:21.991076+03:00",
   "dispatch_rule": "root only; fresh delegate; <=4 active Sol; no task polling",
   "requests": [
     {
@@ -17,44 +17,56 @@
     },
     {
       "id": "EV-NETWORK-FINAL",
-      "subject_sha": null,
+      "subject_sha": "b47118a48b6d5480217077bf8699a63665c0eb7a",
       "partial_sha": "941d9ebfe97c86baa210da2c56bb1f94cbe298b0",
-      "status": "WAIT_FINAL_PACKAGE_AND_FREE_SLOT",
-      "scope": "C01/C03/C04/C07/C33 completed package; current partial does not include C33/dated rotations"
+      "status": "RUNNING",
+      "scope": "C01/C03/C04/C07/C33 final v2: same-leg retime, local/ideal-bank differences, full cycle/donor, physical seats and old slots; first941d retained",
+      "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-network-review-20261110-r1",
+      "launch_receipt": "intake/dispatch_2006.json",
+      "root_intake": "intake/network_final_checks.json"
     },
     {
       "id": "EV-DIGITAL-FINAL",
       "subject_sha": "d48b4a4f86de29aa968665f1601b785bd1824c54",
-      "status": "QUEUED_WAITING_FREE_SOL_SLOT",
-      "scope": "D01-D03 units, thresholds and power; S01 carrier/group boundary, resources and stock equivalents; sources/claim limits; no live checkout or UIQA"
+      "status": "RUNNING",
+      "scope": "D01-D03 units, thresholds and power; S01 carrier/group boundary, resources and stock equivalents; sources/claim limits; no live checkout or UIQA",
+      "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-digital-growth-review-20261110-r1",
+      "launch_receipt": "intake/dispatch_2006.json",
+      "root_intake": "intake/digital_final_checks.json"
     },
     {
       "id": "EV-EVIDENCE-FINAL",
       "subject_sha": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
       "partial_sha": "06cb721b3e8e4eb8710c065c7b02078a112626a9",
-      "status": "RUNNING",
+      "status": "COMPLETE_APPROVE_SCOPED",
       "scope": "primary support identity and fare obligations, route/date/operator joins, fleet/delivery scope; no future award acceptance",
       "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-evidence-review-20261110-r1",
-      "launch_receipt": "intake/evidence_final_dispatch.json"
+      "launch_receipt": "intake/evidence_final_dispatch.json",
+      "review_sha": "13f7c373954cc16b33a53b7c46436ee3f15f753b",
+      "root_intake": "intake/evidence_review_checks.json"
     },
     {
       "id": "EV-PRODUCTS-FINAL",
-      "subject_sha": null,
+      "subject_sha": "388908b6da3539484cb8e2e03ada6ff5cb2204a4",
       "partial_sha": "a39165528ceaa80f026210d0aaae9e2b541e6f51",
-      "status": "WAIT_FINAL_PACKAGE_AND_FREE_SLOT",
-      "scope": "C10 launch versus steady, C14 full dated cycle/beds/package, C17 calendar/OD/rejection scope, C31 both donor tasks, C35 block/capture/fare plus final cash/readiness",
-      "root_intake": "intake/products_first_checks.json"
+      "status": "RUNNING",
+      "scope": "C10/C14/C17/C31/C35 final: exact original economic grids plus cash entities, readiness, internal KEEP/feed and both donor assignments",
+      "root_intake": "intake/products_final_checks.json",
+      "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-products-review-20261110-r1",
+      "launch_receipt": "intake/dispatch_2006.json"
     },
     {
       "id": "EV-MR02",
       "subject_sha": "aa7779192d809558e38b1eb9bdfa25913a3afdc8",
-      "status": "RUNNING",
+      "status": "COMPLETE_APPROVE_SCOPED",
       "priority": 1,
       "scope": "v2 dated resource construction, annual exposure and N(t), coupled flight grant/fare bound, signed donor and cash proxy; EV-MR01 remains exact48686",
       "root_intake": "intake/methods_calendar_checks.json",
       "owner_request": "methods/requests.json",
       "task_id": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-calendar-budget-review-20261110-r1",
-      "launch_receipt": "intake/calendar_review_dispatch.json"
+      "launch_receipt": "intake/calendar_review_dispatch.json",
+      "review_sha": "8cb5fde05c51ae05f7b72e3cb996f0cb4fa26550",
+      "review_intake": "intake/calendar_review_checks.json"
     }
   ]
 }
