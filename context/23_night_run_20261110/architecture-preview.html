@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>
+<style>
+#agent-architecture{font-family:var(--font-sans);color:var(--foreground);--space:calc(var(--font-size-base,14px)*1);font-size:var(--font-size-base,14px)}
+#agent-architecture *{box-sizing:border-box}
+#agent-architecture .choice{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space);margin-bottom:var(--space)}
+#agent-architecture select{max-width:100%;color:var(--foreground);background:var(--background);border:1px solid var(--border);border-radius:var(--radius);padding:8px;font:inherit}
+#agent-architecture .graph{position:relative;padding:0 2px}
+#agent-architecture .layer{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:44px;position:relative;z-index:1}
+#agent-architecture .layer:last-child{margin-bottom:0}
+#agent-architecture .node{padding:16px;border:1px solid var(--border);border-radius:var(--radius);background:var(--card);color:var(--card-foreground)}
+#agent-architecture .node strong{display:block;font-weight:500;margin-bottom:4px}
+#agent-architecture .node span{display:block;color:var(--muted-foreground)}
+#agent-architecture .node .kind{margin-top:8px;color:var(--foreground)}
+#agent-architecture .one{grid-template-columns:1fr;max-width:470px;margin-left:auto;margin-right:auto}
+#agent-architecture .record{background:var(--secondary);color:var(--secondary-foreground);border-style:dashed}
+#agent-architecture .edges{position:absolute;inset:0;pointer-events:none;overflow:visible;width:100%;height:100%;z-index:0}
+#agent-architecture .key{margin:var(--space) 0;color:var(--muted-foreground)}
+#agent-architecture .limit{margin-top:var(--space);padding-top:var(--space);border-top:1px solid var(--border)}
+#agent-architecture [hidden]{display:none!important}
+@media(max-width:480px){#agent-architecture .graph{padding:0 14px}#agent-architecture .layer{grid-template-columns:1fr;gap:20px;margin-bottom:32px}#agent-architecture .node{padding:12px}}
+</style>
+<div id="agent-architecture">
+ <div class="choice"><label for="architecture-choice">Вариант системы</label><select class="form-select" id="architecture-choice"><option value="two">Два постоянных Astra — рекомендую</option><option value="one">Один постоянный Astra — проще</option></select></div>
+ <div class="graph" id="architecture-graph" role="group" aria-label="Передача заданий и результатов между ролями">
+  <svg class="edges" aria-hidden="true"><defs><marker id="architecture-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--muted-foreground)"/></marker></defs><g id="architecture-lines"></g></svg>
+  <div class="layer" id="owners">
+   <div class="node" id="coordinator"><strong>Astra · координатор</strong><span>Цель кейса, гипотезы, приоритеты, решения для команды</span><span class="kind">Этот постоянный тред</span></div>
+   <div class="node" id="methods"><strong>Astra · модели и сравнение</strong><span>Совместимость методов, экономика, общие допущения</span><span class="kind">Отдельный постоянный тред</span></div>
+  </div>
+  <div class="layer one"><div class="node record" id="registry"><strong>Версионные пакеты и очередь задач</strong><span>Задание → закреплённые входы → результат → решение о приёмке</span><span class="kind">Общие файлы; это не ещё один агент</span></div></div>
+  <div class="layer" id="workers">
+   <div class="node" id="evidence"><strong>Sol · данные и источники</strong><span>Поиск, извлечение, соединение, покрытие, происхождение</span><span class="kind">Субагент на конкретный пакет</span></div>
+   <div class="node" id="implementation"><strong>Sol · расчёты и эксперименты</strong><span>Воспроизведение, исправления, чувствительность</span><span class="kind">Субагент на конкретный пакет</span></div>
+  </div>
+  <div class="layer one"><div class="node" id="review"><strong>Sol · независимая проверка</strong><span>Повтор расчёта, первичные источники, контрпримеры</span><span class="kind">Новый субагент для каждой проверки</span></div></div>
+  <div class="layer one"><div class="node record" id="verdict"><strong>Принять / исправить / оставить спорным</strong><span>Замечания возвращаются через координатора с версией пакета</span></div></div>
+ </div>
+ <div class="key">Стрелки — передача пакетов. Все субагенты запускаются координатором; сами они никого не запускают.</div>
+ <div class="limit" id="architecture-limit" aria-live="polite">Два постоянных треда + до четырёх одновременно работающих Sol, включая проверяющего. Глубина субагентов — один уровень.</div>
+</div>
+<script>
+(()=>{
+ const root=document.getElementById('agent-architecture');
+ const choice=root.querySelector('#architecture-choice');
+ const graph=root.querySelector('#architecture-graph');
+ const lines=root.querySelector('#architecture-lines');
+ function draw(){
+  const bounds=graph.getBoundingClientRect();
+  const routes=[['coordinator','registry'],['registry','evidence'],['registry','implementation'],['evidence','review'],['implementation','review'],['review','verdict']];
+  if(choice.value==='two')routes.push(['methods','registry']);
+  lines.replaceChildren();
+  for(const [from,to] of routes){
+   const a=root.querySelector('#'+from).getBoundingClientRect(),b=root.querySelector('#'+to).getBoundingClientRect();
+   const x1=a.left+a.width/2-bounds.left,y1=a.bottom-bounds.top,x2=b.left+b.width/2-bounds.left,y2=b.top-bounds.top;
+   const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+   const middle=(y1+y2)/2;
+   let d=`M${x1},${y1} C${x1},${middle} ${x2},${middle} ${x2},${y2-3}`;
+   if(bounds.width<480&&((from==='coordinator'&&choice.value==='two')||from==='evidence')){
+    const ay=a.top+a.height/2-bounds.top,by=b.top+b.height/2-bounds.top;
+    d=`M${a.left-bounds.left},${ay} H2 V${by} H${b.left-bounds.left-3}`;
+   }else if(bounds.width<480&&from==='registry'&&to==='implementation'){
+    const ay=a.top+a.height/2-bounds.top,by=b.top+b.height/2-bounds.top;
+    d=`M${a.right-bounds.left},${ay} H${bounds.width-2} V${by} H${b.right-bounds.left+3}`;
+   }
+   path.setAttribute('d',d);
+   path.setAttribute('fill','none');path.setAttribute('stroke','var(--muted-foreground)');path.setAttribute('stroke-width','1.2');path.setAttribute('marker-end','url(#architecture-arrow)');lines.appendChild(path);
+  }
+ }
+ function update(){
+  const two=choice.value==='two';root.querySelector('#methods').hidden=!two;
+  root.querySelector('#owners').classList.toggle('one',!two);
+  root.querySelector('#coordinator span').textContent=two?'Цель кейса, гипотезы, приоритеты, решения для команды':'Цель, методика, модели, гипотезы, очередь и итог';
+  root.querySelector('#architecture-limit').textContent=(two?'Два постоянных треда':'Один постоянный тред')+' + до четырёх одновременно работающих Sol, включая проверяющего. Глубина субагентов — один уровень.';
+  requestAnimationFrame(draw);
+ }
+ choice.addEventListener('change',update);window.addEventListener('resize',()=>requestAnimationFrame(draw));update();
+})();
+</script>
+
+</body></html>
