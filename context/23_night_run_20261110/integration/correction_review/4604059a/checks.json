@@ -1,0 +1,967 @@
+{
+  "review_id": "MR10",
+  "A": {
+    "affected_rows": 129,
+    "original_dated_rows": 209,
+    "original_mapping_rows": 386,
+    "affected_cards": 28,
+    "affected_mappings": 58,
+    "mapping_statuses": {
+      "NO_BASELINE_ENDPOINT_MATCH": 10,
+      "HOLD_EXACT_CLOCK; SUPPLY_CONTEXT_ONLY": 6,
+      "CONTEXT_CANDIDATE_ONLY": 42
+    }
+  },
+  "B": {
+    "selected_legs": 66,
+    "events": 132,
+    "wrong_original_events": 70,
+    "wrong_original_physical_rows": 350,
+    "day2_old": 0,
+    "day2_corrected": 16,
+    "conflicts_per_scenario": {
+      "H_UFA_8": 23,
+      "H_UFA_4": 11,
+      "D_pilot": 0,
+      "D_case": 0
+    },
+    "held_cases": [
+      [
+        "H_UFA_4",
+        "base",
+        "delay_bank_next_day_fare_retained"
+      ],
+      [
+        "H_UFA_4",
+        "cautious",
+        "delay_bank_next_day_fare_retained"
+      ],
+      [
+        "H_UFA_8",
+        "base",
+        "delay_bank_next_day_fare_retained"
+      ],
+      [
+        "H_UFA_8",
+        "cautious",
+        "delay_bank_next_day_fare_retained"
+      ]
+    ],
+    "tables": {
+      "summary": 40,
+      "physical": 660,
+      "journeys": 240,
+      "cash": 96
+    }
+  },
+  "checks": [
+    {
+      "id": "context/23_night_run_20261110/primary_lineage_correction/manifest",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": [
+        {
+          "path": "README.md",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "build.py",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "candidate_endpoint_mapping.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "card_snapshot_bindings.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "dated_evidence.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "historical_snapshot_registry.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "inherited_service_receipts.json",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "registry_changes.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "source_lock.json",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "source_registry.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "unchanged_original_outputs.json",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "validation.json",
+          "bytes_match": true,
+          "sha256_match": true
+        }
+      ]
+    },
+    {
+      "id": "context/23_night_run_20261110/cost_kover_timebase_correction/manifest",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": [
+        {
+          "path": "README.md",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "affected_journeys.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "build.py",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "cash_fixture.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "checks.json",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "physical_leg_status.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "rotation_conflicts.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "scenario_summary.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "source_manifest.json",
+          "bytes_match": true,
+          "sha256_match": true
+        },
+        {
+          "path": "timestamp_projection.csv",
+          "bytes_match": true,
+          "sha256_match": true
+        }
+      ]
+    },
+    {
+      "id": "A_registry_cardinality",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_all_dated_cells_preserved",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "rows": 209,
+        "columns": 20,
+        "cells": 4180,
+        "added_columns": [
+          "source_snapshot_id",
+          "original_csv_line",
+          "lineage_correction_status"
+        ],
+        "mismatches": []
+      }
+    },
+    {
+      "id": "A_all_mapping_cells_preserved",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "rows": 386,
+        "columns": 34,
+        "cells": 13124,
+        "added_columns": [
+          "original_mapping_csv_line",
+          "source_snapshot_id",
+          "lineage_projection_status"
+        ],
+        "mismatches": []
+      }
+    },
+    {
+      "id": "A_original_mismatch_reproduced",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "affected_rows": 129,
+        "by_source": {
+          "svx_schedule_arr": 64,
+          "svx_schedule": 65
+        }
+      }
+    },
+    {
+      "id": "A_receipt_identity_svx_schedule",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_null_new_size_svx_schedule",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_historical_separation_svx_schedule",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_receipt_identity_svx_schedule_arr",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_null_new_size_svx_schedule_arr",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_historical_separation_svx_schedule_arr",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_only_target_registry_fields_change",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": [
+        [
+          "svx_schedule",
+          "captured_at_utc"
+        ],
+        [
+          "svx_schedule",
+          "http_status"
+        ],
+        [
+          "svx_schedule",
+          "raw_sha256"
+        ],
+        [
+          "svx_schedule",
+          "bytes"
+        ],
+        [
+          "svx_schedule",
+          "raw_local_path"
+        ],
+        [
+          "svx_schedule",
+          "limits"
+        ],
+        [
+          "svx_schedule_arr",
+          "captured_at_utc"
+        ],
+        [
+          "svx_schedule_arr",
+          "http_status"
+        ],
+        [
+          "svx_schedule_arr",
+          "raw_sha256"
+        ],
+        [
+          "svx_schedule_arr",
+          "bytes"
+        ],
+        [
+          "svx_schedule_arr",
+          "raw_local_path"
+        ],
+        [
+          "svx_schedule_arr",
+          "limits"
+        ]
+      ]
+    },
+    {
+      "id": "A_complete_snapshot_fk",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_full_snapshot_identity_unique",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_independent_upstream_row_join",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_28_card_bindings_exact",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_58_mapping_fk",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "NO_BASELINE_ENDPOINT_MATCH": 10,
+        "HOLD_EXACT_CLOCK; SUPPLY_CONTEXT_ONLY": 6,
+        "CONTEXT_CANDIDATE_ONLY": 42
+      }
+    },
+    {
+      "id": "A_hold_context_and_no_match_retained",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_no_fabricated_unaffected_mapping_fk",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/23_night_run_20261110/primary_evidence/source_registry.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/23_night_run_20261110/primary_evidence/dated_evidence.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/23_night_run_20261110/primary_evidence/route_product_cards.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/23_night_run_20261110/primary_evidence/manifest.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/23_night_run_20261110/primary_evidence/source_lock.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/17_aircraft_route_review/evidence/sources.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/17_aircraft_route_review/evidence/published_service_facts.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/23_night_run_20261110/data_bridge/candidate_addendum_primary17b/candidate_endpoint_mapping.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/21_team_proposals/routes.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/17_aircraft_route_review/evidence/published_service_facts.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/12_network_economics/competition.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/12_network_economics/sources.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/16_agent_research/core/branches/operating_evidence/normalized/omsk_outbound_week_20261207.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/16_agent_research/core/branches/operating_evidence/normalized/omsk_domestic_timetable_rows.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/16_agent_research/core/branches/operating_evidence/dataset_manifest.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/22_stage1_audit/accepted_research.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:context/22_stage1_audit/main_source_checks.md",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:data/manual/airport_tech.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:data/manual/competitor_hubs.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_input_lock:data/manual/pax_2025_overrides.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "A_original_manifest_retained",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_author_epoch_literal",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "path": "scripts/build_team_comparison.py",
+        "lines": [
+          28,
+          363,
+          364,
+          365
+        ]
+      }
+    },
+    {
+      "id": "B_66_leg_cardinality",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "networks": {
+          "D_pilot": 2,
+          "D_case": 16,
+          "H_UFA_4": 16,
+          "H_UFA_8": 32
+        },
+        "dates": {
+          "2026-12-07": 31,
+          "2026-12-08": 26,
+          "2026-12-09": 2,
+          "2026-12-10": 3,
+          "2026-12-11": 2,
+          "2026-12-12": 2
+        }
+      }
+    },
+    {
+      "id": "B_132_timestamp_projection",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_original_70_wrong_events",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_original_350_wrong_physical_rows",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": 350
+    },
+    {
+      "id": "B_all_660_physical_UTC_pairs",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_mandatory_1885",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_day2_0_to_16",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "old": [],
+        "corrected": [
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_016",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_017",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_018",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_019",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_020",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_021",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_022",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_023",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_024",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_025",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_026",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_027",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_028",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_029",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_030",
+          "ROUTE_INPUTS_UPPER_100_H_UFA_8_031"
+        ]
+      }
+    },
+    {
+      "id": "B_all_selected_durations_and_horizon",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_half_open_event_oracle",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": [
+        {
+          "name": "start_included",
+          "expected": true,
+          "actual": true
+        },
+        {
+          "name": "end_excluded",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "name": "before_start_excluded",
+          "expected": false,
+          "actual": false
+        },
+        {
+          "name": "last_minute_included",
+          "expected": true,
+          "actual": true
+        },
+        {
+          "name": "arrival_event_at_restricted_airport_after_rollover",
+          "expected": true,
+          "actual": true
+        }
+      ]
+    },
+    {
+      "id": "B_other_airport_not_restricted",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_rollover_no_modulo",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_timezone_equivalent_windows",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "utc": "2026-12-08T07:25:00+00:00",
+        "UFA": "2026-12-08T12:25:00+05:00",
+        "OMS_same_instant": "2026-12-08T13:25:00+06:00"
+      }
+    },
+    {
+      "id": "B_conflict_sets_exact",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "H_UFA_8": 23,
+        "H_UFA_4": 11,
+        "D_pilot": 0,
+        "D_case": 0
+      }
+    },
+    {
+      "id": "B_UFA8_23_UFA4_11_each_scenario",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_planning_labels_retained_no_real_tail",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_40_summary_keys",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_only_4_unresolved_cases_held",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_summary_admission_null",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_held_journey_admission_null",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_physical_allocation_status_held",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": "remaining_occupied/capacity are retained candidate allocations under HOLD, not admitted service"
+    },
+    {
+      "id": "B_delay_cash_fixture_explicitly_hypothetical",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": "Numeric delta fields are fixture algebra. There are no admitted cash columns in cash_fixture; summary admitted peak is NULL."
+    },
+    {
+      "id": "B_no_schedule_or_full_budget_promotion",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_correction_and_parent_provenance",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "correction_commit": "87ee52de15c2bdf396d9c06ba600fd413d5ab4a8",
+        "original_overlay_commit": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+        "author_source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "note": "timebase_correction_source_commit is the original overlay input SHA; exact correction identity is B + input_set_id/run_id"
+      }
+    },
+    {
+      "id": "B_independent_conservation_and_affected_sets",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "summary_groups": 40,
+        "physical_rows": 660,
+        "journey_rows": 240,
+        "cash_rows": 96
+      }
+    },
+    {
+      "id": "B_unaffected_original_values_preserved",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": [
+        {
+          "table": "summary",
+          "original_rows": 40,
+          "corrected_rows": 40,
+          "unchanged_nonexcluded_cells": true,
+          "differences": []
+        },
+        {
+          "table": "physical",
+          "original_rows": 660,
+          "corrected_rows": 660,
+          "unchanged_nonexcluded_cells": true,
+          "differences": []
+        },
+        {
+          "table": "journeys",
+          "original_rows": 240,
+          "corrected_rows": 240,
+          "unchanged_nonexcluded_cells": true,
+          "differences": []
+        },
+        {
+          "table": "cash",
+          "original_rows": 96,
+          "corrected_rows": 96,
+          "unchanged_nonexcluded_cells": true,
+          "differences": []
+        }
+      ]
+    },
+    {
+      "id": "B_cancel_day1_and_no_kover_summary_values_identical",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": null
+    },
+    {
+      "id": "B_frozen_no_kover_input_bytes_match_author",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": [
+        {
+          "id": "tsiri_flights.csv",
+          "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "source_path": "context/17_aircraft_route_review/model/flights.csv",
+          "original_overlay_input_sha256": "d69ff07134728a147abb8bb04890b597a372b04ea8843de4825f87a5613d7ea3",
+          "author_export_sha256": "d69ff07134728a147abb8bb04890b597a372b04ea8843de4825f87a5613d7ea3",
+          "manifest_sha256": "d69ff07134728a147abb8bb04890b597a372b04ea8843de4825f87a5613d7ea3",
+          "bytes_identical": true
+        },
+        {
+          "id": "tsiri_sales.csv",
+          "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "source_path": "context/17_aircraft_route_review/model/sales.csv",
+          "original_overlay_input_sha256": "c305c94669b25fe9f88008c343bc1cbaed80b8ba9262bd691d51dcf7a32b73d1",
+          "author_export_sha256": "c305c94669b25fe9f88008c343bc1cbaed80b8ba9262bd691d51dcf7a32b73d1",
+          "manifest_sha256": "c305c94669b25fe9f88008c343bc1cbaed80b8ba9262bd691d51dcf7a32b73d1",
+          "bytes_identical": true
+        },
+        {
+          "id": "tsiri_capacity.csv",
+          "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "source_path": "context/17_aircraft_route_review/model/capacity.csv",
+          "original_overlay_input_sha256": "220c46f619ec9a32eef6cd53ab5902489a08b6e33a0c7f2d72b40cbd3ea2d447",
+          "author_export_sha256": "220c46f619ec9a32eef6cd53ab5902489a08b6e33a0c7f2d72b40cbd3ea2d447",
+          "manifest_sha256": "220c46f619ec9a32eef6cd53ab5902489a08b6e33a0c7f2d72b40cbd3ea2d447",
+          "bytes_identical": true
+        },
+        {
+          "id": "tsiri_comparison.csv",
+          "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "source_path": "context/17_aircraft_route_review/model/comparison.csv",
+          "original_overlay_input_sha256": "6954bec2d2ca5e7b546a342f7521765532f3fc8fe376cb6574bf941afd42d30e",
+          "author_export_sha256": "6954bec2d2ca5e7b546a342f7521765532f3fc8fe376cb6574bf941afd42d30e",
+          "manifest_sha256": "6954bec2d2ca5e7b546a342f7521765532f3fc8fe376cb6574bf941afd42d30e",
+          "bytes_identical": true
+        },
+        {
+          "id": "tsiri_inputs.json",
+          "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "source_path": "context/12_network_economics/inputs.json",
+          "original_overlay_input_sha256": "fa01af9c7146a03f5a77789c7b74324d7984cdb88ef023e7bade0f54fccf1e93",
+          "author_export_sha256": "fa01af9c7146a03f5a77789c7b74324d7984cdb88ef023e7bade0f54fccf1e93",
+          "manifest_sha256": "fa01af9c7146a03f5a77789c7b74324d7984cdb88ef023e7bade0f54fccf1e93",
+          "bytes_identical": true
+        },
+        {
+          "id": "tsiri_overrides.json",
+          "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "source_path": "context/15_team_update/model/overrides.json",
+          "original_overlay_input_sha256": "04032391adbdb0f2bd015b4ac8a8b17b4bbf563fbccd867b25a2d67557b9f4ea",
+          "author_export_sha256": "04032391adbdb0f2bd015b4ac8a8b17b4bbf563fbccd867b25a2d67557b9f4ea",
+          "manifest_sha256": "04032391adbdb0f2bd015b4ac8a8b17b4bbf563fbccd867b25a2d67557b9f4ea",
+          "bytes_identical": true
+        }
+      ]
+    },
+    {
+      "id": "B_exact_correction_function_matches_oracle",
+      "status": "PASS",
+      "section": "independent",
+      "evidence": {
+        "extracted_function": "corrected_instant",
+        "source_commit": "87ee52de15c2bdf396d9c06ba600fd413d5ab4a8",
+        "absolute_offsets": [
+          "-1",
+          "0",
+          "1435",
+          "1440",
+          "1495",
+          "1885",
+          "2879",
+          "2880",
+          "10079",
+          "10080",
+          "10081"
+        ],
+        "fixture_row_date": "2099-01-01",
+        "independent_method": "Decimal minutes converted to epoch seconds"
+      }
+    },
+    {
+      "id": "B_40_original_day1_arithmetic_replay_before_gating",
+      "status": "PASS",
+      "section": "bounded_author_replay",
+      "evidence": {
+        "rows": 40,
+        "scope": "Supplied original arithmetic replay; no contract/tariff/source acceptance"
+      }
+    },
+    {
+      "id": "B_overlay_hits_matches_independent_fixture_oracle",
+      "status": "PASS",
+      "section": "bounded_author_replay",
+      "evidence": null
+    },
+    {
+      "id": "B_horizon_guard_before_at_after",
+      "status": "PASS",
+      "section": "bounded_author_replay",
+      "evidence": [
+        {
+          "name": "before_horizon",
+          "arrival_if_delayed": "2026-12-13T23:59:00+00:00",
+          "expected_rejection": false,
+          "actual_rejection": false,
+          "error": ""
+        },
+        {
+          "name": "at_horizon",
+          "arrival_if_delayed": "2026-12-14T00:00:00+00:00",
+          "expected_rejection": true,
+          "actual_rejection": true,
+          "error": "delay outside tested weekly horizon; separate accrual accounting required"
+        },
+        {
+          "name": "after_horizon",
+          "arrival_if_delayed": "2026-12-14T00:01:00+00:00",
+          "expected_rejection": true,
+          "actual_rejection": true,
+          "error": "delay outside tested weekly horizon; separate accrual accounting required"
+        }
+      ]
+    },
+    {
+      "id": "B_negative_interval_rejected",
+      "status": "PASS",
+      "section": "bounded_author_replay",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/scenario_definitions.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/inputs/tsiri_inputs.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/inputs/tsiri_overrides.json",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/inputs/tsiri_flights.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/inputs/tsiri_sales.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/inputs/tsiri_capacity.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/inputs/tsiri_comparison.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/scenario_summary.csv",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    },
+    {
+      "id": "B_input_lock:context/23_night_run_20261110/cost_kover/overlay.py",
+      "status": "PASS",
+      "section": "integrity_only",
+      "evidence": null
+    }
+  ],
+  "totals": {
+    "PASS": 83
+  }
+}
