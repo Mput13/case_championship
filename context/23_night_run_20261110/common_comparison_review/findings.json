@@ -1,0 +1,139 @@
+{
+  "review_id": "MR08",
+  "reviewed_commit": "abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe",
+  "reviewed_root": "context/23_night_run_20261110/methods/",
+  "prepared_root_base": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+  "verdict": "APPROVE_SCOPED",
+  "new_P1_P2": [],
+  "new_defects": [],
+  "source_supported": "HOLD",
+  "acceptance_by_scope": [
+    {
+      "scope": "COMMON_CONTEXT21_DEMAND_RECIPE_V1",
+      "verdict": "APPROVE",
+      "meaning": "72 demand mappings, all8 baseline summaries,224 baseline sales,160 flight-scenario rows,84 controlled summaries and384 unit-scale rows independently reproduced",
+      "boundary": "C and N are scenario inputs; N annual pair proxy /104 is not observed winter final OD; normative recipe choice remains OPEN_DECISION"
+    },
+    {
+      "scope": "FIXED_RULE_AFFINE_BOUNDARIES",
+      "verdict": "APPROVE",
+      "meaning": "18 curves and151 independently constructed branch-validity cells; slopes, values, roots, maxima, both sides and saturation tails checked",
+      "alpha": 0.6835090019901104,
+      "tie_contribution_RUB_week": -3168101.7677872814,
+      "boundary": "Fixed products, fares, costs, capacities, migration and local-first only; alpha is not probability"
+    },
+    {
+      "scope": "QUALIFIED_ADAPTER_CURRENT_TABLES",
+      "verdict": "APPROVE",
+      "meaning": "160 metadata qualifications each have exactly one full physical-leg anchor and one context summary; amounts unchanged;1056 ledger signs and primitive inclusion checked",
+      "boundary": "Current context21/224 and conditional16/860 remain separate; all four advertised mutations and two metadata anchor mutations rejected; no universal importer acceptance"
+    },
+    {
+      "scope": "PRIMARY_CONTEXT_INCIDENCE_ARITHMETIC",
+      "verdict": "APPROVE",
+      "meaning": "176 joins reproduce frozen publication incidence; actual transfer denominators H4=8/H8=24",
+      "boundary": "Numbers inherit source lineage HOLD; no card is UNKNOWN, not no service; no competitor-capacity, paid-demand or source-supported admission"
+    },
+    {
+      "scope": "PRIMARY_SOURCE_VERSION_LINEAGE",
+      "verdict": "CHANGES",
+      "status": "HOLD_INHERITED",
+      "finding_id": "SJR-P2-001",
+      "boundary": "MR08 retains the exact prior finding; broad raw re-audit and coordinator derivative re-check NOT_RUN"
+    }
+  ],
+  "inherited_findings": [
+    {
+      "id": "SJR-P2-001",
+      "severity": "P2",
+      "status": "HOLD_INHERITED_UNCHANGED",
+      "new_MR08_defect": false,
+      "source_review_commit": "944b16ac2dcde846e29dac2d47e11e5143f9fc2b",
+      "source_review_path": "context/23_night_run_20261110/source_join_review/findings.json",
+      "source_review_line": 10,
+      "title": "SVX registry raw receipts refer to a different snapshot from inherited dated rows",
+      "affected_primary_commit": "17b4f348f15ea8695688d9435933cb4965568408",
+      "source_references": [
+        {
+          "path": "context/23_night_run_20261110/primary_evidence/source_registry.csv",
+          "line": 47
+        },
+        {
+          "path": "context/23_night_run_20261110/primary_evidence/source_registry.csv",
+          "line": 48
+        },
+        {
+          "path": "context/23_night_run_20261110/primary_evidence/dated_evidence.csv",
+          "line": 2
+        },
+        {
+          "path": "context/23_night_run_20261110/primary_evidence/dated_evidence.csv",
+          "line": 75
+        }
+      ],
+      "impact": {
+        "publication_rows": 129,
+        "source_cards": 28,
+        "addendum_mappings": 58,
+        "economic_input_change_established": false,
+        "numerical_error_established": false,
+        "held": "SOURCE_SUPPORTED / raw-version lineage only for affected rows/cards/links"
+      },
+      "minimum_fix": "New metadata-only package: bind inherited facts/cards to sources.json@93fa5cf4a10ab67e05c93d19fc5375fc58ef9299 via source_id+raw_hash+capture_date; retain context12 separately, rebuild locks/manifests/dependent receipts. Do not edit frozen originals or clocks. A new independent exact-package review is required to lift HOLD.",
+      "MR08_personally_checked": "Prior exact review verdict and affected scope; methods coverage bytes equal original primary17b; all176 publication joins remain context-only and do not change demand/capacity",
+      "MR08_NOT_RUN": "Broad raw lineage review; coordinator primary_lineage_correction derivative acceptance"
+    }
+  ],
+  "material_counterexamples": [
+    {
+      "assumption": "Preserve own-RW migration",
+      "network": "D_SVX8",
+      "saturated_base_with_migration_RUB_week": -449822.69999999925,
+      "saturated_base_without_migration_RUB_week": 4120177.3000000007,
+      "implication": "No-zero-by-demand claim cannot be transferred to migration-free budget bounds"
+    },
+    {
+      "assumption": "Local-first allocation",
+      "network": "H_UFA_4",
+      "demand": "3*C base",
+      "local_first_RUB_week": 1118414.3795139473,
+      "transfer_first_RUB_week": -1089222.766452957,
+      "implication": "Reported zero/rank boundaries depend on the fixed priority"
+    },
+    {
+      "assumption": "Local-first allocation",
+      "network": "H_UFA_8",
+      "demand": "3*C base",
+      "local_first_RUB_week": 302900.876273334,
+      "transfer_first_RUB_week": -3052001.002466399,
+      "implication": "More transfer journeys is not a sufficient contribution criterion"
+    }
+  ],
+  "passed_acceptance_stages": [
+    "RAW_HASH_VERIFIED_FOR_66_PINNED_GIT_BLOBS_ONLY_NOT_PRIMARY_RAW",
+    "JOIN_CHECKED_FOR_DECLARED_INPUT_AND_ADAPTER_KEYS",
+    "AUTHOR_REPLAY_MATCHED_CONTEXT21_SELECTED8",
+    "CONSERVATION_PASS_FIXED_CONTEXT21",
+    "CONDITIONAL_ECONOMICS_CHECKED_DEMAND_RECIPE_AND_AFFINE_RULE"
+  ],
+  "not_accepted": [
+    "SOURCE_SUPPORTED for held SVX lineage",
+    "Observed final OD or winter seasonal conversion",
+    "Empirically validated capture, migration or prices",
+    "Full strategy budget, donor and cash schedule",
+    "Global network optimum or selected strategy",
+    "Team acceptance of recipes, radius or weights",
+    "Operational dispatch, sales, profit or launch"
+  ],
+  "NOT_RUN": [
+    "Broad source/raw re-audit",
+    "budget-v2 LP review",
+    "Complete author pipelines",
+    "Coordinator source derivative independent review",
+    "Live methods upgrade or external market research"
+  ],
+  "self_check_policy": "Methods owner PASS and coordinator hashes are supplied evidence only. Reviewer package verification is packaging self-check; neither creates independent source/market acceptance. Independent arithmetic comes from the separate reviewer oracle.",
+  "older_reviews_extended": false,
+  "normative_inputs_changed": false,
+  "source_originals_changed": false
+}
