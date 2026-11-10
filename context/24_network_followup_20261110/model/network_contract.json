@@ -1,0 +1,99 @@
+{
+  "contract_id": "RW_NETWORK_FOLLOWUP_20261110_V1",
+  "status": "FROZEN_BASELINE_FIRST_PASS",
+  "target_period": {
+    "start": "2026-12-07",
+    "end": "2026-12-13",
+    "unit": "RUB/week; endpoint journeys/week; occupied leg segments/week"
+  },
+  "networks": {
+    "D_SVX8": {
+      "pairs": [
+        "AER-SVX",
+        "KJA-SVX",
+        "KUF-SVX",
+        "KZN-SVX",
+        "MRV-SVX",
+        "OMS-SVX",
+        "REN-SVX",
+        "SVX-VOG"
+      ],
+      "model_working_aircraft": 1,
+      "conditional_reserve": 1,
+      "dated_legs": 16
+    },
+    "H_UFA_4": {
+      "pairs": [
+        "GSV-UFA",
+        "MRV-UFA",
+        "NJC-UFA",
+        "OMS-UFA"
+      ],
+      "model_working_aircraft": 2,
+      "conditional_reserve": 1,
+      "dated_legs": 16
+    },
+    "H_UFA_8": {
+      "pairs": [
+        "ARH-UFA",
+        "GOJ-UFA",
+        "GSV-UFA",
+        "KUF-UFA",
+        "MRV-UFA",
+        "NJC-UFA",
+        "OMS-UFA",
+        "UFA-VOG"
+      ],
+      "model_working_aircraft": 4,
+      "conditional_reserve": 1,
+      "dated_legs": 32
+    }
+  },
+  "recipes": {
+    "C": "frozen context21 weekly demand recipe",
+    "N": "frozen annual model proxy divided by 104 per directed week; not observed winter OD"
+  },
+  "scenarios": [
+    "base",
+    "cautious"
+  ],
+  "allocator": "original local-first; no LP threshold transfer",
+  "price_basis": "CIRI_NET_SCENARIO_FARE",
+  "tax_basis": "EX_RECOVERABLE_VAT_AS_AUTHOR_SCENARIO",
+  "accounting": "gross fare once per endpoint journey - foregone own RW revenue - new passenger variable cost + saved old passenger variable cost - flight variable cost",
+  "unknown_not_zero": [
+    "incremental_fleet",
+    "base",
+    "support",
+    "start",
+    "exit",
+    "external_donor_delta",
+    "cash",
+    "closed_OD",
+    "net_yield",
+    "actual_available_aircraft",
+    "contracts"
+  ],
+  "proposal_gates": {
+    "C01": "NJC>UFA>MRV protected transfer, MCT, dated rotation; separate from H_UFA_4",
+    "C07": "SVX>OMS>KJA>OMS>SVX and next assignment; no automatic acceptance"
+  },
+  "integration": "one final targeted round after finalized research; explicit direct_input/proxy/scenario_only/rejected_missing_scope admission; no automatic ingestion",
+  "owner_annual": "52 base / 48 cautious model weeks; separate from common weekly money",
+  "no_changes": [
+    "stage1",
+    "ranking",
+    "weights",
+    "owner files",
+    "dashboard",
+    "src",
+    "network selection"
+  ],
+  "aircraft_type": "100-seat SSJ-class author scenario; aircraft registration/dispatch limits UNKNOWN",
+  "supply_ledger": "dated_legs.csv",
+  "frequencies_ledger": "frequencies.csv",
+  "supply_sha256": "262d991ca7c29d7db7b5f3730a7a3954b4fedca9f1e0764f546acb532c1a42f5",
+  "snapshot_manifest": "source_manifest.json",
+  "threshold_scope": "FIXED_LOCAL_FIRST_ONLY",
+  "integration_contract": "integration_contract.json"
+}

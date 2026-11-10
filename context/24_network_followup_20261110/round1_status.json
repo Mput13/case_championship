@@ -1,0 +1,32 @@
+{
+  "market_final": {
+    "status": "FINAL_existing_route_context_verified_no_numeric_model_update",
+    "files": ["research/market_final.csv", "research/market_final.md", "research/market_final_manifest.json"],
+    "admission_guidance": "Historical route segments and published competitor plans are context/proxy, not observed endpoint winter demand or achieved net yield.",
+    "accepted_direct_input_changes": [],
+    "remaining_unknown": ["comparable dated baggage-inclusive quotes", "net realised yield", "endpoint OD and own-RW migration"],
+    "further_market_search_allowed": false
+  },
+  "market": {
+    "status": "completed_existing_context_only_no_external_search",
+    "files": ["research/market.csv", "research/market.md"],
+    "accepted_new_parameters": [],
+    "notes": ["Annual and January pair-segment counts remain historical context, not new endpoint OD.", "Do not mark old published schedule evidence as absent merely because this pass did not query it.", "No comparable net fare, target-week competitor update, or protected through price obtained."]
+  },
+  "operations": {
+    "status": "completed_with_one_process_context_claim",
+    "files": ["research/operations.csv", "research/operations.md"],
+    "accepted_new_numeric_parameters": [],
+    "needs_scope_check": "UFA 1-4h airport process does not establish RW itinerary MCT, dated legs or protected sale.",
+    "unchanged_gates": ["C01 exact product", "C07 dated rotation and next assignment", "C08 route/variant/payload operational check"]
+  },
+  "costs": {
+    "status": "completed_without_required_research_or_csv",
+    "file": "research/costs.md",
+    "public_source_calls_completed": 0,
+    "accepted_new_parameters": [],
+    "do_not_infer": "A failed research pass does not invalidate or verify old reference prices and scenarios.",
+    "correction_needed": "One narrow cost-source completion in the sole clarification round; use python3 or apply_patch, not missing python executable.",
+    "clarification_round_started": false
+  }
+}

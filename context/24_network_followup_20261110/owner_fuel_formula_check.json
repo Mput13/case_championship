@@ -1,0 +1,24 @@
+{
+  "status": "STATIC_EXACT_FUEL_EXPRESSION_CHECK_ONLY",
+  "owner_optimizer_run": false,
+  "source_sha256": "96bb41a66f4bc08cc71da1f36373aef8346655675b42f012850ceb8966659475",
+  "difference_is_price_basis_not_automatic_error": true,
+  "cases": [
+    {
+      "scenario": "base",
+      "owner_total": 134896,
+      "uplift_added_again": false,
+      "formula": "(A['fuel_t_per_hour'] * bh + A['fuel_t_per_cycle']) * A['fuel_rub_per_t']",
+      "block_hours_test": 2.5,
+      "computed_fuel": 549701.2000000001
+    },
+    {
+      "scenario": "cautious",
+      "owner_total": 161696,
+      "uplift_added_again": false,
+      "formula": "(A['fuel_t_per_hour'] * bh + A['fuel_t_per_cycle']) * A['fuel_rub_per_t']",
+      "block_hours_test": 2.5,
+      "computed_fuel": 808480.0
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "status": "BASELINE_ONLY_ADAPTER_READY_NOT_EXECUTED",
+  "final_round_limit": 1,
+  "baseline_sha256": "e815676c5a540906ac55e2d25762db6164b7facb5acf5e9dfe233d1e5a83d3a5",
+  "network_contract_sha256": "c7c36d06fded0680c76a3b36e5d830a52ec97b534094044c505d02520f1decdb",
+  "source_manifest_sha256": "9e28a7fa9bd464d12f7a65a3252d6502e2ba3b6ecc46630749113cca7836943e",
+  "permitted_networks": [
+    "D_SVX8",
+    "H_UFA_4",
+    "H_UFA_8"
+  ],
+  "permitted_scenarios": [
+    "base",
+    "cautious"
+  ],
+  "recipes": [
+    "C",
+    "N"
+  ],
+  "fixed_period": {
+    "start": "2026-12-07",
+    "end": "2026-12-13"
+  },
+  "model_tax_basis": "EX_RECOVERABLE_VAT_AS_AUTHOR_SCENARIO",
+  "supported_cost_parameters": {
+    "fuel_t_per_hour": "t/block_hour",
+    "fuel_t_per_cycle": "t/flight_cycle",
+    "fuel_rub_per_t": "RUB/t_excluding_uplift",
+    "fuel_uplift_rub_per_t": "RUB/t_uplift_only",
+    "mro_rub_per_hour": "RUB/block_hour",
+    "crew_rub_per_hour": "RUB/block_hour",
+    "navigation_rub_per_hour": "RUB/block_hour",
+    "airport_factor": "dimensionless_airport_basket_multiplier",
+    "deicing_probability": "probability_per_flown_leg",
+    "deicing_operation_rub": "RUB/deicing_operation",
+    "pax_cost": "RUB/occupied_segment"
+  },
+  "supported_other_parameters": {
+    "weekly_demand": "endpoint_journeys/week/direction",
+    "fare_once_net": "RUB/endpoint_journey"
+  },
+  "finding_fields": [
+    "finding_id",
+    "researcher_id",
+    "claim",
+    "admission_status",
+    "apply",
+    "model_parameter",
+    "network",
+    "scenario",
+    "recipe",
+    "pair",
+    "value",
+    "source_url",
+    "source_artifact",
+    "source_sha256",
+    "source_period_start",
+    "source_period_end",
+    "source_unit",
+    "source_tax_basis",
+    "model_period_start",
+    "model_period_end",
+    "model_unit",
+    "model_tax_basis",
+    "source_kind",
+    "source_scope",
+    "carrier",
+    "conversion",
+    "condition",
+    "reliability",
+    "rejection_reason"
+  ],
+  "admission_statuses": [
+    "direct_input",
+    "proxy",
+    "scenario_only",
+    "rejected_missing_scope"
+  ],
+  "researcher_manifest_schema": {
+    "researcher_id": "same as package",
+    "status": "FINAL",
+    "finding_ids": "all finding IDs for this agent, possibly empty"
+  },
+  "package_path_resolution": "all paths relative to OUT; resolved paths must remain inside OUT; sources bound by SHA-256",
+  "readiness": "three exact finalized manifests and complete findings enumeration required; no automatic polling or unfinished ingestion",
+  "demand_rule": "only existing endpoint pairs; directed-week model unit; annual source retains explicit proxy conversion; never airport total/offer as direct demand",
+  "fare_rule": "pair and both recipes; fare_once_net changes new fare only; old-RW fare frozen; retail quote scenario_only after explicit tax/basket reconciliation",
+  "shared_cost_rule": "ALL networks and ALL recipes within scenario; common factor applied to every dated flown leg; no double uplift/handling/VAT; no individual unscoped quote upgraded to global actual cost",
+  "excluded_from_adapter": [
+    "fleet/base/support/start/exit/donor/cash",
+    "capture/migration policy",
+    "supply/aircraft/capacity/frequency",
+    "allocator",
+    "network selection",
+    "ranking"
+  ],
+  "effect": "creates separate final_round sensitivity and owner handoff; immutable baseline and owner/src untouched",
+  "receipt": "final_round/integration_receipt.json; second applied round refused",
+  "dry_run": "validates and computes without writing or spending final-round receipt",
+  "run": "python3 context/24_network_followup_20261110/model/integrate_once.py --package <OUT-relative package.json> [--apply]"
+}

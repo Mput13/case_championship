@@ -2,6 +2,12 @@
 
 Кейс-чемпионат МАИ «Связанность территорий», кейс Red Wings: «Новый хаб или прямые рейсы?»
 
+## Адресная проверка данных для сетей · 10.11.2026
+
+[Итог и границы вывода](context/24_network_followup_20261110/README.md) · [сравнение](context/24_network_followup_20261110/release_summary.html) · [что передать владельцу модели](context/24_network_followup_20261110/owner_handoff_final.csv) · [допуск всех 50 находок](context/24_network_followup_20261110/findings_admission.csv).
+
+Новых подтверждённых числовых замен нет. Отдельная чувствительность к топливной основе не меняет знак или порядок фиксированных сетей. Рейтинг, веса и публичная панель не изменены; исходные и сценарные данные разделены.
+
 ## Пересчитанный шаг 1 · 10.11.2026
 
 [Итог после независимой приёмки](context/22_stage1_audit/release_note.md) · [сравнение с ограничениями](context/22_stage1_audit/release_summary.html) · [панель с известными дефектами отображения](outputs/redwings_panel.html) · [20 основных сценариев и диагностики](context/22_stage1_audit/final_comparison.csv) · [проверка Python/JS](context/22_stage1_audit/final_validation.json).

@@ -1,0 +1,50 @@
+{
+  "status": "SEPARATE_AUTHOR_FIXED_LEDGER_SCENARIO_ONLY",
+  "findings": [
+    "C_RECON_OLD",
+    "C_RECON_NEW"
+  ],
+  "reason_outside_adapter": "UFA-local reference finding cannot be applied as all-leg evidence without replacing its source_scope; preserve original scope and apply=false. This separate object defines a common author price basis, not a contract.",
+  "source_artifacts": {
+    "research/costs_final.csv": "04787ec1d7ec189fce10dc5b7be3d320165149c2b75cb970501df2ca8c07c302",
+    "research/accepted_manifests/cost_budget.json": "98c2b270d515ad79e686d9bbeceddd2de60acdf4a73d83feec90c7307ad95383",
+    "model/source_snapshot/context21/context/15_team_update/model/configuration.json": "8565a8e1e6c8859016061ced00775f3473a5d0b96d242c466965869f57337a06",
+    "owner_snapshot/src/network_model.py": "96bb41a66f4bc08cc71da1f36373aef8346655675b42f012850ceb8966659475",
+    "owner_snapshot/data/assumptions/network.csv": "a8be86d182360a8470ef9b2e66b61bb68d6be825cfdf9a5db31fb399a8aa7708"
+  },
+  "period": {
+    "start": "2026-12-07",
+    "end": "2026-12-13"
+  },
+  "scenario": "base",
+  "recipes": [
+    "C",
+    "N"
+  ],
+  "networks": [
+    "D_SVX8",
+    "H_UFA_4",
+    "H_UFA_8"
+  ],
+  "applies_to": "all fixed flown legs as an AUTHOR SCENARIO ONLY",
+  "before": {
+    "commodity": 136300,
+    "uplift": 1696,
+    "total": 137996
+  },
+  "after": {
+    "total": 134896,
+    "uplift": 1696,
+    "commodity_from_total_minus_uplift": 133200
+  },
+  "delta_RUB_t": -3100,
+  "tax_basis": "EX_RECOVERABLE_VAT_AS_AUTHOR_SCENARIO",
+  "tax_claim": "No invoice/VAT eligibility confirmed, no second VAT removal",
+  "cautious": "UNCHANGED commodity160000+uplift1696",
+  "authoritative_baseline_changed": false,
+  "source_prices_verified": false,
+  "donor_savings_added": false,
+  "subsidy_added": false,
+  "alpha_recomputed": false,
+  "demand_threshold_recomputed": false
+}

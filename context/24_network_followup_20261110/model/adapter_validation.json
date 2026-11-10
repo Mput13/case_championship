@@ -1,0 +1,90 @@
+{
+  "status": "PASS_SCOPED_SYNTHETIC_AND_REPLAY_CHECKS",
+  "checks": [
+    {
+      "check": "own_python_syntax",
+      "status": "PASS"
+    },
+    {
+      "check": "adapter_identity_12_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic_uplift_delta_all_flown_legs_both_recipes_no_double_count",
+      "status": "PASS",
+      "source_admission": "NOT_REAL_RESEARCH"
+    },
+    {
+      "check": "single_network_shared_cost",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: shared costs apply to all fixed flown legs in all networks"
+    },
+    {
+      "check": "annual_route_segments_as_direct_weekly_endpoint_OD",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: source grain differs; use proxy/scenario instead of direct_input"
+    },
+    {
+      "check": "airport_total_or_offer_relabelled_as_direct_endpoint_OD",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: airport/route segments/one-carrier/offer is not total-market endpoint OD"
+    },
+    {
+      "check": "one_direction_observation_into_symmetric_pair",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: symmetric-pair adapter cannot apply one-direction/asymmetric observation as fact"
+    },
+    {
+      "check": "retail_quote_as_achieved_RW_net_yield",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: retail quote is not realized RW net yield"
+    },
+    {
+      "check": "cost_changed_in_only_one_demand_recipe",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: fares/costs must change both C and N symmetrically"
+    },
+    {
+      "check": "nonfinite_unknown_as_numeric_cost",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: nonnegative finite value required"
+    },
+    {
+      "check": "new_pair_or_MOW_ZIA_substitution",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SYNTHETIC_UPLIFT_TEST_ONLY: pair outside fixed offer support"
+    },
+    {
+      "check": "outside_OUT_evidence_path",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "artifact missing or outside OUT: ../../src/network_model.py"
+    },
+    {
+      "check": "wrong_source_hash",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "SHA-256 mismatch: model/network_contract.json"
+    },
+    {
+      "check": "unfinished_research_package",
+      "status": "PASS_EXPECTED_REJECTION",
+      "reason": "BASELINE_ONLY: final research package not ready/enumerated"
+    },
+    {
+      "check": "no_final_round_executed_or_consumed",
+      "status": "PASS"
+    },
+    {
+      "check": "offline_repeat_deterministic_output_hashes",
+      "status": "PASS",
+      "files": 11
+    },
+    {
+      "check": "protected_hashes_and_no_tracked_file_edits",
+      "status": "PASS",
+      "protected_files": 7
+    }
+  ],
+  "actual_research_integrated": false,
+  "final_round_consumed": false,
+  "independent_external_source_review": false
+}
