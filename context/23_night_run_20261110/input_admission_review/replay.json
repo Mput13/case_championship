@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "executed": [
+    "admit_frozen_interaction.main()",
+    "qualify_passport_methods.main()",
+    "update_acceptance_v8.main()"
+  ],
+  "common_demand": "Exact subject module loaded without main; original rows/save used",
+  "repeats": 2,
+  "new_outputs": [
+    {
+      "path": "runs/input_admission_v1/input_receipt.json",
+      "sha256": "40d3af9de308baa87f4279739af8b5c2a4f17bf645873c748aa937bfbf1793ba"
+    },
+    {
+      "path": "runs/input_admission_v1/mutation_checks.json",
+      "sha256": "96ecf999547e4885816089c72949a920d4eee0c92ed93530fc304bcb4f9fb723"
+    },
+    {
+      "path": "runs/input_admission_v1/checks.json",
+      "sha256": "a75d60e292df1ba634f2d8ca6c0ef21b41d29ee9049b4212467b6f3efa7114a7"
+    },
+    {
+      "path": "runs/passport_methods_v1/requirement_addendum.csv",
+      "sha256": "f16c2cb272b24d1307a81b98c3a7ad3936cf3653a92514222b0a85a50895c5b5"
+    },
+    {
+      "path": "runs/passport_methods_v1/claim_qualifications.csv",
+      "sha256": "3775ac9a3d4061ed19e75b853d488797ad5d0b4b65de04a0fffe8211315cba1b"
+    },
+    {
+      "path": "runs/passport_methods_v1/status.json",
+      "sha256": "5b34484d34a0a9d922bc4768d8ff11461770230e6d7046ba7cb6fa42a0ec2a36"
+    },
+    {
+      "path": "runs/admission_v4/acceptance_matrix.csv",
+      "sha256": "2785a61cff58fcb563c2fb0f19e121c9d5e3af45e66b79ebf5234a8450cb5a6f"
+    },
+    {
+      "path": "runs/admission_v4/status.json",
+      "sha256": "9b7b8dccd3ca48440ec92c4d67cc26294fe6ed738a593d59403965415032ea1f"
+    }
+  ],
+  "mutation_owner_output": [
+    {
+      "probe": "duplicate_N_itinerary",
+      "status": "REJECTED",
+      "reason": "DUPLICATE_ITINERARY_KEY"
+    },
+    {
+      "probe": "missing_N_itinerary",
+      "status": "REJECTED",
+      "reason": "ITINERARY_KEY_SET_DRIFT"
+    },
+    {
+      "probe": "changed_N_fare_total",
+      "status": "REJECTED",
+      "reason": "ONE_FARE_IDENTITY"
+    },
+    {
+      "probe": "changed_profile",
+      "status": "REJECTED",
+      "reason": "CONTEXT_DRIFT"
+    },
+    {
+      "probe": "changed_bytes_without_new_admission",
+      "status": "REJECTED",
+      "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+    },
+    {
+      "probe": "key_preserved_but_oracle_quantity_changed",
+      "status": "REJECTED",
+      "reason": "INDEPENDENT_AFFECTED_ORACLE"
+    },
+    {
+      "probe": "duplicate_unit_summary",
+      "status": "REJECTED",
+      "reason": "DUPLICATE_UNIT_SUMMARY_KEY"
+    }
+  ],
+  "old_interaction_main_executed": false
+}

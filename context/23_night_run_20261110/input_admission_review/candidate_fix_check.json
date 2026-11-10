@@ -1,0 +1,29 @@
+{
+  "status": "PASS_IN_REVIEW_MEMORY_ONLY",
+  "applied_to_owner": false,
+  "receipt_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+  "exact_baseline_three_outputs_preserved": true,
+  "tests": [
+    {
+      "probe": "wrong_source_commit",
+      "status": "REJECTED",
+      "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+    },
+    {
+      "probe": "empty_coverage",
+      "status": "REJECTED",
+      "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+    },
+    {
+      "probe": "forged_file_hash",
+      "status": "REJECTED",
+      "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+    },
+    {
+      "probe": "changed_oracle_plus_updated_receipt",
+      "status": "REJECTED",
+      "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+    }
+  ],
+  "rationale": "An immutable hash for this exact independently checked receipt anchors its required files, hashes, commit and coverage. Existing oracle file checks then reject altered bytes. No general validator added."
+}
