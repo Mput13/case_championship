@@ -1,0 +1,570 @@
+[
+  {
+    "id": "DAY1_MONEY",
+    "expectation": "16 cancelled, one union fare, no second migration loss",
+    "observed": {
+      "model_id": "Tsiri-stage17-MR02-overlay",
+      "author_ref": "Цири/mput",
+      "input_set_id": "MR02-input-set-001",
+      "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+      "run_id": "MR02-overlay-v1-set001",
+      "mode": "COMMON_COMPARISON",
+      "profile": "ROUTE_INPUTS_UPPER_100",
+      "network": "H_UFA_8",
+      "candidate_id": "H_UFA_8",
+      "author_scenario": "base",
+      "scenario_id": "cancel_pretravel_no_protection",
+      "baseline_id": "ROUTE_INPUTS_UPPER_100:H_UFA_8:base:no_kover",
+      "period_start": "2026-12-07",
+      "period_end": "2026-12-13",
+      "direction_scope": "BOTH_DIRECTIONS_SEPARATE_OD",
+      "market_unit": "SCENARIO_ONEWAY_ENDPOINT_JOURNEY",
+      "currency": "RUB",
+      "price_basis": "AUTHOR_NET_FARE_REFERENCE_COSTS_NOT_CONTRACT",
+      "tax_basis": "AUTHOR_EX_RECOVERABLE_VAT_ACTUAL_UNKNOWN",
+      "value_status": "CONDITIONAL_STRESS_BEFORE_UNKNOWN",
+      "acceptance_scope": "SCOPED_SELF_CHECK_INDEPENDENT_REVIEW_PENDING",
+      "restricted_airport": "UFA",
+      "affected_physical_legs": 16,
+      "cancelled_physical_legs": 16,
+      "delayed_physical_legs": 0,
+      "affected_endpoint_journeys": 618.3939378949239,
+      "unserved_endpoint_journeys": 618.3939378949239,
+      "unserved_segment_allocations": 836.0868733131873,
+      "remaining_endpoint_journeys": 618.3939378949239,
+      "lost_net_revenue_rub": 6496147.739848063,
+      "saved_fuel_product_rub": 6932558.75,
+      "saved_fuel_uplift_rub": 0.0,
+      "saved_mro_rub": 0.0,
+      "saved_crew_rub": 0.0,
+      "saved_navigation_rub": 0.0,
+      "saved_airport_turn_rub": 0.0,
+      "saved_deicing_rub": 0.0,
+      "saved_new_pax_variable_rub": 418043.43665659346,
+      "crew_cost_retained_rub": 922500.0,
+      "author_contribution_rub": -9496919.88759388,
+      "overlay_delta_before_unknown_rub": 854454.44680853,
+      "contribution_after_overlay_before_unknown_rub": -8642465.44078535,
+      "additional_cash_peak_timing_stress_rub": 6078104.30319147,
+      "full_budget_profit_rub": null,
+      "actual_full_cash_peak_rub": null,
+      "template_rotation_status": "TEMPLATE_ONLY_CONTINUITY_PASS",
+      "actual_operational_readiness": "UNKNOWN",
+      "independent_review": "PENDING"
+    },
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "UNION_BOTH_LEGS",
+    "expectation": "one lost fare with either or both legs cancelled",
+    "observed": {
+      "journey": {
+        "profile": "ROUTE_INPUTS_UPPER_100",
+        "network": "H_UFA_8",
+        "scenario": "base",
+        "origin": "ARH",
+        "destination": "MRV",
+        "day": "1",
+        "flight_ids": "ROUTE_INPUTS_UPPER_100_H_UFA_8_001;ROUTE_INPUTS_UPPER_100_H_UFA_8_006",
+        "fare_once": "12600.0",
+        "transfer": "True",
+        "D": "480.0",
+        "known_direct_RW_capacity": "",
+        "sold_journeys": "39.79900399543999",
+        "transfer_journeys": "39.79900399543999",
+        "segment_pax": "79.59800799087998",
+        "migrated_RW_total": "1.9899501997719995",
+        "migrated_RW_direct": "0",
+        "migrated_RW_unverified_connecting": "1.9899501997719995",
+        "gross_revenue": "501467.4503425439",
+        "foregone_RW_revenue": "27859.30279680799",
+        "incremental_revenue": "473608.1475457359",
+        "new_pax_variable": "39799.00399543999",
+        "saved_old_pax_variable": "1989.9501997719995",
+        "_source_csv_line": 1154,
+        "_journey_id": "tsiri-sales-line-1154"
+      },
+      "one_fare": "501467.4503425439"
+    },
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "ONE_OF_TWO_CANCELLED",
+    "expectation": "whole itinerary lost; other physical flight cost retained; no invented protection",
+    "observed": {
+      "summary": {
+        "model_id": "Tsiri-stage17-MR02-overlay",
+        "author_ref": "Цири/mput",
+        "input_set_id": "MR02-input-set-001",
+        "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "run_id": "MR02-overlay-v1-set001",
+        "mode": "COMMON_COMPARISON",
+        "profile": "ROUTE_INPUTS_UPPER_100",
+        "network": "H_UFA_8",
+        "candidate_id": "H_UFA_8",
+        "author_scenario": "base",
+        "scenario_id": "cancel_pretravel_no_protection",
+        "baseline_id": "ROUTE_INPUTS_UPPER_100:H_UFA_8:base:no_kover",
+        "period_start": "2026-12-07",
+        "period_end": "2026-12-13",
+        "direction_scope": "BOTH_DIRECTIONS_SEPARATE_OD",
+        "market_unit": "SCENARIO_ONEWAY_ENDPOINT_JOURNEY",
+        "currency": "RUB",
+        "price_basis": "AUTHOR_NET_FARE_REFERENCE_COSTS_NOT_CONTRACT",
+        "tax_basis": "AUTHOR_EX_RECOVERABLE_VAT_ACTUAL_UNKNOWN",
+        "value_status": "CONDITIONAL_STRESS_BEFORE_UNKNOWN",
+        "acceptance_scope": "SCOPED_SELF_CHECK_INDEPENDENT_REVIEW_PENDING",
+        "restricted_airport": "UFA",
+        "affected_physical_legs": 4,
+        "cancelled_physical_legs": 4,
+        "delayed_physical_legs": 0,
+        "affected_endpoint_journeys": 317.32078029634005,
+        "unserved_endpoint_journeys": 317.32078029634005,
+        "unserved_segment_allocations": 535.0137157146032,
+        "remaining_endpoint_journeys": 919.4670954935077,
+        "lost_net_revenue_rub": 3525924.188702761,
+        "saved_fuel_product_rub": 1587895.0000000002,
+        "saved_fuel_uplift_rub": 0.0,
+        "saved_mro_rub": 0.0,
+        "saved_crew_rub": 0.0,
+        "saved_navigation_rub": 0.0,
+        "saved_airport_turn_rub": 0.0,
+        "saved_deicing_rub": 0.0,
+        "saved_new_pax_variable_rub": 267506.8578573016,
+        "crew_cost_retained_rub": 922500.0,
+        "author_contribution_rub": -9496919.88759388,
+        "overlay_delta_before_unknown_rub": -1670522.3308454594,
+        "contribution_after_overlay_before_unknown_rub": -11167442.21843934,
+        "additional_cash_peak_timing_stress_rub": 3258417.3308454594,
+        "full_budget_profit_rub": null,
+        "actual_full_cash_peak_rub": null,
+        "template_rotation_status": "UNRESOLVED_TEMPLATE_DISCONTINUITY",
+        "actual_operational_readiness": "UNKNOWN",
+        "independent_review": "PENDING"
+      },
+      "example": {
+        "model_id": "Tsiri-stage17-MR02-overlay",
+        "author_ref": "Цири/mput",
+        "input_set_id": "MR02-input-set-001",
+        "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "run_id": "MR02-overlay-v1-set001",
+        "mode": "COMMON_COMPARISON",
+        "profile": "ROUTE_INPUTS_UPPER_100",
+        "network": "H_UFA_8",
+        "candidate_id": "H_UFA_8",
+        "author_scenario": "base",
+        "scenario_id": "cancel_pretravel_no_protection",
+        "baseline_id": "ROUTE_INPUTS_UPPER_100:H_UFA_8:base:no_kover",
+        "period_start": "2026-12-07",
+        "period_end": "2026-12-13",
+        "direction_scope": "BOTH_DIRECTIONS_SEPARATE_OD",
+        "market_unit": "SCENARIO_ONEWAY_ENDPOINT_JOURNEY",
+        "currency": "RUB",
+        "price_basis": "AUTHOR_NET_FARE_REFERENCE_COSTS_NOT_CONTRACT",
+        "tax_basis": "AUTHOR_EX_RECOVERABLE_VAT_ACTUAL_UNKNOWN",
+        "value_status": "CONDITIONAL_STRESS",
+        "acceptance_scope": "SCOPED_SELF_CHECK_INDEPENDENT_REVIEW_PENDING",
+        "journey_id": "tsiri-sales-line-1154",
+        "source_csv_line": 1154,
+        "origin": "ARH",
+        "destination": "MRV",
+        "flight_ids": "ROUTE_INPUTS_UPPER_100_H_UFA_8_001;ROUTE_INPUTS_UPPER_100_H_UFA_8_006",
+        "linked_leg_count": 2,
+        "affected_leg_count": 1,
+        "fare_once_rub": "12600.0",
+        "affected_endpoint_journeys": 39.79900399543999,
+        "unserved_endpoint_journeys": 39.79900399543999,
+        "conditionally_served_endpoint_journeys": 0,
+        "lost_net_revenue_rub": 501467.4503425439,
+        "net_refund_cash_rub": 501467.4503425439,
+        "retained_net_fare_rub": 0,
+        "old_foregone_revenue_unchanged_rub": "27859.30279680799",
+        "saved_old_pax_unchanged_rub": "1989.9501997719995",
+        "actual_reaccommodation": "UNKNOWN"
+      },
+      "remaining_flight": {
+        "model_id": "Tsiri-stage17-MR02-overlay",
+        "author_ref": "Цири/mput",
+        "input_set_id": "MR02-input-set-001",
+        "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "run_id": "MR02-overlay-v1-set001",
+        "mode": "COMMON_COMPARISON",
+        "profile": "ROUTE_INPUTS_UPPER_100",
+        "network": "H_UFA_8",
+        "candidate_id": "H_UFA_8",
+        "author_scenario": "base",
+        "scenario_id": "cancel_pretravel_no_protection",
+        "baseline_id": "ROUTE_INPUTS_UPPER_100:H_UFA_8:base:no_kover",
+        "period_start": "2026-12-07",
+        "period_end": "2026-12-13",
+        "direction_scope": "BOTH_DIRECTIONS_SEPARATE_OD",
+        "market_unit": "SCENARIO_ONEWAY_ENDPOINT_JOURNEY",
+        "currency": "RUB",
+        "price_basis": "AUTHOR_NET_FARE_REFERENCE_COSTS_NOT_CONTRACT",
+        "tax_basis": "AUTHOR_EX_RECOVERABLE_VAT_ACTUAL_UNKNOWN",
+        "value_status": "CONDITIONAL_STRESS",
+        "acceptance_scope": "SCOPED_SELF_CHECK_INDEPENDENT_REVIEW_PENDING",
+        "flight_id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_001",
+        "origin": "ARH",
+        "destination": "UFA",
+        "planning_aircraft_label": "H1",
+        "actual_tail": null,
+        "scheduled_departure_utc": "2026-12-07T09:35:00+00:00",
+        "scheduled_arrival_utc": "2026-12-07T12:00:00+00:00",
+        "action": "unchanged",
+        "delay_minutes": 0,
+        "baseline_occupied": "100.0",
+        "remaining_capacity": 100.0,
+        "remaining_occupied": 28.46509853659337,
+        "baseline_flight_cost_rub": 790931.9500000001,
+        "avoided_flight_cost_rub": 0
+      }
+    },
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "HALF_OPEN_DAY1",
+    "expectation": "inclusive start; exclusive end",
+    "observed": "PASS",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "AWARE_TIMEZONE_EQUIVALENCE",
+    "expectation": "same instant at UTC+05 and Z",
+    "observed": "PASS within day1; timebase defect is separate",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "ZERO_WINDOW",
+    "expectation": "no affected legs and zero money delta",
+    "observed": "PASS",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "NEGATIVE_WINDOW",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "negative restriction interval",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "OVERLAPPING_EPISODES_UNION",
+    "expectation": "same cancellation set counted once",
+    "observed": "PASS as set union; no multi-episode API claimed",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "OVERBOOK",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "('shared seat capacity exceeded', 'ROUTE_INPUTS_UPPER_100_H_UFA_8_000', 120.0, 100.0)",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "DUPLICATE_LINK",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "unknown or repeated physical leg in itinerary",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "UNKNOWN_LINK",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "unknown or repeated physical leg in itinerary",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "NO_INVENTED_OLD_RW_RESTORATION",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "old RW restoration requires an explicit protected-inventory adapter; UNKNOWN",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "INVALID_AVOIDABILITY",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "('invalid avoidable share', 'crew', 1.1)",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "DELAY_REJECT_1",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "delayed movement still in restriction interval",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "DELAY_REJECT_11520",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "delay outside tested weekly horizon; separate accrual accounting required",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "TIMEBASE_DAY2",
+    "expectation": "16 true Dec8 legs must be selected",
+    "observed": {
+      "old_selected": [],
+      "correct_selected": [
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_016",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_017",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_018",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_019",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_020",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_021",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_022",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_023",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_024",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_025",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_026",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_027",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_028",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_029",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_030",
+        "ROUTE_INPUTS_UPPER_100_H_UFA_8_031"
+      ],
+      "day2_timestamps": [
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_016",
+          "correct": "2026-12-08T08:15:00+00:00",
+          "old": "2026-12-09T08:15:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_017",
+          "correct": "2026-12-08T10:30:00+00:00",
+          "old": "2026-12-09T10:30:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_018",
+          "correct": "2026-12-08T13:15:00+00:00",
+          "old": "2026-12-09T13:15:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_019",
+          "correct": "2026-12-08T16:25:00+00:00",
+          "old": "2026-12-09T16:25:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_020",
+          "correct": "2026-12-08T09:05:00+00:00",
+          "old": "2026-12-09T09:05:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_021",
+          "correct": "2026-12-08T10:55:00+00:00",
+          "old": "2026-12-09T10:55:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_022",
+          "correct": "2026-12-08T13:15:00+00:00",
+          "old": "2026-12-09T13:15:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_023",
+          "correct": "2026-12-08T16:25:00+00:00",
+          "old": "2026-12-09T16:25:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_024",
+          "correct": "2026-12-08T06:15:00+00:00",
+          "old": "2026-12-09T06:15:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_025",
+          "correct": "2026-12-08T09:30:00+00:00",
+          "old": "2026-12-09T09:30:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_026",
+          "correct": "2026-12-08T13:15:00+00:00",
+          "old": "2026-12-09T13:15:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_027",
+          "correct": "2026-12-08T15:40:00+00:00",
+          "old": "2026-12-09T15:40:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_028",
+          "correct": "2026-12-08T07:25:00+00:00",
+          "old": "2026-12-09T07:25:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_029",
+          "correct": "2026-12-08T10:05:00+00:00",
+          "old": "2026-12-09T10:05:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_030",
+          "correct": "2026-12-08T13:15:00+00:00",
+          "old": "2026-12-09T13:15:00+00:00",
+          "error_minutes": 1440.0
+        },
+        {
+          "id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_031",
+          "correct": "2026-12-08T16:00:00+00:00",
+          "old": "2026-12-09T16:00:00+00:00",
+          "error_minutes": 1440.0
+        }
+      ]
+    },
+    "status": "CONFIRMED_DEFECT",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "TIMEBASE_DELAY_COLLISION",
+    "expectation": "hold served-all branch when shifted day1 collides with original day2",
+    "observed": {
+      "published_status": "TEMPLATE_ONLY_CONTINUITY_PASS",
+      "correct_adjacent_conflicts": 23,
+      "labels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ]
+    },
+    "status": "CONFIRMED_DEFECT",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "FUEL_PREPAID_VS_PAY_ON_USE",
+    "expectation": "same accrual, different cash trough; future procurement reduction is conditional",
+    "observed": {
+      "inventory_already_bought": [
+        {
+          "relative_day": 0,
+          "delta_cash_rub": 0.0,
+          "cumulative_delta_cash_rub": 0.0
+        },
+        {
+          "relative_day": 3,
+          "delta_cash_rub": 418043.43665659335,
+          "cumulative_delta_cash_rub": 418043.43665659335
+        },
+        {
+          "relative_day": 7,
+          "delta_cash_rub": -6496147.739848063,
+          "cumulative_delta_cash_rub": -6078104.30319147
+        },
+        {
+          "relative_day": 14,
+          "delta_cash_rub": 6932558.75,
+          "cumulative_delta_cash_rub": 854454.44680853
+        }
+      ],
+      "inventory_peak": 6078104.30319147,
+      "pay_on_use": [
+        {
+          "relative_day": 0,
+          "delta_cash_rub": 6932558.75,
+          "cumulative_delta_cash_rub": 6932558.75
+        },
+        {
+          "relative_day": 3,
+          "delta_cash_rub": 418043.43665659335,
+          "cumulative_delta_cash_rub": 7350602.186656593
+        },
+        {
+          "relative_day": 7,
+          "delta_cash_rub": -6496147.739848063,
+          "cumulative_delta_cash_rub": 854454.44680853
+        }
+      ],
+      "pay_on_use_peak": 0,
+      "no_reduced_replenishment_by_horizon_terminal_cash": -6078104.30319147,
+      "retained_inventory_at_horizon": 6932558.75
+    },
+    "status": "PASS",
+    "scope": "INDEPENDENT_CONTRACT_AND_CASH_COUNTERFACTUAL"
+  },
+  {
+    "id": "USAGE_BILLED_VS_RETAINED",
+    "expectation": "only named avoidable charges; fixed crew retained; no right to call real cancellation beneficial",
+    "observed": {
+      "named_extra_usage_savings_rub": 1347012.7999999998,
+      "retained_all_costs_delta_rub": -6496147.739848063,
+      "base_crew_retained_rub": 922500.0,
+      "usage_crew_retained_rub": 922500.0
+    },
+    "status": "PASS",
+    "scope": "CONDITIONAL_CONTRACT_COUNTERFACTUAL"
+  },
+  {
+    "id": "CASH_PERIOD_END_VS_PEAK",
+    "expectation": "weekly end precedes refund; day14 terminal and day7 peak differ",
+    "observed": {
+      "period_start": "2026-12-07",
+      "weekly_end_exclusive": "2026-12-14",
+      "cash_delta_before_day7": 418043.43665659335,
+      "cash_delta_after_day7": -6078104.30319147,
+      "terminal_after_day14": 854454.44680853,
+      "gross_company_cash_reserve": null,
+      "actual_intraday_payment_order": null
+    },
+    "status": "PASS",
+    "scope": "INDEPENDENT_TIMING_INTERPRETATION"
+  },
+  {
+    "id": "SAME_DAY_ORDER_UNKNOWN",
+    "expectation": "same daily terminal balance does not fix intraday funding",
+    "observed": {
+      "daily_net": 0.0,
+      "credit_first_peak": 0,
+      "debit_first_peak": 10,
+      "default_fixture_has_distinct_nonzero_cash_days": true
+    },
+    "status": "PASS",
+    "scope": "GENERAL_BOUNDARY_COUNTEREXAMPLE_NOT_A_DEFECT_IN_PUBLISHED_DAYS_3_7_14"
+  },
+  {
+    "id": "UNSUPPORTED_PRECOLLECTION",
+    "expectation": "reject invalid or unsupported input",
+    "observed": "cash timing fixture requires fully precollected net fare and service day0; actual collection adapter UNKNOWN",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "REMOVAL_EQUALS_BASELINE",
+    "expectation": "economic/physical baseline restored; deicing and unknown risks retained",
+    "observed": "PASS; baseline_id intentionally remains no_kover",
+    "status": "PASS",
+    "scope": "EXACT_FROZEN_CODE_PROBE"
+  },
+  {
+    "id": "STRATEGY_BOUNDARY",
+    "expectation": "Delta_methods + delta_A - delta_B - (X_A-X_B)",
+    "observed": {
+      "required_same_period": true,
+      "required_same_monetary_basis": true,
+      "donor_or_migration_second_deduction": false,
+      "actual_contract": "UNKNOWN",
+      "full_profit": "UNKNOWN"
+    },
+    "status": "PASS",
+    "scope": "FORMULA_SCOPE_REVIEW_ONLY"
+  }
+]

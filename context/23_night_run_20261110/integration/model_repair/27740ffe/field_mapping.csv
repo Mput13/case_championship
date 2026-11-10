@@ -1,0 +1,21 @@
+model,source,target,unit_and_key,conversion,limitation
+Анастасия,network_summary.csv,evaluation_summary,scenario x variant x annual both directions,keep annual units and 52 or 48 source weeks,undated synthetic week; not December OD
+Анастасия,hub_network accepted local and transfer,itinerary,network x unordered OD x annual symmetric pair,2 x weeks x accepted one-direction weekly flow,not a dated product; no observed endpoint demand
+Анастасия,accepted transfer tuple,itinerary_leg,itinerary x aggregate hub spoke,one accepted trip consumes one seat on each spoke,aggregate incidence only
+Анастасия,network_routes.csv physical pair aggregates,aggregate_leg,network x unordered pair x weekly frequency,sum program frequency only within one alternative,UNAVAILABLE as dated physical_leg; no unique departure calendar
+Анастасия,aggregate accepted flow,capacity_allocation,network x aggregate leg x itinerary,annual trips per incident aggregate leg,NOT dated remaining inventory
+Анастасия,leg_share and shared pair,market_pool,one-direction scenario proxy x pair,D annual divided by 2W; cap-only or explicit proposed Q(F),source segment scale does not become observed endpoint OD
+Анастасия,network.csv,parameter_registry,parameter x base/cautious,keep unit and author source string,author proposal; source claims not automatically reverified facts
+Анастасия,revenue and variable costs,money_ledger,RUB annual,one fare per accepted trip; flight cost once,no own migration; tax basis UNKNOWN; full budget UNKNOWN
+Анастасия,hours and fleet ceiling,resource_ledger,weekly hours and upper bound,9 working plus 1 reserve; hour equivalent separate,no calendar feasibility or actual allocation inferred
+Цири,context21 comparison.csv,evaluation_summary,profile x network x scenario x dated week,keep weekly incremental monetary definition,not equal to Anastasia gross variable contribution
+Цири,RouteModel detailed sales,itinerary,profile x network x scenario x directed dated product,sold_journeys and fare_once retained,scenario bookings; not observed sales
+Цири,flight_ids split in order,itinerary_leg,profile x network x scenario x itinerary x sequence,one sold journey on every listed physical leg,no marketing duplicate is added
+Цири,principal calendar constructors plus capacity detail,physical_leg,profile x network x scenario x unique flight id,UTC minute offset from 2026-12-07 converted to timestamp,model calendar and nominal upper supply; no dispatch clearance
+Цири,capacity occupied plus itinerary incidence,capacity_allocation,profile x network x scenario x flight id x itinerary,shared physical seat cap validated,baseline RW remains separate from new-flight capacities
+Цири,sales D,market_pool,profile x network x scenario x directed endpoint OD,one weekly scenario D retained,not observed winter endpoint OD
+Цири,gross/foregone/new_pax/saved_old/flight,money_ledger,RUB per scenario week ex recoverable VAT,plus gross minus foregone minus new cost plus old variable saving,no donor margin is additionally deducted
+Цири,active_allocated/common_active_ceiling,resource_ledger,network x scenario,actual model 1 or 2 or 4 working versus ceiling 4; reserve assumption 1,no equal 4+1 spending inferred
+Цири,stage17 flights block_method,metadata audit,profile x network x dated flight,original and corrected descriptions separate; 0 number changes,1072 inherited descriptions stale; 300 relaxed core descriptions retained
+оба,source_manifest and provenance,source_manifest,exact Git commit and SHA256 and grain,reference package manifests,no source provenance is replaced by runtime PASS
+оба,findings.json and decision_ledger.json,findings and decision_ledger,finding/decision id x version,CONFIRMED_ERROR separate from AGENT_PROPOSAL and OPEN_DECISION,no TEAM_ACCEPTED strategy inferred

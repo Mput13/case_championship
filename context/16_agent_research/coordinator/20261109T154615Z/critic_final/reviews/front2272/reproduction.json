@@ -1,0 +1,54 @@
+{
+  "input_git_sha": "2272e9fac19cdebf68086a46f7ddc48c0fb2d9c8",
+  "coordinator_finding": "Received then independently reproduced from pinned summary; no authority-only acceptance",
+  "hub_rows": 10,
+  "hub_conservation_failures": 8,
+  "direct_rows": 2,
+  "direct_conservation_failures": 0,
+  "definition": "For local1leg andtransfer2leg journeys, segments=local+2transfer=allOD+transfer. Counts bothdirections/year.",
+  "OMS_base_residual": -9494,
+  "UFA_base_residual": -21694,
+  "VOG_base_residual": -43313,
+  "local_only_fixture": {
+    "value_status": "SCENARIO",
+    "local_demand_each_direction_week": 1000,
+    "trace": [
+      {
+        "step": 0,
+        "frequency_used_for_capture": 3.0,
+        "desired_dir_week": 410.8783632385625,
+        "resulting_frequency": 5
+      },
+      {
+        "step": 1,
+        "frequency_used_for_capture": 5,
+        "desired_dir_week": 527.2308581555849,
+        "resulting_frequency": 7
+      }
+    ],
+    "final_frequency": 7,
+    "carried_dir_week": 527.2308581555849,
+    "local_used_for_OD_and_revenue": 586.9682208881367,
+    "weekly_segment_minus_OD_residual": -119.47472546510357
+  },
+  "unequal_frequency_transfer_fixture": {
+    "unit": "weekly bothdirections; t100 pre-frequency captured flowSCENARIO",
+    "fixed_spoke_frequencies": [
+      6,
+      3
+    ],
+    "segments_from_independent_spokes": 299.357055118389,
+    "segments_required_by_common_transfer_journeys": 252.84822353142306,
+    "scope": "Component fixture at fixed frequencies, not a full hub replay"
+  },
+  "source_code_evidence": {
+    "two_iterations": "src/network_model.py:166-172",
+    "local_recomputed_at_final_frequency": "src/network_model.py:173-177",
+    "path_transfer_uses_minfreq_and_minscale": "src/network_model.py:178-182",
+    "summary_segment_vs_OD": "src/network_model.py:316-320"
+  },
+  "full_front_model_replay": "NOT_RUN",
+  "financial_correction": "UNKNOWN: reconcilecommonODflows,capacity,frequencies,revenue,cost then rerun route selection; no winner inferred",
+  "inherited_input_holds": "Endpoint/transfer model and Telegram remain HOLD; this is a separate conservation failure",
+  "verdict": "CHANGES_P2_CONSERVATION"
+}

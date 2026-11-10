@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Варианты сети и проверка идеи</title>
+<style>
+:root{color-scheme:light dark;font-family:var(--font-sans,system-ui);color:var(--foreground,#25282e);--route:var(--chart-1,#ce343b);--trip:var(--chart-2,#168476)}
+*{box-sizing:border-box}body{margin:0}main{max-width:1000px;margin:auto}h2{font-size:23px;line-height:1.2;margin:22px 0 12px}h3{font-size:18px;margin:0 0 8px}p{line-height:1.55;margin:9px 0}small,.muted{color:var(--muted-foreground,#68707a)}small{font-size:13px;line-height:1.5}button,select{font:inherit}button{padding:10px 12px;background:var(--secondary,#eae9e5);color:inherit;border:1px solid var(--border,#bcbfc3);border-radius:var(--radius,8px);cursor:pointer}button[aria-pressed=true]{background:var(--primary,#b22028);color:var(--primary-foreground,#fff)}button:focus-visible,a:focus-visible{outline:3px solid var(--ring,#276bc9);outline-offset:3px}.choices{display:flex;gap:8px;flex-wrap:wrap}.diagram{margin:14px 0;padding:16px;background:var(--card,#f5f4f0);border:1px solid var(--border,#d9d9d4);border-radius:var(--radius,10px)}svg{width:100%;height:auto;max-height:275px;display:block}svg text{font:19px var(--font-sans,system-ui);fill:var(--foreground,#25282e);text-anchor:middle}.node{fill:var(--secondary,#e6e5df);stroke:var(--border,#b9bcc0);stroke-width:1.5}.base{fill:var(--accent,#eddbd8);stroke:var(--route);stroke-width:2}.route{fill:none;stroke:var(--route);stroke-width:3;stroke-dasharray:8 6}.selected{fill:none;stroke:var(--trip);stroke-width:7}.time{display:flex;gap:8px;align-items:stretch;margin:10px 0}.time span{flex:1;padding:10px;background:var(--secondary,#e6e5df);border-radius:var(--radius,6px);font-size:14px;line-height:1.4}.caption{font-size:14px}.flow{display:grid;grid-template-columns:1fr 1fr;gap:12px}.step{border-left:3px solid var(--route);padding:12px 14px;background:var(--card,#f5f4f0);border-radius:0 var(--radius,8px) var(--radius,8px) 0}.step p{font-size:15px;margin-bottom:0}.num{font-size:13px;color:var(--muted-foreground,#68707a);margin-bottom:7px}.data{overflow-x:auto;margin:10px 0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid var(--border,#d0d3d6);padding:9px 10px;text-align:left;vertical-align:top}th{font-weight:600}.end{margin:14px 0;padding:14px 16px;background:var(--secondary,#e6e5df);border-radius:var(--radius,8px)}details{margin:12px 0}summary{cursor:pointer}a{color:var(--info,#2368a0)}[hidden]{display:none!important}@media(max-width:520px){.flow{grid-template-columns:1fr}.diagram{padding:10px}svg text{font-size:23px}.time span{padding:7px;font-size:13px}.choices button{flex:1;font-size:14px}h2{font-size:21px}}
+.base{fill:var(--primary,#b22028)}.base+text{fill:var(--primary-foreground,#fff)}
+</style></head><body><main>
+<h2>Как устроены три варианта сети</h2>
+<p>Это проекты из нашего каталога. Схемы показывают связи между городами; расстояния и положение точек условные.</p>
+<div class="choices" aria-label="Вариант сети"><button type="button" data-view="radial" aria-pressed="true">Лучи из Самары</button><button type="button" data-view="wave" aria-pressed="false">Пересадки в Уфе</button><button type="button" data-view="triangle" aria-pressed="false">Треугольник</button></div>
+<div class="diagram">
+<section id="radial" class="view">
+<h3>Самара: несколько прямых направлений</h3>
+<svg viewBox="0 0 680 270" role="img" aria-label="Из Самары предложены прямые рейсы в Архангельск, Омск, Нижневартовск и Минеральные Воды">
+<path class="route" d="M340 135L120 45M340 135L560 45M340 135L120 225M340 135L560 225"/>
+<rect class="node" x="12" y="20" width="216" height="50" rx="9"/><text x="120" y="52">Архангельск</text>
+<rect class="node" x="452" y="20" width="216" height="50" rx="9"/><text x="560" y="52">Омск</text>
+<rect class="node" x="12" y="195" width="216" height="60" rx="9"/><text x="120" y="232">Нижневартовск</text>
+<rect class="node" x="452" y="190" width="216" height="70" rx="9"/><text x="560" y="220">Минеральные<tspan x="560" dy="25">Воды</tspan></text>
+<rect class="base" x="265" y="110" width="150" height="50" rx="9"/><text x="340" y="142">Самара</text>
+</svg>
+<p><b>«Радиальная»</b> означает, что маршруты расходятся лучами из одной базы. Здесь продаём прежде всего поездки из Самары и обратно. Пересадки между лучами в этом варианте не обещаны.</p>
+<p class="caption"><b>Что проверять:</b> хватит ли пассажиров на каждом направлении и покроет ли общий результат содержание базы. Четыре линии на схеме не означают четыре одновременно вылетающих самолёта.</p>
+</section>
+<section id="wave" class="view" hidden>
+<h3>Уфа: согласовать прилёты и вылеты для пересадок</h3>
+<svg viewBox="0 0 680 270" role="img" aria-label="Пример двух предложенных поездок: Нижневартовск через Уфу в Минеральные Воды и Сургут через Уфу в Махачкалу">
+<path class="route" d="M120 55L340 135L560 55M120 215L340 135L560 215"/>
+<rect class="node" x="12" y="30" width="216" height="50" rx="9"/><text x="120" y="62">Нижневартовск</text>
+<rect class="node" x="12" y="190" width="216" height="50" rx="9"/><text x="120" y="222">Сургут</text>
+<rect class="node" x="452" y="20" width="216" height="70" rx="9"/><text x="560" y="50">Минеральные<tspan x="560" dy="25">Воды</tspan></text>
+<rect class="node" x="452" y="190" width="216" height="50" rx="9"/><text x="560" y="222">Махачкала</text>
+<rect class="base" x="265" y="110" width="150" height="50" rx="9"/><text x="340" y="142">Уфа</text>
+</svg>
+<div class="time" aria-label="Последовательность пересадки"><span>1. Рейсы с Севера прибывают в близкое время</span><span>2. Время на пересадку людей и багажа</span><span>3. Рейсы на Юг отправляются после неё</span></div>
+<p>Такая группа согласованных прилётов и вылетов называется <b>волной пересадок</b>. «Мини» — потому что мы предлагаем небольшую группу рейсов. Сам пассажир летит на двух плечах: до Уфы и после Уфы.</p>
+<p class="caption">Словом «защищённая» в карточке назван желаемый продукт: единый билет, согласованная пересадка и обработка сбоя. Эти условия ещё нужно обеспечить; подтверждённой гарантии здесь нет. В опыте проверяли, что меняется при синхронизации того же набора рейсов.</p>
+</section>
+<section id="triangle" class="view" hidden>
+<h3>Екатеринбург → Самара → Волгоград → Екатеринбург</h3>
+<svg viewBox="0 0 680 275" role="img" aria-label="Замкнутый путь самолёта из Екатеринбурга через Самару и Волгоград. Выделена отдельная поездка пассажира Самара — Волгоград">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="var(--route)"/></marker><marker id="passenger" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--trip)"/></marker></defs>
+<path class="route" marker-end="url(#arrow)" d="M280 65L135 190"/><path class="route" marker-end="url(#arrow)" d="M545 190L400 65"/>
+<path class="selected" marker-end="url(#passenger)" d="M210 215L470 215"/>
+<rect class="base" x="220" y="15" width="240" height="50" rx="9"/><text x="340" y="47">Екатеринбург</text>
+<rect class="node" x="25" y="190" width="185" height="50" rx="9"/><text x="117" y="222">Самара</text>
+<rect class="node" x="470" y="190" width="185" height="50" rx="9"/><text x="562" y="222">Волгоград</text>
+<text x="190" y="125">1</text><text x="340" y="200">2</text><text x="490" y="125">3</text>
+</svg>
+<p>Самолёт проходит все <b>три плеча</b> и возвращается на базу. А пассажир, выделенный цветной линией, может купить только прямую поездку <b>Самара — Волгоград</b>. Ему не нужно лететь по всему треугольнику.</p>
+<p class="caption"><b>Что проверять:</b> заработает ли весь оборот больше, чем другое применение этого самолёта. Дополнительный участок не бесплатен. Обратную поездку Волгоград — Самара нужно отдельно поставить в календарь.</p>
+</section>
+</div>
+<h2>Как мы проверяли конкретную идею</h2>
+<p><b>Киров — Минеральные Воды: поездка в санаторий.</b> Здесь вопрос был не только «куда долететь», но и «можно ли удобно прилететь, заселиться, провести нужное число ночей и вернуться».</p>
+<div class="flow">
+<section class="step"><div class="num">1 · Идея и проверяемое отличие</div><h3>Дневной прилёт + трансфер + заселение</h3><p>Предположили, что согласованная поездка может быть удобнее существующего предложения. Это гипотеза о продукте; прямой конкурент на направлении уже есть.</p></section>
+<section class="step"><div class="num">2 · Подбор и чтение источников</div><h3>Расписание, правила санаториев, наземный путь</h3><p>Взяли опубликованное расписание аэропорта Победилово, документы двух санаториев и датированные наземные варианты. Общая статистика туризма помогает выбрать тему, но не заменяет эти конкретные условия.</p></section>
+<section class="step"><div class="num">3 · Разбор в таблицы</div><h3>Правило рейса → конкретные даты</h3><p>Сохранили первичный документ; вынесли дни недели, период и местное время в таблицу. Развернули правила на декабрьские даты. Вылет 7 декабря в 20:50 означает прибытие уже 8 декабря в 00:20 при явно принятом допущении о переходе суток.</p></section>
+<section class="step"><div class="num">4 · Расчёт совместимости</div><h3>Перелёт → дата заезда → дата возврата</h3><p>Проверили 24 сочетания: две даты вылета × два санатория × три срока пребывания × два условных варианта даты бронирования. Это 24 теста, а не 24 реально продаваемых пакета.</p></section>
+<section class="step"><div class="num">5 · Независимая проверка</div><h3>Критик пересчитал календарь отдельно</h3><p>Сверил исходные правила, переход суток, даты возврата и соединение таблиц. Совпадение подтвердило календарную арифметику. Наличие мест, согласие санатория и продажи из этого не следуют.</p></section>
+<section class="step"><div class="num">6 · Уточнение идеи</div><h3>Проверили более поздний возврат</h3><p>Для десяти условных вариантов следующий захваченный расписанием вылет требует ещё 1–3 ночи. Для двух следующий возврат вне нашего горизонта. Доплату и наличие комнаты не придумывали.</p></section>
+</div>
+<div class="data"><table><caption style="text-align:left;margin:12px 0 5px">Один пример: опубликованный перелёт и два условия бронирования</caption><thead><tr><th>Что меняем</th><th>Что получается</th><th>Что нужно подтвердить</th></tr></thead><tbody>
+<tr><td>Перелёт 7 → 8 декабря</td><td>Прилёт в Минеральные Воды 8 декабря, 00:20</td><td>Это плановое расписание, выполнение и свободные места не установлены</td></tr>
+<tr><td>Бронь с 7 декабря, семь ночей</td><td>Выезд 14 декабря; опубликованный обратный рейс в этот день есть</td><td>Примет ли санаторий фактическое прибытие на следующую дату</td></tr>
+<tr><td>Бронь с 8 декабря, семь ночей</td><td>Выезд 15 декабря; в сохранённых правилах нет возврата в этот день</td><td>Другой обратный путь либо согласованное продление проживания</td></tr>
+</tbody></table></div>
+<div class="end"><b>Что получилось:</b> мы нашли конкретные календарные условия, без которых обещание «удобного санаторного пакета» преждевременно. Его преимущество перед конкурентом и готовность пассажира доплачивать ещё не измерены. Следующая проверка — подтвердить весь продукт на выбранных датах, затем считать его доход и затраты.</div>
+<details><summary>Источники схем и проверок</summary><p><small>Схемы: проекты C03, C01 и C09 из <a href="https://github.com/Mput13/case_championship/blob/6ed8788882e7b4d07044b4f6e686ff71eadd8ac5/context/16_agent_research/hypotheses/candidates.csv">зафиксированного каталога гипотез</a>. Это предложения, не подтверждённая сеть Red Wings.</small></p><p><small>Календарь: <a href="https://github.com/Mput13/case_championship/blob/ef365ac2a936117e5b3bb12ea99c816d7b1a101c/context/16_agent_research/alternative/product_probe_v1/findings.md">разбор первичных источников</a>; <a href="https://github.com/Mput13/case_championship/blob/6ed8788882e7b4d07044b4f6e686ff71eadd8ac5/context/16_agent_research/hypotheses/experiment_v1/README.md">последовательность опытов</a>; <a href="https://github.com/Mput13/case_championship/blob/fd086bad2ae30c46e95d6e38954dc99a18627902/context/16_agent_research/critic/integration_v1/professional_review.md">границы независимой проверки</a>.</small></p></details>
+</main><script>
+const buttons=[...document.querySelectorAll('[data-view]')];buttons.forEach(button=>button.addEventListener('click',()=>{buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!==button.dataset.view);}));
+</script></body></html>

@@ -1,0 +1,16 @@
+dataset_id,universe,denominator,covered,unit,status,missingness,detail_path
+sibur_geography_20261109,all geography modals in frozen publisher page,46,46,listed sites,PARSED,"One company, not all Russian businesses; unlisted city UNKNOWN, not zero",modules/business/coverage.csv
+sibur_geography_20261109,same listed sites with unique nonempty marker ID,46,44,sites with joinable publisher coordinates,PARSED,Two foreign site modals have empty duplicated IDs; coordinates not assigned by position,modules/business/coverage.csv
+sibur_geography_20261109,same listed sites whose explicit address is in Russia,46,35,Russian site entries,PARSED,"Geographic coverage denominator is source list, not all cities in Russia",modules/business/coverage.csv
+gazprom_shift_2024_report,4 selected indicators × 3 published years,12,12,indicator-year observations,PARSED,Municipality OD and paid air journeys absent for every observation,modules/business/coverage.csv
+rosneft_vankor_historical_2017_search,origin city list explicitly stated in indexed 2017 press release,5,5,historical origin–destination statements,PARSED,Search-only acquisition; current status and volume absent,modules/business/coverage.csv
+emiss_62073,2025 disjoint regional components,85,85,complete 12-month profiles,PARSED,Unfilled regions UNKNOWN; parent Tyumen/Arkhangelsk excluded; 2026 partial; source scopes differ,modules/tourism/primary_coverage.csv
+emiss_62074,2025 disjoint regional components,85,68,complete 12-month profiles,PARSED,Unfilled regions UNKNOWN; parent Tyumen/Arkhangelsk excluded; 2026 partial; source scopes differ,modules/tourism/primary_coverage.csv
+emiss_62301,2025 disjoint regional components,85,85,complete 12-month profiles,PARSED,Unfilled regions UNKNOWN; parent Tyumen/Arkhangelsk excluded; 2026 partial; source scopes differ,modules/tourism/primary_coverage.csv
+emiss_62302,2025 disjoint regional components,85,68,complete 12-month profiles,PARSED,Unfilled regions UNKNOWN; parent Tyumen/Arkhangelsk excluded; 2026 partial; source scopes differ,modules/tourism/primary_coverage.csv
+noaa_lite_2024,RS+ICAO stations spanning year in metadata,84,83,station files,PARSED,"USDD404; selection is archive, not all airports",normalized/weather_validation.json
+noaa_lite_2024,downloaded stations × 12 months,996,992,months with any records,PARSED,Four empty months retain NULL; a record is not full-day coverage,normalized/weather_monthly_2024.csv
+noaa_lite_2024,downloaded station calendar-day panel,30378,28310,days with >=1 record,PARSED,Days with one record are not fully observed days,normalized/weather_coverage_2024.csv
+noaa_lite_2024,downloaded stations,83,74,stations with >=350 observed days,PARSED,"Exploratory coverage filter, not quality certification",normalized/weather_coverage_2024.csv
+weather_airport_join,downloaded stations,83,74,exact ICAO station–airport matches,PARSED,9 unmatched preserved; no nearest-airport imputation; code validity historical review pending,normalized/join_validation.json
+favt_main_repair,original pinned CSV post IDs,8318,2337,original IDs with recovered main body,RESTRICTED_USE,PARTIAL_MAIN_TEXT_RECOVERY; current HTML not historical edit archive; no sample extrapolation,modules/telegram_correction/coverage.json

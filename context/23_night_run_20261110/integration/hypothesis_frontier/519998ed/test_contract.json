@@ -1,0 +1,57 @@
+{
+  "contract_id": "hypothesis-frontier-tests-v1",
+  "input_set_id": "frontier-frozen-001",
+  "classification": "AGENT_PROPOSAL",
+  "author": "Sol 6.1 xhigh, hypothesis_frontier role",
+  "mode": "COMMON_COMPARISON_OF_DECLARED_FROZEN_SCENARIOS; not AUTHOR_REPLAY of colleagues' economic models",
+  "question": "Какие изменения продукта/календаря обходят простое увеличение спроса, и какое ограничение удерживает каждое?",
+  "tests": [
+    {
+      "test_id": "HF01",
+      "candidate_id": "C01",
+      "baseline": "Frozen C01_unsync: four directed flights, two hypothetical tails starting NJC and UFA, six operating dates; not an observed existing RW allocation",
+      "intervention": "Retime the SOUTH rotation only, keeping its two block times, directed legs, dates, nominal seats and both tails' initial/final positions; impose explicit turn/connection limits",
+      "parameters": {"connection_min_minutes": [45, 60, 90], "turn_min_minutes": [30, 45, 60], "connection_max_minutes": 180, "allowed_south_return_slip_minutes": [0, 90, 105, 120, 135, 180]},
+      "effect": "Derive the exact feasible retiming interval and earliest SOUTH return, versus the frozen sync and unsync clocks",
+      "reject": "No feasible times under the declared connection/turn/return limits; positive economics additionally require residual seats, paid demand and complete incremental costs",
+      "source": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5:context/16_agent_research/hypotheses/experiment_v1/scenario_programs.json",
+      "resource_unit": "minutes per operating date, two hypothetical tail rotations; no free aircraft claim",
+      "money_rule": "Delta=one through fare per new endpoint journey minus per-journey expense minus K(q); K includes retiming/base/overnight/reserve, changed local margin, other own-network effects and resource opportunity once. Identical flight costs cancel only under identical cost/contract conditions.",
+      "outside_scope": "Real no-new-base baseline, MCT, dispatch, slots, crew, demand, fares, budgets and new-base admission"
+    },
+    {
+      "test_id": "HF07",
+      "candidate_id": "C07",
+      "baseline": "Frozen SVX-OMS-SVX reference: 205 block minutes, 255 elapsed; scenario date alignment and hypothetical common tail",
+      "intervention": "Insert the dated scenario OMS-KJA-OMS excursion and shift the entire four-leg chain earlier only as much as needed to satisfy an explicit return deadline",
+      "parameters": {"turn_minutes": [30, 45, 60], "net_arrival_deadline_slack_minutes": [0, 180, 310, 355, 400, 600], "advance_allowance_minutes": [0, 180, 355]},
+      "effect": "Find minimum departure advance for each deadline and test the earlier-start limit; show UTC/local dates and total occupied time",
+      "reject": "Advance allowance below required advance; chronological closure is insufficient for aircraft/crew/MRO or displaced baseline acceptance",
+      "source": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5:context/16_agent_research/hypotheses/experiment_v1/runs/c26661067277af20/physical_legs.csv",
+      "resource_unit": "one complete four-leg rotation; OMS-KJA times are another carrier's proxy, not RW dispatch block",
+      "money_rule": "Delta=OMS-KJA local product contribution plus change on both SVX-OMS base legs, minus every new flight/ground/fixed/switching cost and other opportunity loss. Actual donor UNKNOWN. Lost donor contribution and the same lost revenue are never both deducted.",
+      "outside_scope": "Real donor, paid quota, slots, aircraft, crew/MRO, actual avoidability; no KEEP/REPLACE/CANCEL optimization"
+    },
+    {
+      "test_id": "HF14",
+      "candidate_id": "C14",
+      "baseline": "Frozen advertised A4 KVX-MRV return calendar and two named-property booked-date assumptions, 24 request rows = 12 date/stay combinations x 2 properties",
+      "intervention": "Permit at most 0/1/2/3 additional booked nights to reach the earliest captured return without changing physical published flights",
+      "parameters": {"maximum_additional_booked_nights": [0, 1, 2, 3], "initial_departure_dates": ["2026-12-07", "2026-12-10"], "original_nights": [7, 10, 14], "captured_return_end": "2026-12-24"},
+      "effect": "Count date-compatible combinations at each flexibility limit, preserve beyond-capture UNKNOWN and list all remaining booking gates",
+      "reject": "Extra nights exceed stated tolerance; a date match alone cannot pass hotel/transfer/inventory/operator/contract gates",
+      "source": "6ed8788882e7b4d07044b4f6e686ff71eadd8ac5:context/16_agent_research/hypotheses/experiment_v1/inputs/alternative_fa39de4/normalized/dated_flights.csv",
+      "resource_unit": "passenger product calendar on incumbent advertised flights; no RW seat ownership or free operating chain",
+      "money_rule": "Actual airline revenue and total stay cost UNKNOWN. Do not multiply PERSON_BED_DAY/PERSON_DAY tariffs by nights. RW's new four-leg chain needs a separate full-flight-cost K and positive local-base-leg contribution cannot be presumed. A4 offers are not RW revenue.",
+      "outside_scope": "Observed willingness to extend, hotel inventory/admission, complete transfer, airline inventory/fares, a RW operating calendar or commercial agreement"
+    }
+  ],
+  "common_rules": [
+    "One endpoint journey consumes one seat on every used physical leg and receives one through fare; return product counts two endpoint journeys.",
+    "Alternative strategies, policies and property variants share travelers and are never added together as new demand.",
+    "All deadline/turn/MCT/tolerance values are scenario stress points, not observed distributions, probabilities or legal limits.",
+    "Money, actual resource and market fields remain null with a reason where inputs are absent.",
+    "Preserve all negative, infeasible and unknown rows; no overall winner or launch approval.",
+    "Self-check is not independent review, source or market acceptance; do not duplicate the active mixed D+previous/general-budget task."
+  ]
+}

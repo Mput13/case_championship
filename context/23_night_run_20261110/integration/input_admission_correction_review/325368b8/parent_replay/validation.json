@@ -1,0 +1,177 @@
+{
+  "status": "PASS_PARENT_CORRECTION_CHECKS",
+  "original_subject": "7e65c687e12cf45534852a3c47d6a5c8cf7dda07",
+  "independent_oracle_commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7",
+  "receipt_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+  "unique_itineraries": 384,
+  "summary_groups": 12,
+  "affected_rows": 160,
+  "exact_baseline_outputs": [
+    {
+      "path": "checks.json",
+      "sha256": "a75d60e292df1ba634f2d8ca6c0ef21b41d29ee9049b4212467b6f3efa7114a7",
+      "bytes": 391
+    },
+    {
+      "path": "input_receipt.json",
+      "sha256": "40d3af9de308baa87f4279739af8b5c2a4f17bf645873c748aa937bfbf1793ba",
+      "bytes": 1045
+    },
+    {
+      "path": "mutation_checks.json",
+      "sha256": "96ecf999547e4885816089c72949a920d4eee0c92ed93530fc304bcb4f9fb723",
+      "bytes": 842
+    }
+  ],
+  "original_seven_mutations_preserved": true,
+  "probes": [
+    {
+      "probe": "wrong_source_commit",
+      "original": {
+        "status": "ACCEPTED"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+      }
+    },
+    {
+      "probe": "empty_file_list",
+      "original": {
+        "status": "ACCEPTED"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+      }
+    },
+    {
+      "probe": "changed_oracle_and_updated_receipt",
+      "original": {
+        "status": "ACCEPTED"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+      }
+    },
+    {
+      "probe": "changed_oracle_and_empty_receipt",
+      "original": {
+        "status": "ACCEPTED"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW"
+      }
+    },
+    {
+      "probe": "oracle_change_without_receipt_change",
+      "original": {
+        "status": "REJECTED",
+        "reason": "ORACLE_HASH_DRIFT"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_HASH_DRIFT"
+      }
+    },
+    {
+      "probe": "changed_support_independent_cancellation16",
+      "original": {
+        "status": "REJECTED",
+        "reason": "ORACLE_HASH_DRIFT"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_HASH_DRIFT"
+      }
+    },
+    {
+      "probe": "changed_support_adversarial_probes",
+      "original": {
+        "status": "REJECTED",
+        "reason": "ORACLE_HASH_DRIFT"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "ORACLE_HASH_DRIFT"
+      }
+    },
+    {
+      "probe": "changed_input_itinerary_at_unit_scale.csv",
+      "original": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      }
+    },
+    {
+      "probe": "changed_input_summary.csv",
+      "original": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      }
+    },
+    {
+      "probe": "changed_input_flights.csv",
+      "original": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      }
+    },
+    {
+      "probe": "changed_input_capacity.csv",
+      "original": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+      }
+    }
+  ],
+  "grain_example": {
+    "candidate": "H_UFA_4",
+    "scenario": "base",
+    "recipe": "C",
+    "flight_ids": "ROUTE_INPUTS_UPPER_100_H_UFA_4_005",
+    "affected_leg_count": "1",
+    "journeys": "42.69764780489005",
+    "fare_once": "11000.0",
+    "lost_fare_once": "469674.1258537906"
+  },
+  "oracle_sources": [
+    {
+      "source_path": "context/23_night_run_20261110/methods_integration_review/independent_affected_itinerary.csv",
+      "sha256": "b08c0d68b7c3c2ae2b0421ffa7c67cc55d2d5129fc827e011ec3043462dfff86",
+      "bytes": 17824
+    },
+    {
+      "source_path": "context/23_night_run_20261110/methods_integration_review/independent_cancellation16.csv",
+      "sha256": "5487aec63c2818730504408ab804ae414e574c85b84ee3c72beda6fddf3b5935",
+      "bytes": 3226
+    },
+    {
+      "source_path": "context/23_night_run_20261110/methods_integration_review/adversarial_probes.json",
+      "sha256": "3738e2a41895876dddb2a761c4c7c6fb2e84065d01781cdebcd22a255d5f45e2",
+      "bytes": 4417
+    }
+  ],
+  "guard_change_only": "receipt byte hash before parsing; calculations unchanged",
+  "independent_recheck": "PENDING_NEW_TASK",
+  "old_interaction_automatically_protected": false,
+  "reusable_new_input_validator": false
+}

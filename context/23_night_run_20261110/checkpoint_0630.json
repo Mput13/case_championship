@@ -1,0 +1,51 @@
+{
+  "checkpoint": "0630",
+  "executed_at_utc": "2026-11-10T03:49:03.518090+00:00",
+  "fetch_record": "ref_checkpoint_latest.json",
+  "new_external_author_model_refs": false,
+  "source_and_review_admission": "status.json/packages; exact original verdicts retained",
+  "real_examples": {
+    "SVX_snapshot_correction": {
+      "file": "primary_lineage_correction/validation.json",
+      "scope": "metadata/source snapshot FK; 129 rows/28 cards/58 mappings; no numeric correction"
+    },
+    "AER_SVX_recipe_conversion": {
+      "source_commit": "abb1c76254d2d4e3cf9edd5c345b9cdb224f6abe",
+      "source_path": "context/23_night_run_20261110/methods/runs/common_demand_v1/demand_mapping.csv",
+      "annual_proxy": 780000,
+      "annual_basis": "both directions; airport/source recipe, not observed endpoint OD",
+      "scenario_week_direction": 7500,
+      "calculation": "780000/104",
+      "economic_validation": "NOT_PERFORMED_BY_THIS_SCALAR_CHECK"
+    },
+    "MR02_timebase": {
+      "source_commit": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "parent_correction": "cost_kover_timebase_correction/checks.json",
+      "day2_episode_original_touched": 0,
+      "corrected_touched": 16,
+      "delayed_UFA8_template_conflicts": 23,
+      "scope": "own exact-code timebase repro, not general independent economics review"
+    }
+  },
+  "dispatch": {
+    "already_started": [
+      "MR08 common comparison review",
+      "MR02 cost/Kover review",
+      "hypothesis frontier35",
+      "MR09 mixed/resource/product bridge"
+    ],
+    "duplicate_dispatch": false,
+    "active_sol_count_from_receipts": 4,
+    "fourth_slot": "MR09_STRATEGY_REVIEW_DISPATCHED",
+    "no_running_child_polls": true
+  },
+  "public_report_sha256": "53353f9febbb3e3a5877717f9d87cf5d0eda872b64db54a63f31295a05966057",
+  "site_changed": false,
+  "deadline_msk": "2026-11-10T10:00:00+03:00",
+  "later_package_received_same_checkpoint": {
+    "sha": "c24bbd36356f46763eed5a1654573b6de31adc6b",
+    "output_hash_count": 309,
+    "real_example_check": "12 necessary hourly bounds independently recomputed; 3 within240h, no calendar acceptance",
+    "new_review": "MR09 queued for fourth slot"
+  }
+}

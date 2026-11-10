@@ -1,0 +1,84 @@
+{
+  "review_id": "MR11",
+  "verdict": "APPROVE_SCOPED",
+  "subject_commit": "f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9",
+  "new_P1_P2": [],
+  "owner_fix_required": false,
+  "approved_scopes": [
+    "16 fixed-supply C/N cancellation cases from own frozen sales",
+    "40 corrected-context21 adapter rows with 4 HOLD/NULL",
+    "12 C cancellation and 8 net-fixture cash ledgers",
+    "8 inverse burden thresholds with journey denominator",
+    "90 finite portfolio rows including 30 hard-D branches",
+    "prior common-v3 and portfolio-v1 preservation"
+  ],
+  "evidence_locations": [
+    {
+      "path": "context/23_night_run_20261110/methods/kover_demand_interaction.py",
+      "line": 28,
+      "claim": "union of cancelled legs; each affected itinerary fare once"
+    },
+    {
+      "path": "context/23_night_run_20261110/methods/integrate_kover_accounting.py",
+      "line": 40,
+      "claim": "NULL gating retained; hypothetical delay quantities not admitted"
+    },
+    {
+      "path": "context/23_night_run_20261110/methods/integrate_kover_accounting.py",
+      "line": 84,
+      "claim": "D_SVX8 controlled on own flights, no D_pilot substitution"
+    },
+    {
+      "path": "context/23_night_run_20261110/methods/common_demand.py",
+      "line": 68,
+      "claim": "default false and explicit opt-in preserve legacy behavior"
+    },
+    {
+      "path": "context/23_night_run_20261110/methods/portfolio_comparison.py",
+      "line": 79,
+      "claim": "hard-D branch enabled separately from proposed Q(F)"
+    }
+  ],
+  "inherited_holds_preserved": [
+    {
+      "id": "CKR-P2-TIMEBASE",
+      "original_review_commit": "d8634187d452343a369f7cec63be50511bb70020",
+      "original_verdict": "CHANGES",
+      "current": "87ee parent correction used and joined only; 4 hub-delay rows remain HOLD/NULL",
+      "independent_correction_acceptance": "NOT_RUN_HERE_MR10_OUTSIDE_SCOPE"
+    },
+    {
+      "id": "PRIMARY_LINEAGE_AND_CLOCK_HOLDS",
+      "current": "Original historical CHANGES and 12 clock holds not lifted by methods integration; f177 raw/source not reaccepted",
+      "status": "OUTSIDE_SCOPE_MR10"
+    }
+  ],
+  "nonblocking_scope_observations": [
+    {
+      "id": "EXACT_INPUT_ADMISSION_BOUNDARY",
+      "evidence": "adversarial_probes.json:modified_input_requires_new_admission",
+      "subject_path": "context/23_night_run_20261110/methods/kover_demand_interaction.py",
+      "line": 25,
+      "observation": "Set coverage is not duplicate-row admission. A duplicated N itinerary in a modified input is accepted by interaction.main and alters two N/UFA4/base rows; independent keyed oracle rejects it and immutable hashes no longer match.",
+      "severity": "LIMITATION_OF_REUSE_NOT_A_PINNED_INPUT_DEFECT",
+      "required_action": "Retain exact SHA/input_set boundary; a changed input requires fresh key/hash/oracle admission. No owner implementation change requested in this bounded review."
+    },
+    {
+      "id": "CAPTURE_POLICY",
+      "observation": "30 hard-D deltas are zero for this program set; pooled Q(F) deltas are policy effects, not proof of an existing D breach",
+      "severity": "SCENARIO_QUALIFICATION",
+      "required_action": "Keep Q(F) AGENT_PROPOSAL and retain directed grouping."
+    }
+  ],
+  "minimal_fix": null,
+  "not_run": [
+    "Full MR08 affine boundary review",
+    "MR09 resource/product modules",
+    "MR10 raw/source/timebase correction reacceptance",
+    "Observed winter OD or sales",
+    "Contract avoidability",
+    "Legal compensation",
+    "Whole-company cash/full budget",
+    "Global strategy optimization or launch"
+  ]
+}

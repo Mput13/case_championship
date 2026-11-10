@@ -1,0 +1,514 @@
+{
+  "status": "PASS_EXPECTATIONS",
+  "cases": 17,
+  "original_bypasses": 9,
+  "corrected_rejections": 17,
+  "probes": [
+    {
+      "probe": "receipt_wrong_source_commit",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "249658d34ad6028627fb880ae55030c29ddb961684bb80cdcb8ed84f8621cc54",
+          "bytes": 1749
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "receipt_empty_coverage",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "67281da180c2b444e6b9d1cd48cc0ec96d36dfb5f7f9187d9806e5f8c31c3b1b",
+          "bytes": 336
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "receipt_wrong_per_file_provenance",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "075a4647e013479b74fde3d31c0174a880697405c3bc48a01bb4ccb3571d6842",
+          "bytes": 1688
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "receipt_formatting_only_exact_bytes_policy",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "358bbf8bd4c041cc1730f4eb46f3e912977c009d5dab70a630cc7fa6f536aa87",
+          "bytes": 1750
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "oracle_bytes_and_self_updated_receipt",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_affected_itinerary.csv",
+          "baseline_sha256": "b08c0d68b7c3c2ae2b0421ffa7c67cc55d2d5129fc827e011ec3043462dfff86",
+          "mutant_sha256": "246d24d85b3cdfe4412acc4070cd20c2af24f6914299c452da6763297a02b4c5",
+          "bytes": 17825
+        },
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "a2d5e9e44943551dfa724ac84eaf52ec23d68745a88e16f7e3eea5faeab8dc41",
+          "bytes": 1749
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "oracle_changed_and_receipt_empty",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_affected_itinerary.csv",
+          "baseline_sha256": "b08c0d68b7c3c2ae2b0421ffa7c67cc55d2d5129fc827e011ec3043462dfff86",
+          "mutant_sha256": "246d24d85b3cdfe4412acc4070cd20c2af24f6914299c452da6763297a02b4c5",
+          "bytes": 17825
+        },
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "67281da180c2b444e6b9d1cd48cc0ec96d36dfb5f7f9187d9806e5f8c31c3b1b",
+          "bytes": 336
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "oracle_changed_receipt_unchanged",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_affected_itinerary.csv",
+          "baseline_sha256": "b08c0d68b7c3c2ae2b0421ffa7c67cc55d2d5129fc827e011ec3043462dfff86",
+          "mutant_sha256": "246d24d85b3cdfe4412acc4070cd20c2af24f6914299c452da6763297a02b4c5",
+          "bytes": 17825
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_HASH_DRIFT",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_HASH_DRIFT",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "own_fabricated_cancellation_evidence_self_receipted",
+      "details": {
+        "grain": "first of 16 cancellation-policy records; affected oracle and protected inputs unchanged",
+        "original_fields": {
+          "delta": "255219.47168930015",
+          "full_budget": "",
+          "actual_cash": ""
+        },
+        "substituted_fields": {
+          "delta": "123456789",
+          "full_budget": "0",
+          "actual_cash": "0"
+        },
+        "purpose": "Tests provenance of required support, not financial-model acceptance"
+      },
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_cancellation16.csv",
+          "baseline_sha256": "5487aec63c2818730504408ab804ae414e574c85b84ee3c72beda6fddf3b5935",
+          "mutant_sha256": "3db4edcaeb5adc14ac4fb932f600c5733603cc944a5a73d067ed9ef8faea047f",
+          "bytes": 3219
+        },
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "43e0f7ac7152d36c057b8a53d1887b1f4d99412a69a66b53e186c3ce4a9ba8cc",
+          "bytes": 1749
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "support_semantics_changed_receipt_unchanged",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_cancellation16.csv",
+          "baseline_sha256": "5487aec63c2818730504408ab804ae414e574c85b84ee3c72beda6fddf3b5935",
+          "mutant_sha256": "3db4edcaeb5adc14ac4fb932f600c5733603cc944a5a73d067ed9ef8faea047f",
+          "bytes": 3219
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_HASH_DRIFT",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_HASH_DRIFT",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "own_three_entries_but_duplicate_coverage_and_forged_support",
+      "details": {
+        "listed_entries": 3,
+        "distinct_paths": 1,
+        "omitted_support_files": [
+          "independent_cancellation16.csv",
+          "adversarial_probes.json"
+        ],
+        "purpose": "A length-only coverage check would miss omitted support"
+      },
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_cancellation16.csv",
+          "baseline_sha256": "5487aec63c2818730504408ab804ae414e574c85b84ee3c72beda6fddf3b5935",
+          "mutant_sha256": "3db4edcaeb5adc14ac4fb932f600c5733603cc944a5a73d067ed9ef8faea047f",
+          "bytes": 3219
+        },
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "735f919651e910e6646458a53134e546386a59f56fd88778888dcb034ba54ba9",
+          "bytes": 1781
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "same_input_reconstruction_self_receipted",
+      "details": {
+        "rows": 160,
+        "order": "reversed",
+        "value_source": "protected owner sales",
+        "new_column": "reviewer_source=REBUILT_FROM_OWNER_SALES_NOT_MR11"
+      },
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_affected_itinerary.csv",
+          "baseline_sha256": "b08c0d68b7c3c2ae2b0421ffa7c67cc55d2d5129fc827e011ec3043462dfff86",
+          "mutant_sha256": "b56917b090f8228ffaf14311efc601368e2a28718824d1b488617c679c4140f8",
+          "bytes": 23280
+        },
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "2589a8788f3a3b91e745fb1e40fb1c38b75abf90be334cad859a6e2b04fc416b",
+          "bytes": 1749
+        }
+      ],
+      "original": {
+        "status": "ACCEPTED",
+        "exit_code": 0,
+        "error": null,
+        "output_files": 3,
+        "outputs_equal_published": true
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "oracle_numeric_disagreement_self_receipted",
+      "details": {
+        "purpose": "Existing numerical comparison still rejects wrong quantities in original"
+      },
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/independent_affected_itinerary.csv",
+          "baseline_sha256": "b08c0d68b7c3c2ae2b0421ffa7c67cc55d2d5129fc827e011ec3043462dfff86",
+          "mutant_sha256": "dccd911161e619bea21d977ec1fcefa8a83f3dcee91b36cc345c6d4b9ef0fef8",
+          "bytes": 17824
+        },
+        {
+          "path": "inputs/integration-oracle-001/receipt.json",
+          "baseline_sha256": "8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6",
+          "mutant_sha256": "dc80ac585333583d60e685657b29130d461b745ec6f31fd4bf33fdeeb5cb1d72",
+          "bytes": 1749
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: INDEPENDENT_AFFECTED_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "adversarial_support_changed_receipt_unchanged",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/integration-oracle-001/adversarial_probes.json",
+          "baseline_sha256": "3738e2a41895876dddb2a761c4c7c6fb2e84065d01781cdebcd22a255d5f45e2",
+          "mutant_sha256": "c7edc15f1b98eff1955233e913687fdbcfc37f616a927c9700d151f2cf4b76ca",
+          "bytes": 4418
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_HASH_DRIFT",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: ORACLE_HASH_DRIFT",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "protected_input_itinerary_at_unit_scale.csv",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "runs/common_demand_v1/itinerary_at_unit_scale.csv",
+          "baseline_sha256": "1f6f7998356465ef0a7c04cfd44d2b03f5f443ad81c2e7cdd447d7ed5d5a5104",
+          "mutant_sha256": "aece766cf4e6426741bdf4fb4abfa8ecbb089c7cb72f2f9e7bbdbf08ea5cb296",
+          "bytes": 233948
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "protected_input_summary.csv",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "runs/common_demand_v1/summary.csv",
+          "baseline_sha256": "5e35d852e6ec188467aa58118f21465b6a1aad598b668c4efab52bb1c4c29663",
+          "mutant_sha256": "24392a7d23fd5ffc03bd784f76f32ef259777192bcd0897a30f17e2f7471e31c",
+          "bytes": 49385
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "protected_input_flights.csv",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/set001/tsiri_93fa/context/17_aircraft_route_review/model/flights.csv",
+          "baseline_sha256": "d69ff07134728a147abb8bb04890b597a372b04ea8843de4825f87a5613d7ea3",
+          "mutant_sha256": "583464a6a63eb0590017dbe95143d23a27cdadd7b185b939d93469e3f10615fe",
+          "bytes": 359082
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    },
+    {
+      "probe": "protected_input_capacity.csv",
+      "details": {},
+      "mutated_inputs": [
+        {
+          "path": "inputs/set001/tsiri_93fa/context/17_aircraft_route_review/model/capacity.csv",
+          "baseline_sha256": "220c46f619ec9a32eef6cd53ab5902489a08b6e33a0c7f2d72b40cbd3ea2d447",
+          "mutant_sha256": "164123bdb639702784df32342a0cc20c12f28c997ccb340914d2722656cbeda9",
+          "bytes": 520140
+        }
+      ],
+      "original": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      },
+      "corrected": {
+        "status": "REJECTED",
+        "exit_code": 1,
+        "error": "ValueError: IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE",
+        "output_files": 0,
+        "outputs_equal_published": null
+      }
+    }
+  ]
+}

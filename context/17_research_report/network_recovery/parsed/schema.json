@@ -1,0 +1,48 @@
+{
+  "schema_version": "recovery-extract-v1",
+  "null_policy": "Empty field is UNKNOWN/NOT_APPLICABLE with row limitation; never zero imputation",
+  "tables": {
+    "national_market_observations.csv": {
+      "key": [
+        "source_id",
+        "metric",
+        "period_start",
+        "period_end"
+      ],
+      "grain": "national aggregate x metric x period",
+      "rows": 26
+    },
+    "khv_cost_components.csv": {
+      "key": [
+        "source_id",
+        "component_id"
+      ],
+      "grain": "source revision x airport rate component",
+      "rows": 16
+    },
+    "khv_revision_differences.csv": {
+      "key": [
+        "component_id"
+      ],
+      "grain": "same component old/new published rate; no real-cost attribution",
+      "rows": 8
+    },
+    "carrier_crosswalk_sample.csv": {
+      "key": [
+        "source_id",
+        "code",
+        "name"
+      ],
+      "grain": "six target codes x source entry; sample only",
+      "rows": 9
+    },
+    "telegram_selected_aggregate.csv": {
+      "key": [
+        "post_id",
+        "metric"
+      ],
+      "grain": "selected post claim, not event",
+      "rows": 4
+    }
+  }
+}

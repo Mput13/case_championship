@@ -1,0 +1,923 @@
+{
+  "checks": [
+    {
+      "check_id": "UNIQUE:airport_ids",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "airport_id"
+        ],
+        "rows": 1845,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:timezones",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "iana_timezone",
+          "reference_date"
+        ],
+        "rows": 18,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:nastya_longlist",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "iata"
+        ],
+        "rows": 20,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:nastya_route",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "scenario",
+          "variant",
+          "from",
+          "to"
+        ],
+        "rows": 128,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:nastya_pairs",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "a",
+          "b"
+        ],
+        "rows": 1428,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:hypotheses35",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "candidate_id"
+        ],
+        "rows": 35,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_STAGE1_BRANCH_NOT_ECONOMIC_UPGRADE",
+      "status": "PASS",
+      "detail": "6ec84a7d stage1 branch does not contain conditional16 comparison.csv; economic input remains93fa5cf4",
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:ciri_flights",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "network",
+          "id"
+        ],
+        "rows": 314,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:ciri_capacity",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "network",
+          "scenario",
+          "priority",
+          "id"
+        ],
+        "rows": 628,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:ciri_markets",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "pair"
+        ],
+        "rows": 72,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:ciri_comparisons",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "network",
+          "scenario",
+          "priority"
+        ],
+        "rows": 30,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_ITINERARY_PHYSICAL_FK_CONTINUITY",
+      "status": "PASS",
+      "detail": [],
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_ONE_FARE_PER_JOURNEY",
+      "status": "PASS",
+      "detail": {
+        "rows": 860,
+        "failures": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_TWO_SEATS_FOR_TWO_LEGS",
+      "status": "PASS",
+      "detail": {
+        "rows": 860,
+        "failures": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_CAPACITY_SOURCE_MATCH_AND_BOUND",
+      "status": "PASS",
+      "detail": {
+        "rows": 628,
+        "failures": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_SHARED_MARKET_POOL_WITHIN_STRATEGY",
+      "status": "PASS",
+      "detail": {
+        "tested_groups": 572,
+        "failed": 0
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_ALLOCATION_ALL_PHYSICAL_KEYS_PRESENT",
+      "status": "PASS",
+      "detail": {
+        "used_flight_scenario_keys": 628,
+        "source_capacity_keys": 628
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_ALLOCATION_GRAND_TOTAL_PRESERVED",
+      "status": "PASS",
+      "detail": {
+        "itinerary_segment_pax": 16416.929355114582,
+        "allocated_seat_segments": 16416.92935511462,
+        "caution": "Grand totals across exclusive networks/scenarios are checksums, not one network/market forecast"
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_LEDGER_TO_SUMMARY",
+      "status": "PASS",
+      "detail": [],
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_FLIGHT_COST_AND_CONTRIBUTION_RECONCILE",
+      "status": "PASS",
+      "detail": [
+        {
+          "network": "NO_LAUNCH",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "NO_LAUNCH",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "B0_reference",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 1.4901161193847656e-08,
+          "incremental_revenue_delta": -1.1175870895385742e-08,
+          "contribution_delta": -1.4901161193847656e-08,
+          "status": "PASS"
+        },
+        {
+          "network": "B0_reference",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 1.4901161193847656e-08,
+          "incremental_revenue_delta": 1.862645149230957e-09,
+          "contribution_delta": -1.4901161193847656e-08,
+          "status": "PASS"
+        },
+        {
+          "network": "D_pilot",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "D_pilot",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "D_improved",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "D_improved",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "D_case8",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 3.725290298461914e-09,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "D_case8",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 1.862645149230957e-09,
+          "incremental_revenue_delta": 1.1641532182693481e-10,
+          "contribution_delta": -1.862645149230957e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_GOJ_4",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -1.862645149230957e-09,
+          "incremental_revenue_delta": 9.313225746154785e-10,
+          "contribution_delta": 1.862645149230957e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_GOJ_4",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "H_GOJ_8",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -3.725290298461914e-09,
+          "incremental_revenue_delta": -3.725290298461914e-09,
+          "contribution_delta": 3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_GOJ_8",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": -7.450580596923828e-09,
+          "incremental_revenue_delta": -1.3969838619232178e-09,
+          "contribution_delta": 7.450580596923828e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_UFA_4",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": -1.862645149230957e-09,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "H_UFA_4",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": -1.862645149230957e-09,
+          "incremental_revenue_delta": -9.313225746154785e-10,
+          "contribution_delta": 1.862645149230957e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_UFA_8",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 3.725290298461914e-09,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "H_UFA_8",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": -3.725290298461914e-09,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_TJM_4",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": 1.862645149230957e-09,
+          "incremental_revenue_delta": -9.313225746154785e-10,
+          "contribution_delta": -1.862645149230957e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_TJM_4",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 3.725290298461914e-09,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": -3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_TJM_8",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -3.725290298461914e-09,
+          "incremental_revenue_delta": 1.30385160446167e-08,
+          "contribution_delta": 3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_TJM_8",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": -3.725290298461914e-09,
+          "incremental_revenue_delta": -1.862645149230957e-09,
+          "contribution_delta": 3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_CEK_4",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -1.862645149230957e-09,
+          "incremental_revenue_delta": 9.313225746154785e-10,
+          "contribution_delta": 1.862645149230957e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_CEK_4",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": -1.1641532182693481e-10,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        },
+        {
+          "network": "H_CEK_8",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -7.450580596923828e-09,
+          "incremental_revenue_delta": 1.862645149230957e-09,
+          "contribution_delta": 7.450580596923828e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "H_CEK_8",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": -3.725290298461914e-09,
+          "incremental_revenue_delta": -2.7939677238464355e-09,
+          "contribution_delta": 3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "S_GOJ_8_1",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -1.862645149230957e-09,
+          "incremental_revenue_delta": 1.862645149230957e-09,
+          "contribution_delta": 1.862645149230957e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "S_GOJ_8_1",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 3.725290298461914e-09,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": -7.450580596923828e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "S_UFA_8_1",
+          "scenario": "base",
+          "priority": "local_first",
+          "flight_cost_delta": -3.725290298461914e-09,
+          "incremental_revenue_delta": 1.862645149230957e-09,
+          "contribution_delta": 3.725290298461914e-09,
+          "status": "PASS"
+        },
+        {
+          "network": "S_UFA_8_1",
+          "scenario": "cautious",
+          "priority": "local_first",
+          "flight_cost_delta": 0.0,
+          "incremental_revenue_delta": 0.0,
+          "contribution_delta": 0.0,
+          "status": "PASS"
+        }
+      ],
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CIRI_FLIGHT_TO_RESOURCE_RECONCILE",
+      "status": "PASS",
+      "detail": {
+        "networks": 15,
+        "failures": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "NASTYA_EXPORTED_AGGREGATE_SEGMENT_IDENTITY",
+      "status": "PASS",
+      "detail": [
+        {
+          "scenario": "base",
+          "candidate": "OMS",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "base",
+          "candidate": "REN",
+          "segments_minus_journeys_minus_transfer": 1.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "base",
+          "candidate": "KUF",
+          "segments_minus_journeys_minus_transfer": 1.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "base",
+          "candidate": "GOJ",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "base",
+          "candidate": "UFA",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "base",
+          "candidate": "DIRECT_PORTFOLIO",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "cautious",
+          "candidate": "OMS",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "cautious",
+          "candidate": "REN",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "cautious",
+          "candidate": "KUF",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "cautious",
+          "candidate": "GOJ",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "cautious",
+          "candidate": "UFA",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        },
+        {
+          "scenario": "cautious",
+          "candidate": "DIRECT_PORTFOLIO",
+          "segments_minus_journeys_minus_transfer": 0.0,
+          "rounding_tolerance": 2,
+          "status": "PASS_ROUNDING"
+        }
+      ],
+      "scope": "AUTHOR_OUTPUT_ARITHMETIC_ONLY; NOT_MARKET_OR_DATED_CAPACITY_ACCEPTANCE"
+    },
+    {
+      "check_id": "UNIQUE:hypotheses_physical",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "variant",
+          "leg_id"
+        ],
+        "rows": 62,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:candidate_register",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "model_id",
+          "candidate_id"
+        ],
+        "rows": 90,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:itinerary_id",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "itinerary_id"
+        ],
+        "rows": 860,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:itinerary_leg",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "itinerary_id",
+          "leg_sequence"
+        ],
+        "rows": 1092,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:physical_leg",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "physical_leg_id"
+        ],
+        "rows": 376,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:core_dated_union",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "instance_id"
+        ],
+        "rows": 24,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "CORE_DEPARTURE_UTC_LOCAL_REPLAY",
+      "status": "PASS",
+      "detail": {
+        "rows": 24,
+        "failures": [],
+        "scope": "Departure timestamps only; unknown arrival day left unknown; ZoneInfo validates arithmetic, not law/source truth"
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:gateway_crosswalk",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "airport_iata"
+        ],
+        "rows": 7,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:gateway_social",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "airport_iata",
+          "canonical_region_id",
+          "indicator_code",
+          "year"
+        ],
+        "rows": 42,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:weather_station_month",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "station_id",
+          "month"
+        ],
+        "rows": 996,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:weather_station_mapping",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "station_id",
+          "airport_id"
+        ],
+        "rows": 83,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:joined_weather",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "entity_code",
+          "station_id",
+          "month"
+        ],
+        "rows": 432,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "WEATHER_HOURS_NOT_ABOVE_CALENDAR",
+      "status": "PASS",
+      "detail": {
+        "joined_rows": 432,
+        "meaning": "Archive completeness; threshold counts do not measure downtime/cancellation probability"
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "WEATHER_CROSSWALK_IDENTITY",
+      "status": "PASS",
+      "detail": {
+        "joined_rows": 432
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:market_observation",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "observation_id"
+        ],
+        "rows": 24,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:market_observation_version",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "observation_version_id"
+        ],
+        "rows": 24,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "OBSERVATION_PERIOD_IDENTITIES_PRESERVED",
+      "status": "PASS",
+      "detail": {
+        "observation_ids": 24,
+        "overlap_pairs": 5,
+        "handling": "All source period-specific IDs retained; no pooled aggregate created"
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:tourism_primary_monthly",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "dataset_id",
+          "area_id",
+          "period"
+        ],
+        "rows": 18360,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "UNIQUE:corporate_sites",
+      "status": "PASS",
+      "detail": {
+        "grain": [
+          "site_id"
+        ],
+        "rows": 46,
+        "duplicate_keys": []
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "HYPOTHESES_C10_TOX_NOT_REINTRODUCED",
+      "status": "PASS",
+      "detail": "Frozen35 C10 uses SVX/UFA/SGC. Historical Tobolsk airport/industrial demand confusion is not reintroduced.",
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "NO_QUARANTINE_BYPASS",
+      "status": "PASS",
+      "detail": {
+        "held_entities": [
+          "BAX",
+          "TOF",
+          "PKC",
+          "NER",
+          "MQF",
+          "IAR",
+          "MOW",
+          "STW",
+          "NOZ",
+          "OSW",
+          "PES",
+          "ULY"
+        ],
+        "scope": "No use of held directory IDs in new normalized identity joins"
+      },
+      "scope": "ADAPTER_OFFLINE"
+    },
+    {
+      "check_id": "NASTYA_SCREENING_FORMULA_REPLAY",
+      "status": "PASS",
+      "detail": [
+        {
+          "min_dist": 0,
+          "rows": 20,
+          "max_rounding_delta": 0.0004978554641720256,
+          "pass_rounding": true
+        },
+        {
+          "min_dist": 500,
+          "rows": 15,
+          "max_rounding_delta": 0.0004918577447726724,
+          "pass_rounding": true
+        }
+      ],
+      "scope": "Formula replay on frozen criterion JSON; not full upstream AUTHOR_REPLAY_MATCHED"
+    }
+  ],
+  "failed": 0,
+  "passed": 44,
+  "acceptance_scope": [
+    "PINNED_OUTPUT_HASHED",
+    "JOIN_CHECKED_WITH_EXPLICIT_HOLDS",
+    "SCENARIO_ACCOUNTING_CHECKED"
+  ],
+  "outside_scope": [
+    "Full author model rerun",
+    "SOURCE_SUPPORTED for all original claims",
+    "Observed final OD",
+    "Actual ticket sales",
+    "Actual available aircraft",
+    "Full financial budget",
+    "Operational schedule clearance",
+    "Predictive gain",
+    "Independent review"
+  ],
+  "table_counts": {
+    "normalized/historical_findings.csv": 35,
+    "normalized/route_program.csv": 128,
+    "normalized/product_path_template.csv": 81,
+    "normalized/ciri_stage1_scores.csv": 14,
+    "normalized/hypothesis_thresholds.csv": 108,
+    "normalized/candidate_register.csv": 90,
+    "normalized/candidate_airport_link.csv": 515,
+    "normalized/physical_leg.csv": 376,
+    "normalized/market_pool.csv": 288,
+    "normalized/itinerary.csv": 860,
+    "normalized/itinerary_leg.csv": 1092,
+    "normalized/capacity_allocation.csv": 1092,
+    "normalized/money_ledger.csv": 4928,
+    "normalized/resource_ledger.csv": 15,
+    "normalized/evaluation_summary.csv": 42,
+    "checks/ciri_capacity.csv": 628,
+    "checks/ciri_market_pool.csv": 572,
+    "checks/ciri_economics.csv": 30,
+    "checks/nastya_segment_identity.csv": 12,
+    "normalized/published_dated_evidence.csv": 24,
+    "normalized/quarantine_preserved.csv": 30,
+    "normalized/candidate_regional_tourism.csv": 624,
+    "normalized/gateway_region_crosswalk.csv": 7,
+    "normalized/airport_weather_month.csv": 432,
+    "normalized/weather_entity_coverage.csv": 63,
+    "checks/observation_period_overlap.csv": 11,
+    "normalized/observed_market_aggregates.csv": 24,
+    "normalized/line_flow_context.csv": 1428,
+    "normalized/corporate_join_hold.csv": 46,
+    "normalized/entity_resolution.csv": 82,
+    "checks/screening_score_replay.csv": 2,
+    "feature_effects.csv": 12,
+    "checks/feature_score_deltas.csv": 210,
+    "normalized/parameter_registry.csv": 648,
+    "model_input_usage.csv": 54,
+    "feature_fitness.csv": 10,
+    "compatibility.csv": 6,
+    "coverage.csv": 700,
+    "join_manifest.csv": 5,
+    "join_lineage.csv": 3552,
+    "field_dictionary.csv": 620,
+    "source_manifest.csv": 42
+  }
+}

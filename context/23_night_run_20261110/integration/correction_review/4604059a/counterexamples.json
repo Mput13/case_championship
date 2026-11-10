@@ -1,0 +1,70 @@
+{
+  "source_id_only_join": "Same SVX source_id/URL has different Nov8 and Nov9 raw hashes; inspect lineage_receipts.json.",
+  "absolute_minutes": {
+    "flight_id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_028",
+    "row_date": "2026-12-08",
+    "minute": 1885,
+    "expected_utc": "2026-12-08T07:25:00+00:00",
+    "original_wrong_utc": "2026-12-09T07:25:00+00:00"
+  },
+  "day2": {
+    "original_affected": 0,
+    "corrected_affected": 16
+  },
+  "half_open": [
+    {
+      "name": "start_included",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "name": "end_excluded",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "before_start_excluded",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "last_minute_included",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "name": "arrival_event_at_restricted_airport_after_rollover",
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "horizon": [
+    {
+      "name": "before_horizon",
+      "arrival_if_delayed": "2026-12-13T23:59:00+00:00",
+      "expected_rejection": false,
+      "actual_rejection": false,
+      "error": ""
+    },
+    {
+      "name": "at_horizon",
+      "arrival_if_delayed": "2026-12-14T00:00:00+00:00",
+      "expected_rejection": true,
+      "actual_rejection": true,
+      "error": "delay outside tested weekly horizon; separate accrual accounting required"
+    },
+    {
+      "name": "after_horizon",
+      "arrival_if_delayed": "2026-12-14T00:01:00+00:00",
+      "expected_rejection": true,
+      "actual_rejection": true,
+      "error": "delay outside tested weekly horizon; separate accrual accounting required"
+    }
+  ],
+  "modulo_loses_rollover": {
+    "departure_1435": "2026-12-07T23:55:00+00:00",
+    "arrival_1495": "2026-12-08T00:55:00+00:00"
+  },
+  "conflict_scope": "Fixed planning labels with adjacent 45-minute continuity; alternative assignments, real tails and recovery UNKNOWN",
+  "admission_scope": "Summary/journey served/unserved/money NULL for 4 held cases; physical allocations and cash retained only with HOLD/hypothetical status"
+}

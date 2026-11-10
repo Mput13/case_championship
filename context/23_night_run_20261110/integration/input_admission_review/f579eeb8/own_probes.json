@@ -1,0 +1,148 @@
+[
+  {
+    "probe": "duplicate_full_key",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "DUPLICATE_ITINERARY_KEY"
+  },
+  {
+    "probe": "missing_full_key",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "ITINERARY_KEY_SET_DRIFT"
+  },
+  {
+    "probe": "wrong_period_context",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "CONTEXT_DRIFT"
+  },
+  {
+    "probe": "reversed_OD",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "ITINERARY_KEY_SET_DRIFT"
+  },
+  {
+    "probe": "physical_endpoint_conflict",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "ENDPOINT_KEY"
+  },
+  {
+    "probe": "inconsistent_directed_D",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "MARKET_D_CONFLICT"
+  },
+  {
+    "probe": "consistent_but_insufficient_directed_D",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "DIRECTED_MARKET_BOUND"
+  },
+  {
+    "probe": "capacity_conflict",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "LEG_CAPACITY"
+  },
+  {
+    "probe": "oracle_quantity_corrupt",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "INDEPENDENT_AFFECTED_ORACLE"
+  },
+  {
+    "probe": "oracle_fare_corrupt",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "INDEPENDENT_AFFECTED_ORACLE"
+  },
+  {
+    "probe": "oracle_affected_leg_count_corrupt",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "INDEPENDENT_AFFECTED_ORACLE"
+  },
+  {
+    "probe": "oracle_missing_key",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "INDEPENDENT_ORACLE_KEY"
+  },
+  {
+    "probe": "oracle_duplicate_key",
+    "path": "direct validate API; fixed reference keys",
+    "status": "REJECTED",
+    "reason": "INDEPENDENT_ORACLE_KEY"
+  },
+  {
+    "probe": "capacity_endpoint_metadata_only",
+    "path": "direct validate API",
+    "status": "ACCEPTED_API_LIMITATION",
+    "implication": "Not a main admission bypass: capacity bytes differ and main rejects before validation."
+  },
+  {
+    "probe": "changed_pinned_bytes",
+    "input_path": "runs/common_demand_v1/itinerary_at_unit_scale.csv",
+    "path": "main",
+    "status": "REJECTED",
+    "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+  },
+  {
+    "probe": "changed_pinned_bytes",
+    "input_path": "runs/common_demand_v1/summary.csv",
+    "path": "main",
+    "status": "REJECTED",
+    "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+  },
+  {
+    "probe": "changed_pinned_bytes",
+    "input_path": "inputs/set001/tsiri_93fa/context/17_aircraft_route_review/model/flights.csv",
+    "path": "main",
+    "status": "REJECTED",
+    "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+  },
+  {
+    "probe": "changed_pinned_bytes",
+    "input_path": "inputs/set001/tsiri_93fa/context/17_aircraft_route_review/model/capacity.csv",
+    "path": "main",
+    "status": "REJECTED",
+    "reason": "IMMUTABLE_HASH_DRIFT_REQUIRES_NEW_INPUT_SET_AND_ORACLE"
+  },
+  {
+    "probe": "oracle_receipt_wrong_source_commit",
+    "path": "main",
+    "status": "ACCEPTED",
+    "reported_oracle_commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7"
+  },
+  {
+    "probe": "oracle_receipt_empty_file_list",
+    "path": "main",
+    "status": "ACCEPTED",
+    "reported_oracle_commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7"
+  },
+  {
+    "probe": "oracle_receipt_wrong_hash",
+    "path": "main",
+    "status": "REJECTED",
+    "reason": "ORACLE_HASH_DRIFT"
+  },
+  {
+    "probe": "changed_oracle_bytes_plus_self_updated_receipt",
+    "path": "main",
+    "status": "ACCEPTED",
+    "oracle_bytes_equal_exact_MR11": false,
+    "reported_oracle_commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7"
+  },
+  {
+    "probe": "same_owner_reconstructed_oracle_plus_empty_receipt",
+    "path": "main",
+    "status": "ACCEPTED",
+    "oracle_bytes_equal_exact_MR11": false,
+    "protected_four_inputs_unchanged": true,
+    "replaced_oracle_sha256": "d105dc74f2b9f2cd1740c17edeb1b0bd124da0f1211870e20294d46512235873",
+    "reported_oracle_commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7"
+  }
+]

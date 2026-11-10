@@ -1,0 +1,90 @@
+{
+  "review_id": "MR09_STRATEGY_ACCOUNTING",
+  "task_type": "NEW_INDEPENDENT_REVIEW_NOT_RESUMED_FINISHED_CHILD",
+  "input_commit": "c24bbd36356f46763eed5a1654573b6de31adc6b",
+  "input_root": "context/23_night_run_20261110/methods/",
+  "authority_base_commit": "87ee52de15c2bdf396d9c06ba600fd413d5ab4a8",
+  "branch": "research/night-strategy-accounting-review-20261110",
+  "write_scope": "context/23_night_run_20261110/strategy_accounting_review/",
+  "status": "REVIEW_COMPLETE_PUSHED_REMOTE_PAYLOAD_VERIFIED",
+  "verdict": "APPROVE_SCOPED",
+  "scope_verdicts": {
+    "finite_portfolios_and_conservation": "APPROVE",
+    "necessary_resource_envelopes_and_model_calendar": "APPROVE",
+    "relative_F_B_O_conditions": "APPROVE",
+    "C01_unit_and_C07_cost_bridge": "APPROVE",
+    "temporal_resource_counterexample": "APPROVE",
+    "same_resource_next_day_recovery": "CHANGES_INHERITED_HOLD",
+    "MR08_broad_exact_abb1": "NOT_RUN",
+    "MR02_broad_exact_afadee": "NOT_RUN",
+    "old_SVX_lineage_or_parent_root_correction_acceptance": "NOT_RUN",
+    "real_demand_dispatch_full_budget_launch": "NOT_RUN"
+  },
+  "new_actionable_findings": 0,
+  "new_P1": 0,
+  "new_P2": 0,
+  "preserved_holds": [
+    "PRIMARY17B_OLD_SVX_LINEAGE_HOLD",
+    "MR02_DOUBLE_TIMEBASE_AND_DELAY_FEASIBILITY_HOLD"
+  ],
+  "independent_evidence": {
+    "portfolio_subsets": 15,
+    "portfolio_cases": 60,
+    "distinct_numeric_outcomes": 30,
+    "within4_working_cases": 28,
+    "pair_itinerary_rows": 1344,
+    "per_flight_recipe_cases": 160,
+    "resource_rows": 20,
+    "anastasia_240h_necessary_passes": 3,
+    "relative_inequalities": 12,
+    "budget_side_witnesses": 12,
+    "product_unit_cases": 6,
+    "C07_cost_cases": 2,
+    "synthetic_pure_function_subject_tests": 2,
+    "overlap_D_delta_RUB": -446063.8886592854,
+    "overlap_H_delta_RUB": -1944892.849757962,
+    "temporal_conflicts": 23,
+    "baseline_peak_airborne": 4,
+    "shifted_peak_airborne": 8,
+    "source_files_with_hash_and_grain": 27,
+    "review_authority_files": 2
+  },
+  "independence": {
+    "data_access": "git show exact pinned objects",
+    "author_outputs_as_oracle": false,
+    "full_author_module_execution": false,
+    "pure_author_functions_as_SUT_only": "pair/prepare/simulate/near in two synthetic tests",
+    "Nastya_full_author_replay": "NOT_RUN; pinned replayed hours are inputs to necessary resource transformation",
+    "C07_raw_leg_delta": "CHECKED_FROM_FROZEN_PHYSICAL_LEGS"
+  },
+  "entrypoint": "report.md",
+  "machine_findings": "findings.json",
+  "checks": "checks.json",
+  "source_manifest": "source_manifest.json",
+  "output_manifest": "output_manifest.json",
+  "reproduce": "python3 -B context/23_night_run_20261110/strategy_accounting_review/reproduce.py",
+  "verify": "python3 -B context/23_night_run_20261110/strategy_accounting_review/verify_package.py",
+  "required_followup": [
+    "Retain both inherited holds; use separately scoped MR08/MR02 results when delivered.",
+    "Do not treat day1 shifted16legs as available next-day resource. A feasible recovery needs explicit new calendar/resources.",
+    "Actual calendar/paid OD/tariff/full budget/donor remain UNKNOWN; no team strategy or launch choice granted."
+  ],
+  "review_completed_msk": "2026-11-10T07:05:00+03:00",
+  "bounded_handoff_deadline_msk": "2026-11-10T08:05:00+03:00",
+  "overall_limit_msk": "2026-11-10T10:00:00+03:00",
+  "delivery": {
+    "state": "COMPLETE_REVIEW_PAYLOAD_PUSHED_REMOTE_VERIFIED",
+    "review_payload_commit": "cb19bb821f8931d7149ea19e2a279181e4653dde",
+    "remote_verified_payload_sha": "cb19bb821f8931d7149ea19e2a279181e4653dde",
+    "self_reference_policy": "Payload SHA and observed remote receipt are added in a subsequent delivery-envelope commit. Final branch-tip SHA is verified externally and supplied in the final handoff message; no self-referential Git hash is asserted.",
+    "receipt": "delivery_receipt.json",
+    "receipt_written_utc": "2026-11-10T04:07:28.592521+00:00"
+  },
+  "constraints_respected": {
+    "own_scope_only": true,
+    "children_threads_schedules_polling_messages": false,
+    "Site_dashboard_or_infrastructure_changes": false,
+    "purchases_or_paid_sources": false,
+    "force_merge_rebase_PR": false
+  }
+}

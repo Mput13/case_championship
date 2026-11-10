@@ -1,0 +1,9 @@
+# Поздние adapters и calendar flex
+
+Отдельные пины: hypotheses `6ed8788882e7b4d07044b4f6e686ff71eadd8ac5` и alternative `ef365ac2a936117e5b3bb12ea99c816d7b1a101c`. Собственный `review_late_phase2.py` проверил входы/хеши и повторил joins/календарь. Старые critic passes не использовались как автоматическая приёмка новых модулей. Peer scripts прочитаны, не выполнены.
+
+**PASS_LATE_JOIN_AND_FLEX_ARITHMETIC_ONLY.** Frozen003 сохранил7coreinputs; фильтр airport keys ровно по7заявленным IATA воспроизведён без подстановки других аэропортов. В operating_join126bccd проверены7keyjoins,10physicalrequirements/coverage,7rule gates и12datedsource rows. Исходные поля сохранены, все12arrival UTC пусты;30карантинов остаются во frozeninput. Более новый fa39C14 не заменён ноябрьским табло/старым отсутствием дат вcore.
+
+В flex13bad проверены24строки: ближайший последующий возврат выбирается из captured дат не раньше первоначального checkout. Двенадцать точных совпадений требуют0добавочных ночей; десять вариантов — ещё1/2/3ночи; для двухcheckout25Dec ближайший последующий рейс не покрыт горизонтом. Желание клиента, продление inventory, медицинская пригодность, billabledays, доплата, места и трансфер UNKNOWN. Это изменение пользовательского продукта только при явном согласии вSCENARIO, не появление принятого исходного7/10/14ночного продукта и не доказательство отсутствия возврата за горизонтом.
+
+В ef365ac проверены manifestSHA и4выбранных артефакта: исходное правило, typedadapterv2, datedflights иconditionalcalendars. Все6v2rules сохраняют часы/даты/направления; legaloperating/marketing пусты, sourceassociation отделена; OBSERVED/DERIVED компоненты разделены. Прежние flight_rules байты совпали сfa39. C10/новое извлечение receptionPDF не проверялись; core505C07последний условный тест не входил ни в прежний930аудит, ни в этот scopedpass. Эти части остаются author-reported, без наследования acceptance. Полный продукт/рынок/запуск UNKNOWN/NOT_ACCEPTED.

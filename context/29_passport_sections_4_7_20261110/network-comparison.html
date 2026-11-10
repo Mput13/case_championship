@@ -1,0 +1,33 @@
+<section id="passport-network-comparison" data-viz-composition>
+  <div data-viz-container></div>
+  <script type="application/json" data-viz-chart>
+    {
+      "charts": [
+        {
+          "id": "network-contribution",
+          "title": "Вклад до аренды и базы",
+          "description": "Базовый модельный год, 52 недели; без маршрутной субсидии, компенсация топлива 32 930 ₽/т. Фактический расчётный парк различается.",
+          "height": 260,
+          "spec": {"type":"horizontalBar","y":"network","x":"value","xLabel":"млн ₽ за модельный год","sortOrder":"original","showValues":true,"showLegend":false,"xDomain":[0,600]},
+          "columns": ["network", "value"],
+          "rows": [["Омск · 7 ВС",503],["Сочи · 5 ВС",569],["Уфа · 5 ВС",252],["Самара · 4 ВС",241],["Прямые · 8 ВС",44]]
+        },
+        {
+          "id": "network-new-segments",
+          "title": "Новые пассажирские сегменты",
+          "description": "После учтённого перетока со старых рейсов RW. Реестр действующих рейсов неполный. Источник: kiruha355, 7fcb5ff, network_summary.csv.",
+          "height": 260,
+          "spec": {"type":"horizontalBar","y":"network","x":"value","xLabel":"сегментов за модельный год","sortOrder":"original","showValues":true,"showLegend":false,"xDomain":[0,800000]},
+          "columns": ["network", "value"],
+          "rows": [["Омск · 7 ВС",568587],["Сочи · 5 ВС",386046],["Уфа · 5 ВС",408337],["Самара · 4 ВС",292965],["Прямые · 8 ВС",730270]]
+        }
+      ]
+    }
+  </script>
+</section>
+<script type="module">
+  import { mountChart } from "https://persistent.oaistatic.com/plugins/visualize/charts/1.1.6/element.js";
+  const root = document.getElementById("passport-network-comparison");
+  const config = JSON.parse(root.querySelector("[data-viz-chart]").textContent);
+  mountChart(root.querySelector("[data-viz-container]"), config);
+</script>

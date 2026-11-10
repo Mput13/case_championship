@@ -1,0 +1,91 @@
+{
+  "package": "SOURCE_JOIN_REVIEW_20261110_R1",
+  "created_at_utc": "2026-11-10T03:34:33.112513+00:00",
+  "reviewer": "Independent Sol 6.1 xhigh; prepared T3 checkout",
+  "coordinator_thread_id": "c33b699f-e603-452b-bc0a-6f424e0907c8",
+  "coordinator_blocker_notified": true,
+  "input_pins": {
+    "primary": "17b4f348f15ea8695688d9435933cb4965568408",
+    "bridge": "abc09bbb8e62d3513749b60b252d4521997acfc3",
+    "baseline": "7180bf5e03905a7892b3031f2447c5b33d10e244"
+  },
+  "verdict": "CHANGES",
+  "blocking_findings": [
+    "SJR-P2-001"
+  ],
+  "scoped_approved": [
+    "UFA raw rule/date extraction",
+    "KUF-MRV/NJC conditional winter dates with year HOLD",
+    "KUF/REN/RW@SVX scoped published facts; historical OMS service",
+    "Bridge source fidelity/accounting and full endpoint mapping joins",
+    "Weather/tourism source grain and stated selected raw cells"
+  ],
+  "holds": [
+    {
+      "finding_id": "SJR-P2-001",
+      "scope": "129 inherited SVX publication rows /28 cards /58 addendum mappings; source-version lineage only"
+    },
+    {
+      "scope": "Year inference, source clock conflicts, directory quarantine, unknown seats/fares/observed OD",
+      "status": "PRESERVED"
+    }
+  ],
+  "independent_checks": {
+    "total": 52,
+    "pass": 51,
+    "fail": 1,
+    "expected_exit_code": 1,
+    "expected_failed_check": "SOURCE_REGISTRY_ROW_RAW_VERSION_FK"
+  },
+  "personally_read_raw": {
+    "files": 22,
+    "bytes": 22935058,
+    "copied": false,
+    "network_used": false
+  },
+  "source_git_inputs": 170,
+  "author_code_executed": false,
+  "supplied_checks_counted_as_independent": false,
+  "outputs": [
+    "report.md",
+    "findings.json",
+    "independent.py",
+    "independent_results.json",
+    "source_manifest.json",
+    "source_grains.csv",
+    "output_manifest.json",
+    "commands.md",
+    "progress.md",
+    "source_registry_mismatches.csv",
+    "source_registry_resolution.json",
+    "ufa_calendar_recomputed.csv",
+    "kuf_endpoint_calendar.csv",
+    "coverage_recomputed.csv",
+    "economics_recomputed.csv",
+    "two_leg_examples.json",
+    "weather_cells_recomputed.csv",
+    "tourism_cells_recomputed.csv",
+    "municipal_cells_recomputed.csv",
+    "primary_fact_locators.json"
+  ],
+  "outside_scope": [
+    "All inherited schedule raw reparse",
+    "All weather raw and station fitness",
+    "Full municipal reject/2022-key validation",
+    "Monthly EMISS/YTD source extraction",
+    "Complete author model/scoring replay",
+    "Observed final OD/fares/sales",
+    "Current RW MRO contract/capacity",
+    "Operational execution/stop status",
+    "Predictive gain or causal profitability",
+    "Full budget and recommendation winner"
+  ],
+  "next_action": "Coordinator/owner repairs only the pinned SVX receipt linkage in a new package; independent re-check must use a new review task. Other source/economic admissions remain scoped.",
+  "delivery": {
+    "remote": "origin",
+    "branch": "research/night-source-join-review-20261110",
+    "force": false,
+    "pr_created": false,
+    "commit_identity": "Git commit containing this handoff; exact matching origin SHA is reported in final completion after push."
+  }
+}

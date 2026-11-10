@@ -1,0 +1,273 @@
+{
+  "input_head": "27740ffea0821aa404ecd1013d1bb141613261f3",
+  "payload": "dc5c65d12e0236f5aaa6182ca83bda0d52c10f57",
+  "author": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+  "ciri": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+  "author_check_py": "NOT_RUN",
+  "full_budget_comparison": "NOT_RUN_OUTSIDE_SCOPE",
+  "environment": {
+    "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "numpy": "2.4.3",
+    "pandas": "2.3.3"
+  },
+  "tolerance": {
+    "default_absolute": 1e-06,
+    "default_relative": 1e-11,
+    "large_annual_totals_absolute": 0.0001,
+    "MR06": "exact integer-minute equality"
+  },
+  "checks": [
+    {
+      "id": "all_payload_bytes_and_author_artifact_hashes",
+      "status": "PASS",
+      "result": {
+        "snapshot_files": 507,
+        "artifact_hashes": 506,
+        "input_head": "27740ffea0821aa404ecd1013d1bb141613261f3",
+        "payload": "dc5c65d12e0236f5aaa6182ca83bda0d52c10f57",
+        "all_snapshot_bytes_equal": true
+      }
+    },
+    {
+      "id": "source_byte_identity_and_projection_receipt",
+      "status": "PASS",
+      "result": {
+        "original_files_byte_matched": 43,
+        "author_exports_preserved": 5,
+        "projection_rows": 64440,
+        "raw_receipt_hash_preserved": "aed8463339b988a7c9ac81aa976a4fc25c152e4066b551d25cbdcc16ebe16d53",
+        "full_raw_download": "NOT_RUN",
+        "limitation": "Receipt/raw manifest cross-check, not an independent rehash of absent full raw."
+      }
+    },
+    {
+      "id": "independent_anastasia_author_replay",
+      "status": "PASS",
+      "result": {
+        "network_routes.csv": {
+          "rows": 128,
+          "differing_cells": 0,
+          "max_numeric_abs_delta": 0.0
+        },
+        "network_summary.csv": {
+          "rows": 12,
+          "differing_cells": 0,
+          "max_numeric_abs_delta": 0.0
+        },
+        "mandatory_routes_table.csv": {
+          "rows": 64,
+          "differing_cells": 0,
+          "max_numeric_abs_delta": 0.0
+        }
+      }
+    },
+    {
+      "id": "real_D_guard_Q_deltas_and_independent_greedy_selection",
+      "status": "PASS",
+      "result": {
+        "scenarios": 2,
+        "independent_template_and_selection_oracle": true,
+        "D_current_saved_exceedance": false,
+        "D_only_delta": 0.0,
+        "pooled_Q": "AGENT_PROPOSAL",
+        "results": "real_market_replay.json"
+      }
+    },
+    {
+      "id": "independent_shared_market_counterexamples",
+      "status": "PASS",
+      "result": {
+        "cases": [
+          {
+            "case": "D_exceedance_four_programs",
+            "allocation": "frequency",
+            "D": 300.0,
+            "author_sold": 379.5346471545782,
+            "guard_sold": 300.0
+          },
+          {
+            "case": "D_exceedance_four_programs",
+            "allocation": "standalone_claim",
+            "D": 300.0,
+            "author_sold": 379.5346471545782,
+            "guard_sold": 300.0
+          },
+          {
+            "case": "three_programs_reverse_unequal_frequencies_all_permutations",
+            "law": "market_bound_only",
+            "runs": 12,
+            "frequency": 8,
+            "sold": 300.0
+          },
+          {
+            "case": "three_programs_reverse_unequal_frequencies_all_permutations",
+            "law": "author_at_total_frequency",
+            "runs": 12,
+            "frequency": 8,
+            "sold": 181.45072701155368
+          },
+          {
+            "case": "seats_and_zero_capacity",
+            "offered_at_lf_max": 680.0,
+            "zero_capacity_sales": 0
+          },
+          {
+            "case": "selector_charges_loss_of_existing_program",
+            "selected": [
+              "FIRST",
+              "UNIQUE"
+            ],
+            "standalone_candidate_contribution": 66.42411176571153,
+            "existing_program_revenue_loss": 39.9576400893728,
+            "full_network_marginal_contribution": -13.491168413034075
+          }
+        ],
+        "greedy_order": "ties may use enumeration order; not a global optimiser"
+      }
+    },
+    {
+      "id": "all_anastasia_primary_ledger_rows",
+      "status": "PASS",
+      "result": {
+        "networks": 50,
+        "itineraries": 892,
+        "incidences": 1224,
+        "aggregate_legs": 513,
+        "unit": "annual both-direction journeys/segments; one weekly direction x 2 x 52 or 48",
+        "own_migration": "NULL_NOT_MODELED",
+        "calendar": "NOT_RUN_NO_DATED_AUTHOR_INPUT",
+        "original_ledgers_read": true,
+        "examples": "primary_ledger_examples.json"
+      }
+    },
+    {
+      "id": "independent_asymmetric_hub_local_transfer_one_fare",
+      "status": "PASS",
+      "result": {
+        "frequencies": {
+          "P": 14,
+          "Q": 9
+        },
+        "weekly_both_direction_transfer_journeys": 1029.6203883696533,
+        "weekly_both_direction_trips": 2546.2872630356233,
+        "weekly_segments": 3575.9076514052767,
+        "through_fare_once": 8971.2,
+        "weekly_revenue": 18831586.999999743,
+        "wrong_sum_of_leg_fares_revenue": 22230569.826085642
+      }
+    },
+    {
+      "id": "independent_ciri_replay_and_primary_accounting",
+      "status": "PASS",
+      "result": {
+        "export_matches": {
+          "comparison.csv": {
+            "rows": 8,
+            "differing_cells": 0,
+            "max_numeric_abs_delta": 1.1175870895385742e-08
+          },
+          "routes.csv": {
+            "rows": 28,
+            "differing_cells": 0,
+            "max_numeric_abs_delta": 0.0
+          }
+        },
+        "alternatives_scenarios": 8,
+        "itineraries": 224,
+        "flight_scenario_capacity_rows": 160,
+        "alternative_networks_summed": false,
+        "known_RW_migration_shared_cap": true,
+        "one_through_fare": true,
+        "unknown_connecting_migration": "SCENARIO_NOT_OBSERVED",
+        "evidence": "independent_ciri_accounting.csv"
+      }
+    },
+    {
+      "id": "ciri_nonzero_occupancy_and_shared_migration_counterexamples",
+      "status": "PASS",
+      "result": {
+        "cases": [
+          {
+            "case": "local_occupancy_transfer_bottleneck",
+            "priority": "local_first",
+            "transfer_journeys": 40.0,
+            "leg1_occupied": 100.0,
+            "leg2_occupied": 60.0,
+            "trips": 120.0,
+            "segments": 160.0,
+            "one_transfer_fare": 192.0
+          },
+          {
+            "case": "local_occupancy_transfer_bottleneck",
+            "priority": "transfer_first",
+            "transfer_journeys": 70,
+            "leg1_occupied": 100,
+            "leg2_occupied": 70,
+            "trips": 100,
+            "segments": 170,
+            "one_transfer_fare": 192.0
+          },
+          {
+            "case": "two_offers_one_migration_cap_repeated_alternatives",
+            "trips": 200,
+            "direct_old_cap": 12,
+            "lost_revenue_once": 1080,
+            "saved_old_pax_cost_once": 84,
+            "contribution_each_alternative": 21584.0
+          }
+        ],
+        "nonzero_occupancy_checked": true,
+        "unequal_leg_capacities": [
+          100,
+          70
+        ],
+        "alternative_state_reset": true
+      }
+    },
+    {
+      "id": "MR06_actual_functions_and_scalar_provenance_all_1372",
+      "status": "PASS",
+      "result": {
+        "rows": 1372,
+        "numeric_mismatches": 0,
+        "metadata_corrections": 1072,
+        "core_rows_retained": 300,
+        "provenance_counts": {
+          "CORE_COORDINATE_FALLBACK": 166,
+          "CORE_BLOCK_TABLE": 134,
+          "ROUTE_COORDINATE_FALLBACK": 726,
+          "ROUTE_DIRECTIONAL_PUBLISHED_PROXY": 244,
+          "ROUTE_COORDINATE_FALLBACK_STRESS60": 102
+        },
+        "sample_pairs_per_provenance": {
+          "CORE_COORDINATE_FALLBACK": 3,
+          "CORE_BLOCK_TABLE": 3,
+          "ROUTE_COORDINATE_FALLBACK": 3,
+          "ROUTE_DIRECTIONAL_PUBLISHED_PROXY": 3,
+          "ROUTE_COORDINATE_FALLBACK_STRESS60": 3
+        },
+        "numerical_flight_time_changes": 0,
+        "financial_change_run": "NOT_RUN_METADATA_ONLY",
+        "evidence": [
+          "independent_MR06.csv",
+          "independent_MR06_examples.json"
+        ]
+      }
+    },
+    {
+      "id": "common_adapter_joins_units_scope_and_conditional_ranks",
+      "status": "PASS",
+      "result": {
+        "physical_rows": 160,
+        "itinerary_rows": 224,
+        "evaluation_rows": 58,
+        "joins": "model/profile/network/scenario/physical_leg",
+        "COMMON_COMPARISON": "NOT_RUN",
+        "full_budget": "NOT_RUN",
+        "MOW_to_ZIA_airport_assignment": "NOT_RUN_NOT_ASSUMED",
+        "ranks": "CONDITIONAL_VARIABLE_CONTRIBUTION_ONLY",
+        "case_8_12_compliance": "OPEN_DEFINITION"
+      }
+    }
+  ]
+}

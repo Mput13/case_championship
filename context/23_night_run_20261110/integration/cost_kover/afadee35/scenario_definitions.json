@@ -1,0 +1,67 @@
+{
+  "version": "MR02-scenarios-v1",
+  "status": "AGENT_PROPOSAL_CONDITIONAL_STRESS",
+  "input_set_id": "MR02-input-set-001",
+  "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+  "profile": "ROUTE_INPUTS_UPPER_100",
+  "networks": ["H_UFA_8", "H_UFA_4", "D_pilot", "D_case"],
+  "author_scenarios": ["base", "cautious"],
+  "period_start": "2026-12-07",
+  "period_end": "2026-12-13",
+  "currency": "RUB",
+  "price_basis": "author scenario net revenue and reference costs; not RW contracts",
+  "tax_basis": "author ex recoverable VAT; actual tax cash and recoverability UNKNOWN",
+  "market_unit": "scenario one-way endpoint journeys; fractional volumes are model allocations, not booked persons",
+  "episode": {
+    "id": "SYNTHETIC_UFA_20261207_UTC24",
+    "airport": "UFA",
+    "airport_name": "Уфа",
+    "start_utc": "2026-12-07T00:00:00+00:00",
+    "end_utc_exclusive": "2026-12-08T00:00:00+00:00",
+    "selection": "origin departure or destination arrival at restricted airport in [start,end)",
+    "duration_basis": "explicit 24-hour stress input; no observed episode or publication count used",
+    "observed": false,
+    "probability": null,
+    "end_date_forecast": null
+  },
+  "other_risks": {
+    "preserve_author_bundle": true,
+    "remaining": ["погода и антиобледенение", "техническая готовность и ТО", "экипажи", "слоты и наземное обслуживание", "неподтверждённый спрос и тариф", "санкционные и договорные ограничения"],
+    "note": "No new numerical estimate for these risks. Existing deicing assumptions and base/cautious parameters are preserved. No claim the author model fully prices all of them."
+  },
+  "avoidability_profiles": {
+    "fuel_and_unstarted_pax_only": {
+      "fuel_product": 1, "fuel_uplift": 0, "mro": 0, "crew": 0,
+      "navigation": 0, "airport_turn": 0, "deicing": 0, "new_pax_variable": 1,
+      "meaning": "Cancellation before journey starts: unburned fuel retained in stock and unprovided passenger service. Other contracted charges retained pending terms. Fractions are conditional inputs, not observations."
+    },
+    "usage_billed_mro_uplift_navigation": {
+      "fuel_product": 1, "fuel_uplift": 1, "mro": 1, "crew": 0,
+      "navigation": 1, "airport_turn": 0, "deicing": 0, "new_pax_variable": 1,
+      "meaning": "Additional sensitivity ONLY IF uplift, MRO reserves and navigation are billed solely for the cancelled operation. No empirical avoidability established. Crew and airport commitments remain."
+    }
+  },
+  "scenarios": [
+    {"id": "no_kover", "action": "none", "episode_active": false},
+    {"id": "cancel_pretravel_no_protection", "action": "cancel", "episode_active": true, "avoidability": "fuel_and_unstarted_pax_only", "old_migration_restored_fraction": 0, "protection": "none; full affected endpoint journey unserved; refund net fare once; old RW migration unchanged"},
+    {"id": "cancel_usage_billed_sensitivity", "action": "cancel", "episode_active": true, "avoidability": "usage_billed_mro_uplift_navigation", "old_migration_restored_fraction": 0, "protection": "same unserved journeys; alternative contract billing condition only"},
+    {"id": "delay_bank_next_day_fare_retained", "action": "delay", "episode_active": true, "delay_minutes": 1440, "protection": "conditional whole bank next day; same passengers and fare; slots/crew/MCT/hotels UNKNOWN; no automatic operational acceptance"},
+    {"id": "restrictions_removed_other_risks_retained", "action": "none", "episode_active": false, "note": "Counterfactual with no kover only; no prediction of removal date; all other risks and author costs preserved"}
+  ],
+  "cash_timing_stress": {
+    "scope": "incremental difference from identical author no-kover tickets; illustrative net-of-tax timing, not bank cash or financing quote",
+    "precollected_net_fare_fraction": 1,
+    "service_relative_day": 0,
+    "supplier_settlement_relative_day": 3,
+    "refund_relative_day": 7,
+    "fuel_replenishment_relative_day": 14,
+    "fuel_cash_mechanism": "Fuel already bought: cancellation preserves inventory; cash appears only if replenishment is reduced later",
+    "other_avoidable_cash_mechanism": "Avoidable usage/passenger charges would settle at day3; no claim about actual contracts",
+    "absolute_calendar_dates": null,
+    "actual_timing": "UNKNOWN",
+    "unknown_additional_cash": ["gross VAT/refund cash", "compensation", "hotels/meals", "parking/handling", "rebooking", "supplier penalties", "base/lease/deposits", "tax timing"]
+  },
+  "actual_reaccommodation": "UNKNOWN; MCT/protected ticket terms/available alternative inventory not established",
+  "tail_assignment": "author aircraft labels are planning resource identifiers, not actual tail registrations; no unobserved cascade inferred",
+  "full_budget": "UNKNOWN; numerical contribution and cash stress exclude explicitly registered additional terms"
+}

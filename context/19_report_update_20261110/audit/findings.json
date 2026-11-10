@@ -1,0 +1,647 @@
+{
+  "verdict": "APPROVE_WITH_LIMITATIONS_FOR_PUBLIC_REPORT_UPDATE; CHANGES_FOR_FINAL_TOP3_NEW_HUB_OR_PROFITABILITY_CLAIMS",
+  "reviewed_at_utc": "2026-11-09T22:48:26.737685+00:00",
+  "input": {
+    "new_sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+    "baseline_sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+    "git_parent": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+    "local_ref": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+    "ref_freshness": "NOT_FETCHED",
+    "authors": {
+      "new_git_author": "mput",
+      "new_person": "Цири, explicitly identified by user",
+      "baseline_git_author": "kiruha355",
+      "baseline_person": "Настя, explicitly identified by user"
+    }
+  },
+  "scope": {
+    "writes": [
+      "context/19_report_update_20261110/audit/report.md",
+      "context/19_report_update_20261110/audit/findings.json",
+      "context/19_report_update_20261110/audit/checks.json"
+    ],
+    "no_new_children": true,
+    "full_model_audit": false,
+    "author_pass_is_own_verification": false,
+    "new_external_collection": false,
+    "not_run": [
+      "external source verification",
+      "author acceptance/check.py",
+      "author finalize_stage1_audit.py",
+      "full 2000-draw Python/JS parity",
+      "full model/raw replay",
+      "live/browser/visual QA",
+      "fetch/push/merge/rebase",
+      "new research"
+    ]
+  },
+  "old_findings": {
+    "B1": "PARTIALLY_ADDRESSED: explicit modes and symmetric known-support exclusion; policy/team approval/current resources remain conditional",
+    "B2": "SUBSTANTIALLY_ADDRESSED: corrected stability statement, frozen anchors, weak evidence bounds; real-world uncertainty and UI/tie defects remain",
+    "B3": "OPEN: unchanged code/data and independent numeric reproduction",
+    "B4": "REFRAMED_NOT_SOLVED: transfer proxy/full utility bounds; no OD validation or economic replay",
+    "post6495": "UNCHANGED_NOT_REPLAYED: earlier impact on aggregate days unproven"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "PROVENANCE_AND_VERSION",
+      "severity": "P1_IF_MISREPORTED",
+      "status": "VERIFIED",
+      "title": "Итоговая интеграция отличается от промежуточного model_outputs",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/final_comparison.csv",
+          "line_start": 2,
+          "line_end": 7
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/model_outputs/scenario_summary.csv",
+          "line_start": 2,
+          "line_end": 12
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/accepted_model_inputs.json",
+          "line_start": 2,
+          "line_end": 16
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/build_criteria.py",
+          "line_start": 128,
+          "line_end": 136
+        }
+      ],
+      "own_check": "140 сценариев и 2170 строк центральных баллов/границ независимо совпали; стандартные score/scenario CSV согласованы с final.",
+      "impact": "Перенос промежуточного OMS/REN/KUF или strict_new_proxy VOG/REN/BAX выдаст прежние 125-весовые результаты за итог нового интегратора.",
+      "smallest_report_action": "Основной результат брать из final_comparison/final_scores/accepted criteria, промежуточный сохранить как историю; веса 100 обозначить предложением команды для обсуждения."
+    },
+    {
+      "id": "F2",
+      "kind": "SCORING_UNCERTAINTY",
+      "severity": "P1_IF_FINAL_WINNER_CLAIMED",
+      "status": "CONDITIONAL_RESULT_VERIFIED",
+      "title": "OMS/REN/BAX условны; Барнаул опережает Самару лишь на 0.000721148",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/final_comparison.csv",
+          "line_start": 2,
+          "line_end": 7
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/final_comparison.csv",
+          "line_start": 23,
+          "line_end": 23
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/final_comparison.csv",
+          "line_start": 42,
+          "line_end": 42
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/processed/longlist_scores_min500.csv",
+          "line_start": 2,
+          "line_end": 5
+        }
+      ],
+      "own_check": {
+        "primary": [
+          {
+            "iata": "OMS",
+            "score": 0.6489141347151431,
+            "score_low": 0.4120334937085277,
+            "score_high": 0.8828875531161137,
+            "unknown_weight_share": 0.22,
+            "indirect_weight_share": 0.25,
+            "uncertain_weight_share": 0.6,
+            "rank_best": 1,
+            "rank_worst": 15
+          },
+          {
+            "iata": "REN",
+            "score": 0.5508560277945392,
+            "score_low": 0.29239690745100966,
+            "score_high": 0.843425353336469,
+            "unknown_weight_share": 0.3,
+            "indirect_weight_share": 0.32,
+            "uncertain_weight_share": 0.75,
+            "rank_best": 1,
+            "rank_worst": 15
+          },
+          {
+            "iata": "BAX",
+            "score": 0.5269528227041733,
+            "score_low": 0.3058280922570855,
+            "score_high": 0.9285773315540723,
+            "unknown_weight_share": 0.3,
+            "indirect_weight_share": 0.32,
+            "uncertain_weight_share": 0.75,
+            "rank_best": 1,
+            "rank_worst": 15
+          },
+          {
+            "iata": "KUF",
+            "score": 0.5262316744574347,
+            "score_low": 0.15971004399981564,
+            "score_high": 0.7801197730249472,
+            "unknown_weight_share": 0.3,
+            "indirect_weight_share": 0.32,
+            "uncertain_weight_share": 0.75,
+            "rank_best": 1,
+            "rank_worst": 15
+          }
+        ],
+        "gap": 0.0007211482467386343,
+        "intro_only_top3": [
+          "OMS",
+          "REN",
+          "KUF"
+        ],
+        "common_neutral_local_market_top3": [
+          "KUF",
+          "OMS",
+          "KJA"
+        ]
+      },
+      "impact": "Нет устойчивого третьего места; лидерство OMS не универсально при сочетании альтернативных профилей и документальных допущений.",
+      "smallest_report_action": "Показать условную тройку, близкую KUF и 2–3 значимых чувствительности. Диапазоны мест 1–15 не называть вероятностями."
+    },
+    {
+      "id": "F3",
+      "kind": "OLD_FINDING_DISPOSITION",
+      "severity": "DECISION_GATE",
+      "status": "B1_PARTIALLY_ADDRESSED",
+      "title": "Новизна узла, 500 км и утверждение весов остаются условиями решения",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 13,
+          "line_end": 13
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 69,
+          "line_end": 83
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/longlist_data.py",
+          "line_start": 112,
+          "line_end": 112
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/longlist_data.py",
+          "line_start": 152,
+          "line_end": 153
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/final_comparison.csv",
+          "line_start": 7,
+          "line_end": 12
+        }
+      ],
+      "own_check": "strict_new исключает KUF/KZN/AER/MCX; surviving scores не меняются при eligibility-фильтре. Без500 balanced = CEK/UFA/OMS.",
+      "impact": "Опора KUF не равна физической базе или хабу; rw_support OMS UNKNOWN не доказывает новизну. Дальность SVO/DME/VKO/SVX не измеряет каннибализацию.",
+      "smallest_report_action": "Сохранить расширение опоры основным явно условным режимом; strict_new обозначить условной классификацией. Указать, что 500км и веса нормативны, ZIA+SVX не проверен."
+    },
+    {
+      "id": "F4",
+      "kind": "OLD_FINDING_DISPOSITION",
+      "severity": "P2",
+      "status": "B2_SUBSTANTIALLY_ADDRESSED_WITH_LIMITS",
+      "title": "Фиксированные шкалы и интервалы слабых сведений теперь реально доходят до score",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/longlist_score.py",
+          "line_start": 20,
+          "line_end": 44
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 63,
+          "line_end": 98
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 98,
+          "line_end": 132
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "docs/25_step1_open_questions.md",
+          "line_start": 3,
+          "line_end": 23
+        }
+      ],
+      "own_check": {
+        "all_unknown_cells_null_neutral_full_bounds": 106,
+        "raw_utility_comparisons": 60,
+        "fixed_filter_max_score_change": 0.0,
+        "profile_weight_sums": {
+          "balanced": 100,
+          "local_market": 100,
+          "connectivity": 100,
+          "resilience": 100,
+          "evidence_neutral": 100
+        }
+      },
+      "impact": "Закрыта прежняя трактовка только NaN как неопределённости и неверный текст об одинаковых первых двух. Совместимость крайних случаев и вся неопределённость источников не доказаны; proxy остаются коррелированными.",
+      "smallest_report_action": "Объяснить UNKNOWN отдельно от INDIRECT и общего веса интервальных признаков; не использовать шкалу как доказанную экономическую функцию."
+    },
+    {
+      "id": "F5",
+      "kind": "DATA_EVIDENCE_BOUND",
+      "severity": "P2_IF_FACT_OVERSTATED",
+      "status": "REN_CONDITIONAL_INTERVAL_CORRECTLY_LABELLED",
+      "title": "REN >951000 — факт snapshot; 951100 и узкий интервал зависят от округления",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 123,
+          "line_end": 128
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/integration_decisions.md",
+          "line_start": 8,
+          "line_end": 8
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "context/22_stage1_audit/main_source_checks.md",
+          "line_start": 13,
+          "line_end": 17
+        }
+      ],
+      "own_check": "utility центра 951100 и условных границ 951000..951200 воспроизведена; raw v=null и raw_fact=>951000 сохранены. Внешняя страница заново не проверена.",
+      "impact": "Нельзя утверждать точно 951100 пассажиров или гарантированную исходным источником верхнюю границу 951200.",
+      "smallest_report_action": "Писать >951 тыс.; производную сумму округлённых компонентов и округлительный сценарий обозначать отдельно."
+    },
+    {
+      "id": "F6",
+      "kind": "IMPLEMENTATION_DEFECT",
+      "severity": "P2",
+      "status": "OPEN_INHERITED_B3_REPRODUCED",
+      "title": "Общий OD физических пар повторно захватывается несколькими треугольниками",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/network_model.py",
+          "line_start": 55,
+          "line_end": 57
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/network_model.py",
+          "line_start": 106,
+          "line_end": 116
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/network_model.py",
+          "line_start": 249,
+          "line_end": 275
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/network_model.py",
+          "line_start": 283,
+          "line_end": 292
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/processed/network_routes.csv",
+          "line_start": 42,
+          "line_end": 50
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/processed/demand_pairs.csv",
+          "line_start": 1244,
+          "line_end": 1244
+        }
+      ],
+      "own_check": [
+        {
+          "scenario": "base",
+          "route_csv_lines": [
+            42,
+            47,
+            50
+          ],
+          "frequencies": [
+            "4",
+            "4",
+            "3"
+          ],
+          "demand_selected": 674175.0,
+          "stored_separate_capture_pax": 87497,
+          "shared_frequency": 11.0,
+          "shared_capture_pax": 80581.03552981278,
+          "excess": 6915.964470187217
+        },
+        {
+          "scenario": "cautious",
+          "route_csv_lines": [
+            112,
+            117,
+            121,
+            126,
+            127
+          ],
+          "frequencies": [
+            "3",
+            "3",
+            "3",
+            "3",
+            "3"
+          ],
+          "demand_selected": 567711.0,
+          "stored_separate_capture_pax": 110705,
+          "shared_frequency": 15.0,
+          "shared_capture_pax": 95766.95528407069,
+          "excess": 14938.04471592931
+        }
+      ],
+      "impact": "Неисправленные общие capture/выручка ограничивают коммерческое сравнение прямой сети и хаба. Conservation само по себе дефект не ловит; общую прибыль здесь не пересчитывали.",
+      "smallest_fix": "Единый OD-budget и capture от общей частоты для повторяемых B–X/B–Y с пересчётом marginal selection/выручки/кресел; вне текущего scope.",
+      "smallest_report_action": "Оставить прежний B3 открытым; не объявлять новый stage1 audit приёмкой экономики шагов2–4."
+    },
+    {
+      "id": "F7",
+      "kind": "MODEL_SCOPE",
+      "severity": "P1_SCOPE_LIMITATION",
+      "status": "B4_REFRAMED_NOT_SOLVED",
+      "title": "Transfer — модельный proxy; конечный OD, продажи и денежный эффект не восстановлены",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 98,
+          "line_end": 101
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/network_model.py",
+          "line_start": 55,
+          "line_end": 57
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/assumptions/network.csv",
+          "line_start": 32,
+          "line_end": 32
+        }
+      ],
+      "own_check": "src/network_model.py, src/demand_model.py, network_routes/summary и Excel побайтово одинаковы с baseline. Принятый transfer имеет u_low=0,u_high=1.",
+      "impact": "Новый uncertainty overlay не доказывает рыночную калибровку и прибыльность.",
+      "smallest_report_action": "Чётко отделить городской скрининг от экономического сравнения и исполнения расписания."
+    },
+    {
+      "id": "F8",
+      "kind": "INDICATOR_VS_ECONOMIC_MODULE",
+      "severity": "P1_IF_CAUSAL_MONEY_CLAIMED",
+      "status": "INDICATOR_SENSITIVITY_VERIFIED_MODULE_NOT_IMPLEMENTED",
+      "title": "All-events, intro-only и денежное снятие Ковра — разные постановки",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/processed/kover_days.csv",
+          "selector": "OMS=7/7; REN=57/54; BAX=0/0; KUF=137/129, last365 all/intro"
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "scripts/finalize_stage1_audit.py",
+          "line_start": 29,
+          "line_end": 43
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/assumptions/network.csv",
+          "line_start": 32,
+          "line_end": 32
+        },
+        {
+          "sha": "ea542b0c38771f5ad55e67ac02e14b49f07c142c",
+          "path": "context/16_agent_research/kover_scenario_spec.md",
+          "line_start": 5,
+          "line_end": 23
+        }
+      ],
+      "own_check": {
+        "KUF_all_days": 137,
+        "KUF_intro_days": 129,
+        "scale_span": 218,
+        "weight_fraction": 0.22,
+        "score_gain": 0.008073394495412844,
+        "KUF_intro_score": 0.5343050689528476,
+        "interpretation": "same frozen all-event scale; indicator sensitivity only, no monetary or duration effect"
+      },
+      "impact": "intro-only меняет рейтинг, но не измеряет часы закрытия, каскад срывов, потерянную маржу и цену адаптации. 52/48 по-прежнему смешивает погоду/ограничения.",
+      "smallest_report_action": "Сохранить исходный experiment_v1 без отдельного модуля отдельным сравнительным результатом. Отдельный денежный модуль маркировать NOT_IMPLEMENTED; не переименовывать исходный опыт в эмпирически проверенный no-Kover.",
+      "scope_limit": "Сохранённое правило изучено на отдельном report-baseline; полная сохранность всех экспериментальных артефактов не проверялась."
+    },
+    {
+      "id": "F9",
+      "kind": "DATA_PARSER_FIX",
+      "severity": "P2_SCOPE_LIMITATION",
+      "status": "WEATHER_SENTINEL_FIX_VERIFIED_NO_RAW_REPLAY",
+      "title": "Валидные погодные знаменатели исправлены; фактический ряд остаётся UNKNOWN",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/catchment_extra.py",
+          "line_start": 86,
+          "line_end": 105
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/catchment_extra.py",
+          "line_start": 137,
+          "line_end": 147
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/stage1_audit_rules.py",
+          "line_start": 84,
+          "line_end": 86
+        }
+      ],
+      "own_check": {
+        "execution": "only inspected weather_counts AST function, installed pandas; no module top-level code or weather archive access",
+        "fixture_result": {
+          "frost": 1,
+          "wind": 1,
+          "either": 2,
+          "valid_temp_days": 3,
+          "valid_wind_days": 3,
+          "valid_joint_days": 2,
+          "record_days": 5,
+          "observations": 5
+        },
+        "all_sentinel_result": {
+          "frost": 0,
+          "wind": 0,
+          "either": 0,
+          "valid_temp_days": 0,
+          "valid_wind_days": 0,
+          "valid_joint_days": 0,
+          "record_days": 1,
+          "observations": 1
+        },
+        "all_city_weather_unknown": true,
+        "tracked_gz_files": 0,
+        "full_raw_replay": "NOT_RUN"
+      },
+      "impact": "Пять record days не равны пяти валидным joint days; все-sentinel день исключён. Отсутствие raw не превращено в хорошую погоду. Почасовая полнота и реальные эксплуатационные пороги не проверены.",
+      "smallest_report_action": "Показать исправленную обработку пропусков и отсутствие полного replay; не публиковать старые погодные числа как подтверждённые."
+    },
+    {
+      "id": "F10",
+      "kind": "IMPLEMENTATION_DEFECT",
+      "severity": "P2",
+      "status": "OPEN_REPRODUCED",
+      "title": "UNKNOWN competitor_hub выводится как нет",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/dashboard_template.html",
+          "line_start": 335,
+          "line_end": 336
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "data/processed/criteria.json",
+          "selector": "values.{OMS,REN,KUF,BAX}.competitor_hub: v=null,t=нет,status=UNKNOWN,u=.5,bounds=[0,1]"
+        }
+      ],
+      "own_check": [
+        {
+          "iata": "OMS",
+          "label": "нет"
+        },
+        {
+          "iata": "REN",
+          "label": "нет"
+        },
+        {
+          "iata": "KUF",
+          "label": "нет"
+        },
+        {
+          "iata": "BAX",
+          "label": "нет"
+        }
+      ],
+      "impact": "Краткая таблица ошибочно выглядит доказательством отсутствия конкурента; арифметика баллов не меняется.",
+      "smallest_fix": "Проверить unknown/status/null до использования исторического t; показывать не подтверждено.",
+      "smallest_report_action": "Не копировать ложное нет из панели в публичный отчёт."
+    },
+    {
+      "id": "F11",
+      "kind": "IMPLEMENTATION_DEFECT",
+      "severity": "P2",
+      "status": "OPEN_REPRODUCED",
+      "title": "Границы ранга игнорируют стабильный порядок точных равенств",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "scripts/finalize_stage1_audit.py",
+          "line_start": 55,
+          "line_end": 56
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/dashboard_template.html",
+          "line_start": 312,
+          "line_end": 313
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/longlist_score.py",
+          "line_start": 90,
+          "line_end": 91
+        }
+      ],
+      "own_check": [
+        {
+          "iata": "KUF",
+          "stable_rank": 1,
+          "score": 1.0,
+          "code_rank_best": 1,
+          "code_rank_worst": 1
+        },
+        {
+          "iata": "GSV",
+          "stable_rank": 2,
+          "score": 1.0,
+          "code_rank_best": 1,
+          "code_rank_worst": 1
+        }
+      ],
+      "impact": "При одном весе h24 второй GSV получает rank bounds=1..1. Опубликованная основная тройка этим контрпримером не опровергается; произвольные пользовательские веса ограничены.",
+      "smallest_fix": "Использовать один и тот же стабильный tie-order в point ranks и предельных рангах.",
+      "smallest_report_action": "Не заявлять полную корректность произвольных ties; основные опубликованные конфигурации считать проверенными в указанном объёме."
+    },
+    {
+      "id": "F12",
+      "kind": "HISTORICAL_DISPOSITION",
+      "severity": "P3",
+      "status": "INHERITED_UNCHANGED_NOT_REPLAYED",
+      "title": "Conservation/reply parser исправлены baseline; остаточный post6495 не закрыт",
+      "evidence": [
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/fetch_telegram.py"
+        },
+        {
+          "sha": "6ec84a7d2a6eb50b547a61df82fc5a424f48f146",
+          "path": "src/kover_days.py",
+          "line_start": 102,
+          "line_end": 114
+        },
+        {
+          "path": "context/18_team_sync/step1_review/report.md",
+          "line_start": 9,
+          "line_end": 13
+        },
+        {
+          "path": "context/18_team_sync/step1_review/report.md",
+          "line_start": 27,
+          "line_end": 29
+        }
+      ],
+      "own_check": "Hash equality указанных src между OLD/NEW; прежние fixtures и полный event replay в этом обзоре NOT_RUN.",
+      "impact": "Нельзя приписывать новому commit повторное закрытие уже исправленного baseline или считать остаточный статусный дефект решённым. Предыдущий пример GOJ не установил изменения итогового day count.",
+      "smallest_report_action": "Обновить хронологию исправлений без необоснованного нового PASS по parser/conservation."
+    }
+  ],
+  "own_check_summary": {
+    "scenarios": 140,
+    "city_rows": 2170,
+    "raw_utility_checks": 60,
+    "pax_checks": 2,
+    "max_error": 0,
+    "unknown_cells": 106,
+    "weather": "inspected function fixture only",
+    "renderer": "actual pure function in node",
+    "shared_OD": "recomputed from pinned routes, demand and assumptions",
+    "full_JS_random_parity": "NOT_RUN"
+  },
+  "handoff": "Включить условный итог OMS/REN/BAX с весами100 и >=500км, малый разрыв BAX/KUF, intro-only KUF и common-neutral/local_market лидерство KUF; объяснить support/base/hub, UNKNOWN погоды и REN conditional precision. Сохранить исходный experiment_v1 отдельно; monetary Kover NOT_IMPLEMENTED. Не обновлять статус общей экономики на PASS."
+}

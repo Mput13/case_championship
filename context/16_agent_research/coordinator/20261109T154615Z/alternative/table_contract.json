@@ -1,0 +1,20 @@
+{
+  "schema_version": "c14-product-v1",
+  "candidate_id": "C14",
+  "departure_window": ["2026-12-07", "2026-12-13"],
+  "target_nights": [7, 10, 14],
+  "return_date_max": "2026-12-27",
+  "calendar_nights_definition": "checkout local date minus checkin local date; not elapsed flight days",
+  "source_status_axis": ["LEAD", "ACCESS_FAILED", "ACQUIRED_RAW", "PARSED", "VALIDATED", "RESTRICTED_USE"],
+  "value_status_axis": ["OBSERVED", "DERIVED", "MODEL_ESTIMATE", "SCENARIO", "UNKNOWN"],
+  "tables": {
+    "flight_rules": "rule_id; operating_carrier; marketing_carrier; flight_no; origin_airport_id; destination_airport_id; departure_local_time; arrival_local_time; arrival_day_offset; origin_iana; destination_iana; valid_from; valid_to; weekdays_iso; exceptions; intermediate_stops; source_snapshot; source_locator; scope_status",
+    "dated_flights": "instance_id; rule_id; departure_local_date; departure_local_datetime; arrival_local_datetime; departure_utc; arrival_utc; instance_status=PLANNED_FROM_RULE or PUBLISHED_DATED_SCHEDULE, never PERFORMED without operation fact",
+    "stay_rules": "stay_rule_id; property_id; checkin_local_time; checkout_local_time; iana; minimum_nights; early_late_terms; valid_from; valid_to; source_snapshot",
+    "transfer_rules": "transfer_id; origin_place; destination_place; duration_minutes; duration_status; validity; local_departure_arrival; iana; price_reference_only; source_snapshot",
+    "fare_quotes": "quote_id; observed_at_utc; source; travel_dates; passenger_scope; baggage; refund_change_conditions; gross_total; currency; price_scope; availability_status; never realised_revenue",
+    "stay_products": "product_id; outbound_instance_id; return_instance_id; checkin_date; checkout_date; target_nights; actual_nights; stay_rule_id; transfer_ids; compatibility_status; unresolved_conditions; price_quote_ids"
+  },
+  "prohibitions": ["No source absence to zero demand", "No rail missing to96h", "No SA02 contemporary clock inference", "No fare to realised airline revenue", "No quarantined Telegram as auxiliary join"],
+  "handoff": "Peer consumes only SHA-pinned completed input manifest, not a live folder or this schema draft"
+}

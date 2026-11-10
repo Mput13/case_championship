@@ -1,0 +1,100 @@
+{
+  "verdict": "CHANGES",
+  "reviewed_pins": {
+    "primary": "17b4f348f15ea8695688d9435933cb4965568408",
+    "bridge": "abc09bbb8e62d3513749b60b252d4521997acfc3",
+    "baseline": "7180bf5e03905a7892b3031f2447c5b33d10e244"
+  },
+  "findings": [
+    {
+      "id": "SJR-P2-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "title": "SVX registry raw receipts refer to the previous snapshot",
+      "verdict": "CHANGES",
+      "scope": "PRIMARY_SOURCE_VERSION_LINEAGE; downstream source-support hold only",
+      "source_references": [
+        {
+          "commit": "17b4f348f15ea8695688d9435933cb4965568408",
+          "path": "context/23_night_run_20261110/primary_evidence/source_registry.csv",
+          "line": 47,
+          "line_end": 48
+        },
+        {
+          "commit": "17b4f348f15ea8695688d9435933cb4965568408",
+          "path": "context/23_night_run_20261110/primary_evidence/dated_evidence.csv",
+          "line": 2
+        },
+        {
+          "commit": "17b4f348f15ea8695688d9435933cb4965568408",
+          "path": "context/23_night_run_20261110/primary_evidence/dated_evidence.csv",
+          "line": 75
+        },
+        {
+          "commit": "17b4f348f15ea8695688d9435933cb4965568408",
+          "path": "context/23_night_run_20261110/primary_evidence/build_package.py",
+          "line": 21,
+          "line_end": 23
+        },
+        {
+          "commit": "17b4f348f15ea8695688d9435933cb4965568408",
+          "path": "context/23_night_run_20261110/primary_evidence/curate.py",
+          "line": 32,
+          "line_end": 35
+        },
+        {
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/17_aircraft_route_review/evidence/sources.json",
+          "line": 81
+        },
+        {
+          "commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+          "path": "context/17_aircraft_route_review/evidence/sources.json",
+          "line": 91
+        }
+      ],
+      "mechanism": "Same source_id is used for context17 dated facts captured 2026-11-09 and context12 registry receipts captured 2026-11-08. Registry.raw_sha256 differs from dated_evidence.html_sha256 for all 129 SVX rows. Source lookup can select a different raw snapshot while appearing to validate the current rows.",
+      "reproduction": "Run independent.py; inspect FAIL SOURCE_REGISTRY_ROW_RAW_VERSION_FK and source_registry_mismatches.csv. Stage17 sources.json hashes match every affected row.",
+      "minimum_fix": "Pin context/17_aircraft_route_review/evidence/sources.json at exact93fa5cf4; bind inherited facts/cards to its hash and capture date. Keep any context12 snapshot separately identified. Rebuild registry/locks and dependent manifests/addendum receipts under a new commit. Do not rewrite raw, frozen outputs or clocks. Add source_id+raw_hash+capture-date foreign-key validation.",
+      "impact": {
+        "publication_rows": 129,
+        "departure_rows": 65,
+        "arrival_rows": 64,
+        "source_cards": 28,
+        "addendum_mappings": 58,
+        "addendum_status_counts": {
+          "CONTEXT_CANDIDATE_ONLY": 42,
+          "HOLD_EXACT_CLOCK; SUPPLY_CONTEXT_ONLY": 6,
+          "NO_BASELINE_ENDPOINT_MATCH": 10
+        },
+        "numerical_error_established": false,
+        "economic_input_change_established": false,
+        "held_acceptance": "SOURCE_SUPPORTED / end-to-end raw lineage for affected rows/cards/links",
+        "unaffected": "20 UFA rows; 10 conditional KUF-MRV/NJC dates; scoped primary facts; baseline bridge accounting; endpoint mapping cardinality"
+      },
+      "observed_hashes": [
+        {
+          "source_id": "svx_schedule",
+          "pinned_stage17_hash": "7dd62cd41ba1b2bd340ba7bed3007a1e768f34c977f6e7da16b8a5f7542b7155",
+          "pinned_stage17_capture": "2026-11-09",
+          "rows_affected": 65,
+          "all_row_hashes_match_stage17": true
+        },
+        {
+          "source_id": "svx_schedule_arr",
+          "pinned_stage17_hash": "7400ae30f2519a29f47cb858814c134120fbdd14eaab21f2638c43fb24255350",
+          "pinned_stage17_capture": "2026-11-09",
+          "rows_affected": 64,
+          "all_row_hashes_match_stage17": true
+        }
+      ],
+      "independence": "Independent cross-table/source-version join; no author code run and no assumption that a 64-character hash validates its source identity"
+    }
+  ],
+  "severity_counts": {
+    "P1": 0,
+    "P2": 1,
+    "P3": 0
+  },
+  "limitations": "No claim that all sources or original model computations were independently replayed; report.md gives exact scopes."
+}

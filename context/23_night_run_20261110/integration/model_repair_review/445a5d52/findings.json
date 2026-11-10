@@ -1,0 +1,64 @@
+{
+  "verdict": "APPROVE",
+  "acceptance_scope": "Bounded code/replay/shared-market/capacity/itinerary/fare/migration/MR06 and proposed-adapter verification only",
+  "input_head": "27740ffea0821aa404ecd1013d1bb141613261f3",
+  "payload_commit": "dc5c65d12e0236f5aaa6182ca83bda0d52c10f57",
+  "reviewer": "Independent Codex / Sol 6.1 xhigh",
+  "new_P1_P2": [],
+  "implementation_defects": [],
+  "scope_verdicts": [
+    {"scope": "Anastasia unchanged author replay", "verdict": "APPROVE", "evidence": "independent_checks.json: independent_anastasia_author_replay; 128/12/64 rows, zero differing cells"},
+    {"scope": "Ciri unchanged author replay", "verdict": "APPROVE", "evidence": "independent_checks.json: independent_ciri_replay_and_primary_accounting; 8/28 rows, max numeric delta 1.1175870895385742e-08"},
+    {"scope": "Mandatory shared D/seat guard", "verdict": "APPROVE", "evidence": "real_market_replay.json; independent_counterexamples.csv", "qualification": "No saved baseline exceeds entire D; D-only delta is zero"},
+    {"scope": "Pooled Q(F), allocation and full-network marginal greedy selection implementation", "verdict": "APPROVE", "evidence": "independent_selection_trace.csv; independent_counterexamples.csv", "qualification": "Implementation of a proposed scenario; not validation of the capture law or a global optimum"},
+    {"scope": "Primary itinerary/capacity/fare/migration ledgers", "verdict": "APPROVE", "evidence": "independent_checks.json; independent_ciri_accounting.csv; independent_ciri_counterexamples.csv", "qualification": "Anastasia undated symmetric aggregate; Ciri dated model calendar; unknown own flows remain scenario or NULL"},
+    {"scope": "MR06 metadata correction", "verdict": "APPROVE", "evidence": "independent_MR06.csv; independent_MR06_examples.json", "qualification": "1372 actual-function and independent-scalar equalities, 1072 metadata corrections, zero numeric changes"},
+    {"scope": "Proposed common adapter", "verdict": "APPROVE", "evidence": "independent_checks.json: common_adapter_joins_units_scope_and_conditional_ranks", "qualification": "Mapping only; COMMON_COMPARISON NOT_RUN"}
+  ],
+  "previous_author_defects_verified": [
+    {
+      "id": "MR-P2-001",
+      "classification": "CONFIRMED_STRUCTURAL_AUTHOR_ERROR",
+      "status": "GUARD_IMPLEMENTATION_VERIFIED",
+      "source_commit": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+      "source_path": "src/network_model.py",
+      "source_lines": [249, 278, 286],
+      "mechanism": "Independent claims for repeated base legs have no shared D budget; used_pairs guards only the inner pair",
+      "reproduction": "Independent synthetic four-program fixture sells 379.5346471545782 against D=300; both mandatory-guard allocations sell 300. All actual saved baseline pairs remain below D",
+      "minimal_fix": "Already supplied: group unordered pair, apply one D budget and physical seat caps, revalue the whole selected network",
+      "review_evidence": ["independent_counterexamples.csv", "real_market_replay.json"],
+      "current_saved_D_exceedance_claimed": false
+    },
+    {
+      "id": "MR-P2-003",
+      "classification": "CONFIRMED_STALE_AUTHOR_METADATA",
+      "status": "SEPARATE_METADATA_CORRECTION_VERIFIED",
+      "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+      "source_path": "scripts/build_team_comparison.py",
+      "source_lines": [360, 367, 369],
+      "implementation_path": "scripts/build_aircraft_route_review.py",
+      "implementation_lines": [19, 22, 23, 27, 28, 29],
+      "mechanism": "Core add_leg labels the old source while overridden RouteModel.block supplies a directional proxy or new fallback value",
+      "reproduction": "All 1372 saved rows match both actual block() and independent scalar equations; 244 proxy plus 828 route fallback metadata rows differ from inherited origin, 300 core rows retained",
+      "minimal_fix": "Already supplied: preserve original metadata and report the branch that generated the value without changing minutes",
+      "review_evidence": ["independent_MR06.csv", "independent_MR06_examples.json"],
+      "numeric_changes": 0,
+      "financial_change_replay": "NOT_RUN_METADATA_ONLY"
+    }
+  ],
+  "method_assumptions": [
+    {"classification": "AGENT_PROPOSAL", "subject": "Author capture curve at combined F", "status": "SCENARIO_NOT_UNIQUELY_REQUIRED_BY_D_GUARD", "source": "corrected_model.py:106-119", "impact": "Only this proposed law produces the reported nonzero fixed-selection deltas; no proven actual extra sales"},
+    {"classification": "AUTHOR_AND_AGENT_POLICY", "subject": "Standalone fixed-point frequencies and greedy selection", "status": "NOT_GLOBAL_OPTIMIZATION", "source": "corrected_model.py:19-44,131-157", "impact": "Frequency allocation is not jointly optimized; ties may depend on candidate enumeration"},
+    {"classification": "OPEN_DECISION", "subject": "Case route definition", "status": "OPEN_DEFINITION", "source": "route_definitions.csv", "impact": "Eight triangle programs mean 20/18 author pairs and 20/21 reselected pairs, not automatic compliance with 8-12"}
+  ],
+  "unknown_market_and_missing_inputs": [
+    {"subject": "Observed endpoint OD and paid sales", "status": "UNKNOWN_NOT_VALIDATED", "reason": "Segment-trained scale is a scenario proxy"},
+    {"subject": "Anastasia own migration", "status": "NULL_NOT_MODELED_BY_AUTHOR", "reason": "No own migration model; not zero and not accepted net-new journeys"},
+    {"subject": "Anastasia dated calendar / MOW airport assignment", "status": "NOT_RUN", "reason": "Undated symmetric aggregates do not identify unique departures or assign MOW to ZIA"},
+    {"subject": "Unknown old connecting RW migration", "status": "SCENARIO_NOT_OBSERVED", "reason": "Known direct capacity is capped; historical connecting capacity and realised flow are unavailable"},
+    {"subject": "Full raw Tochno rehash", "status": "NOT_RUN", "reason": "Preserved minimal projection and receipt suffice for bounded replay; original full raw hash receipt is cross-checked, not independently repeated"},
+    {"subject": "COMMON_COMPARISON and complete strategy budget", "status": "NOT_RUN_OUTSIDE_SCOPE", "reason": "Different periods/fleets/fares/money definitions not harmonized; methods-budget@2a74b051 excluded"}
+  ],
+  "notifications": "No new substantial P1/P2 required a coordinator alert; completion handoff is the only delivery",
+  "author_check_py": "NOT_RUN"
+}

@@ -1,0 +1,77 @@
+{
+  "run_id": "4146202225f8d1384592",
+  "classification": "AGENT_PROPOSAL",
+  "independent_review": "PENDING",
+  "findings": [
+    {
+      "finding_id": "HF-F01",
+      "candidate_id": "C01",
+      "status": "CONDITIONAL_BOUNDARY_SELF_CHECKED",
+      "finding": "Same-north-wave feasibility requires2*M+T<=180; M60/T45 has x=y120 and returns15min before frozen sync",
+      "numeric_unit": "minutes per operating date",
+      "source": "inputs/experiment/scenario_programs.json",
+      "result": "runs/hf01/retiming_boundaries.csv",
+      "unknown": "Actual no-new-base baseline/MCT/turn/slots/tail/crew/local-margin/K(q)"
+    },
+    {
+      "finding_id": "HF-F02",
+      "candidate_id": "C07",
+      "status": "CONDITIONAL_BOUNDARY_SELF_CHECKED",
+      "finding": "Preserving reference return requires310/355/400min earlier start for turn30/45/60; full closure is not actual availability",
+      "numeric_unit": "minutes per complete four-leg rotation",
+      "source": "inputs/experiment/runs/c26661067277af20/physical_legs.csv",
+      "result": "runs/hf07/return_advance_boundaries.csv",
+      "unknown": "RW block/donor/actual earlier start/next assignment/base sales/complete cost"
+    },
+    {
+      "finding_id": "HF-F03",
+      "candidate_id": "C14",
+      "status": "LIMITED_CALENDAR_EFFECT_SELF_CHECKED",
+      "finding": "Max extra booked nights0/1/2/3 gives6/7/9/11 of12distinct date/stay matches;1combination/two property rows after capture UNKNOWN",
+      "numeric_unit": "date/stay combinations, not passengers or sale probability",
+      "source": "inputs/experiment/inputs/alternative_fa39de4/normalized/dated_flights.csv",
+      "result": "runs/hf14/tolerance_summary.csv",
+      "unknown": "Hotel admission/timezone/inventory/billed days/transfer/airline inventory/fare/rights/customer willingness"
+    },
+    {
+      "finding_id": "HF-F04",
+      "candidate_id": "C01;C07",
+      "status": "MECHANICAL_COUNTEREXAMPLE",
+      "finding": "Remaining20seats at scenario margin7500 can supply at most300000RUB over two directions; K500000 needs34/direction and fails preserved80seat allocation",
+      "numeric_unit": "RUB per declared pair of directional opportunities",
+      "source": "test_contract.json; explicit mechanical fixture",
+      "result": "runs/economics/capacity_conditioned_thresholds.csv",
+      "unknown": "Actual K(q), fares, other-product allocations and paid demand; no financial acceptance"
+    },
+    {
+      "finding_id": "HF-F05",
+      "candidate_id": "ALL35",
+      "status": "READ_AND_CLASSIFIED",
+      "finding": "All35retained with original author/status/ancestor; three tests selected, no city ranking or global mixed/budget run",
+      "numeric_unit": "candidate specifications",
+      "source": "inputs/hypotheses/candidates.csv",
+      "result": "inventory35.csv;experiment_queue.csv",
+      "unknown": "Other32main unresolved parameters explicitly named; no outcome inferred from not testing"
+    },
+    {
+      "finding_id": "HF-H01",
+      "candidate_id": "SOURCE_CONTEXT",
+      "status": "INHERITED_HOLD_NOT_REPAIRED_HERE",
+      "finding": "Review944b16ac holds129SVXpublication rows; no new accepted operating calendar uses them",
+      "numeric_unit": "source-version lineage rows",
+      "source": "inputs/source_join_review/report.md",
+      "result": "source_manifest.json",
+      "unknown": "Original source-registry correction outside this scope"
+    },
+    {
+      "finding_id": "HF-H02",
+      "candidate_id": "FINAL_CASE",
+      "status": "OPEN_DECISION",
+      "finding": "Small pilots do not satisfy8-12route final network; real full money/market/fleet and2028launch remain UNKNOWN",
+      "numeric_unit": "final joint network",
+      "source": "inputs/case_requirements.md",
+      "result": "case_alignment.csv;network_change_degrees.csv",
+      "unknown": "Common dated allocation/full budget/final objective and team strategic choice"
+    }
+  ]
+}

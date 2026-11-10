@@ -1,0 +1,46 @@
+{
+  "identity": "DeltaPnL = C + D_external - F_incremental - B_incremental - S_excluded - L_recognized",
+  "tests": [
+    {
+      "name": "do_not_double_subtract_migration",
+      "fixture_C": -100.0,
+      "foregone_revenue_already_inside_C": 30.0,
+      "named_external_donor_delta": 0.0,
+      "correct_delta": -100.0,
+      "incorrect_duplicate_subtraction": -130.0
+    },
+    {
+      "name": "KEEP_unavoidable_fixed_is_not_incremental",
+      "fixed_KEEP": 50.0,
+      "fixed_action": 50.0,
+      "incremental_F": 0.0
+    },
+    {
+      "name": "one_off_launch_is_not_perpetual_weekly",
+      "one_off": 100.0,
+      "recognition": "requires explicit period/policy",
+      "weekly_forever": null
+    },
+    {
+      "name": "refundable_deposit_is_separate_cash",
+      "deposit": 200.0,
+      "cash_outflow": 200.0,
+      "automatic_PnL_expense": 0.0
+    },
+    {
+      "name": "KEEP_delta_zero_does_not_establish_company_profit",
+      "delta_vs_KEEP": 0.0,
+      "company_profit": null
+    }
+  ],
+  "fixture_only": true,
+  "cash_fixtures_are_not_real_reserve": [
+    1000000,
+    1800000,
+    6078000
+  ],
+  "donor_actual": null,
+  "resource_actual": null,
+  "future_delivery_dates": null,
+  "operating_network_accepted": false
+}

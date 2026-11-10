@@ -1,0 +1,68 @@
+{
+  "review_id": "MR07",
+  "source_commit": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
+  "verdict": "APPROVE_SCOPED",
+  "confirmed_P1_P2_defects": [],
+  "acceptance": "Only enumerated budget-v1 calculations and accounting fixtures; no network, market, dispatch or launch acceptance",
+  "findings": [
+    {
+      "id": "MR07-Q01",
+      "severity": "SCOPE_QUALIFICATION",
+      "status": "MANDATORY_WHEN_REUSING_BOUND; NOT_AUTHOR_ARITHMETIC_ERROR",
+      "title": "Сертификат относится к перечисленному набору продуктов",
+      "source": [
+        {"file": "context/23_night_run_20261110/methods/budget_thresholds.py", "line_start": 55, "line_end": 74},
+        {"file": "context/23_night_run_20261110/methods/budget_readout.md", "line_start": 28, "line_end": 30},
+        {"file": "context/23_night_run_20261110/methods/inputs/set001/tsiri_93fa/scripts/build_team_comparison.py", "line_start": 467, "line_end": 478},
+        {"file": "context/23_night_run_20261110/methods/inputs/set001/tsiri_93fa/scripts/build_conditional_decision.py", "line_start": 120, "line_end": 123}
+      ],
+      "mechanism": "224 exported inequalities cover all source enumerated products, including zero sales. They are not a certificate for arbitrary newly priced products. Eight additional time-valid UFA8 connections per scenario are outside the detour-filtered universe; multi-day and longer products have no defined through fares here.",
+      "independent_repro": {
+        "command": "python3 context/23_night_run_20261110/budget_review/independent_review.py",
+        "outputs": ["independent_temporal_universe.csv", "independent_inequalities.csv", "independent_local_solution.csv", "counterexamples.json"],
+        "observed": "160 local plus 64 transfer inequalities, all feasible; four zero-sale products retained. Temporal graph: direct0/0, UFA4=8, UFA8=32, of which24 satisfy the detour rule on independently pinned catchments coordinates. Exact match to exported product IDs."
+      },
+      "smallest_fix": "При переносе указать enumerated dated product universe и fixed fare/cost/capacity. Для иного продукта задать цену и заново проверить dual. Авторский readout:30 уже содержит это ограничение; исходный код менять не требуется.",
+      "scoped_impact": "All eight verified bounds remain valid. No arbitrary-network impossibility, market optimum, or operating payload acceptance. Canonical author stage11 coordinates are not in the frozen methods package; independent geometry is a diagnostic cross-check."
+    },
+    {
+      "id": "MR07-Q02",
+      "severity": "SCOPE_QUALIFICATION",
+      "status": "PERIOD_MODEL_CORRECT; ACTUAL_PEAK_UNKNOWN",
+      "title": "Cash peak зависит от дискретности и порядка платежей",
+      "source": [
+        {"file": "context/23_night_run_20261110/methods/budget_thresholds.py", "line_start": 155, "line_end": 165},
+        {"file": "context/23_night_run_20261110/methods/budget_readout.md", "line_start": 76, "line_end": 76}
+      ],
+      "mechanism": "The 1M funding figure uses cumulative net cash at period boundaries. Within-period payment order is not represented. Launch is expensed immediately; operating payments/receipts coincide with accrual recognition only by fixture assumption; a refundable deposit is an asset.",
+      "independent_repro": {
+        "output": "independent_accounting.json",
+        "period_boundary_peak_rub": 1000000,
+        "same_totals_payments_before_receipts_peak_rub": 1800000,
+        "final_cash_and_profit_rub": 400000,
+        "payment_first_events_rub": [-400000, -600000, -800000, 1200000, -800000, 1200000, 600000]
+      },
+      "smallest_fix": "При переносе назвать 1M пиком по границам модельных периодов или указать одновременное netting; для реального peak получить даты и порядок платежей. Сохранить явную accrual policy.",
+      "scoped_impact": "No change to fixture profit, final cash, deposit accounting or author period-boundary arithmetic. Not a forecast of company's financing requirement."
+    },
+    {
+      "id": "MR07-Q03",
+      "severity": "SCOPE_QUALIFICATION",
+      "status": "CONDITIONAL_DIFFERENCES_VERIFIED; TEAM_DECISION_OPEN",
+      "title": "Разности бюджетов не выбирают сеть кейса",
+      "source": [
+        {"file": "context/23_night_run_20261110/methods/budget_readout.md", "line_start": 54, "line_end": 64},
+        {"file": "context/23_night_run_20261110/methods/budget_contract.json", "line_start": 17, "line_end": 17},
+        {"file": "context/23_night_run_20261110/methods/budget_thresholds.py", "line_start": 115, "line_end": 138}
+      ],
+      "mechanism": "UFA4 has four rays versus eight pairs in the comparison alternatives. Allocated working-plus-reserve tails are 2/3/3/5. A common incremental F and a genuinely additional UFA base B are scenario choices; retaining a sunk reserve does not create new cash cost. Actual F/B/O stay NULL.",
+      "independent_repro": {
+        "outputs": ["independent_programs.json", "independent_pairwise.csv", "independent_sales_ledger.csv"],
+        "UFA4_minus_previous8_base_rub_week": 400166.27986819664,
+        "pairwise_rows_verified": 12
+      },
+      "smallest_fix": "Сохранить условия сравнения, различие объёма программ, неизвестные дополнительные расходы и included_in. Не объявлять UFA4 финальным победителем 8–12 маршрутов или меньший убыток основанием запуска.",
+      "scoped_impact": "No numerical defect found. Affine boundaries are usable in appendix as conditional economics. Empirical costs, actual donor, normative objective and case-network choice require separate decisions."
+    }
+  ]
+}

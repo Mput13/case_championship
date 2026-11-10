@@ -1,0 +1,58 @@
+{
+  "reviewed_commit": "82dffa795146ccc575db1bb45ba9391af44def00",
+  "verdict": "APPROVE",
+  "approval_scope": "immutable derived arithmetic, labelled controlled sensitivity, bounded source claims",
+  "new_blocking_defects": [],
+  "severity_note": "P2 below denotes a conclusion held from stronger use, not a newly confirmed calculation bug. The author already labels the relevant proposals and limitations.",
+  "findings": [
+    {
+      "id": "R01",
+      "severity": "P2",
+      "classification": "EVIDENCE_LIMITATION",
+      "status": "OPEN_DECISION_HOLD_PROMOTION_TO_DEFAULT",
+      "title": "The experiments do not identify a preferred radius policy",
+      "location": "context/23_night_run_20261110/screening/report.md:177",
+      "supporting_locations": ["context/23_night_run_20261110/screening/report.md:173", "context/23_night_run_20261110/screening/report.md:181", "context/23_night_run_20261110/screening/handoff.md:17"],
+      "repro": "independent_check.py: 80 fixed-utility configurations; balanced0 CEK/UFA/OMS versus balanced500 OMS/REN/BAX. The primary case gives no mandatory 500 km threshold. Neither diversion nor incremental network value is an input/output of these experiments.",
+      "delta": "Changing radius changes the shortlist. Comparative net trips, cannibalization, roadtime and profit delta remain UNKNOWN; no empirical advantage of 0 over 500 is identified.",
+      "smallest_fix": "At integration, retain 0/300/500/800 as policy choices; label the author's no-hard-filter working baseline AGENT_PROPOSAL and the primary policy OPEN_DECISION. Do not replace the team default or infer a preferred policy from city-score levels. No source-code change is required in this already-labelled descriptive package.",
+      "scope_held": "Empirically preferred main radius, not the verified scores or permission to discuss a normative proposal"
+    },
+    {
+      "id": "R02",
+      "severity": "P2",
+      "classification": "REPRODUCED_SENSITIVITY_AND_SOURCE_LIMIT",
+      "status": "ALREADY_DISCLOSED_NOT_NEW_DEFECT",
+      "title": "BAX/KUF third-place boundary is much smaller than one scenario report-day",
+      "location": "context/23_night_run_20261110/screening/report.md:85",
+      "repro": "independent_check.py recomputes all criterion contributions. check_restriction_lineage.py reads the exact 2f public-message Git capture and reproduces 0/137 mention-days within 2025-11-10..2026-11-09; primary sample IDs 2601/2609 were read in the saved capture.",
+      "delta": {"BAX_minus_KUF": 0.0007211482467386343, "one_scenario_BAX_day": -0.0010091743119266055, "new_gap": -0.00028802606518797116},
+      "smallest_fix": "Retain both candidates, profiles and bounds when selecting further fact checks. Keep the one-day example hypothetical. The stored corpus is not a live-completeness proof, and reported days are not downtime or cancellation probability.",
+      "scope_held": "Stable economic third-place winner; no unobserved missing BAX post is asserted"
+    },
+    {
+      "id": "R03",
+      "severity": "P3",
+      "classification": "TERMINOLOGY",
+      "status": "NONBLOCKING_CLARIFICATION",
+      "title": "Tie-inclusive position spans use a different convention from shared competition ranks",
+      "location": "context/23_night_run_20261110/screening/report.md:158",
+      "repro": "20 identical fixed utilities: strict-greater competition ranks are 1..1 for every city; arbitrary tie-resolved ordinal positions span 1..20. Independent endpoint/permutation enumeration checks three small interval boxes and the package's saved 20-city fixture.",
+      "delta": "Worst possible ordinal position changes from 1 to 20 under the positional convention. Current default scores/top3 do not change.",
+      "smallest_fix": "When integrating, label the inclusive fields 'possible positions after tie resolution'; keep original competition-rank fields. Do not describe shared rank 1 as proof that every tied city fits a top-3 selection.",
+      "scope_held": "No current score result; terminology only"
+    },
+    {
+      "id": "R04",
+      "severity": "P2",
+      "classification": "HISTORICAL_REPRO_EXCEPTION",
+      "status": "ALREADY_DISCLOSED_ISOLATED_TO_FRONT2272",
+      "title": "Historical front2272/min500 mismatch remains reproducible",
+      "location": "context/23_night_run_20261110/screening/report.md:46",
+      "repro": "independent_check.py separately calculates front2272 0/500 and current Nastya2f 0/500 with their own criterion definitions and normalization scopes.",
+      "delta": "front2272/min500 max abs export delta 0.0012241323280967054 exceeds 0.0005 rounding allowance; all 35 current 2f scores and bounds match export precision.",
+      "smallest_fix": "Preserve the historical MISMATCH label and its original SHA. No invented correction and no current-2f bug attribution. Require a separately reconciled historical revision only if exact historical values will be reused.",
+      "scope_held": "Exact replay PASS for historical front2272/min500 only"
+    }
+  ]
+}

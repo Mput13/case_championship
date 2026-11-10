@@ -1,0 +1,7 @@
+table,key,grain,units,interpretation
+gateway_region_crosswalk,airport_iata,gateway travel-market label to source city and explicit region,N/A,a875cdd source labels; not verified catchment/municipal boundary
+gateway_region_context_2024,airport_iata;indicator_code;year;source_edition,region x indicator x year x source edition (repeated context by gateway),unit_native per row; NULL retained,"Observed regional value joined by DERIVED mapping; annual2024, not OD/seasonality;14unit-unknown claims quarantined from quantitative use"
+tourism_indicator_selection,indicator_code,one original section indicator,native_units per source,Six selected tourism-context indicators; twelve cultural/sport/summer-child indicators excluded
+municipal_quarantine,record_class;region_id;oktmo;mun_level;year,upper-level municipality x year,"wage/population record counts, not zero values",277 held wage-left keys + 286 population-only coverage keys; no imputation
+municipal_join_validation,year;frozen_sha,validation run over two raw ZIPs and prior joined table,gross nominal monthly wage RUB; annual-average population persons,Wage scope large/medium/nonprofit employers; not all residents income. No totals or population weighting
+coverage,table;slice,scope-specific coverage denominator,keys/nonnull/unit counts,Completeness separated from attractiveness; no predictive edge claimed
