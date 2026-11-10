@@ -91,13 +91,16 @@ def utc(t):
 FLIGHTS = []
 
 
-def flight(cid, program, day, origin, dest, departure_clock, hours, tail, seats=100, kind="PROPOSED", pax=0):
+def flight(cid, program, day, origin, dest, departure_clock, hours, tail, seats=100, kind="PROPOSED", pax=None):
     tz = {"SVX":5,"PEE":5,"UFA":5,"SGC":5,"KVX":3,"MRV":3,"MMK":3,"OMS":6,"IJK":4,"RGK":7,"ZIA":3,"TLV":3}
     dep = dt.datetime.combine(day, dt.time.fromisoformat(departure_clock),dt.timezone(dt.timedelta(hours=tz[origin])))
     arr = (utc(dep)+dt.timedelta(hours=hours)).astimezone(dt.timezone(dt.timedelta(hours=tz[dest])))
     fid=f"{cid}:{program}:{day}:{origin}-{dest}"
-    FLIGHTS.append(dict(hypothesis=cid,network=program,flight_id=fid,date=day,route=f"{origin}-{dest}",origin=origin,destination=dest,departure_local=dep.isoformat(),arrival_local=arr.isoformat(),departure_utc=utc(dep).isoformat(),arrival_utc=utc(arr).isoformat(),block_hours=hours,tail_slot=tail,seats=seats,fixture_pax=pax,status=kind))
-    check("seats "+fid,0 <= pax <= seats)
+    if pax is None and "FERRY" in kind:
+        pax=0
+    FLIGHTS.append(dict(hypothesis=cid,scenario="calendar_common",network=program,flight_id=fid,date=day,route=f"{origin}-{dest}",origin=origin,destination=dest,departure_local=dep.isoformat(),arrival_local=arr.isoformat(),departure_utc=utc(dep).isoformat(),arrival_utc=utc(arr).isoformat(),block_hours=hours,tail_slot=tail,seats=seats,fixture_pax=pax,fixture_pax_status="BASE_CAPACITY_FIXTURE" if pax is not None and "FERRY" not in kind else "NON_REVENUE_FERRY" if "FERRY" in kind else "UNKNOWN_NOT_ZERO",status=kind))
+    if pax is not None:
+        check("seats "+fid,0 <= pax <= seats)
     return fid,arr
 
 
@@ -190,7 +193,7 @@ for year in t["years"]:
     for dest,dd,hh in [("MMK",winterdates,hm),("RGK",summerdates,hg)]:
         for d in dd:
             flight("C17",f"seasonal_{year}",d,"PEE",dest,"08:00",hh,"SSJ_C17")
-            flight("C17",f"seasonal_{year}",d,dest,"PEE","13:40",hh,"SSJ_C17")
+            flight("C17",f"seasonal_{year}",d,dest,"PEE","10:00" if dest=="MMK" else "13:40",hh,"SSJ_C17")
     for d,a,b in [(dt.date(year,1,1),"SVX","PEE"),(dt.date(year,3,31),"PEE","SVX"),(dt.date(year,6,1),"SVX","PEE"),(dt.date(year,9,30),"PEE","SVX"),(dt.date(year,12,1),"SVX","PEE"),(dt.date(year,12,31),"PEE","SVX")]:
         flight("C17",f"seasonal_{year}",d,a,b,"05:00" if a=="SVX" else "20:00",hp,"SSJ_C17",kind="PROPOSED_FERRY")
 write("C17_seasonal_thresholds.csv",c17);write("C17_monthly_calendar.csv",monthly)
@@ -219,10 +222,16 @@ for offset in [0,3]:
     flight("C31","KEEP_SSJ_MRV",d,"MRV","SVX","11:30",h_m,"SSJ_C31_OLD",pax=85,kind="KEEP_SCENARIO_NOT_OBSERVED")
     flight("C31","REPLACE_TU_MRV",d,"SVX","MRV","08:00",3.5,"TU214_C31",seats=194,pax=85)
     flight("C31","REPLACE_TU_MRV",d,"MRV","SVX","11:30",3.5,"TU214_C31",seats=194,pax=85)
-for offset in [1,4]:
+for offset in [0,3]:
     d=date(t["week_start"])+dt.timedelta(days=offset)
     flight("C31","ADD_SSJ_OMS",d,"SVX","OMS","08:00",h_o,"SSJ_C31_FREED")
     flight("C31","ADD_SSJ_OMS",d,"OMS","SVX","11:30",h_o,"SSJ_C31_FREED")
+for offset in [0,3]:
+    d=date(t["week_start"])+dt.timedelta(days=offset)
+    flight("C31","KEEP_TU_TLV_CANCEL_IF_REPLACED",d,"ZIA","TLV","09:00",5.75,"TU214_C31_OLD",seats=194,kind="KEEP_SCENARIO_NOT_OBSERVED")
+    flight("C31","KEEP_TU_TLV_CANCEL_IF_REPLACED",d,"TLV","ZIA","16:15",5.75,"TU214_C31_OLD",seats=194,kind="KEEP_SCENARIO_NOT_OBSERVED")
+flight("C31","REPLACE_TU_MRV",date(t["week_start"])-dt.timedelta(days=1),"ZIA","SVX","12:00",2.6,"TU214_C31",seats=194,kind="PROPOSED_FERRY_ANALOG")
+flight("C31","REPLACE_TU_MRV",date(t["week_start"])+dt.timedelta(days=3),"SVX","ZIA","18:00",2.6,"TU214_C31",seats=194,kind="PROPOSED_FERRY_ANALOG")
 write("C31_replacement_frontier.csv",c31);write("C31_two_aircraft_resource.csv",resource)
 
 # C35: one customer fare; partner receives prepaid block, not a second fare.
@@ -263,7 +272,7 @@ for k,fs in groups.items():
 
 summary=[]
 for cid,rows in [("C10",c10),("C14",c14),("C17",c17),("C31",c31),("C35",c35)]:
-    summary.append(dict(id=cid,status="EVALUATED_CONDITIONAL_THRESHOLD",scenario_rows=len(rows),market_acceptance="NOT_ESTABLISHED",resource_acceptance="NOT_ESTABLISHED",full_budget_acceptance="NOT_ESTABLISHED",forecast="NO"))
+    summary.append(dict(id=cid,status="TESTED_SEASONAL_RECIPE_REJECTED_WITHOUT_SUPPORT_OR_CHANGED_INPUTS" if cid=="C17" else "EVALUATED_CONDITIONAL_THRESHOLD",scenario_rows=len(rows),market_acceptance="NOT_ESTABLISHED",resource_acceptance="NOT_ESTABLISHED",full_budget_acceptance="NOT_ESTABLISHED",forecast="NO"))
 write("hypothesis_status.csv",summary)
 (OUT/"checks.json").write_text(json.dumps({"passed":sum(x["passed"] for x in CHECKS),"total":len(CHECKS),"independent_review":"NOT_RUN","checks":CHECKS},ensure_ascii=False,indent=2)+"\n")
 files=[]
@@ -272,3 +281,5 @@ for p in sorted(OUT.iterdir()):
         b=p.read_bytes();files.append(dict(path=str(p.relative_to(HERE)),bytes=len(b),sha256=hashlib.sha256(b).hexdigest()))
 (OUT/"manifest.json").write_text(json.dumps(files,indent=2)+"\n")
 print(json.dumps({"hypotheses":5,"dated_flight_rows":len(FLIGHTS),"checks":len(CHECKS),"output_files":len(files)},indent=2))
+import runpy
+runpy.run_path(str(HERE/"extensions.py"),run_name="__main__")
