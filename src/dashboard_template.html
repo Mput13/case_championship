@@ -36,6 +36,17 @@ h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.01em}
 .board-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 8px 10px;flex-wrap:wrap}
 .board-title{font-weight:700;font-size:19px}
 .board-sub{color:var(--steel);font-size:13px}
+.b-legend{margin:10px 8px 6px;padding-top:12px;border-top:1px solid var(--ink-line)}
+.b-legend-h{color:#F4F5F7;font-weight:500;font-size:14px;margin-bottom:8px}
+.b-legend dl{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 18px;margin:0}
+.b-legend dl div{font-size:12.5px;line-height:1.45;color:var(--steel)}
+.b-legend dt{display:inline;color:#F4F5F7;font-weight:500}
+.b-legend dt:after{content:" — "}
+.b-legend dd{display:inline;margin:0}
+.dep th[title]{cursor:help}
+.panel .w small{display:none}
+.panel.why-on .w small{display:block}
+.why-btn{justify-self:start;border:0;background:none;padding:0;font:inherit;font-size:13px;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 .plane{width:30px;height:30px;flex:none}
 .tscroll{overflow-x:auto}
 table.dep{width:100%;border-collapse:separate;border-spacing:0 5px;min-width:820px;font-variant-numeric:tabular-nums}
@@ -324,10 +335,12 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
         <svg class="plane" viewBox="0 0 100 100" aria-hidden="true"><path fill="#E32A2F" d="M98 50 94 46 86 45 60 45 36 14 27 14 40 45 18 45 10 34 4 34 9 50 4 66 10 66 18 55 40 55 27 86 36 86 60 55 86 55 94 54Z"/></svg>
       </div>
       <div class="tscroll"><table class="dep" id="dep"><thead></thead><tbody></tbody></table></div>
+      <div class="b-legend"><div class="b-legend-h">Что в столбцах</div><dl id="b-legend"></dl></div>
     </section>
 
     <aside class="panel" aria-labelledby="w-title">
       <div><h2 id="w-title" style="font-size:20px">Пульт весов</h2><div class="hint">Веса в сумме 100. Шкала каждого критерия — по всем 20 городам и не меняется от фильтра.</div></div>
+      <button class="why-btn" id="why-btn" type="button" aria-expanded="false">Показать пояснения к весам</button>
       <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Хаб ближе 500 км к Москве или Екатеринбургу во многом повторял бы уже существующие базы Red Wings.</small></div>
       <div class="w"><div class="w-top"><span style="color:var(--ink)">Опорные аэропорты Red Wings</span></div><div class="seg" id="mode" role="group" aria-label="Режим допуска"></div><small>Самару, Казань, Сочи и Махачкалу Red Wings 27.10.2026 называет опорными. «Строго новый хаб» убирает их из рейтинга.</small></div>
       <div class="w"><div class="w-top"><label for="profile" style="color:var(--ink)">Набор весов</label></div><select id="profile" class="psel"></select><small>Основной набор сбалансирован, остальные усиливают одну группу критериев.</small></div>
@@ -519,10 +532,21 @@ const COLS=[
   ...CR.filter(w=>w.board).map(w=>({k:w.key,t:w.short,r:1,z:w.key,s:x=>{ const v=((D.values[x.c.iata]||{})[w.key]||{}).v; return v==null?-Infinity:v; },v:x=>cell(x.c.iata,w,true)})),
   {k:'st',t:'Статус',v:null},
 ];
+const COLTIP={rank:'Место города при текущих весах',city:'',code:'Код аэропорта',
+  score:'Итоговая оценка от 0 до 100: взвешенная сумма всех критериев при весах с пульта справа',
+  share:'Как часто город попадает в тройку, если каждый вес случайно уменьшить или увеличить в полтора раза (2 000 проверок)',
+  unk:'Какая доля веса приходится на критерии, где данных о городе нет; там ставится середина шкалы',
+  weak:'Какая доля веса приходится на критерии со слабым значением (только Википедия, «более N», косвенные данные)',
+  st:'«Посадка» — город в тройке лучших; «ожидание» — остальные; «вне фильтра» — ближе 500 км к Москве или Екатеринбургу'};
+function colTip(c){ if(COLTIP[c.k]!=null) return COLTIP[c.k]; const w=CR.find(x=>x.key===c.k); return w?w.label+(w.dir==='-'?' (меньше — лучше)':'')+'. '+(w.why||''):''; }
+function boardLegend(){ const dl=document.getElementById('b-legend'); if(!dl||dl.childElementCount) return;
+  COLS.filter(c=>c.k!=='rank'&&c.k!=='city'&&c.k!=='code').forEach(c=>dl.append(h('div',{},h('dt',{},c.t),h('dd',{},colTip(c))))); }
+function syncPanel(){ const b=document.querySelector('.main>.board'), p=document.querySelector('.main>.panel'); if(!b||!p) return;
+  p.style.height=''; p.style.minHeight=''; }
 function board(){
   const t=document.getElementById('dep'), th=t.tHead, tb=t.tBodies[0]; th.textContent=''; tb.textContent='';
   document.getElementById('b-sub').textContent=(MIN?`Без городов ближе ${MIN} км к базам · вне фильтра ${R.out.length}`:'Все 20 городов')+` · тройка держится в ${R.same} из ${R.total} проверок весов`;
-  const tr=h('tr'); COLS.forEach(c=>{ const cell=h('th',{class:(c.r?'r ':'')+(c.s?'s':''),scope:'col'},c.t+(SORT.key===c.k?(SORT.dir<0?' ↓':' ↑'):'')); if(c.s) cell.addEventListener('click',()=>{ SORT={key:c.k,dir:SORT.key===c.k?-SORT.dir:-1}; board(); }); tr.append(cell); }); th.append(tr);
+  const tr=h('tr'); COLS.forEach(c=>{ const cell=h('th',{class:(c.r?'r ':'')+(c.s?'s':''),scope:'col',title:colTip(c)||null},c.t+(SORT.key===c.k?(SORT.dir<0?' ↓':' ↑'):'')); if(c.s) cell.addEventListener('click',()=>{ SORT={key:c.k,dir:SORT.key===c.k?-SORT.dir:-1}; board(); }); tr.append(cell); }); th.append(tr);
   const col=COLS.find(c=>c.k===SORT.key)||COLS[3], maxS=R.rows[0].score;
   const rows=R.rows.slice().sort((a,b)=>SORT.dir*((col.s?col.s(a):a.rank)-(col.s?col.s(b):b.rank)));
   const all=[...rows,...R.out.map(c=>({c,rank:null,score:null,share:null,z:null}))];
@@ -540,6 +564,7 @@ function board(){
     }
     tb.append(r);
   }
+  boardLegend(); requestAnimationFrame(syncPanel);
 }
 
 function weights(){
@@ -549,11 +574,12 @@ function weights(){
   [[false,'Развитие опоры можно'],[true,'Строго новый хаб']].forEach(([v,t])=>{ const b=h('button',{type:'button','aria-pressed':String(v===STRICT)},t); b.addEventListener('click',()=>{ STRICT=v; weights(); update(); }); ms.append(b); });
   const pp=document.getElementById('profile'); if(!pp.options.length){ for(const p of D.profiles){ pp.append(h('option',{value:p.id},p.label)); } pp.addEventListener('change',()=>{ PROFILE=pp.value; W={...D.profiles.find(p=>p.id===PROFILE).weights}; for(const w of CR) if(W[w.key]==null) W[w.key]=0; update(); }); }
   pp.value=PROFILE;
+  const wb=document.getElementById('why-btn'); if(wb&&!wb.onclick) wb.onclick=()=>{ const pn=document.querySelector('.main>.panel'), on=pn.classList.toggle('why-on'); wb.setAttribute('aria-expanded',String(on)); wb.textContent=on?'Скрыть пояснения':'Показать пояснения к весам'; };
   const box=document.getElementById('wlist'); if(box.childElementCount) return;
   for(const w of CR){ if(ZERO.has(w.key)) continue;
     const inp=h('input',{type:'range',min:0,max:40,step:1,value:W[w.key],id:'w-'+w.key});
     inp.addEventListener('input',()=>{ const nw={...W,[w.key]:+inp.value}; if(!(wsum(nw)>0)){ inp.value=W[w.key]; return; } W=nw; update(); });
-    box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why)));
+    box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key,title:w.why},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why)));
   }
 }
 function weightLabels(){
@@ -982,7 +1008,7 @@ function update(){
 }
 document.getElementById('reset').addEventListener('click',()=>{ W={...DEFAULT_W}; MIN=500; STRICT=false; PROFILE='balanced'; weights(); update(); });
 meta(); weights(); kov(); sources(); NETV=(D.steps&&D.steps.choice.chosen_hub)||null; vsBoard(); compBoard(); choiceBoard(); roadBoard(); netInit(); netUpdate();
-let rz; window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(!window.d3) return; d3.select('#netmap').selectAll('*').remove(); NK=1; netInit(); netUpdate(); d3.select('#map').selectAll('*').remove(); K=1; mapInit(); mapUpdate(); },200); });
+let rz; window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ syncPanel(); if(!window.d3) return; d3.select('#netmap').selectAll('*').remove(); NK=1; netInit(); netUpdate(); d3.select('#map').selectAll('*').remove(); K=1; mapInit(); mapUpdate(); },200); });
 if(window.d3) mapInit(); else document.getElementById('mapbox').prepend(h('div',{style:'padding:16px;color:var(--muted)'},'Карта не загрузилась: нет доступа к библиотеке d3.'));
 update();
 </script>
