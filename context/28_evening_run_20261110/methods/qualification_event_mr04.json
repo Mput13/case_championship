@@ -1,0 +1,66 @@
+{
+  "event": "EV-MR04_COMPLETED",
+  "review_commit": "934a32f87ad81adbb6808be3aa50d6072276e779",
+  "subject_commit": "9f0b5d25af720107e99e209e1c69b098497358be",
+  "verdict": "APPROVE_SCOPED",
+  "open_findings": [],
+  "boundaries": [
+    {
+      "id": "EV-MR04-L01",
+      "severity": "INFO",
+      "file": "context/28_evening_run_20261110/methods/strategy_tables.py",
+      "line": 48,
+      "minimal_correction": null,
+      "status": "CURRENT_INPUTS_VALID; NO_CHANGE_REQUIRED",
+      "proof": "KUF-OMS is open and noncapped at f2 and f4 in both scenarios. q4=q2(1+exp(-2/k)) holds only with those conditions. Base D10000 capped reviewer example gives actual q4=680 versus formula514.561820. Not a new adopted scenario."
+    },
+    {
+      "id": "EV-MR04-L02",
+      "severity": "INFO",
+      "file": "context/28_evening_run_20261110/methods/strategy.md",
+      "line": 49,
+      "minimal_correction": null,
+      "status": "CURRENT_LIMIT_CORRECT; PRESERVE",
+      "proof": "12 program rows ->11 unordered pairs,48 flights,125.435764417591 block-hours. Base/cautious totals -18908468.975297/-51994583.411422. Three separate-base working slots do not accept reserve/crew/full rotation. Local recipe failure is not global mixed infeasibility or reoptimization."
+    },
+    {
+      "id": "EV-MR04-L03",
+      "severity": "INFO",
+      "file": "context/28_evening_run_20261110/methods/strategy_tables.py",
+      "line": 23,
+      "minimal_correction": null,
+      "status": "CURRENT_GRAIN_CORRECT; PRESERVE",
+      "proof": "DIRECT base cap4 has9 program-leg rows but8 unordered endpoint pairs; duplicate MOW-MRV f7+f3 aggregates to f10. MOW remains unresolved, AUTHOR52/48 remains non-dated, shadow1773/1638 is not awarded support or dated annual profit."
+    },
+    {
+      "id": "EV-MR04-L04",
+      "severity": "INFO",
+      "file": "context/28_evening_run_20261110/methods/strategy.md",
+      "line": 43,
+      "minimal_correction": null,
+      "status": "CURRENT_DATES_CORRECT; PRESERVE",
+      "proof": "All144 gates independently reconstructed. PHASED14D KUF5 first2028-05-01/245days, OMS7 first2028-09-11/98days.2028-09-10 has8 entered but1 grounded+1reserve ->6 working. Daily aggregate gate is not weekly launch or tail/base/crew proof."
+    },
+    {
+      "id": "EV-MR04-L05",
+      "severity": "INFO",
+      "file": "context/28_evening_run_20261110/methods/strategy.md",
+      "line": 75,
+      "minimal_correction": null,
+      "status": "CURRENT_SINGLE_BUDGET_LIMIT_CORRECT; PRESERVE",
+      "proof": "C31 base cap2117413.676057 covers Tu all-in+oldTu lost net+K together. Reviewer2m+0.2m+0.1m example exceeds cap by182586.323943 even though each individual amount is below cap. No C31C35 union replay."
+    },
+    {
+      "id": "EV-MR04-L06",
+      "severity": "INFO",
+      "file": "context/28_evening_run_20261110/methods/strategy.md",
+      "line": 77,
+      "minimal_correction": null,
+      "status": "CURRENT_CASH_AND_COMPANY_SCOPE_CORRECT; PRESERVE",
+      "proof": "External C35 cash787392 differs from economic587392 after200000 lost old contribution;480000 advance still needed. Zero same-day net does not prove intraday solvency.160newRWsegments minus40 old journeys gives120 or80 net for one or two old RW segments; company growth not accepted."
+    }
+  ],
+  "required_corrections": [],
+  "original_pending_register_preserved": true,
+  "not_inherited_to": "new inputs, revised economics, market/fleet/grant/fullPnL/cash/TEAM_ACCEPTED"
+}

@@ -1,0 +1,150 @@
+{
+  "review_id": "EV-MR03",
+  "verdict": "APPROVE_SCOPED",
+  "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+  "subject_branch": "research/evening-model-methods-20261110",
+  "findings": [],
+  "severity_counts": {
+    "P1": 0,
+    "P2": 0,
+    "P3": 0
+  },
+  "required_owner_fixes": [],
+  "held_claims": [
+    {
+      "id": "H1",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Actual fleet and operating readiness",
+      "restriction": "Даты/количество поставок, свободный legacy ресурс, зарегистрированные борта, экипажи, ТО и реальная возможность резерва не приняты. SJ-100/ПД-8 остаётся явным SSJ100-аналогом.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 9
+      },
+      "condition_to_release": "Подтвердить actual N(t), задания и эксплуатационные ограничения до решения о запуске."
+    },
+    {
+      "id": "H2",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Airport and connection approval",
+      "restriction": "MOW не разрешён до конкретного аэропорта; IATA непрерывность, UTC 60–180 и логические хвосты не подтверждают certified MCT, slots, crew или права на рейс.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/integer_year_sales.py",
+        "line": 135
+      },
+      "condition_to_release": "Идентифицировать аэропорты и проверить реальный dispatch/MCT/инвентарь."
+    },
+    {
+      "id": "H3",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Market and price validity",
+      "restriction": "Проверена арифметика условных спроса/частот/тарифов и directional OD bounds; не принят реальный спрос 2027/28, capture или реализованный yield.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 3
+      },
+      "condition_to_release": "Для market acceptance нужны независимые пригодные OD/fare/competitor inputs."
+    },
+    {
+      "id": "H4",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Support and related fare obligations",
+      "restriction": "Owner-shadow support не award. Flight caps, eligible periods, contract/coefficient и предложение всех economy seats по special fare требуют совместной проверки; повторный автоматический VAT недопустим.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 43
+      },
+      "condition_to_release": "Установить будущие права, ставки и тарифные ограничения; не считать shadow cash receipt."
+    },
+    {
+      "id": "H5",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Full PnL and cash",
+      "restriction": "Contribution и условные ceilings не полный project/company P&L или cash. Неизвестные исключённые расходы и подписанные внешние эффекты не нули.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 21
+      },
+      "condition_to_release": "Добавить K_excluded, signed D_external и полный календарь платежей/прежних заданий."
+    },
+    {
+      "id": "H6",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Fixed timetable and global claims",
+      "restriction": "Отрицательный dated/MCT результат относится к этой построенной банке; bounded retime не global optimum. Недельная альтернатива не спроецирована в год.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 29
+      },
+      "condition_to_release": "Для иной банки/годового эффекта выполнить новый датированный расчёт. Отдельный ideal-bank review при LF85/80 не переносить на physical100 или невозможность хаба."
+    },
+    {
+      "id": "H7",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "C35 old inventory and commercial LF",
+      "restriction": "85 защищённых старых all-market продаж — условный fixture, не наблюдение endpoint OD. 85+10=95≤100 не проходит автоматически planning LF85/80.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/joint_products.py",
+        "line": 35
+      },
+      "condition_to_release": "Нужны действительные старые local/through bookings и отдельное коммерческое решение о LF."
+    },
+    {
+      "id": "H8",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "C31/C35 donors and availability",
+      "restriction": "Actual Tu/partner, old Tu ZIA–TLV result, непоказанные through markets и прочие donors/операционная совместимость UNKNOWN. C35 own loss уже учтён; не повторять его как тот же donor.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 37
+      },
+      "condition_to_release": "Получить полное KEEP assignment и signed old-mission/through-market ledger, не объявлять нулевые probes фактом."
+    },
+    {
+      "id": "H9",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Joint period and separate alternatives",
+      "restriction": "Union содержит одну C31 неделю, далее KEEP, и полный C35 контракт 6–30 июля. Internal own-feed — отдельная альтернатива, без внешнего block payment.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 33
+      },
+      "condition_to_release": "Новая длительность/own-feed комбинация требует отдельного календаря и общей resource/market модели."
+    },
+    {
+      "id": "H10",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Historical provenance limitation",
+      "restriction": "EV-LIMIT-01: OLD144 UT282 KUF–SVX 13.12 остаётся без исходного primary raw_hash. Новый источник/receipt не исправляет прошлое происхождение.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/dated_readout.md",
+        "line": 43
+      },
+      "condition_to_release": "Сохранять исторический source limitation; не переписывать frozen evidence."
+    },
+    {
+      "id": "H11",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "claim": "Year-boundary policy generalization",
+      "restriction": "Текущие календари согласованы в общей неделе 27.12.2027–02.01.2028. При новом событии N(t) 1 января раздельный year-case policy может выбрать две программы в одной неделе. Текущие 96 результатов не изменены.",
+      "location": {
+        "path": "context/28_evening_run_20261110/methods/integer_year_sales.py",
+        "line": 85
+      },
+      "condition_to_release": "Если меняется календарь поставок на границе года, выбирать общую недельную программу до годового split и пересчитать. В exact inputs исправление не требуется."
+    }
+  ],
+  "non_blocking_scope_observations": [
+    {
+      "id": "EV-MR03-LIMIT-YEAR",
+      "severity": null,
+      "status": "OUTSIDE_PINNED_INPUTS",
+      "subject_commit": "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "path": "context/28_evening_run_20261110/methods/integer_year_sales.py",
+      "line": 77,
+      "proof": "adversarial_results.json: year_split_policy_limit",
+      "actual_impact": "Zero program conflicts in published 96 cases; no current result correction",
+      "minimal_fix_if_input_changes": "Если меняется календарь поставок на границе года, выбирать общую недельную программу до годового split и пересчитать. В exact inputs исправление не требуется."
+    }
+  ],
+  "limits": "No inherited expansion of EV-MR01/EV-MR02/source/network/product approvals; no market/fleet/award/full-PnL/cash/global-optimum acceptance"
+}

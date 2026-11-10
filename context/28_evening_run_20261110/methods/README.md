@@ -30,3 +30,8 @@ python3 context/28_evening_run_20261110/methods/package_manifest.py --check
 ## Общий синтез v4
 
 [Стратегия и десять решений](strategy.md), [таблицы вариантов](strategy/finite_options.csv), [карточки](strategy/hypothesis_decisions.csv). Числа разных периодов не ранжируются вместе; actual market/fleet/fullbudget UNKNOWN. Датированный v3 exact f99 остаётся отдельным subject ревью. Новые таблицы: `python3 -B strategy_tables.py`; source-cell/closed-form/preservation checks: `python3 -B verify_strategy.py`. `budget_components.csv` и `hypothesis_decisions.csv` — курируемые source-based проекции, не новый модельный runtime. Все35 ID сохранены в `strategy/hypothesis_queue35.csv`.
+
+
+## Итоговая передача
+
+[Компактный final handoff](final_handoff.md), [freeze](freeze.json), [точные subject/review](final_acceptance.csv). EV-MR03 и EV-MR04 — отдельные события; код и вычисленные результаты v3/v4 сохранены. Удержанные H1–H11/L01–L06, реальные market/fleet/grant/fullPnL/cash и отсутствие TEAM_ACCEPTED не сняты. Работа methods закончена; сборка панели root не является ожидаемой задачей этой роли.
