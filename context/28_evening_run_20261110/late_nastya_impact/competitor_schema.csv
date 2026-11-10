@@ -1,0 +1,23 @@
+field,unit_or_key,existing_evidence_field,owner_docs27_field,required_treatment
+origin_airport,Exact IATA directed origin,dated_service_instances.origin,a or b,Keep physical airport; MOW requires airport selection
+destination_airport,Exact IATA directed destination,dated_service_instances.destination,a or b,Do not sort away direction
+service_date,YYYY-MM-DD,dated_service_instances.date,not present,Retain date or explicit period-specific directional count
+flight_number,Published flight code,dated_service_instances.flight,not present,Deduplicate origin destination date flight; preserve commercial/operator distinction
+carrier_or_operator,Published name plus normalized identity,dated_service_instances.carriers,carrier,Preserve raw name; programme recipient is a separate field
+directional_departures,Count in explicitly stated window,weekly_service_context.oneway_departures,flights_week_each_way,Do not infer reverse count or year frequency
+period_start,YYYY-MM-DD,weekly_service_context.period_start,period,Parse and preserve exact observation period
+period_end,YYYY-MM-DD,weekly_service_context.period_end,period,No automatic2027/2028 extension
+aircraft,Published aircraft type,dated_service_instances.aircraft,not present,Keep conflicts and UNKNOWN; no invented seats
+actual_seats,Seats on specific configuration,UNKNOWN in current schedule evidence,not present,Keep UNKNOWN unless primary schedule/airline configuration supplies it
+departure_arrival_local,Clock plus date rollover and timezone,dated_service_instances.departure_local/arrival_local,not present,Needed for alternative itinerary; chronology is not MCT acceptance
+via_airports,Ordered physical itinerary legs,alternative_timing_examples,via,Keep separate from nonstop records; current owner importer ignores via
+connection_protection,Bookability/MCT/one ticket,UNKNOWN,not present,Keep UNKNOWN; do not infer from positive layover
+fare_final_and_baggage,RUB exact basket and purchase/service dates,fare_observations final_quote=False,fare_rub proposed,Advertising floor is not final20kg fare or net yield
+source_url,Primary publication URL,dated_service_records.source_url,source_url,Retain all supporting sources and locator
+source_sha256,Bytes SHA256 or explicit missing provenance,dated_service_records.raw_sha256,not present,OLD144 inherited raw gap remains; fresh confirmation is separate
+snapshot_sha,Immutable evidence commit,38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b,not present,Use exact source commit and row identity
+observed_at,Actual capture date/time,source_registry and receipts,checked_at,Do not fabricate from file modification time
+conflict_status,Preserved time/type alternatives,dated_service_instances.clock_or_type_conflict,not present,No averaging or convenient-version selection
+complete_market,Boolean,pair_registry.complete_market=False,not present,False until completeness demonstrated
+competitor_absence_established,Boolean,pair_registry.competitor_absence_established=False,not present,Missing evidence is not absence or zero frequency
+observation_status,Published/programme/executed,observation_vs_model,not present,Programme row not actual flight; publication not execution or award
