@@ -1,0 +1,34 @@
+{
+  "review_sha": "b0b0830b1631b92225d67a8183d9a2792ff007cf",
+  "reviewed_sha": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4",
+  "finding_id": "MR05-F01",
+  "historical_review_verdict": "CHANGES_P2",
+  "fresh_checked_sha": "2a74b05179d3619c03fdab3b038fbe7587d85eca",
+  "status": "RESOLVED_IN_CURRENT_SPEC_DECISION_AND_V2_PROJECTION; LEGACY_V1_LABEL_HELD",
+  "checks": [
+    "comparison_spec31 explicitly says model endpoint pairs and references new projection",
+    "M05 evidence corrected",
+    "new projection preserves20/18 with NULL airport/calendar counts",
+    "legacy v1 bytes unchanged and explicitly superseded for route-unit use"
+  ],
+  "evidence": [
+    {
+      "path": "context/23_night_run_20261110/methods/comparison_spec.md",
+      "sha256": "ab4e76ab3a428fce79a326b131bec5555e12bffd7b3d270605ca47ffb9ae88ca"
+    },
+    {
+      "path": "context/23_night_run_20261110/methods/decisions.json",
+      "sha256": "155f0d6c865b25ae25bb466445ee04b9da467a7ece092bc5eddbd680a1724103"
+    },
+    {
+      "path": "context/23_night_run_20261110/methods/runs/budget_v1/endpoint_pair_counts.csv",
+      "sha256": "6138925fc1368e5456b5e0299e8a67d5e36a5fec823dc879c75641238e341d1b"
+    }
+  ],
+  "scope": "Coordinator narrow verification of already published terminology correction; no fresh general methods/budget/model approval. Do not consume legacy physical_pair_count as physical airport count.",
+  "nonblocking_followups": {
+    "MR05-N01": "Add complete ID/cost assertions to future common adapter or keep narrow validator scope; current independently checked numbers not held",
+    "MR05-N02": "model_repair27740ffe carries separate metadata correction; broader independent code review running; legacy set001 example remains historical"
+  },
+  "checked_at_utc": "2026-11-10T03:19:44.647577+00:00"
+}

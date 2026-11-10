@@ -1,0 +1,74 @@
+{
+  "package": "MR05-independent-review-v1",
+  "source_commit": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4",
+  "verdict": "CHANGES",
+  "verdict_scope": "Terminology and acceptance scope of methods-spec-v1 only; native author calculations, market demand, network repair and launch are separate.",
+  "counts": {"P1": 0, "P2": 1, "P3": 2},
+  "findings": [
+    {
+      "id": "MR05-F01",
+      "severity": "P2",
+      "classification": "CONFIRMED_UNIT_LABEL_ERROR",
+      "title": "20/18 counts are model endpoint pairs, including MOW; physical airport pairs remain unresolved",
+      "sources": [
+        {"path": "context/23_night_run_20261110/methods/comparison_spec.md", "line_start": 31, "line_end": 31},
+        {"path": "context/23_night_run_20261110/methods/decisions.json", "line_start": 9, "line_end": 9},
+        {"path": "context/23_night_run_20261110/methods/analyze_pinned.py", "line_start": 55, "line_end": 60},
+        {"path": "context/23_night_run_20261110/methods/analysis/set001/route_counts.csv", "line_start": 1, "line_end": 3}
+      ],
+      "mechanism": "The grouping key is the unordered from/to strings in undated network_routes. MOW is a metropolitan aggregate, not an operating airport. The table labels len(groups) physical_pair_count and the prose/decision propagates that label. The spec itself distinguishes MOW from ZIA at line49.",
+      "reproduction": "python3 context/23_night_run_20261110/methods_review/independent_review.py; inspect route_unit_checks.csv: base8 programs/20 model pairs/24 leg rows, cautious8/18/24; contains_MOW_aggregate=True in both.",
+      "numerical_effect": {"base_model_endpoint_pairs": 20, "cautious_model_endpoint_pairs": 18, "physical_airport_pairs": null, "money_effect_computed": false},
+      "impact": "The present numbers cannot establish the number of physically operated routes or compliance with the case route-count requirement. They still demonstrate that eight author programs and eight rays use different definitions.",
+      "minimal_fix": "Rename physical_pair_count to model_endpoint_pair_count, replace physical-pair wording in the spec and M05 evidence, retain20/18 unchanged. Add unresolved airport mapping/MOW reason and leave actual physical_airport_pair_count NULL until dated airport resolution.",
+      "team_decision_preserved": "The case route definition remains OPEN_DECISION. This fix does not select the route definition, reject the eight programs, change author data or calculate a new network.",
+      "holds": ["20/18 as physical airport pair counts", "case compliance inferred from20/18"],
+      "does_not_hold": ["20/18 as model endpoint pair counts", "MOW-OMS arithmetic", "Tsiri variable contribution", "C01 illustrative threshold"],
+      "status": "OPEN_SOURCE_UNMODIFIED"
+    },
+    {
+      "id": "MR05-N01",
+      "severity": "P3",
+      "classification": "NONBLOCKING_VALIDATOR_COVERAGE_LIMIT",
+      "title": "The selected-export checker does not independently verify complete capacity coverage or flight costs",
+      "sources": [
+        {"path": "context/23_night_run_20261110/methods/analyze_pinned.py", "line_start": 107, "line_end": 108},
+        {"path": "context/23_night_run_20261110/methods/analyze_pinned.py", "line_start": 126, "line_end": 131},
+        {"path": "context/23_night_run_20261110/methods/analyze_pinned.py", "line_start": 143, "line_end": 143}
+      ],
+      "mechanism": "The capacity loop checks only rows present in cc, without set equality/uniqueness against physical flights and all used IDs. Flight_variable_cost is taken from comparison.csv; neither a sum of capacity flight costs nor the per-flight cost formula is checked. The checker is scoped export arithmetic, not a general input validator.",
+      "reproduction": "python3 context/23_night_run_20261110/methods_review/probe_pinned_validator.py runs the exact checker main in memory. Removing a positive occupied UFA capacity row or adding1000000 to the comparison flight cost and subtracting1000000 from its contribution still yields PASS_SCOPED. These are explicit synthetic reader mutations after hash verification, not changes to the pinned source blobs.",
+      "numerical_effect": {"cost_probe_shift_rub": 1000000, "original_8_result_cost_mismatches_in_independent_review": 0},
+      "impact": "The checker alone does not prove these two semantic bridges for arbitrary new exports. No error in the current pinned eight results is demonstrated: the reviewer independently checked complete IDs, per-flight costs, and all eight sums successfully.",
+      "minimal_fix": "Before using this checker as an admission gate for new exports, assert unique/equal capacity and flight ID sets and independently sum per-leg cost, or explicitly retain the narrower acceptance label. Keep the scoped status and original exports.",
+      "team_decision_preserved": "No allocation heuristic, tariff, capture law or cost rate is chosen by this test coverage change.",
+      "holds": [],
+      "status": "NONBLOCKING_FOLLOWUP_FOR_NEXT_ADAPTER"
+    },
+    {
+      "id": "MR05-N02",
+      "severity": "P3",
+      "classification": "KNOWN_INHERITED_METADATA_ISSUE_ALREADY_MR06",
+      "title": "The itinerary example retains an obsolete block_method label",
+      "sources": [
+        {"path": "context/23_night_run_20261110/methods/analysis/set001/itinerary_example.json", "line_start": 29, "line_end": 43},
+        {"path": "context/23_night_run_20261110/methods/inputs/set001/tsiri_93fa/scripts/build_aircraft_route_review.py", "line_start": 19, "line_end": 29},
+        {"path": "context/23_night_run_20261110/methods/inputs/set001/tsiri_93fa/scripts/build_team_comparison.py", "line_start": 360, "line_end": 369},
+        {"path": "context/23_night_run_20261110/methods/requests.json", "line_start": 11, "line_end": 11}
+      ],
+      "mechanism": "ARH-UFA in the example has145 minutes and no directional published proxy. RouteModel fallback is30+distance/750*60 rounded up to5 minutes; the inherited metadata says30+distance*1.10/700*60. The code uses virtual dispatch for the number while add_leg constructs metadata from the parent implementation.",
+      "reproduction": "independent_review.py writes known_metadata_followup.json. A145-minute true fallback constrains distance to(1375,1437.5]km; the inherited formula would yield160..170 minutes, not145. No coordinates or live source are fetched.",
+      "impact": "The label does not describe the actual numeric method and must not become source support for block time. This was already flagged by comparison_spec.md:74 and requestMR06; it is not a new network repair request or a new numerical cost mismatch.",
+      "minimal_fix": "In the already assigned network package, preserve the original, emit corrected provenance separately, and map that new exact-SHA metadata into future adapters. Do not change145 solely to fit the stale label.",
+      "team_decision_preserved": "Published timetable proxy and mathematical fallback remain unverified for RW dispatch; no operational approval is implied.",
+      "holds": [],
+      "status": "EXISTING_MR06_REPRODUCED_NO_DUPLICATE_DISPATCH"
+    }
+  ],
+  "non_findings": [
+    {"id": "MR05-A01", "status": "APPROVE_SCOPED", "subject": "Capture law versus market cap", "reason": "The actual six repeated-pair exports remain below their stated market inputs. Pooled-frequency figures are explicitly AGENT_PROPOSAL_FIXED_SELECTION_NOT_CORRECTED_REPLAY. Missing common budget is a structural contract defect, not proof that87497 is a numerically impossible market outcome or that80581 is uniquely correct."},
+    {"id": "MR05-A02", "status": "APPROVE_SCOPED", "subject": "One through fare and physical seat incidence", "reason": "The pinned Tsiri sales, physical legs, capacity and money formulas reconcile in the independent review. The same39.79900399544 journeys consume two seat segments and receive one fare."},
+    {"id": "MR05-A03", "status": "APPROVE_SCOPED", "subject": "Donor, own migration and cash/accrual", "reason": "The spec forbids repeated donor deduction, preserves unavoidable obligations, and separates funding from accrual expense. Independent counterexamples confirm these rules; actual donor, cash calendar and full budget remain unknown."},
+    {"id": "MR05-A04", "status": "APPROVE_SCOPED", "subject": "C01 and model compatibility", "reason": "67 clients/134 one-way journeys/268 boardings and the threshold arithmetic match.500 per endpoint journey differs from Tsiri500 per segment; changing that unit yields a new conditional72-client scenario, not an author error. Period/resource/baseline interfaces remain explicit proposals."}
+  ]
+}

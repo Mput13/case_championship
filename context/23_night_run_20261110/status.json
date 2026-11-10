@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "RUNNING",
-  "updated_at_utc": "2026-11-10T03:15:57.369171+00:00",
+  "updated_at_utc": "2026-11-10T03:19:44.647577+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -100,9 +100,11 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-methods-review-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-methods-review-20261110-r1",
       "link": "[Sol 6.1: независимая проверка общей методики](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-methods-review-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
-      "input_sha": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4"
+      "input_sha": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4",
+      "pushed_sha": "b0b0830b1631b92225d67a8183d9a2792ff007cf",
+      "acceptance": "CHANGES_ON_344f; F01_CURRENT_PROJECTION_FIX_VERIFIED_BY_PARENT"
     },
     {
       "role": "cost_kover",
@@ -164,7 +166,7 @@
   ],
   "acceptance": {
     "screening82dffa7": "INDEPENDENT_SCOPED_PASS_BY_6a038b9b; POLICY_OPEN; NETWORK_NOT_RUN",
-    "methods344f4425": "HASH_AND_SELECTED_ARITHMETIC_ONLY; NO_MODEL_OR_MARKET_ACCEPTANCE"
+    "methods344f4425": "INDEPENDENT_SCOPED_NUMERIC_PASS; LEGACY_PHYSICAL_PAIR_LABEL_HOLD"
   },
   "pending_decisions": [
     {
@@ -202,7 +204,7 @@
       "sha": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4",
       "received": true,
       "parent_checks": "81 output hashes, 62 Git inputs, route counts and two illustrative arithmetic examples",
-      "independent_review": "RUNNING_MR05",
+      "independent_review": "CHANGES_P2_WITH_SCOPED_NUMERIC_PASS; F01_CORRECTED_IN_2a74",
       "path": "integration/methods/344f4425"
     },
     "screening_review": {
@@ -234,6 +236,11 @@
       "baseline_sha": "7180bf5e03905a7892b3031f2447c5b33d10e244",
       "path": "integration/data_bridge/abc09bbb",
       "independent_review": "PENDING_NEW_SOURCE_JOIN_REVIEW"
+    },
+    "methods_review": {
+      "sha": "b0b0830b1631b92225d67a8183d9a2792ff007cf",
+      "path": "integration/methods_review/b0b0830b",
+      "current_finding_resolution": "methods_review_resolution.json"
     }
   },
   "queued_tasks": [
