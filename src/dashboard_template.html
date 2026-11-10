@@ -173,6 +173,43 @@ td.weakv{text-decoration:underline dotted rgba(244,245,247,.55);text-underline-o
 .verdict div{background:var(--ink-2);border-radius:10px;padding:10px 12px}
 .verdict small{display:block;color:var(--steel);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
 .verdict b{font-size:16px;color:var(--amber);font-weight:500}
+.ld-h{align-items:flex-start}
+.ld-ctl{display:flex;gap:8px;flex-wrap:wrap}
+.ld-ctl .seg button{padding:7px 12px;white-space:nowrap;flex:none}
+.ld-scen{margin:-6px 18px 12px;color:var(--muted);font-size:13px;line-height:1.5;max-width:980px}
+.ld-k{display:flex;align-items:center;gap:12px;padding:0 18px 6px;color:var(--muted);font-size:14px}
+.ld-k input{width:220px;accent-color:var(--ink)}
+.ld-k b{color:var(--ink);min-width:40px;font-variant-numeric:tabular-nums}
+.ld-head,.ld-row{display:grid;grid-template-columns:230px minmax(0,1fr) 250px;gap:14px;align-items:center;padding:0 18px}
+.ld-head{color:var(--steel);font-size:12.5px;margin:10px 0 4px}
+.ld-axis{display:flex;justify-content:space-between}
+.ld-row{padding-top:7px;padding-bottom:7px;cursor:pointer;border-radius:10px}
+.ld-row:hover{background:#F6F4EF}
+.ld-row.pick{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.ld-n b{display:block;font-weight:500;font-size:15px}
+.ld-n small{display:block;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.ld-bar{position:relative;height:26px;background:#F1EEE7;border-radius:5px}
+.ld-bar i{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#B9B5AC}
+.ld-bar em{position:absolute;top:4px;height:18px;border-radius:4px;transition:width .2s}
+.ld-bar span{position:absolute;top:4px;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:18px}
+.ld-ac{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ld-ac svg{width:15px;height:15px;flex:none}
+.ld-ac .pl{display:flex;gap:1px;flex-wrap:wrap}
+.ld-ac small{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.ld-sum{margin:10px 18px 4px;font-size:14.5px;line-height:1.55;max-width:980px}
+.ld-note{margin:0 18px 14px;color:var(--muted);font-size:12.5px;line-height:1.55;max-width:980px}
+@media (max-width:860px){.ld-head,.ld-row{grid-template-columns:1fr}.ld-head>div:not(.ld-axis){display:none}}
+.vs-low{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;padding:0 18px 18px}
+@media (max-width:900px){.vs-low{grid-template-columns:1fr}}
+.vs-low>div{background:#F6F4EF;border-radius:12px;padding:12px 14px}
+.vs-h{font-weight:500;font-size:14px;margin-bottom:8px}
+.asm{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px 16px}
+.asm div{font-size:12.5px;color:var(--muted);line-height:1.4}
+.asm b{display:block;color:var(--ink);font-weight:500;font-size:14px;font-variant-numeric:tabular-nums}
+.vs-chk-lead{margin:0 0 8px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.chk{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+.chk small{color:var(--muted);font-size:11.5px}
+.chk .v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .dm-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .dm-top select{background:var(--ink-2);color:#F4F5F7;border:1px solid var(--ink-line);border-radius:10px;font:inherit;font-size:13px;padding:7px 10px}
 .dm-acc{color:var(--steel);font-size:12.5px;padding:0 8px 10px;line-height:1.5}
@@ -201,6 +238,69 @@ td .sub{color:var(--steel);font-size:11.5px;display:block}
 .dem td,.dem th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left}
 .dem th{font-weight:500;color:var(--muted);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
 .dem td.r,.dem th.r{text-align:right}
+.steps{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.steps a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 5px;font-size:13.5px}
+.steps a:hover{border-color:var(--ink)}
+.steps b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:12px}
+.eyebrow{color:var(--red);font-size:12.5px;font-weight:500;margin-bottom:2px}
+.anchor{display:block;position:relative;top:-10px}
+.cp-wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;padding:0 18px 18px}
+@media (max-width:900px){.cp-wrap{grid-template-columns:1fr}}
+.cp-scale{background:#F6F4EF;border-radius:12px;padding:12px 14px;align-self:start}
+.cp-bar{display:grid;grid-template-columns:118px minmax(0,1fr) 38px;gap:8px;align-items:center;font-size:12.5px;margin:5px 0}
+.cp-bar i{display:block;height:10px;border-radius:3px;background:#B9B5AC}
+.cp-bar.rw{font-weight:500}.cp-bar.rw i{background:var(--red)}
+.cp-bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.cp-note{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+.cp-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.cp-cards{grid-template-columns:1fr}}
+.cp{border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.cp.own{background:#FBF7F2}
+.cp h3{margin:0;font-size:16px;font-weight:700}.cp h3 span{color:var(--muted);font-weight:400}
+.cp p{margin:0;font-size:13.5px;line-height:1.5}
+.cp .k{display:block;font-size:11.5px;font-weight:500;color:var(--muted);margin-bottom:1px}
+.cp .ap{background:#FDF1F1;border-radius:8px;padding:8px 10px}
+.cp .ap .k{color:var(--red)}
+.cp .src{font-size:12px;color:var(--muted)}.cp .src a{color:var(--muted)}
+.ch-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;padding:0 18px 14px}
+.ch-facts div{background:#F6F4EF;border-radius:12px;padding:10px 12px;font-size:12.5px;color:var(--muted);line-height:1.4}
+.ch-facts b{display:block;color:var(--ink);font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.ch-ramp-h{padding:0 18px}
+.ch-ramp{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;padding:0 18px 14px}
+.rp{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:4px;font-size:12.5px;color:var(--muted)}
+.rp .pl{display:flex;gap:1px;flex-wrap:wrap}.rp .pl svg{width:15px;height:15px}
+.rp b{color:var(--ink);font-size:15px;font-weight:700}
+.rp .res{font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+.rp .when{color:var(--red);font-weight:500}
+.ch-share{margin:0 18px 18px;padding:12px 14px;border-radius:12px;background:var(--ink);color:#F4F5F7;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline}
+.ch-share b{font-size:22px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.ch-share small{color:var(--steel);font-size:12.5px}
+.mt-wrap{padding:14px 18px 18px}
+.mt{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;min-width:760px}
+.mt th{font-weight:500;color:var(--muted);font-size:12px;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.mt td{padding:7px 8px;border-bottom:1px solid #EFECE6;vertical-align:top}
+.mt td.r,.mt th.r{text-align:right;white-space:nowrap}
+.mt td small{display:block;color:var(--muted);font-size:11.5px}
+.rm{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:4px 18px 16px}
+@media (max-width:1000px){.rm{grid-template-columns:1fr}}
+.rm>div{position:relative;padding:22px 12px 0 0;display:grid;gap:5px;align-content:start;font-size:12.5px;color:var(--muted);line-height:1.45}
+.rm>div:before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:var(--line)}
+.rm>div:after{content:"";position:absolute;left:0;top:1px;width:14px;height:14px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px var(--white)}
+.rm>div.alt:after{background:var(--white);border:2px solid var(--red);width:10px;height:10px}
+.rm .per{color:var(--ink);font-weight:700;font-size:13.5px}
+.rm .ttl{color:var(--ink);font-weight:500;font-size:14px}
+.rm .fl{color:var(--red);font-weight:500}
+.rk{display:grid;gap:8px;padding:0 18px 18px}
+.rk>div{display:grid;grid-template-columns:150px minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr);gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45}
+@media (max-width:900px){.rk>div{grid-template-columns:1fr}}
+.rk .cat{font-weight:700}
+.rk .k{display:block;font-size:11.5px;color:var(--muted);font-weight:500}
+.srcboard table{width:100%;border-collapse:collapse;min-width:760px;font-size:13.5px}
+.srcboard th{font-weight:500;color:var(--muted);font-size:12px;text-align:left;padding:6px 10px;border-bottom:1px solid var(--line)}
+.srcboard td{padding:8px 10px;border-bottom:1px solid #EFECE6;vertical-align:top}
+.srcboard td small{display:block;color:var(--muted);font-size:12px}
+.srcboard a{color:var(--ink)}
+.srcboard .ds{font-weight:500;white-space:nowrap}
 footer{color:var(--muted);font-size:13px}
 footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--ink);background:var(--paper-2);padding:1px 6px;border-radius:4px}
 </style>
@@ -208,13 +308,16 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 <div class="wrap">
   <header class="hero">
     <div>
-      <h1>Где ставить новый хаб</h1>
-      <p class="lede">Двадцать городов-кандидатов, их данные и веса критериев. Двигайте веса на пульте, нажимайте город на табло или на карте.</p>
+      <h1>Red Wings: новый хаб или прямые рейсы</h1>
+      <p class="lede">Куда направить новые SJ-100, чтобы компания росла быстрее рынка. Пять шагов кейса по порядку; в каждом блоке можно переключать сценарии и города.</p>
+      <nav class="steps" aria-label="Шаги кейса">
+        <a href="#step1"><b>1</b>Лонглист городов</a><a href="#step2"><b>2</b>Конкуренты</a><a href="#step3"><b>3</b>Расчёт гипотез</a><a href="#step4"><b>4</b>Выбор и сеть</a><a href="#step5"><b>5</b>Дорожная карта</a>
+      </nav>
     </div>
     <div class="hero-meta" id="meta"></div>
   </header>
 
-  <div class="main">
+  <div class="main" id="step1">
     <section class="board" aria-labelledby="b-title">
       <div class="board-top">
         <div><div class="board-title" id="b-title">Табло кандидатов</div><div class="board-sub" id="b-sub"></div></div>
@@ -239,25 +342,49 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <article class="ticket" id="ticket"></article>
   </section>
 
+  <section class="mapcard" id="step2" aria-labelledby="c-title">
+    <div class="sec-h"><div><div class="eyebrow">Шаг 2</div><h2 id="c-title">Конкуренты с региональными базами</h2><div class="hint">Что сработало у перевозчиков с базами в регионах и что из этого берём для Red Wings</div></div></div>
+    <div class="cp-wrap">
+      <div class="cp-scale"><div class="vs-h">Пассажиров за 2025 год, млн</div><div id="cp-scale"></div><p class="cp-note">Доля рынка Red Wings — 2,5%: 2,7 млн из 108,85 млн пассажиров российских авиакомпаний.</p></div>
+      <div class="cp-cards" id="cp-cards"></div>
+    </div>
+  </section>
+
   <section class="mapcard" id="dem" aria-labelledby="dm-title">
-    <div class="sec-h"><h2 id="dm-title">Куда сейчас пересаживаются</h2><div class="seg" id="dm-zone" role="group" aria-label="Направления"></div></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 3 · спрос по парам городов</div><h2 id="dm-title">Куда сейчас пересаживаются</h2></div><div class="seg" id="dm-zone" role="group" aria-label="Направления"></div></div>
     <p class="dm-lead" id="dm-lead"></p>
     <div class="dm-box"><svg id="dmsk" role="img" aria-labelledby="dm-title"></svg></div>
     <div class="dm-legend" id="dm-legend"></div>
     <div class="dm-cities" id="dm-cities" role="group" aria-label="Город"></div>
   </section>
 
-  <section class="board" id="vs" aria-labelledby="vs-title">
-    <div class="vs-top">
-      <div><div class="board-title" id="vs-title">Хаб или прямые рейсы</div><div class="board-sub">Шаг 3: одна модель для всех вариантов, до 10 самолётов и 12 маршрутов · результат до аренды самолётов</div></div>
-      <div class="vs-seg" id="scen" role="group" aria-label="Сценарий"></div>
+  <section class="mapcard" id="vs" aria-labelledby="vs-title"><span id="step3" class="anchor"></span>
+    <div class="sec-h ld-h">
+      <div><div class="eyebrow">Шаг 3 · расчёт обеих гипотез</div><h2 id="vs-title">Хаб или прямые рейсы</h2><div class="hint">Итог сети за год: выручка минус расходы на рейсы, до аренды самолётов</div></div>
+      <div class="ld-ctl"><div class="seg" id="scen" role="group" aria-label="Сценарий"></div><div class="seg" id="subs" role="group" aria-label="Субсидия"></div></div>
     </div>
-    <div class="verdict" id="verdict"></div>
-    <div class="tscroll"><table class="dep" id="vstab"><thead></thead><tbody></tbody></table></div>
+    <p class="ld-scen" id="ld-scen"></p>
+    <div class="ld-k"><label for="ldk">Тарифы выше на</label><input type="range" id="ldk" min="0" max="30" step="1" value="0"><b id="ldko">0%</b></div>
+    <div class="ld-head"><div></div><div class="ld-axis"><span>убыток</span><span>0</span><span>прибыль</span></div><div>самолётов нужно</div></div>
+    <div id="ld"></div>
+    <p class="ld-sum" id="ld-sum"></p>
+    <p class="ld-note" id="vs-note"></p>
+    <div class="vs-low">
+      <div><div class="vs-h">Допущения расчёта</div><div class="asm" id="vs-asm"></div></div>
+      <div><div class="vs-h">Проверка второй моделью</div><p class="vs-chk-lead" id="vs-chk-lead"></p><div id="vs-chk"></div></div>
+    </div>
+  </section>
+
+  <section class="mapcard" id="step4" aria-labelledby="ch-title">
+    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · выбор</div><h2 id="ch-title"></h2><div class="hint" id="ch-sub"></div></div><button class="btn" id="ch-show" type="button">Показать сеть на карте</button></div>
+    <div class="ch-facts" id="ch-facts"></div>
+    <div class="ch-ramp-h"><div class="vs-h">Сколько самолётов нужно и как сеть растёт по мере поставок SJ-100</div><p class="ld-note" id="ch-ramp-note"></p></div>
+    <div class="ch-ramp" id="ch-ramp"></div>
+    <div class="ch-share" id="ch-share"></div>
   </section>
 
   <section class="mapcard" aria-labelledby="n-title">
-    <div class="sec-h"><h2 id="n-title">Итоговая сеть</h2><span class="hint">шаг 4 · нажмите вариант на табло выше или в расписании; толщина линии — пассажиры в год</span></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · сеть на карте</div><h2 id="n-title">Итоговая сеть</h2></div><span class="hint">вариант, сценарий и субсидия — как в блоке «Хаб или прямые рейсы»; толщина линии — пассажиры в год</span></div>
     <div class="netbox" id="netbox">
       <svg id="netmap" role="img" aria-label="Карта маршрутов выбранного варианта сети"></svg>
       <div class="sched">
@@ -267,10 +394,15 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
       </div>
       <div class="mapzoom"><button class="btn" id="nzin" type="button" aria-label="Приблизить">+</button><button class="btn" id="nzout" type="button" aria-label="Отдалить">−</button></div>
     </div>
+    <div class="mt-wrap">
+      <div class="vs-h" id="mt-title">Маршруты: пассажиры, рейсы и источники</div>
+      <p class="ld-note" id="mt-note"></p>
+      <div class="tscroll"><table class="mt" id="mt"><thead></thead><tbody></tbody></table></div>
+    </div>
   </section>
 
   <section class="mapcard" aria-labelledby="m-title">
-    <div class="sec-h"><h2 id="m-title">Куда долетим из хаба</h2><span class="hint">колёсико или кнопки справа — приблизить; карту можно двигать</span></div>
+    <div class="sec-h"><div><div class="eyebrow">Шаг 4 · дальность</div><h2 id="m-title">Куда долетим из хаба</h2><div class="hint">Город — тот, что выбран на табло кандидатов. Круги показывают, куда SSJ долетит без посадки; линии — куда рейс уже есть, а куда его нет и поезд идёт дольше 12 часов. Колёсико или кнопки справа приближают карту.</div></div></div>
     <div class="mapbox" id="mapbox">
       <svg id="map" role="img" aria-label="Карта направлений и дальности из выбранного города"></svg>
       <div class="dboard">
@@ -288,13 +420,19 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </div>
   </section>
 
+  <section class="mapcard" id="step5" aria-labelledby="r-title">
+    <div class="sec-h"><div><div class="eyebrow">Шаг 5</div><h2 id="r-title">Дорожная карта до 2028 года и риски</h2><div class="hint">Сеть растёт по мере поставок самолётов; у каждого риска — сигнал, по которому его заметим, и ответ</div></div></div>
+    <div class="rm" id="rm"></div>
+    <div class="rk" id="rk"></div>
+  </section>
+
   <section class="card" aria-labelledby="k-title">
-    <div class="sec-h"><h2 id="k-title" style="font-size:20px">«Ковёр» по месяцам</h2><span class="hint" id="k-sub"></span></div>
+    <div class="sec-h"><div><div class="eyebrow">Риск: ограничения аэропортов</div><h2 id="k-title" style="font-size:20px">«Ковёр» по месяцам</h2></div><span class="hint" id="k-sub"></span></div>
     <div class="tscroll"><table class="kov" id="kov"></table></div>
   </section>
 
-  <section class="board databoard" id="sources" aria-labelledby="s-title">
-    <div class="board-top"><div><div class="board-title" id="s-title">Табло данных</div><div class="board-sub">Откуда берутся цифры и когда они обновлялись</div></div></div>
+  <section class="card srcboard" id="sources" aria-labelledby="s-title">
+    <div class="sec-h"><div><h2 id="s-title" style="font-size:20px">Табло данных</h2><div class="hint">Откуда берутся цифры и когда они обновлялись</div></div></div>
     <div class="tscroll"><table id="src"><thead><tr><th>Источник</th><th>Тип</th><th>Прибыл</th><th style="text-align:right">Записей</th><th>Статус</th></tr></thead><tbody></tbody></table></div>
   </section>
 
@@ -352,7 +490,7 @@ function compute(){
   return {rows,out,same,total,byIata:Object.fromEntries(rows.map(x=>[x.c.iata,x]))};
 }
 
-const DSTAT={ok:['В НОРМЕ','#5BC68A'],manual:['ВРУЧНУЮ','#C9CED6'],stale:['ЗАДЕРЖАН','#F5B841'],warn:['ПРОВЕРИТЬ','#F5B841'],fail:['ОТМЕНЁН','#FF5A5F'],missing:['ОЖИДАЕТСЯ','#8C96A6']};
+const DSTAT={ok:['в норме','#2E8A5B'],manual:['вручную','#5E6675'],stale:['задержан','#B7791F'],warn:['проверить','#B7791F'],fail:['ошибка','#C0262B'],missing:['ожидается','#8C96A6']};
 function meta(){
   const m=Object.values(D.manifest), ok=m.filter(x=>x.status==='ok'||x.status==='manual').length;
   const el=document.getElementById('meta');
@@ -547,30 +685,84 @@ function sources(){
 /* --- шаг 3: хаб или прямые --- */
 let SCEN='base', NETV=null;
 const NS_=D.net||{summary:[],routes:[],nodes:{}};
-function vrows(){ return NS_.summary.filter(r=>r.scenario===SCEN); }
+function vrows(){ return NS_.summary.filter(r=>r.scenario===scenKey()); }
+const pl=(n,a,b,c)=>{ const m=n%10,x=n%100; return `${n} ${m===1&&x!==11?a:(m>=2&&m<=4&&(x<12||x>14)?b:c)}`; };
+const ac=n=>pl(n,'самолёт','самолёта','самолётов');
+let SUB=false;
+const PLN='<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="#E32A2F" d="M98 50 94 46 86 45 60 45 36 14 27 14 40 45 18 45 10 34 4 34 9 50 4 66 10 66 18 55 40 55 27 86 36 86 60 55 86 55 94 54Z"/></svg>';
+function scenKey(){ return SCEN+(SUB?'_sub':''); }
+function ldDraw(){
+  const rows=vrows(); if(!rows.length) return;
+  const k=+document.getElementById('ldk').value/100; document.getElementById('ldko').textContent=Math.round(k*100)+'%';
+  const res=(r,kk)=>(r.revenue_mln_year-r.subsidy_mln_year)*(1+kk)+r.subsidy_mln_year-r.var_cost_mln_year;
+  const S=Math.max(1,...rows.flatMap(r=>[Math.abs(res(r,0)),Math.abs(res(r,.3))]));
+  const mln=v=>(v<0?'−':'+')+ru(Math.abs(Math.round(v)))+' млн ₽';
+  const box=document.getElementById('ld'); box.textContent='';
+  rows.slice().sort((a,b)=>res(b,0)-res(a,0)).forEach(r=>{
+    const v=res(r,k), w=Math.min(Math.abs(v)/S*50,50), pos=v>=0, name=r.vkey==='DIRECT'?'Прямые рейсы':r.variant;
+    const row=h('div',{class:'ld-row'+(r.vkey===NETV?' pick':''),tabindex:0,role:'button','aria-label':`${name}: ${mln(v)}`});
+    const n=h('div',{class:'ld-n'},h('b',{},name),h('small',{},`${ru(Math.round(r.segments_year/1000))} тыс. пасс. в год · доля +${ru(r.share_pp,2)} п. п.`),
+      h('small',{},r.transfer_od_year?`с пересадкой ${ru(Math.round(r.transfer_od_year/1000))} тыс. · «Ковёр» ${r.kover_days_avg} дн.`:`без пересадок · «Ковёр» ${r.kover_days_avg} дн.`));
+    const bar=h('div',{class:'ld-bar'},h('i',{}));
+    const em=h('em',{}); em.style.cssText=`${pos?'left':'right'}:50%;width:${w}%;background:${pos?'#3FA772':'#E32A2F'}`;
+    const lab=h('span',{},mln(v)); lab.style.cssText=pos?'right:calc(50% + 8px)':'left:calc(50% + 8px)';
+    bar.append(em,lab);
+    const pl=h('div',{class:'pl'}); pl.innerHTML=PLN.repeat(r.aircraft);
+    const acx=h('div',{class:'ld-ac'},pl,h('small',{},ac(r.aircraft)));
+    row.append(n,bar,acx);
+    const pick=()=>{ NETV=r.vkey; ldDraw(); netUpdate(); document.getElementById('netbox').scrollIntoView({behavior:'smooth',block:'nearest'}); };
+    row.addEventListener('click',pick); row.addEventListener('keydown',e=>{ if(e.key==='Enter') pick(); });
+    box.append(row); });
+  // вывод под лестницей — из тех же чисел
+  const ok=rows.filter(r=>res(r,k)>=0).map(r=>r.vkey==='DIRECT'?'прямые рейсы':r.variant.replace('Хаб ','хаб '));
+  const best=rows.slice().sort((a,b)=>res(b,k)-res(a,k))[0], dir=rows.find(r=>r.vkey==='DIRECT');
+  const sp=SCEN==='base'?NS_.asm.subsidy_rub_per_pax[0]:NS_.asm.subsidy_rub_per_pax[1];
+  const dmow=NS_.routes.filter(x=>x.scenario===scenKey()&&x.vkey==='DIRECT'), mshare=dmow.length?Math.round(dmow.filter(x=>x.from==='MOW'||x.to==='MOW').reduce((a,x)=>a+x.pax_year_segments,0)/dmow.reduce((a,x)=>a+x.pax_year_segments,0)*100):0;
+  let t;
+  if(ok.length) t=`${k?`При тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} в плюсе: ${ok.join(', ')}. `;
+  else t=`${k?`Даже при тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} ни одна сеть не окупает рейсы. Ближе всех к нулю — ${best.vkey==='DIRECT'?'прямые рейсы':best.variant.replace('Хаб ','хаб ')}: ${best.fare_up_to_breakeven_pct>0?`нужны тарифы выше на ${best.fare_up_to_breakeven_pct}%`:'не хватает немного'}. `;
+  if(SUB&&dir) t+=`Субсидия — около ${ru(sp)} ₽ на пассажира рейса в обход Москвы. Прямой сети она помогает мало: ${mshare}% её пассажиров летят через Москву, а такие рейсы субсидию не получают.`;
+  else if(!SUB) t+='Включите субсидию, чтобы увидеть сети с господдержкой рейсов в обход Москвы.';
+  document.getElementById('ld-sum').textContent=t;
+}
 function vsBoard(){
   const seg=document.getElementById('scen'); seg.textContent='';
-  [['base','База'],['cautious','Осторожно']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SCEN===k)},t); b.addEventListener('click',()=>{ SCEN=k; vsBoard(); netUpdate(); }); seg.append(b); });
+  [['base','Базовый сценарий'],['cautious','Осторожный сценарий']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SCEN===k)},t); b.addEventListener('click',()=>{ SCEN=k; vsBoard(); netUpdate(); }); seg.append(b); });
+  document.getElementById('ld-scen').textContent=SCEN==='base'
+    ? 'Базовый сценарий: спрос по средней оценке шага 2, тарифы как сейчас на этих парах, загрузка рейса до 85%, 52 недели полётов в году.'
+    : 'Осторожный сценарий — проверка на прочность, если всё пойдёт хуже ожиданий: пассажиров примерно втрое меньше средней оценки, тарифы на четверть ниже, расходы на рейс почти в 1,5 раза выше, загрузка до 80%, 4 недели в году потеряны из-за «Ковра» и погоды.';
+  const sg=document.getElementById('subs'); sg.textContent='';
+  [[false,'Без субсидии'],[true,'С субсидией']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SUB===k)},t); b.addEventListener('click',()=>{ SUB=k; vsBoard(); netUpdate(); }); sg.append(b); });
   const rows=vrows(); if(!rows.length) return;
-  if(!NETV){ NETV=rows.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year)[0].vkey; }
-  const best=rows.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year)[0], share=rows.slice().sort((a,b)=>b.share_pp-a.share_pp)[0], kov=rows.slice().sort((a,b)=>a.kover_days_avg-b.kover_days_avg)[0];
-  const v=document.getElementById('verdict'); v.textContent='';
-  v.append(h('div',{},h('small',{},'Меньше всего теряет'),h('b',{},best.variant),h('div',{class:'board-sub'},`${ru(best.result_mln_year)} млн ₽ в год до аренды`)),
-           h('div',{},h('small',{},'Больше всего доли рынка'),h('b',{},share.variant),h('div',{class:'board-sub'},`+${ru(share.share_pp,2)} п. п.`)),
-           h('div',{},h('small',{},'Меньше всего «Ковра»'),h('b',{},kov.variant),h('div',{class:'board-sub'},`${kov.kover_days_avg} дн. в среднем по аэропортам сети`)));
-  const t=document.getElementById('vstab'); t.tHead.textContent=''; t.tBodies[0].textContent='';
-  const cols=[['Вариант',null],['Самолётов',null],['Пассажиров в год',null],['С пересадкой',null],['Выручка, млн ₽',null],['Результат до аренды, млн ₽','result_mln_year'],['Доля, п. п.','share_pp'],['«Ковёр», дн.','kover_days_avg']];
-  t.tHead.append(h('tr',{},...cols.map(([c],i)=>h('th',{class:i?'r':''},c))));
-  const z=(k,inv)=>{ const xs=rows.map(r=>r[k]), lo=Math.min(...xs), hi=Math.max(...xs); return r=>{ const v=hi>lo?(r[k]-lo)/(hi-lo):.5; return inv?1-v:v; }; };
-  const zr=z('result_mln_year'), zs=z('share_pp'), zk=z('kover_days_avg',true);
-  rows.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year).forEach(r=>{
-    const tr=h('tr',{tabindex:0,class:r.vkey===NETV?'pick':''});
-    tr.addEventListener('click',()=>{ NETV=r.vkey; vsBoard(); netUpdate(); document.getElementById('netbox').scrollIntoView({behavior:'smooth',block:'nearest'}); });
-    tr.addEventListener('keydown',e=>{ if(e.key==='Enter'){ NETV=r.vkey; vsBoard(); netUpdate(); } });
-    const td=(v,cls,bg)=>{ const d=h('td',{class:cls||''},v); if(bg!=null){ d.style.background=heat(bg,true); d.style.color='#F4F5F7'; } return d; };
-    tr.append(td(r.variant,'cn'),td(r.aircraft,'r'),td(ru(r.segments_year),'r'),td(r.transfer_od_year?ru(r.transfer_od_year):'—','r'),td(ru(r.revenue_mln_year),'r'),
-      td(ru(r.result_mln_year),'r h',zr(r)),td('+'+ru(r.share_pp,2),'r h',zs(r)),td(r.kover_days_avg,'r h',zk(r)));
-    t.tBodies[0].append(tr); });
+  if(!NETV||!rows.some(r=>r.vkey===NETV)) NETV=rows.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year)[0].vkey;
+  const kin=document.getElementById('ldk'); kin.oninput=ldDraw;
+  ldDraw();
+  const mln=v=>(v<0?'−':'')+ru(Math.abs(v)), mln1=v=>(v<0?'−':'')+ru(Math.abs(v),1);
+  const mig=rows.filter(r=>r.rw_migrated_year>0);
+  document.getElementById('vs-note').textContent=
+    `Хаб: самолёты стоят в городе-хабе и летают лучами, пассажиры между городами лучей пересаживаются в хабе. Прямые рейсы: самолёт с базы в Москве или Екатеринбурге летает треугольником база — город — город — база. `+
+    `Обе сети набираются по одному правилу: сначала маршруты с лучшим результатом на час полёта, от 8 до 12 маршрутов. Спрос пары — поездки «откуда — куда» из шага 2. Прирост доли — только новые для Red Wings пассажиры`+
+    (mig.length?`: ${mig.map(r=>`в сети «${r.variant}» ${ru(r.rw_migrated_year)} пассажиров в год пересядут с нынешних рейсов Red Wings, их выручка вычтена`).join('; ')}. `:'. ')+
+    `Нажмите на строку, чтобы увидеть сеть на карте ниже.`;
+  const A=NS_.asm, k=SCEN==='base'?0:1, pct=x=>Math.round(x*100)+'%';
+  const asm=document.getElementById('vs-asm'); asm.textContent='';
+  [['Кресел в самолёте',`${A.seats[k]}`,'SSJ100 Red Wings; SJ-100 до сертификации считаем как SSJ'],
+   ['Загрузка рейса',`не выше ${pct(A.lf_max[k])}`,SCEN==='base'?'загрузка Red Wings в I полугодии 2025':'осторожное допущение'],
+   ['Тариф в одну сторону',`${ru(A.fare_fixed_rub[k])} ₽ + ${ru(A.fare_per_km_rub[k],1)} ₽ за км`,'подобран по 31 тарифу на рейсы тех же пар'],
+   ['Частота',`${A.min_freq_week[k]}–${A.max_freq_week[k]} рейсов в неделю`,'по захваченному спросу, в одну сторону'],
+   ['Доля пары без прямого рейса',`до ${pct(A.capture_open[k])}`,'растёт с частотой рейсов'],
+   ['Доля пары, где уже летают',`до ${pct(A.capture_competitive[k])}`,'делится по частотам с конкурентами'],
+   ['Пересадка в хабе',`до ${pct(A.capture_transfer[k])} пары, билет −${pct(1-A.transfer_fare_factor[k])}`,'пересадочный пассажир платит один билет'],
+   ['Субсидия',`${ru(A.subsidy_rub_per_pax[k])} ₽ на пассажира`,SCEN==='base'?'7,98 млрд ₽ на программу 2026 / 4,5 млн пассажиров; только рейсы в обход Москвы':'с объявленным сокращением программы на 7,6%'],
+   ['Год',`${A.weeks_per_year[k]} недель`,SCEN==='base'?'без потерь':'4 недели потеряны из-за «Ковра» и погоды'],
+   ['Самолётов на сеть',`до ${A.fleet_cap[k]}, ${A.spare_aircraft[k]} в резерве`,'сколько SJ-100 получит Red Wings, пока неизвестно']]
+   .forEach(([a,b,c])=>asm.append(h('div',{},a,h('b',{},b),c)));
+  const NN={D_SVX8:'Прямые из Екатеринбурга, 8 пар',H_UFA_4:'Хаб Уфа, 4 луча',H_UFA_8:'Хаб Уфа, 8 лучей'};
+  const ch=(NS_.check||[]).filter(r=>r.scenario===SCEN);
+  document.getElementById('vs-chk-lead').textContent='Неделя 7–13 декабря 2026: рейсы по опубликованному расписанию, тарифы по ценам на эти даты, две оценки спроса, без субсидий. Итог за неделю, млн ₽. Во второй модели ни один вариант тоже не окупает рейсы.';
+  const box=document.getElementById('vs-chk'); box.textContent='';
+  ch.forEach(r=>box.append(h('div',{class:'chk'},h('div',{},NN[r.network]||r.network,h('small',{},` · ${ac(r.aircraft)}`)),
+    h('div',{class:'v'},`${mln1(r.hi)}…${mln1(r.lo)}`),h('small',{},`${ru(r.pax_lo)}–${ru(r.pax_hi)} пассажиров за неделю`),h('small',{class:'v'},`тарифы +${r.be_lo}…${r.be_hi}%`))));
 }
 
 /* --- шаг 2: куда сейчас пересаживаются --- */
@@ -647,7 +839,89 @@ function demBoard(){
     h('span',{class:'dm-note'},'Толщина — поездок в год, каждый человек считается один раз. Наведите на поток, чтобы увидеть цифру.'));
 }
 
+/* --- шаг 2: конкуренты --- */
+function compBoard(){
+  const ST=D.steps; if(!ST) return;
+  const sc=document.getElementById('cp-scale'); sc.textContent='';
+  const mx=Math.max(...ST.scale.map(x=>x.pax));
+  ST.scale.slice().sort((a,b)=>b.pax-a.pax).forEach(x=>{ const i=h('i',{}); i.style.width=(x.pax/mx*100)+'%';
+    sc.append(h('div',{class:'cp-bar'+(x.rw?' rw':'')},h('span',{},x.name),h('div',{},i),h('span',{},ru(x.pax,1)))); });
+  const cc=document.getElementById('cp-cards'); cc.textContent='';
+  ST.competitors.forEach(c=>{ const urls=c.sources.split(';').filter(Boolean);
+    const src=h('div',{class:'src'},'Источники: ',...urls.flatMap((u,i)=>[i?', ':'',h('a',{href:u,target:'_blank',rel:'noopener'},new URL(u).hostname.replace('www.',''))]));
+    cc.append(h('article',{class:'cp'+(c.id==='redwings'?' own':'')},h('h3',{},c.carrier,h('span',{},' · '+c.base)),h('p',{},c.scale),
+      h('p',{},h('span',{class:'k'},'Что сработало'),c.worked),h('p',{},h('span',{class:'k'},'Что не сработало или неизвестно'),c.failed),
+      h('p',{class:'ap'},h('span',{class:'k'},'Что берём для Red Wings'),c.apply),src)); });
+}
+
+/* --- шаг 4: выбор и рост сети --- */
+function choiceBoard(){
+  const ST=D.steps; if(!ST) return;
+  const H=ST.choice.chosen_hub, sm=k=>NS_.summary.find(r=>r.scenario===k&&r.vkey===H), dir=k=>NS_.summary.find(r=>r.scenario===k&&r.vkey==='DIRECT');
+  const s1=sm('base_sub'), s0=sm('base'), d1=dir('base_sub'), c=BY[H]||{city:H};
+  const mln=v=>(v<0?'−':'+')+ru(Math.abs(v))+' млн ₽';
+  document.getElementById('ch-title').textContent=`Выбор: хаб в городе ${c.city}`;
+  document.getElementById('ch-sub').textContent='Гипотеза 1 — новый региональный хаб. Ниже — почему этот город, сколько самолётов нужно и как вырастет доля рынка.';
+  const f=document.getElementById('ch-facts'); f.textContent='';
+  const lr=R&&R.rows?R.rows.findIndex(x=>x.c.iata===H)+1:0;
+  [[lr?`${lr}-е место`:'—','в лонглисте при основных весах; первое место в четырёх наборах весов из пяти'],
+   [mln(s1.result_mln_year),`итог за год со средней субсидией; прямые рейсы — ${mln(d1.result_mln_year)}`],
+   [ru(Math.round(s1.transfer_od_year/1000))+' тыс.','пассажиров с пересадкой в год — больше, чем у других хабов'],
+   [s1.kover_days_avg+' дн.',`«Ковра» за год в среднем по аэропортам сети; у прямых рейсов — ${d1.kover_days_avg}`]]
+   .forEach(([a,b])=>f.append(h('div',{},h('b',{},a),b)));
+  const rb=ST.ramp.filter(r=>r.scenario==='base_sub'&&r.hub===H), r0=ST.ramp.filter(r=>r.scenario==='base'&&r.hub===H);
+  const WHEN={3:'II полугодие 2027',4:'конец 2027 — начало 2028',6:'2028',8:'2028, полная сеть'};
+  const box=document.getElementById('ch-ramp'); box.textContent='';
+  const seen=new Set();
+  rb.forEach(r=>{ if(seen.has(r.aircraft)) return; seen.add(r.aircraft);
+    const pl=h('div',{class:'pl'}); pl.innerHTML=PLN.repeat(r.aircraft);
+    const nm=r.spokes.split(';').map(x=>(D.names&&D.names[x])||x);
+    box.append(h('div',{class:'rp'},h('span',{class:'when'},WHEN[r.fleet_cap]||''),pl,h('b',{},`${ac(r.aircraft)} · ${r.routes} лучей`),
+      h('span',{},`${ru(Math.round(r.segments_year/1000))} тыс. пасс. в год · доля +${ru(r.share_pp,2)} п. п.`),
+      h('span',{class:'res',style:`color:${r.result_mln_year>=0?'#2E8A5B':'#C0262B'}`},`${mln(r.result_mln_year)} в год с субсидией`),
+      h('span',{},nm.join(', ')))); });
+  const z4=r0.find(r=>r.fleet_cap===4);
+  document.getElementById('ch-ramp-note').textContent=`Новые SJ-100 придут не раньше II полугодия 2027 года, сколько получит Red Wings — неизвестно. Поэтому сеть растёт шагами по числу пришедших самолётов, один самолёт в каждом шаге — резерв. До поставок пилот можно начать на нынешних SSJ, если найдутся свободные. Без субсидии разумный предел — ${z4?z4.routes:8} лучей на 4 самолётах: ${z4?mln(z4.result_mln_year):'—'} в год. Сроки у шагов — наше допущение.`;
+  const base=ST.rw_share_2025;
+  document.getElementById('ch-share').innerHTML='';
+  document.getElementById('ch-share').append(h('small',{},'Эффект для доли рынка Red Wings (полная сеть, базовый сценарий, с субсидией)'),
+    h('b',{},`${ru(base,2)}% → ${ru(base+s1.share_pp,2)}%`),h('small',{},`+${ru(s1.share_pp,2)} п. п. · +${ru(Math.round((s1.net_new_segments_year)/1000))} тыс. пассажиров в год · в осторожном сценарии +${ru(sm('cautious_sub').share_pp,2)} п. п.`));
+  document.getElementById('ch-show').onclick=()=>{ SCEN='base'; SUB=true; NETV=H; vsBoard(); netUpdate(); document.getElementById('netbox').scrollIntoView({behavior:'smooth',block:'nearest'}); };
+}
+
+/* --- шаг 4: таблица маршрутов (требование кейса) --- */
+const WKS=()=>NS_.asm.weeks_per_year[SCEN==='base'?0:1];
+function routeTable(rs,sm){
+  const t=document.getElementById('mt'); if(!t) return;
+  const N=NS_.nodes, nm=i=>(N[i]||[0,0,i])[2];
+  document.getElementById('mt-title').textContent=`Маршруты: пассажиры, рейсы и источники · ${sm?sm.variant:''}`;
+  document.getElementById('mt-note').textContent='Пассажиры — сегменты за год в обе стороны, как в статистике. Частота — рейсов в неделю в одну сторону: захваченные пассажиры делятся на 100 кресел × загрузку, не реже 3 и не чаще 14 рейсов. Источник спроса пары — из шага 2: поток на рейсе по отчёту аэропорта или расписанию, пересчитанный в поездки, или модель поездок, если рейса сейчас нет.';
+  t.tHead.textContent=''; t.tBodies[0].textContent='';
+  t.tHead.append(h('tr',{},h('th',{},'Маршрут'),h('th',{class:'r'},'Км'),h('th',{class:'r'},'Пассажиров в год'),h('th',{class:'r'},'Рейсов в неделю'),h('th',{class:'r'},'Загрузка'),h('th',{},'Откуда пассажиропоток'),h('th',{},'Откуда частота')));
+  rs.slice().sort((a,b)=>b.pax_year_segments-a.pax_year_segments).forEach(r=>{
+    t.tBodies[0].append(h('tr',{},h('td',{},`${nm(r.from)} — ${nm(r.to)}`,h('small',{},r.direct_now?'на паре уже летают другие':'новая пара')),
+      h('td',{class:'r'},ru(r.km)),h('td',{class:'r'},ru(r.pax_year_segments)),h('td',{class:'r'},r.freq_week_each_way),h('td',{class:'r'},Math.round(r.load_factor*100)+'%'),
+      h('td',{},r.demand_source),h('td',{},`по спросу: пассажиры в неделю в одну сторону / (100 кресел × загрузка), от 3 до ${r.vkey==='DIRECT'?7:14} рейсов`))); });
+}
+
+/* --- шаг 5: дорожная карта и риски --- */
+function roadBoard(){
+  const ST=D.steps; if(!ST) return;
+  const rm=document.getElementById('rm'); rm.textContent='';
+  ST.roadmap.forEach((x,i)=>rm.append(h('div',{class:i===ST.roadmap.length-1?'alt':''},h('span',{class:'per'},x.period),h('span',{class:'ttl'},x.title),h('span',{},x.actions),
+    x.condition&&x.condition!=='—'?h('span',{},'Условие: '+x.condition):'',x.fleet&&x.fleet!=='—'?h('span',{class:'fl'},'Самолётов: '+x.fleet):'')));
+  const rk=document.getElementById('rk'); rk.textContent='';
+  ST.risks.forEach(x=>rk.append(h('div',{},h('div',{class:'cat'},x.category),h('div',{},h('span',{class:'k'},'Что может случиться'),x.risk),
+    h('div',{},h('span',{class:'k'},'Как заметим'),x.signal),h('div',{},h('span',{class:'k'},'Что делаем'),x.response))));
+}
+
 /* --- шаг 4: итоговая сеть --- */
+function dsrc(s){ s=String(s||'');
+  if(/^Отчёт аэропорта/.test(s)) return 'отчёт аэропорта';
+  const m=s.match(/с пересадкой в городе ([^:,]+)/); if(m) return 'модель: сейчас летят через '+m[1];
+  if(/^Формула/.test(s)) return 'формула, рейса сейчас нет';
+  if(/неуверенно/.test(s)) return 'модель шага 2, неуверенно';
+  return 'модель шага 2'; }
 let nsvg,ng,nproj,npath,nzoom,NK=1;
 function nplace(sel){ sel.attr('transform',function(){ return `translate(${this.__xy[0]},${this.__xy[1]}) scale(${1/NK})`; }); }
 function netInit(){
@@ -668,16 +942,20 @@ function netInit(){
   document.getElementById('nzout').onclick=()=>nsvg.transition().call(nzoom.scaleBy,1/1.6);
 }
 function netUpdate(){
-  const rs=NS_.routes.filter(r=>r.scenario===SCEN&&r.vkey===NETV), sm=vrows().find(r=>r.vkey===NETV);
+  const rs=NS_.routes.filter(r=>r.scenario===scenKey()&&r.vkey===NETV), sm=vrows().find(r=>r.vkey===NETV);
   const pick=document.getElementById('netpick'); pick.textContent='';
   vrows().forEach(r=>{ const b=h('button',{type:'button','aria-pressed':String(r.vkey===NETV)},r.vkey==='DIRECT'?'Прямые':r.variant.replace('Хаб ','')); b.addEventListener('click',()=>{ NETV=r.vkey; vsBoard(); netUpdate(); }); pick.append(b); });
   document.getElementById('sc-title').textContent='Расписание · '+(sm?sm.variant:'');
-  document.getElementById('sc-sub').textContent=sm?`${sm.routes} маршрутов · ${sm.aircraft} самолётов · ${ru(sm.segments_year)} пасс./год · ${SCEN==='base'?'база':'осторожно'}`:'';
+  document.getElementById('sc-sub').textContent=sm?`${sm.routes} маршрутов · ${ac(sm.aircraft)} · ${ru(sm.segments_year)} пасс./год · ${SCEN==='base'?'базовый сценарий':'осторожный сценарий'}${SUB?' · с субсидией':''}`:'';
+  routeTable(rs,sm);
   const rows=document.getElementById('sc-rows'); rows.textContent='';
   const N=NS_.nodes, nm=i=>(N[i]||[0,0,i])[2];
+  const WK=NS_.asm.weeks_per_year[SCEN==='base'?0:1];
+  const thin=rs.filter(r=>r.pax_year_segments/(2*WK*7)<25).length;
+  if(sm) document.getElementById('sc-sub').textContent+=thin?` · ${thin} маршр. тоньше 25 пасс. в день в одну сторону`:' · все маршруты не тоньше 25 пасс. в день';
   rs.slice().sort((a,b)=>b.pax_year_segments-a.pax_year_segments).forEach(r=>{
-    rows.append(h('div',{class:'sr'},h('div',{},h('b',{},`${nm(r.from)} — ${nm(r.to)}`),h('small',{},`${ru(r.km)} км · загрузка ${Math.round(r.load_factor*100)}% · ${r.direct_now?'на паре уже летают другие':'новая пара'}`),h('small',{},`дальность: ${r.range_light.split(' ')[0]} · спрос: ${/отч[её]т/.test(r.demand_source)?'отчёт аэропорта':'модель шага 2'}`)),
-      h('div',{class:'f'},`${r.freq_week_each_way}/нед`,h('small',{},ru(r.pax_year_segments)+' пасс.'))));
+    rows.append(h('div',{class:'sr'},h('div',{},h('b',{},`${nm(r.from)} — ${nm(r.to)}`),h('small',{},`${ru(r.km)} км · загрузка ${Math.round(r.load_factor*100)}% · ${r.direct_now?'на паре уже летают другие':'новая пара'}`),h('small',{},`дальность: ${r.range_light.split(' ')[0]} · спрос: ${dsrc(r.demand_source)}`)),
+      h('div',{class:'f'},`${r.freq_week_each_way}/нед`,h('small',{},ru(r.pax_year_segments)+' пасс.'),h('small',{},`≈${ru(r.pax_year_segments/(2*WK*7))} в день`))));
   });
   if(!window.d3||!nsvg) return;
   const mx=Math.max(1,...rs.map(r=>r.pax_year_segments));
@@ -700,10 +978,10 @@ function netUpdate(){
 
 function update(){
   R=compute(); if(!SEL) SEL=R.rows[0].c.iata;
-  board(); weightLabels(); ticket(); demBoard(); destBoard(); if(window.d3) mapUpdate();
+  board(); weightLabels(); ticket(); demBoard(); destBoard(); if(NS_.summary.length) choiceBoard(); if(window.d3) mapUpdate();
 }
 document.getElementById('reset').addEventListener('click',()=>{ W={...DEFAULT_W}; MIN=500; STRICT=false; PROFILE='balanced'; weights(); update(); });
-meta(); weights(); kov(); sources(); vsBoard(); netInit(); netUpdate();
+meta(); weights(); kov(); sources(); NETV=(D.steps&&D.steps.choice.chosen_hub)||null; vsBoard(); compBoard(); choiceBoard(); roadBoard(); netInit(); netUpdate();
 let rz; window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(!window.d3) return; d3.select('#netmap').selectAll('*').remove(); NK=1; netInit(); netUpdate(); d3.select('#map').selectAll('*').remove(); K=1; mapInit(); mapUpdate(); },200); });
 if(window.d3) mapInit(); else document.getElementById('mapbox').prepend(h('div',{style:'padding:16px;color:var(--muted)'},'Карта не загрузилась: нет доступа к библиотеке d3.'));
 update();

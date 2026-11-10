@@ -9,3 +9,4 @@
 | od_registry.csv | research/red-wings-team-update-20261109 @ 93fa5cf | context/15_team_update/model/ | сценарии поездок по 73 парам и тарифы за поездку (допущения аналитика, не измерения) |
 | primary_seasonality_profiles.csv | research/case5-raw-alternative-20261109 @ ef365ac | context/16_agent_research/alternative/modules/tourism/normalized/ | сезонность размещения в гостиницах и санаториях по регионам (ЕМИСС) |
 | primary_monthly_increments.csv | то же | то же | то же по месяцам |
+| night_common_comparison.csv | research/night-morning-report-20261110 | context/23_night_run_20261110/checkpoint_0800/ | общее сравнение трёх сетей на неделю 7–13.12.2026 (вторая модель для проверки шага 3) |

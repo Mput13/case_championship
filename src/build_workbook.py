@@ -44,16 +44,26 @@ def sheets():
     s["Как читать"] = pd.DataFrame(readme, columns=["Раздел", "Пояснение"])
 
     sm = pd.read_csv(P / "network_summary.csv").drop(columns=["hub"])
-    sm["scenario"] = sm.scenario.map({"base": "базовый", "cautious": "осторожный"})
+    sm["scenario"] = sm.scenario.map({"base": "базовый", "cautious": "осторожный", "base_sub": "базовый с субсидией", "cautious_sub": "осторожный с субсидией"})
     s["Сравнение гипотез"] = sm.rename(columns={
         "scenario": "Сценарий", "variant": "Вариант", "routes": "Маршрутов", "aircraft": "Самолётов (с резервным)",
         "flights_week": "Рейсов в неделю", "segments_year": "Пассажиров в год (сегменты)",
         "od_trips_year": "Поездок в год (откуда — куда)", "transfer_od_year": "Из них с пересадкой",
         "revenue_mln_year": "Выручка, млн ₽/год", "var_cost_mln_year": "Расходы на рейсы, млн ₽/год",
-        "result_mln_year": "Результат до аренды самолётов, млн ₽/год", "share_pp": "Прирост доли рынка, п. п.",
+        "result_mln_year": "Результат до аренды самолётов, млн ₽/год", "share_pp": "Прирост доли рынка, п. п. (только новые для Red Wings)",
+        "rw_migrated_year": "Перешли со старых рейсов Red Wings, пасс./год", "rw_forgone_mln_year": "Потерянная выручка старых рейсов, млн ₽/год (вычтена)",
+        "net_new_segments_year": "Новые для Red Wings пассажиры (сегменты)", "share_pp_gross": "Доля всех перевезённых, п. п.",
+        "fare_up_to_breakeven_pct": "На сколько % поднять все тарифы, чтобы выйти в ноль", "subsidy_rub_per_trip": "Или доплата на поездку, ₽",
+        "subsidy_mln_year": "Субсидия на рейсы в обход Москвы, млн ₽/год (входит в выручку)",
         "kover_days_avg": "Средние дни «Ковра» в аэропортах сети", "kover_coverage": "Доля концов рейсов с данными о «Ковре»",
         "check_segments_minus_od": "Проверка: сегменты − (местные + 2 × пересадочные), должно быть 0"})
     s["Маршруты"] = pd.read_csv(P / "mandatory_routes_table.csv")
+    fr = pd.read_csv(P / "fleet_ramp.csv")
+    fr["scenario"] = fr.scenario.map({"base": "базовый", "cautious": "осторожный", "base_sub": "базовый с субсидией", "cautious_sub": "осторожный с субсидией"})
+    s["Рост сети хаба"] = fr.rename(columns={"scenario": "Сценарий", "hub": "Хаб", "fleet_cap": "Самолётов доступно", "aircraft": "Самолётов нужно (с резервным)",
+        "routes": "Лучей", "segments_year": "Пассажиров в год (сегменты)", "transfer_od_year": "Поездок с пересадкой в год",
+        "result_mln_year": "Итог до аренды самолётов, млн ₽/год", "subsidy_mln_year": "Субсидия, млн ₽/год",
+        "share_pp": "Прирост доли рынка, п. п.", "spokes": "Лучи (коды аэропортов)"})
     s["Карты"] = pd.DataFrame([("Гипотеза 1, хаб (база)", "outputs/map_hub.png"),
                                ("Гипотеза 2, прямые рейсы (база)", "outputs/map_direct.png")], columns=["Карта", "Файл"])
     sc = pd.read_csv(P / "longlist_scores_min500.csv")

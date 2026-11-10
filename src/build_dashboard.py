@@ -77,9 +77,26 @@ def load_network():
     nodes = {i: [round(float(n.loc[i, "latitude_deg"]), 3), round(float(n.loc[i, "longitude_deg"]), 3),
                  NAME.get(i, n.loc[i, "main_city"])] for i in ends if i in n.index}
     cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "pax_year_segments",
-            "pax_year_local", "load_factor", "direct_now", "range_light", "demand_source"]
+            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source"]
+    # допущения расчёта — прямо из data/assumptions/network.csv, чтобы панель не расходилась с моделью
+    na = pd.read_csv(ROOT / "data/assumptions/network.csv").set_index("parameter")
+    asm = {k: [float(na.loc[k, "base"]), float(na.loc[k, "cautious"])] for k in
+           ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_pax", "min_freq_week", "max_freq_week", "capture_open",
+            "capture_competitive", "capture_transfer", "transfer_fare_factor", "weeks_per_year", "fleet_cap",
+            "spare_aircraft", "max_routes", "rw_existing_lf")}
+    # вторая модель: неделя 7–13.12.2026 по опубликованному расписанию (data/external/colleagues)
+    cc = pd.read_csv(ROOT / "data/external/colleagues/night_common_comparison.csv")
+    check = []
+    for (net_, sc), g in cc.groupby(["network", "scenario"]):
+        ctr = g.contribution_before_base_fleet_opportunity / 1e6
+        be = -g.contribution_before_base_fleet_opportunity / g.incremental_revenue * 100
+        check.append({"network": net_, "scenario": sc, "aircraft": int(g.active_allocated.max()),
+                      "lo": round(float(ctr.min()), 1), "hi": round(float(ctr.max()), 1),
+                      "be_lo": round(float(be.min())), "be_hi": round(float(be.max())),
+                      "pax_lo": round(float(g.segment_pax.min())), "pax_hi": round(float(g.segment_pax.max()))})
     return {"summary": json.loads(sm.drop(columns=["hub"]).to_json(orient="records", force_ascii=False)),
-            "routes": json.loads(rt[cols].to_json(orient="records", force_ascii=False)), "nodes": nodes}
+            "routes": json.loads(rt[cols].to_json(orient="records", force_ascii=False)), "nodes": nodes,
+            "asm": asm, "check": check}
 
 
 def load_spokes():
@@ -229,6 +246,35 @@ def main():
     inbox_p = ROOT / "data/inbox/candidates.csv"
     inbox = pd.read_csv(inbox_p, dtype=str).fillna("").head(80).to_dict("records") if inbox_p.exists() else []
     meduza = [{"iata": i, "ours": int(kov.loc[i, "h1_2026_days"]), "meduza": v} for i, v in MEDUZA.items()]
+    # источники, которые не скачиваются конвейером, но входят в расчёт (для табло данных)
+    soc = ROOT / "data/raw/social"
+    if soc.exists() and "rosstat_mo" in manifest:
+        manifest["rosstat_mo"].update(status="ok", message="копия файла Росстата из Internet Archive",
+                                      fetched_at=datetime.fromtimestamp(max(f.stat().st_mtime for f in soc.iterdir())).isoformat())
+    extra = [("noaa", "NOAA: погода по аэропортам 2023–2024", "http_file", ROOT / "data/raw/weather", None),
+             ("rw_routes", "Нынешние рейсы Red Wings (расписание и перечень субсидий)", "manual", ROOT / "data/manual/rw_routes_now.csv", None),
+             ("schedule_dec", "Расписание на 7–13 декабря 2026 года (карточки маршрутов)", "manual", ROOT / "data/external/colleagues/route_product_cards.csv", None),
+             ("check_model", "Вторая модель сети: неделя декабря 2026", "manual", ROOT / "data/external/colleagues/night_common_comparison.csv", None),
+             ("subsidy_budget", "Бюджет субсидий 2026 (Т—Ж, РБК) и пассажиры (Росавиация, «Профиль»)", "manual", None, "https://t-j.ru/news/minus-gospodderjka-mejreg-perevozok/"),
+             ("competitors", "Конкуренты: итоги 2025 и базы", "manual", ROOT / "data/manual/competitor_bases.csv", None)]
+    for k, name, kind, path, url in extra:
+        if k in manifest:
+            continue
+        rows = None
+        if path is not None and path.exists():
+            rows = len(list(path.iterdir())) if path.is_dir() else max(len(pd.read_csv(path)), 0)
+        t = datetime.fromtimestamp((path if path is not None and path.exists() else ROOT / "data/assumptions/network.csv").stat().st_mtime)
+        manifest[k] = {"name": name, "kind": kind, "status": "manual" if kind == "manual" else "ok", "rows": rows,
+                       "url": url or "", "fetched_at": t.isoformat(), "role": "data"}
+    # шаги 2, 4, 5: конкуренты, выбор и рост сети, дорожная карта и риски
+    rd = lambda f: pd.read_csv(ROOT / f, dtype=str).fillna("").to_dict("records")
+    cj = json.loads((ROOT / "context/13_competitors/competitors.json").read_text(encoding="utf-8"))
+    scale = [{"name": c["name"], "pax": c["pax_million"], "rw": c["id"] == "rw"} for c in cj["carriers"]]
+    ramp = pd.read_csv(P / "fleet_ramp.csv").to_dict("records")
+    choice = pd.read_csv(ROOT / "data/assumptions/choice.csv").set_index("parameter").value.to_dict()
+    steps = {"competitors": rd("data/manual/competitor_bases.csv"), "scale": scale, "ramp": ramp, "choice": choice,
+             "roadmap": rd("data/manual/roadmap.csv"), "risks": rd("data/manual/risks.csv"),
+             "rw_share_2025": 2.7 / 108.85 * 100}
     p = posts.copy()
     data = {
         "meta": {"built": datetime.now().strftime("%d.%m.%Y %H:%M"), "posts": int(len(posts)),
@@ -238,7 +284,7 @@ def main():
         "bases": {b: [float(ap.loc[x, "latitude_deg"]), float(ap.loc[x, "longitude_deg"])] for b, x in (("MOW", "SVO"), ("SVX", "SVX"))},
         "dests": dests, "geo": geo, "manifest": manifest,
         "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214},
-        "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes, "demand": demand, "profiles": profiles, "names": names,
+        "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes, "demand": demand, "profiles": profiles, "names": names, "steps": steps,
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
     }
