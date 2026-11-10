@@ -101,3 +101,7 @@ Fetch04:02UTC: MR08 новый; methods/root уже приняты; immutable co
 ## 09:51 МСК — утренний HTML
 
 Получен immutable writer 9eb06a3206e477565e1a97ecfe5b9b63e975694e; 12 output hashes лично проверены. morning-report.html скопирован побайтно в корень. Native HTML preview 1200/390 и карта C01 лично просмотрены; console без ошибок, 62 selector states/TOC/zoom assertions PASS. Публичный research-report.html сохранён (53353f9f…). Late60109 — отдельное приложение, не замена frozen inputs. Независимая проверка отчёта PENDING.
+
+## 09:52 МСК — fresh review утреннего отчёта
+
+Запущен отдельный Sol 6.1 xhigh morning_report_review на exact9eb06a3. Scope — смысловая достоверность HTML и границы принятых выводов; upstream economic replay не расширяется. Native root QA выполнен. Максимум 1 активный Sol в общем пуле. Завершение придёт штатно, polling/ожидание не выполняются.
