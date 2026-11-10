@@ -1,0 +1,118 @@
+{
+  "review_id": "MR14",
+  "verdict": "CHANGES",
+  "subject_commit": "7e65c687e12cf45534852a3c47d6a5c8cf7dda07",
+  "subject_prefix": "context/23_night_run_20261110/methods/",
+  "review_root_commit": "5c7f0ea561bdf387c7abe476ca68eaf78aa791bd",
+  "counts": {
+    "P1": 0,
+    "P2": 1,
+    "P3": 0
+  },
+  "findings": [
+    {
+      "id": "MR14-P2-01",
+      "severity": "P2",
+      "blocking": true,
+      "scope": "new guard independent-oracle provenance only",
+      "file": "context/23_night_run_20261110/methods/admit_frozen_interaction.py",
+      "line": 97,
+      "end_line": 98,
+      "related_locations": [
+        {
+          "file": "context/23_night_run_20261110/methods/admit_frozen_interaction.py",
+          "line": 95
+        },
+        {
+          "file": "context/23_night_run_20261110/methods/admit_frozen_interaction.py",
+          "line": 130
+        }
+      ],
+      "title": "Закрепить receipt независимого oracle до проверки его списка хешей",
+      "trigger": "Local receipt has files=[] or a replacement oracle plus self-updated file hash/source metadata.",
+      "actual": "main returns PASS and hardcodes MR11 commit even when oracle bytes are not the independently delivered exact MR11 file.",
+      "evidence_artifact": "own_probes.json",
+      "evidence_probes": [
+        "oracle_receipt_wrong_source_commit",
+        "oracle_receipt_empty_file_list",
+        "changed_oracle_bytes_plus_self_updated_receipt",
+        "same_owner_reconstructed_oracle_plus_empty_receipt"
+      ],
+      "impact": "The admission does not enforce its declared independent immutable oracle provenance. Four data pins remain effective; no frozen numeric error or new economics is demonstrated.",
+      "minimal_fix": "Pin SHA256 of the independently verified exact receipt (8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6) before JSON parsing; retain existing oracle file hash checks. Alternatively anchor oracle directly to MR11 git object and validate fixed receipt coverage/provenance.",
+      "suggested_patch": "suggested_fix.patch",
+      "candidate_fix_evidence": "candidate_fix_check.json",
+      "owner_changed": false,
+      "existing_MR11_MR12_acceptance_revoked": false
+    }
+  ],
+  "scope_verdicts": {
+    "new_guard_provenance_enforcement": "CHANGES",
+    "actual_exact_four_inputs_and_160_upstream_oracle_bytes": "APPROVE_SCOPED",
+    "new_passport_qualification_projection_only": "APPROVE_SCOPED",
+    "acceptance_v4_exact_review_events_and_historical_status_preservation": "APPROVE_SCOPED",
+    "eight_new_outputs_replay_and_398_prior_file_preservation": "APPROVE_SCOPED",
+    "MR12_O01_two_prose_substitutions_only": "APPROVE_SCOPED"
+  },
+  "nonblocking_scope_observations": [
+    {
+      "id": "DIRECT_API_IS_NOT_GENERAL_ADMISSION",
+      "evidence": "own_probes.json:capacity_endpoint_metadata_only",
+      "observation": "A capacity endpoint metadata mutation passes validate API; main rejects changes to pinned capacity bytes. No universal-validator requirement inferred."
+    },
+    {
+      "id": "DAY1_DOES_NOT_DISCRIMINATE_DOUBLE_DAY",
+      "evidence": "independent_inputs.json",
+      "observation": "Day1 affected set equality is insufficient alone. Selected dated legs and later-day witness were checked independently using absolute minutes exactly once; old interaction code unchanged."
+    }
+  ],
+  "personally_run": [
+    "Exact Git/hash/length/source-commit checks for four protected inputs and 13 imported receipt files",
+    "384 full unique keys/12 unit groups, physical joins, directed D, local/transfer seat and one-fare identities",
+    "Independent incidence and quantitative comparison against 160 exact upstream MR11 oracle rows",
+    "Three new scripts run twice: eight outputs byte-identical and deterministic; seven owner mutations repeated",
+    "23 own cases: 13 API rejections, 5 main rejections, 4 provenance-bypass acceptances, 1 API limitation",
+    "Receipt-only candidate fix tested in memory: baseline outputs preserved, four provenance mutations rejected",
+    "26 requirements/33 claims/16 addenda and historical status preservation",
+    "398 prior inputs/runs/analysis byte preservation; two exact MR12-O01 prose substitutions"
+  ],
+  "trusted_upstream_not_repeated": [
+    {
+      "review": "MR11",
+      "commit": "ea2a9626aef75c121f2da7d778b47edce0d571b7",
+      "subject": "f7a034dc91917cc69c5f8b3a729c3d1c6dfeb5b9",
+      "scope": "Existing scoped economics/adapter/cashfixtures/portfolio acceptance; exact imported evidence verified, full MR11 not repeated"
+    },
+    {
+      "review": "MR12",
+      "commit": "5e9b4765c60f4cc7ecb1d1a4dad20d3996235cab",
+      "subject": "ba9f6b85b4f8c9847948ae428ef3fbcfca9e2009",
+      "scope": "Existing scoped A/B LP/route-union acceptance; no reoptimization here"
+    }
+  ],
+  "historical_statuses_preserved": {
+    "primary": "CHANGES",
+    "cost": "CHANGES",
+    "clock_holds": 12,
+    "delay_holds": 4,
+    "MR13": "RUNNING_EXACT_c6ad",
+    "passport_review": "PENDING_EXACT_46fd"
+  },
+  "unknowns": [
+    "source acceptance outside existing scoped facts",
+    "observed market/OD/realized fares",
+    "actual fleet/resource",
+    "full budget/cash",
+    "operating/launch acceptance"
+  ],
+  "not_run": [
+    "Full MR11",
+    "Full MR12",
+    "MR13 v7 domains",
+    "Main passport review",
+    "new source/paid/network research",
+    "actual operations",
+    "team selection"
+  ],
+  "new_cycle_started": false
+}

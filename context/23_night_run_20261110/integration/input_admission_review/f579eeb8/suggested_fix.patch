@@ -1,0 +1,13 @@
+--- a/context/23_night_run_20261110/methods/admit_frozen_interaction.py
++++ b/context/23_night_run_20261110/methods/admit_frozen_interaction.py
+@@ -94,7 +94,9 @@
+     rows=files[SALES];reference_keys={key(r)for r in rows}
+     oracle=m.rows(m.ROOT/'inputs/integration-oracle-001/independent_affected_itinerary.csv')
+     # Oracle bytes themselves must equal the independent pinned review.
+-    receipt=json.loads((m.ROOT/'inputs/integration-oracle-001/receipt.json').read_text())
++    receipt_bytes=(m.ROOT/'inputs/integration-oracle-001/receipt.json').read_bytes()
++    require(hashlib.sha256(receipt_bytes).hexdigest()=='8373a8085682cc9df3660433f8024a78a377f9b512c93d05ecaafbc9a71d2db6','ORACLE_RECEIPT_DRIFT_REQUIRES_NEW_REVIEW')
++    receipt=json.loads(receipt_bytes)
+     for f in receipt['files']:require(hashlib.sha256((m.ROOT/f['path']).read_bytes()).hexdigest()==f['sha256'],'ORACLE_HASH_DRIFT')
+     args=files[SUMMARY],files[FLIGHTS],files[CAPACITY],oracle
+     passed=validate(rows,reference_keys,*args);probes=[]
