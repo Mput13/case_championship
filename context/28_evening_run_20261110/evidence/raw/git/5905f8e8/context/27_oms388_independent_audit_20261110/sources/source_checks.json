@@ -1,0 +1,63 @@
+{
+  "pin": "d4a6eabb42671e5b16d44abedcdc6ceafb692528",
+  "checked_at": "2026-11-10",
+  "scope": "official external sources for subsidy route applicability and 1773/1638 inputs",
+  "files": {
+    "docs/24_hypotheses_comparison.md": "b60370807265e2d86e41d9860d3e2714ea4c0609",
+    "data/assumptions/network.csv": "bb8aad2c5b7a7c29ef0826cd4e8a5a96544b1007",
+    "data/raw/favt_subsidy_2026.csv": "02735b35a91ce309950d0fce32b9a75f7fc0fd5c"
+  },
+  "official_sources": [
+    {
+      "url": "https://favt.gov.ru/public/materials/f/c/d/d/4/fcdd4e01332f1ac475410a0a009a66be.pdf",
+      "title": "2026 route list under decision 22-68861-00481-R",
+      "document_date": "2026 route list; exact publication date not established",
+      "accessed": "2026-11-10",
+      "location": "table headers and route rows",
+      "supports": [
+        "route/operator/aircraft/special fare specificity"
+      ],
+      "does_not_support": [
+        "eligibility of future OMS routes",
+        "realized payout",
+        "universal passenger subsidy"
+      ]
+    },
+    {
+      "url": "https://favt.gov.ru/dejatelnost-vozdushnye-perevozki-subsidirovanie-regiony/",
+      "title": "FAVT regional air transport subsidies",
+      "document_date": "live 2026 page; exact revision date not established",
+      "accessed": "2026-11-10",
+      "location": "route table, search extraction only; full open timed out",
+      "supports": [
+        "route period and co-financing differ by route"
+      ],
+      "limitation": "source result extraction only"
+    },
+    {
+      "url": "https://favt.gov.ru/novosti-novosti/?id=12149",
+      "title": "FAVT notice on 2024 interregional routes",
+      "document_date": "2024",
+      "accessed": "2026-11-10",
+      "supports": [
+        "historical context of Resolution 1242"
+      ],
+      "does_not_support": [
+        "2026 OMS route awards"
+      ]
+    }
+  ],
+  "unknowns": [
+    "Primary reconciliation of 7.98bn RUB numerator and 4.5m passenger denominator to same program and scope",
+    "Primary source for 7.6 percent 2026 subsidy reduction input",
+    "Grant/award applicability and realized subsidy for each proposed OMS base_sub route",
+    "Whether model passenger count matches program's subsidy unit and eligible itinerary definition"
+  ],
+  "reproduction": [
+    "git rev-parse HEAD",
+    "git hash-object docs/24_hypotheses_comparison.md data/assumptions/network.csv data/raw/favt_subsidy_2026.csv",
+    "rg -n '1773|1638|1 773|1 638|Софинансирование|Омск' docs/24_hypotheses_comparison.md data/assumptions/network.csv data/raw/favt_subsidy_2026.csv"
+  ],
+  "independent_primary_recheck": "Acceptance official PDF/rules attempts timed out; legal unit, right/rate and2028 applicability not established",
+  "source_identity_limit": "Local CSV derived from HTML by fetch_subsidy.py; not certified identical to official PDF"
+}

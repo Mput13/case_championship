@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" id="site-html" class="font-size-md scheme-wb font-sans-serif letter-spacing-sm">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="generator" content="AzCMS"/>
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic-ext,cyrillic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//favt.gov.ru/office/js/bootstrap-grid.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//special.favt.gov.ru/css/colorbox.css"/>
+    <link rel="stylesheet" type="text/css" href="//special.favt.gov.ru/css/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="//favt.gov.ru/assets/css/magnific-popup.css"/>
+    <link rel="stylesheet" type="text/css" href="//special.favt.gov.ru/css/general.css?v2016101404"/>
+    <link rel="alternate" type="application/rss+xml" title="Новости" href="http://www.favt.ru/novosti-novosti/?rss"/>
+    <link href="//special.favt.gov.ru/patterns/news/style.css?v202611" rel="stylesheet" type="text/css" />
+    <title>Новости</title>
+    <base target="_top"/>
+</head>
+<body>
+<a name="top"></a>
+<div class="header-settings">
+    Размер шрифта:
+    <a href="" onclick="SetCookie('font-size', 'sm'); $('html').removeClass('font-size-md font-size-xl').addClass('font-size-sm'); return false;" style="font-size: 12px;" class="unit font-size-sm">A</a>
+    <a href="" onclick="SetCookie('font-size', 'md'); $('html').removeClass('font-size-sm font-size-xl').addClass('font-size-md'); return false;" style="font-size: 15px;" class="unit font-size-md">A</a>
+    <a href="" onclick="SetCookie('font-size', 'xl'); $('html').removeClass('font-size-sm font-size-md').addClass('font-size-xl'); return false;" style="font-size: 18px;" class="unit font-size-xl">A</a>
+    &nbsp;&nbsp;&nbsp;
+    Цветовая схема:
+    <a href="" onclick="SetCookie('scheme', 'wb'); $('html').removeClass('scheme-bw scheme-bb').addClass('scheme-wb'); return false;" style="background: #fff; color: #000;" class="unit">A</a>
+    <a href="" onclick="SetCookie('scheme', 'bw'); $('html').removeClass('scheme-wb scheme-bb').addClass('scheme-bw'); return false;" style="background: #000; color: #fff;" class="unit">A</a>
+    <a href="" onclick="SetCookie('scheme', 'bb'); $('html').removeClass('scheme-wb scheme-bw').addClass('scheme-bb'); return false;" style="background: #9dd1ff; color: #000;" class="unit">A</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="//favt.gov.ru">Обычная версия</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="" onclick="$('#header-settings-panel').toggle(); return false;">Настройки</a>
+    <div id="header-settings-panel">
+        <p><strong>НАСТРОЙКИ ШРИФТА:</strong></p>
+        <p>
+            Выберите шрифт:
+            <a href="" onclick="SetCookie('font', 'sans-serif'); $('html').removeClass('font-serif').addClass('font-sans-serif'); return false;" class="unit"><span class="check-font-sans-serif">&#10003;&nbsp;&nbsp;</span>Без засечек</a>
+            <a href="" onclick="SetCookie('font', 'serif'); $('html').removeClass('font-sans-serif').addClass('font-serif'); return false;" class="unit" style="font-family: serif;"><span class="check-font-serif">&#10003;&nbsp;&nbsp;</span>С засечеками</a>
+        </p>
+        <p>
+            Интервал между буквами (кернинг):
+            <a href="" onclick="SetCookie('letter-spacing', 'sm'); $('html').removeClass('letter-spacing-md letter-spacing-xl').addClass('letter-spacing-sm'); return false;" class="unit"><span class="check-letter-spacing-sm">&#10003;&nbsp;&nbsp;</span>Стандартный</a>
+            <a href="" onclick="SetCookie('letter-spacing', 'md'); $('html').removeClass('letter-spacing-sm letter-spacing-xl').addClass('letter-spacing-md'); return false;" class="unit"><span class="check-letter-spacing-md">&#10003;&nbsp;&nbsp;</span>Средний</a>
+            <a href="" onclick="SetCookie('letter-spacing', 'xl'); $('html').removeClass('letter-spacing-sm letter-spacing-md').addClass('letter-spacing-xl'); return false;" class="unit"><span class="check-letter-spacing-xl">&#10003;&nbsp;&nbsp;</span>Большой</a>
+        </p>
+        <p><strong>ВЫБОР ЦВЕТОВОЙ СХЕМЫ:</strong></p>
+        <p>
+            <a href="" onclick="SetCookie('scheme', 'wb'); $('html').removeClass('scheme-bw scheme-bb').addClass('scheme-wb'); return false;" style="background: #fff; color: #000;" class="unit"><span class="check-scheme-wb">&#10003;&nbsp;&nbsp;</span>Черным по белому</a>
+            <a href="" onclick="SetCookie('scheme', 'bw'); $('html').removeClass('scheme-wb scheme-bb').addClass('scheme-bw'); return false;" style="background: #000; color: #fff;" class="unit"><span class="check-scheme-bw">&#10003;&nbsp;&nbsp;</span>Белым по черному</a>
+            <a href="" onclick="SetCookie('scheme', 'bb'); $('html').removeClass('scheme-wb scheme-bw').addClass('scheme-bb'); return false;" style="background: #9dd1ff; color: #000;" class="unit"><span class="check-scheme-bb">&#10003;&nbsp;&nbsp;</span>Темно-синим по голубому</a>
+        </p>
+        <br/>
+        <p>
+            <a href="" onclick="returnDefaultStyles(); return false;" style="background: #ccc; color: #000;" class="unit">Вернуть стандартные настройки</a>
+            <a href="" onclick="$('#header-settings-panel').toggle(); return false;" style="background: #ccc; color: #000;" class="unit">Закрыть панель</a>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function returnDefaultStyles() {
+            SetCookie('font-size', 'md');
+            $('html').removeClass('font-size-sm font-size-xl').addClass('font-size-md');
+            SetCookie('scheme', 'wb');
+            $('html').removeClass('scheme-bw scheme-bb').addClass('scheme-wb');
+            SetCookie('font', 'sans-serif');
+            $('html').removeClass('font-serif').addClass('font-sans-serif');
+            SetCookie('letter-spacing', 'sm');
+            $('html').removeClass('letter-spacing-md letter-spacing-xl').addClass('letter-spacing-sm');
+        }
+    </script>
+</div>
+<div class="content-page-wrapper">
+    <div class="content-page header-menu">
+        <h1><a href="//special.favt.gov.ru/">Федеральное агентство<br/>воздушного транспорта</a><br/><span>(Росавиация)</span></h1>
+        <div class="header-date">Сегодня: 10 ноября 2026 года</div>
+        <div class="header-search"><input type="text" placeholder="Поиск по сайту" id="search-query"/></div>
+        <a class="" href="//special.favt.gov.ru/about-rosaviation/">О Росавиации</a><a class="" href="//special.favt.gov.ru/documents/">Документы</a><a class="" href="//special.favt.gov.ru/dejatelnost/">Деятельность</a><a class="" href="//special.favt.gov.ru/sertifikaciya-avia-tehniky-rtop/">Сертификация</a><a class="" href="//special.favt.gov.ru/page1197/">Учет БВС и СВС</a><a class="" href="//special.favt.gov.ru/obrawenija-grazhdan/">Обращения граждан</a><a class="" href="//special.favt.gov.ru/dejatelnost-lms/">Летно-методический совет</a><a class="" href="//special.favt.gov.ru/kontakty/">Контакты</a><a class="active" href="//special.favt.gov.ru/novosti/">Пресс-служба</a><div class="header-submenu"><a class="" href="//special.favt.gov.ru/novosti-aktualnaja-informacija/">Актуальная информация</a><a class="" href="//special.favt.gov.ru/novosti-anonsy/">Анонсы</a><a class="" href="//special.favt.gov.ru/goroda-voinskoy-slavy-i-trudovoy-doblesti/">Города воинской славы и трудовой доблести</a><a class="" href="//special.favt.gov.ru/media/">Медиа</a><a class="active" href="//special.favt.gov.ru/novosti-novosti/">Новости</a><a class="" href="//special.favt.gov.ru/novosti-novosti-mezhdunarodnogo-sotrudnichestva/">Новости международного сотрудничества</a><a class="" href="//special.favt.gov.ru/novosti-sertifikacii-avia-tehniky/">Новости сертификации авиационной техники</a><a class="" href="//special.favt.gov.ru/novosti-rossii/">Новости России</a><a class="" href="//special.favt.gov.ru/ofitsialnye-vystupleniya/">Официальные выступления</a><a class="" href="//special.favt.gov.ru/posesheniya-regionov/">Посещение регионов</a><a class="" href="//special.favt.gov.ru/novosti-press-sluzhba/">Пресс-служба</a></div>    </div>
+</div><div class="content-sandway">
+<a href="//special.favt.gov.ru/">Главная</a> &rarr; 
+<a href="//special.favt.gov.ru/novosti/">Пресс-служба</a>
+ &rarr; <a href="//special.favt.gov.ru/novosti-novosti/" class="active">Новости</a>
+&nbsp;
+</div>
+
+<div class="content-page-wrapper">
+	<div class="content-page">
+		<table cellpadding="0" cellspacing="0" border="0" width="100%">
+			<tbody>
+				<tr valign="top">
+					<td width="100%" class="makeUpColGeneral">
+
+<div class="news-info">
+	<h2>Дмитрий Ядров вручил сертификаты типа на самолет Ил-114-300 и двигатель ПД-8 на площадке ПМЭФ-2026</h2>
+	<div class="news-unit-date">5 июня 2026 15:15</div>    <div><p> Росавиация завершила сертификацию самолета Ил-114-300 и двигателя ПД-8. Подтверждающие документы вручил руководитель Росавиации <b>Дмитрий Ядров</b> управляющему директору АО «Ил» <b>Даниилу Бренерману</b> и генеральному директору «ОДК» <b>Александру Грачёву</b>.  </p>
+<p> Торжественная церемония на площадке ПМЭФ-2026 прошла с участием первого вице-премьера <b>Дениса Мантурова</b>, зампредседателя Правительства <b>Виталия Савельева</b>, главы Минпромторга <b>Антона Алиханова</b>, министра транспорта <b>Андрея Никитина, </b>генерального директора Госкорпорации «Ростех» <b>Сергея Чемезова</b>.</p>
+<img src="https://favt.gov.ru/public/materials/a/c/3/8/a/ac38a50de7b6acc750bbb6c9a876d1bd.jpg" style="width: 100%;" class="news-photo"><p class="photo-sign"> <i>Торжественная церемония вручения сертификатов состоялась на ПМЭФ-2026</i></p>
+<p><span class="block-quote"> <i>«Сегодня мы подводим итог длительной и кропотливой работы большой команды конструкторов, инженеров, технологов, ученых и  экспертов. В их числе — специалисты подведомственных Росавиации «Авиарегистра России» и ГосНИИ ГА. Впервые с 2000-го года мы сертифицировали отечественный турбовинтовой самолет транспортной категории, а также одобрили новейший двигатель в современной истории России»,</i></span> — отметил <b>Дмитрий Ядров. </b> </p>
+<p> Также на мероприятии состоялось подписание договора лизинга с «ГТЛК» на три самолета. Первым эксплуатантом Ил-114-300 станет «2-ой Архангельский авиаотряд».</p>
+<p> <b>Главное об Ил-114-300</b></p>
+<ul>
+ 	<li> 	Базой 	для создания послужил самолет <b>Ил‑114</b>, 	в котором произвели глубокую модернизацию 	бортового оборудования, основного и 	вспомогательного двигателей, воздушных 	винтов, технологии производства, в том 	числе с использованием цифровых методов 	проектирования.</li>
+ 	<li>	Работы 	по сертификации 	начались в <b>2018</b> 	году. Для самолета разработали и одобрили 	дополнительно <b>23 	</b>новых 	комплектующих изделия отечественного 	производства. В декабре <b>2020</b> 	года состоялся первый полет, в <b>2022</b> 	году одобрен двигатель <b>ТВ7‑117СТ‑01</b> 	разработки «ОДК‑Климов», в <b>2025</b> 	году впервые за <b>23</b> 	года одобрен новый отечественный 	воздушный винт <b>АВ‑112‑114</b> 	разработки «Аэросила».</li>
+ </ul>
+<img src="https://favt.gov.ru/public/materials/c/2/c/c/4/c2cc4b454ac6df0929b021a5c3315b2a.jpg" style="width: 100%;" class="news-photo"><p class="photo-sign"> <i>Ил-114-300 </i><i>– первый отечественный сертифицированный турбовинтовой самолет транспортной категории, одобренный после 2000 года</i>  </p>
+<ul>
+ 	<li> 	<b>Ил-114-300</b> 	создан для развития регионального 	авиасообщения и эксплуатации в широком 	диапазоне климатических зон, на замену 	<b>Ан-24</b> 	и <b>Ан-26</b>. 	Технические характеристики воздушного 	судна позволят эксплуатировать его с 	коротких и грунтовых взлетно‑посадочных&nbsp;полос. 	 	</li>
+ 	<li> 	Сертификат 	типа позволит приступить к серийному 	выпуску самолета <b>Ил</b><b>-114-300</b>, 	производство 	будет вестись на Луховицком авиационном 	заводе в Подмосковье, 	где 	в различной степени готовности находятся 	три серийных самолета.</li>
+ </ul>
+<p> <b>Пять фактов о двигателе </b><b>ПД-8</b></p>
+<ul>
+ 	<li> 	Силовая 	установка предназначена для 	импортозамещенного самолета 	<b>«Суперджет-100»</b> 	и самолета-амфибии 	<b>Бе-200</b>.</li>
+ 	<li>	Двигатель 	обеспечивает тягу на взлетном режиме<b> 	8 тонн</b> 	и соответствует современным экологическим 	требованиям. 	Силовая 	установка полностью соответствует 	нормам летной годности и готова к 	серийному производству.</li>
+ 	<li> 	Это 	полностью отечественная разработка, 	созданная с применением <b>25</b> 	передовых технологий и новейших 	отечественных материалов, в том числе 	<b>17</b> 	совершенно новых.&nbsp;&nbsp;</li>
+ </ul>
+<img src="https://favt.gov.ru/public/materials/d/a/e/1/8/dae18454af4ca1b250302049b25e5c06.jpg" style="width: 100%;" class="news-photo"><p class="photo-sign"> <i>Двигатель ПД-8 </i><i>полностью соответствует нормам летной годности и готов к серийному производству</i></p>
+<ul>
+ 	<li>	Работы 	по сертификации стартовали в <b>2020</b> 	году. Опытные 	двигатели прошли комплексную программу 	испытаний в составе самолетов «Суперджет» 	и летающей лаборатории, а также на 	испытательных стендах.  	</li>
+ 	<li>	Доказана 	надежная работа в ходе длительных 	перелетов, в условиях низких температур, 	при наличии воды на взлетной полосе, 	возникновении критических ситуаций. 	Кроме того, <b>ПД-8</b> 	подтвердил ресурсные показатели при 	<b>150-часовых</b> 	испытаниях, технические характеристики 	при боковом ветре и при испытаниях 	реверсивного устройства.</li>
+ </ul></div>
+</div>
+<div class="news-info">
+	<p><a href="javascript: history.back();">&larr;&nbsp;Вернуться назад</a></p>
+</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div><div id="footer-wrapper">
+	<div id="footer-content">
+		<p>
+			<a href="http://www.favt.ru/copyrights/">Об использовании информации на сайте</a><br />
+			&copy; 2010 – Ноябрь 2026 Официальный Интернет-ресурс Федерального агентства воздушного транспорта
+			Все права на материалы, находящиеся на сайте, охраняются в соответствии с законодательством Российской Федерации
+		</p>
+		<p>
+			Адрес: 125993, ГСП-47, Москва, Ленинградский проспект, 37, корпус 2.<br />
+			Телефон: +7 (495) 645-85-55 Телефакс: +7 (499) 231-55-35
+			E-mail: <a href="mailto:rusavia@favt.gov.ru">rusavia@favt.gov.ru</a>
+			<a href="//special.favt.gov.ru/shema-proezda/">Схема проезда</a>
+		</p>
+	</div>
+</div>
+<div id="btn-up"><a onclick="$('html,body').animate({ scrollTop: 0 }, 'slow');" style="cursor: pointer; cursor: hand;">Наверх</a></div><script type="text/javascript" language="JavaScript">var DIR_RPATH = '/special.favt.gov.ru/';</script>
+<script type="text/javascript" language="JavaScript">var GDOMAIN = 'favt.gov.ru';</script>
+<script type="text/javascript" language="JavaScript">var CPAGE_URL = '//special.favt.gov.ru/novosti-novosti/';</script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/general.js?v2026"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/jquery.ui.widget.js"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/jquery.fileupload.js"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/moment.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="//special.favt.gov.ru/js/daterangepicker.js"></script>
+<script type="text/javascript" src="//favt.gov.ru/assets/js/jquery.magnific-popup.min.js?v20240814"></script>
+<script type="text/javascript" src="//special.favt.gov.ru/patterns/news/pattern.js?v202611"></script>
+<style type="text/css">html {
+        overflow-x: hidden;
+    }</style>
+</body>
+</html>
