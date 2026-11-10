@@ -1,0 +1,41 @@
+{
+  "verdict": "APPROVE_SCOPED",
+  "root_commit": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+  "scope": "context/28_evening_run_20261110/integration/dashboard_context_correction/",
+  "open_findings": [],
+  "resolved_findings": [
+    {
+      "id": "ROOT-DASH-01",
+      "severity": "P2",
+      "status": "CLOSED_FOR_EXACT_CORRECTION_ONLY",
+      "original_commit": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+      "original_file": "context/28_evening_run_20261110/dashboard_handoff/build.py",
+      "original_line_start": 229,
+      "original_line_end": 235,
+      "problem": "Missing hypothesis/pair association was labelled global registry absence; C33 KUF-SVX lost 34 existing context records despite evidence registry record 21 and 16 calculation-leg records.",
+      "minimal_fix": "Remove this one false gap; add explicit C33 aliases to the 34 exact existing records, preserving source_fields/provenance and original_evidence_record_id; replace only C33 route_context_ids; retain original links and genuine gaps.",
+      "correction_file": "context/28_evening_run_20261110/integration/dashboard_context_correction/build.py",
+      "correction_line_start": 33,
+      "correction_line_end": 76,
+      "independent_evidence": [
+        "Byte-exact independent reconstruction of both corrected JSON files",
+        "34 evidence38f and 16 programme source-row identities verified",
+        "164 metric cells unchanged; nine other cards unchanged",
+        "No C33 falsegap remains; all context foreign keys checked",
+        "215 unique published departures and 382 exact evidence locators unchanged",
+        "Original 85 route links and all 71 retained package blobs unchanged",
+        "Missing association, true gaps, duplicate IDs and alias summation counterexamples checked"
+      ],
+      "additional_owner_fix_required": false
+    }
+  ],
+  "original_review": {
+    "verdict": "CHANGES",
+    "status_source": "User instruction; original reviewer was neither polled nor awaited",
+    "original_defect_independently_reproduced": true,
+    "superseded": false
+  },
+  "acceptance_uplift": false,
+  "universal_validator_claim": false,
+  "ui_changed_or_accepted": false
+}

@@ -1,0 +1,51 @@
+{
+  "task": "Fresh bounded ROOT-DASH-01 correction recheck",
+  "verdict": "APPROVE_SCOPED",
+  "root_commit": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+  "original_assembly_commit": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+  "evidence_commit": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
+  "correction_scope": "context/28_evening_run_20261110/integration/dashboard_context_correction/",
+  "review_write_scope": "context/28_evening_run_20261110/dashboard_context_correction_review/",
+  "review_branch": "t3/review-dashboard-context-correction",
+  "review_commit_pin": "Exact pushed SHA supplied in final response; resolve package commit with git log -1 --format=%H -- context/28_evening_run_20261110/dashboard_context_correction_review/",
+  "closed": ["ROOT-DASH-01 P2, exact correction only"],
+  "open_findings": [],
+  "independent_assertions": {
+    "both_corrected_json_byte_exact": true,
+    "evidence_rows_verified": 34,
+    "programme_source_rows_verified": 16,
+    "metric_cells_unchanged": 164,
+    "other_cards_unchanged": 9,
+    "original_links_unchanged": 85,
+    "retained_original_files_unchanged": 71,
+    "unique_published_departures_before_after": [215, 215],
+    "unique_evidence_locators_before_after": [382, 382],
+    "hidden_C33_false_gap": false,
+    "C33_foreign_keys_valid": true,
+    "true_registry_gaps": ["TLV-ZIA", "SVX-ZIA"]
+  },
+  "owner_checks_separately_replayed": {
+    "readonly_verify": "PASS",
+    "duplicate_original_and_alias_record_rejection": "PASS",
+    "idempotent_reapply": "PASS",
+    "known_registry_route_without_support_refusal": "PASS"
+  },
+  "consumer_files": {
+    "corrected": ["integration/dashboard_context_correction/cards.json", "integration/dashboard_context_correction/route_context.json"],
+    "other_original_files": "integration/dashboard_handoff/5101302f/",
+    "additional_association": "integration/dashboard_context_correction/context_patch.json",
+    "count_rule": "Deduplicate aliases by original_evidence_record_id or exact source locator; original route_links.csv still has 85 links."
+  },
+  "original_CHANGES_preserved": true,
+  "original_reviewer_contacted_or_polled": false,
+  "root_owns_fixes": true,
+  "owner_changes_made_by_reviewer": false,
+  "accepts_economics_market_fleet_award_full_PnL_or_UI": false,
+  "live_source_runtime_provider_actions": false,
+  "children_started": 0,
+  "PR_merge_rebase_force": false,
+  "stop_after_one_package": true,
+  "review_package_deadline_MSK": "2026-11-10T21:40:00+03:00",
+  "window_deadline_MSK": "2026-11-10T22:00:00+03:00",
+  "reproduce": "python3 -B context/28_evening_run_20261110/dashboard_context_correction_review/verify.py"
+}
