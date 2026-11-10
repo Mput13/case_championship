@@ -28,7 +28,8 @@
     "network_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-network-review-20261110-r1",
     "digital_growth_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-digital-growth-review-20261110-r1",
     "products_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-products-review-20261110-r1",
-    "dated_comparison_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dated-comparison-review-20261110-r1"
+    "dated_comparison_review": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dated-comparison-review-20261110-r1",
+    "dashboard_handoff": "node:delegated-task:command%3Amcp%3Acd8dd7dd-25c4-48c0-a9ea-c6462e81174a%3Adelegate-task%3Acase5-evening-dashboard-handoff-20261110-r1"
   },
   "completion_delivery": "automatic; no task polling",
   "new_evaluations_completed": 10,
@@ -105,10 +106,10 @@
     }
   ],
   "review_queue": "review_queue.json",
-  "updated_at_msk": "2026-11-10T20:15:47.009681+03:00",
+  "updated_at_msk": "2026-11-10T20:23:10.023940+03:00",
   "active_sol_roles": [
-    "products_review",
-    "dated_comparison_review"
+    "dated_comparison_review",
+    "dashboard_handoff"
   ],
   "sol_currently_active": 2,
   "completed_production_roles": [
@@ -160,9 +161,10 @@
       "role": "products",
       "sha": "388908b6da3539484cb8e2e03ada6ff5cb2204a4",
       "intake_file": "intake/products_final_checks.json",
-      "independent_review": "RUNNING_EV-PRODUCTS-FINAL",
+      "independent_review": "APPROVE_SCOPED_EV-PRODUCTS-FINAL",
       "accepted_business_effect": false,
-      "sent_to_methods": true
+      "sent_to_methods": true,
+      "review_sha": "6cc8c37e23c89488f3113efd96952d13f253f274"
     }
   ],
   "colleague_ref_check": {
@@ -176,7 +178,8 @@
     "EV-EVIDENCE-FINAL",
     "EV-MR02",
     "EV-NETWORK-FINAL",
-    "EV-DIGITAL-FINAL"
+    "EV-DIGITAL-FINAL",
+    "EV-PRODUCTS-FINAL"
   ],
   "review_admissions": [
     {
@@ -238,8 +241,35 @@
         "D03 P3 regular-only label removed in root projection; charter eligibility UNKNOWN",
         "no measured business effect or paid E2E"
       ]
+    },
+    {
+      "id": "EV-PRODUCTS-FINAL",
+      "subject_sha": "388908b6da3539484cb8e2e03ada6ff5cb2204a4",
+      "review_sha": "6cc8c37e23c89488f3113efd96952d13f253f274",
+      "verdict": "APPROVE_SCOPED",
+      "root_check": "intake/products_review_checks.json",
+      "limits": [
+        "scenario arithmetic and calendar only",
+        "C35 segment counter not accepted as company-wide growth",
+        "same-day cash lower bound not intraday zero financing",
+        "no market/freefleet/contracts/full actual budget"
+      ]
     }
   ],
   "evaluation_completion_meaning": "All ten owner calculation packages delivered; independent review, common strategy and operating acceptance are separate",
-  "strategy_complete": false
+  "strategy_complete": false,
+  "handoff_build": {
+    "status": "RUNNING",
+    "scope": "context/28_evening_run_20261110/dashboard_handoff",
+    "inputs": [
+      "b47118a48b6d5480217077bf8699a63665c0eb7a",
+      "388908b6da3539484cb8e2e03ada6ff5cb2204a4",
+      "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
+      "d48b4a4f86de29aa968665f1601b785bd1824c54",
+      "f99d6cd52dcc06995bf984fddd2f057226243b06",
+      "cb6b282260e7f3cb403e929e566512bc8a649045"
+    ],
+    "methods_f99_independent_review": "PENDING",
+    "UI_changed": false
+  }
 }
