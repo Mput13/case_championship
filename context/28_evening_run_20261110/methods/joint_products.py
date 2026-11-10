@@ -11,6 +11,8 @@ feed=[f for f in fs if f['hypothesis']=='C35' and f['network']=='external_feed']
 assert len(added)==4 and len(old)==16 and len(feed)==16
 links=[]
 for g in added+old:
+ if not any(f['date']==g['date'] for f in feed):
+  links.append(dict(date=g['date'],rw_flight=g['flight_id'],rw_variant=g['network'],feed_flight=None,wait_minutes=None,mct_minutes=90,max_wait_minutes=180,eligible=False))
  for f in feed:
   if f['date']!=g['date']:continue
   if f['destination']=='SVX' and g['origin']=='SVX':a,b=f,g
@@ -20,6 +22,8 @@ for g in added+old:
   links.append(dict(date=f['date'],rw_flight=g['flight_id'],rw_variant=g['network'],feed_flight=f['flight_id'],wait_minutes=wait,mct_minutes=90,max_wait_minutes=180,eligible=90<=wait<=180))
 assert sum(r['eligible'] for r in links if r['rw_variant']=='ADD_SSJ_OMS')==0
 assert sum(r['eligible'] for r in links if r['rw_variant']=='rw_KEEP_retimed')==16
+assert {f['date'] for f in added}=={'2027-07-05','2027-07-08'}
+assert {f['date'] for f in added}.isdisjoint({f['date'] for f in feed})
 rows=[];capacity=[]
 for s in ('base','cautious'):
  a=next(r for r in c31 if r['scenario']==s and r['demand_layer']=='nastya_primary' and float(r['additional_mrv_paid_each_leg_probe'])==0 and float(r['foregone_tu_old_mission_contribution_probe'])==0)
