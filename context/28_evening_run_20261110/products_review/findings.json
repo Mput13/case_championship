@@ -1,0 +1,49 @@
+{
+  "review_id": "PRODUCTS-FINAL-388908",
+  "reviewed_sha": "388908b6da3539484cb8e2e03ada6ff5cb2204a4",
+  "reviewed_branch": "t3/products-hypothesis-calculations",
+  "scope": "context/28_evening_run_20261110/products/",
+  "verdict": "APPROVE_SCOPED",
+  "open_findings": 0,
+  "severity_counts": {
+    "P1": 0,
+    "P2": 0,
+    "P3": 0
+  },
+  "findings": [],
+  "smallest_fix": "NONE_REQUIRED_FOR_SCOPED_ACCEPTANCE",
+  "acceptance": "Conditional monetary arithmetic, dated model calendars, treasury timing fixtures, readiness truncation and bounded claims only. No actual market/resource/contract/award/full-budget acceptance.",
+  "not_new_findings": [
+    "C17 final errata35+35 in both years verified; old README34 is expressly historical",
+    "C31 Mon/Thu, four old Tu TLV legs and two ferry are present",
+    "C35 final internal KEEP ceilings and capped-fare variant are present"
+  ],
+  "interpretation_limits": [
+    {
+      "claim": "External C35 incremental_rw_passenger_segments is not admitted as company-wide growth without old journey RW-segment counts",
+      "refs": [
+        "outputs/C35_partner_thresholds.csv:2",
+        "budget_requirements.json:30",
+        "source_addendum.md:13"
+      ]
+    },
+    {
+      "claim": "Internal/external C35 are alternative uses of shared journeys/seats; no independent summation",
+      "counterexample": "verification.json: examples and counterexamples; base erroneous sum1,574,784 vs own threshold987,392"
+    },
+    {
+      "claim": "C17 rejection is only selected no-support annual recipe; support reference positive value is not an actual award",
+      "refs": [
+        "passport.md:7",
+        "source_addendum.md:23",
+        "source_addendum.md:27"
+      ]
+    }
+  ],
+  "source_receipt": {
+    "commit": "13f7c373954cc16b33a53b7c46436ee3f15f753b",
+    "subject": "38f0f7ae8a10b6a60bd2d5ab39b18a9865e2b78b",
+    "verdict": "APPROVE_SCOPED",
+    "full_source_research_repeated": false
+  }
+}
