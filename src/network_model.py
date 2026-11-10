@@ -217,7 +217,8 @@ def leg_cost(A, km, south, pax):
     """Переменные расходы одного рейса и блок-время."""
     k = A["route_factor_south"] if south else A["route_factor"]
     bh = A["block_fixed_h"] + km * k / A["block_speed_kmh"]
-    fuel = (A["fuel_t_per_hour"] * bh + A["fuel_t_per_cycle"]) * A["fuel_rub_per_t"]
+    # цена керосина за вычетом демпфера и обратного акциза, которые возвращают авиакомпаниям (network.csv)
+    fuel = (A["fuel_t_per_hour"] * bh + A["fuel_t_per_cycle"]) * (A["fuel_rub_per_t"] - A.get("fuel_compensation_rub_per_t", 0.0))
     per_h = (A["mro_rub_per_hour"] + A["crew_rub_per_hour"] + A["navigation_rub_per_hour"]) * bh
     return bh, fuel + per_h + A["ground_rub_per_flight"] + A["deicing_rub_per_flight"] + pax * A["pax_cost_rub"]
 
@@ -327,8 +328,16 @@ def hub_network(H, D, A, scen, cand_nodes):
             migr += 2 * mg
             forgone += 2 * mg * fare(A, L["km"])
             subs += 2 * f[X] * sub(D, A, H, X)              # платят за выполненный рейс (п. 6 решения)
+            # деньги луча за неделю: местные билеты минус потерянная выручка старых рейсов, субсидия, расходы
+            L.update(rev_week=2 * (loc_c[X] - mg) * fare(A, L["km"]) + 2 * f[X] * sub(D, A, H, X),
+                     sub_week=2 * f[X] * sub(D, A, H, X), cost_week=2 * f[X] * c)
         for X, Y, dxy, t in tr_c:
             rev += 2 * t * fare(A, dxy) * A["transfer_fare_factor"]
+            # билет пересадочного пассажира делится между двумя лучами пропорционально их длине
+            tk = 2 * t * fare(A, dxy) * A["transfer_fare_factor"]
+            kx, ky = legs[X]["km"], legs[Y]["km"]
+            legs[X]["rev_week"] += tk * kx / (kx + ky)
+            legs[Y]["rev_week"] += tk * ky / (kx + ky)
         od_local = 2 * sum(loc_c.values())            # поездок в неделю, оба направления
         od_transfer = 2 * sum(t for *_, t in tr_c)
         seg = 2 * sum(carried.values())               # сегментов в неделю, оба направления
@@ -475,7 +484,8 @@ def direct_network(D, A, scen, nodes_all):
                 s_ = 2 * f * sub(D, A, L["a"], L["b"])   # за выполненный рейс
                 subs += s_
                 rev += s_
-                out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"]), migrated=mg))
+                out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"]), migrated=mg,
+                                rev_week=2 * (c_ - mg) * fare(A, L["km"]) + s_, sub_week=s_, cost_week=2 * f * c))
             res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out, migr, forgone, subs))
         return res
 
@@ -543,6 +553,13 @@ def freq_method(A):
             "(data/assumptions/network.csv)")
 
 
+def leg_money(L, W):
+    """Деньги одного маршрута за год: выручка (с субсидией), расходы на рейсы, итог."""
+    return {"revenue_mln_year": round(L.get("rev_week", 0) * W / 1e6, 1), "subsidy_mln_year": round(L.get("sub_week", 0) * W / 1e6, 1),
+            "cost_mln_year": round(L.get("cost_week", 0) * W / 1e6, 1),
+            "result_mln_year": round((L.get("rev_week", 0) - L.get("cost_week", 0)) * W / 1e6, 1)}
+
+
 def money(rev, cost, forgone, migr, seg, od, W, A, subs=0.0):
     """Деньги и доля за год. rev — чистая выручка (доход старых рейсов Red Wings уже вычтен).
     Прирост доли — только новые для Red Wings пассажиры (сегменты минус перешедшие со старых рейсов).
@@ -596,6 +613,7 @@ def main():
                                "pax_year_rw_migrated": round(2 * L["migrated"] * W),
                                "demand_source": D.method(H, L["b"]), "direct_now": D.has_direct(H, L["b"]),
                                "subsidy_rule": sub_rule(D, A, H, L["b"])[1] or "подходит",
+                               **leg_money(L, W),
                                "range_light": range_light(D, H, L["b"], L["km"])})
         chosen = direct_best(D, A, A["demand_scen"], nodes_all)
         hours = sum(c[4] for c in chosen)
@@ -622,6 +640,7 @@ def main():
                                "pax_year_rw_migrated": round(2 * L["migrated"] * W),
                                "demand_source": D.method(L["a"], L["b"]), "direct_now": D.has_direct(L["a"], L["b"]),
                                "subsidy_rule": sub_rule(D, A, L["a"], L["b"])[1] or "подходит",
+                               **leg_money(L, W), "triangle_result_mln_year": round((c[6] - c[5]) * W / 1e6, 1),
                                "range_light": range_light(D, L["a"], L["b"], L["km"])})
     sm = pd.DataFrame(summary)
     rt = pd.DataFrame(routes)

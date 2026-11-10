@@ -77,11 +77,13 @@ def load_network():
     nodes = {i: [round(float(n.loc[i, "latitude_deg"]), 3), round(float(n.loc[i, "longitude_deg"]), 3),
                  NAME.get(i, n.loc[i, "main_city"])] for i in ends if i in n.index}
     cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "pax_year_segments",
-            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source", "subsidy_rule"]
+            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source", "subsidy_rule", "revenue_mln_year", "cost_mln_year", "result_mln_year"]
+    if "triangle_result_mln_year" in rt.columns:
+        cols.append("triangle_result_mln_year")
     # допущения расчёта — прямо из data/assumptions/network.csv, чтобы панель не расходилась с моделью
     na = pd.read_csv(ROOT / "data/assumptions/network.csv").set_index("parameter")
     asm = {k: [float(na.loc[k, "base"]), float(na.loc[k, "cautious"])] for k in
-           ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_flight", "subsidy_months", "subsidy_max_prior_pax", "min_freq_week", "max_freq_week", "capture_open",
+           ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_flight", "subsidy_months", "subsidy_max_prior_pax", "fuel_rub_per_t", "fuel_compensation_rub_per_t", "min_freq_week", "max_freq_week", "capture_open",
             "capture_competitive", "capture_transfer", "transfer_fare_factor", "weeks_per_year", "fleet_cap",
             "spare_aircraft", "max_routes", "rw_existing_lf", "rw_pax_2025", "market_pax_2025",
             "min_routes", "direct_max_freq_week", "thin_route_pax_day")}
@@ -341,6 +343,7 @@ def main():
             "kover_hub": rng_(hub_rows.kover_days_avg[hub_rows.scenario.str.startswith("base")]),
             "kover_direct": rng_(dir_rows.kover_days_avg[dir_rows.scenario.str.startswith("base")]),
             "nosub_fleet": str(int(z4.aircraft)) if z4 is not None else "", "nosub_loss": f"{abs(z4.result_mln_year):.0f}" if z4 is not None else "",
+            "nosub_res": (("+" if z4.result_mln_year >= 0 else "−") + f"{abs(z4.result_mln_year):.0f}") if z4 is not None else "",
             "cap_comp_b": pct_(na_.loc["capture_competitive", "base"]), "cap_comp_c": pct_(na_.loc["capture_competitive", "cautious"])}
     def rd(f):
         recs = pd.read_csv(ROOT / f, dtype=str).fillna("").to_dict("records")

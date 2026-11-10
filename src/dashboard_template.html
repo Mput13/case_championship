@@ -770,6 +770,8 @@ function ldDraw(){
   else t=`${k?`Даже при тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} ни одна сеть не окупает рейсы. Ближе всех к нулю — ${best.vkey==='DIRECT'?'прямые рейсы':best.variant.replace('Хаб ','хаб ')}: ${best.fare_up_to_breakeven_pct>0?`нужны тарифы выше на ${best.fare_up_to_breakeven_pct}%`:'не хватает немного'}. `;
   if(SUB&&dir) t+=`Субсидия — около ${ru(sp)} ₽ за рейс и только на лучах, которые проходят правила программы Росавиации: один конец — узловой аэропорт, без Москвы, пара пока тонкая, с октября по апрель. Это первый год новой пары: когда поток вырастет больше ${ru(NS_.asm.subsidy_max_prior_pax?NS_.asm.subsidy_max_prior_pax[0]:8000)} пассажиров, федеральная субсидия кончится, если её не софинансирует регион. У прямой сети ${mshare}% пассажиров летят через Москву, такие рейсы субсидию не получают.`;
   else if(!SUB) t+='Включите субсидию, чтобы увидеть сети с господдержкой рейсов в обход Москвы.';
+  const FC=NS_.asm.fuel_compensation_rub_per_t, ki2=SCEN==='base'?0:1;
+  t+=` Керосин в расчёте — за вычетом демпфера и обратного акциза, которые государство возвращает авиакомпаниям: ${ru(FC[ki2])} ₽ на тонну${SCEN==='base'?' (среднее за январь–сентябрь 2026 года); без этой компенсации все сети были бы в минусе':' (только акциз, как в январе 2026 года, когда демпфер был нулевым)'}.`;
   document.getElementById('ld-sum').textContent=t;
 }
 function vsBoard(){
@@ -797,6 +799,7 @@ function vsBoard(){
    ['Загрузка рейса',`не выше ${pct(A.lf_max[k])}`,SCEN==='base'?'загрузка Red Wings в I полугодии 2025':'осторожное допущение'],
    ['Тариф в одну сторону',`${ru(A.fare_fixed_rub[k])} ₽ + ${ru(A.fare_per_km_rub[k],1)} ₽ за км`,'подобран по 31 тарифу на рейсы тех же пар'],
    ['Частота',`${A.min_freq_week[k]}–${A.max_freq_week[k]} рейсов в неделю`,'по захваченному спросу, в одну сторону'],
+   ['Керосин',`${ru(A.fuel_rub_per_t[k]-A.fuel_compensation_rub_per_t[k])} ₽ за тонну`,`цена в Уфе ${ru(A.fuel_rub_per_t[k])} ₽ минус ${SCEN==='base'?'средний демпфер и обратный акциз за январь–сентябрь 2026':'только обратный акциз'} (${ru(A.fuel_compensation_rub_per_t[k])} ₽)`],
    ['Доля пары без прямого рейса',`до ${pct(A.capture_open[k])}`,'растёт с частотой рейсов'],
    ['Доля пары, где уже летают',`до ${pct(A.capture_competitive[k])}`,'делится по частотам с конкурентами'],
    ['Пересадка в хабе',`до ${pct(A.capture_transfer[k])} пары, билет −${pct(1-A.transfer_fare_factor[k])}`,'пересадочный пассажир платит один билет'],
@@ -934,7 +937,7 @@ function choiceBoard(){
       h('span',{class:'res',style:`color:${r.result_mln_year>=0?'#2E8A5B':'#C0262B'}`},`${mln(r.result_mln_year)} в год с субсидией`),
       h('span',{},nm.join(', ')))); });
   const z4=r0.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year)[0];
-  document.getElementById('ch-ramp-note').textContent=`Новые SJ-100 придут не раньше II полугодия 2027 года, сколько получит Red Wings — неизвестно. Поэтому сеть растёт шагами по числу пришедших самолётов, один самолёт в каждом шаге — резерв. До поставок пилот можно начать на нынешних SSJ, если найдутся свободные. ${z4?`Без субсидии разумный предел — ${z4.routes} лучей на ${z4.aircraft} самолётах: ${mln(z4.result_mln_year)} в год.`:''} Сроки у шагов — наше допущение.`;
+  document.getElementById('ch-ramp-note').textContent=`Новые SJ-100 придут не раньше II полугодия 2027 года, сколько получит Red Wings — неизвестно. Поэтому сеть растёт шагами по числу пришедших самолётов, один самолёт в каждом шаге — резерв. До поставок пилот можно начать на нынешних SSJ, если найдутся свободные. ${z4?`Без субсидии лучшая сеть — ${z4.routes} лучей на ${z4.aircraft} самолётах: ${mln(z4.result_mln_year)} в год.`:''} Сроки у шагов — наше допущение.`;
   const base=ST.rw_share_2025;
   document.getElementById('ch-share').innerHTML='';
   document.getElementById('ch-share').append(h('small',{},'Эффект для доли рынка Red Wings (полная сеть, базовый сценарий, с субсидией)'),
@@ -952,12 +955,15 @@ const WKS=()=>NS_.asm.weeks_per_year[SCEN==='base'?0:1];
 function routeTable(rs,sm){
   const t=document.getElementById('mt'); if(!t) return;
   const N=NS_.nodes, nm=i=>(N[i]||[0,0,i])[2];
-  document.getElementById('mt-title').textContent=`Маршруты: пассажиры, рейсы и источники · ${sm?sm.variant:''}`;
+  const pos=rs.filter(r=>r.result_mln_year>=0).length;
+  document.getElementById('mt-title').textContent=`Маршруты: пассажиры, рейсы, деньги и источники · ${sm?sm.variant:''} · в плюсе ${pos} из ${rs.length}`;
   document.getElementById('mt-note').textContent=`Перевозчики — по расписаниям на 7–13 декабря 2026 года (карточки маршрутов и табло аэропорта Омск); по остальным парам данные ещё собираются. Пассажиры — сегменты за год в обе стороны, как в статистике. Частота — рейсов в неделю в одну сторону: захваченные пассажиры делятся на ${NS_.asm.seats[0]} кресел × загрузку, не реже ${NS_.asm.min_freq_week[0]} и не чаще ${NS_.asm.max_freq_week[0]} рейсов (у треугольников прямой сети — ${NS_.asm.direct_max_freq_week[0]}). Источник спроса пары — из шага 2: поток на рейсе по отчёту аэропорта или расписанию, пересчитанный в поездки, или модель поездок, если рейса сейчас нет.`;
   t.tHead.textContent=''; t.tBodies[0].textContent='';
-  t.tHead.append(h('tr',{},h('th',{},'Маршрут'),h('th',{class:'r'},'Км'),h('th',{class:'r'},'Пассажиров в год'),h('th',{class:'r'},'Рейсов в неделю'),h('th',{class:'r'},'Загрузка'),h('th',{},'Как летят сейчас и кто летает'),h('th',{},'Откуда пассажиропоток'),h('th',{},'Откуда частота'),h('th',{},'Субсидия по правилам')));
+  t.tHead.append(h('tr',{},h('th',{},'Маршрут'),h('th',{class:'r',title:'Выручка маршрута за год минус расходы на его рейсы. Для луча хаба билет пассажира с пересадкой делится между двумя лучами по их длине; для прямых рейсов ниже — итог всего треугольника'},'Итог, млн ₽'),h('th',{class:'r'},'Км'),h('th',{class:'r'},'Пассажиров в год'),h('th',{class:'r'},'Рейсов в неделю'),h('th',{class:'r'},'Загрузка'),h('th',{},'Как летят сейчас и кто летает'),h('th',{},'Откуда пассажиропоток'),h('th',{},'Откуда частота'),h('th',{},'Субсидия по правилам')));
   rs.slice().sort((a,b)=>b.pax_year_segments-a.pax_year_segments).forEach(r=>{
-    t.tBodies[0].append(h('tr',{},h('td',{},`${nm(r.from)} — ${nm(r.to)}`,h('small',{},r.direct_now?'на паре уже летают другие':'новая пара')),
+    const res=r.result_mln_year, tri=r.triangle_result_mln_year;
+    const rc=h('td',{class:'r'},h('b',{style:`color:${res>=0?'#2E8A5B':'#C0262B'}`},(res>=0?'+':'−')+ru(Math.abs(res))),tri!=null&&r.vkey==='DIRECT'?h('small',{},`треугольник ${(tri>=0?'+':'−')+ru(Math.abs(tri))}`):'');
+    t.tBodies[0].append(h('tr',{},h('td',{},`${nm(r.from)} — ${nm(r.to)}`,h('small',{},r.direct_now?'на паре уже летают другие':'новая пара')),rc,
       h('td',{class:'r'},ru(r.km)),h('td',{class:'r'},ru(r.pax_year_segments)),h('td',{class:'r'},r.freq_week_each_way),h('td',{class:'r'},Math.round(r.load_factor*100)+'%'),
       nowCell(r),h('td',{},r.demand_source),h('td',{},`спрос ÷ (${NS_.asm.seats[0]} кресел × загрузка), ${NS_.asm.min_freq_week[0]}–${r.vkey==='DIRECT'?NS_.asm.direct_max_freq_week[0]:NS_.asm.max_freq_week[0]} в неделю`),h('td',{},r.subsidy_rule||'—'))); });
 }
