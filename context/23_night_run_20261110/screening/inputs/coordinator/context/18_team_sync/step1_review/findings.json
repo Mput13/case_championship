@@ -1,0 +1,608 @@
+{
+  "verdict": "CHANGES_FOR_FINAL_TOP3_OR_STRATEGY; bounded offline correction cycle is justified",
+  "reviewed_at_utc": "2026-11-09T22:06:13.672215+00:00",
+  "input": {
+    "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+    "ref_as_supplied": "origin/шаг-1",
+    "git_author": "kiruha355",
+    "person_as_explicitly_identified_by_user": "Настя",
+    "baseline_sha": "2272e9fac19cdebf68086a46f7ddc48c0fb2d9c8",
+    "ref_freshness": "NOT_FETCHED; exact supplied SHA inspected"
+  },
+  "scope": {
+    "source_access": "git show pinned SHA; local historical front review read as context; historical mismatch also independently recomputed",
+    "writes": [
+      "context/18_team_sync/step1_review/report.md",
+      "context/18_team_sync/step1_review/findings.json"
+    ],
+    "network": "NOT_RUN",
+    "update_py": "NOT_RUN",
+    "full_network_or_demand_replay": "NOT_RUN",
+    "delegation": "NONE",
+    "commit_push_merge_rebase": "NOT_RUN"
+  },
+  "blockers": [
+    {
+      "id": "B1",
+      "kind": "DECISION_GATE",
+      "title": "Зафиксировать фильтр 500 км и единое определение нового хаба",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "docs/25_step1_open_questions.md",
+          "line_start": 21,
+          "line_end": 25
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/longlist_score.py",
+          "line_start": 58,
+          "line_end": 61
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 336,
+          "line_end": 338
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/manual/airport_tech.csv",
+          "line_start": 2,
+          "line_end": 2
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/manual/airport_tech.csv",
+          "line_start": 9,
+          "line_end": 9
+        }
+      ],
+      "impact": "Filtered OMS/REN/KUF versus unfiltered PEE/UFA/CEK; network main hardcodes min500. Both OMS and KUF have rw_support=1 in snapshot, with different evidence quality. Excluding only KUF is not a consistently applied new-hub policy.",
+      "smallest_next_action": "Record one policy and preserve both branches until then; pass selected score artifact to model explicitly."
+    },
+    {
+      "id": "B2",
+      "severity": "P2",
+      "kind": "SCORING_EVIDENCE",
+      "title": "Устойчивость весов не покрывает неопределённость заполненных исходных данных; текст преувеличивает устойчивость",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "docs/25_step1_open_questions.md",
+          "line_start": 23,
+          "line_end": 23
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/longlist_score.py",
+          "line_start": 37,
+          "line_end": 45
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/longlist_score.py",
+          "line_start": 64,
+          "line_end": 101
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/build_criteria.py",
+          "line_start": 41,
+          "line_end": 47
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/manual/competitor_hubs.csv",
+          "line_start": 15,
+          "line_end": 15
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/processed/longlist_scores_min500.csv",
+          "line_start": 2,
+          "line_end": 4
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/transfer_potential.py",
+          "line_start": 35,
+          "line_end": 50
+        }
+      ],
+      "impact": "OMS unknown_weight_share=0 despite competitor_hub=0.25 from absence in Wikipedia and ssj_mro=0.5 inferred. Missing bounds only vary nulls. Only OMS is first in all 5 group scenarios; second is REN/KUF/BAX. Removing transfer criterion at unchanged other inputs gives OMS/BAX/VOG.",
+      "smallest_next_action": "Correct docs/25 claim; separately stress uncertain raw cells and disable the whole model-derived criterion family. Report conditional rankings, not empirical probabilities."
+    },
+    {
+      "id": "B3",
+      "severity": "P2",
+      "kind": "CODE_DEFECT",
+      "title": "Прямая сеть повторно захватывает спрос одного физического OD в нескольких треугольниках",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 249,
+          "line_end": 251
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 254,
+          "line_end": 275
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 278,
+          "line_end": 292
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/processed/network_routes.csv",
+          "line_start": 42,
+          "line_end": 42
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/processed/network_routes.csv",
+          "line_start": 47,
+          "line_end": 47
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/processed/network_routes.csv",
+          "line_start": 50,
+          "line_end": 50
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/processed/demand_pairs.csv",
+          "line_start": 1244,
+          "line_end": 1244
+        }
+      ],
+      "impact": "used_pairs excludes duplicate X-Y only. MOW-OMS is independently evaluated 3 times in base and 5 times in cautious; aggregate carried exceeds this same model capture formula applied to total frequency. Conservation equality still passes.",
+      "reproduction": {
+        "base": {
+          "market": 674175,
+          "frequencies": [
+            4,
+            4,
+            3
+          ],
+          "stored_carried": 87497,
+          "shared_capture": 80581.03552981278,
+          "excess": 6915.964470187217
+        },
+        "cautious": {
+          "market": 567711,
+          "frequencies": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "stored_carried": 110705,
+          "shared_capture": 95766.95528407069,
+          "excess": 14938.04471592931
+        },
+        "formula": "shared_capture = D * min(qmax, sum(f) / (sum(f) + D/(2*weeks*seats*competitor_lf)))",
+        "qualification": "offline arithmetic against own model; not a market forecast or corrected whole-network profit"
+      },
+      "smallest_next_action": "One accepted OD budget and total frequency across selected triangles; re-evaluate marginal capture, capacity, revenue and selection; retain S=OD+T check."
+    },
+    {
+      "id": "B4",
+      "kind": "MODEL_ASSUMPTION_GATE",
+      "title": "Сегментные наблюдения всё ещё используются как конечные поездки и рыночный спрос новых связей",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/demand_model.py",
+          "line_start": 11,
+          "line_end": 15
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/demand_model.py",
+          "line_start": 104,
+          "line_end": 121
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 55,
+          "line_end": 57
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 142,
+          "line_end": 157
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/transfer_potential.py",
+          "line_start": 45,
+          "line_end": 50
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "docs/23_demand_model.md",
+          "line_start": 35,
+          "line_end": 44
+        }
+      ],
+      "impact": "Labels now correctly say market scale, but no OD decomposition was added. Model-dependent transfer score retains positive weight 10 while direct demand_gap is zero. 49.8% median absolute error of fact and non-observed pairs do not become validated OD by conservation fix.",
+      "smallest_next_action": "Keep segment-proxy and endpoint-demand assumption explicit; bound the assumed OD share on fixed saved markets and compare with model-derived criterion off. Do not declare an overall winner."
+    }
+  ],
+  "fixed": [
+    {
+      "topic": "old_front2272_conservation",
+      "status": "PASS_SCOPED",
+      "baseline_hub_rows": 10,
+      "baseline_failures_abs_gt_1_5": 8,
+      "new_hub_rows": 10,
+      "new_failures_abs_gt_1_5": 0,
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 155,
+          "line_end": 204
+        }
+      ],
+      "qualification": "Algebra, asymmetric capacity fixture and saved CSV identities only; full replay NOT_RUN."
+    },
+    {
+      "topic": "telegram_reply_parser",
+      "status": "FIXED_IN_CODE_AND_SNAPSHOT_SCOPED",
+      "snapshot_rows": 8329,
+      "parser_versions": {
+        "2": 8329
+      },
+      "changed_common_text_rows": 3715,
+      "changed_old_text_equals_new_reply": 3713,
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/fetch_telegram.py",
+          "line_start": 23,
+          "line_end": 28
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/fetch_telegram.py",
+          "line_start": 50,
+          "line_end": 64
+        }
+      ],
+      "qualification": "Synthetic reply-before-main HTML fixture passed. No fresh Telegram fetch or historical HTML round-trip."
+    },
+    {
+      "topic": "normalization_and_missing",
+      "status": "PASS_SCOPED",
+      "notes": "Filter-before-minmax and explicit fixed scales work as implemented; independent score arithmetic reproduces top3. Nulls with fill still enter bounds. Fixed all-20 normalization retains filtered OMS/REN/KUF, with scores 0.554436/0.514026/0.511600. Old catchment population is absent from active criteria; demand_gap and pax_2019 weights are zero, so no literal duplicate active columns there."
+    },
+    {
+      "topic": "kover_unknown_airports",
+      "status": "IMPROVED",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/kover_days.py",
+          "line_start": 36,
+          "line_end": 48
+        },
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/network_model.py",
+          "line_start": 306,
+          "line_end": 316
+        }
+      ],
+      "notes": "82 airport names; missing K excluded from mean and coverage emitted, instead of unconditional zero."
+    }
+  ],
+  "checks": {
+    "network_saved_rows": [
+      {
+        "scenario": "base",
+        "hub": "OMS",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": 0.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 0.0,
+        "max_annual_capacity_excess": 0.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "base",
+        "hub": "REN",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 1,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": 1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 1.0,
+        "max_annual_capacity_excess": -174.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "base",
+        "hub": "KUF",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 1,
+        "route_segments_minus_summary_segments": -1.0,
+        "route_local_minus_summary_local": 1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 1.0,
+        "max_annual_capacity_excess": -346.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "base",
+        "hub": "GOJ",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": -1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 2.0,
+        "max_annual_capacity_excess": -239.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "base",
+        "hub": "UFA",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": 2.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 1.0,
+        "max_annual_capacity_excess": -150.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "base",
+        "hub": "DIRECT",
+        "route_rows": 24,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 1.0,
+        "route_local_minus_summary_local": 1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": null,
+        "max_annual_capacity_excess": 0.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "cautious",
+        "hub": "OMS",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": -1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 0.0,
+        "max_annual_capacity_excess": -131.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "cautious",
+        "hub": "REN",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": -1.0,
+        "route_local_minus_summary_local": 0.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 2.0,
+        "max_annual_capacity_excess": -785.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "cautious",
+        "hub": "KUF",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 1.0,
+        "route_local_minus_summary_local": 0.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 0.0,
+        "max_annual_capacity_excess": -181.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "cautious",
+        "hub": "GOJ",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": 1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": -1.0,
+        "max_annual_capacity_excess": -130.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "cautious",
+        "hub": "UFA",
+        "route_rows": 8,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": 0.0,
+        "route_local_minus_summary_local": 1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": 0.0,
+        "max_annual_capacity_excess": 0.0,
+        "weekly_flight_difference": 0.0
+      },
+      {
+        "scenario": "cautious",
+        "hub": "DIRECT",
+        "route_rows": 24,
+        "summary_segments_minus_od_minus_transfer": 0,
+        "route_segments_minus_summary_segments": -1.0,
+        "route_local_minus_summary_local": -1.0,
+        "route_transfer_segments_minus_twice_summary_transfer": null,
+        "max_annual_capacity_excess": -396.0,
+        "weekly_flight_difference": 0.0
+      }
+    ],
+    "network_route_rows": 128,
+    "hub_route_rows": 80,
+    "max_hub_route_local_plus_transfer_minus_segments_abs": 1,
+    "route_vs_summary_rounding_tolerance": "summary identity <=1; sum of 8 rounded hub rows can differ by up to 4, observed <=2 for tested local/transfer aggregates",
+    "hub_formula_fixture": {
+      "source": "AST extraction of pinned hub_network and arithmetic helpers; Fake Demand only",
+      "frequencies": {
+        "B": 14,
+        "C": 9,
+        "A": 14
+      },
+      "load_factors": {
+        "B": 0.7515174538881138,
+        "C": 0.5433231500460174,
+        "A": 0.8499999999999999
+      },
+      "segments_minus_local_minus_2transfer_week": -9.094947017729282e-13,
+      "transfer_incidence_max_abs_error": 1.1368683772161603e-13,
+      "revenue_abs_error_rub_week": 7.450580596923828e-09,
+      "within_lf_cap": true,
+      "qualification": "Synthetic scalar case, not replay of saved routes or real markets."
+    },
+    "kover_recompute": {
+      "source": "pinned regex/functions extracted through AST; CSV-only airport aliases and catchments",
+      "named_airports": 82,
+      "matched_posts": 7737,
+      "airport_day_events": 4027,
+      "event_mismatches_vs_saved": 0,
+      "last365_window": [
+        "2025-11-10",
+        "2026-11-09"
+      ],
+      "last365_days_mismatches": 0,
+      "H1_2026": {
+        "AER": 69,
+        "KZN": 51,
+        "KGD": 1
+      },
+      "qualification": "Meduza values 70/51/1 are cited by branch, not independently fetched in this audit. Counts mean publication days with intro OR lift, not restriction duration."
+    },
+    "weight_scenarios_min500": [
+      {
+        "scenario": "base",
+        "label": "Базовые веса",
+        "top3": "Омск, Оренбург, Самара",
+        "top3_iata": "OMS, REN, KUF",
+        "same_as_base": "True"
+      },
+      {
+        "scenario": "market",
+        "label": "Важнее рынок",
+        "top3": "Омск, Самара, Волгоград",
+        "top3_iata": "OMS, KUF, VOG",
+        "same_as_base": "False"
+      },
+      {
+        "scenario": "geography",
+        "label": "Важнее география",
+        "top3": "Омск, Оренбург, Самара",
+        "top3_iata": "OMS, REN, KUF",
+        "same_as_base": "True"
+      },
+      {
+        "scenario": "operations",
+        "label": "Важнее эксплуатация",
+        "top3": "Омск, Барнаул, Оренбург",
+        "top3_iata": "OMS, BAX, REN",
+        "same_as_base": "False"
+      },
+      {
+        "scenario": "competition",
+        "label": "Важнее конкуренция",
+        "top3": "Омск, Оренбург, Самара",
+        "top3_iata": "OMS, REN, KUF",
+        "same_as_base": "True"
+      }
+    ],
+    "transfer_weight_zero_ablation": {
+      "normalization": "unchanged filtered snapshot; only weight10 set to0; denominator125->115",
+      "top5": [
+        {
+          "iata": "OMS",
+          "score": 0.5385877812570019
+        },
+        {
+          "iata": "BAX",
+          "score": 0.5044715074259395
+        },
+        {
+          "iata": "VOG",
+          "score": 0.5009615758668859
+        },
+        {
+          "iata": "REN",
+          "score": 0.48627416930768735
+        },
+        {
+          "iata": "KUF",
+          "score": 0.4848805740566914
+        }
+      ],
+      "qualification": "Sensitivity example, no preference claim or raw-data probability."
+    }
+  },
+  "residual_notes": [
+    {
+      "id": "N1",
+      "severity": "P3",
+      "topic": "airport_events nearest-status heuristic",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "src/kover_days.py",
+          "line_start": 102,
+          "line_end": 114
+        }
+      ],
+      "post_id": "6495",
+      "date_msk": "2026-07-25",
+      "observed_assignment": {
+        "GOJ": "lift",
+        "KUF": "lift",
+        "CSY": "intro"
+      },
+      "issue": "GOJ inherits the Samara inline lift before common VVEDENY; in the listed structure GOJ belongs to common intro. Snapshot is edited (02:31 post mentions 06:00 lift), so do not infer effective event times from post timestamp.",
+      "impact_boundary": "Saved day GOJ already has intro=True and lift=True; this example does not prove a changed union-day count or rank. Add regression for airport-local clause boundaries."
+    },
+    {
+      "id": "N2",
+      "topic": "restriction_economics",
+      "evidence": [
+        {
+          "sha": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+          "path": "data/assumptions/network.csv",
+          "line_start": 32,
+          "line_end": 32
+        }
+      ],
+      "notes": "52/48 weeks is still a scenario assumption combining restrictions and weather, not measured Kover duration or identified monetary effect. Negative current contributions are conditional on capture, fares, costs, fleet and forced >=8 routes; not proof all hubs unprofitable."
+    }
+  ],
+  "next_two_hour_cycle": [
+    "0-15 min: record/branch explicit 500km and new-versus-existing-base contract; fix docs/25 stability sentence; no broad source collection.",
+    "15-75 min: fix shared physical OD across direct triangles; bounded regression with repeated MOW-OMS and asymmetric hub capacity; replay only isolated saved-input model after fix if input contract permits.",
+    "75-110 min: null plus weak-evidence stress cases, transfer-weight-zero family ablation and explicit endpoint-share scenarios on fixed saved inputs; preserve all conditional results.",
+    "110-120 min: publish changed identities/routes/conditional shortlist, unresolved gates and NOT_RUN; no final strategy winner. Small kover6495 clause fixture if time allows."
+  ],
+  "git_blob_manifest": {
+    "docs/25_step1_open_questions.md": "27a4818ff4a77ff23fa5eda1c5716149e1607c9d",
+    "src/longlist_score.py": "37ad48218dc04a44c9fb16ac327311518f318104",
+    "src/build_criteria.py": "336e80d9b16a1c52d16f60a8bde5f5ac3cdaf0cc",
+    "src/transfer_potential.py": "37f12401a835fb02642c331377626d465b250425",
+    "src/fetch_telegram.py": "3581e90aa60dbbd9428c19617add555b117cd03e",
+    "src/kover_days.py": "1907c6c5b7c4716fae9cb3fc1d14ba8e9f2f6c42",
+    "src/network_model.py": "5e2f4cf597870182b335a22409ecdff6e3e368f3",
+    "src/demand_model.py": "7861bc5a92383295b30b1f99e7dfd4f60a9abdce",
+    "data/raw/favt_posts.csv": "c6e5c0c0335815227bfd17d7a8de0cc5a05d0135",
+    "data/processed/network_summary.csv": "f2990a4ff21a3e669e3143b3684f047f7e2e8467",
+    "data/processed/network_routes.csv": "2cfe0bb45a66516122de883cf458c9619695d0f6",
+    "data/processed/criteria.json": "981d6b1c3491060525b18f906c24b0aa7594d9cf",
+    "data/assumptions/longlist_weights.csv": "84d162c29701cb7ecbf8a9fff124a2aafa62e8c5",
+    "data/assumptions/weight_scenarios.csv": "8bb83a81b3f7e609f81041b7e1e590a5e70be8dc"
+  }
+}

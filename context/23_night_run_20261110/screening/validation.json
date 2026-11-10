@@ -1,0 +1,101 @@
+{
+  "status": "COMPLETE_WITH_HISTORICAL_MISMATCH",
+  "checks": [
+    {
+      "check": "front_historical_min0",
+      "status": "PASS_WITHIN_EXPORT_PRECISION",
+      "rows": 20,
+      "top3_equal": true,
+      "max_export_score_delta": 0.00043877602653219494,
+      "export_precision": 3,
+      "decimal_half_boundary_note": "Python/pandas floating sums may round opposite ways exactly at half-ulp decimal boundary"
+    },
+    {
+      "check": "front_historical_min500",
+      "status": "MISMATCH_HISTORICAL_DERIVED",
+      "rows": 15,
+      "top3_equal": true,
+      "max_export_score_delta": 0.0012241323280967054,
+      "export_precision": 3,
+      "decimal_half_boundary_note": "Python/pandas floating sums may round opposite ways exactly at half-ulp decimal boundary"
+    },
+    {
+      "check": "nastya_min0",
+      "status": "PASS_WITHIN_EXPORT_PRECISION",
+      "rows": 20,
+      "top3_equal": true,
+      "max_export_score_delta": 0.0004978554641720256,
+      "export_precision": 3,
+      "decimal_half_boundary_note": "Python/pandas floating sums may round opposite ways exactly at half-ulp decimal boundary"
+    },
+    {
+      "check": "nastya_min500",
+      "status": "PASS_WITHIN_EXPORT_PRECISION",
+      "rows": 15,
+      "top3_equal": true,
+      "max_export_score_delta": 0.0004918577447726724,
+      "export_precision": 3,
+      "decimal_half_boundary_note": "Python/pandas floating sums may round opposite ways exactly at half-ulp decimal boundary"
+    },
+    {
+      "check": "stage22_final140",
+      "status": "PASS",
+      "configurations": 140,
+      "rows": 2170,
+      "max_abs_delta": 0.0,
+      "raw_revalidated": false,
+      "random_frequencies_replayed": false
+    },
+    {
+      "check": "accepted_utility_cell_arithmetic",
+      "status": "PASS",
+      "cells": 360,
+      "max_abs_delta": 0.0,
+      "semantic_or_primary_fact_revalidation": false
+    },
+    {
+      "check": "historical_stage11_stage12",
+      "status": "PASS",
+      "stage11_configs": 8,
+      "stage12_configs": 16,
+      "max_stage11_export_delta": 0.0,
+      "raw_revalidated": false
+    },
+    {
+      "check": "posthoc_universe_bridge",
+      "status": "PASS_INVARIANT_FILTERING",
+      "configs": 8,
+      "diagnostic_only": true,
+      "scores_averaged": false
+    },
+    {
+      "check": "controlled_common_data",
+      "status": "PASS",
+      "configs": 80,
+      "distance_max_rounded_delta": 0.0,
+      "fixed_score_invariant": true,
+      "one_factor_comparisons": 204
+    },
+    {
+      "check": "predeclared_robustness",
+      "status": "PASS",
+      "loo_configs": 104,
+      "loo_top3_set_changes": 48,
+      "weather_constant_no_central_rank_effect": true,
+      "tie_regression": "PASS",
+      "profiles": 5
+    }
+  ],
+  "input_hashes_checked": 59,
+  "comparison_rows": 421,
+  "original_pipelines_executed": false,
+  "primary_sources_revalidated": false,
+  "model_outputs_scenario_summary_used": false,
+  "not_run": [
+    "full raw-to-derived pipeline",
+    "2000 random weight frequency replay",
+    "network economics rerun",
+    "current physical basing/slots/MCT/MRO availability verification",
+    "roadtime/catchment substitution or diversion estimation"
+  ]
+}

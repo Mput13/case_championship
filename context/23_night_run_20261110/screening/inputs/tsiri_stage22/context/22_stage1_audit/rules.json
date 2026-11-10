@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "status": "specification_only_pending_code_recalculation",
+  "scope": "stage1_screen_not_profitability",
+  "as_of": "2026-11-10",
+  "source_commit": "2f03b693a62c219e9475fcd1e26295039f6a49d7",
+  "weight_sum": 100,
+  "eligibility": {
+    "primary_min_distance_km": 500,
+    "comparison": ">=",
+    "distance_metric": "great_circle_haversine_airport_coordinates",
+    "current_base_reference_airports": [
+      "SVO",
+      "DME",
+      "VKO",
+      "SVX"
+    ],
+    "distance_formula": "min(dist_msk_km,dist_ekb_km); dist_msk_km=min(distance to SVO,DME,VKO)",
+    "base_reference_status": "computed reference set, NOT verified exhaustive set of RW physical bases",
+    "rounding_issue": "Current CSV rounds km before filter; near-boundary cases require unrounded distance. No current candidate near 500 km.",
+    "threshold_status": "team_policy_assumption_not_empirically_validated_cannibalization",
+    "primary_excluded_current": [
+      "UFA",
+      "GOJ",
+      "PEE",
+      "CEK",
+      "TJM"
+    ],
+    "no_filter": "sensitivity_only; preserve same frozen scales",
+    "distance_score_weight": 0,
+    "alternative_reference_sensitivity": [
+      "ZIA+SVX, reflecting case resources; calculate separately, do not overwrite primary",
+      "expanded actual bases only after same-date physical resource verification for all cities"
+    ],
+    "feasibility_gates": {
+      "values": [
+        "pass",
+        "fail",
+        "unknown"
+      ],
+      "unknown_action": "retain_as_conditional_not_as_confirmed_eligible",
+      "fail_action": "exclude_with_named_reason",
+      "requirements": [
+        "certified airport and runway/performance for exact aircraft and operations",
+        "slots/opening hours compatible with proposed wave",
+        "MCT, passenger/baggage transfer and protected sale arrangements",
+        "SSJ maintenance access with required approval, capacity and contract",
+        "resources and launch permissions for project"
+      ]
+    }
+  },
+  "samara_modes": {
+    "primary": "expansion_allowed",
+    "strict_new": {
+      "label": "Строго новый узел (сценарная классификация)",
+      "policy": "Exclude all airports with same-date primary evidence of RW support/base status from strict-new shortlist, keep visible in expansion table. Apply symmetrically, not only to KUF.",
+      "KUF": "provisional_exclude_from_strict_new_based_on_recorded_official_support_status_pending_other_agent_verification",
+      "unknown_rw_status": "conditional; never interpret missing or current encoded zero as verified new",
+      "not_claimed": "Support label does not prove physical base or working connecting hub."
+    },
+    "expansion_allowed": {
+      "label": "Новый трансферный проект или расширение опорного аэропорта",
+      "KUF": "include_if_other_gates_pass_or_unknown_conditionally; no support bonus",
+      "baseline": "Compare incremental project against continued existing RW service and expansion using same resources; no new financial calculation here."
+    },
+    "required_evidence": [
+      "dated RW/airport wording and geography of support/base status",
+      "overnight aircraft, assigned fleet, crews and actual base resources",
+      "maintenance scope, contract and available capacity",
+      "actual banked timetable, protected connections, MCT and through baggage",
+      "existing RW service/resource counterfactual and project increment"
+    ]
+  },
+  "normalization": {
+    "kind": "fixed_snapshot_minmax",
+    "reference_universe": "all 20 cities in source criteria.json, before eligibility and before mode/profile choice",
+    "continuous_bounds": "lo/hi numeric in recommended_weights.csv, frozen observed extrema; transparent comparative anchors, NOT business thresholds",
+    "discrete_bounds": "fixed 0..1, rostec_link 0..2",
+    "utility": "clip((x-lo)/(hi-lo),0,1); invert for direction=-",
+    "constant_column": "utility=0.5 for every city, including observed; do not reward constancy",
+    "missing_utility": 0.5,
+    "continuous_csv_fill": null,
+    "continuous_csv_fill_semantics": "blank means normalized utility 0.5, NOT raw zero or missing row",
+    "discrete_csv_fill": "raw midpoint, yields normalized utility 0.5; preserve unknown mask",
+    "do_not_refit_after_filter": true,
+    "if_new_data_outside_bounds": "clip and flag; explicit scale version update for all scenarios together"
+  },
+  "evidence": {
+    "separate_fields": [
+      "value",
+      "status",
+      "source",
+      "source_date",
+      "scope",
+      "raw_low",
+      "raw_high",
+      "utility_low",
+      "utility_high"
+    ],
+    "status_values": [
+      "FACT_primary_in_scope",
+      "INDIRECT",
+      "UNKNOWN"
+    ],
+    "never": "Do not encode evidence confidence as physical degree or multiply score/weight by coverage. More documentation is not an independent benefit.",
+    "competitor_hub": {
+      "primary_confirmation": {
+        "raw_value": 1,
+        "status": "FACT_primary_in_scope",
+        "meaning": "base/hub present, NOT dominant share"
+      },
+      "primary_explicit_absence": {
+        "raw_value": 0,
+        "status": "FACT_primary_in_scope"
+      },
+      "legacy_0.75": "secondary assertion => INDIRECT; central utility .5, range [0,1] until primary verification",
+      "legacy_0.25": "silence => UNKNOWN; central utility .5, range [0,1]",
+      "missing": "UNKNOWN; central utility .5, range [0,1]"
+    },
+    "ssj_mro": {
+      "legacy_0.5": "operator presence => INDIRECT; do not treat as half a station; central .5, range [0,1]",
+      "confirmed_1": "published operational maintenance capability for matching type; availability/contract still gate unknown",
+      "missing": "UNKNOWN; central .5, range [0,1]"
+    },
+    "rostec_link": {
+      "not_found": "recode legacy zero from unsuccessful search to UNKNOWN; score weight stays 0"
+    },
+    "rw_support": {
+      "not_found": "recode unsupported legacy zero to UNKNOWN for mode eligibility; absence of wording is not proof of new base"
+    },
+    "transfer_zone": "Check domestic/international scope and date; out-of-scope evidence becomes UNKNOWN, not false."
+  },
+  "uncertainty": {
+    "missing": "central normalized .5; utility [0,1]; keep original missing/indirect mask even after imputation",
+    "bounds": "S_low=sum(w*u_low)/100; S_high=sum(w*u_high)/100",
+    "ranks": "best=1+count(other.low>own.high); worst=1+count(other.high>own.low); report ties at top3 boundary, not arbitrary certainty",
+    "interpretation": "bounding scenarios, NOT confidence intervals or probabilities; independent corners may be jointly infeasible",
+    "coverage": "report unknown and indirect weighted shares separately, no bonus/penalty in central score",
+    "gap_pop": {
+      "raw_low": "max(0,gap_pop-gap_pop_rail_unknown)",
+      "raw_high": "gap_pop",
+      "central": "midpoint of raw bounds; transform with frozen bounds",
+      "status": "UNKNOWN rail component; not measured missing service; closed destinations already separated"
+    },
+    "partial_wage_coverage": "Report wage_pop_coverage; conservative sensitivity assigns full utility [0,1] to coverage<1; no invented raw wage values. Central remains observed covered mean, explicitly proxy, not full-area estimate.",
+    "population_imputation": "Report coordinate/regional-factor imputed shares; if >0, full utility [0,1] conservative sensitivity, no estimated probability. Central published estimate retained.",
+    "pax_lower_bound_qualifier": "For >N use utility [utility(N),1], midpoint for central utility; no fabricated exact raw value.",
+    "transfer_model": "Run cautious/base/optimistic source outputs if available; otherwise full [0,1] model sensitivity rather than claim exact estimate. Do not treat model error 50–56% as a valid confidence band.",
+    "weather_kover": "Historical counts remain observed proxy; separately flag missing reporting/station coverage; no conversion to future delay probability."
+  },
+  "anti_access_bias": {
+    "mandatory": "Report evidence_neutral profile alongside balanced under identical eligibility. Also common-neutral stress: set competitor_hub, ssj_mro, transfer_zone utility=.5 for ALL cities. Do not silently set all unknown to zero.",
+    "reason": "Neutral midpoint alone does not remove advantage from asymmetric source discovery; show whether top3 survives removal of documentation-sensitive utility."
+  },
+  "required_recalculation": [
+    "Read all 18 criteria and all 100-point profiles; import CSV metadata or preserve short/fmt/board for existing build_criteria.",
+    "Recode legacy evidence levels and unsupported zero values with persistent uncertainty masks.",
+    "Use frozen bounds for Python and browser; handle all-constant columns as .5; clip values.",
+    "Implement interval/qualified-value handling, not only NaN detection; current score code does not consume these rules.",
+    "Produce profiles x {strict_new,expansion_allowed} with primary 500km; no-filter only separately labelled sensitivity.",
+    "Show current legacy top3 beside recomputed top3 and reasons for membership change; report ties, bounds and common-neutral stress.",
+    "Validate all profiles sum to 100, unknown midpoint and bounds, same Python/panel scores, unchanged primary eligibility.",
+    "Update stale docs/scenario claims after recalculation."
+  ],
+  "no_financial_calculation": true
+}
