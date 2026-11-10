@@ -1,0 +1,52 @@
+name: Deploy dashboard
+
+on:
+  push:
+    branches: ['шаг-1']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: redwings-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/шаг-1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Test deployment safeguards
+        run: python3 -m unittest discover -s tests -p test_dashboard_deploy.py -v
+      - name: Validate and package published dashboard
+        run: python3 scripts/package_dashboard.py --revision "$GITHUB_SHA" --output "$RUNNER_TEMP/dashboard.tar.gz"
+      - name: Install deployment credentials
+        env:
+          DEPLOY_KEY: ${{ secrets.REDWINGS_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ secrets.REDWINGS_KNOWN_HOSTS }}
+        run: |
+          set -eu
+          test -n "$DEPLOY_KEY"
+          test -n "$KNOWN_HOSTS"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$HOME/.ssh/redwings_deploy"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/redwings_deploy" "$HOME/.ssh/known_hosts"
+      - name: Publish atomic release
+        run: |
+          set -eu
+          ssh -i "$HOME/.ssh/redwings_deploy" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 redwings-deploy@45.150.36.187 "deploy $GITHUB_SHA" < "$RUNNER_TEMP/dashboard.tar.gz"
+      - name: Check public HTTPS release
+        run: |
+          set -eu
+          curl --fail --silent --show-error --retry 3 --max-time 20 https://redwings.altair.ad/release.json -o "$RUNNER_TEMP/live-release.json"
+          python3 -c 'import json, os; from pathlib import Path; assert json.loads((Path(os.environ["RUNNER_TEMP"])/"live-release.json").read_text())["commit"] == os.environ["GITHUB_SHA"]'
+          printf '### Published dashboard\nhttps://redwings.altair.ad/\n\nCommit: `%s`\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+      - name: Remove runner SSH key
+        if: always()
+        run: rm -f "$HOME/.ssh/redwings_deploy"
