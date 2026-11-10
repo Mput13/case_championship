@@ -6,7 +6,7 @@
   "authority_base_commit": "87ee52de15c2bdf396d9c06ba600fd413d5ab4a8",
   "branch": "research/night-strategy-accounting-review-20261110",
   "write_scope": "context/23_night_run_20261110/strategy_accounting_review/",
-  "status": "REVIEW_COMPLETE_PAYLOAD_READY",
+  "status": "REVIEW_COMPLETE_PUSHED_REMOTE_PAYLOAD_VERIFIED",
   "verdict": "APPROVE_SCOPED",
   "scope_verdicts": {
     "finite_portfolios_and_conservation": "APPROVE",
@@ -23,7 +23,10 @@
   "new_actionable_findings": 0,
   "new_P1": 0,
   "new_P2": 0,
-  "preserved_holds": ["PRIMARY17B_OLD_SVX_LINEAGE_HOLD", "MR02_DOUBLE_TIMEBASE_AND_DELAY_FEASIBILITY_HOLD"],
+  "preserved_holds": [
+    "PRIMARY17B_OLD_SVX_LINEAGE_HOLD",
+    "MR02_DOUBLE_TIMEBASE_AND_DELAY_FEASIBILITY_HOLD"
+  ],
   "independent_evidence": {
     "portfolio_subsets": 15,
     "portfolio_cases": 60,
@@ -70,10 +73,12 @@
   "bounded_handoff_deadline_msk": "2026-11-10T08:05:00+03:00",
   "overall_limit_msk": "2026-11-10T10:00:00+03:00",
   "delivery": {
-    "state": "PENDING_COMMIT_PUSH_REMOTE_VERIFY",
-    "review_payload_commit": null,
-    "remote_verified_payload_sha": null,
-    "self_reference_policy": "Payload SHA and observed remote receipt are added in a subsequent delivery-envelope commit. Final branch-tip SHA is verified externally and supplied in the final handoff message; no self-referential Git hash is asserted."
+    "state": "COMPLETE_REVIEW_PAYLOAD_PUSHED_REMOTE_VERIFIED",
+    "review_payload_commit": "cb19bb821f8931d7149ea19e2a279181e4653dde",
+    "remote_verified_payload_sha": "cb19bb821f8931d7149ea19e2a279181e4653dde",
+    "self_reference_policy": "Payload SHA and observed remote receipt are added in a subsequent delivery-envelope commit. Final branch-tip SHA is verified externally and supplied in the final handoff message; no self-referential Git hash is asserted.",
+    "receipt": "delivery_receipt.json",
+    "receipt_written_utc": "2026-11-10T04:07:28.592521+00:00"
   },
   "constraints_respected": {
     "own_scope_only": true,
