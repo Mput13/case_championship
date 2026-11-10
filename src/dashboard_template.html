@@ -100,6 +100,24 @@ input[type=range]{width:100%;accent-color:var(--red);margin:0}
 /* карта */
 .mapcard{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .mapcard .sec-h{padding:16px 18px}
+#dem .sec-h{padding:16px 18px 4px}
+.dm-lead{margin:0;padding:0 18px 10px;color:var(--ink);font-size:15px;line-height:1.5;max-width:880px}
+.dm-box{padding:4px 18px 4px}
+#dmsk{width:100%;display:block}
+#dmsk text{font-family:inherit}
+#dmsk .dm-city{font-size:22px;font-weight:700;fill:#111318}
+#dmsk .dm-hub{font-size:15px;font-weight:500;fill:#111318}
+#dmsk .dm-dest{font-size:14px;fill:#111318}
+#dmsk .dm-more{font-size:13px;fill:#8C96A6}
+#dmsk .dm-num{font-size:13px;fill:#5E6675;font-variant-numeric:tabular-nums}
+#dmsk .fl{transition:stroke-opacity .15s;cursor:default}
+.dm-legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding:6px 18px 16px;color:var(--muted);font-size:12.5px}
+.dm-legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.dm-legend .dm-note{flex-basis:100%}
+.dm-cities{display:flex;flex-wrap:wrap;gap:4px 18px;padding:12px 18px 18px;border-top:1px solid var(--line)}
+.dm-cities button{border:0;background:none;padding:4px 0;font:inherit;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent}
+.dm-cities button:hover{color:var(--ink)}
+.dm-cities button[aria-pressed=true]{color:var(--ink);border-bottom-color:#E32A2F}
 .mapbox{position:relative;height:640px;background:var(--sea)}
 #map{display:block;width:100%;height:100%;cursor:grab}
 @media (max-width:760px){.mapbox{height:auto}#map{height:400px}}
@@ -178,6 +196,7 @@ td .sub{color:var(--steel);font-size:11.5px;display:block}
 .netpick button{border:0;background:var(--ink-2);color:var(--steel);font:inherit;font-size:12px;padding:5px 8px;border-radius:6px;cursor:pointer}
 .netpick button[aria-pressed=true]{background:var(--amber);color:var(--ink)}
 .dem{border-top:1px solid var(--line);padding-top:12px;display:grid;gap:6px}
+.dem-sub{color:var(--muted);font-size:12.5px;margin-top:-2px}
 .dem table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
 .dem td,.dem th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left}
 .dem th{font-weight:500;color:var(--muted);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
@@ -220,19 +239,12 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <article class="ticket" id="ticket"></article>
   </section>
 
-  <section class="board" id="dem" aria-labelledby="dm-title">
-    <div class="vs-top">
-      <div><div class="board-title" id="dm-title">Спрос по парам</div><div class="board-sub" id="dm-sub">Шаг 2 · направления выбранного города</div></div>
-      <div class="dm-top">
-        <div class="vs-seg" id="dm-meas" role="group" aria-label="Мера"></div>
-        <div class="vs-seg" id="dm-per" role="group" aria-label="Период"></div>
-        <div class="vs-seg" id="dm-zone" role="group" aria-label="Направления"></div>
-      </div>
-    </div>
-    <div class="verdict" id="dm-kpi"></div>
-    <div class="dm-acc" id="dm-acc"></div>
-    <div class="tscroll"><table class="dep" id="dmtab"><thead></thead><tbody></tbody></table></div>
-    <button class="btn dm-more" id="dm-more" type="button"></button>
+  <section class="mapcard" id="dem" aria-labelledby="dm-title">
+    <div class="sec-h"><h2 id="dm-title">Куда сейчас пересаживаются</h2><div class="seg" id="dm-zone" role="group" aria-label="Направления"></div></div>
+    <p class="dm-lead" id="dm-lead"></p>
+    <div class="dm-box"><svg id="dmsk" role="img" aria-labelledby="dm-title"></svg></div>
+    <div class="dm-legend" id="dm-legend"></div>
+    <div class="dm-cities" id="dm-cities" role="group" aria-label="Город"></div>
   </section>
 
   <section class="board" id="vs" aria-labelledby="vs-title">
@@ -425,11 +437,11 @@ function ticket(){
     facts.append(h('div',{class:'fact'},h('div',{class:'t-lbl'},w.label),h('span',{class:'chip',style:miss?'background:#ECEAE4;color:#5E6675':z==null?'padding-left:0':'background:'+heat(z)},cell(c.iata,w,false)),h('div',{class:'s'},src))); };
   CR.forEach(F);
   main.append(facts);
-  const sp=(D.spokes||{})[c.iata]||[];
+  const sp=((D.demand&&D.demand.pairs[c.iata])||[]).filter(d=>d.ssj&&!d.closed&&d.seg).slice(0,10);
   if(sp.length){ const tb=h('tbody');
-    sp.forEach(d=>tb.append(h('tr',{},h('td',{},d.city),h('td',{class:'r'},ru(d.km)+' км'),h('td',{class:'r'},d.src.startsWith('отчёт')?mln(d.base)+' (отчёт аэропорта)':mln(d.cautious)+' – '+mln(d.base)),h('td',{},d.direct?'рейс есть':'прямого рейса нет'))));
-    main.append(h('div',{class:'dem'},h('div',{class:'t-lbl'},'Спрос по направлениям · оценка рынка пары, пассажиров в год, осторожно – база'),
-      h('table',{},h('thead',{},h('tr',{},h('th',{},'Куда'),h('th',{class:'r'},'Расстояние'),h('th',{class:'r'},'Пассажиров в год'),h('th',{},'Сейчас'))),tb))); }
+    sp.forEach(d=>tb.append(h('tr',{},h('td',{},d.city),h('td',{class:'r'},ru(d.km)),h('td',{class:'r'},mln(d.seg)),h('td',{},d.now==='прямой рейс'?'прямой рейс':d.now))));
+    main.append(h('div',{class:'dem'},h('div',{class:'t-lbl'},'Спрос по направлениям'),h('div',{class:'dem-sub'},'Пассажиров в год в обе стороны: отчёт аэропорта, если он есть, иначе оценка модели'),
+      h('table',{},h('thead',{},h('tr',{},h('th',{},'Куда'),h('th',{class:'r'},'Км'),h('th',{class:'r'},'Пассажиров в год'),h('th',{},'Как летят сейчас'))),tb))); }
   const kv=(l,v)=>h('div',{},h('div',{class:'t-lbl'},l),h('div',{class:'t-val'},v));
   const stub=h('div',{class:'t-stub'});
   if(x) stub.append(kv('Место на табло',`${x.rank} из ${R.rows.length}`),kv('Балл',ru(x.score*100,1)),kv('В топ-3 при случайных весах',Math.round(x.share*100)+'%'));
@@ -561,55 +573,78 @@ function vsBoard(){
     t.tBodies[0].append(tr); });
 }
 
-/* --- шаг 2: спрос по парам --- */
-let DMEAS='seg', DPER='year', DZONE='ssj', DALL=false;
+/* --- шаг 2: куда сейчас пересаживаются --- */
+let DZONE='ssj', DCITY=null;
 function demBoard(){
-  const DM=D.demand; if(!DM) return;
-  const c=BY[SEL], all=(DM.pairs[SEL]||[]).filter(x=>DZONE==='all'||x.ssj);
-  const segBtn=(id,opts,cur,set)=>{ const el=document.getElementById(id); el.textContent=''; opts.forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(cur===k)},t); b.addEventListener('click',()=>{ set(k); demBoard(); }); el.append(b); }); };
-  segBtn('dm-meas',[['seg','Сегменты'],['od','Поездки']],DMEAS,k=>DMEAS=k);
-  segBtn('dm-per',[['year','Год'],['week','Неделя'],['summer','Лето'],['winter','Зима']],DPER,k=>DPER=k);
-  segBtn('dm-zone',[['ssj','Зона SSJ'],['all','Все']],DZONE,k=>DZONE=k);
-  const per=(v,x)=>{ if(v==null) return null; if(DPER==='year') return v; const w=v/52/2; return DPER==='week'?w:DPER==='summer'?w*(x.sum||1):w*(x.win||1); };
-  const val=x=>per(DMEAS==='seg'?x.seg:x.od,x), lo=x=>per(DMEAS==='seg'?x.seg_lo:x.od_lo,x);
-  const unit=DPER==='year'?'пассажиров в год, оба направления':'пассажиров в неделю в одну сторону'+(DPER==='summer'?', июнь–август':DPER==='winter'?', декабрь–февраль':', в среднем');
-  document.getElementById('dm-sub').textContent=`Шаг 2 · ${c.city}, направлений: ${all.length} · ${DMEAS==='seg'?'сегменты (как в статистике аэропортов)':'поездки «откуда — куда» (каждый человек один раз)'} · ${unit}`;
-  const open=all.filter(x=>!x.closed), sum=f=>open.reduce((a,x)=>a+(f(x)||0),0);
-  const nd=open.filter(x=>x.now!=='прямой рейс');
-  const k=document.getElementById('dm-kpi'); k.textContent='';
-  const fy=v=>v>=1e6?ru(v/1e6,2)+' млн':ru(v/1e3,0)+' тыс.';
-  k.append(h('div',{},h('small',{},'Рынок направлений, сегменты в год'),h('b',{},fy(sum(x=>x.seg))),h('div',{class:'board-sub'},`поездок «откуда — куда»: ${fy(sum(x=>x.od))}`)),
-           h('div',{},h('small',{},'Без прямого рейса'),h('b',{},`${nd.length} направлений`),h('div',{class:'board-sub'},`сейчас летят с пересадкой ${fy(nd.reduce((a,x)=>a+(x.od||0),0))} в год`)),
-           h('div',{},h('small',{},'Неуверенных оценок'),h('b',{},`${open.filter(x=>x.unc).length} из ${open.length}`),h('div',{class:'board-sub'},'оценки расходятся больше чем в 2 раза')));
-  const S=D.demand.summary, a=document.getElementById('dm-acc'); a.textContent='';
-  const nm=i=>(D.names&&D.names[i])||i;
-  const chk=(S.schedule_check||[]).map(x=>{ const [p,q]=x.pair.split('-'); return `${nm(p)} — ${nm(q)} ${ru(x.schedule_dec2026/1e3)} против ${ru(x.fact_2025/1e3)} тыс.`; }).join('; ');
-  a.append('Точность «исключи по одному»: модель по сегментам — ',h('b',{},`${ru(S.seg_model.loo_median_abs_error_pct_of_fact,0)}%`),', поездки по сети рейсов — ',h('b',{},`${ru(S.od_model.loo_median_abs_error_pct_of_fact,0)}%`),
-    ', аналоги — ',h('b',{},`${ru(S.analog.loo_median_abs_error_pct_of_fact,0)}%`),'. Расписание декабря 2026 против отчёта аэропорта 2025: ',chk||'—',
-    `; сезонность: гостиничный профиль региона, размах сжат до авиаперевозок страны (лето ×${ru(S.seasonality.national_summer_index_2025,2)}).`);
-  const t=document.getElementById('dmtab'); t.tHead.textContent=''; t.tBodies[0].textContent='';
-  t.tHead.append(h('tr',{},...['Куда','Км','Сейчас','Оценка','Осторожно','Откуда цифра','Модель · аналоги · расписание','Коллеги','Лето / зима'].map((x,i)=>h('th',{class:[1,3,4,6,7,8].includes(i)?'r':''},x))));
-  const rows=all.slice().sort((p,q)=>(val(q)||0)-(val(p)||0)), shown=DALL?rows:rows.slice(0,25);
-  const vs=rows.map(val).filter(v=>v>0), lmin=Math.log(Math.min(...vs)), lmax=Math.log(Math.max(...vs));
-  const f=v=>v==null?'—':DPER==='year'?ru(v):ru(v,v<10?1:0);
-  for(const x of shown){
-    const v=val(x), z=v>0&&lmax>lmin?(Math.log(v)-lmin)/(lmax-lmin):null;
-    const cell=(content,cls,bg)=>{ const d=h('td',{class:cls||''},...[].concat(content)); if(bg!=null){ d.style.background=heat(bg,true); d.style.color='#F4F5F7'; } return d; };
-    const how=DMEAS==='od'?x.od_how:(x.obs!=null?'отчёт аэропорта':x.how);
-    const parts=[x.m!=null?ru(x.m/1e3)+' тыс.':'—', x.an!=null?ru(x.an/1e3)+' тыс.':'—', x.sch!=null?ru(x.sch/1e3)+' тыс.':(x.sch_lo!=null?'≥ '+ru(x.sch_lo/1e3)+' тыс.':'—')].join(' · ');
-    t.tBodies[0].append(h('tr',{class:x.closed?'out':''},
-      cell([x.city, x.closed?h('span',{class:'sub'},'аэропорт закрыт'):'' ],'cn'),
-      cell(ru(x.km),'r'),
-      cell([x.now, x.share!=null?h('span',{class:'sub'},`своих поездок ${Math.round(x.share*100)}%`):'']),
-      cell([f(v), x.unc?h('span',{class:'unc'},'неуверенно'):''],'r h',z),
-      cell(f(lo(x)),'r'),
-      cell(h('span',{class:'sub',style:'color:inherit'},how)),
-      cell(parts,'r'),
-      cell(x.col!=null?ru(x.col/1e3)+' тыс.':'—','r'),
-      cell(x.sum!=null?`×${ru(x.sum,2)} / ×${ru(x.win,2)}`:'—','r')));
-  }
-  const mb=document.getElementById('dm-more'); mb.hidden=rows.length<=25; mb.textContent=DALL?'Показать первые 25':`Показать все ${rows.length}`;
-  mb.onclick=()=>{ DALL=!DALL; demBoard(); };
+  const DM=D.demand; if(!DM||!window.d3) return;
+  const cur=DCITY||SEL, c=BY[cur], seg=document.getElementById('dm-zone');
+  // города — строкой внизу блока, в порядке табло кандидатов
+  const cs=document.getElementById('dm-cities'); cs.textContent='';
+  [...R.rows.map(x=>x.c),...R.out].forEach(ct=>{ const b=h('button',{type:'button','aria-pressed':String(ct.iata===cur)},ct.city);
+    b.addEventListener('click',()=>{ DCITY=ct.iata; demBoard(); }); cs.append(b); }); seg.textContent='';
+  [['ssj','Долетит SSJ'],['all','Все направления']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(DZONE===k)},t); b.addEventListener('click',()=>{ DZONE=k; demBoard(); }); seg.append(b); });
+  const hubOf=x=>x.now.startsWith('с пересадкой: ')?x.now.slice(14):null;
+  const all=(DM.pairs[cur]||[]).filter(x=>!x.closed&&x.od>0&&hubOf(x));
+  const list=all.filter(x=>DZONE==='all'||x.ssj).sort((a,b)=>b.od-a.od);
+  const T=v=>v>=1e6?ru(v/1e6,2)+' млн':ru(v/1e3)+' тыс.';
+  const sum=a=>a.reduce((s,x)=>s+x.od,0);
+  const svg=d3.select('#dmsk'); svg.selectAll('*').remove();
+  const lead=document.getElementById('dm-lead'), leg=document.getElementById('dm-legend');
+  if(!list.length){ lead.textContent=`Из города ${c.city} почти все направления этой зоны связаны прямыми рейсами: пересаживаться сейчас некому.`; leg.textContent=''; svg.attr('viewBox','0 0 1000 10').attr('height',10); return; }
+  // узлы пересадки: крупнейшие по потоку; в каждом — до 6 направлений, остальное «ещё N»
+  const byHub=d3.groups(list,hubOf).map(([hub,xs])=>({hub,xs,v:sum(xs)})).sort((a,b)=>b.v-a.v);
+  const MAXH=5, hubs=byHub.slice(0,MAXH), other=byHub.slice(MAXH);
+  if(other.length) hubs.push({hub:`ещё ${other.length} узл.`,xs:other.flatMap(g=>g.xs),v:d3.sum(other,g=>g.v),rest:true});
+  const dests=[]; hubs.forEach(g=>{ const top=g.rest?[]:g.xs.slice(0,6), more=g.rest?g.xs:g.xs.slice(6);
+    top.forEach(x=>dests.push({hub:g,name:x.city,v:x.od,x}));
+    if(more.length) dests.push({hub:g,name:`ещё ${more.length} направл.`,v:sum(more),more:true}); });
+  const tot=sum(list), W=1000, top=20, gapH=14, gapD=6, MINR=18;
+  const k=Math.max(260-gapH*(hubs.length-1),120)/tot;               // единый масштаб: толщина = поездок в год
+  const slot=d=>Math.max(d.v*k,MINR);                                 // у маленьких направлений место под подпись
+  const destH=dests.reduce((a,d)=>a+slot(d),0)+gapD*(dests.length-1);
+  const hslot=g=>Math.max(g.v*k,34);                                   // у мелких узлов место под две строки подписи
+  const hubH=hubs.reduce((a,g)=>a+hslot(g),0)+gapH*(hubs.length-1);
+  const H=Math.max(hubH,destH)+top*2;
+  svg.attr('viewBox',`0 0 ${W} ${H}`).attr('height',null);
+  const X0=190, X1=510, X2=740, bw=10;
+  // слева — город, по центру — узлы пересадки, справа — направления
+  const cityH=tot*k, cy0=(H-cityH)/2;
+  let hy=(H-hubH)/2, dy=(H-destH)/2, cy=cy0;
+  const link=(x0,y0,x1,y1,w)=>`M${x0},${y0+w/2}C${(x0+x1)/2},${y0+w/2} ${(x0+x1)/2},${y1+w/2} ${x1},${y1+w/2}`;
+  const gL=svg.append('g'), gN=svg.append('g'), gT=svg.append('g');
+  hubs.forEach(g=>{ const hh=g.v*k; g.y=hy; g.cy=cy; g.dy=hy;
+    gL.append('path').attr('d',link(X0+bw,cy,X1,hy,hh)).attr('fill','none').attr('stroke','#E32A2F').attr('stroke-opacity',.28).attr('stroke-width',Math.max(hh,1)).attr('class','fl').attr('data-h',g.hub)
+      .append('title').text(`${c.city} → ${g.hub}: ${T(g.v)} поездок в год`);
+    gN.append('rect').attr('x',X1).attr('y',hy).attr('width',bw).attr('height',Math.max(hh,2)).attr('rx',2).attr('fill',g.rest?'#B9B5AC':'#5E6675');
+    gT.append('text').attr('x',X1-10).attr('y',hy+hh/2).attr('dy','.35em').attr('text-anchor','end').attr('class','dm-hub').text(g.hub);
+    gT.append('text').attr('x',X1-10).attr('y',hy+hh/2+15).attr('dy','.35em').attr('text-anchor','end').attr('class','dm-num').text(T(g.v));
+    cy+=hh; hy+=hslot(g)+gapH; });
+  dests.forEach(d=>{ const g=d.hub, w=d.v*k;
+    gL.append('path').attr('d',link(X1+bw,g.dy,X2,dy,w)).attr('fill','none').attr('stroke',d.more?'#B9B5AC':'#8C96A6').attr('stroke-opacity',.35).attr('stroke-width',Math.max(w,1)).attr('class','fl').attr('data-h',g.hub)
+      .append('title').text(`${c.city} → ${d.name}${d.more?'':' через '+g.hub}: ${T(d.v)} поездок в год`+(d.x&&d.x.unc?' · оценка неуверенная':''));
+    gN.append('rect').attr('x',X2).attr('y',dy).attr('width',bw).attr('height',Math.max(w,2)).attr('rx',2).attr('fill',d.more?'#B9B5AC':(d.x&&d.x.ssj?'#E32A2F':'#FFFFFF')).attr('stroke',d.more||(d.x&&d.x.ssj)?null:'#111318').attr('stroke-width',1.2);
+    const mid=dy+slot(d)/2-Math.max(w,2)/2;
+    gT.append('text').attr('x',X2+bw+10).attr('y',dy+w/2).attr('dy','.35em').attr('class',d.more?'dm-more':'dm-dest').text(d.name);
+    gT.append('text').attr('x',W-6).attr('y',dy+w/2).attr('dy','.35em').attr('text-anchor','end').attr('class','dm-num').text(T(d.v));
+    g.dy+=w; dy+=slot(d)+gapD; });
+  gN.append('rect').attr('x',X0).attr('y',cy0).attr('width',bw).attr('height',cityH).attr('rx',2).attr('fill','#111318');
+  // длинное название — в две строки, чтобы не обрезалось слева
+  const words=c.city.length>11&&c.city.includes(' ')?[c.city.slice(0,c.city.lastIndexOf(' ')),c.city.slice(c.city.lastIndexOf(' ')+1)]:[c.city];
+  const ty=cy0+cityH/2-(words.length-1)*13-9;
+  words.forEach((w_,i)=>gT.append('text').attr('x',X0-14).attr('y',ty+i*26).attr('text-anchor','end').attr('class','dm-city').text(w_));
+  gT.append('text').attr('x',X0-14).attr('y',ty+(words.length-1)*26+21).attr('text-anchor','end').attr('class','dm-num').text(T(tot)+' в год');
+  // подсветка узла при наведении
+  gL.selectAll('.fl').on('mouseenter',function(){ const hh=this.dataset.h; gL.selectAll('.fl').attr('stroke-opacity',function(){ return this.dataset.h===hh?.6:.12; }); })
+    .on('mouseleave',()=>gL.selectAll('.fl').attr('stroke-opacity',function(){ return this.getAttribute('stroke')==='#E32A2F'?.28:.35; }));
+  const big=hubs[0], shareBig=Math.round(big.v/tot*100);
+  lead.textContent=`У этих направлений нет прямого рейса из города ${c.city}, поэтому сейчас люди летят с пересадкой в чужих аэропортах: ${T(tot)} поездок в год${DZONE==='ssj'?' в зоне полёта SSJ':''}. `+
+    `Больше всего — через ${big.hub} (${shareBig}%). Хаб в городе ${c.city} может забрать этих пассажиров.`;
+  leg.textContent=''; leg.append(
+    h('span',{},h('i',{style:'background:#111318'}),'город-кандидат'),
+    h('span',{},h('i',{style:'background:#5E6675'}),'аэропорт, где пересаживаются сейчас'),
+    h('span',{},h('i',{style:'background:#E32A2F'}),'направление в зоне полёта SSJ'),
+    h('span',{},h('i',{style:'background:#fff;box-shadow:inset 0 0 0 1.5px #111318'}),'дальше дальности SSJ'),
+    h('span',{class:'dm-note'},'Толщина — поездок в год, каждый человек считается один раз. Наведите на поток, чтобы увидеть цифру.'));
 }
 
 /* --- шаг 4: итоговая сеть --- */

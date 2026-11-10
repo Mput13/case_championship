@@ -149,7 +149,7 @@ def main():
         s = seg_on.get(frozenset((a, b))) if via is None else None
         out.append({"a": a, "b": b, "city_a": NAME.get(a, n.loc[a, "main_city"]), "city_b": NAME.get(b, n.loc[b, "main_city"]),
                     "km": round(float(D[k[a], k[b]])), "closed": bool({a, b} & set(CLOSED)),
-                    "route": "прямой рейс" if via is None else f"с пересадкой в {NAME.get(via, n.loc[via, 'main_city'])}",
+                    "route": "прямой рейс" if via is None else f"с пересадкой: {NAME.get(via, n.loc[via, 'main_city'])}",
                     "via": via, "od_base": round(T[p]), "od_cautious": round(T[p] * np.exp(q_lo)),
                     "od_optimistic": round(T[p] * np.exp(q_hi)),
                     "segments_on_link": round(s) if s is not None else None,

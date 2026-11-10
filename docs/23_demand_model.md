@@ -75,7 +75,7 @@ ln(пассажиров в год) = −11,89
 
 ## Шаг 2 целиком (10.11.2026): несколько оценок и две меры
 
-Раздел дополняет формулу выше. Скрипты: [src/od_model.py](../src/od_model.py), [src/demand_compare.py](../src/demand_compare.py); итог по каждой паре — [data/processed/demand_estimates.csv](../data/processed/demand_estimates.csv); на панели — блок «Спрос по парам».
+Раздел дополняет формулу выше. Скрипты: [src/od_model.py](../src/od_model.py), [src/demand_compare.py](../src/demand_compare.py); итог по каждой паре — [data/processed/demand_estimates.csv](../data/processed/demand_estimates.csv); на панели — схема «Куда сейчас пересаживаются» (поездки без прямого рейса через чужие узлы).
 
 ### Пять оценок по каждой паре
 
