@@ -1,0 +1,192 @@
+[
+  {
+    "id": "CE01",
+    "mechanism": "Standalone program law versus pooled law and quality-weighted law",
+    "values": {
+      "D": 100,
+      "competitor_frequency": 10,
+      "own_unique_departures": 2,
+      "standalone": 18.181818181818183,
+      "pooled_frequency": 16.666666666666664,
+      "quality_weighted_direct_plus_transfer": 10.714285714285715,
+      "same_common_market_cap_satisfied": true
+    },
+    "implication": "Conservation alone identifies none of these capture laws; do not label their difference a confirmed overstatement.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE02",
+    "mechanism": "Two endpoint markets share a 100-seat feeder",
+    "values": {
+      "OD_A_B": 80,
+      "OD_A_C": 80,
+      "feeder_seats": 100,
+      "naive_feeder_usage": 160,
+      "feasible_allocation_A_B": 80,
+      "feasible_allocation_A_C": 20,
+      "boardings_if_two_legs": 200
+    },
+    "implication": "Each OD passes its own market cap; shared physical-leg inventory must also constrain both products.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE03",
+    "mechanism": "Overlapping connection combinations and a saturated onward leg",
+    "values": {
+      "feeder_departures": 1,
+      "onward_departures": 2,
+      "connecting_itineraries": 2,
+      "feeder_seats": 100,
+      "onward_total_seats": 200,
+      "journeys_upper_bound": 100,
+      "naive_frequency_count": 2,
+      "feeder_leg_for_second_OD": 40,
+      "remaining_for_first_OD": 60,
+      "first_OD_onward_residual": 30,
+      "first_OD_two_leg_upper_bound": 30
+    },
+    "implication": "Itinerary count is not unique usable origin departure frequency; endpoint pairs can overlap on an operating leg.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE04",
+    "mechanism": "Direct and transfer alternatives in one endpoint pool",
+    "values": {
+      "D": 100,
+      "direct_journeys": 60,
+      "transfer_journeys": 40,
+      "physical_boardings": 140,
+      "direct_fare": 10000,
+      "transfer_through_fare": 7000,
+      "correct_revenue": 880000,
+      "first_itinerary_direct_mispricing": 1000000,
+      "first_itinerary_transfer_mispricing": 700000
+    },
+    "implication": "Shared OD budget does not authorize a shared fare/transfer flag; retain product-specific quality and leg incidence.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE05",
+    "mechanism": "KEEP/CANCEL/REPLACE with unchanged lease 200",
+    "values": {
+      "donor_contribution": 300,
+      "replacement_contribution": 400,
+      "lease_each_state": 200,
+      "keep_result": 100,
+      "cancel_result": -200,
+      "replace_result": 200,
+      "replace_minus_keep": 100,
+      "incorrect_second_donor_margin": -200,
+      "incorrect_extra_donor_revenue": -900
+    },
+    "implication": "Full-state subtraction includes donor once. Do not deduct its margin, revenue or own migration again; unchanged lease is not saved.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE06",
+    "mechanism": "Own migration is not new company demand or saved whole old flight",
+    "values": {
+      "new_program_journeys": 10,
+      "migrated_journeys": 2,
+      "new_company_journeys": 8,
+      "new_program_segments": 20,
+      "old_segments_displaced": 2,
+      "net_company_segments": 18,
+      "new_through_fare": 80,
+      "old_fare": 100,
+      "gross_revenue": 800,
+      "foregone_revenue": 200,
+      "incremental_revenue": 600,
+      "pax_cost_per_segment": 5,
+      "new_pax_cost": 100,
+      "old_pax_cost_saved": 10,
+      "contribution_before_new_flights": 510
+    },
+    "implication": "One through fare; own itinerary migration changes journey/segment denominators differently; old flight remains unless explicitly removed.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE07",
+    "mechanism": "Accrual result, refundable deposit and timing",
+    "values": {
+      "day0_payment_operating": 600,
+      "day0_refundable_deposit": 300,
+      "day7_service_revenue": 1000,
+      "day7_recognized_operating_cost": 600,
+      "day30_revenue_receipt": 1000,
+      "ending_cash_with_deposit_locked": 100,
+      "accrued_result": 400,
+      "deposit_asset": 300,
+      "peak_funding": 900,
+      "cash_events": [
+        [
+          "2026-12-01",
+          -600,
+          "operating_payment"
+        ],
+        [
+          "2026-12-01",
+          -300,
+          "refundable_deposit"
+        ],
+        [
+          "2026-12-30",
+          1000,
+          "revenue_receipt"
+        ]
+      ],
+      "incorrect_expensing_working_capital_profit": -500
+    },
+    "implication": "Cash needs dates and opening balance; 900 funding is not an additional expense against 400 accrual profit.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE08",
+    "mechanism": "C01: nominal 100 seats versus actual four-leg residual inventory",
+    "values": {
+      "threshold_roundtrip_clients": 67,
+      "residual_seats_by_leg": [
+        80,
+        80,
+        60,
+        80
+      ],
+      "max_roundtrip_clients": 60,
+      "threshold_is_physically_feasible": false,
+      "outward_day": "2026-12-13",
+      "return_day": "2026-12-20",
+      "contribution_at_60_clients": 900000,
+      "residual_gap": 1000000
+    },
+    "implication": "Threshold arithmetic is correct but seats and both-date costs can reject the product; no weekly truncation of the return obligation.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE09",
+    "mechanism": "Same annual rate, different finite calendar or resource ceiling",
+    "values": {
+      "annual_segments": 10400,
+      "symmetric_weekly_directional_scenario": 100,
+      "actual_december_OD": null,
+      "first_model_active_ceiling": 9,
+      "second_model_active_ceiling": 4,
+      "permitted_cross_model_profit_difference": null
+    },
+    "implication": "Annual normalization is a scenario; dated/annual, full/delta and different resource sets cannot be differenced causally.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  },
+  {
+    "id": "CE10",
+    "mechanism": "Passenger cost500 per endpoint journey versus500 per boarding",
+    "values": {
+      "C01_author_cost_unit": "RUB/oneway endpoint journey",
+      "Tsiri_cost_unit": "RUB/seat-segment",
+      "C01_illustrative_cost": 500,
+      "Tsiri_two_leg_cost_if_transplanted": 1000,
+      "C01_original_threshold": 67,
+      "alternative_unit_scenario_threshold": 72
+    },
+    "implication": "Same numeric rate has different units.72 is a new named cost scenario, not a correction of the original illustrative67.",
+    "provenance": "INDEPENDENT_SYNTHETIC_COUNTEREXAMPLE_NOT_EMPIRICAL"
+  }
+]
