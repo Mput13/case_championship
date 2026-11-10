@@ -105,3 +105,7 @@ Fetch04:02UTC: MR08 новый; methods/root уже приняты; immutable co
 ## 09:52 МСК — fresh review утреннего отчёта
 
 Запущен отдельный Sol 6.1 xhigh morning_report_review на exact9eb06a3. Scope — смысловая достоверность HTML и границы принятых выводов; upstream economic replay не расширяется. Native root QA выполнен. Максимум 1 активный Sol в общем пуле. Завершение придёт штатно, polling/ожидание не выполняются.
+
+## 09:58 МСК — независимая приёмка HTML
+
+Получен review a782ebc8699bdaa456c121932ff9aa3d0f47fbe4: APPROVE_SCOPED exact writer9eb06a3;150 PASS/0 FAIL, обязательных исправлений нет. Parent лично сверил 13 output и 58 source hashes, точную C07 геометрию и byte-identical root HTML. Личная визуальная проверка reviewer NOT_RUN, root native1200/390 выполнена ранее. Статус относится только к переносу/квалификациям отчёта; полный бюджет/ресурс/рынок/стратегия не приняты. Исходный HTML не менялся, новый dispatch не нужен, inputs frozen09:30 и предел10:00 сохранены.

@@ -2,8 +2,8 @@
   "run_id": "night-20261110",
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
-  "state": "INPUTS_FROZEN_REPORT_ASSEMBLY",
-  "updated_at_utc": "2026-11-10T06:51:39.113995+00:00",
+  "state": "MORNING_REPORT_ACCEPTED_SCOPED_INPUTS_FROZEN",
+  "updated_at_utc": "2026-11-10T06:57:55.749109+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -376,7 +376,7 @@
       "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it.",
       "input_sha": "d8ea350a0388d35f5b559f65a57109d862d2eb85",
       "pushed_sha": "9eb06a3206e477565e1a97ecfe5b9b63e975694e",
-      "acceptance": "PARENT_12_HASHES_AND_NATIVE_1200_390_PASS; FRESH_REVIEW_PENDING"
+      "acceptance": "APPROVE_SCOPED_HTML_BY_a782ebc8; ROOT_NATIVE_VISUAL_PASS"
     },
     {
       "role": "late_colleague_impact",
@@ -401,7 +401,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-morning-report-review-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-morning-report-review-20261110-r1",
       "link": "[Sol 6.1: независимая проверка утреннего HTML-отчёта](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-morning-report-review-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
       "options": [
         {
@@ -410,7 +410,9 @@
         }
       ],
       "input_sha": "9eb06a3206e477565e1a97ecfe5b9b63e975694e",
-      "brief": "briefs/morning_report_review.md"
+      "brief": "briefs/morning_report_review.md",
+      "pushed_sha": "a782ebc8699bdaa456c121932ff9aa3d0f47fbe4",
+      "acceptance": "APPROVE_SCOPED_HTML_TRANSFER"
     }
   ],
   "checkpoints": [
@@ -995,7 +997,10 @@
   "morning_report": {
     "source_sha": "9eb06a3206e477565e1a97ecfe5b9b63e975694e",
     "delivery": "morning-report.html",
-    "independent_review": "PENDING",
-    "public_site_changed": false
-  }
+    "independent_review": "APPROVE_SCOPED",
+    "public_site_changed": false,
+    "review_sha": "a782ebc8699bdaa456c121932ff9aa3d0f47fbe4",
+    "acceptance_receipt": "morning_report_acceptance.json"
+  },
+  "new_dispatch": "NONE; no extension past 10:00"
 }
