@@ -4,9 +4,9 @@
   "status": "COMPLETE_SCOPED_PACKAGE_REVIEW_PENDING",
   "decision_status": "AGENT_PROPOSAL",
   "branch": "research/night-cost-kover-20261110",
-  "payload_commit": null,
+  "payload_commit": "553e63a5de32cff941fde3ca28175f242f28375c",
   "delivery_commit_recipe": "git rev-parse refs/heads/research/night-cost-kover-20261110; exact pushed delivery SHA also in final handoff message",
-  "publication": "SAFE_PAYLOAD_CHECK_REQUIRED_BEFORE_COMMIT_AND_PUSH",
+  "publication": "SAFE_PAYLOAD_CHECK_PASS; target branch push authorised; exact delivery HEAD and remote verification supplied in final handoff message",
   "writable_scope": "context/23_night_run_20261110/cost_kover/",
   "baseline_input_set_id": "MR02-input-set-001",
   "reference_input_set_id": "MR02-reference-set-002",
@@ -20,10 +20,32 @@
   "publication_check": "publication_checks.json",
   "read_first": "findings.md",
   "reproduce": "python3 -B context/23_night_run_20261110/cost_kover/run_all.py",
-  "outputs": ["cost_parameters.csv", "parameter_provenance.csv", "unit_reconciliation.csv", "range_registry.csv", "budget_terms.csv", "scenario_definitions.json", "affected_legs.csv", "affected_journeys.csv", "physical_leg_status.csv", "scenario_summary.csv", "cost_cash_bridge.csv", "thresholds.csv", "author_flight_cost_components.csv"],
-  "counts": {"cost_parameter_rows": 117, "unknown_contract_terms": 25, "baseline_groups": 8, "overlay_combinations": 40, "bounded_tests": 18, "reference_join_groups": 6},
+  "outputs": [
+    "cost_parameters.csv",
+    "parameter_provenance.csv",
+    "unit_reconciliation.csv",
+    "range_registry.csv",
+    "budget_terms.csv",
+    "scenario_definitions.json",
+    "affected_legs.csv",
+    "affected_journeys.csv",
+    "physical_leg_status.csv",
+    "scenario_summary.csv",
+    "cost_cash_bridge.csv",
+    "thresholds.csv",
+    "author_flight_cost_components.csv"
+  ],
+  "counts": {
+    "cost_parameter_rows": 117,
+    "unknown_contract_terms": 25,
+    "baseline_groups": 8,
+    "overlay_combinations": 40,
+    "bounded_tests": 18,
+    "reference_join_groups": 6
+  },
   "critical_example": {
-    "network": "H_UFA_8", "author_scenario": "base",
+    "network": "H_UFA_8",
+    "author_scenario": "base",
     "overlay": "cancel_pretravel_no_protection",
     "stress_episode": "UFA [2026-12-07T00:00Z,2026-12-08T00:00Z); explicitly synthetic24h",
     "cancelled_physical_legs": 16,
@@ -46,12 +68,41 @@
     "market_launch": "NOT_ACCEPTED"
   },
   "integration": {
-    "join_keys": ["input_set_id", "source_commit", "profile", "network", "author_scenario", "scenario_id"],
+    "join_keys": [
+      "input_set_id",
+      "source_commit",
+      "profile",
+      "network",
+      "author_scenario",
+      "scenario_id"
+    ],
     "baseline_policy": "Original author export bytes unchanged; all overlay outputs separate; set002 does not replace set001",
     "methods_boundary_adapter": "Delta_after = Delta_methods + delta_overlay_A - delta_overlay_B - (X_A-X_B)",
     "do_not_repeat": "General fixed-sales/supply/donor/pairwise budget synthesis remains in pinned methods; no second donor/migration deduction",
     "scope_guard": "Different programmes/scenarios are alternative calculations, not additive pools",
-    "additional_real_inputs_needed": ["signed contract prices/avoidability", "gross refund and tax basis", "actual cash dates", "crew/MRO/lease/base/exit costs", "protected MCT and alternative seats", "actual tails and operational slots", "eligible support terms"]
+    "additional_real_inputs_needed": [
+      "signed contract prices/avoidability",
+      "gross refund and tax basis",
+      "actual cash dates",
+      "crew/MRO/lease/base/exit costs",
+      "protected MCT and alternative seats",
+      "actual tails and operational slots",
+      "eligible support terms"
+    ]
   },
-  "boundaries": ["No event-day to downtime/probability conversion", "No end-of-restriction forecast", "Other risks retained", "One fare per endpoint trip", "Only named avoidable costs saved", "Unknown full budgets and actual cash remain NULL", "No children/threads/schedules/peer polling/messages/purchases/infrastructure changes", "No Site/dashboard changes", "Only own branch push; no force/merge/rebase/PR"]
+  "boundaries": [
+    "No event-day to downtime/probability conversion",
+    "No end-of-restriction forecast",
+    "Other risks retained",
+    "One fare per endpoint trip",
+    "Only named avoidable costs saved",
+    "Unknown full budgets and actual cash remain NULL",
+    "No children/threads/schedules/peer polling/messages/purchases/infrastructure changes",
+    "No Site/dashboard changes",
+    "Only own branch push; no force/merge/rebase/PR"
+  ],
+  "payload_manifest_sha256": "430f6162a2fbc3f8221bb50b680867314c95270a8b1ba9043da80bddbb0c521e",
+  "payload_aggregate_sha256": "2d01941fdf2647f23479e3ea9b6e283d059bf8158b9f30e90fbd1777668fa9c7",
+  "completed_at_utc": "2026-11-10T03:30:19.262836+00:00",
+  "payload_commit_scope": "All immutable payload files listed in output_manifest.json; this handoff records the payload commit in a separate metadata commit to avoid self-reference"
 }
