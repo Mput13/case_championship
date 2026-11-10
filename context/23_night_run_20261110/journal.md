@@ -97,3 +97,7 @@ Fetch04:02UTC: MR08 новый; methods/root уже приняты; immutable co
 09:35 МСК: из frozen rootd8ea350 запущены2Sol бездетей: morning_report сборкадо09:45; late_colleague_impact узкийразборb91до09:43. Старый economicfreeze не изменяется; новыйref только приложение. После HTML нужен свежий независимый review. Native completion callbacks, безpolling/новыхрасписаний.
 
 09:45 МСК: lateimpact60109f63 принят отдельным safeappendix кfreeze: 69output/56sourcehashes. Parent12exported identities/min500 top3 сверены. Jointcaptureвновомb91 согласует6повторяющихсяпар в заявленномправиле, greedyfixture/replayedrankings scoped; ODmoduleнеподключёнкnetworkmoney. Сохранён дефектties/ограниченияweather/UNKNOWN. EmailGitmetadata вparentprojectionисключён; MOWквалифицированкакгородскойагрегат. Frozen2f untouched; writer получилточныйпакет, fullreplay NOT_RUN.
+
+## 09:51 МСК — утренний HTML
+
+Получен immutable writer 9eb06a3206e477565e1a97ecfe5b9b63e975694e; 12 output hashes лично проверены. morning-report.html скопирован побайтно в корень. Native HTML preview 1200/390 и карта C01 лично просмотрены; console без ошибок, 62 selector states/TOC/zoom assertions PASS. Публичный research-report.html сохранён (53353f9f…). Late60109 — отдельное приложение, не замена frozen inputs. Независимая проверка отчёта PENDING.
