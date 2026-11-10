@@ -121,13 +121,12 @@
     }
   ],
   "review_queue": "review_queue.json",
-  "updated_at_msk": "2026-11-10T21:07:20.763906+03:00",
+  "updated_at_msk": "2026-11-10T21:15:32.181657+03:00",
   "active_sol_roles": [
-    "dashboard_package_review",
     "late_nastya_impact",
     "dashboard_context_recheck"
   ],
-  "sol_currently_active": 3,
+  "sol_currently_active": 2,
   "completed_production_roles": [
     "network",
     "products",
@@ -204,7 +203,8 @@
     "EV-DIGITAL-FINAL",
     "EV-PRODUCTS-FINAL",
     "EV-MR03",
-    "EV-MR04"
+    "EV-MR04",
+    "EV-DASHBOARD"
   ],
   "review_admissions": [
     {
@@ -309,6 +309,16 @@
         "full PnL/cash/market/future company rank not accepted",
         "EV-MR03 separate exact f99"
       ]
+    },
+    {
+      "id": "EV-DASHBOARD",
+      "subject_sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
+      "review_sha": "c39511430b7578f1f80a71eb77bea512b0afc6a4",
+      "verdict": "CHANGES",
+      "finding": "EV-DASH-01 / ROOT-DASH-01",
+      "root_check": "intake/dashboard_review_checks.json",
+      "correction_sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c",
+      "correction_review": "PENDING_SEPARATE"
     }
   ],
   "evaluation_completion_meaning": "Ten scenario evaluations and eight scoped reviews delivered; final serialization review, new colleague impact and conditional roadmap/root handoff remain. No operating acceptance.",
@@ -335,13 +345,14 @@
     "sha": "5101302f93c349268f4ba0ff26832ff261e1a9e7",
     "root_intake": "intake/dashboard_handoff_checks.json",
     "open_finding": "ROOT-DASH-01: KUF-SVX known context not attached to C33",
-    "provisional_review": "CHANGES_P2_ROOT-DASH-01 independently reproduced; final immutable review pending",
+    "provisional_review": "SUPERSEDED_BY_FINAL_CHANGES_C395",
     "root_correction": {
       "path": "integration/dashboard_context_correction",
       "status": "FRESH_INDEPENDENT_RECHECK_RUNNING",
       "effect": "34 existing context aliases attached to C33; 16 programme records; all economics/original85 links unchanged",
       "sha": "0f07ec43ad3cf515e3bafbb767ade9caa2ba984c"
-    }
+    },
+    "independent_review": "CHANGES_EV-DASHBOARD_EXACT_C395"
   },
   "methods_v4_interim_review": {
     "subject_sha": "9f0b5d25af720107e99e209e1c69b098497358be",
@@ -360,5 +371,14 @@
     "independent_reviews_extended": false,
     "global_input_cutoff_msk": "2026-11-10T21:15:00+03:00",
     "root_task_complete": false
-  }
+  },
+  "root_decision_proposal": {
+    "path": "decision_handoff/README.md",
+    "roadmap": "decision_handoff/roadmap_2027_2028.md",
+    "screening_and_competitors": "decision_handoff/screening_and_competitors.md",
+    "status": "PROPOSED_NOT_TEAM_ACCEPTED",
+    "new_economic_calculations": false,
+    "user_steering": "Need justified growth; lowest loss alone is not a strategy; allow startup investment only with financing/payback/stop conditions"
+  },
+  "input_freeze": "FROZEN_CUTOFF_21_15"
 }
