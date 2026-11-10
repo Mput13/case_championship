@@ -1,0 +1,104 @@
+{
+  "contract_id": "three-experiments-v1",
+  "created_at_utc": "2026-11-09T14:15:54.837727+00:00",
+  "immutable_after_first_run": true,
+  "period": {
+    "start": "2026-12-07",
+    "end": "2026-12-13",
+    "product_return_horizon": "2026-12-27"
+  },
+  "candidates": [
+    "C14",
+    "C01",
+    "C07"
+  ],
+  "classification": [
+    "OBSERVED",
+    "DERIVED",
+    "MODEL_ESTIMATE",
+    "SCENARIO",
+    "UNKNOWN"
+  ],
+  "null_rule": "Missing numeric values remain null; incomplete required evidence prevents real-world acceptance. A failed exact calendar request is not zero market demand.",
+  "units": {
+    "physical_leg": "one aircraft movement on a dated origin-destination leg",
+    "service_rule": "published endpoint/timetable rule; no assumption of nonstop or performed service",
+    "passenger_product": "one endpoint journey with ordered leg IDs; counted once irrespective of transfers",
+    "roundtrip_product": "outbound and return journeys for one customer; hotel nights use local stay dates",
+    "money": "RUB/comparison-period; fare per one-way endpoint journey, after agreed sales deductions but before passenger expenses included separately",
+    "resource": "UTC instants, elapsed minutes, tail position, occupied minutes; aircraft availability and crew legality separate"
+  },
+  "baselines": {
+    "C14": "Current competitor announced/dated product for passenger calendar. RW investment comparison is full proposed SVX-KVX-MRV-KVX-SVX versus preserving existing network; no confirmed donor or free base legs.",
+    "C01": "Clock coordination experiment: identical directed legs, block durations, nominal seats and initial/final tail positions. Both are hypothetical programs. Incremental new-base/overnight/connection/reserve/retiming costs and changes to local sales are explicit UNKNOWN; unmatched real no-new-base operational baseline remains UNKNOWN.",
+    "C07": "Published SVX-OMS-SVX pattern as a timing reference; four-leg SVX-OMS-KJA-OMS-SVX adds every OMS-KJA leg and turn. Reference is not labelled unprofitable donor. Keep/replace/remove actual flight requires donor records UNKNOWN."
+  },
+  "required_tables": [
+    "source rules",
+    "airport/timezone keys",
+    "physical dated legs",
+    "tail initial/final positions and availability",
+    "passenger paths and dates",
+    "resource constraints",
+    "net realised fares and costs by accounting scope",
+    "baseline and donor obligations"
+  ],
+  "common_gates": [
+    "source admission",
+    "temporal consistency",
+    "tail continuity/return",
+    "leg capacity joint constraints",
+    "calendar product compatibility",
+    "incremental contribution under declared scenario",
+    "market and launch acceptance separately UNKNOWN"
+  ],
+  "frozen_scenarios": {
+    "label": "ILLUSTRATIVE_ARITHMETIC_AND_RESOURCE_TESTS_NOT_FORECAST",
+    "nominal_seats": 100,
+    "nominal_seats_origin": "team stage18 assumptions nominal100; not actual RW payload",
+    "turn_minutes": [
+      30,
+      45,
+      60
+    ],
+    "turn_origin": "author planning stress points, not approved station minimum",
+    "connection_min_minutes": [
+      45,
+      60,
+      90
+    ],
+    "connection_max_minutes": 180,
+    "connection_origin": "author product window, not published MCT or interline protection",
+    "aircraft_window_minutes": [
+      600,
+      660,
+      720
+    ],
+    "window_origin": "author elapsed-aircraft-window stress, not crew legal duty",
+    "symmetric_oneway_net_fares_rub": [
+      6000,
+      8000,
+      10000,
+      12000
+    ],
+    "fare_origin": "author round numbers for inversion only; no observed offer or paid fare",
+    "per_journey_variable_expense_rub": [
+      0,
+      500,
+      1000
+    ],
+    "expense_origin": "author inversion points before acceptance; costs already netted from fare must not be charged twice",
+    "residual_funding_gap_rub": [
+      0,
+      500000,
+      1000000
+    ],
+    "gap_origin": "same numerical stress points as team stage18 fixed-extra burden, reinterpreted explicitly as unknown total residual funding gap per comparison period; not inherited estimated hub/route cost"
+  },
+  "financial_equation": "Delta contribution = sum_j(q_j*(net_fare_j-variable_journey_cost_j)) - residual_funding_gap. Gap includes ALL candidate legs, incremental fixed/base/positioning/switching/opportunity costs, donor avoidable contribution and retained-network cannibalization, net of other explicitly accounted contribution. Actual components UNKNOWN.",
+  "simple_inverse": "For one symmetric return product with q paid one-way journeys in EACH direction, q_min=max(0,ceil(gap/(2*(fare-variable_cost)))); no finite solution if margin<=0 and gap>0. This is a sales threshold, not market OD.",
+  "capacity_rule": "Each passenger product consumes one seat on every physical leg it uses; no capacity may be reused across local/transfer products. Nominal capacity is SCENARIO.",
+  "multiple_testing": "Export every grid row and every failed attempt; no weights or scenarios tuned after results; new contract version required for changes.",
+  "donor_rule": "Do not infer a real donor from a bad additional-flight scenario; compare keep/replace/remove with avoidable costs, timing and obligation records or NOT_EVALUATED.",
+  "political_change_date": null
+}
