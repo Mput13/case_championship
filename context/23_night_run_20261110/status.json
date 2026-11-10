@@ -3,7 +3,7 @@
   "approved_until_utc": "2026-11-10T07:00:00Z",
   "approved_until_msk": "2026-11-10 10:00",
   "state": "RUNNING",
-  "updated_at_utc": "2026-11-10T04:05:30.326602+00:00",
+  "updated_at_utc": "2026-11-10T04:07:32.172100+00:00",
   "priority": "fix and integrate existing; continue targeted data and hypotheses in parallel",
   "contract_sha256": "64ee3aff776b397d78114e36b281d34c7d7a01e14f66a340af6eddda3ac71174",
   "site_publication": false,
@@ -169,9 +169,11 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1",
       "threadId": "thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1",
       "link": "[Sol 6.1: независимая проверка экономики Ковра](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1)",
-      "status": "running",
+      "status": "completed",
       "model": "gpt-6.1-sol",
-      "brief": "briefs/cost_kover_review.md"
+      "brief": "briefs/cost_kover_review.md",
+      "pushed_sha": "d8634187d452343a369f7cec63be50511bb70020",
+      "acceptance": "CHANGES_CKR_P2_TIMEBASE; DAY1_ARITHMETIC_AND_CONDITIONAL_CASH_PASS"
     },
     {
       "role": "hypothesis_frontier",
@@ -245,7 +247,8 @@
   "acceptance": {
     "screening82dffa7": "INDEPENDENT_SCOPED_PASS_BY_6a038b9b; POLICY_OPEN; NETWORK_NOT_RUN",
     "methods344f4425": "INDEPENDENT_SCOPED_NUMERIC_PASS; LEGACY_PHYSICAL_PAIR_LABEL_HOLD",
-    "methods_common_abb1c762": "INDEPENDENT_CONDITIONAL_COMPARISON_PASS_BY_7a868d12; PRIMARY_LINEAGE_HOLD; RECIPE_POLICY_OPEN; FULL_BUDGET_UNKNOWN"
+    "methods_common_abb1c762": "INDEPENDENT_CONDITIONAL_COMPARISON_PASS_BY_7a868d12; PRIMARY_LINEAGE_HOLD; RECIPE_POLICY_OPEN; FULL_BUDGET_UNKNOWN",
+    "cost_kover_afadee35": "INDEPENDENT_CHANGES_BY_D8634187; TIMEBASE_DELAY_HOLD; DAY1_CANCELLATION_CONDITIONAL_PASS; FULL_BUDGET_UNKNOWN"
   },
   "pending_decisions": [
     {
@@ -324,8 +327,9 @@
     "cost_kover": {
       "sha": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
       "path": "integration/cost_kover/afadee35",
-      "acceptance": "P2_TIMEBASE_CONFIRMED_BY_PARENT; DAY1_CANCEL_ARITHMETIC_NOT_DISPROVED; REVIEW_RUNNING",
-      "independent_review": "RUNNING_NEW_COST_KOVER_REVIEW"
+      "acceptance": "INDEPENDENT_CHANGES_CKR_P2_TIMEBASE; DAY1_CANCELLATION_AND_CONDITIONAL_CASH_CHECKED",
+      "independent_review": "COMPLETED_D8634187",
+      "review_sha": "d8634187d452343a369f7cec63be50511bb70020"
     },
     "model_repair_review": {
       "sha": "445a5d523d4b57d8c89b2344e1913de2e5f9dc6b",
@@ -382,6 +386,13 @@
       "acceptance": "APPROVE_SCOPED; SJR-P2-001_HOLD_PRESERVED",
       "parent_output_hashes_verified": 32,
       "parent_input_hashes_verified": 66
+    },
+    "cost_kover_review": {
+      "sha": "d8634187d452343a369f7cec63be50511bb70020",
+      "path": "integration/cost_kover_review/d8634187",
+      "acceptance": "CHANGES_CKR_P2_TIMEBASE; OTHER_DECLARED_SCOPES_PASS",
+      "parent_output_hashes_verified": 26,
+      "parent_source_git_hashes_verified": 161
     }
   },
   "queued_tasks": [
@@ -461,11 +472,12 @@
       "request_id": "MR02_REVIEW",
       "role": "cost_kover_review",
       "input_sha": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
-      "state": "DISPATCHED",
+      "state": "COMPLETED",
       "required_new_delegate_task": true,
       "priority": "P1",
       "brief": "briefs/cost_kover_review.md",
-      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1"
+      "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-cost-kover-review-20261110-r1",
+      "result_sha": "d8634187d452343a369f7cec63be50511bb70020"
     },
     {
       "request_id": "MR09",
@@ -491,7 +503,7 @@
       "taskId": "node:delegated-task:command%3Amcp%3Aeadcf71d-8ea1-4707-b51e-6229e3ef4d1e%3Adelegate-task%3Acase5-night-correction-review-20261110-r1"
     }
   ],
-  "active_sol_count_at_checkpoint": 4,
+  "active_sol_count_at_checkpoint": 3,
   "last_checkpoint": "checkpoint_0630.json",
   "question_register": "question_register.csv"
 }

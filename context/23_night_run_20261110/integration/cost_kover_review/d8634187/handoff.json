@@ -1,0 +1,122 @@
+{
+  "review_id": "MR02-independent-cost-kover-review-20261110",
+  "status": "COMPLETE_SCOPED_REVIEW_PUBLISHED",
+  "verdict": "CHANGES",
+  "decision_status": "CONFIRMED_ERROR_WITH_SCOPED_INDEPENDENT_CHECKS",
+  "branch": "research/night-cost-kover-review-20261110",
+  "writable_scope": "context/23_night_run_20261110/cost_kover_review/",
+  "root_base": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+  "reviewed_delivery_commit": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+  "reviewed_payload_commit": "553e63a5de32cff941fde3ca28175f242f28375c",
+  "review_payload_commit": "af96da977becc161eac132f587e1fd3c4d6918a3",
+  "completed_review_at_utc": "2026-11-10T04:01:12.758799+00:00",
+  "deadline_msk": "2026-11-10T07:50:00+03:00",
+  "read_first": "report.md",
+  "findings": "findings.json",
+  "source_manifest": "source_manifest.json",
+  "output_manifest": "output_manifest.json",
+  "reproduce": "commands.md",
+  "independent_code": [
+    "review.py",
+    "primary_review.py"
+  ],
+  "counts": {
+    "source_payload_hashes": 64,
+    "upstream_byte_matches": 29,
+    "parent_snapshot_hashes_only": 5,
+    "primary_KHV_raw_hashes": 2,
+    "primary_KHV_selected_rows": 16,
+    "primary_KHV_pages_personally_read": 4,
+    "parameters": 117,
+    "unknown_contract_terms": 25,
+    "baseline_groups": 8,
+    "overlay_combinations": 40,
+    "cost_component_rows": 924,
+    "affected_journey_rows": 240,
+    "physical_capacity_rows": 660,
+    "reference_joins": 6,
+    "adversarial_probes": 24,
+    "expected_probe_results": 22,
+    "same_P2_reproductions": 2,
+    "published_physical_rows_with_wrong_UTC_pair": 350
+  },
+  "confirmed_findings": [
+    {
+      "id": "CKR-P2-TIMEBASE",
+      "severity": "P2",
+      "file": "cost_kover/overlay.py",
+      "line": 65,
+      "problem": "row.date is added to absolute minutes already measured from WEEK",
+      "effects": "Dec8 UFA8 detection0 instead16; corrected next-day bank23/11 adjacent conflicts for UFA8/UFA4;35 unique physical legs have wrong UTC pairs",
+      "evidence": [
+        "timebase_audit.csv",
+        "delay_template_conflicts.csv",
+        "counterexamples.json"
+      ]
+    }
+  ],
+  "personally_verified_scope": [
+    "frozen source/payload byte checks and explicit programme/profile/scenario grain",
+    "117 parameter values/units/lineage with UNKNOWN budget preservation",
+    "selected KHV raw/extraction rates, units, effective dates, surcharge condition and VAT note",
+    "bounded original flight_cost functions and baseline ledger arithmetic; no full author selector",
+    "day1 cancellation sets, union affected journeys, one throughfare and physical seat conservation",
+    "named avoidability, retained crew and no invented lease saving or RW restoration",
+    "default conditional net cash fixture, one loss/refund and fuel inventory/payable/deferred bridge",
+    "restrictions-removed economic equivalence with other risks retained",
+    "same-period/same-monetary-basis strategy adapter without repeated donor/migration deduction"
+  ],
+  "held_scope": [
+    "generic after-day1 restriction detection and UTC/horizon assertions using frozen instant()",
+    "served-all completion and TEMPLATE_ONLY_CONTINUITY_PASS for H_UFA8/H_UFA4 next-day delay base/cautious",
+    "delay0 economic delta is hypothetical eventual-completion algebra only, not a feasible recovery plan"
+  ],
+  "critical_day1_example": {
+    "programme": "H_UFA_8",
+    "author_scenario": "base",
+    "cancelled_physical_legs": 16,
+    "unserved_endpoint_journeys": 618.3939378949237,
+    "lost_net_fare_once_rub": 6496147.739848062,
+    "delta_contribution_before_unknown_rub": 854454.4468085319,
+    "contribution_after_before_unknown_rub": -8642465.440785343,
+    "conditional_cash_trough_rub": -6078104.303191469,
+    "conditional_day14_cash_delta_rub": 854454.4468085319,
+    "conditional_cash_at_week_end_before_day7_rub": 418043.43665659346,
+    "full_profit": null,
+    "actual_full_gross_cash_reserve": null
+  },
+  "inherited_inputs_not_acceptance": [
+    "pinned UFA/OMS30 selected tariff extracts and raw-hash fields; their primary raw not read or hashed personally",
+    "pinned author market allocations, fares and migration assumptions; no source/market validation from arithmetic",
+    "pinned source/reference manifests and parent snapshots; no budget-v2 or18 self-check pass inherited"
+  ],
+  "inherited_checks": [],
+  "author_self_check_acceptance": false,
+  "budget_v2_pass_inherited": false,
+  "actual_RW_contracts": "UNKNOWN",
+  "market_dispatch_launch_acceptance": "OUTSIDE_SCOPE",
+  "full_author_selector": "NOT_RUN",
+  "smallest_next_step": "Correct one explicit time origin in a separate copy, rebuild dependent UTC outputs and day2/horizon/delay tests; solve or explicitly hold delayed template conflicts. This reviewer did not modify the source.",
+  "publication": {
+    "force": false,
+    "merge": false,
+    "rebase": false,
+    "PR": false,
+    "full_raw_published": false,
+    "metadata_policy": "payload commit and its verified remote receipt recorded separately to avoid self-reference; final delivery SHA reported at completion",
+    "remote_head_recipe": "git ls-remote --heads origin research/night-cost-kover-review-20261110",
+    "payload_remote_sha": "af96da977becc161eac132f587e1fd3c4d6918a3",
+    "payload_remote_match_verified": true,
+    "final_delivery_verification": "Exact final delivery SHA verified after metadata-only push and supplied in the completion message; self-reference deliberately avoided"
+  },
+  "boundaries": [
+    "four programmes and base/cautious are alternatives, not pooled journeys",
+    "no event-day probability/downtime or restriction-end forecast",
+    "fixed weekly accrual is not day14 terminal cash or real cash peak",
+    "no author self-check equals independent/source/market acceptance",
+    "no children/threads/schedules/peer messages/new providers/infrastructure/Site/dashboard/PR"
+  ],
+  "remote_receipt": "remote_receipt.json",
+  "output_manifest_sha256": "b41cbd31581319eb70a7f0a8ed41da7a05a60bf209c9694b0af3ddf6b7c52f7f",
+  "payload_aggregate_sha256": "b9e50b0747adb3258d5d13a143c168ad2d560f3260ee7e802bd5369249cb73f2"
+}
