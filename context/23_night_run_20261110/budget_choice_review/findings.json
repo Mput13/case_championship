@@ -1,0 +1,93 @@
+{
+  "review_id": "MR13",
+  "verdict": "APPROVE_SCOPED",
+  "reviewed_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+  "new_P1_P2": 0,
+  "blocking_findings": [],
+  "minimal_required_fix": null,
+  "scoped_conclusions": [
+    {
+      "id": "MR13-C01",
+      "claim": "All finite choice domains, witnesses, strict dominance and exact boundaries match",
+      "source_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "source_path": "context/23_night_run_20261110/methods/budget_choice_domains.py",
+      "source_lines": [
+        15,
+        78
+      ],
+      "personal_evidence": [
+        "independent_candidates.csv",
+        "independent_pairwise_inequalities.csv",
+        "independent_witness_slacks.csv",
+        "independent_dominance_certificates.csv",
+        "independent_all_boundaries.csv"
+      ],
+      "limit": "Finite C/context21, equal excluded costs, F/B>=0 only"
+    },
+    {
+      "id": "MR13-C02",
+      "claim": "Newbase constraint floor and signed O extension are correct",
+      "source_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "source_path": "context/23_night_run_20261110/methods/budget_choice_readout.md",
+      "source_lines": [
+        33,
+        53
+      ],
+      "personal_evidence": [
+        "independent_constraint_terms.csv",
+        "independent_constraint_floors.csv",
+        "counterexamples.json"
+      ],
+      "limit": "Not actual base cost or actual RW loss; actual F/B/O/donor unknown"
+    },
+    {
+      "id": "MR13-C03",
+      "claim": "58 source rows retain original values/labels/period/resource groups; 36 proposed QF and 2 zero-delta D guards distinct",
+      "source_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "source_path": "context/23_night_run_20261110/methods/final_model_projection.py",
+      "source_lines": [
+        15,
+        41
+      ],
+      "personal_evidence": [
+        "independent_projection.csv"
+      ],
+      "limit": "No annual-weekly ranking, no policy/team/operating acceptance"
+    },
+    {
+      "id": "MR13-C04",
+      "claim": "Frontier import preserves calendar/capacity/mechanical-only acceptance and 35/32 counts",
+      "source_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "source_path": "context/23_night_run_20261110/methods/update_acceptance_v7.py",
+      "source_lines": [
+        9,
+        26
+      ],
+      "personal_evidence": [
+        "frontier_scope_check.json"
+      ],
+      "limit": "Supplied independent frontier checks not personally rerun; no source/paid market/actual resource/full budget promotion"
+    },
+    {
+      "id": "MR13-C05",
+      "claim": "381 old blobs preserved; 13 new outputs deterministic; actual input mutation rejected",
+      "source_commit": "c6adf25cc39712cbfdd2d34acdabd31366b33bce",
+      "source_path": "context/23_night_run_20261110/methods/checks/v7_replay.json",
+      "source_lines": [
+        1,
+        7
+      ],
+      "personal_evidence": [
+        "independent_byte_preservation.csv",
+        "independent_determinism.csv",
+        "owner_replay_log.json",
+        "source_mutation_check.json"
+      ],
+      "limit": "Git bytes and deterministic replay only; not empirical validation"
+    }
+  ],
+  "not_findings": [
+    "Sub-RUB decimal rounding in readout and sub-1e-8 RUB serialized tie slack are immaterial; exact arithmetic agrees",
+    "Changing equal-O or nonnegative incremental-cost assumptions can change the ranking; the subject states this boundary explicitly"
+  ]
+}
