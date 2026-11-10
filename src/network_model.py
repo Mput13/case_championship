@@ -30,6 +30,7 @@ import math
 import re
 import sys
 import time
+from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
@@ -114,18 +115,20 @@ def special_fare(D, a, b):
     return v * (1.25 if fe else 1.0)
 
 
-def leg_with_subsidy(D, A, a, b, f, pax_paid, trans_rev=0.0):
+def leg_with_subsidy(D, A, a, b, f, pax_paid, trans_rev=0.0, forgone_rev=0.0):
     """Выручка плеча за неделю с учётом выбора: брать субсидию или нет.
     С субсидией в месяцы программы все места продаются по специальному тарифу (не выше приложения 2),
     зато за каждый рейс платят субсидию. Берём вариант с большей выручкой. Возвращает (выручка, субсидия)."""
     fr = fare(A, D.km(a, b))
-    plain = 2 * pax_paid * fr + trans_rev
+    gross = 2 * pax_paid * fr + trans_rev
+    plain = gross - forgone_rev
     rate = sub(D, A, a, b)
     if rate <= 0:
         return plain, 0.0
     m = A["subsidy_months"] / 12
     k = min(1.0, special_fare(D, a, b) / fr)
-    capped = (2 * pax_paid * fr + trans_rev) * (1 - m + m * k) + 2 * f * rate
+    # Потерянный доход прежнего рейса не уменьшается вместе с новым тарифом.
+    capped = gross * (1 - m + m * k) + 2 * f * rate - forgone_rev
     return (capped, 2 * f * rate) if capped > plain else (plain, 0.0)
 
 
@@ -214,6 +217,7 @@ class Demand:
         return self.tab.get((a, b), {}).get(
             "method", "Формула спроса из модели поездок: сейчас авиамаршрута между городами нет")
 
+    @lru_cache(maxsize=None)
     def km(self, a, b):
         A, B = self.n.loc[a], self.n.loc[b]
         return dm.hav(A.latitude_deg, A.longitude_deg, B.latitude_deg, B.longitude_deg)
@@ -221,10 +225,12 @@ class Demand:
     def has_direct(self, a, b):
         return (a, b) in self.direct
 
+    @lru_cache(maxsize=None)
     def south(self, a, b):
         """Пара с обходами (k_трассы 1,20): хотя бы один конец в регионе юга/запада (docs/17)."""
         return rules.is_south(self.n.loc[a, "region"]) or rules.is_south(self.n.loc[b, "region"])
 
+    @lru_cache(maxsize=None)
     def green(self, a, b):
         return rules.green_limit(self.n.loc[a, "region"], self.n.loc[b, "region"])
 
@@ -253,6 +259,8 @@ def fare(A, km):
 
 
 def capture(qmax, f, A):
+    if not all(math.isfinite(v) for v in (qmax, f, A["capture_freq_scale"])) or not 0 <= qmax <= 1 or f < 0 or A["capture_freq_scale"] <= 0:
+        raise ValueError("Некорректные параметры захвата спроса")
     return qmax * (1 - math.exp(-f / A["capture_freq_scale"]))
 
 
@@ -271,13 +279,19 @@ def leg_share(L, f, A):
 
 
 def freq_for(pax_week_dir, A):
+    if not all(math.isfinite(A[k]) and A[k] > 0 for k in ("seats", "lf_max", "min_freq_week", "max_freq_week")) or A["min_freq_week"] > A["max_freq_week"]:
+        raise ValueError("Нужны положительная вместимость, загрузка и согласованные частоты")
+    if not math.isfinite(pax_week_dir) or pax_week_dir < 0:
+        raise ValueError("Спрос должен быть конечным и неотрицательным")
     need = math.ceil(pax_week_dir / (A["seats"] * A["lf_max"])) if pax_week_dir > 0 else 0
     return int(min(A["max_freq_week"], max(A["min_freq_week"], need)))
 
 
-def hub_network(H, D, A, scen, cand_nodes):
+def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):
     """Сеть из хаба H. Потоки считаются один раз из общей таблицы поездок (местные и пересадочные),
     чтобы выполнялось тождество: сегменты = местные поездки + 2 × пересадочные (аудит критика front2272)."""
+    if A["fleet_cap"] <= A["spare_aircraft"]:
+        raise ValueError("Нет самолётов для выполнения рейсов")
     W = A["weeks_per_year"]
     spokes = []
     for X in cand_nodes:
@@ -351,7 +365,8 @@ def hub_network(H, D, A, scen, cand_nodes):
             L = legs[X]
             bh, c = leg_cost(A, L["km"], L["south"], carried[X] / f[X])
             mg = min(loc_c[X], L["rw_now"])             # свои пассажиры Red Wings со старого рейса
-            lr, ls = leg_with_subsidy(D, A, H, X, f[X], loc_c[X] - mg, tpart[X])
+            lr, ls = leg_with_subsidy(D, A, H, X, f[X], loc_c[X], tpart[X],
+                                      forgone_rev=2 * mg * fare(A, L["km"]))
             L.update(freq=f[X], local_carried=loc_c[X], transfer_carried=carried[X] - loc_c[X],
                      carried_dir_week=carried[X], block_h=bh, lf=carried[X] / (f[X] * A["seats"]), migrated=mg,
                      rev_week=lr, sub_week=ls, cost_week=2 * f[X] * c, subsidized=ls > 0)
@@ -368,6 +383,9 @@ def hub_network(H, D, A, scen, cand_nodes):
         assert abs(seg - (od_local + 2 * od_transfer)) < 1e-6, "сегменты не сходятся с поездками"
         # выручка — чистая: доход, который Red Wings теряет на старом рейсе, вычтен
         return legs, tr_c, hours, cost, rev, od_local, od_transfer, flights, migr, forgone, subs
+
+    if fixed_spokes is not None:
+        return list(fixed_spokes), build(list(fixed_spokes))
 
     # жадный отбор лучей: вклад на блок-час, с учётом пересадок к уже выбранным
     chosen, best = [], None
@@ -389,6 +407,8 @@ def hub_network(H, D, A, scen, cand_nodes):
             break
         chosen.append(cand[1])
         best = cand[2]
+    if best is None:
+        raise ValueError("Нет допустимой сети при заданном ресурсе")
     return chosen, best
 
 
@@ -406,24 +426,36 @@ def best_of(results, A):
     return max(pool, key=lambda r: (r[1], -r[2]))
 
 
-def hub_best(H, D, A, scen, nodes_all):
+def hub_best(H, D, A, scen, nodes_all, baseline=None):
+    if A["use_subsidy"] and baseline is None:
+        baseline = hub_best(H, D, dict(A, use_subsidy=0.0), scen, nodes_all)
     res = []
     for cap in search_caps(A):
         ch, r = hub_network(H, D, dict(A, fleet_cap=float(cap)), scen, nodes_all)
         res.append((len(ch), (r[4] - r[3]), r[2], ch, r))
+    if baseline is not None:
+        ch, r = hub_network(H, D, A, scen, nodes_all, fixed_spokes=baseline[0])
+        res.append((len(ch), r[4] - r[3], r[2], ch, r))
     b = best_of(res, A)
     return b[3], b[4]
 
 
-def direct_best(D, A, scen, nodes_all):
+def direct_best(D, A, scen, nodes_all, baseline=None):
+    if A["use_subsidy"] and baseline is None:
+        baseline = direct_best(D, dict(A, use_subsidy=0.0), scen, nodes_all)
     res = []
     for cap in search_caps(A):
         ch = direct_network(D, dict(A, fleet_cap=float(cap)), scen, nodes_all)
         res.append((len(ch), sum(c[6] - c[5] for c in ch), sum(c[4] for c in ch), ch))
+    if baseline is not None:
+        ch = direct_network(D, A, scen, nodes_all, fixed_selection=baseline)
+        res.append((len(ch), sum(c[6] - c[5] for c in ch), sum(c[4] for c in ch), ch))
     return best_of(res, A)[3]
 
 
-def direct_network(D, A, scen, nodes_all):
+def direct_network(D, A, scen, nodes_all, fixed_selection=None):
+    if A["fleet_cap"] <= A["spare_aircraft"]:
+        raise ValueError("Нет самолётов для выполнения рейсов")
     W = A["weeks_per_year"]
     bases = rules.BASES
     max_h = (A["fleet_cap"] - A["spare_aircraft"]) * A["block_h_per_day"] * 7
@@ -501,7 +533,8 @@ def direct_network(D, A, scen, nodes_all):
                 bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
                 hours += 2 * f * bh
                 cost += 2 * f * c
-                lr, s_ = leg_with_subsidy(D, A, L["a"], L["b"], f, c_ - mg)
+                lr, s_ = leg_with_subsidy(D, A, L["a"], L["b"], f, c_,
+                                         forgone_rev=2 * mg * fare(A, L["km"]))
                 rev += lr
                 seg += 2 * c_
                 migr += 2 * mg
@@ -515,11 +548,16 @@ def direct_network(D, A, scen, nodes_all):
     def totals(res):
         return sum(r[6] - r[5] for r in res), sum(r[4] for r in res)
 
+    if fixed_selection is not None:
+        return joint([(c[1], c[2], c[3], c[8][0]["freq"], c[8]) for c in fixed_selection])
+
     # кандидаты: лучшие треугольники по отдельной оценке; дальше жадный отбор по приросту всей сети
     pre = []
     for B, X, Y, legs in tri:
         h, c, r, s_, out = tri_eval(B, X, Y, legs)
-        pre.append(((r - c) / h, B, X, Y, out[0]["freq"], legs))
+        f = out[0]["freq"]
+        single = joint([(B, X, Y, f, legs)])[0]
+        pre.append((single[0], B, X, Y, f, legs))
     pre.sort(key=lambda x: -x[0])
     pre = pre[:int(A["direct_candidates"])]
     sel, used_pairs, cur = [], set(), (0.0, 0.0)
@@ -541,6 +579,8 @@ def direct_network(D, A, scen, nodes_all):
         sel.append(best[1])
         used_pairs.add((best[1][1], best[1][2]))
         cur = best[2]
+    if not sel:
+        raise ValueError("Нет допустимой сети при заданном ресурсе")
     return joint(sel)
 
 
@@ -611,11 +651,15 @@ def main():
     # сеть хаба считается для каждого города лонглиста: на панели её видно для города, выбранного на табло
     hubs = list(dict.fromkeys(main_hubs + [x for x in ll.iata if x in D.n.index and x not in CLOSED]))
     routes, summary = [], []
+    baselines = {}
     for scen, A in AS.items():
         W = A["weeks_per_year"]
         for H in hubs:
             t0 = time.time()
-            chosen, r = hub_best(H, D, A, A["demand_scen"], nodes_all)
+            chosen, r = hub_best(H, D, A, A["demand_scen"], nodes_all,
+                                 baseline=baselines.get((A["demand_scen"], H)) if A["use_subsidy"] else None)
+            if not A["use_subsidy"]:
+                baselines[(scen, H)] = (chosen, r)
             print(f"{scen} {H}: {time.time() - t0:.1f} с", file=sys.stderr, flush=True)
             legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs = r
             ac = math.ceil(hours / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
@@ -638,7 +682,10 @@ def main():
                                "subsidy_rule": sub_rule(D, A, H, L["b"])[1] or "подходит",
                                **leg_money(L, W),
                                "range_light": range_light(D, H, L["b"], L["km"])})
-        chosen = direct_best(D, A, A["demand_scen"], nodes_all)
+        chosen = direct_best(D, A, A["demand_scen"], nodes_all,
+                             baseline=baselines.get((A["demand_scen"], "DIRECT")) if A["use_subsidy"] else None)
+        if not A["use_subsidy"]:
+            baselines[(scen, "DIRECT")] = chosen
         hours = sum(c[4] for c in chosen)
         cost = sum(c[5] for c in chosen)
         rev = sum(c[6] for c in chosen)
@@ -679,7 +726,14 @@ def main():
         "variant": "Вариант", "route": "Маршрут", "km": "Км", "pax_year_segments": "Пассажиров в год (база)",
         "pax_cautious": "Пассажиров в год (осторожно)", "freq_week_each_way": "Рейсов в неделю в одну сторону",
         "load_factor": "Загрузка", "direct_now": "Прямой рейс уже есть", "demand_source": "Откуда спрос пары"})
-    mt["Откуда частота"] = freq_method(AS["base"])
+    mt["Откуда частота"] = [freq_method(dict(AS["base"], max_freq_week=AS["base"]["direct_max_freq_week"])) if str(v).startswith("Прямые") else freq_method(AS["base"]) for v in mt["Вариант"]]
+    # Complete case table, one row per scenario/program leg, without inventing airport for MOW.
+    full = rt.copy()
+    full["route_unit"] = full.variant.map(lambda v: "hub_spoke" if v.startswith("Хаб ") else "triangle_leg")
+    full["airport_scope"] = ["MOW_city_market_airport_unresolved" if "MOW" in (a, b) else "IATA_pair" for a, b in zip(full["from"], full["to"])]
+    full["period_weeks"] = [AS[s]["weeks_per_year"] for s in full.scenario]
+    full["frequency_method"] = [freq_method(dict(AS[s], max_freq_week=AS[s]["direct_max_freq_week"])) if u == "triangle_leg" else freq_method(AS[s]) for s, u in zip(full.scenario, full.route_unit)]
+    full.to_csv(P / "mandatory_routes_all_scenarios.csv", index=False, encoding="utf-8")
     mt.to_csv(P / "mandatory_routes_table.csv", index=False, encoding="utf-8")
     sm.to_csv(P / "network_summary.csv", index=False, encoding="utf-8")
     # Шаг 4: как сеть выбранного хаба растёт по мере поставок самолётов (data/assumptions/choice.csv)

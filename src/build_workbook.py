@@ -60,6 +60,7 @@ def sheets():
         "kover_days_avg": "Средние дни «Ковра» в аэропортах сети", "kover_coverage": "Доля концов рейсов с данными о «Ковре»",
         "check_segments_minus_od": "Проверка: сегменты − (местные + 2 × пересадочные), должно быть 0"})
     s["Маршруты"] = pd.read_csv(P / "mandatory_routes_table.csv")
+    s["Маршруты всех сценариев"] = pd.read_csv(P / "mandatory_routes_all_scenarios.csv")
     fr = pd.read_csv(P / "fleet_ramp.csv")
     fr["scenario"] = fr.scenario.map({"base": "базовый", "cautious": "осторожный", "base_sub": "базовый с субсидией", "cautious_sub": "осторожный с субсидией"})
     s["Рост сети хаба"] = fr.rename(columns={"scenario": "Сценарий", "hub": "Хаб", "fleet_cap": "Самолётов доступно", "aircraft": "Самолётов нужно (с резервным)",

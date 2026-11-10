@@ -39,7 +39,9 @@ def set_font(path):
                 ft.name = FONT
                 cell.font = ft
         for col in ws.columns:
-            ws.column_dimensions[col[0].column_letter].width = 16
+            dim = ws.column_dimensions[col[0].column_letter]
+            if dim.width == 13:
+                dim.width = 16
     if wb.loaded_theme:  # тема оформления тоже ссылается на Calibri
         wb.loaded_theme = wb.loaded_theme.replace(b"Calibri Light", FONT.encode()) \
                                          .replace(b"Calibri", FONT.encode())
@@ -96,8 +98,13 @@ def main():
     out = ROOT / "outputs"
     out.mkdir(exist_ok=True)
     xlsx = out / "longlist.xlsx"
-    with pd.ExcelWriter(xlsx) as xw:
+    with pd.ExcelWriter(xlsx, engine="openpyxl") as xw:
         df.to_excel(xw, sheet_name="longlist", index=False)
+        # Literal qualifier equals sign is text, never an empty Excel formula.
+        for col_index, column in enumerate(df.columns, 1):
+            for row_index, value in enumerate(df[column], 2):
+                if isinstance(value, str) and value == "=":
+                    xw.book["longlist"].cell(row_index, col_index).data_type = "s"
         sources.to_excel(xw, sheet_name="sources", index=False)
     set_font(xlsx)
     print(df[["city", "pax_2025", "catchment_pop", "ssj_reach_pop", "direct_now", "gap_pop",

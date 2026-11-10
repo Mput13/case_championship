@@ -203,6 +203,7 @@ td.weakv{text-decoration:underline dotted rgba(244,245,247,.55);text-underline-o
 .ld-row.pick{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink)}
 .ld-n b{display:block;font-weight:500;font-size:15px}
 .ld-n small{display:block;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.ld-n small.subn{color:#2E6FA8}
 .ld-bar{position:relative;height:26px;background:#F1EEE7;border-radius:5px}
 .ld-bar i{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#B9B5AC}
 .ld-bar em{position:absolute;top:4px;height:18px;border-radius:4px;transition:width .2s}
@@ -358,7 +359,28 @@ td .sub{color:var(--steel);font-size:11.5px;display:block}
 .n2-tile .v{font:700 30px/1.1 var(--code);color:var(--ink);font-variant-numeric:tabular-nums}
 .n2-tile .v small{font:500 14px var(--f);color:var(--muted)}
 .n2-tile p{margin:2px 0 0;font-size:13px;line-height:1.45}
-.n2-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0 18px 18px;border-top:1px solid var(--line)}
+.n2-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0 18px 12px}
+@media (max-width:1000px){.n2-three{grid-template-columns:1fr}}
+.n2-c{border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:10px;align-content:start}
+.n2-c .tg{font-size:12px;font-weight:500;color:var(--red)}
+.n2-c h3{margin:0;font-size:18px;line-height:1.25}
+.n2-c .ld{margin:0;font-size:14px;line-height:1.5}
+.n2-c .fact{background:#F6F4EF;border-radius:10px;padding:8px 10px;font-size:13px;line-height:1.45;color:var(--muted)}
+.n2-c .fact b{color:var(--ink);font-weight:500}
+.n2-c h4{margin:2px 0 0;font-size:13px;font-weight:700}
+.n2-c ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:13.5px;line-height:1.45}
+.n2-c li b{font-weight:500}
+.n2-one{margin:0 18px 18px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;line-height:1.55;max-width:1000px}
+.n2-dig{margin:0 18px 14px;background:var(--ink);color:#F4F5F7;border-radius:14px;padding:14px 16px}
+.n2-dig-h{font-weight:700;font-size:15px;margin-bottom:8px}
+.n2-dig-l{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:1000px){.n2-dig-l{grid-template-columns:1fr}}
+.n2-dig-l div{font-size:12.5px;line-height:1.45;color:#C9CED6;border-top:2px solid #3A3F49;padding-top:8px}
+.n2-dig-l div.top{border-top-color:var(--red)}
+.n2-dig-l b{display:block;color:#fff;font-weight:500;font-size:13.5px;margin-bottom:3px}
+.n2-links-h{margin:0 18px;font-weight:500;font-size:14px}
+.n2-tile ul{margin:4px 0 0;padding-left:16px;display:grid;gap:3px;font-size:13px;line-height:1.4}
+.n2-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0 18px 18px}
 @media (max-width:900px){.n2-links{grid-template-columns:1fr}}
 .n2-links div{padding:12px 16px 0 0;font-size:13px;line-height:1.5;color:var(--muted)}
 .n2-links b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
@@ -428,6 +450,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
       <div class="ld-ctl"><div class="seg" id="scen" role="group" aria-label="Сценарий"></div><div class="seg" id="subs" role="group" aria-label="Субсидия"></div></div>
     </div>
     <p class="ld-scen" id="ld-scen"></p>
+    <details class="ld-note"><summary>Почему сценарии так различаются</summary><div class="tscroll"><table class="mt" id="scenario-drivers"></table></div><p>Осторожный сценарий объединяет нижнюю оценку спроса, меньшую долю захвата пассажиров, более дешёвые билеты и более высокие расходы. Для каждого сценария маршруты подбираются заново. Это расчёт при одновременном ухудшении допущений; вероятность такого сочетания не оценивалась. Годовой спрос распределяется на 48 недель полётов. Даже при убытке модель набирает минимум восемь направлений по условию кейса.</p></details>
     <div class="ld-k"><label for="ldk">Тарифы выше на</label><input type="range" id="ldk" min="0" max="30" step="1" value="0"><b id="ldko">0%</b></div>
     <p class="ld-knote" id="ld-knote"></p>
     <div class="ld-head"><div></div><div class="ld-axis"><span>убыток</span><span>0</span><span>прибыль</span></div><div>самолётов нужно</div></div>
@@ -492,11 +515,11 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
   </section>
 
   <section class="mapcard" id="step6" aria-labelledby="n2-title">
-    <div class="sec-h"><div><div class="eyebrow">Цель кейса <span class="tag fix">общий вывод</span></div><h2 id="n2-title">Путь к №2</h2><div class="hint" id="n2-sub"></div></div><a class="btn n2-link" id="n2-digital" href="#" target="_blank" rel="noopener">Цифровые сервисы →</a></div>
+    <div class="sec-h"><div><div class="eyebrow">Цель кейса <span class="tag fix">общий вывод</span></div><h2 id="n2-title">Путь к №2</h2><div class="hint" id="n2-sub"></div></div></div>
     <div class="rwy" id="rwy" role="img" aria-label="Пассажиры 2025 года: Red Wings и конкуренты на одной шкале"></div>
     <ol class="n2-steps" id="n2-stages"></ol>
-    <div class="n2-tiles" id="n2-tiles"></div>
-    <div class="n2-links" id="n2-links"></div>
+    <div class="n2-three" id="n2-three"></div>
+    <p class="n2-one" id="n2-one"></p>
   </section>
 
   <section class="card" aria-labelledby="k-title">
@@ -517,7 +540,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 <script>
 const D = /*__DATA__*/null;
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('rng-south'); if(e) e.textContent=D.range.ssj_south.toLocaleString('ru-RU'); document.querySelectorAll('.rail-hr').forEach(x=>x.textContent=D.range.rail_hr); document.querySelectorAll('.min-dist').forEach(x=>x.textContent=D.range.min_dist);});
-const ru=(v,d=0)=> v==null||v===''||isNaN(v) ? '—' : Number(v).toLocaleString('ru-RU',{maximumFractionDigits:d,minimumFractionDigits:d});
+const ru=(v,d=0)=> v==null||v===''||!Number.isFinite(Number(v)) ? '—' : Number(v).toLocaleString('ru-RU',{maximumFractionDigits:d,minimumFractionDigits:d});
 const mln=v=> v==null ? '—' : (v>=1e6 ? ru(v/1e6, v>=1e7?1:2)+' млн' : ru(v/1e3,0)+' тыс.');
 const dayW=n=>{ const a=Math.abs(n)%100,b=a%10; return a>10&&a<20?'дней':b===1?'день':b>=2&&b<=4?'дня':'дней'; };
 const CR=D.criteria;
@@ -543,7 +566,7 @@ function cellU(c,w){ const x=(D.values[c.iata]||{})[w.key]||{};
   const p=util(x.lo,w), q=util(x.hi,w); return {u,a:Math.min(p,q,u),b:Math.max(p,q,u),unk:false,weak:true}; }
 function normalize(set){ return set.map(c=>Object.fromEntries(CR.map(w=>[w.key,cellU(c,w).u]))); }
 function wsum(ws){ return CR.reduce((a,w)=>a+ws[w.key],0); }
-function scoreAll(z,ws){ const t=wsum(ws); if(!(t>0)) throw new Error('Нужен хотя бы один ненулевой вес'); return z.map(r=>CR.reduce((s,w)=>s+r[w.key]*ws[w.key],0)/t); }
+function scoreAll(z,ws){ if(CR.some(w=>!Number.isFinite(ws[w.key])||ws[w.key]<0)) throw new Error('Нужны конечные неотрицательные веса'); const t=wsum(ws); if(!(t>0)) throw new Error('Нужен хотя бы один ненулевой вес'); return z.map(r=>CR.reduce((s,w)=>s+r[w.key]*ws[w.key],0)/t); }
 function top3(s){ return s.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]).slice(0,3).map(x=>x[1]); }
 const NDRAW=2000;
 function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
@@ -558,7 +581,7 @@ function compute(){
   const zl=cells.map(q=>Object.fromEntries(CR.map(w=>[w.key,q[w.key].a]))), zh=cells.map(q=>Object.fromEntries(CR.map(w=>[w.key,q[w.key].b])));
   const sl=scoreAll(zl,W), sh=scoreAll(zh,W), tw=wsum(W);
   const rows=set.map((c,i)=>({c,score:s[i],z:z[i],share:hits[i]/N,lo:sl[i],hi:sh[i],idx:i,
-    best:1+sl.filter((v,j)=>j!==i&&v>sh[i]).length, worst:1+sh.filter((v,j)=>j!==i&&v>sl[i]).length,
+    best:1+sl.filter((v,j)=>j!==i&&(v>sh[i]||(v===sh[i]&&j<i))).length, worst:1+sh.filter((v,j)=>j!==i&&(v>sl[i]||(v===sl[i]&&j<i))).length,
     unk:CR.reduce((a,w)=>a+(cells[i][w.key].unk?W[w.key]:0),0)/tw,
     weak:CR.reduce((a,w)=>a+(cells[i][w.key].weak?W[w.key]:0),0)/tw})).sort((a,b)=>b.score-a.score||a.idx-b.idx); rows.forEach((x,i)=>x.rank=i+1);
   return {rows,out,same,total,byIata:Object.fromEntries(rows.map(x=>[x.c.iata,x]))};
@@ -566,7 +589,7 @@ function compute(){
 
 const DSTAT={ok:['в норме','#2E8A5B'],manual:['вручную','#5E6675'],stale:['задержан','#B7791F'],warn:['проверить','#B7791F'],fail:['ошибка','#C0262B'],missing:['ожидается','#8C96A6']};
 function meta(){
-  const m=Object.values(D.manifest), ok=m.filter(x=>x.status==='ok'||x.status==='manual').length;
+  const m=Object.values(D.manifest).filter(x=>x.status!=='missing'&&x.status!=='fail'), ok=m.filter(x=>x.status==='ok'||x.status==='manual').length;
   const el=document.getElementById('meta');
   el.append(h('div',{},'Сборка ',h('b',{},D.meta.built)), h('div',{},'Источников в норме ',h('b',{},`${ok} из ${m.length}`),' · ',h('a',{href:'#sources'},'табло данных')), h('div',{},'Постов Росавиации ',h('b',{},ru(D.meta.posts))));
   document.getElementById('foot').append('Данные обновляются автоматически: загрузка источников, проверка и пересчёт всех шагов.');
@@ -757,7 +780,7 @@ function kov(){
 const KIND={telegram:'Telegram',http_file:'файл',manual:'вручную',api:'API'};
 function sources(){
   const tb=document.querySelector('#src tbody'), order={fail:0,missing:1,stale:2,warn:3,manual:4,ok:5};
-  Object.entries(D.manifest).sort((a,b)=>(order[a[1].status]-order[b[1].status])||(a[1].role>b[1].role?1:-1)).forEach(([id,s])=>{
+  Object.entries(D.manifest).filter(([,s])=>s.status!=='missing'&&s.status!=='fail').sort((a,b)=>(order[a[1].status]-order[b[1].status])||(a[1].role>b[1].role?1:-1)).forEach(([id,s])=>{
     const st=DSTAT[s.status]||[s.status,'#8C96A6'], d=s.fetched_at?new Date(s.fetched_at):null;
     const name=/^https?:/.test(s.url)?h('a',{href:s.url,target:'_blank',rel:'noopener'},s.name):s.name;
     tb.append(h('tr',{},h('td',{},name,h('small',{},(s.feeds||[]).join(', '))),h('td',{},KIND[s.kind]||s.kind,h('small',{},s.role==='watch'?'лента новостей':'данные расчёта')),
@@ -782,10 +805,12 @@ const PLN='<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="#E32A2F" d=
 function scenKey(){ return SCEN+(SUB?'_sub':''); }
 function ldDraw(){
   const rows=vrows(); if(!rows.length) return;
+  const slider=document.getElementById('ldk'); slider.disabled=SUB; if(SUB) slider.value=0;
   const k=+document.getElementById('ldk').value/100; document.getElementById('ldko').textContent=Math.round(k*100)+'%';
   const A_=NS_.asm, ki=SCEN==='base'?0:1;
   document.getElementById('ld-knote').textContent=`Ползунок меняет только цену билета: сейчас ${ru(A_.fare_fixed_rub[ki]*(1+k))} ₽ + ${ru(A_.fare_per_km_rub[ki]*(1+k),1)} ₽ за км. Число пассажиров при этом не меняется — как спрос отвечает на цену, мы не считали. Карта и таблица маршрутов ниже показывают сеть при нынешних тарифах.`;
-  const res=(r,kk)=>(r.revenue_mln_year-r.subsidy_mln_year)*(1+kk)+r.subsidy_mln_year-r.var_cost_mln_year;
+  if(SUB) document.getElementById('ld-knote').textContent='Повышение тарифов доступно в режиме «Без субсидии». При доступной поддержке действует ограничение специального тарифа; модель принимает выплату только при положительном чистом эффекте.';
+  const res=(r,kk)=>r.result_mln_year+(r.revenue_mln_year-r.subsidy_mln_year)*kk;
   const S=Math.max(1,...rows.flatMap(r=>[Math.abs(res(r,0)),Math.abs(res(r,.3))]));
   const mln=v=>(v<0?'−':'+')+ru(Math.abs(Math.round(v)))+' млн ₽';
   const box=document.getElementById('ld'); box.textContent='';
@@ -793,7 +818,10 @@ function ldDraw(){
     const v=res(r,k), w=Math.min(Math.abs(v)/S*50,50), pos=v>=0, name=r.vkey==='DIRECT'?'Прямые рейсы':r.variant, isSel=r.vkey===SEL;
     const row=h('div',{class:'ld-row'+(r.vkey===NETV?' pick':''),tabindex:0,role:'button','aria-label':`${name}: ${mln(v)}`});
     const n=h('div',{class:'ld-n'},h('b',{},name,isSel?h('span',{class:'selt'},'выбран на табло'):''),h('small',{},`${ru(Math.round(r.segments_year/1000))} тыс. пасс. в год · доля +${ru(r.share_pp,2)} п. п.`),
-      h('small',{},r.transfer_od_year?`с пересадкой ${ru(Math.round(r.transfer_od_year/1000))} тыс. · «Ковёр» ${r.kover_days_avg} дн.`:`без пересадок · «Ковёр» ${r.kover_days_avg} дн.`));
+      h('small',{},r.transfer_od_year?`с пересадкой ${ru(Math.round(r.transfer_od_year/1000))} тыс. · «Ковёр» ${r.kover_days_avg} дн.`:`без пересадок · «Ковёр» ${r.kover_days_avg} дн.`)
+      ,SUB?h('small',{class:'subn'},(()=>{const ok=NS_.routes.filter(x=>x.scenario===scenKey()&&x.vkey===r.vkey&&x.subsidy_rule==='подходит').length;
+        const plain=NS_.summary.find(x=>x.scenario===SCEN&&x.vkey===r.vkey);
+        return r.subsidy_mln_year>0?`выплата ${ru(r.subsidy_mln_year)} млн ₽; изменение итога сети ${ru(r.result_mln_year-plain.result_mln_year)} млн ₽ с учётом тарифов и повторного отбора маршрутов`:ok?`подходят ${ok} маршрутов; выплата не покрывает снижение выручки по специальному тарифу. Сеть работает без субсидии`:'ни один маршрут выбранной сети не подходит под правила субсидии'})()):'');
     const bar=h('div',{class:'ld-bar'},h('i',{}));
     const em=h('em',{}); em.style.cssText=`${pos?'left':'right'}:50%;width:${w}%;background:${pos?'#3FA772':'#E32A2F'}`;
     const lab=h('span',{},mln(v)); lab.style.cssText=pos?'right:calc(50% + 8px)':'left:calc(50% + 8px)';
@@ -811,8 +839,8 @@ function ldDraw(){
   const dmow=NS_.routes.filter(x=>x.scenario===scenKey()&&x.vkey==='DIRECT'), mshare=dmow.length?Math.round(dmow.filter(x=>x.from==='MOW'||x.to==='MOW').reduce((a,x)=>a+x.pax_year_segments,0)/dmow.reduce((a,x)=>a+x.pax_year_segments,0)*100):0;
   let t;
   if(ok.length) t=`${k?`При тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} в плюсе: ${ok.join(', ')}. `;
-  else t=`${k?`Даже при тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и средней субсидии':''} ни одна сеть не окупает рейсы. Ближе всех к нулю — ${best.vkey==='DIRECT'?'прямые рейсы':best.variant.replace('Хаб ','хаб ')}: ${best.fare_up_to_breakeven_pct>0?`нужны тарифы выше на ${best.fare_up_to_breakeven_pct}%`:'не хватает немного'}. `;
-  if(SUB&&dir) t+=`Субсидия — около ${ru(sp)} ₽ за рейс и только на лучах, которые проходят правила программы Росавиации: один конец — узловой аэропорт, без Москвы, пара пока тонкая, с октября по апрель. Это первый год новой пары: когда поток вырастет больше ${ru(NS_.asm.subsidy_max_prior_pax?NS_.asm.subsidy_max_prior_pax[0]:8000)} пассажиров, федеральная субсидия кончится, если её не софинансирует регион. У прямой сети ${mshare}% пассажиров летят через Москву, такие рейсы субсидию не получают.`;
+  else t=`${k?`Даже при тарифах выше на ${Math.round(k*100)}%`:'При нынешних тарифах'}${SUB?' и доступной поддержке':''} ни одна сеть не окупает рейсы. Ближе всех к нулю — ${best.vkey==='DIRECT'?'прямые рейсы':best.variant.replace('Хаб ','хаб ')}: ${SUB?`дефицит ${ru(best.subsidy_rub_per_trip)} ₽ на поездку`:best.fare_up_to_breakeven_pct>0?`нужны тарифы выше на ${best.fare_up_to_breakeven_pct}%`:'не хватает немного'}. `;
+  if(SUB&&dir) t+=`В расчёте субсидия доступна по условиям программы; получение требует отдельного решения. Средняя ставка ${ru(sp)} ₽ за рейс ограничена потолком по дальности и действует семь месяцев. На этих рейсах применяется специальный тариф. Поэтому выплата и прирост результата различаются, а при отказе от выплаты итог может совпадать с вариантом без субсидии. У прямой сети ${mshare}% пассажирских сегментов приходится на плечи с Москвой, которые исключены из программы.`;
   else if(!SUB) t+='Включите субсидию, чтобы увидеть сети с господдержкой рейсов в обход Москвы.';
   const FC=NS_.asm.fuel_compensation_rub_per_t, ki2=SCEN==='base'?0:1;
   t+=` Керосин в расчёте — за вычетом демпфера и обратного акциза, которые государство возвращает авиакомпаниям: ${ru(FC[ki2])} ₽ на тонну${SCEN==='base'?' (среднее за январь–сентябрь 2026 года); без этой компенсации все сети были бы в минусе':' (только акциз, как в январе 2026 года, когда демпфер был нулевым)'}.`;
@@ -823,9 +851,20 @@ function vsBoard(){
   [['base','Базовый сценарий'],['cautious','Осторожный сценарий']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SCEN===k)},t); b.addEventListener('click',()=>{ SCEN=k; vsBoard(); netUpdate(); }); seg.append(b); });
   document.getElementById('ld-scen').textContent=SCEN==='base'
     ? `Базовый сценарий: спрос по средней оценке шага 2, тарифы как сейчас на этих парах, загрузка рейса до ${Math.round(NS_.asm.lf_max[0]*100)}%, ${NS_.asm.weeks_per_year[0]} недели полётов в году.`
-    : `Осторожный сценарий — проверка на прочность, если всё пойдёт хуже ожиданий: пассажиров в ${ru(1/NS_.cmp.demand,1)} раза меньше средней оценки, тарифы на ${Math.round((1-NS_.cmp.fare)*100)}% ниже, расходы на рейс в ${ru(NS_.cmp.cost,1)} раза выше, загрузка до ${Math.round(NS_.asm.lf_max[1]*100)}%, ${NS_.asm.weeks_per_year[0]-NS_.asm.weeks_per_year[1]} недели в году потеряны из-за «Ковра» и погоды.`;
+    : `Осторожный сценарий: оценка годового спроса в ${ru(1/NS_.cmp.demand,1)} раза ниже по сумме пар шага 2. Для примера рейса на 1 000 км тариф ниже на ${Math.round((1-NS_.cmp.fare)*100)}%, расходы при 80 пассажирах выше в ${ru(NS_.cmp.cost,1)} раза. Дополнительно снижена доля захвата спроса. Самолёты летают ${NS_.asm.weeks_per_year[1]} недель; годовой спрос распределяется на эти недели.`;
   const sg=document.getElementById('subs'); sg.textContent='';
-  [[false,'Без субсидии'],[true,'С субсидией']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SUB===k)},t); b.addEventListener('click',()=>{ SUB=k; vsBoard(); netUpdate(); }); sg.append(b); });
+  [[false,'Без субсидии'],[true,'Субсидия доступна']].forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(SUB===k)},t); b.addEventListener('click',()=>{ SUB=k; vsBoard(); netUpdate(); }); sg.append(b); });
+  const drivers=document.getElementById('scenario-drivers'), aa=NS_.asm;
+  drivers.textContent='';
+  drivers.append(h('thead',{},h('tr',{},...['Допущение','База','Осторожно'].map(x=>h('th',{},x)))));
+  const db=h('tbody'); drivers.append(db);
+  [['Спрос по сумме пар шага 2','100%',ru(NS_.cmp.demand*100,1)+'%'],
+   ['Максимальный захват пары без рейса',...aa.capture_open.map(x=>ru(x*100)+'%')],
+   ['Максимальный захват пересадок',...aa.capture_transfer.map(x=>ru(x*100)+'%')],
+   ['Билет на 1 000 км',...NS_.cmp.fare1000.map(x=>ru(x)+' ₽')],
+   ['Расходы рейса на 1 000 км, 80 пассажиров',...NS_.cmp.cost1000.map(x=>ru(x)+' ₽')],
+   ['Компенсация керосина, ₽/т',...aa.fuel_compensation_rub_per_t.map(x=>ru(x))],
+   ['Недель полётов',...aa.weeks_per_year.map(x=>ru(x))]].forEach(row=>db.append(h('tr',{},...row.map(x=>h('td',{},x)))));
   const rows=vrows(); if(!rows.length) return;
   if(!NETV||!rows.some(r=>r.vkey===NETV)) NETV=rows.slice().sort((a,b)=>b.result_mln_year-a.result_mln_year)[0].vkey;
   const kin=document.getElementById('ldk'); kin.oninput=ldDraw;
@@ -848,7 +887,7 @@ function vsBoard(){
    ['Доля пары, где уже летают',`до ${pct(A.capture_competitive[k])}`,'делится по частотам с конкурентами'],
    ['Пересадка в хабе',`до ${pct(A.capture_transfer[k])} пары, билет −${pct(1-A.transfer_fare_factor[k])}`,'пересадочный пассажир платит один билет'],
    ['Субсидия',`${ru(A.subsidy_rub_per_flight[k])} ₽ за рейс, ${A.subsidy_months[k]} мес. в году`,'по правилам Росавиации: один конец — узловой аэропорт, тонкая пара, без Москвы и без лета; сценарий первого года новой пары'],
-   ['Год',`${A.weeks_per_year[k]} недель`,SCEN==='base'?'без потерь':'4 недели потеряны из-за «Ковра» и погоды'],
+   ['Год',`${A.weeks_per_year[k]} недель`,SCEN==='base'?'без потерь':'самолёты летают 48 недель, годовой спрос распределён на них'],
    ['Самолётов на сеть',`до ${A.fleet_cap[k]}, ${A.spare_aircraft[k]} в резерве`,'сколько SJ-100 получит Red Wings, пока неизвестно']]
    .forEach(([a,b,c])=>asm.append(h('div',{},a,h('b',{},b),c)));
   const NN={D_SVX8:'Прямые из Екатеринбурга, 8 пар',H_UFA_4:'Хаб Уфа, 4 луча',H_UFA_8:'Хаб Уфа, 8 лучей'};
@@ -1009,7 +1048,7 @@ function routeTable(rs,sm){
     const rc=h('td',{class:'r'},h('b',{style:`color:${res>=0?'#2E8A5B':'#C0262B'}`},(res>=0?'+':'−')+ru(Math.abs(res))),tri!=null&&r.vkey==='DIRECT'?h('small',{},`треугольник ${(tri>=0?'+':'−')+ru(Math.abs(tri))}`):'');
     t.tBodies[0].append(h('tr',{},h('td',{},`${nm(r.from)} — ${nm(r.to)}`,h('small',{},r.direct_now?'на паре уже летают другие':'новая пара')),rc,
       h('td',{class:'r'},ru(r.km)),h('td',{class:'r'},ru(r.pax_year_segments)),h('td',{class:'r'},r.freq_week_each_way),h('td',{class:'r'},Math.round(r.load_factor*100)+'%'),
-      nowCell(r),h('td',{},r.demand_source),h('td',{},`спрос ÷ (${NS_.asm.seats[0]} кресел × загрузка), ${NS_.asm.min_freq_week[0]}–${r.vkey==='DIRECT'?NS_.asm.direct_max_freq_week[0]:NS_.asm.max_freq_week[0]} в неделю`),h('td',{},r.subsidy_rule||'—'))); });
+      nowCell(r),h('td',{},r.demand_source),h('td',{},`спрос ÷ (${NS_.asm.seats[0]} кресел × загрузка), ${NS_.asm.min_freq_week[0]}–${r.vkey==='DIRECT'?NS_.asm.direct_max_freq_week[0]:NS_.asm.max_freq_week[0]} в неделю`),h('td',{},r.subsidy_mln_year>0?`выплата ${ru(r.subsidy_mln_year,1)} млн ₽/год`:r.subsidy_rule==='подходит'?(SUB?'отказ: снижение выручки превышает выплату':'доступна; выключена в сценарии'):(r.subsidy_rule||'—')))); });
 }
 
 /* --- цель №2 --- */
@@ -1037,14 +1076,19 @@ function no2Board(){
   const tri=[...new Map(NS_.routes.filter(r=>r.scenario==='base'&&r.vkey==='DIRECT'&&r.triangle_result_mln_year>0).map(r=>[r.variant,r.triangle_result_mln_year])).values()];
   const nm=i=>(NS_.nodes[i]||[0,0,i])[2];
   const sg=v=>(v>=0?'+':'−')+ru(Math.abs(v));
-  const t=document.getElementById('n2-tiles'); t.textContent='';
-  t.append(
-    h('div',{class:'n2-tile'},h('span',{class:'k'},'Хаб в Омске'),h('span',{class:'v'},`+${ru(s0.share_pp,2)}`,h('small',{},' п. п. доли')),h('p',{},`${sg(s0.result_mln_year)} млн ₽ в год до аренды, ${ac(s0.aircraft)}, ${s0.routes} лучей.`)),
-    h('div',{class:'n2-tile'},h('span',{class:'k'},'Прямые рейсы, которые окупаются сами'),h('span',{class:'v'},tri.length?`${sg(tri.reduce((a,b)=>a+b,0))}`:'—',h('small',{},' млн ₽ в год')),h('p',{},tri.length?`${tri.length} треугольника из Москвы в плюсе — их можно добавить к хабу по одному.`:'Ни один треугольник не окупается сам.')),
-    h('div',{class:'n2-tile'},h('span',{class:'k'},'Приложение Red Wings в RuStore'),h('span',{class:'v'},'3,0',h('small',{},' → цель 4,5')),h('p',{},'У S7 — 4,8. Сначала починить брони, оплату и уведомления о рейсе.')));
-  const ln=document.getElementById('n2-links'); ln.textContent='';
-  N2.links.forEach(x=>ln.append(h('div',{},h('b',{},x.title),x.text)));
-  const a=document.getElementById('n2-digital'); if(DIGITAL_URL.startsWith('http')) a.href=DIGITAL_URL; else a.remove();
+  const d0=NS_.summary.find(r=>r.scenario==='base'&&r.vkey==='DIRECT');
+  const hubs=NS_.summary.filter(r=>r.scenario==='base'&&r.vkey!=='DIRECT'), plus=hubs.filter(r=>r.result_mln_year>0).length;
+  const box=document.getElementById('n2-three'); box.textContent='';
+  const col=(tag,q,...kids)=>h('div',{class:'n2-c'},h('span',{class:'tg'},tag),h('h3',{},q),...kids);
+  const NW=N2.network, ST2=N2.strategy, DG=N2.digital;
+  box.append(
+    col('Маршрутная сеть',NW.q,h('p',{class:'ld'},NW.lead),
+      h('h4',{},NW.hub_title),h('ul',{},...NW.hub.map(x=>h('li',{},x))),
+      h('h4',{},NW.direct_title),h('ul',{},...NW.direct.map(x=>h('li',{},x))),
+      h('div',{class:'fact'},h('b',{},'Расчёт. '),`В базовом сценарии хаб окупает рейсы в ${plus} городах из ${hubs.length}; лучший по сумме критериев — Омск: ${sg(s0.result_mln_year)} млн ₽ в год и +${ru(s0.share_pp,2)} п. п. доли. Сеть прямых рейсов — ${sg(d0.result_mln_year)} млн ₽, но ${tri.length} отдельных треугольника из Москвы в плюсе.`)),
+    col('Маршрутная стратегия',ST2.q,h('ul',{},...ST2.items.map(x=>h('li',{},h('b',{},x.b),' ',x.t)))),
+    col('Цифровые сервисы',DG.q,h('p',{class:'ld'},DG.lead),h('ul',{},...DG.items.map(x=>h('li',{},x)))));
+  const one=document.getElementById('n2-one'); if(N2.together) one.textContent=N2.together; else one.remove();
 }
 
 /* --- шаг 5: дорожная карта и риски --- */

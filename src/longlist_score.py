@@ -104,8 +104,8 @@ def run(min_dist, crit, vals, ll, profiles, sc, strict=False):
     z, a, b, unk, weak = tables(iatas, crit, vals, sc)
     w = pd.Series({c["key"]: c["weight"] for c in crit}, dtype=float)
     s, lo_s, hi_s = score(z, w), score(a, w), score(b, w)
-    best = {i: 1 + int((lo_s.drop(i) > hi_s[i]).sum()) for i in iatas}
-    worst = {i: 1 + int((hi_s.drop(i) > lo_s[i]).sum()) for i in iatas}
+    best = {i: 1 + sum(lo_s[j] > hi_s[i] or (lo_s[j] == hi_s[i] and iatas.index(j) < iatas.index(i)) for j in iatas if j != i) for i in iatas}
+    worst = {i: 1 + sum(hi_s[j] > lo_s[i] or (hi_s[j] == lo_s[i] and iatas.index(j) < iatas.index(i)) for j in iatas if j != i) for i in iatas}
     base = set(top3(s))
     one = []
     for k in w.index:

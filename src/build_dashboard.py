@@ -77,7 +77,7 @@ def load_network():
     nodes = {i: [round(float(n.loc[i, "latitude_deg"]), 3), round(float(n.loc[i, "longitude_deg"]), 3),
                  NAME.get(i, n.loc[i, "main_city"])] for i in ends if i in n.index}
     cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "pax_year_segments",
-            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source", "subsidy_rule", "revenue_mln_year", "cost_mln_year", "result_mln_year"]
+            "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source", "subsidy_rule", "subsidy_mln_year", "revenue_mln_year", "cost_mln_year", "result_mln_year"]
     if "triangle_result_mln_year" in rt.columns:
         cols.append("triangle_result_mln_year")
     # допущения расчёта — прямо из data/assumptions/network.csv, чтобы панель не расходилась с моделью
@@ -102,8 +102,9 @@ def load_network():
     import network_model as nmod
     AS = nmod.load_assumptions()
     fare1000 = [nmod.fare(AS[k], 1000) for k in ("base", "cautious")]
-    cost1000 = [nmod.leg_cost(AS[k], 1000, False, 100 * AS[k]["lf_max"])[1] for k in ("base", "cautious")]
-    cmp_ = {"demand": float(est.od_cautious.sum() / est.od_base.sum()), "fare": fare1000[1] / fare1000[0], "cost": cost1000[1] / cost1000[0]}
+    cost1000 = [nmod.leg_cost(AS[k], 1000, False, 80)[1] for k in ("base", "cautious")]
+    cmp_ = {"demand": float(est.od_cautious.sum() / est.od_base.sum()), "fare": fare1000[1] / fare1000[0], "cost": cost1000[1] / cost1000[0],
+            "fare1000": fare1000, "cost1000": cost1000}
     return {"summary": json.loads(sm.drop(columns=["hub"]).to_json(orient="records", force_ascii=False)),
             "routes": json.loads(rt[cols].to_json(orient="records", force_ascii=False)), "nodes": nodes,
             "asm": asm, "check": check, "cmp": cmp_, "now": route_now(rt)}
