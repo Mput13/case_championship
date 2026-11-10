@@ -1,0 +1,15 @@
+{
+  "id": "FINITE_BUDGET_CHOICE_DOMAINS_V1",
+  "scope": "Existing C context21 portfolios only; inherited contribution values, no new demand/calendar/allocation optimization",
+  "input_commit": "ba9f6b85b4f8c9847948ae428ef3fbcfca9e2009",
+  "input_tables": ["runs/portfolio_v2/summary.csv", "runs/final_variants_v1/network_union.csv"],
+  "resource_gate": "working labels<=4; one common hypothetical reserve",
+  "choice_domains": ["NO_FINAL_ROUTE_COUNT_GATE", "FINAL_MODEL_PAIR_COUNT_8_12", "FINAL_MODEL_PAIR_COUNT_8_12_AND_NEW_UFA_BASE"],
+  "money": "Conditional adjusted contribution J_i=C_i-(working_i+1)*F-base_i*B, RUB/modelweek",
+  "closed_parameters": "F>=0 same incremental weekly charge per modeled aircraft including one reserve; B>=0 incremental weekly newbase charge; external donor and other excluded terms equal across compared alternatives",
+  "limitations": "These assumptions define relative choice among enumerated actions, not complete PnL. Actual F/B/O are UNKNOWN. If actual donor/other-cost differences differ, append their signed difference to the inequalities.",
+  "keep": "KEEP delta=0 is retained as economic comparator outside the required action-only route-count problem; it dominates negative adjustments under zero external donor gain/nonnegative extra costs, but company profit UNKNOWN",
+  "method": "Pairwise affine halfplanes; direct coefficient dominance certificates for inactive candidates; nonnegative feasible witness for every active candidate verified against every alternative",
+  "not_claimed": ["team choice of newbase", "complete operating route acceptance", "optimal network beyond finite candidates", "observed financial costs", "comparison of annual Nastya money to weekly C", "unqualified launch recommendation"],
+  "review": "NEW_OWNER_SYNTHESIS_PENDING"
+}

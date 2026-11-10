@@ -67,3 +67,15 @@ python3 context/23_night_run_20261110/methods/check_package.py
 ```
 
 allocation primary/secondary primal-dual checks выполняются внутри скрипта. Это owner verification, независимый review новогоscopePENDING. Старыеv3/v4/v5runs не перезаписываются.
+
+## v7
+
+```sh
+python3 context/23_night_run_20261110/methods/budget_choice_domains.py
+python3 context/23_night_run_20261110/methods/final_model_projection.py
+python3 context/23_night_run_20261110/methods/update_acceptance_v7.py
+python3 context/23_night_run_20261110/methods/render_budget_choice_chart.py
+python3 context/23_night_run_20261110/methods/check_package.py
+```
+
+Первый скрипт сравнивает inputbytes сexactba9 и проверяет все408 inequalities; inactive candidates имеют direct dominance proof. Это условное сравнение старогоlocal-first, не новый LP allocation или фактическая ценаF/B.
