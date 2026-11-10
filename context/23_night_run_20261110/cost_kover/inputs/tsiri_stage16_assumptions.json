@@ -1,0 +1,107 @@
+{
+  "as_of": "2026-11-09",
+  "period": "2026-12-07/2026-12-13",
+  "status": "SCENARIOS_NOT_FORECAST_OR_EMPIRICAL_BOUNDS",
+  "resource": {
+    "active_aircraft": 4,
+    "spare_aircraft": 1,
+    "seats": 100,
+    "work_days": 6,
+    "planning_cap_block_h": 10,
+    "span_cap_h": 16,
+    "turn_minutes": 45,
+    "bank_wait_minutes": 75
+  },
+  "green_km": 2300,
+  "south_detour": 1.2,
+  "south_airports": [
+    "AER",
+    "MRV",
+    "VOG",
+    "MCX"
+  ],
+  "direct_min_km": 500,
+  "frequencies": [
+    1,
+    2,
+    3
+  ],
+  "hub_cities": [
+    "GOJ",
+    "UFA",
+    "TJM",
+    "CEK"
+  ],
+  "hub_rays": [
+    4,
+    6,
+    8
+  ],
+  "local_peak": {
+    "base": 0.45,
+    "cautious": 0.3
+  },
+  "frequency_response": "1-exp(-directional_frequency/3), inherited scenario; not calibrated",
+  "demand_and_yield": "Common stage15 distance bands for every canonical OD; no airport-traffic conversion. Unknown empirical volumes and yields stay unknown.",
+  "baseline_costs": "stage15/model/overrides.json plus stage12/inputs.json; UFA announced136300/t base,160000 stress; NOT all-airport contracts",
+  "fixed_per_allocated_working_or_reserve_tail_week": 500000,
+  "new_base_week_scenario": 500000,
+  "sensitivity": {
+    "demand": [
+      0.5,
+      1,
+      1.5,
+      2,
+      3
+    ],
+    "yield_factor": [
+      0.75,
+      1,
+      1.25,
+      1.5,
+      2
+    ],
+    "cost": [
+      0.7,
+      0.85,
+      1,
+      1.15,
+      1.3
+    ],
+    "migration": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "transfer": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "city_UFA": [
+      0.5,
+      1,
+      1.5,
+      2
+    ],
+    "city_GOJ": [
+      0.5,
+      1,
+      1.5,
+      2
+    ]
+  },
+  "limits": [
+    "Numerical ranges are deliberately broad arithmetic stress grids, not estimated confidence intervals or prices offered by an airport.",
+    "Free fleet, contracts, slots, crews, MRO and protected MCT remain UNKNOWN.",
+    "Direct singleton weekdays may move inside the six-day week for packing; no observed daily demand profile is assumed.",
+    "Every allocated working tail is charged in the fixed-cost scenario, even when two bases have different work days."
+  ],
+  "known_incumbent_migration": {
+    "base": 0.6,
+    "cautious": 0.8,
+    "status": "SCENARIO copied from legacy own-overlap pairs, not observed share; inventory only caps known direct migration"
+  }
+}
