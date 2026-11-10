@@ -1,0 +1,64 @@
+{
+  "package_id": "night-primary-evidence-20261110-v1",
+  "status": "READY_FOR_INDEPENDENT_REVIEW",
+  "finished_at_utc": "2026-11-10T03:00:32.806450+00:00",
+  "branch": "research/night-primary-evidence-20261110",
+  "source_base_commit": "2191b180aed5191735d44ba6c7f190e5d8e3934a",
+  "delivery_commit_locator": "git log -1 --format=%H -- context/23_night_run_20261110/primary_evidence/handoff.json; exact pushed SHA reported separately after commit",
+  "manifest": "manifest.json",
+  "manifest_sha256": "23fa844e5432136ad05b76d6d0586067076c89e7d2f7800475dfb6cf2ea3d9a4",
+  "findings": "findings.md",
+  "commands": "commands.md",
+  "primary_deltas": [
+    "KUF SSJ MRO station primary opening event2025; current RW access/capacity UNKNOWN",
+    "SVX2025 carrier-reported rounded800k, +15%, transfers×2.5; no P&L or transfer share",
+    "UFA MRV4 andNJC4 per direction, GOJ2 target-week; KUF MRV3/NJC2 seasonal-year-assigned",
+    "core OMS-MRV2 andOMS-NJC3 joined, explicitly reused",
+    "source duplicate/conflicting clocks preserved; no frequency-to-capture inference"
+  ],
+  "known_closed_gaps_preserved": [
+    "OMS MRO03Dec2024",
+    "REN2025 >951000; exact total UNKNOWN"
+  ],
+  "artifact_counts": {
+    "cards": 112,
+    "directed_coverage_markets": 88,
+    "dated_source_rows": 209,
+    "unique_published_service_keys": 173
+  },
+  "acceptance_scope": [
+    "RAW_HASH_VERIFIED",
+    "EXTRACTION_CHECKED",
+    "JOIN_CHECKED"
+  ],
+  "source_supported_scope": "Only qualified facts in primary_facts.csv and sourced qualitative interpretations; not sales/economics",
+  "critical_holds": [
+    "12service keys with conflicting published clocks; exact connection time HOLD",
+    "KUF/GSV source rules omit year; winter2026/27 assignment explicit",
+    "single-date KUF/OMS UFA services cannot be carried into target week",
+    "deduplicate source publications before any supply aggregate",
+    "H_UFA4 proposal differs from earlier RELAXED scenario selection"
+  ],
+  "remaining_unknowns": [
+    "current REN transfer zone/MCT/SSJ MRO",
+    "current OMS competitive base and physical RW base",
+    "current MRO capacity/contracts",
+    "full endpoint product universe; connecting ticket/MCT/ground date-matched products",
+    "seats/final comparable fares/net yield/observed endpoint demand/2027-28 programme"
+  ],
+  "next_actions": [
+    "independent review exact Git package; repeat critical calendar and provenance checks",
+    "join scoped facts/coverage into comparison adapter without changing frozen author results",
+    "preserve uncertain periods and clock conflicts; select explicit new input_set if resolving",
+    "no ranking/economics uplift solely from this push"
+  ],
+  "no_changes": [
+    "colleague source trees",
+    "dashboard",
+    "public Site",
+    "model weights/defaults",
+    "frozen author results"
+  ],
+  "independent_review": "NOT_RUN",
+  "financial_or_launch_acceptance": "OUTSIDE_SCOPE"
+}
