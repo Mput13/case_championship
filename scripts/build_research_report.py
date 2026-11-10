@@ -332,7 +332,7 @@ def main():
     for label, (role,path) in sources.items():
         read(role,path)
         replacements['LINK_'+label] = link(role,path)
-    pin_labels = {'nastya_step1':'Настя · шаг 1', 'tsiri_stage22':'Цири · stage22', 'tsiri_economics':'Цири · экономика', 'team_review':'Михаил · review и план context18', 'konstantin':'Константин · методы'}
+    pin_labels = {'nastya_step1':'Настя · шаг 1', 'tsiri_stage22':'Костя · stage22', 'tsiri_economics':'Костя · экономика', 'team_review':'Михаил · review и план context18', 'konstantin':'Константин · методы'}
     replacements['PIN_ROWS'] = ''.join(f'<tr><th scope="row">{pin_labels.get(role, role)}</th><td><a href="{REPO}/tree/{sha}"><code>{sha}</code></a></td></tr>' for role,sha in PINS.items())
     document = (ROOT/'templates/research-report.html').read_text()
     for key,value in replacements.items():
@@ -355,8 +355,8 @@ def main():
     team_inputs = [v for v in INPUTS.values() if v['role'] in {'nastya_step1','tsiri_stage22','tsiri_economics','team_review','konstantin'}]
     (TEAM_OUT/'team_update_manifest.json').write_text(json.dumps({
         'attribution':{'nastya_step1':'Настя / kiruha355; explicit user identification',
-                       'tsiri_stage22':'Цири / mput; explicit user identification',
-                       'tsiri_economics':'Цири / mput; earlier economics version',
+                       'tsiri_stage22':'Костя / mput; explicit user identification',
+                       'tsiri_economics':'Костя / mput; earlier economics version',
                        'team_review':'Михаил / Mput13; coordinator package, distinct from mput',
                        'konstantin':'Константин; attribution retained from team synthesis'},
         'pins':PINS,'inputs':team_inputs,'output':'research-report.html',

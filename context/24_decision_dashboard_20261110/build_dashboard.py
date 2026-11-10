@@ -83,6 +83,8 @@ encoded = lambda d: json.dumps(d, ensure_ascii=False, separators=(',', ':')).rep
 page = (HERE/'template.html').read_text().replace('/* DASHBOARD_CSS */', (HERE/'dashboard.css').read_text())
 page = page.replace('<!-- DASHBOARD_DATA -->', '<script id="dashboard-data" type="application/json">'+encoded(data)+'</script><script id="map-data" type="application/json">'+encoded(maps)+'</script>')
 page = page.replace('/* MAP_RENDERER */', renderer).replace('/* DASHBOARD_JS */', (HERE/'dashboard.js').read_text())
+# Correct human-readable labels while leaving pinned input data and IDs intact.
+page = page.replace('Материалы Анастасии, Цири и', 'Материалы Анастасии, Кости и').replace('у stage22 Цири —', 'у stage22 Кости —')
 (ROOT/'decision-dashboard.html').write_text(page)
 (HERE/'data.json').write_text(json.dumps(data, ensure_ascii=False, indent=2)+'\n')
 (HERE/'source_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n')
