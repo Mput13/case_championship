@@ -1,5 +1,5 @@
 {
-  "version": "methods-strategy-v4",
+  "version": "methods-integration-v5",
   "independent_review": "V1_RUNNING_ON_344f4425; V2_BUDGET_PENDING",
   "decisions": [
     {
@@ -226,6 +226,35 @@
       "subject": "Review qualifications",
       "decision": "Budget bound limited to enumerated products; cash1Mperiod-boundary only; same totals payment-first1.8M. UFA4notfinal8-12case. Primary lineage correction parentmetadataonly, originalCHANGESretained.",
       "basis": "Coordinator exact reviewed packages2278b184/944b16ac/f1774e1f"
+    },
+    {
+      "id": "M30",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Exact sales input for disruption overlay",
+      "decision": "Recompute lostfare/avoidedpax per recipe. UFA4/UFA8base cancellationdelta flips betweenC/N; no automatic transfer ofCdelta toN orportfolio.",
+      "evidence": "runs/kover_demand_v1/interaction_deltas.csv",
+      "limit": "Nscenario not observedOD; no empirical downtime, newriskprobability or fullbudget."
+    },
+    {
+      "id": "M31",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Mandatory D guard versus Q(F) in portfolios",
+      "decision": "30current D-only results unchanged vsstandalone sum; Q(F) delta remains separatepolicy. SyntheticD300rejects uncapped400 andguardcaps300.",
+      "evidence": "runs/portfolio_v2/guard_validation.json; guard_vs_curve.csv"
+    },
+    {
+      "id": "M32",
+      "status": "USER_CONSTRAINT",
+      "subject": "Correction and review scope",
+      "decision": "MR08approvesexactabb1only; MR02CHANGESexactafadee retained. Parent87ee gates4hubdelay casesNULL; independentcorrectionreviewMR10pending.",
+      "basis": "Coordinator immutable7a868d12/d8634187/87ee52de deliveries"
+    },
+    {
+      "id": "M33",
+      "status": "AGENT_PROPOSAL",
+      "subject": "Unknown disruption expense threshold",
+      "decision": "C/base cancellation accruedgain exhausted at750.03/UFA4 or1381.73/UFA8 RUB per unservedjourney. These are inverse arithmetic thresholds, not real/legal compensation.",
+      "evidence": "runs/kover_accounting_v1/burden_thresholds.csv"
     }
   ]
 }

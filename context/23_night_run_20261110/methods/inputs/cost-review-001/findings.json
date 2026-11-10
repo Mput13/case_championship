@@ -1,0 +1,97 @@
+{
+  "review_id": "MR02-independent-cost-kover-review-20261110",
+  "verdict": "CHANGES",
+  "reviewed_delivery_commit": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+  "reviewed_payload_commit": "553e63a5de32cff941fde3ca28175f242f28375c",
+  "root_base": "f1774e1f66a9483fb618ca6003abd9dc4d8563e1",
+  "confirmed_findings": [
+    {
+      "id": "CKR-P2-TIMEBASE",
+      "severity": "P2",
+      "classification": "CONFIRMED_ERROR",
+      "title": "Absolute week minutes are added to an already shifted row date",
+      "source_path": "context/23_night_run_20261110/cost_kover/overlay.py",
+      "source_commit": "afadee35ebeefe54a05bdfc5b3e224a370f90e0a",
+      "line_start": 65,
+      "line_end": 66,
+      "author_definition": {
+        "source_commit": "93fa5cf4a10ab67e05c93d19fc5375fc58ef9299",
+        "source_path": "scripts/build_team_comparison.py",
+        "lines": [28, 360, 363, 364, 365],
+        "definition": "WEEK=2026-12-07; row date WEEK+day-1 and departure/arrival minute already includes (day-1)*1440"
+      },
+      "example": {
+        "profile": "ROUTE_INPUTS_UPPER_100",
+        "network": "H_UFA_8",
+        "flight_id": "ROUTE_INPUTS_UPPER_100_H_UFA_8_028",
+        "row_date": "2026-12-08",
+        "departure_utc_minute": 1885,
+        "correct_departure_utc": "2026-12-08T07:25:00+00:00",
+        "published_departure_utc": "2026-12-09T07:25:00+00:00"
+      },
+      "measured_effects": {
+        "H_UFA_8_day2_legs_shifted_by_1440_minutes": 16,
+        "Dec8_counterexample_published_affected_legs": 0,
+        "Dec8_counterexample_correct_affected_legs": 16,
+        "unique_programme_legs_with_wrong_UTC_pair": 35,
+        "wrong_departure_arrival_events": 70,
+        "published_physical_rows_inheriting_wrong_UTC_pair": 350,
+        "H_UFA_8_corrected_delay_adjacent_template_conflicts_per_author_scenario": 23,
+        "H_UFA_4_corrected_delay_adjacent_template_conflicts_per_author_scenario": 11,
+        "held_delay_combinations": 4
+      },
+      "hold": [
+        "generic restriction detection after day1",
+        "published UTC columns after day1 and horizon checks using instant",
+        "TEMPLATE_ONLY_CONTINUITY_PASS and served-all feasibility for UFA8/UFA4 next-day delayed bank"
+      ],
+      "not_invalidated": [
+        "frozen baseline bytes and bounded author cost arithmetic",
+        "day1 selected set of 16 UFA8 cancelled legs",
+        "day1 union lost fare, named avoidable cost delta and net timing fixture",
+        "zero delta for delay as an explicitly hypothetical algebraic assumption of eventual completion"
+      ],
+      "smallest_fix": "Use one explicit week origin everywhere, or subtract the existing day offset before anchoring to row date. Do not apply modulo1440. Rebuild dependent UTC/affected/horizon outputs; resolve or hold delayed-bank template conflicts.",
+      "acceptance_needed_after_fix": [
+        "new pinned corrected output",
+        "day2 window detects16 legs",
+        "arrival and delay rollover preserved",
+        "horizon and half-open/timezone tests on the correct time axis",
+        "delayed bank conflicts solved or explicitly unresolved"
+      ],
+      "evidence": ["timebase_audit.csv", "delay_template_conflicts.csv", "counterexamples.json", "review.py"],
+      "independent_check": "PERSONALLY_REPRODUCED_FROM_EXACT_BLOBS",
+      "production_source_modified": false
+    }
+  ],
+  "nondefect_boundaries": [
+    {
+      "id": "CKR-B01",
+      "subject": "Contracts and full budget",
+      "status": "UNKNOWN",
+      "detail": "117 registry rows checked; 25 unknown contract terms remain NULL. UFA/KHV public references are not RW negotiated contracts; real budget and gross reserve not accepted."
+    },
+    {
+      "id": "CKR-B02",
+      "subject": "Conditional cash days and accounting period",
+      "status": "SCOPED_FIXTURE_MATCHED",
+      "detail": "-6078104.30319147 trough and +854454.44680853 day14 terminal reproduced. Week end before day7 has +418043.43665659335 cash delta. No full-company reserve or actual intraday peak inferred."
+    },
+    {
+      "id": "CKR-B03",
+      "subject": "Source verification",
+      "status": "SELECTED_KHV_ROWS_PERSONALLY_SUPPORTED",
+      "detail": "Two KHV raw hashes and four page renders personally checked. UFA/OMS30 selected extracts personally joined, but their primary raw verification remains inherited and is not claimed personally."
+    },
+    {
+      "id": "CKR-B04",
+      "subject": "Programme comparison and strategy boundary",
+      "status": "SCENARIO_ONLY",
+      "detail": "Four programmes and base/cautious are alternatives, never pooled. Same period/monetary basis required; no second donor/migration loss. No observed demand, forecast restriction end, statistical probability, dispatch or launch acceptance."
+    }
+  ],
+  "inherited_acceptance": [],
+  "budget_v2_pass_inherited": false,
+  "author_self_checks_used_as_acceptance": false,
+  "market_dispatch_launch": "OUTSIDE_SCOPE"
+}

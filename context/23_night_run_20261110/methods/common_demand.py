@@ -65,7 +65,7 @@ def prepare(ss, cc, scenario, params):
     return offers
 
 
-def simulate(offers, cc, params, demand=None, multiplier=1):
+def simulate(offers, cc, params, demand=None, multiplier=1, enforce_market_cap=False):
     caps={c['flight_id']:float(c['capacity_scenario']) for c in cc}
     initial=caps.copy();migration={};out=[];totals=collections.Counter()
     for o in offers:
@@ -74,7 +74,10 @@ def simulate(offers, cc, params, demand=None, multiplier=1):
     for o in offers:
         k=(o['origin'],o['destination'])
         D=(o['D'] if demand is None else demand[pair(*k)])*multiplier
-        sold=min(D*o['coefficient'],*(caps[i] for i in o['legs']))
+        if k in market_D:near(D,market_D[k],'shared market D identity')
+        options=[D*o['coefficient']]+[caps[i] for i in o['legs']]
+        if enforce_market_cap:options.append(max(0,D-market_sold[k]))
+        sold=min(options)
         for leg in o['legs']:caps[leg]-=sold
         direct=min(sold*o['can'],migration[k]);migration[k]-=direct
         unknown=sold*o['can']-direct # all selected source markets have old_rw_segments=2

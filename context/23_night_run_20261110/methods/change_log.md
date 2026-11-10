@@ -14,3 +14,7 @@
 ## methods-strategy-v4
 
 Отдельные mixed/resource/product bridges; исходные commonv3 и budgetv2 runs неизменны. Подключены новые exact reviews с сохранением scopes; primarylineage parentcorrection не стала independent/source acceptance. MR02timebaseP2 удержан до отдельного исправления. Манифест теперь включает вложенные output_manifest.json как обычные входы; исключается только собственный корневой manifest.
+
+## methods-integration-v5
+
+Cost-timebase correction87ee импортирована отдельно; задержкиHOLD не включены как доступные деньги. C-overlay и C/Ninteraction имеют разныеcontracts/runs. Добавлен portfolioDguard: текущие30deltas0, synthetic400→300. common_demand.simulate получил явный флагDguard, default84cases/151regionsbyteunchanged. Portfolio calendar row order deterministic in separate replay directory; oldv1bytesunchanged. Current acceptance matrix различает original CHANGES и corrected parentchecks.

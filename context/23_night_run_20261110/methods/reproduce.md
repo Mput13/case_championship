@@ -41,3 +41,15 @@ python3 -B context/23_night_run_20261110/methods/probe_kover_timebase.py
 ```
 
 Последняя команда импортирует pinned overlay без main и без записи pycache; толькоinstant заменяется в памяти дляконтрпримера. Исходный код и frozeninput не редактируются.
+
+### Интеграция v5
+
+```sh
+python3 context/23_night_run_20261110/methods/integrate_kover_accounting.py
+python3 context/23_night_run_20261110/methods/kover_demand_interaction.py
+python3 context/23_night_run_20261110/methods/portfolio_guard_comparison.py
+python3 context/23_night_run_20261110/methods/qualify_review_inputs.py
+python3 context/23_night_run_20261110/methods/render_kover_chart.py
+```
+
+Текущий portfolio_comparison.py пишет отдельныйportfolio_v1_replay с отсортированнымиtailrows; историческийportfolio_v1 не перезаписывается. `replay_equivalence.json` показывает allvaluesmatch.

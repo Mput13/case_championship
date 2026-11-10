@@ -1,10 +1,10 @@
 {
-  "package": "methods-strategy-v4",
+  "package": "methods-integration-v5",
   "branch": "research/night-model-methods-20261110",
   "scope": "context/23_night_run_20261110/methods/",
-  "status": "FOURTH_PACKAGE_READY_WORK_CONTINUES",
+  "status": "FIFTH_PACKAGE_READY_WORK_CONTINUES",
   "exact_package_commit": "Resolve from the coordinator delivery message; self-commit is not embedded in hashed content.",
-  "entrypoint": "strategy_accounting_readout.md",
+  "entrypoint": "integration_readout.md",
   "required_outputs": [
     "comparison_spec.md",
     "model_inventory.csv",
@@ -44,15 +44,26 @@
     "inputs/repair-review-001/receipt.json",
     "inputs/source-review-001/receipt.json",
     "inputs/primary-lineage-002/receipt.json",
-    "inputs/cost-kover-001/receipt.json"
+    "inputs/cost-kover-001/receipt.json",
+    "kover_demand_contract.json",
+    "runs/kover_accounting_v1/status.json",
+    "runs/kover_demand_v1/validation.json",
+    "runs/kover_demand_v1/interaction_deltas.csv",
+    "portfolio_guard_contract.json",
+    "runs/portfolio_v2/guard_validation.json",
+    "runs/portfolio_v1_replay/replay_equivalence.json",
+    "runs/admission_v1/acceptance_matrix.csv",
+    "inputs/cost-timebase-002/receipt.json",
+    "inputs/common-review-001/receipt.json",
+    "inputs/cost-review-001/receipt.json"
   ],
   "three_findings": [
-    "MR02 timebase P2:16day2UFA8 timestamps shift24h; corrected day1 delay collides with day2 (23rotation issues,8simultaneous flights). Day1 cancellation arithmetic not falsified; root notified.",
-    "Mixed programs share one OD/old-RW budget: D_SVX8+D_previous_best8 base delta vs sum -446063.89RUB/week, under proposed pooled capture; actual additive sold still below entireD.",
-    "Resource4+1 means240block-hours under6days, versus630in author Nastya7day envelope. Only3of12Nastya variants pass necessary240h bound; calendar still unknown."
+    "Base cancellation contribution delta changes sign with exact sales input: UFA4 C+255219.47 vsN-605120.27; UFA8 C+854454.45 vsN-998495.53 RUB. New N demand remains hypothetical, before unknown costs.",
+    "Separate C-overlay adapter retains4delayHOLD/NULL after parenttimebase correction. C/base burden erasing cancellation accrual gain is750.03/UFA4 and1381.73/UFA8 RUB per unserved endpointjourney, not legal/actual compensation.",
+    "All30current portfolio D-only cases equal additive results; proposedQ(F) remains separate. Prior60numeric v4 cases and v3 frozen bytes preserved; new deterministic replay only sorts calendar row order."
   ],
-  "validation": "60portfolio cases (30distinct numeric results),20resource rows,6product unit cases,2cost recipe bridges; targeted MR02 time-base P2 reproduced without changing originals.",
-  "independent_review": "V1_SCOPED_WITH_LEGACY_LABEL_HOLD; BUDGET_V2_APPROVE_SCOPED; COMMON_V3_MR08_RUNNING; STRATEGY_V4_PENDING",
+  "validation": "40corrected-context21 overlay rows/4held delays;12independent-by-owner cancellation ledger recomputations and8cash ledgers;16explicit C/N interaction cases;90portfolioDguard/Qcases and30D-only zero deltas;209/386original metadata cells preserved.",
+  "independent_review": "MR08_APPROVE_SCOPED_abb1; MR09_RUNNING_c24; MR02_CHANGES_afadee; MR10_RUNNING_CORRECTIONS; V5_PENDING",
   "not_run": [
     "common cross-author dated network optimisation",
     "actual paid market validation",
@@ -60,7 +71,7 @@
     "independent review of v4",
     "feasible Kover delay recovery after timebase correction"
   ],
-  "next_work": "Integrate exact corrections/reviews and cost overlay under holds; preserve parallel frontier products; prepare final common choice/budget synthesis by10MSK.",
+  "next_work": "Receive scoped independent reviews and frontier exact packages; refine allocation/decision conditions and final traceable comparison before09:30freeze/10:00handoff.",
   "deadline_msk": "2026-11-10T10:00:00+03:00",
   "first_package_commit": "344f4425ba3fbb73b45a5cbcd223089e2ca7b5d4"
 }

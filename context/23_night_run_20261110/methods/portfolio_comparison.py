@@ -6,7 +6,8 @@ import json
 import math
 import common_demand as m
 
-OUT=m.ROOT/'runs/portfolio_v1'
+# Historical v1 output is immutable; current replay uses a separate directory.
+OUT=m.ROOT/'runs/portfolio_v1_replay'
 
 
 def dump(name,data):
@@ -15,8 +16,10 @@ def dump(name,data):
     finally:m.OUT=old
 
 
-def main():
-    contract=json.loads((m.ROOT/'portfolio_contract.json').read_text())
+def main(contract_path=None, output_path=None):
+    global OUT
+    if output_path is not None:OUT=output_path
+    contract=json.loads((contract_path or m.ROOT/'portfolio_contract.json').read_text())
     rs=m.rows(m.SRC/'21_team_proposals/comparison.csv')
     allsales=m.rows(m.SRC/'17_aircraft_route_review/model/sales.csv')
     allcaps=m.rows(m.SRC/'17_aircraft_route_review/model/capacity.csv')
@@ -32,7 +35,7 @@ def main():
         for c in cc:c['flight_id']=n+'|'+c['flight_id']
         fmap={n+'|'+f['id']:f for f in ff}
         assert {c['flight_id']for c in cc}==set(fmap)
-        for tail in {f['aircraft']for f in ff}:
+        for tail in sorted({f['aircraft']for f in ff}):
             fs=sorted([f for f in ff if f['aircraft']==tail],key=lambda f:float(f['departure_utc_minute']))
             gaps=[]
             for a,b in zip(fs,fs[1:]):
@@ -68,7 +71,12 @@ def main():
                         for o in offers:
                             k=o['origin'],o['destination'];f=temporal[k]
                             o['coefficient']=(.45 if sc=='base'else .30)*(1-math.exp(-f/3))*(.65 if o['transfer']else 1)/len(grouped[k])
-                    total,dd,remaining=m.simulate(offers,cc,p)
+                    if law=='D_GUARD_STANDALONE_CLAIMS':
+                        frequency=collections.Counter((s['flight_ids'].split('|')[0],s['origin'],s['destination'])for s in ss)
+                        for o in offers:
+                            f=frequency[o['legs'][0].split('|')[0],o['origin'],o['destination']]
+                            o['coefficient']=(.45 if sc=='base'else .30)*(1-math.exp(-f/3))*(.65 if o['transfer']else 1)/f
+                    total,dd,remaining=m.simulate(offers,cc,p,enforce_market_cap=law=='D_GUARD_STANDALONE_CLAIMS')
                     if len(subset)==1:
                         for field in ['sold_journeys','segment_pax','migrated_RW_total','gross_revenue','foregone_RW_revenue','saved_old_pax_variable','contribution_before_base_fleet_opportunity']:
                             m.near(total[field],parts[0][0][field],('singleton',pid,law,field))
@@ -94,7 +102,7 @@ def main():
                     validation.append(dict(portfolio=pid,scenario=sc,capture_law=law,itineraries=len(dd),legs=len(cc),status='PASS_CAPACITY_MARKET_OWN_CAP_AND_COST_ACCOUNTING'))
     dump('summary.csv',results);dump('shared_market_audit.csv',market_audit);dump('pair_portfolio_itineraries.csv',detail)
     dump('calendar_checks.csv',calendar);dump('case_checks.csv',validation)
-    dump('validation.json',dict(status='PASS_OWNER_CHECKS',cases=len(results),singleton_cases=16,portfolio_subsets=15,
+    dump('validation.json',dict(status='PASS_OWNER_CHECKS',cases=len(results),singleton_cases=8*len(contract['capture_laws']),portfolio_subsets=15,
                                 current_ceiling_cases=sum(r['current4_working_ceiling_pass']for r in results),
                                 independent_review='PENDING',new_global_optimum=False,observed_demand=False,future_fleet_confirmed=False))
     print(json.dumps(dict(cases=len(results),shared_market_records=len(market_audit))))
