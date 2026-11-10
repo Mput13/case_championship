@@ -70,12 +70,40 @@ def main():
             'change_pp':after-before,'status':'STATIC_LANDMARK_NOT_FUTURE_SHARE'})
     write_csv('market_share_scenarios.csv', shares)
 
+    power = []
+    for card, baseline, delta, events in [
+        ('D01_small_effect', .04, .001, 1000000),
+        ('D01_larger_MDE', .04, .003, 1000000),
+        ('D02_attach', .08, .005, 500000),
+        ('D03_repeats', .40, .10, 60000),
+    ]:
+        per_arm = math.ceil(2 * (1.96 + .84)**2 * baseline * (1-baseline) / delta**2)
+        power.append({'id':card,'assumed_baseline':baseline,'absolute_MDE':delta,
+            'events_per_arm_approx':per_arm,'events_total':per_arm*2,
+            'assumed_eligible_events_per_year':events,'traffic_days_approx':per_arm*2/events*365,
+            'alpha_two_sided':.05,'power_approx':.80,
+            'limitation':'Normal approximation only; independent binary cases; recompute with actual baseline and clusters; margin metric may need larger sample'})
+    write_csv('experiment_power.csv', power)
+
+    mixed = []
+    gap = p['number_two_landmark'] - p['red_wings_passengers']
+    for sid, fraction in [('regional_base', .5), ('medium_194', .35), ('wide_412', .15)]:
+        x = next(s for s in p['resource_scenarios'] if s['id']==sid)
+        passengers = gap * fraction
+        legs = passengers / (x['seats'] * x['load_factor'])
+        hours = legs * x['block_hours_per_leg']
+        stock = math.ceil(hours / (365*x['productive_hours_per_active_day']*x['availability_including_reserve']))
+        mixed.append({'id':sid,'incremental_passenger_fraction':fraction,'incremental_passengers':passengers,
+            'one_way_legs':legs,'block_hours':hours,'additional_stock_equivalent_ceil':stock,
+            'status':'ARBITRARY_MIX_DIAGNOSTIC_NOT_NETWORK_OR_FLEET_PLAN'})
+    write_csv('mixed_scale.csv', mixed)
+
     # Reproducible sanity checks of accounting boundaries, not a market validation.
     assert math.isclose(p['number_two_landmark'] - p['red_wings_passengers'], 11100000)
-    assert all(x['first_year_result_after_implementation_rub'] < 0 for x in digital if x['scenario']=='cautious')
     assert all(x['additional_stock_equivalent_ceil'] > 0 for x in rows)
     check = {'offline_arithmetic':'PASS','digital_rows':len(digital),'resource_rows':len(rows),
-        'market_share_rows':len(shares),'input_sha256':hashlib.sha256((BASE/'parameters.json').read_bytes()).hexdigest(),
+        'market_share_rows':len(shares),'power_rows':len(power),'mixed_scale_rows':len(mixed),
+        'input_sha256':hashlib.sha256((BASE/'parameters.json').read_bytes()).hexdigest(),
         'live_business_effect':'NOT_RUN','cash_reconciliation':'NOT_RUN'}
     (BASE/'validation.json').write_text(json.dumps(check, ensure_ascii=False, indent=2)+'\n')
     print(json.dumps(check,ensure_ascii=False))

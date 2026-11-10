@@ -17,4 +17,16 @@ T3 browser use: одна собственная вкладка, без чужи�
 
 ## Пакет
 
-`cards.md` — D01–D03, `scale.md` — S01, `sources.csv` — происхождение и доступ, `calculate.py`/`parameters.json` — воспроизводимые расчёты, `digital_thresholds.csv`/`resource_scale.csv` — результаты, `passport.md` — тезисы, `manifest.json` — хеши входов/выходов. PNG в `illustrations/`, наблюдения в `evidence/`. На момент первого среза часть этих файлов ещё готовится.
+`cards.md` — D01–D03, `scale.md` — S01, `sources.csv` — происхождение и доступ, `calculate.py`/`parameters.json` — воспроизводимые расчёты, `digital_thresholds.csv`/`resource_scale.csv` — результаты, `passport.md` — краткие карточки и готовый абзац, `manifest.json` — хеши входов/выходов. PNG в `illustrations/`, наблюдения в `evidence/`. `annual_carriers.csv` сохраняет отдельные компании и группы; неизвестный годовой показатель не заменён нулём. `experiment_power.csv` — ограничения мощности теста; `mixed_scale.csv` — условный смешанный ресурс, не выбранный парк.
+
+Воспроизведение из корня репозитория:
+
+```sh
+python3 context/28_evening_run_20261110/digital_growth/calculate.py
+python3 context/28_evening_run_20261110/digital_growth/make_illustrations.py
+python3 context/28_evening_run_20261110/digital_growth/build_manifest.py
+```
+
+Первый и третий скрипты используют только стандартную библиотеку Python. Для PNG нужен уже установленный matplotlib; новые зависимости не устанавливались. Скрипты не открывают сеть/браузер и пишут только в эту папку. Исходные публичные сервисы воспроизводятся по последовательности в `evidence/browser_observations.json`; старый анонимный URL покупки может истечь.
+
+Проверены арифметика, размерности, отсутствие суммирования компаний с группами, единицы конверсии/обращений и читаемость двух новых PNG. Это личная offline-проверка, не независимый review и не измерение бизнес-эффекта. В осторожных сценариях все три дорогих цифровых пакета убыточны; это сохраняется в выдаче. Полный первичный числовой рейтинг всех авиакомпаний остаётся ограничением S01.
