@@ -94,3 +94,7 @@ Guard запускается отдельным первым шагом пере
 ## Текущий guard: MR14 и отдельная коррекция
 
 Original7e65 `admit_frozen_interaction.py` сохраняетCHANGES(MR14-P2-01) по самостоятельнойпривязкеoracle receipt. Его baselineчисла не опровергнуты. Root-projection4a89 находится в отдельномpackage `context/23_night_run_20261110/input_admission_correction/`; здесьсохраненатолькоприкреплённаяreference. Не запускать copiedcorrected.py вinputs каксамостоятельный pipeline. Воспроизведениеполнойroot-projectionописановеёREADME; MR15покаpending. Никакойавтозащитыoldinteractionилиновыхinputsets не заявлено.
+
+## MR15: текущая квалификация отдельной root-projection
+
+Review325368b8e5cd50fb5fa48d1c99574780758a1eb4 принимает binding толькоcorrection4a89bf1c04b24224a6a85a6cb9b6ca1cad032ab0 наexactfrozeninput. Original7e65guard сохраняетCHANGES; oldinteraction не подключён автоматически. Кодне переносилсявmethods: reproducible отдельнаяroot-projection иеёreview остаютсяисточникамиприёмки. Историческиеpending поля baselineoutputs не переписаны.

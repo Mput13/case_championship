@@ -28,3 +28,5 @@ Cost-timebase correction87ee импортирована отдельно; зад
 - v9: exactMR13e4a receipt,admission_v5 икомпактныйhandoff; numericoutputs unchanged. Приоритет толькоremaining reviews/materialfixes/freeze.
 
 - v10: новыеimmutablepassport/MR14/correction references,admission_v6; толькостатусы икомпактныйhandoff. Ownerguardиoldnumericruns неизменны.
+
+- v11: MR15reviewreceipt иотдельноеacceptanceevent,admission_v7. Экономика,источниковыезначенияиoriginalguard неизменны.
