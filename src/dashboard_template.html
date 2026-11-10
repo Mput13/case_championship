@@ -205,9 +205,9 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
 
     <aside class="panel" aria-labelledby="w-title">
       <div><h2 id="w-title" style="font-size:20px">Пульт весов</h2><div class="hint">Веса в сумме 100. Шкала каждого критерия — по всем 20 городам и не меняется от фильтра.</div></div>
-      <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Решение команды 10.11.2026: хаб ближе 500 км к Москве или Екатеринбургу во многом повторял бы базу. «Без фильтра» — только для проверки.</small></div>
+      <div class="w"><div class="w-top"><span style="color:var(--ink)">Не ближе к Москве и Екатеринбургу</span></div><div class="seg" id="mindist" role="group" aria-label="Фильтр расстояния до баз"></div><small>Хаб ближе 500 км к Москве или Екатеринбургу во многом повторял бы уже существующие базы Red Wings.</small></div>
       <div class="w"><div class="w-top"><span style="color:var(--ink)">Опорные аэропорты Red Wings</span></div><div class="seg" id="mode" role="group" aria-label="Режим допуска"></div><small>Самару, Казань, Сочи и Махачкалу Red Wings 27.10.2026 называет опорными. «Строго новый хаб» убирает их из рейтинга.</small></div>
-      <div class="w"><div class="w-top"><label for="profile" style="color:var(--ink)">Набор весов</label></div><select id="profile" class="psel"></select><small>Основной — предложение коллег (аудит шага 1), командой ещё не утверждён.</small></div>
+      <div class="w"><div class="w-top"><label for="profile" style="color:var(--ink)">Набор весов</label></div><select id="profile" class="psel"></select><small>Основной набор сбалансирован, остальные усиливают одну группу критериев.</small></div>
       <div id="wlist" style="display:grid;gap:12px"></div>
       <div class="stab" id="stab"></div>
       <button class="btn" id="reset" type="button">Вернуть веса по умолчанию</button>
@@ -299,6 +299,7 @@ const dayW=n=>{ const a=Math.abs(n)%100,b=a%10; return a>10&&a<20?'дней':b==
 const CR=D.criteria;
 const DEFAULT_W=Object.fromEntries(CR.map(w=>[w.key,w.weight]));
 let STRICT=false, PROFILE='balanced';
+const ZERO=new Set(CR.filter(w=>!(w.weight>0)&&D.profiles.every(p=>!(p.weights[w.key]>0))).map(w=>w.key));
 const isRW=i=>((D.values[i]||{}).rw_support||{}).v===1;
 let W={...DEFAULT_W}, MIN=500, SEL=null, SORT={key:'score',dir:-1}, DTAB='all', ITAB='all', R;
 const BY=Object.fromEntries(D.cities.map(c=>[c.iata,c]));
@@ -392,22 +393,22 @@ function board(){
 
 function weights(){
   const seg=document.getElementById('mindist'); seg.textContent='';
-  [500,0].forEach(v=>{ const b=h('button',{type:'button','aria-pressed':String(v===MIN),id:'md-'+v},v?v+' км (решение команды)':'без фильтра (проверка)'); b.addEventListener('click',()=>{ MIN=v; weights(); update(); }); seg.append(b); });
+  [500,0].forEach(v=>{ const b=h('button',{type:'button','aria-pressed':String(v===MIN),id:'md-'+v},v?v+' км':'без фильтра'); b.addEventListener('click',()=>{ MIN=v; weights(); update(); }); seg.append(b); });
   const ms=document.getElementById('mode'); ms.textContent='';
   [[false,'Развитие опоры можно'],[true,'Строго новый хаб']].forEach(([v,t])=>{ const b=h('button',{type:'button','aria-pressed':String(v===STRICT)},t); b.addEventListener('click',()=>{ STRICT=v; weights(); update(); }); ms.append(b); });
   const pp=document.getElementById('profile'); if(!pp.options.length){ for(const p of D.profiles){ pp.append(h('option',{value:p.id},p.label)); } pp.addEventListener('change',()=>{ PROFILE=pp.value; W={...D.profiles.find(p=>p.id===PROFILE).weights}; for(const w of CR) if(W[w.key]==null) W[w.key]=0; update(); }); }
   pp.value=PROFILE;
   const box=document.getElementById('wlist'); if(box.childElementCount) return;
-  for(const w of CR){
+  for(const w of CR){ if(ZERO.has(w.key)) continue;
     const inp=h('input',{type:'range',min:0,max:40,step:1,value:W[w.key],id:'w-'+w.key});
     inp.addEventListener('input',()=>{ const nw={...W,[w.key]:+inp.value}; if(!(wsum(nw)>0)){ inp.value=W[w.key]; return; } W=nw; update(); });
-    box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why+(w.origin!=='основной'?` · подключён из data/criteria/${w.origin}`:''))));
+    box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why)));
   }
 }
 function weightLabels(){
-  const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ document.getElementById('wp-'+w.key).textContent=ru(W[w.key]/t*100)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
+  const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ if(ZERO.has(w.key)) continue; document.getElementById('wp-'+w.key).textContent=ru(W[w.key]/t*100)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
   const s=document.getElementById('stab'); s.textContent='';
-  s.append(h('div',{},'Топ-3: ',h('b',{},R.rows.slice(0,3).map(x=>x.c.city).join(', '))), h('div',{},'Один вес ×0,5 или ×1,5: тройка та же в ',h('b',{},`${R.same} из ${R.total}`)), h('div',{style:'color:var(--muted);font-size:12px'},'«В топ-3» — как часто город попадает в тройку при 2 000 случайных наборах весов. Это проверка устойчивости, а не вероятность.'));
+  s.append(h('div',{},'Топ-3: ',h('b',{},R.rows.slice(0,3).map(x=>x.c.city).join(', '))), h('div',{},'Один вес ×0,5 или ×1,5: тройка та же в ',h('b',{},`${R.same} из ${R.total}`)), '');
 }
 
 function ticket(){
