@@ -31,6 +31,12 @@ def test_no_working_aircraft_rejected():
         nm.direct_network(None, a, "base", [])
 
 
+def test_search_includes_intermediate_fleet_limits():
+    a = nm.load_assumptions()["base"]
+    assert nm.search_caps(a) == list(range(2, 11))
+    assert nm.search_caps(dict(a, fleet_cap=3)) == [2, 3]
+
+
 def test_subsidy_can_be_declined(monkeypatch):
     class D:
         def km(self, a, b):
@@ -85,3 +91,23 @@ def test_forgone_revenue_is_not_discounted_with_subsidized_tickets(monkeypatch):
     revenue, subsidy = nm.leg_with_subsidy(D(), a, "A", "B", 3, 200, forgone_rev=50_000)
     assert subsidy == 6_000_000
     assert revenue == 400 * 1000 + subsidy - 50_000
+
+
+def test_fleet_ramp_matches_main_and_optional_support():
+    ramp = pd.read_csv(ROOT / "data/processed/fleet_ramp.csv")
+    summary = pd.read_csv(ROOT / "data/processed/network_summary.csv")
+    assert (ramp.aircraft <= ramp.fleet_cap).all()
+    for scenario, rows in ramp.groupby("scenario"):
+        rows = rows.sort_values("fleet_cap")
+        a = nm.load_assumptions()[scenario]
+        feasible = rows[rows.routes.ge(a["min_routes"])]
+        assert feasible.result_mln_year.diff().dropna().ge(0).all()
+        last = rows.iloc[-1]
+        if last.fleet_cap == a["fleet_cap"]:
+            main = summary[summary.scenario.eq(scenario) & summary.hub.eq(last.hub)].iloc[0]
+            for column in ("aircraft", "routes", "segments_year", "result_mln_year", "subsidy_mln_year"):
+                assert main[column] == last[column], (scenario, column)
+    for scenario in ("base", "cautious"):
+        plain = ramp[ramp.scenario.eq(scenario)].set_index("fleet_cap")
+        supported = ramp[ramp.scenario.eq(scenario + "_sub")].set_index("fleet_cap")
+        assert supported.result_mln_year.ge(plain.result_mln_year).all()

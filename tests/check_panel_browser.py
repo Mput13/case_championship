@@ -32,7 +32,7 @@ with sync_playwright() as p:
     page.evaluate("() => { SCEN='base'; SUB=true; SEL='OMS'; update(); vsBoard(); netUpdate(); }")
     page.locator("#vs").screenshot(path=str(OUT / "panel_base.png"))
     page.evaluate("() => { SCEN='cautious'; vsBoard(); netUpdate(); }")
-    page.locator("#vs details").evaluate("el=>el.open=true")
+    page.locator("#vs details").filter(has_text="Почему сценарии так различаются").evaluate("el=>el.open=true")
     page.locator("#vs").screenshot(path=str(OUT / "panel_cautious.png"))
     page.set_viewport_size({"width": 390, "height": 900})
     page.locator("#vs").screenshot(path=str(OUT / "panel_mobile.png"))

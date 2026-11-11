@@ -3,10 +3,14 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+
+if os.name != "posix":
+    raise unittest.SkipTest("Deployment receiver uses POSIX locking; tested on Linux in CI")
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('receiver', ROOT / 'deploy/dashboard_receiver.py')

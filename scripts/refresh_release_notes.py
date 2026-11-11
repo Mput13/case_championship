@@ -1,33 +1,39 @@
-"""Обновляет таблицу итогов и точечные формулировки после сетевого расчёта."""
+"""Публикует текущие результаты; исторический паспорт сохраняет свой срез."""
 from pathlib import Path
-import re
-import zipfile
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 s = pd.read_csv(ROOT / "data/processed/network_summary.csv")
-fmt = lambda x: f"{abs(int(x)):,}".replace(",", " ")
-signed = lambda x: ("+" if x >= 0 else "−") + fmt(x)
-p = ROOT / "docs/24_hypotheses_comparison.md"
-t = p.read_text(encoding="utf-8")
-for row in s[s.scenario.eq("cautious_sub")].itertuples():
-    variant = "Прямые рейсы" if pd.isna(row.hub) else row.variant
-    pattern = r"(?m)^(\| \d+ \| " + re.escape(variant) + r" \|[^\n]*\| )[^|]+ \|$"
-    t = re.sub(pattern, lambda m: m.group(1) + signed(row.result_mln_year) + " |", t)
-t = t.replace("спрос втрое ниже", "нижняя оценка спроса")
-t = t.replace("Хабы: тройка лонглиста", "Хабы: все 20 городов лонглиста; на основном табло тройка лонглиста")
-t = t.split("\n## Проверка итоговой сборки\n")[0]
-t += "\n## Проверка итоговой сборки\n\nДоступная субсидия теперь сравнивается также с сохранённой сетью без поддержки. Это устраняет ухудшение результата из-за жадного отбора. Потерянная выручка прежних рейсов вычитается полностью и при специальном тарифе. Выплата включена в выручку; её величина отличается от изменения результата сети.\n\nПроверки: `py -3.13 -m pytest tests -q`, `py -3.13 scripts/check_release.py`, `py -3.13 tests/check_panel_browser.py`. Последняя команда требует Playwright и установленный Chrome.\n\nРасчёт поддержки использует среднюю ставку и упрощённое сезонное применение специального тарифа, включая пропорциональную корректировку выручки пересадочных билетов. Право на конкретную выплату и условия будущего конкурса требуют отдельной проверки.\n"
-p.write_text(t, encoding="utf-8")
-p = ROOT / "docs/29_passport.md"
-t = p.read_text(encoding="utf-8").replace("спрос втрое ниже средней оценки", "нижняя оценка спроса")
-p.write_text(t, encoding="utf-8")
-doc = next((ROOT / "outputs/passport").glob("*.docx"))
-with zipfile.ZipFile(doc) as z:
-    members = [(item, z.read(item.filename)) for item in z.infolist()]
-with zipfile.ZipFile(doc, "w") as z:
-    for item, value in members:
-        if item.filename == "word/document.xml":
-            value = value.decode("utf-8").replace("спрос втрое ниже средней оценки", "нижняя оценка спроса").encode("utf-8")
-        z.writestr(item, value)
-print("Обновлены пояснения сценариев и таблица итогов")
+ramp = pd.read_csv(ROOT / "data/processed/fleet_ramp.csv")
+
+def number(x):
+    return f"{int(x):,}".replace(",", " ")
+
+def signed(x):
+    return ("+" if x >= 0 else "−") + number(abs(x))
+
+lines = [
+    "# Текущий расчёт маршрутной сети", "",
+    "Сборка после проверки веток 11 ноября 2026 года. Таблицы сформированы из `network_summary.csv` и `fleet_ramp.csv` тем же запуском сборки, что HTML и Excel.", "",
+    "## Метод и границы результата", "",
+    "Проверяются все целые лимиты флота 2–10 самолётов, включая резерв. Из построенных жадным алгоритмом сетей выбирается лучшая по маржинальному вкладу с минимумом 8 направлений, если такая сеть доступна. Глобальный оптимум этим методом не доказан.", "",
+    "Доступная поддержка сравнивается с сохранённой сетью без поддержки. Совпадение результатов допустимо: модель может отказаться от выплаты, если снижение тарифа перекрывает её сумму. Сумма выплаты входит в выручку и отличается от изменения вклада.", "",
+    "Маржинальный вклад рассчитан до аренды самолётов и открытия базы. Осторожный сценарий одновременно меняет спрос, тариф, затраты, число рабочих недель и топливный вычет; это совокупный стресс-тест. Параметры находятся в `data/assumptions/network.csv`.", "",
+    "У хаба единица сети — луч; у прямой сети — треугольник из трёх плеч. Индекс «Ковёр» взвешен по частотам в аэропортах сети: он не равен числу закрытых дней выбранного хаба. MOW обозначает городской рынок с неустановленным аэропортом. Календарное расписание и доступность самолётов требуют отдельной проверки.", "",
+    "[Разбор всех 66 веток и открытых замечаний](31_branch_review_20261111.md). [Историческое сравнение 10 ноября](24_hypotheses_comparison.md).",
+]
+labels = {"base": "База без поддержки", "base_sub": "База при доступной поддержке",
+          "cautious": "Осторожный без поддержки", "cautious_sub": "Осторожный при доступной поддержке"}
+for scenario, label in labels.items():
+    lines += ["", f"## {label}", "",
+              "| Вариант | ВС | Лучей / треугольников | Сегментов | Поездок O&D | Выручка, млн ₽ | Расходы, млн ₽ | Вклад, млн ₽ | Поддержка, млн ₽ |",
+              "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+    for row in s[s.scenario.eq(scenario)].sort_values("result_mln_year", ascending=False).itertuples():
+        lines.append(f"| {row.variant} | {row.aircraft} | {row.routes} | {number(row.segments_year)} | {number(row.od_trips_year)} | {number(row.revenue_mln_year)} | {number(row.var_cost_mln_year)} | {signed(row.result_mln_year)} | {number(row.subsidy_mln_year)} |")
+lines += ["", "## Поэтапный парк выбранного хаба", "",
+          "В этой таблице применяется тот же перебор меньших лимитов, что в основном сравнении. При появлении возможности собрать обязательные 8 лучей приоритет меняется в пользу допустимой по кейсу сети, даже если меньшая сеть давала больший вклад.", "",
+          "| Сценарий | Лимит ВС | Используется ВС | Лучей | Вклад, млн ₽ |", "|---|---:|---:|---:|---:|"]
+for row in ramp.itertuples():
+    lines.append(f"| {labels[row.scenario]} | {row.fleet_cap} | {row.aircraft} | {row.routes} | {signed(row.result_mln_year)} |")
+(ROOT / "docs/32_current_model_results.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+print("Обновлён docs/32_current_model_results.md")

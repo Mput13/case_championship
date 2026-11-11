@@ -27,6 +27,9 @@ py -3.13 scripts/build_release.py
 - `CLAUDE.md` — контекст для Claude Code
 
 ## Расчёт: лонглист городов (src/)
+
+[Текущий интерфейс](https://redwings.altair.ad/). [Проверка 66 веток](docs/31_branch_review_20261111.md) и [актуальные расчётные таблицы](docs/32_current_model_results.md): перебор всех целых лимитов флота 2–10, одинаковый метод для итоговой сети и этапов роста. Полная сборка из сохранённых источников: `py -3.13 scripts/build_release.py`. Результат сети рассчитан до аренды самолётов и открытия базы.
+
 Откуда какие данные — `docs/22_data_sources_longlist.md`. Нужен Python 3.13 с pandas и openpyxl.
 ```
 py -3.13 src/fetch_static.py                      # OurAirports и «Если быть точным»

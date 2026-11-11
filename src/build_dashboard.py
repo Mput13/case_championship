@@ -362,7 +362,7 @@ def main():
     tri_name = lambda v: " — ".join(names.get(x, x) for x in v.replace("Прямые ", "").split("-")[1:])
     sg = lambda v: ("+" if v >= 0 else "−") + f"{abs(v):,.0f}".replace(",", " ")
     fill.update({
-        "hub_line": f"Хаб в городе {names.get(H, H)}: {sg(sb_.result_mln_year)} млн ₽ в год с субсидией ({sg(s0_.result_mln_year)} без неё), "
+        "hub_line": f"Хаб в городе {names.get(H, H)}: {sg(sb_.result_mln_year)} млн ₽ в год при доступной поддержке ({sg(s0_.result_mln_year)} без неё), "
                     f"{int(sb_.aircraft)} самолётов, +{sb_.share_pp:.2f} п. п. доли рынка.".replace(".", ",", 1).replace("п, п,", "п. п."),
         "direct_line": ("Плюс к хабу — прямые рейсы, которые окупаются сами: " + "; ".join(f"{tri_name(v)} ({sg(x)} млн ₽)" for v, x in pos_tri[:4]) + ".")
                        if pos_tri else "Прямые рейсы по отдельности не окупаются при нынешних допущениях."})

@@ -743,7 +743,7 @@ def main():
     for scen, A0 in AS.items():
         for cap in [int(x) for x in str(ch["ramp_fleet"]).split(";")]:
             A = dict(A0, fleet_cap=float(cap))
-            chosen, r = hub_network(H, D, A, A["demand_scen"], nodes_all)
+            chosen, r = hub_best(H, D, A, A["demand_scen"], nodes_all)
             legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs = r
             W = A["weeks_per_year"]
             seg = sum(2 * L["carried_dir_week"] for L in legs.values())

@@ -1,5 +1,7 @@
 # 24. Хаб или прямые рейсы: сравнение (шаг 3 брифа)
 
+> Исторический расчёт 10 ноября 2026 года. Актуальные результаты после расширения перебора флота: [пересчёт 11 ноября](32_current_model_results.md). Числа ниже сохранены для сопоставления с прежней сборкой.
+
 Срез 10.11.2026, вечер. Расчёт: [src/network_model.py](../src/network_model.py), допущения: [data/assumptions/network.csv](../data/assumptions/network.csv), нынешние рейсы Red Wings: [data/manual/rw_routes_now.csv](../data/manual/rw_routes_now.csv), итоги: [data/processed/network_summary.csv](../data/processed/network_summary.csv), каждый маршрут: [data/processed/network_routes.csv](../data/processed/network_routes.csv), обязательная таблица кейса: [data/processed/mandatory_routes_table.csv](../data/processed/mandatory_routes_table.csv).
 
 ## Что требует бриф
