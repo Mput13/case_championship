@@ -80,16 +80,25 @@ def _load_held(D):
 def sub_rule(D, A, a, b):
     """Подходит ли пара под программу межрегиональных перевозок (решение Росавиации № 22-64160-00191-Р)
     и сколько платят за рейс. Пустая строка причины — подходит.
-    Правила: не Москва; один конец — узловой аэропорт, другой — нет; дальность до 1 500 км (Сибирь и
+    Правила: не Москва; хотя бы один конец — узловой аэропорт; дальность до 1 500 км (Сибирь и
     Дальний Восток — до 3 000); поток пары за прошлый год не больше 8 тыс. (Дальний Восток — 10 тыс.),
     поэтому сценарий описывает первый год новой пары; маршрут не закреплён за другим перевозчиком.
     Ставка — средняя по программе за рейс, не выше потолка по дальности; только 7 месяцев (без мая — сентября)."""
     _load_held(D)
     if "MOW" in (a, b):
         return 0.0, "Москва"
-    if (a in SUB_HUBS) == (b in SUB_HUBS):
-        return 0.0, "нужен один узловой аэропорт"
+    if a not in SUB_HUBS and b not in SUB_HUBS:
+        return 0.0, "нужен хотя бы один узловой аэропорт"
+    # Дополнительный вариант для жадного поиска: воспроизводит старое ограничение,
+    # а затем найденная сеть переоценивается по полным правилам.
+    if A.get("search_exclude_two_hubs", False) and a in SUB_HUBS and b in SUB_HUBS:
+        return 0.0, "временное ограничение поиска"
     ra, rb = D.n.loc[a, "region"], D.n.loc[b, "region"]
+    # Федеральная схема без софинансирования: пункты должны быть в разных субъектах РФ.
+    if pd.isna(ra) or pd.isna(rb) or not str(ra).strip() or not str(rb).strip():
+        return 0.0, "субъект аэропорта не указан"
+    if ra == rb:
+        return 0.0, "аэропорты в одном субъекте РФ"
     km = D.km(a, b)
     lim = A["subsidy_max_km_sib"] if (ra in SIB_FE or rb in SIB_FE) else A["subsidy_max_km"]
     if km > lim:
@@ -160,6 +169,10 @@ class Demand:
                 self.seg_tab[(r.a, r.b)] = self.seg_tab[(r.b, r.a)] = float(r.segments_on_link)
         # сводная оценка шага 2 (пять оценок, сверка с аэропортами и расписанием) — главнее
         est = pd.read_csv(P / "demand_estimates.csv")
+        # Исходный охват и период нужны для честной подписи наблюдения в таблице маршрутов.
+        pairs = pd.read_csv(P / "demand_pairs.csv")
+        self.observation_meta = {frozenset((r.a, r.b)): (r.observed_coverage, r.observed_period, r.observed_annual_factor)
+                                 for r in pairs.itertuples() if pd.notna(r.observed)}
         for r in est[est.od_base.notna()].itertuples():
             v = {"base": float(r.od_base), "cautious": float(r.od_cautious), "method": self.describe(r)}
             self.tab[(r.a, r.b)] = self.tab[(r.b, r.a)] = v
@@ -171,7 +184,13 @@ class Demand:
         """Понятная запись, откуда взят спрос пары (обязательное требование кейса)."""
         nz = lambda v: v is not None and v == v
         if nz(r.observed):
-            seg = "отчёт аэропорта о потоке пары за 2025 год"
+            coverage, period, factor = self.observation_meta.get(frozenset((r.a, r.b)), (None, None, None))
+            if coverage == "region":
+                seg = f"отчёт региона о потоке ({period}); охват — вся область"
+            elif nz(factor) and factor != 1:
+                seg = f"отчёт аэропорта ({period}), пересчёт на год × {factor:g}"
+            else:
+                seg = f"отчёт аэропорта о потоке пары ({period})" if nz(period) else "отчёт о потоке пары; период уточняется"
         else:
             parts = []
             if nz(r.seg_model):
@@ -281,6 +300,8 @@ def leg_share(L, f, A):
 def freq_for(pax_week_dir, A):
     if not all(math.isfinite(A[k]) and A[k] > 0 for k in ("seats", "lf_max", "min_freq_week", "max_freq_week")) or A["min_freq_week"] > A["max_freq_week"]:
         raise ValueError("Нужны положительная вместимость, загрузка и согласованные частоты")
+    if A["lf_max"] > 1:
+        raise ValueError("Загрузка не может превышать 100%")
     if not math.isfinite(pax_week_dir) or pax_week_dir < 0:
         raise ValueError("Спрос должен быть конечным и неотрицательным")
     need = math.ceil(pax_week_dir / (A["seats"] * A["lf_max"])) if pax_week_dir > 0 else 0
@@ -431,8 +452,13 @@ def hub_best(H, D, A, scen, nodes_all, baseline=None):
         baseline = hub_best(H, D, dict(A, use_subsidy=0.0), scen, nodes_all)
     res = []
     for cap in search_caps(A):
-        ch, r = hub_network(H, D, dict(A, fleet_cap=float(cap)), scen, nodes_all)
+        cap_a = dict(A, fleet_cap=float(cap))
+        ch, r = hub_network(H, D, cap_a, scen, nodes_all)
         res.append((len(ch), (r[4] - r[3]), r[2], ch, r))
+        if A["use_subsidy"]:
+            old_ch, _ = hub_network(H, D, dict(cap_a, search_exclude_two_hubs=True), scen, nodes_all)
+            old_ch, old_r = hub_network(H, D, cap_a, scen, nodes_all, fixed_spokes=old_ch)
+            res.append((len(old_ch), old_r[4] - old_r[3], old_r[2], old_ch, old_r))
     if baseline is not None:
         ch, r = hub_network(H, D, A, scen, nodes_all, fixed_spokes=baseline[0])
         res.append((len(ch), r[4] - r[3], r[2], ch, r))
@@ -445,8 +471,13 @@ def direct_best(D, A, scen, nodes_all, baseline=None):
         baseline = direct_best(D, dict(A, use_subsidy=0.0), scen, nodes_all)
     res = []
     for cap in search_caps(A):
-        ch = direct_network(D, dict(A, fleet_cap=float(cap)), scen, nodes_all)
+        cap_a = dict(A, fleet_cap=float(cap))
+        ch = direct_network(D, cap_a, scen, nodes_all)
         res.append((len(ch), sum(c[6] - c[5] for c in ch), sum(c[4] for c in ch), ch))
+        if A["use_subsidy"]:
+            old_ch = direct_network(D, dict(cap_a, search_exclude_two_hubs=True), scen, nodes_all)
+            old_ch = direct_network(D, cap_a, scen, nodes_all, fixed_selection=old_ch)
+            res.append((len(old_ch), sum(c[6] - c[5] for c in old_ch), sum(c[4] for c in old_ch), old_ch))
     if baseline is not None:
         ch = direct_network(D, A, scen, nodes_all, fixed_selection=baseline)
         res.append((len(ch), sum(c[6] - c[5] for c in ch), sum(c[4] for c in ch), ch))

@@ -74,6 +74,20 @@ CARRIER = {"RED WINGS": "Red Wings", "РедВингс": "Red Wings", "NORD WIND
            "ЮТэйр": "Utair", "Utair": "Utair"}
 
 
+def correct_omsk_tobolsk(w):
+    """Рейс RT 652 зимой 2026/27: Ремезов, а не старый аэродром Тобольск.
+
+    Источник: https://travel.yandex.ru/avia/flights/RT-652/ ; исправление
+    относится только к этой записи расписания, общий TOX = RMZ неверен.
+    """
+    w = w.copy()
+    affected = ((w.destination_airport_iata == "TOX") & (w.next_airport_name == "Тобольск") &
+                (pd.to_numeric(w.outbound_flight_numeric, errors="coerce") == 652) &
+                (w.carrier_raw == "ЮВТаэро"))
+    w.loc[affected, "destination_airport_iata"] = "RMZ"
+    return w
+
+
 def schedule():
     """Годовой поток пар по расписанию: вылеты недели × кресла типа самолёта × загрузка 89,5% × 52.
 
@@ -85,7 +99,7 @@ def schedule():
     seats = pd.read_csv(ROOT / "data/assumptions/aircraft_seats.csv").drop_duplicates("type_raw").set_index("type_raw").seats
     lf = A["national_load_factor_2025"]
     out = {}
-    w = pd.read_csv(EXT / "omsk_outbound_week_20261207.csv")
+    w = correct_omsk_tobolsk(pd.read_csv(EXT / "omsk_outbound_week_20261207.csv"))
     t = pd.read_csv(EXT / "omsk_domestic_timetable_rows.csv")[["source_text_line", "aircraft_type_raw"]]
     w = w.merge(t, on="source_text_line", how="left")
     w["seats"] = w.aircraft_type_raw.map(seats)
