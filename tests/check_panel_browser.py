@@ -12,6 +12,27 @@ with sync_playwright() as p:
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)))
     page.goto((ROOT / "outputs/redwings_panel.html").as_uri(), wait_until="networkidle")
+    ai = page.locator("#rw-ai-paper")
+    ai.scroll_into_view_if_needed()
+    page.evaluate("document.fonts.ready")
+    assert page.evaluate('document.fonts.check(\'500 16px "Onest"\')')
+    assert page.evaluate('document.fonts.check(\'500 16px "Montserrat Alternates"\')')
+    assert ai.locator(".ap-current").count() == 9
+    motion = ai.get_by_role("button")
+    motion.click()
+    assert motion.get_attribute("aria-pressed") == "false"
+    motion.click()
+    assert motion.get_attribute("aria-pressed") == "true"
+    for width in (1440, 390, 320):
+        page.set_viewport_size({"width": width, "height": 900})
+        ai.scroll_into_view_if_needed()
+        page.wait_for_timeout(150)
+        assert ai.evaluate("el=>el.scrollWidth<=el.clientWidth")
+        ai.screenshot(path=str(OUT / f"ai_workflow_{width}.png"))
+    page.emulate_media(reduced_motion="reduce")
+    motion.wait_for(state="hidden")
+    page.emulate_media(reduced_motion="no-preference")
+    page.set_viewport_size({"width": 1440, "height": 1100})
     assert page.locator("#ld .ld-row").count() >= 5
     for scenario in ("base", "cautious"):
         for support in (False, True):

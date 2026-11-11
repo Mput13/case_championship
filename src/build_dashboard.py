@@ -395,6 +395,7 @@ def main():
     }
     data = clean(data)
     tpl = (ROOT / "src/dashboard_template.html").read_text(encoding="utf-8")
+    tpl = tpl.replace("<!--__AI_WORKFLOW__-->", (ROOT / "src/dashboard_ai_workflow.html").read_text(encoding="utf-8"))
     js = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     out = ROOT / "outputs/redwings_panel.html"
     out.write_text(tpl.replace("/*__DATA__*/null", js), encoding="utf-8")
