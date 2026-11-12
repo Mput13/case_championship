@@ -1,0 +1,41 @@
+(async()=>{
+ const checks=[];const test=(name,cond)=>{checks.push({name,pass:!!cond});if(!cond)throw Error(name);};
+ try{
+ test('four exact section anchors',sections.length===4&&document.querySelectorAll('.topnav a').length===4&&sections.every(s=>document.getElementById(s)));
+ test('20 data driven seed cities',$('city').options.length===20&&DATA.cities.length===20);
+ test('no computed scenarios invented',$('scenario').options.length===1&&$('scenario').value==='');
+ test('no programme selected',state.programme===''&&current()===undefined);
+ test('unknown is not zero',ResultAdapter.fmt(null)==='Нет расчёта'&&ResultAdapter.fmt(0)==='0');
+ const programme=state.programme;document.querySelector('[data-city="GOJ"]').click();
+ test('city research independent from programme',state.city==='GOJ'&&state.programme===programme);
+ test('historical result labelled with exact version',$('historical-research').textContent.includes(DATA.pins.FIVE.slice(0,8)));
+ $('carrier').value='RW';$('carrier').dispatchEvent(new Event('change'));
+ test('RW filter operates on actual product data',offers().length>0&&offers().every(r=>rw(r)));
+ $('source-month').value='2026-12';$('source-month').dispatchEvent(new Event('change'));
+ test('source period stays independent of forecast',state.sourceMonth==='2026-12'&&state.period==='2027–2028');
+ const before=JSON.stringify(state);const product=document.querySelector('[data-product]');product.focus();product.click();
+ test('real source modal opens',$('source-dialog').open&&$('source-body').textContent.includes('Строка источника'));
+ test('source method and assumption accessible',$('source-body').textContent.includes('Метод')&&$('source-body').textContent.includes('Допущения'));
+ test('source assumptions include basis',$('source-body').querySelector('.source-assumptions')!==null);
+ $('source-close').click();test('source preserves state',JSON.stringify(state)===before);test('source restores focus',document.activeElement===product);
+ $('layer').value='observed';$('layer').dispatchEvent(new Event('change'));test('observed unknown explicit',$('map-status').textContent.includes('нет принятых данных'));
+ $('layer').value='proposed';$('layer').dispatchEvent(new Event('change'));test('proposed network unknown explicit',$('map-status').textContent.includes('не рассчитана'));
+ $('period').value='2028';$('period').dispatchEvent(new Event('change'));test('period controls share one state',state.period==='2028'&&$('context-summary').textContent.includes('2028')&&$('monthly').textContent.includes('2028'));
+ $('scope').value='EXT_NO_NEW_TU214';$('scope').dispatchEvent(new Event('change'));test('zero-new-Tu extension does not imply computed result',state.scope==='EXT_NO_NEW_TU214'&&state.scenario==='');
+ document.querySelector('.topnav a[href="#direct"]').click();test('anchor moves keyboard focus',document.activeElement.id==='direct-title');
+ const point=document.querySelector('.map-point[data-city="MRV"]');point.focus();point.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));test('map has keyboard interaction',state.city==='MRV');
+ test('long city name retained',$('city-name').textContent==='Минеральные Воды');
+ $('tour-start').click();test('route begins on real UI',state.tour===0&&!$('tour-controls').hidden);
+ $('tour-next').click();$('tour-next').click();test('route advances to direct section',state.tour===2&&state.active==='direct');
+ const routeCity=state.city;$('tour-exit').click();chooseCity('KHV');$('period').value='2027';$('period').dispatchEvent(new Event('change'));
+ $('tour-return').click();test('return restores saved state and stop',state.city===routeCity&&state.period==='2028'&&state.tour===2);
+ $('tour-exit').click();
+ const was=RW.snapshot();const dt=new DataTransfer();dt.items.add(new File([JSON.stringify({dataset_kind:'RED_WINGS',synthetic:true})],'forbidden-synthetic.json',{type:'application/json'}));$('result-file').files=dt.files;await $('result-file').onchange();
+ test('synthetic import rejected',$('import-status').className==='error'&&$('import-status').textContent.includes('Синтетические'));
+ test('import error retains prior result/state',pack===null&&JSON.stringify(state)===JSON.stringify(was.state));
+ $('city-search').value='несуществующий город';$('city-search').dispatchEvent(new Event('input'));test('empty search is explicit',$('cities').textContent.includes('не найден'));
+ $('city-search').value='';$('city-search').dispatchEvent(new Event('input'));
+ test('narrow has no page-wide overflow',document.documentElement.scrollWidth<=window.innerWidth+1);
+ console.log('P12_INTERACTION_CHECKS '+JSON.stringify({status:'PASS',check_count:checks.length,width:window.innerWidth,final_results:'NOT_RUN',rehearsal:'NOT_RUN'}));for(let i=0;i<checks.length;i+=5)console.log('P12_CHECK_GROUP '+JSON.stringify(checks.slice(i,i+5)));
+ }catch(e){console.error('P12_INTERACTION_CHECKS '+JSON.stringify({status:'FAIL',checks,error:e.message,width:window.innerWidth}));}
+})();
