@@ -1,0 +1,1132 @@
+{
+  "root": "736859fdd08448c2564b7b9269b751abe00b5cbc",
+  "manifest_sha256": "7b20a1a247ee4b3cf96d94648bb36d61482cb0a58eb7a296ada49a78c818d1fa",
+  "groups": [
+    {
+      "group": "G1_REAL_REPLAY_AND_CANONICAL_PROJECTION",
+      "status": "PASS",
+      "checks": 34,
+      "evidence": {
+        "projection": [
+          {
+            "evaluation_id": "VOG_RADIAL:phased:base:passive",
+            "leaves": 127178,
+            "null_leaves": 6266
+          },
+          {
+            "evaluation_id": "VOG_RADIAL:phased:cautious:passive",
+            "leaves": 127178,
+            "null_leaves": 6266
+          }
+        ],
+        "delta_journeys": 82256.4113338269,
+        "delta_revenue_net": 660787735.5656477,
+        "H": 595671593.9168794,
+        "monthly_max_difference": {
+          "journeys": 1.2732925824820995e-11,
+          "passenger_segments": 1.2732925824820995e-11,
+          "revenue_net": 7.450580596923828e-08,
+          "known_operating_subtotal": 4.76837158203125e-07
+        },
+        "post_horizon_cash_events": 68
+      },
+      "seconds": 31.119268207985442
+    },
+    {
+      "group": "G2_JOINT_OD_SEATS_FARE_AND_UNKNOWN_BOUNDARIES",
+      "status": "PASS",
+      "checks": 19,
+      "evidence": {
+        "actual_dates": [
+          "2028-12-04",
+          "2028-12-05"
+        ],
+        "saturated_pools": 33,
+        "transfer_products": 17,
+        "fare_once": 17139426.35247281,
+        "incorrect_per_leg_revenue": 19324523.219740193,
+        "naive_silo_max_segments": 400.0,
+        "H_before": -5660861.599288065,
+        "H_after_added_prelaunch": -5662095.599288065
+      },
+      "seconds": 0.3106011670315638
+    },
+    {
+      "group": "G3_RESOURCE_DONOR_CASH_THRESHOLDS_AND_CONCLUSIONS",
+      "status": "PASS",
+      "checks": 62,
+      "evidence": {
+        "resource": [
+          {
+            "delivery": "phased",
+            "tails": 5,
+            "flights": 2662,
+            "shared_unknown_tail_months": 72
+          },
+          {
+            "delivery": "partial",
+            "tails": 3,
+            "flights": 1984,
+            "shared_unknown_tail_months": 57
+          },
+          {
+            "delivery": "delayed",
+            "tails": 3,
+            "flights": 1356,
+            "shared_unknown_tail_months": 34
+          },
+          {
+            "delivery": "none",
+            "tails": 1,
+            "flights": 1252,
+            "shared_unknown_tail_months": 24
+          }
+        ],
+        "donor_delta_journeys": 94283.74992200345,
+        "donor_H": 719265939.4130021,
+        "cash_day_end_peak": 90.0,
+        "cash_month_end_peak": 0.0,
+        "dispositions": {
+          "УСЛОВНА_ПАРТНЕРСКАЯ_KEEP_ИЛИ_НЕПРИВЯЗАННЫЙ_РЕЦЕПТ_OPEN": 20,
+          "УСЛОВНА_МЕЖДУНАРОДНАЯ_ИЛИ_СМЕШАННАЯ_ВЕТВЬ_OPEN": 27,
+          "ЧАСТИЧНО_ОБЩИЙ_SCREEN_АВТОРСКИЙ_STAGE_B_OPEN": 119,
+          "ОЦЕНЕНА_УСЛОВНАЯ_ПРИВЯЗКА_АВТОРСКОГО_PATH": 30,
+          "КОНКРЕТНЫЙ_КАЛЕНДАРЬ_НЕВЫПОЛНИМ; АВТОРСКАЯ_ЭКОНОМИКА_NOT_RUN": 27
+        },
+        "frontier": [
+          "AER_HYBRID",
+          "AER_SEASONAL",
+          "MRV_HYBRID",
+          "VOG_HYBRID",
+          "VOG_RADIAL"
+        ]
+      },
+      "seconds": 1.9694941250490956
+    }
+  ],
+  "assertions": [
+    {
+      "check": "selected_source_pin:subject/P06/engine/__init__.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/__init__.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/__main__.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/__main__.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/adapters.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/adapters.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/choice.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/choice.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/common.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/common.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/core.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/core.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/finance.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/finance.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/fixtures.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/fixtures.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P06/engine/operations.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "fixed_engine_origin:subject/P06/engine/operations.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/assumptions_register.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/aviation_monthly_history.csv",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/inputs/BASE/data/processed/catchments.csv",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/inputs/BASE/data/processed/demand_pairs.csv",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/inputs/BASE/data/processed/od_fit.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/inputs/BASE/data/processed/od_pairs.csv",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P05/model.py",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "selected_source_pin:subject/P04/cost_ranges.csv",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "real_24_month_overview_replay_bytes",
+      "passed": true,
+      "evidence": {
+        "actual_sha256": "0f4f991482b38beb08df66620d51ee737e23d02ccf1e501e3f48157bc2a7050d",
+        "seconds": 0.5646459159906954,
+        "flights": 2662,
+        "dates": 731
+      }
+    },
+    {
+      "check": "real_24_month_canonical_replay_hash",
+      "passed": true,
+      "evidence": {
+        "actual": "73a708809e703d29f2a07055fc861eecb11472ad9854178fe8e03843add506d7",
+        "expected": "73a708809e703d29f2a07055fc861eecb11472ad9854178fe8e03843add506d7",
+        "bytes": 78351700
+      }
+    },
+    {
+      "check": "replayed_project_and_keep_bundle_hashes",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "saved_full_compressed_and_uncompressed_hashes",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "canonical_physical_calendar_conditional",
+      "passed": true,
+      "evidence": {
+        "status": "CONDITIONAL",
+        "unknowns": 2666
+      }
+    },
+    {
+      "check": "maincase_8_to_12_pairs",
+      "passed": true,
+      "evidence": {
+        "unique_airport_pairs_end2028": 9,
+        "pairs": [
+          [
+            "AER",
+            "VOG"
+          ],
+          [
+            "ASF",
+            "VOG"
+          ],
+          [
+            "CEK",
+            "VOG"
+          ],
+          [
+            "GOJ",
+            "VOG"
+          ],
+          [
+            "GSV",
+            "VOG"
+          ],
+          [
+            "KUF",
+            "VOG"
+          ],
+          [
+            "LED",
+            "VOG"
+          ],
+          [
+            "MRV",
+            "VOG"
+          ],
+          [
+            "VOG",
+            "ZIA"
+          ]
+        ],
+        "status": "WITHIN_8_12",
+        "branch": "main",
+        "rationale": "8–12 проектных airportpairs на конец2028; deficit stage допускает меньше"
+      }
+    },
+    {
+      "check": "ui_package_hash",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_top_contract_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_project_contract_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_month_contract_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_hash_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_preserves_real_nulls_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": {
+        "leaves": 127178,
+        "null_leaves": 6266
+      }
+    },
+    {
+      "check": "projection_null_to_zero_detected_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": {
+        "type": "AssertionError",
+        "actual": "('$.project.summary.operating_result', 0, None)",
+        "expected_fragment": "operating_result"
+      }
+    },
+    {
+      "check": "projection_array_filter_detected_VOG_RADIAL:phased:base:passive",
+      "passed": true,
+      "evidence": {
+        "type": "AssertionError",
+        "actual": "$.delta_monthly",
+        "expected_fragment": "delta_monthly"
+      }
+    },
+    {
+      "check": "projection_top_contract_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_project_contract_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_month_contract_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_hash_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "projection_preserves_real_nulls_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": {
+        "leaves": 127178,
+        "null_leaves": 6266
+      }
+    },
+    {
+      "check": "projection_null_to_zero_detected_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": {
+        "type": "AssertionError",
+        "actual": "('$.project.summary.operating_result', 0, None)",
+        "expected_fragment": "operating_result"
+      }
+    },
+    {
+      "check": "projection_array_filter_detected_VOG_RADIAL:phased:cautious:passive",
+      "passed": true,
+      "evidence": {
+        "type": "AssertionError",
+        "actual": "$.delta_monthly",
+        "expected_fragment": "delta_monthly"
+      }
+    },
+    {
+      "check": "overview_separate_result_mode",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "overview_vs_canonical_journeys",
+      "passed": true,
+      "evidence": {
+        "actual": 82256.4113338269,
+        "expected": 82256.41133382688,
+        "difference": 1.4551915228366852e-11,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "overview_vs_canonical_revenue",
+      "passed": true,
+      "evidence": {
+        "actual": 660787735.5656477,
+        "expected": 660787735.5656478,
+        "difference": -1.1920928955078125e-07,
+        "tolerance": 0.01
+      }
+    },
+    {
+      "check": "overview_vs_canonical_H",
+      "passed": true,
+      "evidence": {
+        "actual": 595671593.9168794,
+        "expected": 595671593.9169124,
+        "difference": -3.3020973205566406e-05,
+        "tolerance": 0.01
+      }
+    },
+    {
+      "check": "all_24_month_numeric_equivalence",
+      "passed": true,
+      "evidence": {
+        "journeys": 1.2732925824820995e-11,
+        "passenger_segments": 1.2732925824820995e-11,
+        "revenue_net": 7.450580596923828e-08,
+        "known_operating_subtotal": 4.76837158203125e-07
+      }
+    },
+    {
+      "check": "full_unknown_finance_project",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "no_support_project",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "reported_share_unknown_project",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "full_unknown_finance_keep",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "no_support_keep",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "reported_share_unknown_keep",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "full_company_and_incremental_funding_unknown",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "post_horizon_payments_retained",
+      "passed": true,
+      "evidence": {
+        "count": 68,
+        "first": "2029-01-30"
+      }
+    },
+    {
+      "check": "same_common_OD_date_outside_policy",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "two_date_calendar_has_no_physical_errors",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "check": "saturated_common_OD_conserved",
+      "passed": true,
+      "evidence": {
+        "pools": 33,
+        "iterations": 5
+      }
+    },
+    {
+      "check": "saturated_physical_seats_conserved",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "real_transfer_products_use_shared_legs",
+      "passed": true,
+      "evidence": {
+        "products": 17,
+        "journeys": 280.2110324539964
+      }
+    },
+    {
+      "check": "through_fare_once",
+      "passed": true,
+      "evidence": {
+        "actual": 17139426.35247281,
+        "expected": 17139426.35247281,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "through_fare_test_distinguishes_double_count",
+      "passed": true,
+      "evidence": {
+        "correct": 17139426.35247281,
+        "incorrect_per_leg": 19324523.219740193
+      }
+    },
+    {
+      "check": "each_transfer_leg_consumes_one_seat",
+      "passed": true,
+      "evidence": {
+        "actual": 2800.0,
+        "expected": 2800.0,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "independent_market_silos_would_oversell",
+      "passed": true,
+      "evidence": {
+        "max_silo_segments": 400.0,
+        "max_joint_segments": 100.0
+      }
+    },
+    {
+      "check": "joint_vs_disjoint_actual_dates",
+      "passed": true,
+      "evidence": {
+        "actual": 2519.7889675460033,
+        "expected": 2519.7889675460037,
+        "difference": -4.547473508864641e-13,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "duplicate_OD_date_rejected",
+      "passed": true,
+      "evidence": {
+        "type": "ContractError",
+        "actual": "duplicate demand pool ('CITY:KUF>KZN', '2028-12', 'travel_date:2028-12-04')",
+        "expected_fragment": "duplicate demand pool"
+      }
+    },
+    {
+      "check": "unknown_demand_propagates_to_journeys",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unknown_seats_not_zero",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unknown_fare_propagates_to_revenue_and_profit",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "mismatched_common_markets",
+      "passed": true,
+      "evidence": {
+        "type": "ContractError",
+        "actual": "P/KEEP common input mismatch: markets",
+        "expected_fragment": "common input mismatch: markets"
+      }
+    },
+    {
+      "check": "mismatched_common_fleet_calendar",
+      "passed": true,
+      "evidence": {
+        "type": "ContractError",
+        "actual": "P/KEEP common input mismatch: fleet_calendar",
+        "expected_fragment": "common input mismatch: fleet_calendar"
+      }
+    },
+    {
+      "check": "mismatched_delivery_calendar",
+      "passed": true,
+      "evidence": {
+        "type": "ContractError",
+        "actual": "P/KEEP mismatch: delivery_calendar_id",
+        "expected_fragment": "mismatch: delivery_calendar_id"
+      }
+    },
+    {
+      "check": "threshold_includes_prelaunch_cost_once",
+      "passed": true,
+      "evidence": {
+        "actual": -5662095.599288065,
+        "expected": -5662095.599288065,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "known_addition_does_not_complete_unknown_full_profit",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "same_fleet_phased",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "scoped_future_existing_KEEP_phased",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unused_reserve_phased",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "full_calendar_ops_phased",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "check": "unknown_common_tail_charges_retained_phased",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "same_fleet_partial",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "scoped_future_existing_KEEP_partial",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unused_reserve_partial",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "full_calendar_ops_partial",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "check": "unknown_common_tail_charges_retained_partial",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "real_resource_replay_partial",
+      "passed": true,
+      "evidence": {
+        "sha256": "0831c5a45c9abb2b43538ea78cf5d574c0f1cd4211f371dd008cb51657b14632",
+        "flights": 1984,
+        "pairs": 3
+      }
+    },
+    {
+      "check": "partial_is_labelled_shortfall_not_maincase",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "same_fleet_delayed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "scoped_future_existing_KEEP_delayed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unused_reserve_delayed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "full_calendar_ops_delayed",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "check": "unknown_common_tail_charges_retained_delayed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "same_fleet_none",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "scoped_future_existing_KEEP_none",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unused_reserve_none",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "full_calendar_ops_none",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "check": "unknown_common_tail_charges_retained_none",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "real_resource_replay_none",
+      "passed": true,
+      "evidence": {
+        "sha256": "495bac2038f99b01c9481dbdc214b4a8de98f3c32b775e47af3d92dbfb2d81a6",
+        "flights": 1252,
+        "pairs": 0
+      }
+    },
+    {
+      "check": "no_new_is_KEEP_delta_journeys",
+      "passed": true,
+      "evidence": {
+        "actual": 0.0,
+        "expected": 0,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "no_new_is_KEEP_delta_H",
+      "passed": true,
+      "evidence": {
+        "actual": 0.0,
+        "expected": 0,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "no_new_no_project_route",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "real_infeasible_calendar_has_no_economics",
+      "passed": true,
+      "evidence": {
+        "programme": "AUTH_MOW-C08-C",
+        "error": [
+          "N2 2028-11-03: daily block limit exceeded",
+          "N2 2028-11-06: daily block limit exceeded"
+        ]
+      }
+    },
+    {
+      "check": "existing_E1_same_committed_fleet_no_new",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "existing_E1_donor_is_replaced_not_kept_twice",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "real_E1_donor_overview_replay",
+      "passed": true,
+      "evidence": {
+        "sha256": "e098a5e891ff65b2079d1b903abd4f3bf468691524f2ed1e3af994d4e375667d",
+        "delta_journeys": 94283.74992200345,
+        "H": 719265939.4130021
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-01",
+      "passed": true,
+      "evidence": {
+        "actual": 28518583.30072472,
+        "expected": 28518583.30072472,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-02",
+      "passed": true,
+      "evidence": {
+        "actual": 27106417.06725166,
+        "expected": 27106417.06725166,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-03",
+      "passed": true,
+      "evidence": {
+        "actual": 30601449.78910397,
+        "expected": 30601449.78910397,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-04",
+      "passed": true,
+      "evidence": {
+        "actual": 30540591.701048844,
+        "expected": 30540591.701048844,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-05",
+      "passed": true,
+      "evidence": {
+        "actual": 31490010.025165886,
+        "expected": 31490010.025165886,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-06",
+      "passed": true,
+      "evidence": {
+        "actual": 29802702.402029857,
+        "expected": 29802702.402029857,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-07",
+      "passed": true,
+      "evidence": {
+        "actual": 30657157.904194824,
+        "expected": 30657157.904194824,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-08",
+      "passed": true,
+      "evidence": {
+        "actual": 29210195.791072868,
+        "expected": 29210195.791072868,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-09",
+      "passed": true,
+      "evidence": {
+        "actual": 30868548.95907932,
+        "expected": 30868548.95907932,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-10",
+      "passed": true,
+      "evidence": {
+        "actual": 30880632.243136685,
+        "expected": 30880632.243136685,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-11",
+      "passed": true,
+      "evidence": {
+        "actual": 29370874.299077556,
+        "expected": 29370874.299077556,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2027-12",
+      "passed": true,
+      "evidence": {
+        "actual": 30120577.745726097,
+        "expected": 30120577.745726097,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-01",
+      "passed": true,
+      "evidence": {
+        "actual": 29482339.565979324,
+        "expected": 29482339.565979324,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-02",
+      "passed": true,
+      "evidence": {
+        "actual": 28259022.866855927,
+        "expected": 28259022.866855927,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-03",
+      "passed": true,
+      "evidence": {
+        "actual": 30505064.0719094,
+        "expected": 30505064.0719094,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-04",
+      "passed": true,
+      "evidence": {
+        "actual": 30089969.1380404,
+        "expected": 30089969.1380404,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-05",
+      "passed": true,
+      "evidence": {
+        "actual": 32092318.67036796,
+        "expected": 32092318.67036796,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-06",
+      "passed": true,
+      "evidence": {
+        "actual": 29713468.021758553,
+        "expected": 29713468.021758553,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-07",
+      "passed": true,
+      "evidence": {
+        "actual": 29819024.4715421,
+        "expected": 29819024.4715421,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-08",
+      "passed": true,
+      "evidence": {
+        "actual": 30467551.40474461,
+        "expected": 30467551.40474461,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-09",
+      "passed": true,
+      "evidence": {
+        "actual": 30737771.071832467,
+        "expected": 30737771.071832467,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-10",
+      "passed": true,
+      "evidence": {
+        "actual": 30570036.875762213,
+        "expected": 30570036.875762213,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-11",
+      "passed": true,
+      "evidence": {
+        "actual": 29628730.163855057,
+        "expected": 29628730.163855057,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_joint_delta_2028-12",
+      "passed": true,
+      "evidence": {
+        "actual": 28732901.862741858,
+        "expected": 28732901.862741858,
+        "difference": 0.0,
+        "tolerance": 1e-06
+      }
+    },
+    {
+      "check": "donor_no_extra_deduction_in_saved_canonical",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "cash_day_end_equation",
+      "passed": true,
+      "evidence": {
+        "actual": 90.0,
+        "expected": 90,
+        "difference": 0.0,
+        "tolerance": 1e-09
+      }
+    },
+    {
+      "check": "cash_month_end_does_not_hide_day_end_peak",
+      "passed": true,
+      "evidence": {
+        "actual": 0.0,
+        "expected": 0,
+        "difference": 0.0,
+        "tolerance": 1e-09
+      }
+    },
+    {
+      "check": "unknown_cash_amount_not_zero",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "unknown_opening_cash_not_zero",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "223_author_and_169_hypothesis_individual_rows",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "check": "OPEN_is_visible_and_not_economic_rejection",
+      "passed": true,
+      "evidence": {
+        "УСЛОВНА_ПАРТНЕРСКАЯ_KEEP_ИЛИ_НЕПРИВЯЗАННЫЙ_РЕЦЕПТ_OPEN": 20,
+        "УСЛОВНА_МЕЖДУНАРОДНАЯ_ИЛИ_СМЕШАННАЯ_ВЕТВЬ_OPEN": 27,
+        "ЧАСТИЧНО_ОБЩИЙ_SCREEN_АВТОРСКИЙ_STAGE_B_OPEN": 119,
+        "ОЦЕНЕНА_УСЛОВНАЯ_ПРИВЯЗКА_АВТОРСКОГО_PATH": 30,
+        "КОНКРЕТНЫЙ_КАЛЕНДАРЬ_НЕВЫПОЛНИМ; АВТОРСКАЯ_ЭКОНОМИКА_NOT_RUN": 27
+      }
+    },
+    {
+      "check": "limited_set_frontier_recomputed",
+      "passed": true,
+      "evidence": [
+        "AER_HYBRID",
+        "AER_SEASONAL",
+        "MRV_HYBRID",
+        "VOG_HYBRID",
+        "VOG_RADIAL"
+      ]
+    }
+  ]
+}
