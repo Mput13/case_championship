@@ -1,6 +1,7 @@
 Повторная оценка пяти городов Red Wings после проверки правила 500 км
 
 Основной документ: report.html.
+Краткое интерактивное сравнение: summary.html.
 Города: Уфа, Пермь, Челябинск, Тюмень, Нижний Новгород. Контроль: Омск и
 программа из существующих баз. Горизонт решения — 2027–2028 годы.
 
@@ -21,8 +22,15 @@ coordinator_checks.json — самостоятельные проверки ко
 qa/ — визуальная проверка формата и итогового документа.
 
 Сборка, Python 3, стандартная библиотека:
+python3 context/33_five_city_reassessment_20261112/build_common_synthesis.py
 python3 context/33_five_city_reassessment_20261112/build_report.py
 python3 context/33_five_city_reassessment_20261112/validate_package.py
+
+Независимая проверка готовых экономических таблиц, стандартная библиотека:
+python3 context/33_five_city_reassessment_20261112/common_economics/replay.py --verify
+python3 context/33_five_city_reassessment_20261112/common_economics/verify_arithmetic.py
+Полный пересчёт требует закреплённого Git-объекта модели и отдельного raw-файла
+Tochno с проверяемым хэшем. Команды и ограничения — common_economics/report.md.
 
 Городские команды воспроизводимости приведены в самих досье. Их источники
 расписаний и цены являются датированными наблюдениями предложения: повторная
