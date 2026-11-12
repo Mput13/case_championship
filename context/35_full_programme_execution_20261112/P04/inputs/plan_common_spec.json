@@ -1,0 +1,456 @@
+{
+  "version": "full-v1-20261112",
+  "state": "PREPARED_NOT_LAUNCHED",
+  "accepted": {
+    "scope": "full_case_and_user_requests",
+    "sections": [
+      "Хабы и базы",
+      "Прямые рейсы",
+      "Итоговая сеть 2027–2028",
+      "Стратегия роста и №2"
+    ],
+    "number2_deadline": null,
+    "stage1": "2027–2028",
+    "business": "all_passenger_Red_Wings_domestic_international_charter",
+    "finish_target": "today_without_scope_reduction",
+    "person_day_estimates": false,
+    "fixed_finalist_quota": null
+  },
+  "authority_order": [
+    "current_user_in_this_thread",
+    "case_requirements_and_user_supplied_organizer_additions",
+    "current_project_instructions",
+    "versioned_source_evidence",
+    "explicit_modelling_assumptions"
+  ],
+  "metric_policy": {
+    "primary_growth": "annual_carried_passengers_on_compatible_carrier_definition",
+    "also_report": [
+      "unique_OD_journeys",
+      "passenger_segments",
+      "net_new_Red_Wings_passengers",
+      "RPK_when_available",
+      "ASK_and_load_factor",
+      "revenue",
+      "variable_contribution",
+      "incremental_full_result",
+      "monthly_and_cumulative_cash",
+      "peak_funding"
+    ],
+    "number2_unit": "individual_carrier_as_working_definition_groups_separate",
+    "number2_threshold": "scenario_of_competitor_growth_not_fixed_current_rank",
+    "budget_unknown": "report_nondominated_growth_funding_risk_frontier"
+  },
+  "data_record_required": [
+    "key",
+    "unit",
+    "period",
+    "geography_or_airport",
+    "source_id",
+    "retrieved_at",
+    "as_of",
+    "status",
+    "method_version",
+    "coverage",
+    "lower",
+    "upper"
+  ],
+  "data_statuses": [
+    "observed",
+    "published_offer",
+    "estimated",
+    "scenario",
+    "unknown"
+  ],
+  "judgement_register_policy": {
+    "required": true,
+    "scope": [
+      "subjective_weights_and_tradeoffs",
+      "model_thresholds_and_method_choices",
+      "estimated_costs_and_revenue",
+      "analogues_and_transfers",
+      "delivery_and_market_scenarios",
+      "material_missing_inputs"
+    ],
+    "files": [
+      "assumptions_register.csv",
+      "assumptions_register.json"
+    ],
+    "link_to_used_inputs_and_claims": "assumption_id",
+    "scenario_points_are_confidence_bounds": false,
+    "unsupported_plus_minus_percent_forbidden": true,
+    "confidence_percentage_without_basis_forbidden": true,
+    "preserve_versions_and_changes": true,
+    "approval": "record_who_selected_and_whether_user_approved; routine_choices_do_not_require_user_approval",
+    "handoff": [
+      "complete_used_register",
+      "material_decision_dependencies_and_thresholds",
+      "concrete_fields_user_or_expert_can_help_refine"
+    ],
+    "initial_inventory_status": "partial_seed_not_full_project_audit"
+  },
+  "reuse_policy": "Reuse existing evidence, UI and compatible calculation components. A rewrite requires a concrete unmet contract or defect; preserve original baselines and explain each change. No new product infrastructure is implied.",
+  "international_and_fleet": {
+    "thread_id": "07404c40-3687-4dc3-b815-b9a9e35d9775",
+    "international_extensions_share_engine": true,
+    "case_sj_remains_independent": true,
+    "new_tu214_announced_batch": 11,
+    "new_tu214_start_announced": 2027,
+    "new_tu214_annual_schedule": null,
+    "announced_batch_is_available_fleet": false,
+    "sj100_h2_2027_rule_does_not_automatically_apply_to_tu214": true,
+    "fleet_choice_joint_with_network": true,
+    "separate_parameters_by_type_and_variant": true,
+    "cost_currency_and_fx_required": true,
+    "foreign_tourism_totals_are_not_route_OD": true,
+    "support_is_scheme_specific_not_domestic_boolean": true
+  },
+  "fleet_scopes": {
+    "CASE_SJ": {
+      "role": "mandatory_standalone_original_case",
+      "project_growth_fleet": [
+        "existing_Superjet_resource_when_available",
+        "future_SJ100_scenario"
+      ],
+      "new_tu214_required": false,
+      "keep_other_existing_business": true
+    },
+    "EXT_NO_NEW_TU214": {
+      "role": "additional_international_or_mixed_fleet_option",
+      "new_tu214_in_2027_2028": 0,
+      "existing_tu214_resource": "only_if_availability_and_lost_task_are_accounted"
+    },
+    "EXT_TU214_SCENARIO": {
+      "role": "additional_conditional_deliveries",
+      "annual_calendar": "explicit_scenario_not_announced_batch_as_fleet"
+    },
+    "LONG_TERM_GROWTH": {
+      "role": "whole_business_number2_strategy",
+      "deadline": null,
+      "tu214": "conditional_growth_branch_not_required_for_case_solution"
+    }
+  },
+  "result_release_gates": {
+    "CASE_SJ": [
+      "P00R",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08"
+    ],
+    "extended_results": [
+      "CASE_SJ",
+      "P02I",
+      "P08I"
+    ],
+    "interpretation": "International research may inform Superjet products but must not block delivery of a valid original-case solution on its own accepted inputs."
+  },
+  "tables": [
+    {
+      "name": "markets",
+      "key": "od_id,month,segment",
+      "unit": "Конечные поездки/месяц, направленные; не кресла",
+      "purpose": "Общий рынок, наблюдение или восстановление, диапазон, версия метода"
+    },
+    {
+      "name": "alternatives",
+      "key": "od_id,date_or_period,product_id",
+      "unit": "Цена сопоставимого продукта, время, частота, открытые кресла",
+      "purpose": "RW, конкуренты, соседние аэропорты, наземные варианты и отказ от поездки; покрытия и источники"
+    },
+    {
+      "name": "flights",
+      "key": "flight_id,departure_utc",
+      "unit": "Физический направленный вылет; даты и местное время отдельны",
+      "purpose": "Аэропорты, оператор, тип, кресла, блок-время, статус observed/published/proposed"
+    },
+    {
+      "name": "itineraries",
+      "key": "itinerary_id,departure_date",
+      "unit": "Одна конечная поездка и список flight_id",
+      "purpose": "Доступность билета, время/условия стыковки, один тариф, багаж и коммерческий статус"
+    },
+    {
+      "name": "fleet_calendar",
+      "key": "aircraft_or_cohort_id,date",
+      "unit": "Физический борт или явная сценарная группа",
+      "purpose": "Тип, передача, ввод, ТО, crew, база, резерв, прежнее/альтернативное задание; без двойного назначения"
+    },
+    {
+      "name": "costs",
+      "key": "cost_id,period,location_or_type",
+      "unit": "Рубли установленного года цен на рейс/час/цикл/пассажира/месяц",
+      "purpose": "Драйвер и состав расходов, источник диапазона, начисление и cash; SSJ-аналог маркирован"
+    },
+    {
+      "name": "support",
+      "key": "scheme_id,route_or_eligibility,period",
+      "unit": "Рубли и единица выплаты; дата начисления и получения",
+      "purpose": "Основание, лимиты, тарифные условия, подтверждённая/условная доступность; топливо и маршрут отдельно"
+    },
+    {
+      "name": "programmes",
+      "key": "fleet_scope_id,programme_id,version",
+      "unit": "Набор действий и последовательность запуска",
+      "purpose": "Самостоятельный CASE_SJ и явно дополнительные расширения; KEEP, изменяемые рейсы, основания выбора, траектория парка и условия остановки"
+    },
+    {
+      "name": "results_monthly",
+      "key": "fleet_scope_id,programme_id,scenario_id,month",
+      "unit": "Поездки, сегменты, выручка, вклад, полный добавочный результат и cash",
+      "purpose": "Сравнение с тем же будущим KEEP внутри ветви; совместимый знаменатель доли; причина каждого изменения"
+    },
+    {
+      "name": "claims",
+      "key": "claim_id,subject_version",
+      "unit": "Один проверяемый вывод",
+      "purpose": "Ссылка на исходные строки и расчёт, источник, область применимости, проверка и статус"
+    },
+    {
+      "name": "international_access",
+      "key": "airport_pair,period,service_regime",
+      "unit": "Условия регулярной/чартерной программы",
+      "purpose": "Допуски обеих сторон, доступные коридоры, слоты, приём типа, страхование/обслуживание/расчёты; источник и срок действия; unknown не запрет"
+    },
+    {
+      "name": "judgements",
+      "key": "assumption_id,subject_version",
+      "unit": "Один субъективный выбор, аналог, сценарий или неопределённый параметр",
+      "purpose": "Значения, обоснование диапазона, автор/выбор модели, согласование, затронутые результаты, чувствительность и способ уточнения; полный экспорт пользователю"
+    }
+  ],
+  "scenario_axes": {
+    "delivery": [
+      "phased",
+      "partial",
+      "delayed",
+      "no_new"
+    ],
+    "delivery_calendars": "separate_by_type_and_variant; evaluate material joint branches, including one type delayed while another arrives; no assumed common dates or unsupported correlation",
+    "market": [
+      "base",
+      "cautious"
+    ],
+    "diagnostics": [
+      "net_yield",
+      "competitor_price_and_capacity",
+      "sellable_connections",
+      "fuel_price",
+      "fuel_support",
+      "route_support_and_cash_lag",
+      "entry_and_base_cost",
+      "availability_and_weak_season",
+      "FX_and_international_access"
+    ],
+    "evaluation_modes": [
+      "fixed_programme",
+      "feasible_adaptation_with_existing_commitments"
+    ]
+  },
+  "modelling_rules": [
+    "Mandatory standalone CASE_SJ solution remains on Superjet project resource. Tu214 and mixed-fleet options are additional and separately labelled.",
+    "Common market and dated seat inventory across all programmes within the same scenario and fleet scope; one fare per journey.",
+    "KEEP uses the same future period and external conditions; project-specific competitor responses need an explicit baseline policy.",
+    "Compare entire affected business, own migration, donor and opportunity cost without duplicate deductions.",
+    "No radius, missing timetable record or presence of a competitor alone establishes economic rejection.",
+    "Net yield and demand respond jointly to price scenarios; fixed-pax arithmetic sensitivity is labelled as such.",
+    "Use calibrated behavioural or recapture parameters only when data supports estimation; otherwise scenario ranges and decision thresholds.",
+    "Unknown parameters are not zero; an unsupported interval remains unknown with exact field and impact.",
+    "Fixed programmes and reoptimised programmes are separate results; more available resource retains earlier feasible candidates.",
+    "Do not force profitable output, invented break-even date or invented delivery forecast.",
+    "Preserve author baselines and frozen results; candidate corrections and new evidence have separate lineage."
+  ],
+  "orchestration": {
+    "coordinator": "current_thread",
+    "children": "none_for_workers",
+    "isolation": "T3_orchestrator_worktree",
+    "initial_worker_slots": 4,
+    "slot_basis": "existing_project_pool_default; changes are discussed, not treated as scope cap",
+    "worker_model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "review_model_proposal": [
+      "gpt-6.1-sol",
+      "gpt-6-astra"
+    ],
+    "model_availability": "verify via already-discovered orchestrator catalog and error rules at launch",
+    "review_models_are_launch_proposal": true,
+    "wake_policy": "completion_events_no_polling",
+    "task_ids": "record_at_launch_before_returning",
+    "owner_boundaries": "one task directory per worker, coordinator integrates pinned blobs",
+    "early_handoff": "versioned usable data tranches; dependencies do not wait for prose report",
+    "dependency_semantics": "accepted_version_of_required_artifact; producer_report_need_not_be_finished; final_acceptance_uses_final_pinned_versions",
+    "new_review": "new_task_on_exact_subject_not_message_to_finished_child",
+    "policy_file": "orchestration_policy.json",
+    "worker_roles": {
+      "methods_review": {
+        "model": "gpt-6-astra",
+        "effort": "xhigh",
+        "packages": [
+          "P00R"
+        ],
+        "responsibility": "Check the mathematical and economic contract, units, comparison basis and minimal counterexamples before consequential common calculations."
+      },
+      "research_and_programmes": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P01",
+          "P02",
+          "P02I",
+          "P03",
+          "P04",
+          "P05",
+          "P07",
+          "P08",
+          "P08I",
+          "P10",
+          "P11"
+        ],
+        "responsibility": "Collect and qualify inputs, construct candidate programmes using the common engine, and maintain assumptions and sources."
+      },
+      "calculation_engine": {
+        "model": "gpt-6-astra",
+        "effort": "xhigh",
+        "packages": [
+          "P06",
+          "P09"
+        ],
+        "responsibility": "Implement the common engine, integrate accepted inputs, and compute compatible monthly programmes, scenarios and funding results."
+      },
+      "ui_and_delivery": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P12",
+          "P15",
+          "P17"
+        ],
+        "responsibility": "Maintain the dashboard candidate and connect pinned results to four sections, passport and reproducible delivery."
+      },
+      "independent_numerical_review": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P13"
+        ],
+        "fresh_agent": true,
+        "must_not_be_author_of": [
+          "P05",
+          "P06",
+          "P09"
+        ],
+        "responsibility": "Check source samples, calculations, common inventory, resource calendars and money bridges against pinned code/data; produce concrete counterexamples."
+      },
+      "decision_review": {
+        "model": "gpt-6-astra",
+        "effort": "xhigh",
+        "packages": [
+          "P14"
+        ],
+        "fresh_agent": true,
+        "must_not_be_author_of": [
+          "P06",
+          "P09",
+          "P10",
+          "P11",
+          "P15"
+        ],
+        "responsibility": "Challenge causal claims, alternatives, uncertain assumptions, the whole-business bridge, digital effects and fidelity to the original case."
+      },
+      "final_case_and_ui_review": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P16"
+        ],
+        "fresh_agent": true,
+        "must_not_be_author_of": [
+          "P12",
+          "P15"
+        ],
+        "responsibility": "Check integrated requirements, actual UI states and provenance; the coordinator owns final acceptance."
+      }
+    },
+    "initial_dispatch": [
+      {
+        "slot": 1,
+        "package": "P00R",
+        "model": "gpt-6-astra"
+      },
+      {
+        "slot": 2,
+        "package": "P02",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "slot": 3,
+        "package": "P03",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "slot": 4,
+        "package": "P04",
+        "model": "gpt-6.1-sol"
+      }
+    ],
+    "launch_mode": "async",
+    "max_active_children": 4
+  },
+  "verification": {
+    "automatic": [
+      "keys_units_cardinality",
+      "journey_and_seat_conservation",
+      "aircraft_assignment_and_calendar",
+      "single_fare_and_common_OD",
+      "revenue_cost_cash_bridge",
+      "KEEP_consistency",
+      "source_claim_links"
+    ],
+    "independent": [
+      "network_resource_and_financial_conclusions",
+      "whole_business_and_digital_claims"
+    ],
+    "rerun_triggers": [
+      "changed_relevant_input",
+      "concrete_failed_check",
+      "unresolved_material_finding"
+    ],
+    "not_rerun_triggers": [
+      "agent_finished",
+      "unrelated_commit",
+      "desire_for_another_approval",
+      "cosmetic_change_outside_calculations"
+    ],
+    "completion": "all_mandatory_requirements_have_deliverables_and_checks; unfinished is not rejection; conditional conclusions retain exact unknowns",
+    "iteration_policy": "fix_and_repeat_affected_mechanism; repeated failures trigger coordinator redesign, not blind full reruns"
+  },
+  "execution_boundary": {
+    "mass_agent_launch": false,
+    "new_network_runs": false,
+    "paid_data_or_external_messages": false,
+    "public_site_change": false,
+    "source_dashboard_change": false,
+    "secrets_in_prompts_or_artifacts": false
+  },
+  "variant_research": {
+    "plan_file": "variant_research_plan.json",
+    "seed_city_file": "city_research_seed.csv",
+    "seed_cities": 20,
+    "city_list_is_closed": false,
+    "hypotheses_generated_and_revised_from_data": true,
+    "historical_35_are_fixed_experiments": false,
+    "parallel_whole_variant_investigation": true,
+    "joint_result_is_sum_of_standalone_results": false
+  },
+  "presentation": {
+    "requirements_file": "demo_requirements.json",
+    "target_seconds": 120,
+    "status": "SPECIFIED_NOT_IMPLEMENTED_OR_REHEARSED",
+    "same_full_dashboard": true,
+    "same_results_and_sources": true,
+    "rehearsal_required": true
+  }
+}

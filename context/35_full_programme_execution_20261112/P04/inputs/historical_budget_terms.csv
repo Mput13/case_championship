@@ -1,0 +1,26 @@
+term,value,unit,ledger,rule,inclusion_guard
+lease_committed,,RUB/tail/week,full_budget,Lease commitments and true incremental fleet cost; existing lease not saved by cancellation,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+crew_fixed_salary,,RUB/crew/week,full_budget,Salary already allocated versus additional hires; keep ongoing salary,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+crew_overnight,,RUB/person/night,disruption_and_base,"Crew count, collective terms, hotels and positioning not priced",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+mro_station,,RUB/base/week,full_budget,Line-maintenance contract and availability separate from usage reserve,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+reserve_aircraft_increment,,RUB/reserve_tail/week,full_budget,Dedicated versus shared reserve and actual incremental lease/crew cost,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+base_launch_expense,,RUB/base/launch,full_budget,Which startup items are expensed versus capitalised and when,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+base_running_increment,,RUB/base/week,full_budget,Only actual extra commitments; not entire airport tariff list,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+base_capex,,RUB/base/launch,cash_capex,Capital spending and amortisation schedule,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+repositioning,,RUB/physical_ferry_leg,transition,"Need, distance, dispatch costs and ending aircraft position",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+exit_and_termination,,RUB/contract_exit,transition,"Penalties, remaining obligations and recoverable balances",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+support_or_subsidy,,RUB/eligible_journey_or_period,support,"Eligibility, awarded route/volume, accrual and collection date; no automatic subsidy",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+net_fuel_tax_contract_credit,,RUB/t_fuel,support,RW eligibility and incremental net benefit after accrued tax and supplier rebates; no gross statutory deduction,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+working_capital_inventory,,RUB/period_end,cash_only,Actual inventory movements and initial stock,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+working_capital_receivable,,RUB/period_end,cash_only,Agency settlements and collection lag,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+working_capital_payable,,RUB/period_end,cash_only,Supplier settlement lag and minimum bills,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+ticket_cash_collection,,fraction_of_net_fare,cash_only,Actual precollection fraction and gross fare tax basis; fixture fixes fraction=1 only,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+refundable_deposit,,RUB/contract,cash_only,"Security deposits, refund conditions and timing",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+refund_gross_tax_cash,,RUB/affected_endpoint_journey,cash_only,Author net fare is not gross customer refund; actual tax/fees UNKNOWN,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+vat_recoverability,,fraction_of_input_VAT,tax,"Legal application, service type, invoice and actual recoverability not inferred",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+compensation,,RUB/eligible_affected_journey,disruption,"Eligibility, carrier responsibility and contract terms not assumed",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+passenger_hotel_meal,,RUB/person/day,disruption,"Affected people, nights, meals, service obligations and prices",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+rebooking_paid,,RUB/reprotected_journey,disruption,Protected ticket terms and actual alternative seats/fares,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+extra_delay_fuel,,t/physical_operation,disruption,APU/taxi/holding/ferry cannot be inferred from elapsed delay,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+cancellation_airport_penalty,,RUB/cancelled_movement,disruption,"Minimum billing, reservations, prepaid services and cancellation terms",Only delta to chosen baseline; do not re-add a component included in flight/pax cost
+donor_or_old_RW_restoration,,journeys/dated_old_itinerary,counterfactual,No donor selected. Returning migrants need their own protected inventory and fare/cost bridge,Only delta to chosen baseline; do not re-add a component included in flight/pax cost
