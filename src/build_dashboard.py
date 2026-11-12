@@ -38,6 +38,63 @@ def txt(v):
     return None if v is None or (isinstance(v, float) and v != v) else str(v)
 
 
+def research(nodes):
+    """Окна второй версии панели: топливо сетей, неделя оборотов, пересчёты коллег, заметки эксперта.
+
+    Таблицы коллег — data/external/colleagues/ (src/fetch_colleague_research.py, коммиты в research_manifest.json).
+    """
+    C = ROOT / "data/external/colleagues"
+    a = pd.read_csv(ROOT / "data/assumptions/network.csv").set_index("parameter")
+    rt = pd.read_csv(P / "network_routes.csv")
+
+    def tons(g, j):
+        """Тонны керосина сети в год по тем же формулам, что leg_cost в network_model."""
+        t = 0.0
+        for r in g.itertuples():
+            fa, ta = getattr(r, "_3"), r.to
+            south = any(x in nodes.index and rules.is_south(nodes.loc[x, "region"]) for x in (fa, ta))
+            k = a.loc["route_factor_south"].iloc[j] if south else a.loc["route_factor"].iloc[j]
+            bh = a.loc["block_fixed_h"].iloc[j] + r.km * k / a.loc["block_speed_kmh"].iloc[j]
+            t += (a.loc["fuel_t_per_hour"].iloc[j] * bh + a.loc["fuel_t_per_cycle"].iloc[j]) * r.freq_week_each_way * 2 * a.loc["weeks_per_year"].iloc[j]
+        return t
+    fuel = {}
+    for (sc, v), g in rt.groupby(["scenario", "variant"]):
+        key = v.replace("Хаб ", "") if v.startswith("Хаб ") else "DIRECT"
+        fuel.setdefault(sc, {}).setdefault(key, 0.0)
+        fuel[sc][key] += tons(g, 0 if sc.startswith("base") else 1)
+    out = {"fuel_t": {s: {k: round(v, 1) for k, v in d.items()} for s, d in fuel.items()}}
+    if (C / "oms_ramp_week_flights.csv").exists():
+        wk = pd.read_csv(C / "oms_ramp_week_flights.csv")
+        out["week"] = [{"id": r.flight_id, "tail": r.tail_slot, "from": r.origin, "to": r.destination,
+                        "dep": r.departure_utc, "arr": r.arrival_utc, "block": int(r.block_min), "hi": int(r.scenario_block_high_min)}
+                       for r in wk.itertuples()]
+        cn = pd.read_csv(C / "oms_ramp_connections.csv")
+        ok = cn.arithmetic_status.astype(str).str.startswith("WITHIN")
+        out["week_conn"] = {"total": int(len(cn)), "ok": int(ok.sum()),
+                            "pairs": [{"from": r.origin, "to": r.destination, "wait": float(r.wait_min)} for r in cn[ok].itertuples()]}
+    if (C / "five_city_budget.csv").exists():
+        out["five_city"] = [{"network": r.network, "aircraft_budget": int(r.aircraft_budget),
+                             "result_mln_year": None if pd.isna(r.result_mln_year) else float(r.result_mln_year)}
+                            for r in pd.read_csv(C / "five_city_budget.csv").itertuples()]
+    if (C / "p09_programmes.csv").exists():
+        p9 = pd.read_csv(C / "p09_programmes.csv")
+        out["p09"] = [{"id": r.programme_id, "label": r.label, "scen": r.scenario, "dj": float(r.delta_journeys),
+                       "drev": float(r.delta_revenue_net) / 1e6, "dop": float(r.delta_known_operating_subtotal) / 1e6}
+                      for r in p9.itertuples()]
+    if (C / "p10_type_productivity.csv").exists():
+        pr = pd.read_csv(C / "p10_type_productivity.csv")
+        out["prod"] = [{"type": r.aircraft_type, "cond": r.condition, "seats": int(r.seats),
+                        "pax_tail": float(r.annual_occupied_segment_equivalents_per_tail)} for r in pr.itertuples()]
+        th = pd.read_csv(C / "p10_threshold_scenarios.csv")
+        out["thr"] = [{"case": r.competition_scenario_id, "year": int(r.year), "pax": float(r.threshold_reported_pax),
+                       "carrier": r.threshold_carrier_under_condition, "growth": float(r.market_annual_growth_condition)}
+                      for r in th.itertuples()]
+    ex = ROOT / "data/manual/expert_notes.json"
+    if ex.exists():
+        out["expert"] = json.loads(ex.read_text(encoding="utf-8"))
+    return out
+
+
 MOW = rules.MOW_AIRPORTS
 
 
@@ -86,7 +143,10 @@ def load_network():
            ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_flight", "subsidy_months", "subsidy_max_prior_pax", "fuel_rub_per_t", "fuel_compensation_rub_per_t", "min_freq_week", "max_freq_week", "capture_open",
             "capture_competitive", "capture_transfer", "transfer_fare_factor", "weeks_per_year", "fleet_cap",
             "spare_aircraft", "max_routes", "rw_existing_lf", "rw_pax_2025", "market_pax_2025",
-            "min_routes", "direct_max_freq_week", "thin_route_pax_day")}
+            "min_routes", "direct_max_freq_week", "thin_route_pax_day",
+            # для окна «один рейс» (формулы leg_cost и fare в network_model)
+            "block_fixed_h", "route_factor", "route_factor_south", "block_speed_kmh", "fuel_t_per_hour", "fuel_t_per_cycle",
+            "mro_rub_per_hour", "crew_rub_per_hour", "navigation_rub_per_hour", "ground_rub_per_flight", "deicing_rub_per_flight", "pax_cost_rub")}
     # вторая модель: неделя 7–13.12.2026 по опубликованному расписанию (data/external/colleagues)
     cc = pd.read_csv(ROOT / "data/external/colleagues/night_common_comparison.csv")
     check = []
@@ -392,14 +452,17 @@ def main():
         "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes, "demand": demand, "profiles": profiles, "names": names, "steps": steps,
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
+        "research": research(_n),
     }
     data = clean(data)
-    tpl = (ROOT / "src/dashboard_template.html").read_text(encoding="utf-8")
-    tpl = tpl.replace("<!--__AI_WORKFLOW__-->", (ROOT / "src/dashboard_ai_workflow.html").read_text(encoding="utf-8"))
     js = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
-    out = ROOT / "outputs/redwings_panel.html"
-    out.write_text(tpl.replace("/*__DATA__*/null", js), encoding="utf-8")
-    print("ok", out, len(cities), "городов,", len(months), "мес.")
+    ai = (ROOT / "src/dashboard_ai_workflow.html").read_text(encoding="utf-8")
+    # Дашборд 2 (вкладки) — главная страница сайта; Дашборд 1 — прежняя длинная страница, собирается из тех же данных
+    for tpl_name, out_name in (("dashboard_template.html", "redwings_panel.html"), ("dashboard_template_v1.html", "redwings_panel_v1.html")):
+        tpl = (ROOT / "src" / tpl_name).read_text(encoding="utf-8").replace("<!--__AI_WORKFLOW__-->", ai)
+        out = ROOT / "outputs" / out_name
+        out.write_text(tpl.replace("/*__DATA__*/null", js), encoding="utf-8")
+        print("ok", out, len(cities), "городов,", len(months), "мес.")
 
 
 if __name__ == "__main__":

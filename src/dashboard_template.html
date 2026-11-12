@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23e32a2f%22%20d%3D%22M21%2016v-2l-8-5V3.5a1.5%201.5%200%200%200-3%200V9l-8%205v2l8-2.5V19l-2%201.5V22l3.5-1%203.5%201v-1.5L13%2019v-5.5z%22%2F%3E%3C%2Fsvg%3E">
-<title>Red Wings: выбор хаба</title>
+<title>Red Wings: путь к №2</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -386,23 +386,75 @@ td .sub{color:var(--steel);font-size:11.5px;display:block}
 .n2-links div{padding:12px 16px 0 0;font-size:13px;line-height:1.5;color:var(--muted)}
 .n2-links b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
 footer{color:var(--muted);font-size:13px}
+[hidden]{display:none!important}
+/* дашборд 2: вкладки */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:-32px 0 0;padding-top:10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--paper)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;overflow-x:auto}
+.tabs a{display:inline-flex;align-items:center;gap:8px;padding:10px 12px 12px;text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs a b{font-family:var(--code);font-size:12px;color:var(--steel)}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current=page]{color:var(--ink);font-weight:700;border-bottom-color:var(--red)}
+.tabs a[aria-current=page] b{color:var(--red)}
+.dsw{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;background:var(--white)}
+.dsw a{padding:6px 14px;text-decoration:none;color:var(--muted)}
+.dsw a.on{background:var(--red);color:#fff;font-weight:500}
+.tab-lede{color:var(--muted);margin:8px 0 0;max-width:80ch;font-size:15px}
+.win{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:12px;min-width:0}
+.win .sec-h{padding:0}
+.win svg{width:100%;height:auto;display:block}
+.win-note{color:var(--muted);font-size:12.5px;line-height:1.55;margin:0;max-width:110ch}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+@media (max-width:1000px){.two{grid-template-columns:minmax(0,1fr)}}
+.kpis{display:flex;flex-wrap:wrap;gap:10px 26px}
+.kpis div{display:grid;gap:1px}
+.kpis b{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpis span{color:var(--muted);font-size:12.5px}
+.kpis b.red{color:var(--red)}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.ctl label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.ctl input[type=range]{accent-color:var(--red);width:180px}
+.ctl select{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:6px 8px;background:var(--white)}
+.ctl .seg button{padding:7px 12px;flex:none;white-space:nowrap}
+.xp{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.xp-c{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:start;background:#FBF4F3;border-radius:14px;padding:14px}
+.xp-c svg{width:40px;height:40px}
+.xp-c p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.xp-c b{color:var(--ink);font-weight:500}
+.tri-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.tri-c{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:4px}
+.tri-c svg{width:100%;height:110px}
+.tri-c b{font-size:14px;font-weight:500;line-height:1.35}
+.tri-c .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.tri-c .v.pos{color:#2E8B57}.tri-c .v.neg{color:var(--red)}
+.tri-c small{color:var(--muted);font-size:12px}
+.calc{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:1000px){.calc{grid-template-columns:minmax(0,1fr)}}
+.big{font-size:30px;font-weight:700;line-height:1.15;margin:0}
+.big em{font-style:normal;color:var(--red)}
+.lg2{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted)}
+.lg2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
 footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--ink);background:var(--paper-2);padding:1px 6px;border-radius:4px}
 </style>
 
 <div class="wrap">
+  <div class="topbar">
+    <nav class="tabs" id="tabs" aria-label="Разделы">
+      <a href="#hubs" data-t="hubs"><b>01</b>Хабы и базы</a><a href="#direct" data-t="direct"><b>02</b>Прямые рейсы</a><a href="#network" data-t="network"><b>03</b>Итоговая сеть 2027–2028</a><a href="#growth" data-t="growth"><b>04</b>Стратегия роста и №2</a>
+    </nav>
+    <div class="dsw" aria-label="Версия панели"><a href="redwings_panel_v1.html">Дашборд 1</a><a class="on" href="redwings_panel.html" aria-current="page">Дашборд 2</a></div>
+  </div>
   <header class="hero">
     <div>
-      <h1>Red Wings: новый хаб или прямые рейсы</h1>
-      <p class="lede">Куда направить новые SJ-100, чтобы компания росла быстрее рынка. Пять шагов кейса по порядку; в каждом блоке можно переключать сценарии и города.</p>
+      <h1>Red Wings: путь к №2</h1>
+      <p class="tab-lede" id="tab-lede"></p>
       <p class="tags-legend"><span class="tag live">меняется от города на табло</span> — блок показывает город, выбранный на табло кандидатов. <span class="tag fix">общий вывод</span> — наш расчёт и выводы, от выбора города не зависят.</p>
-      <nav class="steps" aria-label="Шаги кейса">
-        <a href="#step1"><b>1</b>Лонглист городов</a><a href="#step2"><b>2</b>Конкуренты</a><a href="#step3"><b>3</b>Расчёт гипотез</a><a href="#step4"><b>4</b>Выбор и сеть</a><a href="#step5"><b>5</b>Дорожная карта</a><a href="#step6"><b>6</b>Цель №2</a><a href="#rw-ai-paper">Использование ИИ</a>
-      </nav>
     </div>
     <div class="hero-meta" id="meta"></div>
   </header>
 
-  <div class="main" id="step1">
+  <div class="main" id="step1" data-tab="hubs">
     <section class="board" aria-labelledby="b-title">
       <div class="board-top">
         <div><div class="board-title" id="b-title">Табло кандидатов</div><div class="b-tagrow"><span class="tag dark">шаг 1 · нажмите город, чтобы выбрать его</span></div><div class="board-sub" id="b-sub"></div></div>
@@ -424,12 +476,23 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </aside>
   </div>
 
-  <section style="display:grid;gap:14px" aria-labelledby="t-title">
+  <section style="display:grid;gap:14px" aria-labelledby="t-title" data-tab="hubs">
     <div class="sec-h"><div><div class="eyebrow">Шаг 1 <span class="tag live">меняется от города на табло</span></div><h2 id="t-title">Посадочный талон города</h2></div><span class="hint">цвет значения: зелёный — город силён по критерию, красный — слаб</span></div>
     <article class="ticket" id="ticket"></article>
   </section>
 
-  <section class="mapcard" id="step2" aria-labelledby="c-title">
+
+  <section class="win" data-tab="hubs" aria-labelledby="h20-title">
+    <div class="sec-h"><div><div class="eyebrow">Расчёт сети для каждого города <span class="tag fix">общий вывод</span></div><h2 id="h20-title">Итог хаба в каждом из 20 городов</h2><div class="hint">Вклад сети за год: выручка минус расходы на рейсы. Справа — дни «Ковра» в аэропортах сети</div></div><div class="ctl"><div class="seg" id="h20-seg" role="group" aria-label="Сценарий"></div></div></div>
+    <div id="h20"></div>
+    <p class="win-note" id="h20-note"></p>
+  </section>
+  <section class="win" data-tab="hubs" aria-labelledby="fc-title">
+    <div class="sec-h"><div><div class="eyebrow">Пересчёт коллег 12.11 <span class="tag fix">общий вывод</span></div><h2 id="fc-title">Кто впереди при одинаковом числе самолётов</h2><div class="hint">Пять городов у баз возвращены в сравнение; вклад сети за год при парке от 2 до 7 самолётов с резервом</div></div></div>
+    <div id="fc"></div>
+    <p class="win-note" id="fc-note"></p>
+  </section>
+  <section class="mapcard" id="step2" aria-labelledby="c-title" data-tab="direct">
     <div class="sec-h"><div><div class="eyebrow">Шаг 2 <span class="tag fix">общий вывод</span></div><h2 id="c-title">Конкуренты с региональными базами</h2><div class="hint">Что сработало у перевозчиков с базами в регионах и что из этого берём для Red Wings</div></div></div>
     <div class="cp-wrap">
       <div class="cp-scale"><div class="vs-h">Пассажиров за 2025 год, млн</div><div id="cp-scale"></div><p class="cp-note" id="cp-note"></p></div>
@@ -437,7 +500,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </div>
   </section>
 
-  <section class="mapcard" id="dem" aria-labelledby="dm-title">
+  <section class="mapcard" id="dem" aria-labelledby="dm-title" data-tab="direct">
     <div class="sec-h"><div><div class="eyebrow">Шаг 3 · спрос по парам городов <span class="tag live">меняется от города на табло</span></div><h2 id="dm-title">Куда сейчас пересаживаются</h2></div><div class="seg" id="dm-zone" role="group" aria-label="Направления"></div></div>
     <p class="dm-lead" id="dm-lead"></p>
     <div class="dm-box"><svg id="dmsk" role="img" aria-labelledby="dm-title"></svg></div>
@@ -445,7 +508,19 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <div class="dm-cities" id="dm-cities" role="group" aria-label="Город"></div>
   </section>
 
-  <section class="mapcard" id="vs" aria-labelledby="vs-title"><span id="step3" class="anchor"></span>
+
+  <section class="win" data-tab="direct" aria-labelledby="fl-title">
+    <div class="sec-h"><div><div class="eyebrow">Модель одного рейса <span class="tag fix">формулы расчёта сети</span></div><h2 id="fl-title">Когда прямой рейс окупается</h2><div class="hint">Те же тарифы и расходы, что в расчёте сети, базовый сценарий; пассажир летит без пересадки</div></div></div>
+    <div class="ctl" id="fl-ctl"></div>
+    <div class="calc"><div id="fl-seats"></div><div style="display:grid;gap:12px" id="fl-out"></div></div>
+  </section>
+  <section class="win" data-tab="direct" aria-labelledby="tr-title">
+    <div class="sec-h"><div><div class="eyebrow">Гипотеза 2 · сеть прямых рейсов <span class="tag fix">общий вывод</span></div><h2 id="tr-title">Треугольники прямой сети</h2><div class="hint">Самолёт с базы облетает два города и возвращается; итог каждого треугольника за год, базовый сценарий</div></div></div>
+    <div class="tri-g" id="tri"></div>
+    <p class="win-note" id="tri-note"></p>
+  </section>
+  <section class="win" data-tab="direct" aria-labelledby="xpd-title"><div class="sec-h"><div><div class="eyebrow">Консультация эксперта авиакомпании, 12.11</div><h2 id="xpd-title">Что говорит практика про рейсы</h2></div></div><div class="xp" id="xp-direct"></div></section>
+  <section class="mapcard" id="vs" aria-labelledby="vs-title" data-tab="network"><span id="step3" class="anchor"></span>
     <div class="sec-h ld-h">
       <div><div class="eyebrow">Шаг 3 · расчёт обеих гипотез <span class="tag live">меняется от города на табло</span></div><h2 id="vs-title">Хаб или прямые рейсы</h2><div class="hint">Итог сети за год: выручка минус включённые расходы на рейсы; аренда самолётов и создание базы считаются отдельно</div></div>
       <div class="ld-ctl"><div class="seg" id="scen" role="group" aria-label="Сценарий"></div><div class="seg" id="subs" role="group" aria-label="Субсидия"></div></div>
@@ -465,9 +540,8 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </div>
   </section>
 
-  <!--__AI_WORKFLOW__-->
 
-  <section class="mapcard" id="step4" aria-labelledby="ch-title">
+  <section class="mapcard" id="step4" aria-labelledby="ch-title" data-tab="network">
     <div class="sec-h"><div><div class="eyebrow">Шаг 4 · выбор <span class="tag fix">общий вывод</span></div><h2 id="ch-title"></h2><div class="hint" id="ch-sub"></div></div><button class="btn" id="ch-show" type="button">Показать сеть на карте</button></div>
     <div class="ch-facts" id="ch-facts"></div>
     <div class="ch-ramp-h"><div class="vs-h">Сколько самолётов нужно и как сеть растёт по мере поставок SJ-100</div><p class="ld-note" id="ch-ramp-note"></p></div>
@@ -475,7 +549,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <div class="ch-share" id="ch-share"></div>
   </section>
 
-  <section class="mapcard" aria-labelledby="n-title">
+  <section class="mapcard" aria-labelledby="n-title" data-tab="network">
     <div class="sec-h"><div><div class="eyebrow">Шаг 4 · сеть на карте <span class="tag live">меняется от города на табло</span></div><h2 id="n-title">Итоговая сеть</h2></div><span class="hint">показывает хаб в городе, выбранном на табло, или вариант, нажатый в блоке «Хаб или прямые рейсы»; толщина линии — пассажиры в год</span></div>
     <div class="netbox" id="netbox">
       <svg id="netmap" role="img" aria-label="Карта маршрутов выбранного варианта сети"></svg>
@@ -493,7 +567,27 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </div>
   </section>
 
-  <section class="mapcard" aria-labelledby="m-title">
+
+  <section class="win" data-tab="network" aria-labelledby="wk-title">
+    <div class="sec-h"><div><div class="eyebrow">Оборот самолётов · расчёт коллег 11.11 <span class="tag fix">сценарная неделя</span></div><h2 id="wk-title">Неделя двух самолётов Омска</h2><div class="hint">Первый шаг сети: 6 лучей, два рабочих самолёта и один резерв. Время местное, омское</div></div></div>
+    <div class="kpis" id="wk-k"></div>
+    <div id="wk"></div>
+    <div class="lg2" id="wk-lg"></div>
+    <p class="win-note" id="wk-note"></p>
+  </section>
+  <section class="win" data-tab="network" aria-labelledby="fu-title">
+    <div class="sec-h"><div><div class="eyebrow">Главный денежный риск <span class="tag fix">общий вывод</span></div><h2 id="fu-title">Сколько государство возвращает за керосин</h2><div class="hint">Демпфер и обратный акциз уменьшают цену топлива. Двигайте ползунок: как меняется итог каждой сети</div></div></div>
+    <div class="ctl"><label>Компенсация, ₽ за тонну <input type="range" id="fu-k" min="0" max="40000" step="500"> <b id="fu-ko"></b></label></div>
+    <div class="two"><div id="fu"></div><div id="fu-list"></div></div>
+    <p class="win-note" id="fu-note"></p>
+  </section>
+  <section class="win" data-tab="network" aria-labelledby="p9-title">
+    <div class="sec-h"><div><div class="eyebrow">Проверка другой моделью · коллеги 12.11 <span class="tag fix">условный расчёт</span></div><h2 id="p9-title">Помесячная модель на 2027–2028 годы</h2><div class="hint">Своя модель спроса, поставки самолётов по месяцам, сравнение с работой без проекта. Прирост известной части результата за два года</div></div></div>
+    <div id="p9"></div>
+    <p class="win-note" id="p9-note"></p>
+  </section>
+  <section class="win" data-tab="network" aria-labelledby="xpn-title"><div class="sec-h"><div><div class="eyebrow">Консультация эксперта авиакомпании, 12.11</div><h2 id="xpn-title">От чего зависит расписание</h2></div></div><div class="xp" id="xp-network"></div></section>
+  <section class="mapcard" aria-labelledby="m-title" data-tab="hubs">
     <div class="sec-h"><div><div class="eyebrow">Шаг 4 · дальность <span class="tag live">меняется от города на табло</span></div><h2 id="m-title">Куда долетим из хаба</h2><div class="hint">Город — тот, что выбран на табло кандидатов. Круги показывают, куда SSJ долетит без посадки; линии — куда рейс уже есть, а куда его нет и поезд идёт дольше <span class="rail-hr"></span> часов. Колёсико или кнопки справа приближают карту.</div></div></div>
     <div class="mapbox" id="mapbox">
       <svg id="map" role="img" aria-label="Карта направлений и дальности из выбранного города"></svg>
@@ -512,13 +606,13 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     </div>
   </section>
 
-  <section class="mapcard" id="step5" aria-labelledby="r-title">
+  <section class="mapcard" id="step5" aria-labelledby="r-title" data-tab="network">
     <div class="sec-h"><div><div class="eyebrow">Шаг 5 <span class="tag fix">общий вывод</span></div><h2 id="r-title">Дорожная карта до 2028 года и риски</h2><div class="hint">Сеть растёт по мере поставок самолётов; у каждого риска — сигнал, по которому его заметим, и ответ</div></div></div>
     <div class="rm" id="rm"></div>
     <div class="rk" id="rk"></div>
   </section>
 
-  <section class="mapcard" id="step6" aria-labelledby="n2-title">
+  <section class="mapcard" id="step6" aria-labelledby="n2-title" data-tab="growth">
     <div class="sec-h"><div><div class="eyebrow">Цель кейса <span class="tag fix">общий вывод</span></div><h2 id="n2-title">Путь к №2</h2><div class="hint" id="n2-sub"></div></div></div>
     <div class="rwy" id="rwy" role="img" aria-label="Пассажиры 2025 года: Red Wings и конкуренты на одной шкале"></div>
     <ol class="n2-steps" id="n2-stages"></ol>
@@ -526,11 +620,25 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <p class="n2-one" id="n2-one"></p>
   </section>
 
-  <section class="card" aria-labelledby="k-title">
+
+  <section class="win" data-tab="growth" aria-labelledby="fl2-title">
+    <div class="sec-h"><div><div class="eyebrow">Масштаб цели · расчёт коллег P10 <span class="tag fix">ёмкость, не прогноз спроса</span></div><h2 id="fl2-title">Сколько самолётов нужно до второго места</h2><div class="hint">Разрыв до перевозчика №2 делим на пассажиров, которых один самолёт возит за год</div></div></div>
+    <div class="ctl" id="fl2-ctl"></div>
+    <div class="kpis" id="fl2-k"></div>
+    <div id="fl2"></div>
+    <p class="win-note" id="fl2-note"></p>
+  </section>
+  <section class="win" data-tab="growth" aria-labelledby="xpg-title"><div class="sec-h"><div><div class="eyebrow">Консультация эксперта авиакомпании, 12.11</div><h2 id="xpg-title">Совет эксперта к кейсу</h2></div></div><div class="xp" id="xp-growth"></div></section>
+  <div data-tab="growth">
+  <!--__AI_WORKFLOW__-->
+  </div>
+  <section class="card" aria-labelledby="k-title" data-tab="hubs">
     <div class="sec-h"><div><div class="eyebrow">Риск: ограничения аэропортов <span class="tag fix">данные по всем городам</span></div><h2 id="k-title" style="font-size:20px">«Ковёр» по месяцам</h2></div><span class="hint" id="k-sub"></span></div>
     <div class="tscroll"><table class="kov" id="kov"></table></div>
   </section>
 
+
+  <section class="win" data-tab="hubs" aria-labelledby="xph-title"><div class="sec-h"><div><div class="eyebrow">Консультация эксперта авиакомпании, 12.11</div><h2 id="xph-title">Как выбирают хаб на практике</h2></div></div><div class="xp" id="xp-hubs"></div></section>
   <section class="card srcboard" id="sources" aria-labelledby="s-title">
     <div class="sec-h"><div><h2 id="s-title" style="font-size:20px">Табло данных</h2><div class="hint">Откуда берутся цифры и когда они обновлялись</div></div></div>
     <div class="tscroll"><table id="src"><thead><tr><th>Источник</th><th>Тип</th><th>Прибыл</th><th style="text-align:right">Записей</th><th>Статус</th></tr></thead><tbody></tbody></table></div>
@@ -1176,4 +1284,277 @@ meta(); weights(); kov(); sources(); NETV=(D.steps&&D.steps.choice.chosen_hub)||
 let rz; window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ syncPanel(); if(!window.d3) return; d3.select('#netmap').selectAll('*').remove(); NK=1; netInit(); netUpdate(); d3.select('#map').selectAll('*').remove(); K=1; mapInit(); mapUpdate(); },200); });
 if(window.d3) mapInit(); else document.getElementById('mapbox').prepend(h('div',{style:'padding:16px;color:var(--muted)'},'Карта не загрузилась: нет доступа к библиотеке d3.'));
 update();
+/* ===== Дашборд 2: четыре вкладки и новые окна ===== */
+const R2=D.research||{};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sgn=(v,d=0)=>(v>0?'+':v<0?'−':'')+ru(Math.abs(v),d);
+const PLN_D='M98 50 94 46 86 45 60 45 36 14 27 14 40 45 18 45 10 34 4 34 9 50 4 66 10 66 18 55 40 55 27 86 36 86 60 55 86 55 94 54Z';
+const planeSvg=(x,y,s,col,rot=0)=>`<path d="${PLN_D}" fill="${col}" transform="translate(${x},${y}) rotate(${rot}) scale(${s/100}) translate(-50,-50)"/>`;
+const HUB0=(D.steps&&D.steps.choice&&D.steps.choice.chosen_hub)||'OMS';
+const vname=r=>r.vkey==='DIRECT'?'Прямые рейсы':String(r.variant).replace(/^Хаб /,'');
+function segInto(id,opts,cur,on){ const seg=document.getElementById(id); if(!seg) return; seg.textContent=''; opts.forEach(([k,t])=>{ const b=h('button',{type:'button','aria-pressed':String(cur===k)},t); b.addEventListener('click',()=>on(k)); seg.append(b); }); }
+
+/* --- вкладки --- */
+const TAB_LEDE={
+  hubs:'Где открыть хаб: табло 20 городов, итог хаба в каждом, сравнение при одинаковом парке, дальность и «Ковёр».',
+  direct:'Когда выгоден прямой рейс: конкуренты, куда сейчас пересаживаются, экономика одного рейса и треугольники прямой сети.',
+  network:'Что получается в 2027–2028 годах: хаб против прямых рейсов, сеть Омска, неделя оборотов самолётов, керосин и дорожная карта.',
+  growth:'Как Red Wings выходит на второе место: этапы, маршрутная стратегия, цифровые сервисы и сколько самолётов для этого нужно.'};
+const OLDHASH={step1:'hubs',step2:'direct',dem:'direct',step3:'network',vs:'network',step4:'network',step5:'network',step6:'growth','rw-ai-paper':'growth',sources:'hubs'};
+let TAB=null;
+function showTab(raw){
+  let t=raw, anchor=null;
+  if(OLDHASH[raw]){ t=OLDHASH[raw]; anchor=raw; }
+  if(!TAB_LEDE[t]) t='hubs';
+  const changed=t!==TAB; TAB=t;
+  document.querySelectorAll('[data-tab]').forEach(e=>{ e.hidden=e.dataset.tab!==t; });
+  document.querySelectorAll('#tabs a').forEach(a=>a.setAttribute('aria-current',a.dataset.t===t?'page':'false'));
+  document.getElementById('tab-lede').textContent=TAB_LEDE[t];
+  if(changed) window.dispatchEvent(new Event('resize'));
+  if(anchor){ const el=document.getElementById(anchor); if(el) setTimeout(()=>el.scrollIntoView({behavior:'smooth'}),250); }
+  else if(changed) window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',()=>showTab(location.hash.slice(1)));
+
+/* --- значки эксперта --- */
+const XI={
+  pax:'<circle cx="20" cy="13" r="6"/><path d="M8 34c0-7 5-12 12-12s12 5 12 12z"/>',
+  wrench:'<path d="M27 6a8 8 0 0 0-9 10L7 27l6 6 11-11a8 8 0 0 0 10-9l-5 5-5-1-1-5z"/>',
+  box:'<path d="M6 13l14-7 14 7v15l-14 7-14-7z"/><path d="M6 13l14 7 14-7M20 20v15" stroke="#fff" stroke-width="2" fill="none"/>',
+  crew:'<circle cx="13" cy="13" r="5"/><circle cx="27" cy="13" r="5"/><path d="M3 32c0-6 4-10 10-10s10 4 10 10zM17 32c0-6 4-10 10-10s10 4 10 10z"/>',
+  loop:'<path d="M20 6a14 14 0 1 1-13 9" fill="none" stroke-width="4"/><path d="M3 9l5 8 7-6z"/>',
+  slot:'<circle cx="20" cy="20" r="14" fill="none" stroke-width="4"/><path d="M20 11v10l7 4" fill="none" stroke-width="4"/>',
+  moon:'<path d="M27 5a15 15 0 1 0 9 22A13 13 0 0 1 27 5z"/>',
+  up:'<path d="M5 30l10-10 7 6 12-15" fill="none" stroke-width="4"/><path d="M27 8h9v9z"/>',
+  star:'<path d="M20 4l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/>',
+  pin:'<path d="M20 4a11 11 0 0 1 11 11c0 9-11 21-11 21S9 24 9 15A11 11 0 0 1 20 4z"/><circle cx="20" cy="15" r="4" fill="#fff"/>',
+  deck:'<rect x="5" y="7" width="30" height="20" rx="2"/><path d="M20 27v8M13 35h14" stroke-width="3" fill="none"/>'};
+function expert(key){
+  const box=document.getElementById('xp-'+key), X=(R2.expert||{})[key]; if(!box||!X) return; box.textContent='';
+  X.items.forEach(it=>{ const c=h('div',{class:'xp-c'}); c.innerHTML=`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#E32A2F" opacity=".12"/><g fill="#E32A2F" stroke="#E32A2F" transform="translate(6 6) scale(.7)">${XI[it.icon]||XI.star}</g></svg><p><b>${esc(it.b)}</b> ${esc(it.t)}</p>`; box.append(c); });
+}
+
+/* --- 1. итог хаба во всех городах --- */
+let H20S='base';
+function hub20(){
+  const box=document.getElementById('h20'); if(!box) return;
+  segInto('h20-seg',[['base','База'],['base_sub','С субсидией'],['cautious','Осторожный']],H20S,k=>{H20S=k;hub20();});
+  const rows=NS_.summary.filter(r=>r.scenario===H20S&&r.vkey!=='DIRECT').sort((a,b)=>b.result_mln_year-a.result_mln_year);
+  const dir=NS_.summary.find(r=>r.scenario===H20S&&r.vkey==='DIRECT');
+  if(!rows.length){ box.textContent='Нет расчёта сети'; return; }
+  const W=1000,rh=28,top=34,H=top+rows.length*rh+16, x0=200,x1=820;
+  const vals=rows.map(r=>r.result_mln_year).concat(dir?[dir.result_mln_year]:[]);
+  const lo=Math.min(0,...vals), hi=Math.max(0,...vals), X=v=>x0+(v-lo)/(hi-lo||1)*(x1-x0);
+  const kmax=Math.max(...rows.map(r=>r.kover_days_avg||0),1);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Итог хаба по городам">`;
+  g+=`<text x="${X(0)}" y="16" text-anchor="middle" font-size="12" fill="#5E6675">0</text><line x1="${X(0)}" y1="22" x2="${X(0)}" y2="${H-10}" stroke="#D9D6CF"/>`;
+  g+=`<text x="${x1}" y="16" text-anchor="end" font-size="12" fill="#5E6675">млн ₽ в год</text><text x="${W-4}" y="16" text-anchor="end" font-size="12" fill="#5E6675">«Ковёр», дней</text>`;
+  rows.forEach((r,i)=>{ const y=top+i*rh, v=r.result_mln_year, me=r.vkey===HUB0, a=Math.min(X(0),X(v)), w=Math.max(2,Math.abs(X(v)-X(0)));
+    const col=me?'#E32A2F':v>=0?'#8C96A6':'#F2C4C5';
+    g+=`<text x="${x0-12}" y="${y+15}" text-anchor="end" font-size="14" font-weight="${me?700:400}" fill="#111318">${esc(vname(r))}</text>`;
+    g+=`<rect x="${a}" y="${y+3}" width="${w}" height="${rh-10}" rx="4" fill="${col}"><title>${esc(vname(r))}: ${sgn(v)} млн ₽, ${ac(r.aircraft)}</title></rect>`;
+    g+=`<text x="${X(Math.max(v,0))+8}" y="${y+15}" font-size="13" font-weight="${me?700:500}" fill="${me?'#E32A2F':v<0?'#C0262B':'#111318'}">${sgn(v)}</text>`;
+    const kd=r.kover_days_avg||0, kw=kd/kmax*90; g+=`<rect x="${W-100}" y="${y+8}" width="${Math.max(2,kw)}" height="8" rx="4" fill="${kd>90?'#E32A2F':kd>50?'#F5B841':'#3FA772'}" opacity=".85"/><text x="${W-104}" y="${y+16}" text-anchor="end" font-size="12" fill="#5E6675">${kd}</text>`; });
+  if(dir){ const xd=X(dir.result_mln_year); g+=`<line x1="${xd}" y1="${top-4}" x2="${xd}" y2="${H-10}" stroke="#111318" stroke-dasharray="5 4"/><text x="${xd+6}" y="${H-14}" font-size="12" fill="#111318">сеть прямых рейсов ${sgn(dir.result_mln_year)}</text>`; }
+  box.innerHTML=g+'</svg>';
+  const pos=rows.filter(r=>r.result_mln_year>0).length, me=rows.findIndex(r=>r.vkey===HUB0)+1;
+  document.getElementById('h20-note').textContent=`В плюсе ${pos} хабов из ${rows.length}. ${BY[HUB0]?BY[HUB0].city:HUB0} — ${me}-е место по итогу. Пунктир — сеть прямых рейсов из Москвы и Екатеринбурга в том же сценарии. Итог не включает аренду самолётов и создание базы.`;
+}
+
+/* --- 2. пять городов при одинаковом парке --- */
+function fiveCity(){
+  const box=document.getElementById('fc'), F=R2.five_city||[]; if(!box) return; if(!F.length){ box.textContent='Нет данных'; return; }
+  const nets=[...new Set(F.map(r=>r.network))].filter(n=>n!=='DIRECT'), B=[2,3,4,5,6,7];
+  const val=(n,b)=>{ const r=F.find(x=>x.network===n&&x.aircraft_budget===b); return r&&r.result_mln_year!=null?r.result_mln_year:null; };
+  const all=F.filter(r=>r.result_mln_year!=null).map(r=>r.result_mln_year), lo=Math.min(0,...all), hi=Math.max(...all);
+  const W=1000,H=360,l=70,r=170,t=20,b=70, X=i=>l+i*(W-l-r)/(B.length-1), Y=v=>t+(hi-v)/(hi-lo)*(H-t-b);
+  const NM={OMS:'Омск',CEK:'Челябинск',TJM:'Тюмень',UFA:'Уфа',PEE:'Пермь',GOJ:'Нижний Новгород'};
+  const COL={OMS:'#E32A2F',CEK:'#111318',TJM:'#5E6675',UFA:'#8C96A6',PEE:'#B9B5AC',GOJ:'#F2C4C5'};
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Вклад сети при разном числе самолётов">`;
+  [0,200,400].forEach(v=>{ if(v<lo||v>hi) return; g+=`<line x1="${l}" y1="${Y(v)}" x2="${W-r}" y2="${Y(v)}" stroke="${v===0?'#B9B5AC':'#E9E6DF'}"/><text x="${l-8}" y="${Y(v)+4}" text-anchor="end" font-size="12" fill="#5E6675">${v}</text>`; });
+  B.forEach((bb,i)=>{ for(let k=0;k<bb;k++) g+=planeSvg(X(i)-(bb-1)*7+k*14,H-b+26,14,k===bb-1?'#B9B5AC':'#E32A2F',-90); g+=`<text x="${X(i)}" y="${H-b+52}" text-anchor="middle" font-size="12" fill="#5E6675">${bb} ${pl(bb,'самолёт','самолёта','самолётов').split(' ')[1]}</text>`; });
+  const labs=[];
+  nets.sort((a,b)=>(a==='OMS')-(b==='OMS')).forEach(n=>{ const pts=B.map((bb,i)=>[i,val(n,bb)]).filter(p=>p[1]!=null); if(!pts.length) return;
+    g+=`<polyline points="${pts.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="none" stroke="${COL[n]||'#8C96A6'}" stroke-width="${n==='OMS'?4:2.5}"/>`;
+    pts.forEach(p=>{ const lead=Math.max(...nets.map(m=>val(m,B[p[0]])??-1e9))===p[1]; g+=`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${lead?7:4}" fill="${lead?(COL[n]||'#8C96A6'):'#fff'}" stroke="${COL[n]||'#8C96A6'}" stroke-width="2.5"><title>${NM[n]||n}, ${B[p[0]]} самолётов: ${sgn(p[1])} млн ₽</title></circle>`; });
+    const lp=pts[pts.length-1]; labs.push({x:X(lp[0])+12,y:Y(lp[1])+4,t:`${NM[n]||n} ${sgn(lp[1])}`,w:n==='OMS'?700:500,c:COL[n]==='#F2C4C5'?'#C0262B':COL[n]}); });
+  labs.sort((a,b)=>a.y-b.y).forEach((L,i,arr)=>{ if(i&&L.y-arr[i-1].y<16) L.y=arr[i-1].y+16; g+=`<text x="${L.x}" y="${L.y}" font-size="13" font-weight="${L.w}" fill="${L.c}">${esc(L.t)}</text>`; });
+  box.innerHTML=g+'</svg>';
+  document.getElementById('fc-note').textContent='Закрашенная точка — лидер при таком парке; один самолёт в каждой сети — резерв. Пустое место — при таком парке сеть из 8 и более направлений не собирается. Пересчёт коллег на нашей модели: при 4 и 6–7 самолётах впереди Омск, при 5 — Челябинск. Если пересадок окажется вдвое меньше, все хабы уходят в минус.';
+}
+
+/* --- 3. один рейс --- */
+const FL={km:1506,pax:83,k:null};
+function flight(){
+  const A=NS_.asm, j=0, box=document.getElementById('fl-seats'); if(!box||!A) return;
+  if(FL.k==null) FL.k=A.fuel_compensation_rub_per_t[0];
+  const ctl=document.getElementById('fl-ctl');
+  if(!ctl.childElementCount){
+    const rs=NS_.routes.filter(r=>r.scenario==='base'&&r.vkey===HUB0);
+    const sel=h('select',{'aria-label':'Маршрут'},h('option',{value:''},'свой маршрут'),...rs.map(r=>h('option',{value:r.km},`${nm2(r.from)} — ${nm2(r.to)}, ${ru(r.km)} км`)));
+    sel.value='1506'; sel.addEventListener('change',()=>{ if(sel.value){ FL.km=+sel.value; document.getElementById('fl-km').value=FL.km; flight(); } });
+    const km=h('input',{type:'range',id:'fl-km',min:300,max:2300,step:10,value:FL.km}); km.addEventListener('input',()=>{ FL.km=+km.value; sel.value=''; flight(); });
+    const px=h('input',{type:'range',id:'fl-px',min:20,max:A.seats[j],step:1,value:FL.pax}); px.addEventListener('input',()=>{ FL.pax=+px.value; flight(); });
+    const kseg=h('div',{class:'seg',id:'fl-kseg',role:'group','aria-label':'Компенсация керосина'});
+    ctl.append(h('label',{},'Маршрут',sel),h('label',{},'Расстояние ',km,h('b',{id:'fl-kmo'})),h('label',{},'Пассажиров ',px,h('b',{id:'fl-pxo'})),h('label',{},'Компенсация за керосин',kseg));
+  }
+  segInto('fl-kseg',[[0,'0'],[A.fuel_compensation_rub_per_t[1],ru(A.fuel_compensation_rub_per_t[1])+' ₽/т'],[A.fuel_compensation_rub_per_t[0],ru(A.fuel_compensation_rub_per_t[0])+' ₽/т']],FL.k,k=>{FL.k=k;flight();});
+  document.getElementById('fl-kmo').textContent=ru(FL.km)+' км'; document.getElementById('fl-pxo').textContent=FL.pax;
+  const bh=A.block_fixed_h[j]+FL.km*A.route_factor[j]/A.block_speed_kmh[j];
+  const fuel=(A.fuel_t_per_hour[j]*bh+A.fuel_t_per_cycle[j])*(A.fuel_rub_per_t[j]-FL.k);
+  const hourly=(A.mro_rub_per_hour[j]+A.crew_rub_per_hour[j]+A.navigation_rub_per_hour[j])*bh, ground=A.ground_rub_per_flight[j]+A.deicing_rub_per_flight[j];
+  const fare=A.fare_fixed_rub[j]+A.fare_per_km_rub[j]*FL.km, fixed=fuel+hourly+ground, unit=fare-A.pax_cost_rub[j];
+  const be=Math.ceil(fixed/unit), rev=FL.pax*fare, cost=fixed+FL.pax*A.pax_cost_rub[j], res=rev-cost, S=A.seats[j];
+  // салон: 2+3 кресла, 20 рядов
+  const W=1000,H=260; let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Салон самолёта: занятые кресла и точка окупаемости">`;
+  g+=`<path d="M60 70 Q20 130 60 190 L900 190 Q985 160 985 130 Q985 100 900 70Z" fill="#FBFAF7" stroke="#D9D6CF" stroke-width="2"/>`;
+  g+=`<path d="M560 70 L470 6 L520 6 L650 70Z M560 190 L470 254 L520 254 L650 190Z M110 70 L70 26 L100 26 L150 70Z M110 190 L70 234 L100 234 L150 190Z" fill="#E9E6DF"/>`;
+  const rows=Math.ceil(S/5); let n=0;
+  for(let rI=0;rI<rows;rI++) for(let sI=0;sI<5;sI++){ if(n>=S) break; n++;
+    const x=150+rI*36, y=sI<2?86+sI*24:128+(sI-2)*20, taken=n<=FL.pax, needed=n<=be;
+    const fill=taken?(needed?'#8C96A6':'#3FA772'):(needed?'#fff':'#fff'), st=taken?'none':(needed?'#E32A2F':'#D9D6CF');
+    g+=`<rect x="${x}" y="${y}" width="26" height="${sI<2?18:15}" rx="4" fill="${fill}" stroke="${st}" stroke-width="1.6"/>`; }
+  if(be<=S){ const rI=Math.floor((be-1)/5), x=150+rI*36+31; g+=`<line x1="${x}" y1="64" x2="${x}" y2="196" stroke="#E32A2F" stroke-width="3" stroke-dasharray="6 4"/><text x="${x}" y="58" text-anchor="middle" font-size="14" font-weight="700" fill="#E32A2F">окупаемость: ${be} пасс.</text>`; }
+  box.innerHTML=g+'</svg><div class="lg2"><span><i style="background:#8C96A6"></i>пассажиры покрывают расходы рейса</span><span><i style="background:#3FA772"></i>пассажиры сверх окупаемости — прибыль</span><span><i style="border:1.6px solid #E32A2F;background:#fff"></i>не хватает до окупаемости</span></div>';
+  const out=document.getElementById('fl-out'); out.textContent='';
+  out.append(h('p',{class:'big'},be<=S?`Окупается с `:'Не окупается даже ', h('em',{},be<=S?`${be} пассажиров`:'полным самолётом'),be<=S?` из ${S}`:''));
+  const k=h('div',{class:'kpis'}); [[sgn(res/1000),'тыс. ₽ итог рейса',res<0],[ru(rev/1000),'тыс. ₽ выручка'],[ru(cost/1000),'тыс. ₽ расходы'],[ru(fare),'₽ билет']].forEach(([v,t,neg])=>k.append(h('div',{},h('b',{class:neg?'red':''},v),h('span',{},t))));
+  out.append(k);
+  out.append(h('p',{class:'win-note'},`Расходы рейса: топливо ${ru(fuel/1000)} тыс. ₽ (${ru(A.fuel_t_per_hour[j]*bh+A.fuel_t_per_cycle[j],1)} т), ТО, экипаж и навигация ${ru(hourly/1000)} тыс., аэропорт ${ru(ground/1000)} тыс., ${ru(A.pax_cost_rub[j])} ₽ на пассажира. Блок-время ${ru(bh,1)} ч. Пассажир с пересадкой платит за оба рейса один билет, поэтому в сети луч может окупаться при другой загрузке.`));
+}
+const nm2=i=>((NS_.nodes||{})[i]||[0,0,i])[2];
+
+/* --- 4. треугольники --- */
+function triangles(){
+  const box=document.getElementById('tri'); if(!box) return; box.textContent='';
+  const rs=NS_.routes.filter(r=>r.scenario==='base'&&String(r.variant).startsWith('Прямые'));
+  const by={}; rs.forEach(r=>{ (by[r.variant]=by[r.variant]||[]).push(r); });
+  const T=Object.entries(by).map(([v,L])=>({v,L,res:L[0].triangle_result_mln_year,codes:v.replace('Прямые ','').split('-')})).sort((a,b)=>b.res-a.res);
+  T.forEach(t=>{ const pts=t.codes.map(c=>{ const n=(NS_.nodes||{})[c]; return n?[n[1],n[0]]:null; }); if(pts.some(p=>!p)) return;
+    const xs=pts.map(p=>p[0]), ys=pts.map(p=>p[1]), mx=Math.min(...xs), Mx=Math.max(...xs), my=Math.min(...ys), My=Math.max(...ys);
+    const sc=Math.min(170/((Mx-mx)||1),80/((My-my)||1)), P=pts.map(p=>[20+(p[0]-mx)*sc+(170-(Mx-mx)*sc)/2,95-(p[1]-my)*sc-(80-(My-my)*sc)/2]);
+    const pos=t.res>0, col=pos?'#3FA772':'#E32A2F';
+    let g=`<svg viewBox="0 0 210 110" aria-hidden="true"><path d="M${P.map(p=>p.join(',')).join(' L')} Z" fill="${col}" fill-opacity=".10" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    P.forEach((p,i)=>{ g+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i?4.5:6}" fill="${i?'#fff':'#111318'}" stroke="#111318" stroke-width="2"/><text x="${p[0]}" y="${p[1]+(p[1]>55?-9:17)}" text-anchor="middle" font-size="11" fill="#5E6675">${esc(t.codes[i])}</text>`; });
+    g+=planeSvg((P[0][0]+P[1][0])/2,(P[0][1]+P[1][1])/2,18,col,Math.atan2(P[1][1]-P[0][1],P[1][0]-P[0][0])*180/Math.PI)+'</svg>';
+    const c=h('div',{class:'tri-c'}); c.innerHTML=g;
+    const f=t.L[0].freq_week_each_way;
+    c.append(h('b',{},t.codes.map(nm2).join(' — ')),h('span',{class:'v '+(pos?'pos':'neg')},sgn(t.res,0)+' млн ₽'),h('small',{},`${f} ${pl(f,'рейс','рейса','рейсов').split(' ')[1]} в неделю · ${ru(t.L.reduce((a,r)=>a+r.pax_year_segments,0)/1000)} тыс. пасс. в год`));
+    box.append(c); });
+  const pos=T.filter(t=>t.res>0).length, d=NS_.summary.find(r=>r.scenario==='base'&&r.vkey==='DIRECT');
+  document.getElementById('tri-note').textContent=`В плюсе ${pos} из ${T.length} треугольников. Вся сеть прямых рейсов — ${d?sgn(d.result_mln_year)+' млн ₽ на '+ac(d.aircraft):'—'}: отдельные окупаемые треугольники стоит запускать по одному, общая сеть почти в нуле.`;
+}
+
+/* --- 5. неделя оборотов --- */
+function week(){
+  const box=document.getElementById('wk'), F=R2.week||[]; if(!box) return; if(!F.length){ box.textContent='Нет расписания'; return; }
+  const t0=Math.min(...F.map(f=>Date.parse(f.dep))), HR=3600e3, tz=6; // начало недели: пн 05:00 по Омску
+  const tails=[...new Set(F.map(f=>f.tail))].sort(); if(!tails.includes('S3')) tails.push('S3');
+  const W=1000,l=110,r=10,top=34,rh=66,H=top+tails.length*rh+10, X=t=>l+(t-t0)/HR/168*(W-l-r);
+  const SP=[...new Set(F.map(f=>f.from==='OMS'?f.to:f.from))], PAL=['#E32A2F','#F5B841','#111318','#8C96A6','#3FA772','#5B7FB5','#5E6675'];
+  const col=c=>PAL[SP.indexOf(c)%PAL.length];
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Неделя оборотов самолётов">`;
+  const DN=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  for(let d=0;d<=7;d++){ const x=X(t0+d*24*HR); g+=`<line x1="${x}" y1="${top-8}" x2="${x}" y2="${H-6}" stroke="#E9E6DF"/>`; if(d<7) g+=`<text x="${x+4}" y="${top-14}" font-size="12" fill="#5E6675">${DN[d]} 05:00</text>`; }
+  tails.forEach((tl,i)=>{ const y=top+i*rh, res=tl==='S3';
+    g+=planeSvg(22,y+rh/2-4,30,res?'#B9B5AC':'#E32A2F',0)+`<text x="42" y="${y+rh/2+1}" font-size="13" font-weight="700" fill="#111318">${res?'резерв':'борт '+tl.slice(1)}</text>`;
+    g+=`<rect x="${l}" y="${y+10}" width="${W-l-r}" height="${rh-22}" rx="6" fill="${res?'#F3F1EC':'#FBFAF7'}" stroke="#E9E6DF"/>`;
+    if(res) g+=`<text x="${(l+W-r)/2}" y="${y+rh/2+2}" text-anchor="middle" font-size="12" fill="#8C96A6">стоит в Омске на случай поломки или ТО</text>`;
+    F.filter(f=>f.tail===tl).forEach(f=>{ const a=X(Date.parse(f.dep)), b=X(Date.parse(f.arr)), sp=f.from==='OMS'?f.to:f.from, out=f.from==='OMS';
+      const dl=new Date(Date.parse(f.dep)+tz*HR), al=new Date(Date.parse(f.arr)+tz*HR), hm=d=>String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0');
+      g+=`<rect x="${a}" y="${y+(out?12:rh/2-1)}" width="${Math.max(2,b-a)}" height="${rh/2-13}" rx="3" fill="${col(sp)}" opacity="${out?1:.55}"><title>${f.from} → ${f.to}: вылет ${hm(dl)}, прилёт ${hm(al)} по Омску, ${Math.round(f.block/6)/10} ч в воздухе</title></rect>`;
+      if(b-a>16) g+=`<text x="${(a+b)/2}" y="${y+(out?24:rh/2+11)}" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">${sp}</text>`; }); });
+  box.innerHTML=g+'</svg>';
+  const bh=tl=>F.filter(f=>f.tail===tl).reduce((a,f)=>a+f.block,0)/60, hi=tl=>F.filter(f=>f.tail===tl).reduce((a,f)=>a+f.hi,0)/60;
+  const C=R2.week_conn||{}, k=document.getElementById('wk-k'); k.textContent='';
+  [[F.length,'рейсов за неделю'],[ru(bh('S1'))+' + '+ru(bh('S2')),'часов в воздухе у двух бортов (предел 70 + 70)'],[C.ok!=null?`${C.ok} из ${C.total}`:'—','стыковок в Омске укладываются в 45–240 минут']].forEach(([v,t])=>k.append(h('div',{},h('b',{},String(v)),h('span',{},t))));
+  const lg=document.getElementById('wk-lg'); lg.textContent=''; SP.forEach(c=>lg.append(h('span',{},h('i',{style:`background:${col(c)}`}),nm2(c))));
+  lg.append(h('span',{},'верхняя полоса — рейс из Омска, нижняя — обратно'));
+  document.getElementById('wk-note').textContent=`Сценарная неделя 6–12 сентября 2027 года из расчёта коллег: частоты нашей сети на первом шаге, время полёта и разворот 60 минут взяты как допущения. Если рейсы окажутся длиннее, налёт вырастет до ${ru(hi('S1'))} + ${ru(hi('S2'))} ч и превысит предел, а на всех 22 дальних разворотах пропадёт запас. Перед запуском нужны слоты, аэропорт в Москве, экипажи и окна ТО.`;
+}
+
+/* --- 6. керосин --- */
+let FUK=null;
+function fuelWin(){
+  const box=document.getElementById('fu'), T=(R2.fuel_t||{}).base||{}, A=NS_.asm; if(!box||!A) return;
+  const k0=A.fuel_compensation_rub_per_t[0]; if(FUK==null) FUK=k0;
+  const sl=document.getElementById('fu-k'); sl.value=FUK; sl.oninput=()=>{ FUK=+sl.value; fuelWin(); };
+  document.getElementById('fu-ko').textContent=ru(FUK);
+  const rows=NS_.summary.filter(r=>r.scenario==='base'&&(r.main||r.vkey==='DIRECT')&&T[r.vkey]);
+  const f=(r,k)=>r.result_mln_year+(k-k0)*T[r.vkey]/1e6;
+  const KM=40000, all=rows.flatMap(r=>[f(r,0),f(r,KM)]), lo=Math.min(...all), hi=Math.max(...all);
+  const W=560,H=330,l=56,rr=16,t=14,b=40, X=k=>l+k/KM*(W-l-rr), Y=v=>t+(hi-v)/(hi-lo)*(H-t-b);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Итог сети в зависимости от компенсации за керосин">`;
+  [-1000,-500,0,500,1000].forEach(v=>{ if(v<lo||v>hi) return; g+=`<line x1="${l}" y1="${Y(v)}" x2="${W-rr}" y2="${Y(v)}" stroke="${v===0?'#8C96A6':'#E9E6DF'}"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="#5E6675">${v}</text>`; });
+  [[A.fuel_compensation_rub_per_t[1],'только акциз'],[k0,'среднее 2026']].forEach(([k,t_])=>{ g+=`<line x1="${X(k)}" y1="${t}" x2="${X(k)}" y2="${H-b}" stroke="#D9D6CF" stroke-dasharray="3 3"/><text x="${X(k)}" y="${H-b+30}" text-anchor="middle" font-size="11" fill="#5E6675">${t_}</text>`; });
+  [0,10000,20000,30000,40000].forEach(k=>g+=`<text x="${X(k)}" y="${H-b+15}" text-anchor="middle" font-size="11" fill="#5E6675">${k/1000}</text>`);
+  rows.sort((a,b)=>(a.vkey===HUB0)-(b.vkey===HUB0)).forEach(r=>{ const me=r.vkey===HUB0, c=me?'#E32A2F':r.vkey==='DIRECT'?'#111318':'#B9B5AC';
+    g+=`<line x1="${X(0)}" y1="${Y(f(r,0))}" x2="${X(KM)}" y2="${Y(f(r,KM))}" stroke="${c}" stroke-width="${me?3.5:2}" ${r.vkey==='DIRECT'?'stroke-dasharray="6 4"':''}/>`;
+    g+=`<circle cx="${X(FUK)}" cy="${Y(f(r,FUK))}" r="${me?6:4}" fill="${c}"/>`; });
+  g+=`<line x1="${X(FUK)}" y1="${t}" x2="${X(FUK)}" y2="${H-b}" stroke="#E32A2F" stroke-width="1.5"/>`;
+  box.innerHTML=g+'</svg>';
+  const L=document.getElementById('fu-list'); L.textContent='';
+  rows.sort((a,b)=>f(b,FUK)-f(a,FUK)).forEach(r=>{ const v=f(r,FUK), be=k0-r.result_mln_year*1e6/T[r.vkey], me=r.vkey===HUB0;
+    L.append(h('div',{style:'display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:8px 0;border-bottom:1px solid var(--line)'},
+      h('b',{style:`font-weight:${me?700:500};color:${me?'var(--red)':'var(--ink)'}`},vname(r)),h('b',{style:`font-variant-numeric:tabular-nums;color:${v<0?'var(--red)':'var(--ink)'}`},sgn(v)+' млн ₽'),
+      h('span',{class:'hint'},`${ru(T[r.vkey]/1000,1)} тыс. т керосина в год`),h('span',{class:'hint'},be>0?`в ноль при ${ru(be/1000,1)} тыс. ₽/т`:'в плюсе и без компенсации'))); });
+  document.getElementById('fu-note').textContent=`Сети не пересобираются: те же лучи и частоты, меняется только цена топлива. В 2026 году государство в среднем возвращало ${ru(k0)} ₽ за тонну (демпфер и обратный акциз, январь — сентябрь); без демпфера остаётся обратный акциз ${ru(A.fuel_compensation_rub_per_t[1])} ₽. Будущая ставка на 2027–2028 годы неизвестна.`;
+}
+
+/* --- 7. модель коллег P09 --- */
+function p09(){
+  const box=document.getElementById('p9'), P=R2.p09||[]; if(!box) return; if(!P.length){ box.textContent='Нет данных'; return; }
+  const base=P.filter(x=>x.scen==='base'), cau=Object.fromEntries(P.filter(x=>x.scen==='cautious').map(x=>[x.id,x]));
+  const city=id=>id.split('_')[0];
+  const best={}; base.forEach(x=>{ const c=city(x.id); if(!best[c]||x.dop>best[c].dop) best[c]=x; });
+  const rows=Object.values(best).sort((a,b)=>b.dop-a.dop).slice(0,12);
+  const all=rows.flatMap(x=>[x.dop,(cau[x.id]||{}).dop??x.dop]), lo=Math.min(0,...all), hi=Math.max(...all);
+  const W=1000,rh=30,top=26,H=top+rows.length*rh+30, x0=260,x1=930, X=v=>x0+(v-lo)/(hi-lo)*(x1-x0);
+  const NM={AER:'Сочи',MRV:'Минеральные Воды',CEK:'Челябинск',OMS:'Омск',SVX:'Екатеринбург',VOG:'Волгоград',KUF:'Самара',UFA:'Уфа',TJM:'Тюмень',PEE:'Пермь',GOJ:'Нижний Новгород',REN:'Оренбург',KZN:'Казань',BAX:'Барнаул',KGD:'Калининград',KJA:'Красноярск',IKT:'Иркутск',MCX:'Махачкала',VVO:'Владивосток',KHV:'Хабаровск',GSV:'Саратов'};
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Лучшие программы второй модели">`;
+  g+=`<line x1="${X(0)}" y1="${top-8}" x2="${X(0)}" y2="${H-24}" stroke="#B9B5AC"/><text x="${X(0)}" y="${top-12}" text-anchor="middle" font-size="11" fill="#5E6675">0</text>`;
+  rows.forEach((x,i)=>{ const y=top+i*rh, me=city(x.id)===HUB0, c=cau[x.id];
+    g+=`<text x="${x0-12}" y="${y+16}" text-anchor="end" font-size="13" font-weight="${me?700:400}" fill="#111318">${esc(NM[city(x.id)]||city(x.id))}</text>`;
+    g+=`<rect x="${Math.min(X(0),X(x.dop))}" y="${y+4}" width="${Math.abs(X(x.dop)-X(0))}" height="${rh-12}" rx="4" fill="${me?'#E32A2F':'#8C96A6'}"><title>${esc(x.label)}: ${sgn(x.dop)} млн ₽, +${ru(x.dj)} поездок</title></rect>`;
+    g+=`<text x="${X(Math.max(x.dop,0))+8}" y="${y+16}" font-size="12" fill="#111318">${sgn(x.dop)}</text>`;
+    if(c) g+=`<circle cx="${X(c.dop)}" cy="${y+rh/2-2}" r="5" fill="#fff" stroke="#111318" stroke-width="2"><title>осторожный сценарий: ${sgn(c.dop)} млн ₽</title></circle>`; });
+  g+=`<circle cx="${x0}" cy="${H-10}" r="5" fill="#fff" stroke="#111318" stroke-width="2"/><text x="${x0+10}" y="${H-6}" font-size="11" fill="#5E6675">осторожный сценарий · полоса — базовый, млн ₽ за 2027–2028 годы, лучшая конструкция сети каждого города</text>`;
+  box.innerHTML=g+'</svg>';
+  const om=rows.findIndex(x=>city(x.id)===HUB0)+1;
+  document.getElementById('p9-note').textContent=`Модель коллег считает 24 месяца с поставками новых самолётов в августе 2027 — сентябре 2028 года и сравнивает с работой без проекта. Омск — ${om}-е место среди городов; выше южные курорты, у которых больше дней «Ковра», и Челябинск. Это прирост известной части результата: аренда, база и полная прибыль в обеих моделях не посчитаны, независимая проверка ещё не завершена.`;
+}
+
+/* --- 8. самолёты до №2 --- */
+const F2={year:2030,case:'C_SLOW007',cond:'базовая',mix:0};
+function fleet2(){
+  const box=document.getElementById('fl2'), TH=R2.thr||[], PR=R2.prod||[]; if(!box) return; if(!TH.length||!PR.length){ box.textContent='Нет данных'; return; }
+  const ctl=document.getElementById('fl2-ctl');
+  if(!ctl.childElementCount){
+    const mix=h('input',{type:'range',min:0,max:100,step:10,value:F2.mix}); mix.addEventListener('input',()=>{ F2.mix=+mix.value; fleet2(); });
+    ctl.append(h('label',{},'Год',h('div',{class:'seg',id:'f2-y'})),h('label',{},'Рынок',h('div',{class:'seg',id:'f2-c'})),h('label',{},'Самолёт в год',h('div',{class:'seg',id:'f2-p'})),h('label',{},'Доля Ту-214 ',mix,h('b',{id:'f2-mo'})));
+  }
+  segInto('f2-y',[[2028,'2028'],[2030,'2030'],[2035,'2035']],F2.year,v=>{F2.year=v;fleet2();});
+  segInto('f2-c',[['C_FLAT','не растёт'],['C_SLOW007','+0,7% в год'],['C_RECOVERY059','+5,9% в год']],F2.case,v=>{F2.case=v;fleet2();});
+  segInto('f2-p',[['базовая','как сейчас'],['осторожная','осторожно']],F2.cond,v=>{F2.cond=v;fleet2();});
+  document.getElementById('f2-mo').textContent=F2.mix+'%';
+  const th=TH.find(x=>x.case===F2.case&&x.year===F2.year)||TH.find(x=>x.year===F2.year);
+  const rw=NS_.asm.rw_pax_2025[0], gap=th.pax-rw, hub=(NS_.summary.find(r=>r.scenario==='base'&&r.vkey===HUB0)||{}).net_new_segments_year||0;
+  const pp=t=>(PR.find(x=>x.type===t&&x.cond===F2.cond)||{}).pax_tail;
+  const sj=pp('SJ100_PD8_NEW'), tu=pp('TU214_NEW_DOMESTIC');
+  const nTu=Math.ceil(gap*F2.mix/100/tu), nSj=Math.ceil(gap*(1-F2.mix/100)/sj), hubN=(NS_.summary.find(r=>r.scenario==='base'&&r.vkey===HUB0)||{}).aircraft||0;
+  const k=document.getElementById('fl2-k'); k.textContent='';
+  [[ru(th.pax/1e6,1)+' млн','пассажиров у №2 в '+F2.year+' году ('+th.carrier+')'],[ru(gap/1e6,1)+' млн','разрыв от нынешних 2,7 млн'],[String(nSj+nTu),`самолётов: ${nSj} SJ-100 и ${nTu} Ту-214`,true],[ru(hub/1e6,2)+' млн',`даёт хаб в Омске на ${hubN} самолётах`]].forEach(([v,t,red])=>k.append(h('div',{},h('b',{class:red?'red':''},v),h('span',{},t))));
+  const tot=nSj+nTu, per=Math.min(40,Math.max(20,Math.ceil(Math.sqrt(tot*3.2)))), cs=24, rowsN=Math.ceil(tot/per), W=per*cs+20, H=rowsN*cs+20;
+  let g=`<svg viewBox="0 0 ${Math.max(W,600)} ${H}" role="img" aria-label="Число самолётов до второго места">`;
+  for(let i=0;i<tot;i++){ const x=10+(i%per)*cs+cs/2, y=10+Math.floor(i/per)*cs+cs/2, isHub=i<hubN, isTu=i>=nSj;
+    g+=planeSvg(x,y,isTu?22:18,isHub?'#E32A2F':isTu?'#111318':'#F2A3A5',-90); }
+  box.innerHTML=g+'</svg><div class="lg2"><span><i style="background:#E32A2F"></i>хаб в Омске</span><span><i style="background:#F2A3A5"></i>SJ-100, около '+ru(sj/1000)+' тыс. пасс. в год на самолёт</span><span><i style="background:#111318"></i>Ту-214, около '+ru(tu/1000)+' тыс.</span></div>';
+  document.getElementById('fl2-note').textContent='Ёмкость в расчётной точке коллег: кресла × загрузка × налёт с учётом ТО и сезонности. Это сколько самолётов нужно, чтобы физически перевезти разрыв; спрос, слоты, экипажи и деньги на них нужно считать отдельно. Нынешний парк Red Wings в счёт не входит, он уже возит 2,7 млн.';
+}
+
+/* --- запуск --- */
+['hubs','direct','network','growth'].forEach(expert);
+[hub20,fiveCity,flight,triangles,week,fuelWin,p09,fleet2].forEach(fn=>{ try{ fn(); }catch(e){ console.error(fn.name,e); } });
+showTab(location.hash.slice(1));
+
 </script>

@@ -10,3 +10,10 @@
 | primary_seasonality_profiles.csv | research/case5-raw-alternative-20261109 @ ef365ac | context/16_agent_research/alternative/modules/tourism/normalized/ | сезонность размещения в гостиницах и санаториях по регионам (ЕМИСС) |
 | primary_monthly_increments.csv | то же | то же | то же по месяцам |
 | night_common_comparison.csv | research/night-morning-report-20261110 | context/23_night_run_20261110/checkpoint_0800/ | общее сравнение трёх сетей на неделю 7–13.12.2026 (вторая модель для проверки шага 3) |
+| oms_ramp_week_flights.csv | research/direct-growth-delay-cargo-20261112 @ ffcc78d | context/30_defense_research_20261111/model_schedule/proposed_initial_flights.csv | сценарная неделя 6–12.09.2027: 44 рейса шести лучей Омска на двух самолётах и резерве (окно «Неделя двух самолётов») |
+| oms_ramp_connections.csv | то же | …/model_schedule/connection_checks.csv | 110 стыковок в Омске той же недели и окно 45–240 минут |
+| five_city_budget.csv | research/five-cities-distance-rule-20261112 @ e2bd5db | context/33_five_city_reassessment_20261112/common_economics/report.md | вклад сети шести городов при парке 2–7 самолётов (таблица отчёта, разобрана скриптом) |
+| p09_programmes.csv | docs/case5-team-synthesis-20261109 @ b16c28c | context/35_full_programme_execution_20261112/P09/scenario_results.csv | вторая модель коллег на 24 месяца: прирост поездок и известной части результата по программам (поставки phased) |
+| p10_type_productivity.csv, p10_threshold_scenarios.csv | то же | …/P10/ | пассажиров в год на один самолёт по типам и порог №2 по годам и сценариям рынка |
+
+Последние пять файлов обновляет `py -3.13 src/fetch_colleague_research.py` (коммиты закреплены в скрипте и в research_manifest.json).
