@@ -1,0 +1,190 @@
+{
+  "version": "P03-v1",
+  "as_of": "2026-11-12",
+  "planning_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
+  "forecast_status": "UNKNOWN",
+  "numeric_diagnostics": "fleet_calendar.csv record_kind=diagnostic_resource_case; never interpret as RW delivery schedule",
+  "case_scope": {
+    "CASE_SJ": "standalone existing Superjet release and/or new SJ100;no newTu214 prerequisite",
+    "target": "8-12 unique physical airport pairs by end2028 in main scenario;intermediate and scarce-resource branches may be smaller",
+    "horizon": "2027-01-01 through2028-12-31 monthly;dated seasonal flights;no December-week times52",
+    "new_SJ100_earliest_handover": "2027-07-01 case assumption",
+    "new_TU214_earliest": "separate parameter;do not inherit SJ H2 condition",
+    "delivery_branches": [
+      "phased",
+      "partial",
+      "delayed",
+      "no_new"
+    ],
+    "type_joint_branches": "independent type-specific calendars; evaluate material products, not assumed perfect correlation"
+  },
+  "delivery_parameter_contract": {
+    "D_type_branch_month": "nonnegative integer handovers specific to RW only when pinned; UNKNOWN otherwise",
+    "phased": "chosen planned vector; not national output",
+    "partial": "componentwise cumulative deliveries <= phased, final strictly smaller positive when phased>1; integer diagnostic separately declared",
+    "delayed": "same chosen vector shifted by positive date lag, independent by type",
+    "no_new": "zero handovers in selected horizon; does not set existing spare resource to zero",
+    "approval": "handover, airworthiness/operator entry, crew, MRO and airport approval are separate gates"
+  },
+  "type_rules": [
+    "RRJ95B and RRJ95LR share only a reported family count; do not duplicate20 across each",
+    "RRJ95 SaM146 and SJ100 PD8 are different inputs; no unmarked cost/reliability/performance transfer",
+    "Tu204100B, existingTu214, new domestic-systemTu214 and B777200ER remain separate",
+    "Manufacturer range/runway publicity is not payload-range/AFM evidence; unsupported2300/2900km and2200m screens cannot be feasibility certificates"
+  ],
+  "calendar_rules": {
+    "unit": "physical tail-date or explicit scenario cohort; monthly aggregation is a planning table",
+    "entry": "max(handover+induction,crew_ready,MRO_ready,certification/operator/airport approval)",
+    "allocation": "one tail can have one state/location per interval; flights, repositioning, maintenance, KEEP and reserve cannot overlap",
+    "no_double_deduction": "partition airworthiness/MRO once; no national serviceability multiplier plus subtraction of same maintenance/reserve tails",
+    "reserve": "separate by compatible type/location; ring-fenced reserve cannot simultaneously fly KEEP/project; release only by explicit policy",
+    "donor": "each released existing flight/task has dated capacity/sales and lost result; new aircraft have alternative-use cost rather than fictional donor",
+    "upper_bound": "sum(block hours) <= offered capacity is necessary only; no schedule PASS from aggregate resources",
+    "calendar_days": "use real month length including Feb2028=29; count only ready days and approved seasonal windows"
+  },
+  "crew_rules": {
+    "document": "Mintrans10Nov2025No381 registered28Nov2025No84348",
+    "official_url": "http://publication.pravo.gov.ru/document/0001202511280038",
+    "source_id": "LAW381-REGISTERED-PDF;LAW381-OFFICIAL-HTTP",
+    "effective_from": "2026-03-01",
+    "effective_to_exclusive": "2032-03-01",
+    "order_points": {
+      "3": "No139 of2005 and listed changes repealed",
+      "4": "validity dates"
+    },
+    "applicability": "AnnexI pt1 includes flight/cabin crew and maintenance personnel with relevant licences; AnnexII pt3 mandatory for operator manuals, rosters and timetables",
+    "working_time": "pts4,8: flight duty plus ground work and positioning; duty includes preparation/postflight, intermediate standing without rest and relevant delay; flight-time engine-start/stop definition differs from scheduled block time",
+    "flight_time_limits_pt9": {
+      "ordinary_hours": {
+        "calendar_month": 80,
+        "calendar_quarter": 240,
+        "calendar_year": 800
+      },
+      "with_documented_written_consent_and_worker_representatives": {
+        "calendar_month": 90,
+        "calendar_quarter": 270,
+        "calendar_year": 900
+      },
+      "medical_limits_also_apply": true
+    },
+    "minimum_flight_crew_duty_pt12_appendix1_minutes": [
+      {
+        "base_report": "06:01-21:59",
+        "landings_1_2": 720,
+        "landings_3_4": 630,
+        "landings_5plus": 510
+      },
+      {
+        "base_report": "22:00-06:00",
+        "landings_1_2": 660,
+        "landings_3_4": 600,
+        "landings_5plus": 390
+      }
+    ],
+    "duty_qualifiers": [
+      "All examined aircraft are non-light transport aircraft with2+flight crew; appendix1 only;3landings in1-2column only for explicitly applicablepts33/34",
+      "pt12 local base report time; after >=48h outside base use local outstation per rule; rolling24h applies",
+      "pt13 cabin duty extra<=30min only under specified difference and worker representative condition",
+      "pts14-19/appendix4 augmented crews require numbers, rest equipment and conditions; not assumed by aircraft range",
+      "pt35 exceptional commander extensions are not routine planned capacity"
+    ],
+    "rest_pts50_54": {
+      "normal": "at least2*completed duty",
+      "pt51": "UTC difference>=4h: add30min per hour difference",
+      "pt52": "after>=48h in>=4h difference zones:return to base rest>=48h",
+      "pt53": "if outstation road time>60min add both specified transfers",
+      "pt54": "shortened rest only with worker representatives conditions,appendix5,andpts51/53"
+    },
+    "appendix5_minimum_rest_hours": [
+      {
+        "completed_duty": "<=12h",
+        "base": 12,
+        "outstation": 10
+      },
+      {
+        "completed_duty": ">12h and<=14h",
+        "base": 14,
+        "outstation": 12
+      },
+      {
+        "completed_duty": ">14h",
+        "base": 18,
+        "outstation": 16
+      }
+    ],
+    "weekly_rest_pts56_58": "at least42h;no less often than after6consecutive workdays or2consecutive night duties;night is>=50%22:00-06:00base local;details and exceptions per actual document",
+    "roster_and_actuals_pts59_60": "monthly roster and actual time records required;operator-specific rules and worker arrangements must be supplied",
+    "acceptance": "UNKNOWN report time,crew id,qualification,ground/positioning work,rest or cumulative time=>UNKNOWN,not PASS;aircraft-hours cannot substitute crew calendar",
+    "implementation_scope": "P03 transcribes research constraints,not certified exhaustive crew-compliance software;P06 must validate all relevant provisions on complete rosters"
+  },
+  "maintenance_rules": {
+    "current_approval": "Obtain current organisation approval and scope for type, engine and location under Part145. Order367 points3/4: effective2025-03-01 to2031-03-01; prior documents continued to2026-09-01 subject to changes/cancellation. Historical FAP285 news is lineage, not current authorisation.",
+    "source_id": "FAP145-MINTRANS;FAP145-367",
+    "required_fields": [
+      "tail",
+      "AFM_variant",
+      "approved_maintenance_programme_revision",
+      "task_due_hours_cycles_calendar",
+      "remaining_life",
+      "planned_start_end_location",
+      "provider_approved_scope",
+      "contract_slot",
+      "spares_tools",
+      "engine/support_SLA",
+      "AOG/recovery_plan"
+    ],
+    "GOJ": "Public RW agreement through DAILY CHECK for RRJ95; no implied C-check or PD8 access.",
+    "TJM": "Yamal facility exists historically; RW access and current capacity UNKNOWN.",
+    "KUF": "Historical SSJ station; first4Y check announced for Rossiya; RW access UNKNOWN.",
+    "ZIA_SVX": "Historical own SSJ footprint; refresh scope and capacity.",
+    "induction": "Training and support of PD8 separate from SaM146; no universal3month fact adopted."
+  },
+  "airport_rules": {
+    "physical_nodes": "MOW is not assignable airport;ZIA/DME/SVO/VKO separate;no cross-airport same-tail connection without repositioning",
+    "reception": "publishedRRJ95 receipt does not automatically approveSJ100PD8,all payloads or runway conditions",
+    "dated_constraints": [
+      "AIP/NOTAM",
+      "TORA/TODA/ASDA/LDA",
+      "pavementACN-PCN/PCR",
+      "RFFS",
+      "obstacle/terrain",
+      "temperature/wind/contamination",
+      "alternate and airspace route",
+      "slot",
+      "groundhandling/fuel/deicing",
+      "stand/night parking",
+      "crew accommodation",
+      "MRO scope and contracted capacity"
+    ],
+    "published_H24": "does not override seasonal/temporary closure or slot scarcity",
+    "transfer": "MCT by operator/airport/flow and baggage/ticket conditions;competitorMCT notRW guarantee",
+    "unknown_handling": "not proof of ban or zero capacity;programme conditional with exact missing fields"
+  },
+  "downstream_dependencies": {
+    "P02": "full2027-28seasonal/directional flight offers+operated data,physicalairports,types,block times and coverage",
+    "P06": "dated rotations/crew/MRO assignment and monthly integration;screening thresholds not feasible schedule",
+    "P07_P08": "programme-specificfrequency/startdates,base/outstation roles and targetresource thresholds",
+    "P04": "type-specific contracts,induction/base/MRO/crew/reserve/repositioning/cash and lostalternatives"
+  },
+  "checks": "verification.json;counterexamples.json;law381_visual_check.json",
+  "assumption_ids": [
+    "P03-A001",
+    "P03-A002",
+    "P03-A003",
+    "P03-A004",
+    "P03-A005",
+    "P03-A006",
+    "P03-A007",
+    "P03-A008",
+    "P03-A009",
+    "P03-A010",
+    "P03-A011",
+    "P03-A012",
+    "P03-A013",
+    "P03-A014",
+    "P03-A015",
+    "P03-A016",
+    "P03-A017",
+    "P03-A018"
+  ]
+}

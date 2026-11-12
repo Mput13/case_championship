@@ -1,0 +1,62 @@
+[
+  {
+    "id": "P03-CE01",
+    "claim_challenged": "Enoughweeklyhoursmeansfeasibletimetable",
+    "example": "Oneplanehas56weeklyblockhoursbudget;twooutboundflightsbothdepart07:00fromdifferentairportsandlast2heach.Total4<56butassignmentimpossible",
+    "result": "aggregatepasses;rotationfails"
+  },
+  {
+    "id": "P03-CE02",
+    "claim_challenged": "Blockhoursguaranteecrewduty",
+    "example": "Dutywith5landingsreporting22:00local,duration7h;flightblock4h;appendix1night5pluslimit6h30forordinaryminimalcrew",
+    "result": "hoursproxycanpass;dutyfailsunlessexplicitdifferentapprovedarrangement"
+  },
+  {
+    "id": "P03-CE03",
+    "claim_challenged": "Appendix5automaticallyallows12hrest",
+    "example": "Completeddayduty10h;nextreport14hlater;ordinarypt50rest>=20h;12hminimumcannotbeusedwithoutpt54conditions",
+    "result": "ordinaryrestfails;donotapplyminimumsilently"
+  },
+  {
+    "id": "P03-CE04",
+    "claim_challenged": "Daily8blockhoursonecrewperaircraft",
+    "example": "31days*8h=248flight-hoursifflighttimeassumed=blocktime;ordinary80h/monthneedsatleastceil248/80=4completecrewsetsbeforeallotherconstraints",
+    "result": "onecrewsetfails;flighttimevsblockmustalsobeseparate"
+  },
+  {
+    "id": "P03-CE05",
+    "claim_challenged": "EnginePD8certificateandRRJairportadmissionproveSJready",
+    "example": "PD8hasenginecertificate;GOJcontractscopeRRJ95DAILY;noairframe/operator/PD8MRObaseapprovalprovided",
+    "result": "readinessUNKNOWN"
+  },
+  {
+    "id": "P03-CE06",
+    "claim_challenged": "20reportedSSJ=20projecttails",
+    "example": "If20readytailshave20simultaneousKEEPassignments,freeprojecttails0;withoutassignmentsactualfreepoolUNKNOWN",
+    "result": "nominalcountdoesnotestablishfreepool"
+  },
+  {
+    "id": "P03-CE07",
+    "claim_challenged": "MOWisasinglephysicalbase",
+    "example": "AircraftarrivesDME06:00andnextdeparturesZIA06:45;sameMOWnodehidestherequiredrepositioningandgroundprocess",
+    "result": "MOWaggregationcannotcertifyrotation"
+  },
+  {
+    "id": "P03-CE08",
+    "claim_challenged": "No_newmeansprojectcannotoperate",
+    "example": "Newhandovers0butexplicitlyreleasedexistingtailmayoperatewithpricedlostdonor;alternativelyallKEEPoccupied",
+    "result": "existingresourceconditional;notzeroorfreebydefault"
+  },
+  {
+    "id": "P03-CE09",
+    "claim_challenged": "TJMhangarsizeisRWcapacity",
+    "example": "Yamalreports6positionsbutallcontractuallyoccupied;RWavailable0;publicsourcegivesnocurrentoccupancy",
+    "result": "RWaccessUNKNOWN;6isnotallocatable"
+  },
+  {
+    "id": "P03-CE10",
+    "claim_challenged": "Decweeklycapacityextends52weeks",
+    "example": "Oneinductedtailready01Dec2028has31calendardaysin2028;31*8=248grossdiagnostichours,not365*8=2920",
+    "result": "useexactentrydates;seasonaldatesandreservefurtherreduce"
+  }
+]
