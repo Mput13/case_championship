@@ -1,0 +1,140 @@
+{
+  "contract": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+      "version",
+      "status",
+      "period",
+      "control_resource",
+      "programmes",
+      "cost",
+      "demand",
+      "discount",
+      "migration",
+      "units",
+      "P33_correction",
+      "engine_adaptation"
+    ],
+    "properties": {
+      "period": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": [
+          "observed_week",
+          "target_week",
+          "windows"
+        ],
+        "properties": {}
+      },
+      "control_resource": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": [
+          "working_tail_count",
+          "separate_reserve_count",
+          "KEEP",
+          "deferred_donors"
+        ],
+        "properties": {
+          "working_tail_count": {
+            "const": 1
+          },
+          "separate_reserve_count": {
+            "const": 1
+          }
+        }
+      },
+      "cost": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": [
+          "F",
+          "full_PnL",
+          "cash",
+          "support_main",
+          "cargo_main"
+        ],
+        "properties": {
+          "F": {
+            "type": "null"
+          },
+          "full_PnL": {
+            "type": "null"
+          },
+          "cash": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  },
+  "manifest": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+      "version",
+      "head",
+      "entries"
+    ],
+    "properties": {
+      "entries": {
+        "type": "array",
+        "minItems": 37,
+        "items": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "required": [
+            "commit",
+            "path",
+            "git_blob",
+            "snapshot",
+            "sha256"
+          ],
+          "properties": {
+            "commit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "git_blob": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "seed_row": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+      "pair",
+      "pair_key",
+      "oldscreen_rows",
+      "p08_pair_present",
+      "observed_week",
+      "target_week",
+      "classification",
+      "rank"
+    ],
+    "properties": {
+      "classification": {
+        "const": "UNKNOWN_NOT_QUALIFIED"
+      },
+      "rank": {
+        "const": ""
+      },
+      "observed_week_full_coverage": {
+        "const": "False"
+      },
+      "target_week_full_coverage": {
+        "const": "False"
+      }
+    }
+  }
+}

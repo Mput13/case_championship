@@ -1,0 +1,544 @@
+{
+  "version": "audit-proposed-v1-20261112",
+  "status": "PROPOSED_CALCULATION_CONTRACT_NOT_TEAM_DECISION",
+  "source_commits": {
+    "шаг-1": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "t3/p06-programme-engine": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "t3/fleet-airport-operations": "79dc698b99dfe866886d32376ed388e85bdd039c",
+    "t3/cost-support-funding": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "t3/passenger-demand-net-yield": "a63a047bc6559df8bac3b2dde5c6464c3c9e6a0b"
+  },
+  "period": {
+    "start": "2027-01-01",
+    "end": "2028-12-31",
+    "grain": "month + dated physical flights; leap year 2028; prelaunch and terminal obligations separately",
+    "timezone": "UTC timestamps, airport local time retained"
+  },
+  "priority": "User direct clarification overrides legacy available fleet_cap=10 and early new SJ assumptions",
+  "objective": "max additional full operating result P minus affected future KEEP before interest and income tax; variable contribution, cash and funding separate",
+  "currency": {
+    "report": "RUB",
+    "screen_price_basis": "constant2026RUB scenario, not nominal forecast; convert only with dated explicit index and currency/FX assumption",
+    "international_fx": null,
+    "tax": "P04/P05 future actual VAT/recoverability UNKNOWN; gross cash vs net accrual separate"
+  },
+  "cases": {
+    "BASE": {
+      "demand": "P05-A01 annual od_pairs scenario prior, flat2025 level P05-A04; directed 0.5 P05-A02 only symmetric scenario",
+      "monthly": "P05-A03 carrier domestic2025 season analogue; not endpoint measured profile",
+      "cost_points": [
+        {
+          "cost_id": "HIST-fuel_t_per_hour",
+          "unit": "t/block_h",
+          "base_point": "1.55",
+          "cautious_point": "1.9",
+          "status": "scenario",
+          "source_id": "author_network.csv",
+          "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+          "price_year": ""
+        },
+        {
+          "cost_id": "HIST-fuel_t_per_cycle",
+          "unit": "t/cycle",
+          "base_point": "0.2",
+          "cautious_point": "0.25",
+          "status": "scenario",
+          "source_id": "author_network.csv",
+          "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+          "price_year": ""
+        },
+        {
+          "cost_id": "HIST-mro_rub_per_hour",
+          "unit": "RUB/block_h",
+          "base_point": "35000",
+          "cautious_point": "55000",
+          "status": "scenario",
+          "source_id": "author_network.csv",
+          "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+          "price_year": ""
+        },
+        {
+          "cost_id": "HIST-crew_rub_per_hour",
+          "unit": "RUB/block_h",
+          "base_point": "15000",
+          "cautious_point": "22000",
+          "status": "scenario",
+          "source_id": "author_network.csv",
+          "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+          "price_year": ""
+        },
+        {
+          "cost_id": "HIST-navigation_rub_per_hour",
+          "unit": "RUB/block_h",
+          "base_point": "6000",
+          "cautious_point": "8000",
+          "status": "scenario",
+          "source_id": "author_network.csv",
+          "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+          "price_year": ""
+        },
+        {
+          "cost_id": "HIST-pax_cost_rub",
+          "unit": "RUB/occupied_segment",
+          "base_point": "500",
+          "cautious_point": "650",
+          "status": "scenario",
+          "source_id": "author_network.csv",
+          "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+          "price_year": ""
+        }
+      ],
+      "yield": "P05-A06 gross max(5200,5200+6.3*(km-393)), 20kg basket,2026RUB",
+      "net": "gross/(1+VAT)*(1-distribution); VAT0 only eligible regional scenario; distribution .03 P05-A10/A11"
+    },
+    "CAUTIOUS": {
+      "demand": "same prior times .962**(year-2025); same season analogue, not forecast",
+      "cost_points": "cautious_point in BASE cost_points",
+      "yield": "same gross basket; VAT .10 diagnostic; distribution .08; no independent arbitrary fare multiplier",
+      "choice": "P05-A07 separate stated coefficients; not calibrated probabilities"
+    },
+    "threshold_only": "For missing market/yield/cost use q_BE=C_net/netyield or yield_BE=C_net/q with fixed other inputs; probability UNKNOWN; do not infer bounded range"
+  },
+  "legacy_replay_only": {
+    "source": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6:data/assumptions/network.csv",
+    "parameters": {
+      "seats": {
+        "base": 100.0,
+        "cautious": 100.0,
+        "unit": "кресел",
+        "source": "факт: SSJ100 Red Wings — 100 мест (docs/09, сайт Red Wings); SJ-100 до сертификации считаем как SSJ-95B (решение команды)"
+      },
+      "lf_max": {
+        "base": 0.85,
+        "cautious": 0.8,
+        "unit": "доля",
+        "source": "факт: загрузка Red Wings в I полугодии 2025 почти 85% (docs/01); осторожно 80% — допущение"
+      },
+      "min_freq_week": {
+        "base": 3.0,
+        "cautious": 3.0,
+        "unit": "рейсов в неделю в одну сторону",
+        "source": "допущение коллег: frequency_scale 3 (context/12_network_economics/inputs.json); реже 3 раз в неделю рейс неудобен"
+      },
+      "max_freq_week": {
+        "base": 14.0,
+        "cautious": 14.0,
+        "unit": "рейсов в неделю в одну сторону",
+        "source": "допущение: не больше двух рейсов в день на направление"
+      },
+      "block_h_per_day": {
+        "base": 10.0,
+        "cautious": 10.0,
+        "unit": "блок-часов на самолёт в сутки",
+        "source": "допущение коллег: planning_cap_block_h 10 (context/12_network_economics/inputs.json)"
+      },
+      "spare_aircraft": {
+        "base": 1.0,
+        "cautious": 1.0,
+        "unit": "самолёт",
+        "source": "допущение коллег: spare_scenario 1; при исправности SSJ около 77% (docs/17) нужен резерв"
+      },
+      "fleet_cap": {
+        "base": 10.0,
+        "cautious": 10.0,
+        "unit": "самолётов на новую сеть",
+        "source": "допущение: открытый вопрос организаторам — сколько SJ-100 получит Red Wings (docs/00, раздел 8); считаем 10 и отдельно 5"
+      },
+      "max_routes": {
+        "base": 12.0,
+        "cautious": 12.0,
+        "unit": "маршрутов",
+        "source": "требование кейса: сеть из 8–12 маршрутов"
+      },
+      "route_factor": {
+        "base": 1.1,
+        "cautious": 1.1,
+        "unit": "коэффициент к расстоянию по прямой",
+        "source": "docs/17: k_трассы 1,10; юг и запад 1,20"
+      },
+      "route_factor_south": {
+        "base": 1.2,
+        "cautious": 1.2,
+        "unit": "коэффициент",
+        "source": "docs/17"
+      },
+      "block_speed_kmh": {
+        "base": 750.0,
+        "cautious": 750.0,
+        "unit": "км/ч",
+        "source": "docs/17: блок-время = 0,5 ч + км / 750"
+      },
+      "block_fixed_h": {
+        "base": 0.5,
+        "cautious": 0.5,
+        "unit": "ч",
+        "source": "docs/17"
+      },
+      "capture_open": {
+        "base": 0.65,
+        "cautious": 0.5,
+        "unit": "доля спроса пары",
+        "source": "допущение коллег (inputs.json, scenarios): пара без прямого рейса"
+      },
+      "capture_competitive": {
+        "base": 0.5,
+        "cautious": 0.35,
+        "unit": "доля",
+        "source": "допущение коллег: на паре уже есть прямой рейс"
+      },
+      "capture_transfer": {
+        "base": 0.45,
+        "cautious": 0.3,
+        "unit": "доля",
+        "source": "допущение коллег: пересадка через хаб"
+      },
+      "capture_freq_scale": {
+        "base": 3.0,
+        "cautious": 3.0,
+        "unit": "рейсов в неделю",
+        "source": "допущение коллег: доля = максимум × (1 − exp(−частота/3))"
+      },
+      "transfer_max_circuity": {
+        "base": 1.35,
+        "cautious": 1.35,
+        "unit": "отношение",
+        "source": "допущение: пересадку выбирают, если путь через хаб длиннее прямой линии не больше чем на 35%"
+      },
+      "transfer_min_km": {
+        "base": 500.0,
+        "cautious": 500.0,
+        "unit": "км",
+        "source": "допущение: на парах ближе 500 км пересадка через хаб проигрывает поезду и машине"
+      },
+      "transfer_fare_factor": {
+        "base": 0.9,
+        "cautious": 0.85,
+        "unit": "доля тарифа пары",
+        "source": "допущение коллег: пересадочный билет дешевле прямого"
+      },
+      "fuel_t_per_hour": {
+        "base": 1.55,
+        "cautious": 1.9,
+        "unit": "т/ч",
+        "source": "допущение коллег (inputs.json)"
+      },
+      "fuel_t_per_cycle": {
+        "base": 0.2,
+        "cautious": 0.25,
+        "unit": "т на взлёт-посадку",
+        "source": "допущение коллег"
+      },
+      "fuel_rub_per_t": {
+        "base": 134896.0,
+        "cautious": 161696.0,
+        "unit": "руб./т",
+        "source": "факт коллег: керосин Уфы 133 200 ₽/т + 1 696 ₽/т заправка (осторожно 160 000 + 1 696)"
+      },
+      "mro_rub_per_hour": {
+        "base": 35000.0,
+        "cautious": 55000.0,
+        "unit": "руб./блок-час",
+        "source": "допущение коллег"
+      },
+      "crew_rub_per_hour": {
+        "base": 15000.0,
+        "cautious": 22000.0,
+        "unit": "руб./блок-час",
+        "source": "допущение коллег"
+      },
+      "navigation_rub_per_hour": {
+        "base": 6000.0,
+        "cautious": 8000.0,
+        "unit": "руб./блок-час",
+        "source": "допущение коллег"
+      },
+      "ground_rub_per_flight": {
+        "base": 96089.0,
+        "cautious": 115307.0,
+        "unit": "руб./рейс",
+        "source": "факт коллег: корзина сборов аэропорта Уфы для SSJ 96 089 ₽ (осторожно ×1,2)"
+      },
+      "deicing_rub_per_flight": {
+        "base": 15000.0,
+        "cautious": 40000.0,
+        "unit": "руб./рейс",
+        "source": "допущение коллег: вероятность 0,25 × 60 000 ₽ (осторожно 0,4 × 100 000)"
+      },
+      "pax_cost_rub": {
+        "base": 500.0,
+        "cautious": 650.0,
+        "unit": "руб./пассажир",
+        "source": "допущение коллег"
+      },
+      "market_pax_2025": {
+        "base": 108850000.0,
+        "cautious": 108850000.0,
+        "unit": "пассажиров",
+        "source": "факт: Росавиация, российские авиакомпании 2025 — 108,85 млн"
+      },
+      "rw_pax_2025": {
+        "base": 2700000.0,
+        "cautious": 2700000.0,
+        "unit": "пассажиров",
+        "source": "факт: Red Wings 2025 — 2,7 млн (docs/01)"
+      },
+      "weeks_per_year": {
+        "base": 52.0,
+        "cautious": 48.0,
+        "unit": "недель",
+        "source": "допущение: осторожно — самолёты летают 48 недель из-за «Ковра» и погоды; годовой спрос распределяется на эти недели (аудит команды, ветка audit/end-to-end-20261110)"
+      },
+      "fare_fixed_rub": {
+        "base": 2093.0,
+        "cautious": 1636.0,
+        "unit": "руб. за билет в одну сторону",
+        "source": "линейный подбор по 31 сценарной оценке коллег (context/12_network_economics/inputs.json), расстояния исходных аэропортов; сценарный net yield, не подтверждённые продажи; воспроизведение scripts/check_fare_fit.py"
+      },
+      "fare_per_km_rub": {
+        "base": 6.3,
+        "cautious": 4.78,
+        "unit": "руб./км",
+        "source": "то же"
+      },
+      "spoke_min_km": {
+        "base": 250.0,
+        "cautious": 250.0,
+        "unit": "км",
+        "source": "допущение: луч хаба короче 250 км не открываем (раньше было зашито в коде)"
+      },
+      "competitor_lf": {
+        "base": 0.8,
+        "cautious": 0.8,
+        "unit": "доля",
+        "source": "допущение: загрузка рейсов конкурента для оценки их частоты в доле по частотам (QSI); раньше зашито в коде"
+      },
+      "direct_max_freq_week": {
+        "base": 7.0,
+        "cautious": 7.0,
+        "unit": "рейсов в неделю в одну сторону",
+        "source": "допущение: треугольник прямых рейсов не чаще раза в день (раньше зашито в коде)"
+      },
+      "triangle_detour_factor": {
+        "base": 2.2,
+        "cautious": 2.2,
+        "unit": "отношение",
+        "source": "допущение для отсечения заведомо невыгодных треугольников: плечи с базы ≤ 2,2 × расстояние пары + 1 500 км (раньше зашито в коде)"
+      },
+      "triangle_detour_add_km": {
+        "base": 1500.0,
+        "cautious": 1500.0,
+        "unit": "км",
+        "source": "то же"
+      },
+      "min_routes": {
+        "base": 8.0,
+        "cautious": 8.0,
+        "unit": "маршрутов",
+        "source": "требование кейса: сеть из 8–12 маршрутов; убыточные маршруты добавляются, только пока их меньше 8"
+      },
+      "direct_candidates": {
+        "base": 400.0,
+        "cautious": 400.0,
+        "unit": "треугольников",
+        "source": "допущение: для жадного отбора прямой сети берём 400 лучших треугольников по отдельной оценке (ускорение расчёта)"
+      },
+      "rw_existing_lf": {
+        "base": 0.85,
+        "cautious": 0.85,
+        "unit": "доля",
+        "source": "факт: загрузка Red Wings в I полугодии 2025 почти 85% (docs/01); по ней считаем нынешних пассажиров Red Wings на паре"
+      },
+      "thin_route_pax_day": {
+        "base": 25.0,
+        "cautious": 25.0,
+        "unit": "пассажиров в день в одну сторону",
+        "source": "рассуждение команды (docs/14): 100 кресел × 80% × 2 рейса в неделю ≈ 23 пассажира в день — ниже этого маршрут слишком тонкий"
+      },
+      "fleet_search_min": {
+        "base": 2.0,
+        "cautious": 2.0,
+        "unit": "самолётов",
+        "source": "допущение поиска, проверка веток 11.11.2026: все целые лимиты от двух самолётов (один резервный) до fleet_cap; выбираем сеть с минимумом 8 направлений, если она доступна"
+      },
+      "fleet_search_step": {
+        "base": 1.0,
+        "cautious": 1.0,
+        "unit": "самолётов",
+        "source": "допущение поиска, проверка веток 11.11.2026: все целые лимиты от двух самолётов (один резервный) до fleet_cap; выбираем сеть с минимумом 8 направлений, если она доступна"
+      },
+      "subsidy_rub_per_flight": {
+        "base": 185228.0,
+        "cautious": 171151.0,
+        "unit": "руб. за выполненный рейс в одну сторону",
+        "source": "оценка: 7,98 млрд ₽ на программу 2026 года (Т—Ж со ссылкой на РБК, 13.05.2026) / 43 082 рейса в перечне субсидируемых маршрутов 2026 (data/raw/favt_subsidy_2026.csv, рейсы туда-обратно × 2); не выше потолка по дальности (data/assumptions/subsidy_cap_84_103.csv); осторожно — минус 7,6% (объявленное сокращение программы). Единица — рейс: решение Росавиации № 22-64160-00191-Р, п. 6"
+      },
+      "subsidy_months": {
+        "base": 7.0,
+        "cautious": 7.0,
+        "unit": "месяцев в году",
+        "source": "решение № 22-64160-00191-Р, п. 5ж приложения: с мая по сентябрь перевозки не субсидируются (кроме Арктики, Дальнего Востока и удалённых пунктов)"
+      },
+      "subsidy_max_prior_pax": {
+        "base": 8000.0,
+        "cautious": 8000.0,
+        "unit": "пассажиров за прошлый год в обе стороны",
+        "source": "то же, п. 5г: маршрут с потоком больше 8 тыс. (Дальний Восток — 10 тыс.) за прошлый год в программу не входит, кроме софинансируемых регионом; поэтому сценарий описывает первый год работы новой пары"
+      },
+      "subsidy_max_prior_pax_fe": {
+        "base": 10000.0,
+        "cautious": 10000.0,
+        "unit": "пассажиров",
+        "source": "то же для Дальневосточного округа"
+      },
+      "subsidy_max_km_sib": {
+        "base": 3000.0,
+        "cautious": 3000.0,
+        "unit": "км",
+        "source": "то же, п. 5в: до 3 000 км для маршрутов в Сибирь и Дальний Восток и оттуда"
+      },
+      "subsidy_max_km": {
+        "base": 1500.0,
+        "cautious": 1500.0,
+        "unit": "км",
+        "source": "то же, п. 5в: до 1 500 км для остальных округов"
+      },
+      "fuel_compensation_rub_per_t": {
+        "base": 32930.0,
+        "cautious": 3024.0,
+        "unit": "руб. на тонну керосина",
+        "source": "демпфер + обратный акциз 3 024 ₽/т, которые получают авиакомпании; база — среднее за январь–сентябрь 2026 года (3 024; 4 804; 55 122; 50 858; 31 010; 18 125; 30 664; 41 321; 61 445 ₽/т, расчёты Рейтер в The Moscow Times 04.02–06.10.2026, например https://ru.themoscowtimes.com/2026/10/06/dempfer-dlya-aviakerosina-v-rf-vyros-v-15-raza-v-senavg-raschyot-reyter-a207929); осторожно — только обратный акциз, как в январе 2026 года, когда демпфер был нулевым"
+      }
+    },
+    "compatibility": "Not silently combined with P05 gross basket/distribution: old fare is scenario net and old pax_cost may overlap distribution. Legacy fuel/ground/yield/capture remain replay-only unless explicit transfer ID"
+  },
+  "support_cases": {
+    "NS": {
+      "route_support": 0,
+      "fuel_credit": 0,
+      "meaning": "intentional no-support counterfactual, not actual award"
+    },
+    "CM": {
+      "meaning": "confirmed mechanism conditional; actual receipt UNKNOWN",
+      "route_conditions": [
+        "current legal rule",
+        "named airline selection/agreement",
+        "route period frequency and special fare",
+        "regional cofunding",
+        "recognition/payment timing"
+      ],
+      "fuel_conditions": [
+        "taxpayer eligibility",
+        "applicable fuel volume/period",
+        "formula and payment dates"
+      ],
+      "guards": "Fuel credit reduces fuelcost once; route grant separately with coupled fare; no automatic 7/12 legal multiplier; historical mechanism not future RW award"
+    }
+  },
+  "resource": {
+    "same_envelope_for": [
+      "KEEP",
+      "all direct types",
+      "dashboard fixed triangles",
+      "hub reference"
+    ],
+    "existing_slots": [
+      0,
+      1,
+      2
+    ],
+    "meaning": "anonymous conditional project working slots; actual released tails UNKNOWN; E0 no existing release",
+    "gate": "Signed KEEP opportunity loss, dated turn/position/crew/MRO/reserve and payments required; published20SSJ is stock not free resource",
+    "reserve": "Separate explicit reserve tail; shared reserve cannot be duplicated; actual availability UNKNOWN. Baseline audit scenario one protected tail beyond working slots; if unavailable fixed programme INFEASIBLE",
+    "block_hours_per_working_tail_day": {
+      "value": 8,
+      "status": "scenario P03 diagnostic, necessary screen not dispatch limit"
+    },
+    "turn_minutes": {
+      "value": 45,
+      "status": "P03 diagnostic, requires_ops_check"
+    },
+    "deliveries": {
+      "S0": [],
+      "S1": [
+        {
+          "id": "SJ-A",
+          "delivery": "2027-07-01",
+          "entry": "2027-08-01"
+        },
+        {
+          "id": "SJ-B",
+          "delivery": "2027-10-01",
+          "entry": "2027-11-01"
+        }
+      ],
+      "S1D6": [
+        {
+          "id": "SJ-A",
+          "delivery": "2028-01-01",
+          "entry": "2028-02-01"
+        },
+        {
+          "id": "SJ-B",
+          "delivery": "2028-04-01",
+          "entry": "2028-05-01"
+        }
+      ]
+    },
+    "delivery_basis": "AUDIT-SC01 analyst-selected illustrative2tail calendar and6monthdelay, UNKNOWN probability, not forecast; no SJ in any role before01Jul2027; 31day induction scenario, entry is availability only not certified readiness",
+    "no_automatic_types": "NewTu/B777 unavailable absent separate dated resource+donor/cost scenario; no duplicate RRJ pools"
+  },
+  "market_seat_rules": {
+    "demand": "directional cityOD x month x segment, one shared mutually exclusive potential pool per evaluation; seats*LF and airport throughput not endpointOD",
+    "MOW": "one city pool, physical flights explicitly DME/ZIA/etc; unresolved airport requires_ops_check",
+    "inventory": "one dated physical flight; committed passengers + retail + unoccupied unreleased blocks <= saleable seats; release dates and technical seats explicit",
+    "revenue": "one net journey fare once; leg weights sum1; partner blockseat commission/guarantee separate from RW-operated revenue",
+    "KEEP": "same future market/scenario/resource; all affected old/new products, unavoidable payments retained; total P-KEEP includes donor once, do not deduct twice",
+    "unknown_KEEP": "null full delta plus threshold donor affordability; missing company KEEP cash means UNKNOWN company funding"
+  },
+  "ops": "No500km-from-base direct filter; no exclusion solely for existing competitor; no passport range=dispatch; unknown requires_ops_check; dated assignments include positioning, crew duty/rest, MRO, reserve and restrictions",
+  "evaluation_ids": "{programme}/{BASE|CAUTIOUS}/{NS|CM}/{E0|E1|E2}/{S0|S1|S1D6}/{fixed|adaptive}/{version}; one identical external scenario for all comparisons",
+  "engine_interface": "982f13d9b6c378ed9581125ecc5c40f17dade6a3:context/35_full_programme_execution_20261112/P06/producer_contract.json",
+  "fastscreen": {
+    "allowed_network_types": [
+      "ordinary direct returns / added frequency",
+      "seasonal chains and replacement of existing weak task",
+      "contract / partner blockseat with separate operated and agent cash"
+    ],
+    "must_report": [
+      "directed departures and passengers by month",
+      "block and elapsed tail hours incl positioning",
+      "variable contribution before/after support",
+      "full incremental result or exact missing costs threshold",
+      "donor opportunity and KEEP gate",
+      "cash and peak funding UNKNOWN where timing missing"
+    ],
+    "no_optimizer_claim": "This wave does not perform new network search or select team winner"
+  },
+  "critical_unknowns": {
+    "future_delivered_fuel_RUB_per_t": {
+      "value": null,
+      "threshold": "max landed fuel price=(net revenue + applicable support - other programme costs - donor delta)/fuel tonnes; recompute coupled credit eligibility separately",
+      "source": "620a0ac4bb11763319c4227485f6a3996b91d367:context/35_full_programme_execution_20261112/P04/cost_ranges.csv"
+    },
+    "airport_ground_deicing": {
+      "value": null,
+      "threshold": "max aggregate airport/ground cost=remaining headroom after other known costs; published local service points only valid for airport/service/date, not network flat rate"
+    },
+    "aircraft_use_base_startup_exit_reserve": {
+      "value": null,
+      "threshold": "max combined omitted incremental K=known P-KEEP subtotal; if negative no nonnegative extra K makes this case profitable"
+    },
+    "donor_contribution_and_committed_payments": {
+      "value": null,
+      "threshold": "max forgone donor net result=project known increment before donor; preserve unavoidable old payments"
+    },
+    "cash_timing_and_company_KEEP": {
+      "value": null,
+      "threshold": "no point funding/payback claim until dates/opening cash/minimum cash/terminal supplied"
+    },
+    "historical_rate_transfer": {
+      "assumption_id": "AUDIT-COST01",
+      "status": "proposed explicit scenario transfer only; P04 historical points not actual2027 bounds; applicable type/pricebase and distribution overlap acceptance required before full total"
+    }
+  }
+}

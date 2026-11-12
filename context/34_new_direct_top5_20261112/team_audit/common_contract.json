@@ -1,0 +1,202 @@
+{
+  "version": "P34-team-audit-v1",
+  "status": "PREPARATORY_CONDITIONAL_NOT_FINAL_TOP5",
+  "source_commits": {
+    "origin/research/direct-growth-delay-cargo-20261112": "79b48152ab8ff2a18648c7d6c5fb1df30525ba01",
+    "origin/шаг-1": "6cbe817320f75db9823984e7c4eeb6091fd7d996",
+    "origin/docs/case5-team-synthesis-20261109": "ac5e3c80ef428e213372c31d15c7a56846671490",
+    "origin/t3/p02-markets-competitors": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+    "origin/t3/fleet-airport-operations": "79dc698b99dfe866886d32376ed388e85bdd039c",
+    "origin/t3/cost-support-funding": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "origin/t3/passenger-demand-net-yield": "a63a047bc6559df8bac3b2dde5c6464c3c9e6a0b",
+    "origin/t3/p06-programme-engine": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "origin/t3/p12-four-section-ui": "06207b1650bd1c83e0f0761b25d063f2c395ace7"
+  },
+  "period": {
+    "observed_week": [
+      "2026-11-16",
+      "2026-11-22"
+    ],
+    "target_week": [
+      "2027-02-01",
+      "2027-02-07"
+    ],
+    "windows": [
+      "2027-02-02",
+      "2027-02-05"
+    ],
+    "rule": "Weeks separate; published season is not actual flown; no annualisation without explicit repeat/season model"
+  },
+  "control_resource": {
+    "working_tail": "E1 conditional existing RRJ; exact variant and released tail UNKNOWN",
+    "initial_position": "SVX conditional; pay any required positioning",
+    "working_tail_count": 1,
+    "separate_reserve_count": 1,
+    "reserve": "conditional RES-1 never scheduled as working tail",
+    "new_SJ_before": "2027-07-01 prohibited",
+    "published_fleet_is_free": false,
+    "KEEP": "Same affected future existing products and deferred donor tasks across every alternative",
+    "deferred_donors": "Both Tue/Fri assignments and eventual displaced/re-timed work UNKNOWN; include eventual avoided cost/net revenue once; no free idle assumption",
+    "window_start_end_UTC": null
+  },
+  "programmes": {
+    "KEEP": "P=KEEP identity; delta=0, business not zero",
+    "triangle_Tue": [
+      "SVX",
+      "A",
+      "B",
+      "SVX"
+    ],
+    "triangle_Fri": [
+      "SVX",
+      "B",
+      "A",
+      "SVX"
+    ],
+    "triangle_sectors": 6,
+    "triangle_pair_returns_per_week": 1,
+    "rule": "Include all six sectors/cycles/BH/turns, endpoint markets and common OLD_RW; no free base or sum of solo margins; one new pair RT is not two partner RTs",
+    "AER_1RT": "Tue SVX-AER-SVX; Friday KEEP",
+    "AER_2RT": "Tue and Fri SVX-AER-SVX",
+    "ops_status": "pending variant/route/AFM payload/slots/crew/rest/MRO; geometry only; 8BH diagnostic not FDP"
+  },
+  "cost": {
+    "cases": {
+      "BASE": {
+        "demand": "P05-A01 annual od_pairs scenario prior, flat2025 level P05-A04; directed 0.5 P05-A02 only symmetric scenario",
+        "monthly": "P05-A03 carrier domestic2025 season analogue; not endpoint measured profile",
+        "cost_points": [
+          {
+            "cost_id": "HIST-fuel_t_per_hour",
+            "unit": "t/block_h",
+            "base_point": "1.55",
+            "cautious_point": "1.9",
+            "status": "scenario",
+            "source_id": "author_network.csv",
+            "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+            "price_year": ""
+          },
+          {
+            "cost_id": "HIST-fuel_t_per_cycle",
+            "unit": "t/cycle",
+            "base_point": "0.2",
+            "cautious_point": "0.25",
+            "status": "scenario",
+            "source_id": "author_network.csv",
+            "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+            "price_year": ""
+          },
+          {
+            "cost_id": "HIST-mro_rub_per_hour",
+            "unit": "RUB/block_h",
+            "base_point": "35000",
+            "cautious_point": "55000",
+            "status": "scenario",
+            "source_id": "author_network.csv",
+            "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+            "price_year": ""
+          },
+          {
+            "cost_id": "HIST-crew_rub_per_hour",
+            "unit": "RUB/block_h",
+            "base_point": "15000",
+            "cautious_point": "22000",
+            "status": "scenario",
+            "source_id": "author_network.csv",
+            "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+            "price_year": ""
+          },
+          {
+            "cost_id": "HIST-navigation_rub_per_hour",
+            "unit": "RUB/block_h",
+            "base_point": "6000",
+            "cautious_point": "8000",
+            "status": "scenario",
+            "source_id": "author_network.csv",
+            "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+            "price_year": ""
+          },
+          {
+            "cost_id": "HIST-pax_cost_rub",
+            "unit": "RUB/occupied_segment",
+            "base_point": "500",
+            "cautious_point": "650",
+            "status": "scenario",
+            "source_id": "author_network.csv",
+            "tax_basis": "Excluding VAT; recoverability and applicable rate require invoice/legal mapping",
+            "price_year": ""
+          }
+        ],
+        "yield": "P05-A06 gross max(5200,5200+6.3*(km-393)), 20kg basket,2026RUB",
+        "net": "gross/(1+VAT)*(1-distribution); VAT0 only eligible regional scenario; distribution .03 P05-A10/A11"
+      },
+      "CAUTIOUS": {
+        "demand": "same prior times .962**(year-2025); same season analogue, not forecast",
+        "cost_points": "cautious_point in BASE cost_points",
+        "yield": "same gross basket; VAT .10 diagnostic; distribution .08; no independent arbitrary fare multiplier",
+        "choice": "P05-A07 separate stated coefficients; not calibrated probabilities"
+      },
+      "threshold_only": "For missing market/yield/cost use q_BE=C_net/netyield or yield_BE=C_net/q with fixed other inputs; probability UNKNOWN; do not infer bounded range"
+    },
+    "source": "P31 common_contract + fresh step1 network; changes require explicit admission",
+    "price_basis": "constant 2026 RUB; not nominal forecast",
+    "donor": "P-minus-KEEP includes donor if in scope. Deduct only outside-scope forgone contribution once; use avoidable costs, not allocated total cost",
+    "support_main": 0,
+    "cargo_main": 0,
+    "F": null,
+    "full_PnL": null,
+    "cash": null,
+    "tax": "gross passenger cash, net accrual and recoverability separated; unknown not zero"
+  },
+  "demand": {
+    "unit": "directed endpoint journeys, not sectors or boardings",
+    "prior": "P05 scenario only; same OD pools for all programmes and KEEP",
+    "choice": "P05 base/cautious coefficients not empirically calibrated",
+    "saturation": "shared seat cap is constraint, not observed demand",
+    "fare_basket": "same quote moment; economy 1 adult one way 20kg + fees; absent basket UNKNOWN",
+    "price_sensitivity": "sheremetyevskoe-shosse qualitative practice; RUB5000 example is not RW elasticity or OD",
+    "no_direct": "dated full coverage of all carriers; unknown not qualified; RW nonstop confirmed -> frequency comparator"
+  },
+  "discount": {
+    "valuation": "undiscounted target-week operating contribution screen",
+    "rate": null,
+    "NPV": null,
+    "rule": "No implicit NPV or cash; multi-period analysis needs explicit dates/rate/price basis"
+  },
+  "migration": {
+    "OLD_RW_0": "scenario only, not fact no customer",
+    "scope": "all common adjacent markets + existing RW nonstop/through/partner/charter",
+    "rule": "joint allocate P and KEEP on same pools, count coupon/revenue/taxes once; new seats not automatically new RW customers"
+  },
+  "units": {
+    "money": "RUB constant2026; net/gross labelled",
+    "time": "timezone-aware UTC and local IANA; directed block minutes; BH=minutes/60",
+    "frequency": "closed return per week; each directed leg counted once",
+    "passengers": "endpoint journeys; physical occupied sectors separate"
+  },
+  "P33_correction": {
+    "input_preserved": true,
+    "claimed_blocks": [
+      210,
+      210
+    ],
+    "actual_input_blocks": [
+      330,
+      150
+    ],
+    "canonical_clocks": [
+      "14:00 SVX",
+      "15:30 AER",
+      "16:30 AER",
+      "22:00 SVX"
+    ],
+    "turn_min": 60,
+    "required": "Calculator must create corrected canonical CSV with independently checked local/UTC; P33 following KEEP clocks also inconsistent: reuse P32 controlled chain with proper KUF timezone Europe/Samara, blocks100/105, do not inherit P33 follow rows",
+    "actual_blocks_slots": "UNKNOWN"
+  },
+  "engine_adaptation": {
+    "weekly_frequency": "BLOCKED: current len(inventory)*7/month_days must use explicit evaluated exposure in new-area adapter",
+    "gross_fare_override": "joint products need explicit admitted adapter; screen gross_override does not update joint fare",
+    "source": "code_handoff.md"
+  }
+}

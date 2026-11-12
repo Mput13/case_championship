@@ -1,0 +1,45 @@
+{
+  "status": "NOT_RUN; реализация денежной/choice модели не дублируется",
+  "producer_contract": "P06@982f13d9b6c378ed9581125ecc5c40f17dade6a3:producer_contract.json",
+  "units": {
+    "demand": "конечные journeys/month/direction/customer segment",
+    "capacity": "seat/dated physical adjacent flight, с owner/operator/committed inventory",
+    "resource": "tail-date + separate crew/MRO/reserve; market products не tails",
+    "yield": "net RUB/конечную поездку, один раз; оба плеча расходуют кресло"
+  },
+  "comparisons": [
+    "T vs C vs O в одной physical base с одинаковым ресурсом/KEEP/external/delivery",
+    "ZIA vs DME только при пересчёте access/slots/contracts/ferry/reserve и общей московской OD",
+    "mixed hub+direct только общий P09 recomputation"
+  ],
+  "P04_threshold_ids": [
+    "TH-FARE",
+    "TH-FIXED",
+    "TH-LAUNCH",
+    "TH-MRO",
+    "TH-SUPPORT",
+    "TH-COFINANCE",
+    "TH-FUNDING",
+    "TH-OPTION"
+  ],
+  "threshold_input": "inputs/P04_thresholds.csv; source exact620a0ac",
+  "threshold_rule": "Это уравнения P04 при остальных заданных термах. Не выставлять каждый неизвестный одновременно на отдельный максимум; fare change требует P05 reassignment.",
+  "keep_rule": "delta = accepted project result - accepted futureKEEP result в том же affected scope; старые annual money сохранены только с provenance",
+  "required_outputs": [
+    "incremental journeys and physical passenger segments отдельно",
+    "incremental revenue/variable contribution/full added operating result",
+    "event cash + required committed liquidity + financing loss path",
+    "market share compatible numerator/denominator/period",
+    "stop/resize/retime under delivered resource and updated demand"
+  ],
+  "no_numeric_result_reason": "Неизвестны принятые спрос/choice/yield, prior-task futureKEEP, roster/dispatch, full costs/commitments/cash. Это запросы StageB, не нулевая экономика.",
+  "assumption_ids": [
+    "MOW-A12",
+    "MOW-A13",
+    "MOW-A14",
+    "MOW-A16",
+    "MOW-A17",
+    "MOW-A18",
+    "MOW-A19"
+  ]
+}
