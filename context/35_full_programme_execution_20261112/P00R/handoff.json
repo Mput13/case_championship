@@ -1,0 +1,396 @@
+{
+  "package": "P00R",
+  "status": "COMPLETE",
+  "programme_status": "NOT_COMPLETE_NOT_ASSESSED",
+  "role": "methods_review",
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "created_at": "2026-11-12T12:11:55.738473+00:00",
+  "branch": "t3/review-model-setup",
+  "commit": "dba294eb6c8cb66917967f758db716d5a471b3c9",
+  "review_payload_commit": "dba294eb6c8cb66917967f758db716d5a471b3c9",
+  "commit_scope": "Exact commit of every payload file below. handoff.json and artifact_manifest.json are added in a subsequent envelope-only commit; its exact SHA is supplied in final handback. No file can contain its own Git commit hash.",
+  "delivery_commit_command": "git log -1 --format=%H -- context/35_full_programme_execution_20261112/P00R/handoff.json",
+  "input_manifest": "input_manifest.json",
+  "files": [
+    {
+      "file": "assumption_changes.csv",
+      "sha256": "cffa1e94e3937218989909764167e64f3bc6535c2f7f475341d349ec5778fd41",
+      "bytes": 10581,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "assumptions_register.csv",
+      "sha256": "8601062bf8d77ba1d1ca580b28fdec28634b8835b9d832bf3a7e335a8167929c",
+      "bytes": 27013,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "assumptions_register.json",
+      "sha256": "6a9edf0b4486d138a3a1eaa2df5331f274f739ff3dae71d8d21fee8be631850d",
+      "bytes": 38537,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "build_review.py",
+      "sha256": "b41f8a449fcc2c599e5d2ed1a2d1decae4f93553fc87b29051e34d8ea4f11aa5",
+      "bytes": 59211,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "checks.json",
+      "sha256": "5020f3f6d7cdcaf5f23bc2c89be52a1787dc962e2f486e92e6fb965e9e0ca4ba",
+      "bytes": 5079,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "checks_subset.json",
+      "sha256": "0efdb822f2f77adf5079ca28cb63a3a61cd34f271b185abf58a77175d1526647",
+      "bytes": 1314,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "clarification_requests.csv",
+      "sha256": "a9140018b83bdb625e7efead81eba2a1ad7c05bd3382da7a6b4ad3d260c4634c",
+      "bytes": 1864,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "contract_addendum.json",
+      "sha256": "f259bc1777b6f06bebd7f23c1ec925c403a414fcc4a98d25e608a145770328c7",
+      "bytes": 4666,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "counterexample_inputs.json",
+      "sha256": "1625225f7b251dbadaa3b87ffe1379e7046a39f32140c1a391b9b6c29e522d19",
+      "bytes": 20906,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "input_manifest.json",
+      "sha256": "3ff7a2ad6086fabd917c37f98e50e4fbf716e377da7200807b805ee0f86b8836",
+      "bytes": 4141,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "method_review.json",
+      "sha256": "ab082df1cbc80d3bfdece4debe8ec6e6c1c22a04e498bb2792743d790108abe6",
+      "bytes": 17351,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "minimal_counterexamples.csv",
+      "sha256": "2804c446007f81adc3c1ee7bf265b8312489be45bce7353f87d1862651220e1d",
+      "bytes": 14067,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "run_checks.py",
+      "sha256": "3d7b731fca719eb7f30871cd047002f0206ee3eaf0af3bdbfb25d0c28ffe57a8",
+      "bytes": 12317,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "schema_patch.csv",
+      "sha256": "1f8cd7bcb7496f44ca3294d977bf370d81ff5040bb21e055c3feb428c53b59ea",
+      "bytes": 11025,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "seal_handoff.py",
+      "sha256": "cccbfd88409191aaaf3d651910b756c80cd07e12682026cd4a2fc1417b498b16",
+      "bytes": 5370,
+      "commit_scope": "review_payload_commit"
+    },
+    {
+      "file": "sources.csv",
+      "sha256": "9c3865fdcefc2c8a447839079dc90528572767feb74ec02e40af2af3642537b1",
+      "bytes": 7823,
+      "commit_scope": "review_payload_commit"
+    }
+  ],
+  "artifact_manifest": "artifact_manifest.json",
+  "inputs": {
+    "plan": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
+    "author_baseline": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "five_city": "c18f7640ea36647a05b39089e5293f22dd009f63",
+    "producer_packages_received": []
+  },
+  "conclusion": "CHANGES: принципы постановки приняты; до содержательного общего расчёта закрепить конкретные схемы и инварианты F01–F06. F07 ограничивает только долю/№2. P06 может приступать к реализации сейчас.",
+  "findings": [
+    {
+      "id": "F01",
+      "title": "Закрепить контекст оценки, даты и сезонность",
+      "severity": "S1",
+      "blocks": [
+        "integrated_run"
+      ],
+      "minimum_fix": [
+        "SP01",
+        "SP02",
+        "SP04",
+        "SP05",
+        "SP13"
+      ]
+    },
+    {
+      "id": "F02",
+      "title": "Определить будущий KEEP и одинаковый ресурсный предел",
+      "severity": "S1",
+      "blocks": [
+        "integrated_run"
+      ],
+      "minimum_fix": [
+        "SP07",
+        "SP08"
+      ]
+    },
+    {
+      "id": "F03",
+      "title": "Определить общий рынок и реакцию выбора на продукт конкурента",
+      "severity": "S1",
+      "blocks": [
+        "market_claims_in_integrated_run"
+      ],
+      "minimum_fix": [
+        "SP02",
+        "SP03",
+        "SP06"
+      ]
+    },
+    {
+      "id": "F04",
+      "title": "Записывать совместное распределение поездок, кресел и затрат",
+      "severity": "S1",
+      "blocks": [
+        "integrated_run"
+      ],
+      "minimum_fix": [
+        "SP05",
+        "SP06",
+        "SP09"
+      ]
+    },
+    {
+      "id": "F05",
+      "title": "Разделить операционный результат и разность всего затронутого бизнеса",
+      "severity": "S1",
+      "blocks": [
+        "financial_conclusions"
+      ],
+      "minimum_fix": [
+        "SP08",
+        "SP09",
+        "SP11"
+      ]
+    },
+    {
+      "id": "F06",
+      "title": "Сделать начисления, cash и финансирование сверяемыми",
+      "severity": "S1",
+      "blocks": [
+        "funding_or_full_economy_conclusions"
+      ],
+      "minimum_fix": [
+        "SP10",
+        "SP11"
+      ]
+    },
+    {
+      "id": "F07",
+      "title": "Указать адаптер отчётных пассажиров и знаменатель доли",
+      "severity": "S1_SCOPED",
+      "blocks": [
+        "market_share_and_number2_claims_only"
+      ],
+      "minimum_fix": [
+        "SP12"
+      ]
+    }
+  ],
+  "practical_inputs_for_P06": [
+    "schema_patch.csv",
+    "contract_addendum.json",
+    "counterexample_inputs.json",
+    "minimal_counterexamples.csv"
+  ],
+  "own_checks": {
+    "arithmetic_cases": 20,
+    "status": "PASS",
+    "pinned_inputs": 11,
+    "register_and_references": "PASS",
+    "write_boundary": "PASS",
+    "evidence": "checks.json",
+    "latest_targeted_check": "checks_subset.json",
+    "not_engine_acceptance": true
+  },
+  "commands": [
+    "python3 context/35_full_programme_execution_20261112/P00R/run_checks.py",
+    "python3 context/35_full_programme_execution_20261112/P00R/run_checks.py --cases CE13 --verify-handoff"
+  ],
+  "assumptions": {
+    "used_ids": [
+      "P00R-CE01",
+      "P00R-CE02",
+      "P00R-CE03",
+      "P00R-CE04",
+      "P00R-CE05",
+      "P00R-CE06",
+      "P00R-CE07",
+      "P00R-CE08",
+      "P00R-CE09",
+      "P00R-CE10",
+      "P00R-CE11",
+      "P00R-CE12",
+      "P00R-CE13",
+      "P00R-CE14",
+      "P00R-CE15",
+      "P00R-CE16",
+      "P00R-CE17",
+      "P00R-CE18",
+      "P00R-CE19",
+      "P00R-CE20",
+      "P00R-M01",
+      "P00R-M02",
+      "P00R-M03",
+      "P00R-M04",
+      "P00R-M05",
+      "P00R-M06",
+      "P00R-M07",
+      "P00R-U01",
+      "P00R-U02",
+      "P00R-U03",
+      "P00R-U04",
+      "P00R-U05",
+      "P00R-U06",
+      "P00R-U07"
+    ],
+    "register": [
+      "assumptions_register.csv",
+      "assumptions_register.json"
+    ],
+    "delta": "assumption_changes.csv",
+    "historical_ids_not_adopted": [
+      "NET-capture_freq_scale",
+      "NET-capture_open",
+      "NET-capture_competitive",
+      "NET-competitor_lf",
+      "NET-rw_existing_lf",
+      "NET-weeks_per_year",
+      "NET-market_pax_2025",
+      "NET-fuel_compensation_rub_per_t",
+      "OPEN-BASE_SETUP",
+      "OPEN-LEASE",
+      "OPEN-SJ100_TRANSFER"
+    ]
+  },
+  "clarifications": {
+    "file": "clarification_requests.csv",
+    "confirmed": [
+      "Q-P00R-001",
+      "P04-Q001"
+    ],
+    "unresolved": []
+  },
+  "remaining_fields": [
+    {
+      "id": "U01",
+      "field": "OD level; customer segments; price/time/frequency coefficients; airport overlap",
+      "owner": "P02/P05",
+      "treatment": "Сценарные предпосылки и пороги смены решения; вневыборочная проверка только при независимых опорах. Структурные 0..1 вероятности не эмпирический доверительный интервал.",
+      "blocks": "Безусловный прогноз рынка; не каркас или условный сценарий."
+    },
+    {
+      "id": "U02",
+      "field": "variant-specific available tails by date; donor task; reserve; crew/MRO",
+      "owner": "P03",
+      "treatment": "Четыре сценария N(t), явный ввод и аналог по типу. Не использовать batch announcement как парк.",
+      "blocks": "Заявление фактической выполнимости; сценарный расчёт возможен."
+    },
+    {
+      "id": "U03",
+      "field": "base/startup/exit/lease or aircraft-use incremental expense and payment schedule",
+      "owner": "P04",
+      "treatment": "Источники диапазона либо UNKNOWN и break-even threshold; один согласованный способ учёта использования борта.",
+      "blocks": "Полный численный результат без условности."
+    },
+    {
+      "id": "U04",
+      "field": "support entitlement, caps, accrual/payment lag, taxes, financing terms",
+      "owner": "P04",
+      "treatment": "Условия конкретной схемы, отдельные ветви с/без поддержки; налоги/финансирование отдельно; UNKNOWN не 0.",
+      "blocks": "Подтверждённая величина финансирования."
+    },
+    {
+      "id": "U05",
+      "field": "official carrier passenger definition and future denominator",
+      "owner": "P10",
+      "treatment": "Сначала сопоставимый справочник метрик и периодов; до него journeys/segments отдельно, rank/share UNKNOWN.",
+      "blocks": "Доля и №2; не seat arithmetic."
+    },
+    {
+      "id": "U06",
+      "field": "international access and currency/cost/contract terms",
+      "owner": "P02I/P08I",
+      "treatment": "Условные международные ветви отдельно; не задерживать самостоятельный CASE_SJ.",
+      "blocks": "Соответствующая международная рекомендация."
+    },
+    {
+      "id": "U07",
+      "field": "opening unrestricted company cash; existing business cash; minimum cash policy",
+      "owner": "P04/P10",
+      "treatment": "Выдать добавочную потребность с явно заданным boundary; весь бизнес UNKNOWN, если KEEP cash неизвестен.",
+      "blocks": "Полный бюджет компании; не расчёт добавочной программы."
+    }
+  ],
+  "specific_requests": [
+    {
+      "owner": "P00/coordinator",
+      "request": "Принять либо адресно скорректировать SP01–SP13; закрепить входы и confirmations без нового круга общего планирования."
+    },
+    {
+      "owner": "P03",
+      "request": "Датированный available/committed/reserve ресурс и конкретные прежние задания/альтернативы."
+    },
+    {
+      "owner": "P04",
+      "request": "События начислений/платежей, операционная конвенция стоимости ВС, депозиты/поддержка/налоги/финансирование и unknown поля."
+    },
+    {
+      "owner": "P05",
+      "request": "Demand pool/basis, продуктовый выбор, сезонное покрытие и диапазоны/пороги без ложной калибровки."
+    },
+    {
+      "owner": "P06",
+      "request": "Реализовать инварианты; предоставить exact SHA+manifest и результаты адресных CE. Не импортировать toy значения как параметры RW."
+    },
+    {
+      "owner": "P10",
+      "request": "Совместимая отчётная единица перевозок и знаменатель/конкурентный порог №2."
+    }
+  ],
+  "boundaries": [
+    "Полная сеть",
+    "Повтор 652 исторических сетей",
+    "Текущие пакеты P02/P03/P04/P05/P06/P09",
+    "Рыночная калибровка",
+    "Реальная эксплуатационная проверка",
+    "Достаточность полного финансирования RW",
+    "UI/браузерная проверка"
+  ],
+  "source_read_boundary": "Новые web чтения пяти методических источников из source_lock и одного IAS7; локальные источники только git show закреплённых SHA. Новые данные маршрутов/тарифов/парка не собирались.",
+  "changes_outside_assigned_package": false,
+  "children_created": false,
+  "full_network_runs": false,
+  "purchases_payments_bookings_external_messages_restarts_site_publication": false,
+  "communication": {
+    "question_delivered_to_coordinator": true,
+    "early_artifact_notice": "NOT_DELIVERED",
+    "error": "thread_not_sendable: Thread 91bc9ad6-4e9f-4954-8714-1e4366064b78 has no running turn that can be steered.",
+    "diagnosis": "No running parent turn for mode=steer; no service failure inferred, no restart or child diagnostic launched under explicit no-children boundary.",
+    "recovery": "Deliver committed final result through task completion; no repeated steer attempts."
+  },
+  "integration": "Coordinator pins exact payload/envelope SHA and manifest; integrate only P00R. No merge/rebase or modification of foreign branches performed.",
+  "publish_receipt": "Own-branch commit/push and remote SHA verification are reported in the final handback after this envelope is committed."
+}
