@@ -3,6 +3,7 @@ from pathlib import Path
 import csv
 import hashlib
 import html
+import io
 import json
 import re
 
@@ -28,6 +29,15 @@ def para(text, css=""):
     return f'<p class="{css}">{esc(text)}</p>'
 
 
+def csv_example(path, columns, predicate):
+    record = next(r for r in rows(path) if predicate(r))
+    out = io.StringIO()
+    writer = csv.DictWriter(out, fieldnames=columns, extrasaction='ignore', lineterminator='\n')
+    writer.writeheader()
+    writer.writerow(record)
+    return '<pre style="overflow-x:auto;font-size:13px"><code>'+esc(out.getvalue())+'</code></pre>'
+
+
 def table(headers, data, caption=""):
     body = ''.join('<tr>' + ''.join(f'<td>{esc(value)}</td>' for value in row) + '</tr>' for row in data)
     return (f'<div class="table-scroll"><table><caption>{esc(caption)}</caption><thead><tr>'
@@ -39,7 +49,7 @@ def source_link(source):
     url = source["url"]
     if url.startswith("git:"):
         parts = url.split(":", 2)
-        if len(parts) == 3 and re.fullmatch(r"[a-f0-9]{7,40}", parts[1]):
+        if len(parts) == 3 and re.fullmatch(r"[a-f0-9]{7,40}", parts[1]) and ';' not in parts[2]:
             url = f'https://github.com/Mput13/case_championship/blob/{parts[1]}/{parts[2]}'
         else:
             url = f'cities/{source["source_id"].split("-")[0]}/sources.csv'
@@ -173,7 +183,14 @@ def provenance_section():
     body = para('Основание — точные файлы модели Насти/kiruha355 dceadc98 от 11 ноября, предыдущий аудит расстояний ce10c1f и аудит источников f9eafa8. Копии выбранных входов сохраняются побайтно, с SHA256, исходным путём и commit. Новые городские сведения не подставлены скрыто в авторскую модель; общий расчёт отдельно показывает контролируемые изменения.')
     body += table(['Город', 'Записей источников', 'Утверждений', 'Маршрутных строк', 'Особенностей'], counts,
                   'Это объём реестра, а не оценка качества и не число независимых наблюдений. Повторные публикации могут иметь один первоисточник.')
-    body += para('Координатор повторно выполнил городские проверки и выборочно перечитал первичные сообщения: продукты RW, характеристики Уфы, корпоративный чартер Братска, ангар «Ямала», историческую базу CEK и присутствие RW в Перми. Проверка схем и арифметики не подтверждает конечный спрос, получение поддержки, коммерческую готовность борта или прибыльность запуска.')
+    body += '<h3>Как используются таблицы</h3>'
+    body += para('Ниже реальные строки с сокращённым набором столбцов. В network_routes.csv находится опубликованное плечо модели: местные и пересадочные пассажирские сегменты, частота в каждую сторону. Эти строки используются для проверки публикации; пересадочный сегмент нельзя отдельно считать новой конечной поездкой.')
+    body += csv_example('inputs/model/network_routes.csv', ['scenario','from','to','freq_week_each_way','pax_year_local','pax_year_transfer_seg'], lambda r:r['scenario']=='base' and r['from']=='GOJ' and r['to']=='AER')
+    body += para('В sources.csv сохраняется происхождение нового факта. Claims связывает утверждение с источниками; routes сопоставляет его с конкретным продуктом; features описывает механизм и контраргумент. Новая запись о ТО не подставляет автоматически нулевые расходы или доступный самолёт в экономику.')
+    body += csv_example('cities/GOJ/sources.csv', ['source_id','published_at','accessed_at','source_type','access_status'], lambda r:r['source_id']=='GOJ-S14')
+    body += para('В combined_product_comparison.csv уже находится результат общего пересчёта: лимит парка, фактически выбранный размер программы, часы и вклад. Строки одного бюджета сравниваются между собой; отрицательный вклад и отсутствие найденного допустимого набора имеют разные статусы. Полная прибыль остаётся неизвестной.')
+    body += csv_example('common_economics/combined_product_comparison.csv', ['alternative','budget_aircraft','selected_product','aircraft_including_one_spare','block_h_week','contribution_rub_year'], lambda r:r['demand_scenario']=='base' and r['mode']=='rules500' and r['alternative']=='TJM' and r['budget_aircraft']=='5')
+    body += para('Координатор повторно выполнил городские проверки и выборочно перечитал первичные сообщения: продукты RW, характеристики Уфы, корпоративный чартер Братска, ангар «Ямала», историческую базу CEK, присутствие RW в Перми и оперативное ТО в GOJ. В расчёте времени GOJ восстановлены пропущенные коэффициенты трассы и проверено совпадение с независимым общим пересчётом с учётом округления километража. Дополнительная точная копия списка южных/западных регионов хранится в каталоге GOJ с исходным SHA. Проверка схем и арифметики не подтверждает конечный спрос, получение поддержки, коммерческую готовность борта или прибыльность запуска.')
     body += '<p>' + ' · '.join([link('input_manifest.json', '34 закреплённых входа'), link('coordinator_checks.json', 'Проверки координатора'), link('research_brief.md', 'Общая методика'), link('validation.json', 'Итоговая проверка пакета')]) + '</p>'
     body += para('Полнота конкурентов, внутренние конечные бронирования, получаемая чистая выручка, договорные расходы, свободный парк и будущие выплаты поддержки остаются ограничениями решения. Доступ к отдельным страницам ограничен; статус чтения сохранён по каждому источнику. Закрытых баз, платных данных и сообщений третьим лицам в исследовании не было. Дашборд Насти и публичный Site не изменялись.')
     return section('evidence', 'Источники и границы доказательства', body)

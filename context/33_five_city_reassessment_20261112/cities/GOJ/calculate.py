@@ -40,6 +40,14 @@ def main():
         checks.append({"path": item["path"], "sha256": actual,
                        "matches_manifest": actual == item["sha256"]})
     assert all(x["matches_manifest"] for x in checks)
+    parameters = {r['parameter']: r for r in rows(MODEL/'network.csv')}
+    regions = {r['iata']: r['region'] for r in rows(MODEL/'catchments.csv')}
+    south_regions = {r['region'] for r in rows(HERE/'model_south_west_regions.csv')}
+    def model_block(destination, km, scenario='base'):
+        scenario = scenario.removesuffix('_sub')
+        factor = 'route_factor_south' if regions['GOJ'] in south_regions or regions[destination] in south_regions else 'route_factor'
+        return (float(parameters['block_fixed_h'][scenario]) + km * float(parameters[factor][scenario])
+                / float(parameters['block_speed_kmh'][scenario]))
     model = [r for r in rows(MODEL / "network_routes.csv") if r["from"] == "GOJ"]
     diagnostics = []
     totals = {}
@@ -65,7 +73,7 @@ def main():
         t["transfer_segments"] += transfer
         t["segments"] += segments
         t["weekly_legs"] += 2*int(r["freq_week_each_way"])
-        t["block_h_week_formula"] += 2*int(r["freq_week_each_way"])*(.5+int(r["km"])/750)
+        t["block_h_week_formula"] += 2*int(r["freq_week_each_way"])*model_block(r['to'],int(r['km']),r['scenario'])
         t["sum_rounded_route_variable_results_mln"] += float(r["result_mln_year"])
     for t in totals.values():
         t["transfer_segment_share"] = t["transfer_segments"]/t["segments"]
@@ -105,7 +113,7 @@ def main():
                        "SVX": 1+55/60, "OVB": 3+25/60, "KGD": 3+10/60}
     block_comparison = []
     for d in ["LED", "AER", "MRV", "CEK", "UFA", "KUF", "KZN", "SVX", "KGD"]:
-        model_formula = .5 + distances[d] / 750
+        model_formula = model_block(d, distances[d])
         block_comparison.append({"destination": d,
             "great_circle_km": distances[d], "model_formula_block_h": round(model_formula, 3),
             "published_example_block_h": round(observed_blocks[d], 3),
@@ -119,6 +127,7 @@ def main():
         "status": "OFFLINE_DIAGNOSTICS_ONLY", "as_of": "2026-11-12",
         "input_manifest_verified": checks,
         "pinned_model_sha": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "block_formula_provenance": {"formula": "block_fixed_h + km * route_factor / block_speed_kmh; south factor if either region is in pinned list", "region_list_git_path": "data/assumptions/south_west_regions.csv", "region_list_sha256": hashlib.sha256((HERE/'model_south_west_regions.csv').read_bytes()).hexdigest(), "weekly_precision": "published route distances rounded to km; common_economics uses unrounded distance"},
         "model_summaries_from_route_rows": totals,
         "schedule_sample": "2026-11-16/2026-11-22; published product, not operated flights",
         "schedule_counts": [{"direction":k[0],"airport":k[1],"carrier":k[2],"departures":v} for k,v in sorted(counts.items())],

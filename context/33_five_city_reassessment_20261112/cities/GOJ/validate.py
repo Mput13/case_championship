@@ -5,7 +5,6 @@ import csv
 import hashlib
 import json
 import re
-import subprocess
 from pathlib import Path
 
 P = Path(__file__).resolve().parent
@@ -112,15 +111,21 @@ def main():
     for n in ["calculate.py","validate.py"]:
         ast.parse((P/n).read_text())
     checks.append("dossier_references_future_tariff_exclusion_and_script_syntax")
-    # All task changes must be inside GOJ. Read-only check; no reset/stash/checkout.
-    status=subprocess.check_output(["git","status","--porcelain","--untracked-files=all"],cwd=P,text=True)
-    paths=[line[3:] for line in status.splitlines()]
-    prefix="context/33_five_city_reassessment_20261112/cities/GOJ/"
-    outside=[x for x in paths if not x.startswith(prefix)]
-    assert not outside, outside
-    checks.append("git_changes_only_GOJ_directory")
+    # Integration must not fail because the coordinator edits its own report.
+    package = P.parent.parent
+    for entry in json.loads((package/'input_manifest.json').read_text()):
+        raw = (package/entry['path']).read_bytes()
+        assert len(raw) == entry['bytes'] and hashlib.sha256(raw).hexdigest() == entry['sha256']
+    checks.append("all_34_input_bytes_and_hashes_rechecked")
+    # Independent common replay catches omitted route multipliers in this diagnostic.
+    common = read('../../common_economics/baseline.csv')
+    for r in common:
+        if r['alternative'] == 'GOJ':
+            expected = c['model_summaries_from_route_rows'][r['demand_scenario']]['block_h_week_formula']
+            assert abs(expected-float(r['block_h_week'])) < .1, (expected,r['block_h_week'])
+    checks.append("block_resource_reconciled_with_independent_common_replay")
     artifacts={str(x.relative_to(P)):hashlib.sha256(x.read_bytes()).hexdigest() for x in sorted(P.rglob("*"))
-               if x.is_file() and x.name!="validation.json" and "_tmp" not in x.parts and x.name!="build_registry.py"}
+               if x.is_file() and x.name!="validation.json" and "_tmp" not in x.parts and '__pycache__' not in x.parts and x.name!="build_registry.py"}
     report={"status":"PASS_OFFLINE_RESEARCH_PACKAGE", "as_of":"2026-11-12", "checks":checks,
             "counts":{"sources":len(source_ids),"claims":len(claim_ids),"features":len(feature_ids),"route_products":len(routes),"author_rows":len(model),"author_markets":13,"schedule_period_rows":77,"schedule_dated_records":128,"manifest_files":34},
             "artifact_sha256":artifacts,
