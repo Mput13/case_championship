@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "scope": "P00R independent synthetic arithmetic and artifact integrity; not P06 acceptance",
+  "cases_checked": 1,
+  "results": [
+    {
+      "case_id": "CE13",
+      "status": "PASS",
+      "actual": {
+        "operating_result": 10,
+        "cash_before_financing": [
+          -110,
+          -30,
+          20,
+          80
+        ],
+        "cumulative_cash": [
+          -110,
+          -140,
+          -120,
+          -40
+        ],
+        "peak_funding_month_end": 140,
+        "terminal_shortfall": 40,
+        "cash_from_profit_bridge": -40
+      },
+      "rejected_wrong_values": 2
+    }
+  ],
+  "pinned_inputs_verified": 11,
+  "referential_integrity": "PASS",
+  "unknown_not_zero": "NOT_RUN_IN_SUBSET; see sealed full checks.json",
+  "write_boundary": "PASS",
+  "not_run": [
+    "Полная сеть",
+    "Повтор 652 исторических сетей",
+    "Текущие пакеты P02/P03/P04/P05/P06/P09",
+    "Рыночная калибровка",
+    "Реальная эксплуатационная проверка",
+    "Достаточность полного финансирования RW",
+    "UI/браузерная проверка"
+  ],
+  "command": "python3 context/35_full_programme_execution_20261112/P00R/run_checks.py --cases CE13"
+}
