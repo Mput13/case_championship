@@ -1,0 +1,147 @@
+{
+  "city": "Уфа",
+  "iata": "UFA",
+  "as_of": "2026-11-12",
+  "planning_horizon": "2027–2028",
+  "prepared_base": "250f8037969b72ca19d573cc7372b17d6fc0355e",
+  "model_sha": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+  "filter_conclusion": {
+    "status": "reject_universal_city_exclusion",
+    "distance_km_pinned": 393,
+    "nearest_pinned_base": "SVX",
+    "reason": "8 ч опубликованного наземного доступа; самостоятельный аэропорт; продаваемый короткий RW UFA–SVX. Нет оснований исключить весь город.",
+    "scope": "Городской фильтр; отдельное универсальное обнуление местных продаж на UFA–SVX также имеет контрпример. Короткие конечные пересадочные OD оцениваются отдельно."
+  },
+  "preferred_next_decision": "Сравнить оптимизацию действующей программы и малую прямую программу без постоянной новой базы; TOF/KEJ и общий UFA–OMS остаются условными кандидатами. Хаб не принят к немедленному запуску и не отвергнут навсегда.",
+  "options": [
+    {
+      "option": "localdirect",
+      "status": "conditional_small_program",
+      "strongest_for": "Самостоятельный рынок и меньше фиксированных обязательств.",
+      "strongest_against": "Местная модельная LF TOF/KEJ при 2/нед — всего 47.65/39.48%; ротация не доказана. Техническая страница не обещает ангарного места неместному самолету; доступ и допуск ТО требуют договора.",
+      "decision_parameter": "Оплаченный местный/контрактный объем; net yield; свободные блок-часы; Δ относительно другого использования.",
+      "condition_or_threshold": "Q*=(F+B-S)/(y-c_p) при y>c_p; либо согласованный финансируемый этап роста с предельным кассовым убытком. Частоты не фиксировать 8/7.",
+      "obtain_from": "RW: реальные продажи; corporate allotment; quote затрат и расписание конкретного борта.",
+      "action_if_condition_changes": "При худшем вкладе уменьшить частоту/сменить маршрут/отложить, сохранив город в сравнении."
+    },
+    {
+      "option": "existingbase",
+      "status": "existing_product_verified_expansion_conditional",
+      "strongest_for": "Существуют RW UFA–SVX 4/нед и UFA–NUX 2/нед; часть инфраструктуры уже оплачена.",
+      "strongest_against": "Собственный переток и частый Utair; не доказан единый сквозной продукт на нужную дату.",
+      "decision_parameter": "Добавочная прибыль/финансирование компании; местный и сквозной OD отдельно; выполнимая ротация.",
+      "condition_or_threshold": "Δ с расходами всех плеч/перегонов и потерянным вкладом лучше альтернативы того же ресурса; сохраняется надежность.",
+      "obtain_from": "RW PNR/itinerary; tail rotation; duty time; MRO и airport quote.",
+      "action_if_condition_changes": "При неподходящих стыковках оставить прямой продукт/перенести окно; при худшем вкладе не добавлять частоту."
+    },
+    {
+      "option": "newbase",
+      "status": "conditional_not_committed",
+      "strongest_for": "Местная ночевка может дать ранний вылет и экономить ежедневный перегон.",
+      "strongest_against": "Новые ТО/экипаж/резерв/стоянка не оценены; свободный самолет не подтвержден. Техническая страница не обещает ангарного места неместному самолету; доступ и допуск ТО требуют договора.",
+      "decision_parameter": "Экономия и выручка относительно existingbase минус полный добавочный бюджет и стоимость ресурса.",
+      "condition_or_threshold": "Преимущество над ротациями покрывает добавочный бюджет либо имеет согласованное финансирование и лимит убытка.",
+      "obtain_from": "Airline fleet plan; airport/MRO contracts; crew budget; reserve plan.",
+      "action_if_condition_changes": "При задержке поставки или превышении бюджета работать из существующей базы/сезонно."
+    },
+    {
+      "option": "hub",
+      "status": "conditional_later_stage_not_launch_ready",
+      "strongest_for": "Независимый местный рынок; терминал и технология трансфера существуют.",
+      "strongest_against": "56.68% модельных сегментов пересадочные; на TOF/KEJ около 86%; тарифы и компенсация чувствительны. Техническая страница не обещает ангарного места неместному самолету; доступ и допуск ТО требуют договора.",
+      "decision_parameter": "Платящие конечные трансферные пары; средний сквозной net fare; волны/MCT; полный бюджет и cash gap; собственный переток.",
+      "condition_or_threshold": "Обновленный Δ и касса отвечают финансированию и предпочтительнее OMS/действующих баз при одинаковых tail-months; есть защищенный график и резерв.",
+      "obtain_from": "RW itinerary sales; competitor dated itineraries; protected-ticket contracts; MCT and baggage acceptance; full financing plan.",
+      "action_if_condition_changes": "При недоборе трансфера убрать/снизить лучи, сохранить обоснованные местные продукты; не поддерживать сеть ради рейтинга."
+    },
+    {
+      "option": "groundfeed",
+      "status": "conditional_niche_universal_replacement_rejected",
+      "strongest_for": "Опубликован автобус до остановки у SVX; может помочь отдельной дешевой/редкой поездке.",
+      "strongest_against": "8 ч до остановки; цена/последний участок/защита неизвестны; прибыли RW от подключения не доказано.",
+      "decision_parameter": "Полная экономия тарифа минус деньги, ценность времени, риск и расходы оператора.",
+      "condition_or_threshold": "Экономия > наземные расходы+v_time×ΔT+ожидаемый ущерб; есть подходящий следующий рейс и положительный добавочный эффект либо согласованный бюджет.",
+      "obtain_from": "Transport operator dated quote; precise terminal stop; onward schedule; measured reliability and traveler segment.",
+      "action_if_condition_changes": "При изменении цены/окна/надежности выбрать местный прямой или авиаподвоз; не заменять весь UFA."
+    },
+    {
+      "option": "noproject",
+      "status": "valid_opportunity_cost_outcome_not_default_rejection",
+      "strongest_for": "Сохраняет самолет и деньги для более продуктивной части RW.",
+      "strongest_against": "Можно потерять оплаченный местный спрос; крупный самостоятельный рынок существует.",
+      "decision_parameter": "Доступный ресурс; сравнительный Δ; финансирование и лимит кассового риска.",
+      "condition_or_threshold": "Нет подтвержденного свободного ресурса либо доступные программы уступают его альтернативе; отсутствие данных не равно отрицательному спросу.",
+      "obtain_from": "RW fleet/finance plan and common network comparison.",
+      "action_if_condition_changes": "При контракте, новой ротации или подтвержденном вводе вернуться к выбору масштаба."
+    }
+  ],
+  "confirmed": [
+    "Итог аэропорта 4929715 пассажиров 2025; H1 2026 около 2.2 млн.",
+    "Действующее опубликованное и рекламируемое предложение RW UFA–SVX и UFA–NUX.",
+    "Публичные официальные расписания в трех окнах; инфраструктура SSJ; свежие тарифы и текущие условия скидок.",
+    "Автобус 5170:07:00–15:00;8 ч до остановки Кольцово.",
+    "Официальная техническая страница: H24;ВВЛ1500чел/ч,МВЛ800;названы ремонтные службы; опубликовано отсутствие ангарных мест для неместных ВС."
+  ],
+  "conditional": [
+    "Размер захватываемого локального и сквозного рынка.",
+    "Договорные скидки; субсидии и топливные поступления.",
+    "Местная база, волны и вводимые самолеты."
+  ],
+  "rejected_with_criterion": [
+    {
+      "proposition": "Весь UFA заменить подвозом из-за расстояния<500 км",
+      "criterion": "Реальный доступ 8 ч и коммерческий короткий авиапродукт дают контрпример полной заменимости."
+    },
+    {
+      "proposition": "252 млн модели — подтвержденная прибыль",
+      "criterion": "Это переменный сценарный вклад; полные расходы, деньги и сквозные продажи не подтверждены."
+    },
+    {
+      "proposition": "Население/вахтовики/турпоток — готовые OD",
+      "criterion": "Несовпадающие охват, единица, частота и способ поездки."
+    },
+    {
+      "proposition": "Нет строки расписания — нет спроса или конкурента",
+      "criterion": "Проверены только опубликованные записи определенного окна и индекс."
+    },
+    {
+      "proposition": "Скидки/поддержка начисляются автоматически",
+      "criterion": "Есть объемные и договорные условия; соглашение RW не получено."
+    }
+  ],
+  "not_performed": [
+    "Полный перезапуск/переобучение авторской модели и сопоставимая оптимизация OMS.",
+    "Покупка данных или билетов; запросы компаниям; регистрация; сообщения; PR/push/merge; изменение общих inputs.",
+    "Датированные брони РЖД и полный набор ground alternatives; измерение фактического времени доступа.",
+    "Подтверждение выполненных рейсов и реально платящих трансферных OD; актуальный сертификат/ввод SJ-100 у RW."
+  ],
+  "critical_missing_fields": [
+    "monthly_actual_OD_by_itinerary_and_payer",
+    "net_yield_baggage_tax_and_booking_depth",
+    "own_rw_transfer_and_displaced_contribution",
+    "public_vs_corporate_capacity",
+    "aircraft_tail_months_and_opportunity_cost",
+    "rotation_duty_MCT_baggage_recovery",
+    "full_base_MRO_crew_reserve_budget",
+    "contractual_airport_discounts_and_counter_definition",
+    "actual_fuel_location_storage_and_financial_receipts",
+    "signed_2027_2028_subsidy_and_cash_calendar",
+    "municipal_catchment_airport_choice",
+    "dated_ground_quotes_and_reliability",
+    "hangar_line_station_access_for_newly_based_or_outstation_RW_aircraft"
+  ],
+  "evidence_files": {
+    "dossier": "dossier.md",
+    "sources": "sources.csv",
+    "claims": "claims.csv",
+    "routes": "routes.csv",
+    "features": "features.csv",
+    "schedule_rows": "schedule_rows.csv",
+    "schedule_summary": "schedule_summary.json",
+    "schedule_fetch_log": "schedule_fetch_log.json",
+    "calculation_script": "calculate.py",
+    "calculations": "calculations.json",
+    "tariff_observations": "tariff_observations.csv"
+  },
+  "limitations": "Планы не исполнение; кресла не пассажиры; аэропортовый поток не конечный OD; модели не прибыль. Статистические PDF частично доступны только в индексе. Все неизвестные оставлены неизвестными."
+}
