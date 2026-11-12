@@ -1,0 +1,133 @@
+{
+  "status": "PROPOSED_NOT_LAUNCHED",
+  "coordinator": {
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "location": "current_thread",
+    "responsibility": ["scope_and_requirements", "task_dispatch", "input_versions", "findings_triage", "integration", "final_acceptance", "user_decisions"]
+  },
+  "capacity": {
+    "max_active_children": 4,
+    "coordinator_included": false,
+    "scope_cap": false,
+    "persistent_idle_reviewers": false,
+    "workers_may_spawn_children": false
+  },
+  "roles": {
+    "methods_review": {
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "packages": ["P00R"],
+      "responsibility": "Check the mathematical and economic contract, units, comparison basis and minimal counterexamples before consequential common calculations."
+    },
+    "research_and_programmes": {
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh",
+      "packages": ["P01", "P02", "P02I", "P03", "P04", "P05", "P07", "P08", "P08I", "P10", "P11"],
+      "responsibility": "Collect and qualify inputs, construct candidate programmes using the common engine, and maintain assumptions and sources."
+    },
+    "calculation_engine": {
+      "model": "gpt-6.1-terra",
+      "effort": "xhigh",
+      "packages": ["P06", "P09"],
+      "responsibility": "Implement the common engine, integrate accepted inputs, and compute compatible monthly programmes, scenarios and funding results."
+    },
+    "ui_and_delivery": {
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh",
+      "packages": ["P12", "P15", "P17"],
+      "responsibility": "Maintain the dashboard candidate and connect pinned results to four sections, passport and reproducible delivery."
+    },
+    "independent_numerical_review": {
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh",
+      "packages": ["P13"],
+      "fresh_agent": true,
+      "must_not_be_author_of": ["P05", "P06", "P09"],
+      "responsibility": "Check source samples, calculations, common inventory, resource calendars and money bridges against pinned code/data; produce concrete counterexamples."
+    },
+    "decision_review": {
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "packages": ["P14"],
+      "must_not_be_author_of": ["P10", "P11", "P15"],
+      "responsibility": "Challenge causal claims, alternatives, uncertain assumptions, the whole-business bridge, digital effects and fidelity to the original case."
+    },
+    "final_case_and_ui_review": {
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh",
+      "packages": ["P16"],
+      "fresh_agent": true,
+      "must_not_be_author_of": ["P12", "P15"],
+      "responsibility": "Check integrated requirements, actual UI states and provenance; the coordinator owns final acceptance."
+    }
+  },
+  "initial_dispatch": [
+    {"slot": 1, "package": "P00R", "model": "gpt-6-astra"},
+    {"slot": 2, "package": "P02", "model": "gpt-6.1-sol"},
+    {"slot": 3, "package": "P03", "model": "gpt-6.1-sol"},
+    {"slot": 4, "package": "P04", "model": "gpt-6.1-sol"}
+  ],
+  "initial_dispatch_note": "The coordinator handles the initial reuse/index tranche of P01 while these run. After the early methods review releases a slot, Terra starts P06. Later dispatch follows ready input versions and the current critical dependency, not fixed waves.",
+  "dispatch": {
+    "tool": "T3 delegate_task",
+    "mode": "async",
+    "isolation": "worktree",
+    "record_each_receipt_immediately": true,
+    "do_not_start_tasks_with_a_batch_of_blocking_wait_calls": true,
+    "model_ids_and_options": "Use the thread's discovered capabilities; refresh only under the orchestrator's error/provider-change rules.",
+    "provider_unavailable": "Report the actual error and affected task; no unasked model/provider fallback.",
+    "progress": "Completion and attention events; no polling running delegates."
+  },
+  "handoff_required": ["package_id", "subject_commit", "input_commits_and_hashes", "output_paths", "units_and_periods", "assumption_ids", "own_checks", "conclusions_and_limits", "dependency_requests"],
+  "artifact_publication": {
+    "usable_tranches": "A producer may publish an internally consistent version before finishing the prose report.",
+    "consumer_input": "The coordinator selects and pins the producer version; a moving branch is not a silently updated input.",
+    "writes": "Each task owns its worktree and assigned directory; the coordinator integrates pinned changes."
+  },
+  "feedback_loops": [
+    {
+      "id": "data_loop",
+      "trigger": "A calculation or analyst finds a missing, inconsistent or decision-relevant uncertain input.",
+      "route": ["consumer", "coordinator", "data_owner", "coordinator", "affected_consumers"],
+      "request_fields": ["request_id", "field_or_assumption_id", "affected_programmes", "evidence", "decision_impact", "possible_fallback"],
+      "outcome": "A sourced correction, an evidence-based range or a precise retained unknown plus threshold analysis. Independent work continues."
+    },
+    {
+      "id": "method_loop",
+      "trigger": "A structural contradiction, conservation failure or unsupported modelling transfer.",
+      "route": ["author_or_reviewer", "coordinator", "methods_review_or_engine_owner", "affected_consumers"],
+      "outcome": "Versioned contract or implementation correction, a minimal reproducer, and an explicit impact list."
+    },
+    {
+      "id": "review_loop",
+      "trigger": "A material finding against an exact subject version.",
+      "route": ["independent_reviewer", "coordinator", "responsible_author", "coordinator"],
+      "outcome": "Fix and repeat affected checks. A new independent review/recheck is a new delegated task with the new subject; small findings may be verified by the coordinator."
+    },
+    {
+      "id": "user_judgement_loop",
+      "trigger": "A consequential preference cannot be resolved from evidence or the existing user instructions.",
+      "route": ["assumptions_register", "coordinator", "user_if_needed", "affected_programmes"],
+      "outcome": "Record the selected preference or preserve alternative scenarios; routine estimates do not require per-row permission."
+    }
+  ],
+  "finding_dispositions": ["implementation_defect", "input_defect_or_gap", "method_change", "subjective_preference", "presentation_defect", "documented_limitation"],
+  "work_states": ["prepared", "working", "review_ready", "changes_requested", "accepted_with_scope", "integrated", "delivered"],
+  "result_evidence_axis": "Track market validity, real fleet availability and commercial readiness separately from work state and arithmetic acceptance.",
+  "user_updates": {
+    "when": ["material_new_assumption", "change_of_preferred_programme", "new_funding_dependency", "a_consequential_preference_requires_user_input"],
+    "content": ["assumption_or_claim_id", "why_it_matters", "current_evidence_or_range", "which_programmes_change", "what_the_user_or_expert_can_help_refine"],
+    "timing": "Alongside substantive results, before final delivery when user input could change the work.",
+    "routine_choices": "Record and continue under existing instructions; no per-parameter approval queue."
+  },
+  "repeat_policy": {
+    "repeat_when": ["relevant_input_changed", "concrete_failed_check", "unresolved_material_finding"],
+    "repeat_scope": "Only affected consumers/programmes unless the changed input is shared across the whole result.",
+    "repeated_failure": "The coordinator resolves the cause or changes the approach instead of repeating the same full run.",
+    "no_repeat_for": ["agent_finished", "unrelated_commit", "cosmetic_change", "desire_for_another_approval"]
+  },
+  "runtime_records_proposed": ["launch_state.json", "events.jsonl", "handoffs/", "findings.csv", "dependency_requests.csv", "requirements_acceptance.csv"],
+  "runtime_records_note": "Small coordination files maintained through T3; no separate orchestration platform is required.",
+  "completion": "The coordinator checks all case and user requirements against integrated outputs, review findings and unresolved limitations. The standalone Superjet case is preserved; new Tu-214 scenarios do not block its release."
+}

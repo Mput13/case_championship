@@ -11,7 +11,7 @@ css = re.search(r'<style>(.*?)</style>', s, re.S)[1]
 sections = {m[1]:m[0] for m in re.finditer(r'<section id="([^"]+)">.*?</section>', s, re.S)}
 dst = BASE / 'qa'
 dst.mkdir(exist_ok=True)
-groups = {'start':['scope','ui'],'deep':['methods','model','checks'],'international':['international'],'agents':['agents'],'end':['acceptance','decisions','sources'],'decisions':['decisions','sources'],'assumptions':['assumptions'],'reuse':['reuse-policy']}
+groups = {'start':['scope','ui'],'deep':['methods','model','checks'],'international':['international'],'agents':['agents'],'end':['acceptance','decisions','sources'],'decisions':['decisions','sources'],'assumptions':['assumptions'],'reuse':['reuse-policy'],'feedback':['feedback']}
 probe = "<script>console.log(JSON.stringify({viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,overflow:document.documentElement.scrollWidth>innerWidth,sections:document.querySelectorAll('section').length}));</script>"
 for name, keys in groups.items():
     nav = ''.join(f'<a href="#{k}">{re.search(r"<h2>(.*?)</h2>", sections[k])[1]}</a>' for k in keys)

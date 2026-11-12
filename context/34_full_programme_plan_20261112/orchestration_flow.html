@@ -1,0 +1,68 @@
+<style>
+#rw-orchestration{font-family:var(--font-sans);color:var(--foreground);display:grid;gap:12px}
+#rw-orchestration svg{display:block;width:100%;height:auto}
+#rw-orchestration .node{fill:var(--card);stroke:var(--border);stroke-width:1}
+#rw-orchestration .edge{fill:none;stroke:var(--muted-foreground);stroke-width:1.2;marker-end:url(#rw-arrow)}
+#rw-orchestration .feedback{stroke-dasharray:4 4}
+#rw-orchestration text{fill:var(--foreground);font-family:var(--font-sans);font-size:15px;text-anchor:middle}
+#rw-orchestration .small{font-size:12px;fill:var(--muted-foreground)}
+#rw-orchestration .mobile{display:none;margin:0;padding-left:22px}
+#rw-orchestration .mobile li{margin-bottom:14px}
+#rw-orchestration .note{color:var(--muted-foreground)}
+@media(max-width:560px){#rw-orchestration svg{display:none}#rw-orchestration .mobile{display:block}}
+</style>
+<div id="rw-orchestration">
+<svg viewBox="0 0 728 688" role="img" aria-labelledby="rw-graph-title rw-graph-desc">
+<title id="rw-graph-title">Агентская система анализа Red Wings</title>
+<desc id="rw-graph-desc">Координатор Sol принимает общий контракт с методической проверкой Astra. Sol собирает данные и строит программы, Terra реализует ядро и общий расчёт, Sol готовит UI и стратегию. Отдельный Sol проверяет числа, Astra — выводы после интеграции. Замечания возвращаются координатору и ответственному автору. Одновременно работают четыре дочерних агента.</desc>
+<defs><marker id="rw-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="var(--muted-foreground)"/></marker></defs>
+<path class="edge" d="M364 82 V101 H128 V122"/><path class="edge" d="M364 82 V122"/><path class="edge" d="M364 82 V101 H600 V122"/>
+<path class="edge" d="M234 163 H258"/>
+<path class="edge" d="M128 204 V246"/>
+<path class="edge" d="M128 204 V224 H600 V246"/>
+<path class="edge" d="M364 204 V246"/>
+<path class="edge" d="M234 287 H258"/>
+<path class="edge" d="M364 328 V370"/>
+<path class="edge" d="M600 328 V350 H520 V405 H504"/>
+<path class="edge" d="M706 163 H714 V405 H504"/>
+<path class="edge" d="M258 287 H246 V464 H188 V486"/>
+<path class="edge" d="M364 440 V464 H540 V486"/>
+<path class="edge" d="M188 560 V580 H320 V602"/>
+<path class="edge" d="M540 560 V580 H408 V602"/>
+<path class="edge feedback" d="M22 523 H7 V47 H224"/>
+<path class="edge feedback" d="M706 523 H721 V47 H504"/>
+<rect class="node" x="224" y="12" width="280" height="70" rx="6"/>
+<text x="364" y="36">Координатор · Sol 6.1 xhigh</text><text class="small" x="364" y="56">Контракт и версии · методику проверяет Astra</text><text class="small" x="364" y="72">Очередь и разбор замечаний</text>
+<rect class="node" x="22" y="122" width="212" height="82" rx="6"/>
+<text x="128" y="148">Данные · Sol</text><text class="small" x="128" y="169">Рынки, конкуренты, парк</text><text class="small" x="128" y="187">Затраты и допущения</text>
+<rect class="node" x="258" y="122" width="212" height="82" rx="6"/>
+<text x="364" y="148">Расчётное ядро · Terra</text><text class="small" x="364" y="169">Общие правила и учёт</text><text class="small" x="364" y="187">Пригодные функции сохраняем</text>
+<rect class="node" x="494" y="122" width="212" height="82" rx="6"/>
+<text x="600" y="148">Каркас UI · Sol</text><text class="small" x="600" y="169">Четыре раздела</text><text class="small" x="600" y="187">Основа дашборда Насти</text>
+<rect class="node" x="22" y="246" width="212" height="82" rx="6"/>
+<text x="128" y="272">Сетевые программы · Sol</text><text class="small" x="128" y="293">Хабы и прямые на SJ</text><text class="small" x="128" y="311">Дополнительные варианты отдельно</text>
+<rect class="node" x="258" y="246" width="212" height="82" rx="6"/>
+<text x="364" y="272">Общее сравнение · Terra</text><text class="small" x="364" y="293">Месяцы, сценарии и ресурс</text><text class="small" x="364" y="311">Рост и финансирование</text>
+<rect class="node" x="494" y="246" width="212" height="82" rx="6"/>
+<text x="600" y="272">Стратегия и сервисы · Sol</text><text class="small" x="600" y="293">Весь бизнес и цель №2</text><text class="small" x="600" y="311">Цифровые эффекты</text>
+<rect class="node" x="224" y="370" width="280" height="70" rx="6"/>
+<text x="364" y="397">Интеграция · Sol</text><text class="small" x="364" y="418">Связанные результаты, источники и UI</text>
+<rect class="node" x="22" y="486" width="332" height="74" rx="6"/>
+<text x="188" y="513">Числа и источники · независимый Sol</text><text class="small" x="188" y="535">Начинает по готовности расчёта</text><text class="small" x="188" y="551">Не автор проверяемого ядра и результатов</text>
+<rect class="node" x="374" y="486" width="332" height="74" rx="6"/>
+<text x="540" y="513">Логика решения · Astra</text><text class="small" x="540" y="535">Альтернативы, №2, причинные основания</text><text class="small" x="540" y="551">Не автор проверяемых выводов</text>
+<rect class="node" x="224" y="602" width="280" height="70" rx="6"/>
+<text x="364" y="629">Приёмка · координатор Sol</text><text class="small" x="364" y="650">Требования кейса, замечания и UI</text><text class="small" x="364" y="666">Пакет команде</text>
+</svg>
+<ol class="mobile">
+<li><b>Координатор Sol</b> — контракт, версии и очередь. Astra проверяет методику.</li>
+<li><b>Параллельная подготовка:</b> Sol — данные; Terra — ядро; Sol — каркас UI.</li>
+<li><b>Sol</b> строит сетевые программы, стратегию №2 и цифровые предложения.</li>
+<li><b>Terra</b> выполняет совместное сравнение по месяцам и сценариям.</li>
+<li><b>Sol</b> соединяет результаты, источники и четыре раздела.</li>
+<li><b>Независимый Sol</b> проверяет расчёты по мере готовности. <b>Astra</b> проверяет логику итоговых выводов.</li>
+<li><b>Координатор</b> направляет конкретные замечания авторам; повторяются затронутые проверки.</li>
+<li><b>Координатор</b> принимает весь результат по требованиям кейса.</li>
+</ol>
+<div class="note">Пунктир — замечания координатору и ответственному автору. До четырёх дочерних агентов одновременно; слоты переходят между задачами.</div>
+</div>

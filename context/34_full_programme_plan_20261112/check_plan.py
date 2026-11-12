@@ -65,6 +65,20 @@ def main():
     assert all(r['lower'] is None and r['upper'] is None for r in rows), 'do not invent confidence bounds from scenario points'
     assert next(r for r in rows if r['assumption_id']=='OPEN-BASE_SETUP')['base_value'] is None
     assert 'assumptions_final.csv' in by_id['P17']['outputs']
+    policy=json.loads((BASE/'orchestration_policy.json').read_text())
+    assigned=[k for r in policy['roles'].values() for k in r['packages']]
+    assert set(assigned)==set(by_id)-{'P00'}
+    assert len(assigned)==len(set(assigned)), 'multiple role assignments'
+    assert policy['capacity']['max_active_children']==4
+    assert policy['dispatch']['mode']=='async'
+    assert by_id['P06']['target']['model']=='gpt-6.1-terra'
+    assert by_id['P09']['target']['model']=='gpt-6.1-terra'
+    assert by_id['P00R']['target']['model']=='gpt-6-astra'
+    assert by_id['P14']['target']['model']=='gpt-6-astra'
+    assert by_id['P13']['target']['model']=='gpt-6.1-sol'
+    assert by_id['P13']['independence']['fresh_agent']
+    assert 'P09' in by_id['P13']['independence']['must_not_be_author_of']
+    assert all(by_id[k]['target']['options']['reasoningEffort']=='xhigh' for k in assigned)
     assert len(spec['accepted']['sections']) == 4
     assert not any(spec['execution_boundary'].values())
     assert set(by_id['P09']['depends_on']) >= {'P02','P03','P04','P05','P06','P07','P08'}

@@ -272,8 +272,8 @@
     "worker_model": "gpt-6.1-sol",
     "effort": "xhigh",
     "review_model_proposal": [
-      "gpt-6-astra",
-      "gpt-6.1-terra"
+      "gpt-6.1-sol",
+      "gpt-6-astra"
     ],
     "model_availability": "verify via already-discovered orchestrator catalog and error rules at launch",
     "review_models_are_launch_proposal": true,
@@ -282,7 +282,119 @@
     "owner_boundaries": "one task directory per worker, coordinator integrates pinned blobs",
     "early_handoff": "versioned usable data tranches; dependencies do not wait for prose report",
     "dependency_semantics": "accepted_version_of_required_artifact; producer_report_need_not_be_finished; final_acceptance_uses_final_pinned_versions",
-    "new_review": "new_task_on_exact_subject_not_message_to_finished_child"
+    "new_review": "new_task_on_exact_subject_not_message_to_finished_child",
+    "policy_file": "orchestration_policy.json",
+    "worker_roles": {
+      "methods_review": {
+        "model": "gpt-6-astra",
+        "effort": "xhigh",
+        "packages": [
+          "P00R"
+        ],
+        "responsibility": "Check the mathematical and economic contract, units, comparison basis and minimal counterexamples before consequential common calculations."
+      },
+      "research_and_programmes": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P01",
+          "P02",
+          "P02I",
+          "P03",
+          "P04",
+          "P05",
+          "P07",
+          "P08",
+          "P08I",
+          "P10",
+          "P11"
+        ],
+        "responsibility": "Collect and qualify inputs, construct candidate programmes using the common engine, and maintain assumptions and sources."
+      },
+      "calculation_engine": {
+        "model": "gpt-6.1-terra",
+        "effort": "xhigh",
+        "packages": [
+          "P06",
+          "P09"
+        ],
+        "responsibility": "Implement the common engine, integrate accepted inputs, and compute compatible monthly programmes, scenarios and funding results."
+      },
+      "ui_and_delivery": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P12",
+          "P15",
+          "P17"
+        ],
+        "responsibility": "Maintain the dashboard candidate and connect pinned results to four sections, passport and reproducible delivery."
+      },
+      "independent_numerical_review": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P13"
+        ],
+        "fresh_agent": true,
+        "must_not_be_author_of": [
+          "P05",
+          "P06",
+          "P09"
+        ],
+        "responsibility": "Check source samples, calculations, common inventory, resource calendars and money bridges against pinned code/data; produce concrete counterexamples."
+      },
+      "decision_review": {
+        "model": "gpt-6-astra",
+        "effort": "xhigh",
+        "packages": [
+          "P14"
+        ],
+        "must_not_be_author_of": [
+          "P10",
+          "P11",
+          "P15"
+        ],
+        "responsibility": "Challenge causal claims, alternatives, uncertain assumptions, the whole-business bridge, digital effects and fidelity to the original case."
+      },
+      "final_case_and_ui_review": {
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh",
+        "packages": [
+          "P16"
+        ],
+        "fresh_agent": true,
+        "must_not_be_author_of": [
+          "P12",
+          "P15"
+        ],
+        "responsibility": "Check integrated requirements, actual UI states and provenance; the coordinator owns final acceptance."
+      }
+    },
+    "initial_dispatch": [
+      {
+        "slot": 1,
+        "package": "P00R",
+        "model": "gpt-6-astra"
+      },
+      {
+        "slot": 2,
+        "package": "P02",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "slot": 3,
+        "package": "P03",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "slot": 4,
+        "package": "P04",
+        "model": "gpt-6.1-sol"
+      }
+    ],
+    "launch_mode": "async",
+    "max_active_children": 4
   },
   "verification": {
     "automatic": [
