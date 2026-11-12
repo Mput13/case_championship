@@ -17,5 +17,5 @@ files=[]
 for path in sorted(P.rglob('*')):
     if not path.is_file() or path.name in ('output_manifest.json','handoff.json'):continue
     b=path.read_bytes();files.append(dict(path=str(path.relative_to(P)),sha256=hashlib.sha256(b).hexdigest(),bytes=len(b)))
-(P/'output_manifest.json').write_text(json.dumps(dict(version='P02-v1-seasonal-20261112',files=files,excluded_self_and_handoff=True),ensure_ascii=False,indent=2)+'\n')
+(P/'output_manifest.json').write_text(json.dumps(dict(version='P02-v2-seasonal-20261112',files=files,excluded_self_and_handoff=True),ensure_ascii=False,indent=2)+'\n')
 print('Manifest files',len(files))

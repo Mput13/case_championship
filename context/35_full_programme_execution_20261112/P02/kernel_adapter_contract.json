@@ -1,0 +1,37 @@
+{
+  "version": "P02-v2-seasonal-20261112",
+  "unknown_sentinel": "UNKNOWN",
+  "inputs": [
+    "market_coverage.csv",
+    "competitor_products.csv",
+    "calendar_inventory.csv",
+    "ordered_itineraries.csv",
+    "physical_adjacent_leg_candidates.csv",
+    "fare_panel.csv",
+    "competitor_responses.csv"
+  ],
+  "prohibited_inferences": [
+    "MOW as physical airport",
+    "no matched offer as no competitor/demand",
+    "scheduled nominal seats as open inventory",
+    "station-pair counts summed as physical network capacity",
+    "fare per leg for one through journey",
+    "single as_of cross-season quotes as pure season effect",
+    "winter fixture times52 as annual",
+    "annual airport segments as monthly endpointOD"
+  ],
+  "admission": {
+    "calendar": "source-specific published presence only;clock conflict blocks timing validation",
+    "seat_inventory": "not admitted without pinned future supply/physical-leg allocation",
+    "fares": "RW explicitfee20kg quotes admitted for their dated basket only;UT conditional until fee conditions resolved",
+    "future_2027_2028": "monthly scenario by coordinator,each parameter with assumption ID",
+    "market_coverage": "all markets retained;unknown not rejected"
+  },
+  "handback_to": [
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P02I"
+  ]
+}

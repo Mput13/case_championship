@@ -33,6 +33,25 @@ check('primary_RW_20kg_quote',len(rw)==1 and rw[0]['fare_rub']=='5200' and rw[0]
 uvt=[r for r in products if r['source_id']=='NEW_UVT_SCHEDULE' and r['carrier']=='RT' and r['flight']=='RT651']
 pairs={(r['origin'],r['destination']) for r in uvt}
 check('RT651_through_pattern_present',{('KZN','OMS'),('KZN','RMZ'),('RMZ','OMS')}<=pairs,str(sorted(pairs)))
+patterns=rows('ordered_itineraries.csv')
+check('RT581_direction_correction',all(r['ordered_airports']=='KZN;GOJ;CEK' for r in patterns if r['flight_number']=='RT581'),'Corrected route KZN→GOJ→CEK; no GOJ→KZN→CEK assumption.')
+fare=rows('fare_panel.csv')
+check('quote_lead_days',all(int(r['booking_lead_days'])==(dt.date.fromisoformat(r['departure_date'])-dt.date.fromisoformat(r['as_of'])).days for r in fare))
+check('seasonal_quote_dates_present',{'2026-12-08','2026-12-11','2027-01-12','2027-05-11','2027-07-13'}<={r['departure_date'] for r in fare})
+query=rows('query_outcomes.csv')
+check('no_offer_not_absence',all(r['absence_of_flight_established']=='false' and r['absence_of_market_established']=='false' for r in query))
+check('RW_summer_no_quote_not_zero_supply',not any(r['carrier']=='WZ' and r['departure_date'] in ['2027-05-11','2027-07-13'] for r in fare))
+check('inferred_source_year_flagged',all(r['year_status']=='INFERRED_CURRENT_WINTER_P02-A07' for r in products if 'P02-A07' in r['assumption_ids']))
+patch=rows('inputs/P00R_schema_patch.csv')
+for pid,name in [('SP03','alternatives_contract.csv'),('SP13','season_coverage.csv')]:
+    spec=next(r for r in patch if r['patch_id']==pid)
+    required=[x.strip() for x in spec['required_fields'].split(';')]
+    exported=rows(name)
+    check('schema_required_columns:'+pid,set(required)<=set(exported[0]),str(sorted(set(required)-set(exported[0]))))
+    keys=['offer_set_id','demand_pool_id','travel_date_or_period','customer_segment','product_id'] if pid=='SP03' else ['coverage_id']
+    check('schema_keys_unique:'+pid,len({tuple(r[k] for k in keys) for r in exported})==len(exported))
+check('SP03_no_imputed_netfare',all(r['net_fare']=='UNKNOWN' for r in rows('alternatives_contract.csv')))
+check('SP02_future_markets_not_fabricated',all(r['status'].startswith('NOT_ADMITTED') and r['potential_journeys']=='UNKNOWN' and r['demand_pool_id']=='UNKNOWN' for r in rows('market_binding_requests.csv')))
 # Minimal counterexample independent of builder: seats cannot be separately sold to every path.
 paths=[(1,0),(0,1),(1,1)]
 independent_pair_capacity=sum(1 for _ in paths)

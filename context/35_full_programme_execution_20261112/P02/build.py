@@ -4,7 +4,7 @@ from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent
 START, END = dt.date(2026, 11, 1), dt.date(2027, 10, 31)
-METHOD = 'P02-v1-seasonal-20261112'
+METHOD = 'P02-v2-seasonal-20261112'
 UNKNOWN = 'UNKNOWN'
 
 def read(name):
@@ -164,6 +164,14 @@ for r in products:
     try:r['booking_lead_days']=(date(r['departure_date'])-date(r['as_of'][:10])).days
     except (ValueError,TypeError):pass
     if r['row_grain']=='advertised_fare':r['booking_lead_days']=UNKNOWN
+    r['key']=r['product_id']
+    r['period']=r['departure_date'] or (r['valid_from']+'/'+r['valid_to'])
+    r['unit']='product;fare_RUB_per_journey;clock_local;nominal_seats_per_aircraft'
+    r['lower']=UNKNOWN;r['upper']=UNKNOWN
+    r['bounds_scope']='total_physical_open_seats_unmeasured;not_price_confidence_interval'
+    r['quoted_party_size']='1' if r['row_grain'].startswith('dated_primary') else UNKNOWN
+    r['year_status']='INFERRED_CURRENT_WINTER_P02-A07' if 'P02-A07' in r['assumption_ids'] else 'SOURCE_OR_PINNED_EXTRACT_DATE;see_source_locator'
+    r['temporal_acceptance']='conditional_source_year' if 'P02-A07' in r['assumption_ids'] else 'source_specific_only'
 
 # Calendar projection. Dedup carrier+number+endpoints+date; station pairs are NOT independent physical legs.
 cal=collections.defaultdict(list)
@@ -214,7 +222,7 @@ for (a,b),labels in sorted(scope.items()):
     gaps_list+=['complete_competitor_list','total_open_seats','monthly_endpoint_OD_2025_2026','2027_2028_supply_forecast']
     if len(covered_months)<12:gaps_list.append('uncovered_months:'+'|'.join(m for m in months if m not in covered_months))
     if not any(r['row_grain'].startswith('ground') for r in rs):gaps_list.append('ground_dated_product')
-    if not any('connection' in r['row_grain'] for r in rs):gaps_list.append('sellable_connection_on_same_date')
+    if not any(r['row_grain']=='dated_primary_connection_quote' and r['departure_date'] for r in rs):gaps_list.append('sellable_connection_on_same_date')
     coverage.append(dict(market_id=market(a,b),origin=a,destination=b,geography_kind='city_group_unresolved_airport' if 'MOW' in (a,b) else 'airport_pair',scope=';'.join(sorted(labels)),offer_observations=len(rs),dated_station_pair_instances=len(cs),carriers=';'.join(sorted({r['carrier'] for r in f})),rw_published_products=sum(r['carrier']=='WZ' for r in f),comparable_quote_count=len(quotes),schedule_months=';'.join(covered_months),source_ids=';'.join(sorted({r['source_id'] for r in rs})),coverage_status='PARTIAL_SOURCE_COVERAGE' if rs else 'UNCOVERED',complete_market='false',absence_proves_no_competitor='false',missing_fields=';'.join(gaps_list),assumption_ids='P02-A01;P02-A02;P02-A03;P02-A04;P02-A05',method_version=METHOD))
     for month in months:
         mc=[r for r in cs if r['departure_date'].startswith(month)]
@@ -240,5 +248,59 @@ jwrite('hypothesis_proposals.json',curated['hypotheses'])
 jwrite('company_dossiers.json',curated['dossiers'])
 jwrite('sources.json',list(sources.values()))
 write('historical_route_context.csv',[dict(market_id=market(r['origin'],r['destination']),**r,case='preserved_not_current_reverified') for c in ['UFA','GOJ','CEK','PEE','TJM'] for r in read(c+'_routes.csv')])
+write('historical_demand_context.csv',[dict(market_id=market(r['from_iata'],r['to_iata']),**r,status='preserved_observation_not_monthly_OD',monthly_disaggregation='UNKNOWN;not_annual_divided_by12',retrieved_at='preserved_in_author_commit',assumption_ids='P02-A01;P02-A05') for r in read('BASE_known_flows.csv')])
+history=[]
+for s in seeds:
+    for y in [2025,2026]:
+        for m in range(1,13 if y==2025 else 11):
+            history.append(dict(airport=s['iata'],month=f'{y}-{m:02}',airport_passengers=UNKNOWN,endpoint_OD=UNKNOWN,value_status='unknown',unit='airport_passengers_and_journeys_separate',source_id=UNKNOWN,dependency_id='P02-DEP-01',reason='No compatible monthly airport or endpoint-OD source in P02 frozen inputs; annual/partial known_flows not disaggregated; tourism_EMISS_not_air_OD',impact='Cannot calibrate route monthly seasonality or infer annual_growth from one week',refinement='P05/P01 supply pinned primary airport-month and route-month totals with direction/coverage; use sourced range/threshold if OD unavailable'))
+write('demand_history_coverage.csv',history)
+fare_panel=[]
+for r in products:
+    if not r['row_grain'].startswith('dated_primary'):continue
+    d=date(r['departure_date']);season='winter' if d.month in [12,1,2] else 'summer_peak' if d.month in [6,7,8] else 'shoulder_or_holiday_window'
+    fare_panel.append({k:r[k] for k in ['product_id','market_id','carrier','flight','departure_date','departure_local','fare_basis','fare_rub','baggage','fees_status','comparable_basket','as_of','booking_lead_days','source_id']}|dict(weekday_iso=d.isoweekday(),seasonal_window=season,selection_reason='Same SVX-UFA reference market;Tuesday and Friday;winter/postholiday/May/summerleadpanel',causal_season_effect_identified='false',history_price_reconstructed='false',assumption_ids='P02-A02;P02-A15'))
+write('fare_panel.csv',fare_panel)
+# Ordered source-pattern paths. Leg adjacency is a published-pattern interpretation, not an observed operation.
+patterns=[]
+for fl,nodes,days,lo,hi in [('RT651',['KZN','RMZ','OMS'],'4','2026-11-05','2026-12-31'),('RT581',['KZN','GOJ','CEK'],'4','2026-11-05','2026-12-31'),('RT581',['KZN','GOJ','CEK'],'7','2026-10-25','2026-12-27')]:
+    refs=[]
+    for a,b in zip(nodes,nodes[1:]):
+        refs.append([r['product_id'] for r in products if r['source_id']=='NEW_UVT_SCHEDULE' and r['flight']==fl and r['origin']==a and r['destination']==b and r['weekdays_iso']==days])
+    through=[r['product_id'] for r in products if r['source_id']=='NEW_UVT_SCHEDULE' and r['flight']==fl and r['origin']==nodes[0] and r['destination']==nodes[-1] and r['weekdays_iso']==days]
+    patterns.append(dict(itinerary_pattern_id='PAT-'+fl+'-'+days,market_id=market(nodes[0],nodes[-1]),ordered_airports=';'.join(nodes),ordered_leg_ids=';'.join('LEG:'+a+':'+b for a,b in zip(nodes,nodes[1:])),flight_number=fl,valid_from=lo,valid_to=hi,weekdays_iso=days,source_id='NEW_UVT_SCHEDULE',source_product_ids=';'.join(sorted(set(through+sum(refs,[])))),adjacency_status='published_station_clock_pattern;not_executed_proof',operating_marketing_status='source_UVT_RT_label;legal_split_UNKNOWN',aircraft_continuity=UNKNOWN,leg_sellability=UNKNOWN,through_sellability='published_schedule_only_no_dated_quote',physical_inventory_ids=UNKNOWN,nominal_seats_type='50;not_open_inventory',assumption_ids='P02-A06;P02-A11;P02-A12'))
+write('ordered_itineraries.csv',patterns)
+adjacent=[]
+for pat in patterns:
+    for ordinal,leg in enumerate(pat['ordered_leg_ids'].split(';'),1):
+        _,a,b=leg.split(':')
+        rr=[r for r in products if r['source_id']=='NEW_UVT_SCHEDULE' and r['flight']==pat['flight_number'] and r['origin']==a and r['destination']==b and r['weekdays_iso']==pat['weekdays_iso']]
+        adjacent.append(dict(candidate_leg_id=leg,pattern_id=pat['itinerary_pattern_id'],sequence=ordinal,origin=a,destination=b,carrier_source_label='RT',flight=pat['flight_number'],departure_local=';'.join(sorted({r['departure_local'] for r in rr})),arrival_local=';'.join(sorted({r['arrival_local'] for r in rr})),valid_from=pat['valid_from'],valid_to=pat['valid_to'],weekdays_iso=pat['weekdays_iso'],source_product_ids=';'.join(sorted({r['product_id'] for r in rr})),adjacency_status='inferred_adjacent_from_published_ordered_station_clocks;not_execution',arrival_date_status=UNKNOWN,legal_operating_carrier=UNKNOWN,marketing_carrier=UNKNOWN,aircraft_continuity=UNKNOWN,leg_sellability=UNKNOWN,open_seats=UNKNOWN,accepted_for_physical_capacity='false',assumption_ids='P02-A06;P02-A11;P02-A12'))
+write('physical_adjacent_leg_candidates.csv',adjacent)
+queries=[]
+for r in json.loads((ROOT/'evidence/RW_seasonal_quote_facts.json').read_text()):
+    queries.append(dict(query_id='Q-RW-SVX-UFA-'+r['date'],market_id='AIR:SVX:UFA',as_of='2026-11-12',departure_date=r['date'],booking_lead_days=(date(r['date'])-date('2026-11-12')).days,party_size=1,status=r.get('status','quoted_offer'),fare_rub=UNKNOWN if r.get('status')=='no_results' else r['prices'][1],absence_of_flight_established='false',absence_of_market_established='false',source_id='NEW_RW_QUOTE_'+r['date'].replace('-',''),assumption_ids='P02-A03;P02-A05;P02-A15'))
+write('query_outcomes.csv',queries)
+jwrite('kernel_adapter_contract.json',dict(version=METHOD,unknown_sentinel=UNKNOWN,inputs=['market_coverage.csv','competitor_products.csv','calendar_inventory.csv','ordered_itineraries.csv','physical_adjacent_leg_candidates.csv','fare_panel.csv','competitor_responses.csv'],prohibited_inferences=['MOW as physical airport','no matched offer as no competitor/demand','scheduled nominal seats as open inventory','station-pair counts summed as physical network capacity','fare per leg for one through journey','single as_of cross-season quotes as pure season effect','winter fixture times52 as annual','annual airport segments as monthly endpointOD'],admission=dict(calendar='source-specific published presence only;clock conflict blocks timing validation',seat_inventory='not admitted without pinned future supply/physical-leg allocation',fares='RW explicitfee20kg quotes admitted for their dated basket only;UT conditional until fee conditions resolved',future_2027_2028='monthly scenario by coordinator,each parameter with assumption ID',market_coverage='all markets retained;unknown not rejected'),handback_to=['P05','P06','P07','P08','P02I']))
+# SP03 is a source export. UNKNOWN demand-pool/segment/net fare is a hard admission dependency, never a synthetic pool.
+alternatives=[];season=[];product_months=collections.defaultdict(set)
+for c in calendar_rows:
+    for pid in c['source_product_ids'].split(';'):product_months[pid].add(c['departure_date'][:7])
+for r in products:
+    travel=r['departure_date'] or (r['valid_from']+'/'+r['valid_to'])
+    alternatives.append(dict(offer_set_id=METHOD,demand_pool_id=UNKNOWN,travel_date_or_period=travel,customer_segment='UNSEGMENTED_SOURCE_REFERENCE_NOT_CHOICE_SEGMENT',product_id=r['product_id'],market_id=r['market_id'],carrier=r['carrier'],operator=UNKNOWN,airport_pair=r['origin']+'>'+r['destination'] if 'MOW' not in [r['origin'],r['destination']] else UNKNOWN,gross_fare=r['fare_rub'],net_fare=UNKNOWN,currency='RUB',fare_basis=r['fare_basis'],baggage=r['baggage'],duration=r['elapsed_min_reported'],frequency='published_weekdays_ISO:'+r['weekdays_iso'] if r['weekdays_iso'] else 'one_dated_product' if r['departure_date'] else UNKNOWN,sellable_capacity=UNKNOWN,travel_period=travel,observed_at=r['as_of'],booking_lead_days=r['booking_lead_days'],sales_channel='official_airline_web_quote' if r['row_grain'].startswith('dated_primary') else 'source_timetable_or_announcement' if r['status']=='published_offer' else UNKNOWN,coverage=r['coverage'],availability_status=r['sellability'],response_policy_id='UNKNOWN_REQUIRES_COORDINATOR_P05_P06_POLICY',assumption_id=r['assumption_ids']+';P02-A16;P02-A17',source_id=r['source_id'],source_product_id=r['product_id'],fees_status=r['fees_status'],duration_unit='reported_source_format_not_normalized',row_grain=r['row_grain'],admission_status='SOURCE_ONLY_REQUIRES_DEMAND_POOL_SEGMENT_AND_FUTURE_CONTEXT_BINDING',market_basis=UNKNOWN,inventory_scope=r['open_seats_scope'],year_status=r['year_status']))
+    seen=sorted(product_months[r['product_id']] | ({r['departure_date'][:7]} if r['departure_date'] else set()))
+    season.append(dict(coverage_id='SC-'+r['product_id'],observation_period=travel,schedule_season='W26_27_INFERRED' if 'P02-A07' in r['assumption_ids'] else 'SOURCE_INTERVAL_NOT_ASSIGNED_WHOLE_SEASON',months_covered=';'.join(seen) or UNKNOWN,day_of_week=r['weekdays_iso'] or str(date(r['departure_date']).isoweekday()) if r['departure_date'] else r['weekdays_iso'] or UNKNOWN,booking_lead=r['booking_lead_days'],history_or_offer_or_forecast='published_offer_or_source_claim_NOT_forecast',gaps='full_year_and_history_incomplete;netfare;demand_pool;inventory;see_market_coverage',forecast_month=UNKNOWN,target_pair_count=UNKNOWN,target_count_status='PROGRAMME_TARGET_OWNED_BY_P09_NOT_ASSERTED_BY_P02',source_id=r['source_id'],assumption_id=r['assumption_ids']+';P02-A16',market_id=r['market_id'],product_id=r['product_id'],temporal_acceptance=r['temporal_acceptance']))
+for alt in alternatives:
+    raw=alt['duration'];alt['duration_raw']=raw
+    if re.fullmatch(r'\d+(?:\.\d+)?',raw):alt['duration']=raw
+    elif alt['source_id']=='UFA_schedule_rows.csv' and re.fullmatch(r'\d+:\d\d',raw):
+        h,m=map(int,raw.split(':'));alt['duration']=str(h*60+m)
+    else:alt['duration']=UNKNOWN
+    alt['duration_unit']='minutes;source_reported_not_operationally_verified'
+write('alternatives_contract.csv',alternatives)
+write('season_coverage.csv',season)
+write('market_binding_requests.csv',[dict(market_id=r['market_id'],origin_market=r['origin'],destination_market=r['destination'],direction='directed',market_basis=UNKNOWN,demand_pool_id=UNKNOWN,market_version='PENDING_P05',external_scenario_id='PENDING_COORDINATOR',forecast_period='2027-01..2028-12;monthly',customer_segment=UNKNOWN,potential_journeys=UNKNOWN,lower=UNKNOWN,upper=UNKNOWN,range_basis=UNKNOWN,source_id=UNKNOWN,source_period='history2025_available2026_required',as_of='2026-11-12',coverage=r['coverage_status'],status='NOT_ADMITTED_TO_SP02_UNTIL_POOL_DEFINITION_AND_DEMAND_INPUT',assumption_id='P02-A01;P02-A05;P02-A13;P02-A16') for r in coverage])
+jwrite('schema_adaptation.json',dict(contract_commit='b7d74e67dd6c603db049b1915b1afec987e3b458',contract_path='context/35_full_programme_execution_20261112/P00R/schema_patch.csv',accepted_via='coordinator current instruction',SP02=dict(export='market_binding_requests.csv',status='P05_REQUIRED;no_accepted_forecast_markets_rows_created',reason='Common demand_pool_id/catchment de-overlap,customersegment,potential_vs_realized_basis and monthly2027–2028 demand not established by P02; history separate'),SP03=dict(export='alternatives_contract.csv',key=['offer_set_id','demand_pool_id','travel_date_or_period','customer_segment','product_id'],status='SOURCE_EXPORT_NOT_ALLOCATION_READY',unknowns=['demand_pool_id','customer_segment_calibration','operator_legal_identity','net_fare','physical_sellable_capacity','response_policy_id'],response_policy='same response function forKEEP/project;actual response may differ with offered project;notforced_equal_actions'),SP13=dict(export='season_coverage.csv',status='PARTIAL_HISTORY_OFFER_COVERAGE;no_unfounded_forecast_or_target',programme_target='P09 owns end2028main_scenario8–12unique physicalairportpairs;P02setsnoarbitraryfinalistquota'),frozen_tranche=dict(commit='fb918c857c9fecd109e85b8d2c3e83ff22dce639',manifest_sha256='3958d48daac966f62f0a4c1364eba28645f4d5dc95d3d5778804ce36c2ec9326',preserved=True),new_version=METHOD))
 stats=dict(products=len(products),calendar_instances=len(calendar_rows),markets=len(coverage),partial_markets=sum(r['coverage_status']=='PARTIAL_SOURCE_COVERAGE' for r in coverage),uncovered_markets=sum(r['coverage_status']=='UNCOVERED' for r in coverage),cities=len(city_coverage),comparable_quotes=sum(r['comparable_basket']=='true' for r in products),clock_conflicts=sum(r['clock_conflict']=='true' for r in calendar_rows),calendar_start=str(START),calendar_end=str(END),monthly_coverage_rows=len(monthly),unique_direct_seeds=len({s.removesuffix(':reverse_required_not_inferred_offer') for r in coverage for s in r['scope'].split(';') if s.startswith('historical_direct:')}),future_factual_carryover=False,independent_review='NOT_PERFORMED_BY_AUTHOR')
 jwrite('build_summary.json',stats);print(json.dumps(stats,ensure_ascii=False))

@@ -1,17 +1,25 @@
 [
   {
     "hypothesis_id": "H-P02-01",
-    "version": "v1",
+    "version": "v2",
     "parent_ids": [
       "legacy_base_or_hub_UFA",
-      "existing_SVX_direct"
+      "existing_SVX_direct",
+      "H-P02-01@v1"
     ],
     "city_or_markets": [
       "AIR:SVX:UFA"
     ],
     "observed_signal_and_source_ids": [
       "NEW_RW_QUOTE",
-      "NEW_UT_QUOTE"
+      "NEW_UT_QUOTE",
+      "NEW_UT_QUOTE_20261211",
+      "NEW_UT_QUOTE_20270112",
+      "NEW_UT_QUOTE_20270511",
+      "NEW_UT_QUOTE_20270713",
+      "NEW_RW_QUOTE_20270112",
+      "NEW_RW_QUOTE_20270511",
+      "NEW_RW_QUOTE_20270713"
     ],
     "claim_and_mechanism": "НишаRWопределяется ценой20kg/временем/днями; SSJилиблизостькSVXсами по себе неотказ.",
     "counterfactual": "KEEPexistingRW+UTsameperiod;newfrequencywithavailablefleet",
@@ -26,19 +34,22 @@
       "aircraftresource"
     ],
     "status": "PROPOSED_TO_COORDINATOR_NOT_PROGRAMME_RESULT",
-    "result_scope": "OneNov12quoteas_of_forDec8;noannualinference"
+    "result_scope": "OneNov12quoteas_of_forDec8;noannualinference",
+    "revision_reason": "Added DecFriday,JanTuesday,MayTuesday,JulyTuesday quotes and explicit no-offer outcomes; season and booking lead not separately identified."
   },
   {
     "hypothesis_id": "H-P02-02",
-    "version": "v1",
+    "version": "v2",
     "parent_ids": [
       "legacy_KZN",
       "legacy_OMS",
       "legacy_GOJ",
-      "legacy_CEK"
+      "legacy_CEK",
+      "H-P02-02@v1"
     ],
     "city_or_markets": [
       "AIR:KZN:OMS",
+      "AIR:KZN:CEK",
       "AIR:GOJ:CEK"
     ],
     "observed_signal_and_source_ids": [
@@ -58,7 +69,8 @@
       "throughconditions"
     ],
     "status": "REGISTERED_BY_COORDINATOR_PER_USER_UPDATE;NO_ECONOMIC_VERDICT",
-    "result_scope": "Sourcepatternconfirmed;routingsnotalllegsalability"
+    "result_scope": "Sourcepatternconfirmed;routingsnotalllegsalability",
+    "revision_reason": "Corrected RT581 routing to KZN→GOJ→CEK; RT651 KZN→RMZ→OMS unchanged; frozen first tranche preserved bySHA."
   },
   {
     "hypothesis_id": "H-P02-03",

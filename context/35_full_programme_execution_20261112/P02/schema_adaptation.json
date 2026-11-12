@@ -1,0 +1,41 @@
+{
+  "contract_commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+  "contract_path": "context/35_full_programme_execution_20261112/P00R/schema_patch.csv",
+  "accepted_via": "coordinator current instruction",
+  "SP02": {
+    "export": "market_binding_requests.csv",
+    "status": "P05_REQUIRED;no_accepted_forecast_markets_rows_created",
+    "reason": "Common demand_pool_id/catchment de-overlap,customersegment,potential_vs_realized_basis and monthly2027–2028 demand not established by P02; history separate"
+  },
+  "SP03": {
+    "export": "alternatives_contract.csv",
+    "key": [
+      "offer_set_id",
+      "demand_pool_id",
+      "travel_date_or_period",
+      "customer_segment",
+      "product_id"
+    ],
+    "status": "SOURCE_EXPORT_NOT_ALLOCATION_READY",
+    "unknowns": [
+      "demand_pool_id",
+      "customer_segment_calibration",
+      "operator_legal_identity",
+      "net_fare",
+      "physical_sellable_capacity",
+      "response_policy_id"
+    ],
+    "response_policy": "same response function forKEEP/project;actual response may differ with offered project;notforced_equal_actions"
+  },
+  "SP13": {
+    "export": "season_coverage.csv",
+    "status": "PARTIAL_HISTORY_OFFER_COVERAGE;no_unfounded_forecast_or_target",
+    "programme_target": "P09 owns end2028main_scenario8–12unique physicalairportpairs;P02setsnoarbitraryfinalistquota"
+  },
+  "frozen_tranche": {
+    "commit": "fb918c857c9fecd109e85b8d2c3e83ff22dce639",
+    "manifest_sha256": "3958d48daac966f62f0a4c1364eba28645f4d5dc95d3d5778804ce36c2ec9326",
+    "preserved": true
+  },
+  "new_version": "P02-v2-seasonal-20261112"
+}
