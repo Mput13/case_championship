@@ -1,0 +1,18 @@
+check,status,evidence
+"protected content hashes, independent of HEAD and tracked count",PASS,"{'count': 1002, 'changed': []}"
+manifest inputs,PASS,[]
+manifest outputs,PASS,[]
+all annual CSV totals from twelve actual months and joint P minus KEEP,PASS,"{'annual_rows': 200, 'errors': []}"
+NS and unknown losses/cash remain explicit,PASS,No missing loss converted to zero
+passenger stress applied once to journey delta,PASS,Separate from base known cost and P05 net fare; nonoverlap assumption required
+nonempty identical KEEP across programmes,PASS,"[('D1_FOCUS', '624'), ('D1_FOCUS', '624'), ('D1_FOCUS', '624'), ('D1_FOCUS', '624'), ('D2_SEASONAL', '624')]"
+E0 S0 has no operations or incremental result,PASS,Reserve alone creates no flying capacity
+identical resource calendar P KEEP and one separate reserve in requests,PASS,[]
+"all dated legs durations, continuity, 60min turns, closed cycles, entry and reserve",PASS,"{'flights': 56306, 'rotations': 24326, 'errors': []}"
+leap and full dated D1 years,PASS,730 / 732 legs
+N(t) independently from entry dates on every resource day,PASS,"{'days': 27047, 'errors': 0}"
+"real transfer uses both dated legs, either zero seat kills journey",PASS,"{'product': 'HUB:HUB_OMS_RESOURCE_MATCHED/0/2027-01/BANK1/2027-01-04/3>HUB_OMS_RESOURCE_MATCHED/0/2027-01/BANK1/2027-01-04/4', 'carried': 4.563497189440279, 'zero_leg_results': [0.0, 0.0]}"
+eight full horizon API repeats reproduce control CSV,PASS,[]
+independent shared seats OD conservation once-only fares and per-leg cost ledger,PASS,[]
+author outputs unchanged by review,PASS,70
+protected files unchanged after API,PASS,1002
