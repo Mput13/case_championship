@@ -20,6 +20,9 @@ MOW_AIRPORTS = set(_B[_B.node == "MOW"].iata)
 BASES = list(dict.fromkeys(_B.node))
 _LP = pd.read_csv(ROOT / "data/assumptions/longlist_params.csv").set_index("parameter").value
 RAIL_OK_HR, CATCH_KM, MIN_DIST_KM = float(_LP["rail_ok_hr"]), float(_LP["catchment_km"]), float(_LP["min_dist_bases_km"])
+# лонглист команды: 20 городов, пассажиропоток 2025 и ссылки на источники в колонках *_source_url.
+# Копия context/07_verification/terra_cities_review/corrected_cities.csv (коммит cdefb6b, 07.11.2026), перенесена 13.11.2026.
+CITIES = ROOT / "data/manual/longlist_cities.csv"
 
 
 def is_south(region):

@@ -4,8 +4,8 @@
   Сайт Росстата закрыт от программ, поэтому берём копию файла в Internet Archive (коллекция rosstat-november-2025).
   Это зеркало: SHA-256 файла пишется в журнал, сверку с сайтом Росстата делает человек.
 - «Если быть точным»: населённые пункты России (перепись 2021, координаты, все размеры), v20240326, CC BY 4.0.
-- «Если быть точным» / Росстат БДМО: средняя зарплата и среднегодовое население по муниципалитетам, v20260928.
-- «Если быть точным» / Росстат «Регионы России»: туризм (06) и уровень жизни (03), v20260313.
+- «Если быть точным» / Росстат БДМО: средняя зарплата по муниципалитетам, v20260928.
+  Население БДМО и «Регионы России» (туризм, уровень жизни) убраны 13.11.2026: модель их не читала.
 
 Выход: data/raw/social/ (zip распакованы в одноимённые папки), data/raw/social/_sha256.csv
 Запуск: python src/fetch_social.py
@@ -25,9 +25,6 @@ FILES = {
     "rosstat_mo_2025.xlsx": "https://archive.org/download/rosstat-november-2025/%D0%A1hisl_MO_01-01-2025.xlsx",
     "tochno_settlements.zip": T + "data_settlements_115_v20240326/data_settlements_115_v20240326_csv.zip",
     "bdmo_wages.zip": T + "data_bdmo_118_v20260928/indicators/section41/data_Y48213002_112_v20260928.zip",
-    "bdmo_population.zip": T + "data_bdmo_118_v20260928/indicators/section41/data_Y48112013_112_v20260928.zip",
-    "regions_tourism.zip": T + "data_regions_collection_102_v20260313/data_06_socio_economic_102_v20260313.zip",
-    "regions_living.zip": T + "data_regions_collection_102_v20260313/data_03_socio_economic_102_v20260313.zip",
 }
 
 

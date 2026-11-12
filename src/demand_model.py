@@ -130,7 +130,7 @@ def main():
     kf.loc[low, "model"] = np.exp(predict(beta, F.loc[low, FEATS].values)).round()
 
     # все пары, где на одном конце кандидат в хаб или база
-    cand = set(pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").iata) | BASES
+    cand = set(pd.read_csv(rules.CITIES).iata) | BASES
     known = {(r.from_iata, r.to_iata): r for r in kf.itertuples()}
     known.update({(b, a): r for (a, b), r in list(known.items())})
     out = []

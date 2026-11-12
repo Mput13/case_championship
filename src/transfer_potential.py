@@ -16,6 +16,8 @@ from pathlib import Path
 
 import pandas as pd
 
+import rules
+
 import network_model as nm
 from airports_meta import CLOSED, NAME
 
@@ -27,7 +29,7 @@ def main():
     A = nm.load_assumptions()["base"]
     D = nm.Demand()
     nodes = [x for x in D.n.index if x not in CLOSED]
-    cand = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").iata
+    cand = pd.read_csv(rules.CITIES).iata
     cname = lambda x: NAME.get(x, D.n.loc[x, "main_city"])
     rows = []
     for H in cand:

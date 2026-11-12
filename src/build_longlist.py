@@ -1,7 +1,7 @@
 """Собирает лонглист: одна строка на город, все критерии, у каждого — источник.
 
 Вход:
-  context/07_verification/terra_cities_review/corrected_cities.csv — пассажиропоток 2025 (команда)
+  data/manual/longlist_cities.csv — пассажиропоток 2025 (команда)
   data/processed/longlist_computed.csv — src/longlist_data.py
   data/processed/kover_days.csv        — src/kover_days.py
   data/manual/longlist_manual.csv      — ручные данные со ссылками
@@ -12,6 +12,8 @@
 from pathlib import Path
 
 import pandas as pd
+
+import rules
 
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data" / "processed"
@@ -53,7 +55,7 @@ def set_font(path):
 
 
 def main():
-    c = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv")
+    c = pd.read_csv(rules.CITIES)
     c = c[["city", "iata", "pax_2025", "pax_2025_qualifier", "pax_source_url"]].copy()
     # в источнике только «более N» — берём N как нижнюю границу (data/manual/pax_2025_overrides.csv)
     for r in pd.read_csv(ROOT / "data/manual/pax_2025_overrides.csv").itertuples():

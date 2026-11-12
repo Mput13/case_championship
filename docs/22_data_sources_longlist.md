@@ -64,7 +64,7 @@
 
 ```
 py -3.13 src/fetch_static.py      # справочники OurAirports и «Точно»
-py -3.13 src/fetch_social.py      # население 2025, населённые пункты, зарплаты, туризм
+py -3.13 src/fetch_social.py      # население 2025, населённые пункты, зарплаты
 py -3.13 src/fetch_weather.py     # погода NOAA 2023–2024 по аэропортам
 py -3.13 src/fetch_kover.py --since 2024-11-01   # канал Росавиации, ~25 мин
 # py -3.13 src/fetch_kover.py --rebuild --since 2024-11-01   # перекачать всё заново (после смены версии парсера)

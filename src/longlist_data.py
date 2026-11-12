@@ -4,7 +4,7 @@
   data/raw/ourairports_airports.csv, ourairports_runways.csv  — OurAirports, Public Domain
   data/raw/tochno_intercity/*.csv  — «Если быть точным», транспортная связность 180 городов,
                                      v2026-06-29, CC BY 4.0
-  context/07_verification/terra_cities_review/corrected_cities.csv — лонглист команды (20 городов)
+  data/manual/longlist_cities.csv — лонглист команды (20 городов)
 
 Что считает по каждому городу-кандидату:
   catchment_pop      — население городов >100 тыс. из списка «Точно» в радиусе 75 км от аэропорта
@@ -38,7 +38,7 @@ from airports_meta import CLOSED, NAME
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "processed" / "longlist_computed.csv"
-CITIES = ROOT / "context" / "07_verification" / "terra_cities_review" / "corrected_cities.csv"
+from rules import CITIES  # лонглист команды, data/manual/longlist_cities.csv
 TOCHNO = RAW / "tochno_intercity" / "data_intercity_connectivity_162_v20260629.csv"
 
 from rules import GREEN, GREEN_SOUTH, SOUTH_WEST  # пороги и регионы — data/assumptions/range.csv, south_west_regions.csv

@@ -89,6 +89,14 @@ def research(nodes):
         out["thr"] = [{"case": r.competition_scenario_id, "year": int(r.year), "pax": float(r.threshold_reported_pax),
                        "carrier": r.threshold_carrier_under_condition, "growth": float(r.market_annual_growth_condition)}
                       for r in th.itertuples()]
+    if (C / "p34_triangle_shuttle_controls.csv").exists():
+        out["tri_ctl"] = [{"id": r.programme, "label": r.label, "scen": r.scenario, "v": float(r.delta_vs_keep_mln_month)}
+                          for r in pd.read_csv(C / "p34_triangle_shuttle_controls.csv").itertuples()]
+    if (C / "p36_new_pairs.csv").exists():
+        out["new_pairs"] = [{"pair": r.pair, "path": r.path, "base": float(r.base_mln_month), "cau": float(r.cautious_mln_month),
+                             "comp": r.competitor} for r in pd.read_csv(C / "p36_new_pairs.csv").itertuples()]
+        out["p36_prog"] = [{"name": r.programme, "scen": r.scenario, "new": float(r.new_flights_only)}
+                           for r in pd.read_csv(C / "p36_programmes.csv").itertuples()]
     ex = ROOT / "data/manual/expert_notes.json"
     if ex.exists():
         out["expert"] = json.loads(ex.read_text(encoding="utf-8"))

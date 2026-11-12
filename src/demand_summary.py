@@ -30,7 +30,7 @@ def main():
     dest["to"] = dest["to"].where(~dest["to"].isin(MOW), "MOW")
     dest = dest.sort_values("direct", ascending=False).drop_duplicates(["from", "to"])
     dest = dest[dest.in_ssj]
-    ll = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").set_index("iata")
+    ll = pd.read_csv(rules.CITIES).set_index("iata")
     spokes = []
     for r in dest.itertuples():
         if (r._1, r.to) not in both.index:

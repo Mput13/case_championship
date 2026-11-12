@@ -28,6 +28,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import rules
+
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
 P = ROOT / "data" / "processed"
@@ -192,7 +194,7 @@ def main():
     out["source"] = ("«Если быть точным»: населённые пункты (ВПН-2021) v20240326 и БДМО v20260928 (зарплата 2024); "
                      "Росстат, население МО на 01.01.2025 (копия Internet Archive); NOAA ISD-Lite 2023–2024")
     out.to_csv(P / "catchment_extra.csv", index=False, encoding="utf-8")
-    ll = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv")[["iata", "city"]]
+    ll = pd.read_csv(rules.CITIES)[["iata", "city"]]
     show = ll.merge(out, on="iata", how="left").merge(cat[["iata", "pop"]], on="iata", how="left")
     pd.set_option("display.width", 250)
     print(show.drop(columns="source").to_string(index=False))
