@@ -1,0 +1,27 @@
+{
+  "status": "P06-owned field adapter bound to pinned early interface; complete bundle acceptance NOT_RUN",
+  "pinned_method_contract": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+  "pinned_P06_interface": "bc70308fe091c5767dbf26b02d06a7d750a65614",
+  "P06_interface_manifest_sha256": "bd167207beb3c59e4a3339f35922c277eac55f2adcbf501a6b056108165dd087",
+  "preferred_P06_input": "p06_producer_fragments.json; branches[name].project/keep contain owned fields only",
+  "tables": [
+    "flights SP04",
+    "fleet_calendar SP07",
+    "assignments SP07",
+    "keep_policies SP08",
+    "prior_task_refs",
+    "committed_payment_refs",
+    "opportunity_refs"
+  ],
+  "intervals": "Canonical event intervals are half-open UTC; P06 aircraft objects have available_from/to, explicit transfer/service entry and initial position. Counts remain shared scenario stock, not additive daily arrivals.",
+  "identity": "Anonymous explicit scenario aircraft_id, equivalent to cohort size1; never real aircraft registrations. No actual tail data provided.",
+  "field_states": "null numeric unknown plus explicit dependencies. Canonical count is selected conditional capacity; actual_available_count remains null.",
+  "maintenance_crew": "P06 maintenance_intervals and crew_windows stay null; assignment crew_id null. They are not filled with toy windows or empty maintenance arrays. check_operations must retain CONDITIONAL.",
+  "assignment_status": "Proposed in P; actual future KEEP flight assignments missing, not empty business.",
+  "same_resource_policy": "Each P and KEEP pair shares the exact fleet_calendar, keep_policy and committed_payment_refs. Alternative use/prices unresolved; no additional donor deduction after P-KEEP.",
+  "investment_policy": "Acquiring a different fleet only in P requires a separately named investment/no-acquisition context.",
+  "primary_key": "P06 fleet aircraft_id; assignment flight_instance_id; flights flight_instance_id; P and KEEP are separate evaluation contexts.",
+  "temporal_template": "60 directed dated adjacent flights,8physicalpairs,23aircraftdays,4anonymousworkingunits; one separate reserve; demand/crew/MRO/airport/financial gates unresolved.",
+  "legacy_uua": "UUA remains archived airport-code input; source city-label/airport/type suitability must be verified. No city or airport substitution performed.",
+  "integration_trigger": "Merge genuine P04/P05/P07 contributions; do not call complete financial evaluate/compare on this partial producer fragment."
+}
