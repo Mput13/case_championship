@@ -1,0 +1,3 @@
+# Handoff P36 pass2
+
+Локальный пакет завершён. Финалисты: C0121799, X_SVX_IKT, X_SVX_KJA. Запуск НЕ доказан, fullPnL/cash=NULL. Читать README, three_state_comparison, thresholds и operational_gates. Проверены36pass1 плюс boundedleaders/mandatoryclosedpaths, не новый глобальный поиск. No-update canonical admission сохранён; старые результаты и1418protected не менялись. validation.json содержит фактические результаты запуска/повтора/fixtures, не dispatch. Далее адресная независимая рецензия может проверить адаптер exactevents, two-leg through scenario, fixedcrew avoidability, лучшие WITHOUT_NEW и неизвестные C/D/F/ownshift. Работа окончена, STOP; рецензента не ждём.

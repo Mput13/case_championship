@@ -1,0 +1,302 @@
+{
+  "actions": [
+    "INSERT",
+    "MOVE-180",
+    "MOVE-120",
+    "MOVE-60",
+    "MOVE-30",
+    "MOVE+30",
+    "MOVE+60",
+    "MOVE+120",
+    "MOVE+180",
+    "REMOVE1",
+    "REMOVE2",
+    "REMOVE3",
+    "MIN_CLOSURE",
+    "ALL_AFFECTED",
+    "SWAP"
+  ],
+  "actions_apply_to": "every unique config and applicable setup; unavailable/blocked recorded, no finance pruning of physical checks",
+  "airports": [
+    "SVX",
+    "ZIA",
+    "DME",
+    "KUF",
+    "UFA",
+    "CEK",
+    "TJM",
+    "OMS",
+    "PEE",
+    "GOJ",
+    "KJA",
+    "TOF",
+    "MRV",
+    "AER",
+    "REN",
+    "IKT"
+  ],
+  "allowed_directed_graph": {
+    "AER": [
+      "OMS",
+      "TJM",
+      "SVX",
+      "CEK",
+      "PEE",
+      "UFA",
+      "REN",
+      "GOJ"
+    ],
+    "CEK": [
+      "IKT",
+      "AER",
+      "KJA",
+      "MRV",
+      "TOF",
+      "GOJ",
+      "DME",
+      "ZIA"
+    ],
+    "DME": [
+      "KJA",
+      "TOF",
+      "OMS",
+      "TJM",
+      "CEK",
+      "SVX",
+      "AER",
+      "MRV"
+    ],
+    "GOJ": [
+      "KJA",
+      "TOF",
+      "OMS",
+      "AER",
+      "MRV",
+      "TJM",
+      "CEK",
+      "SVX"
+    ],
+    "IKT": [
+      "REN",
+      "UFA",
+      "PEE",
+      "SVX",
+      "CEK",
+      "TJM",
+      "OMS",
+      "TOF"
+    ],
+    "KJA": [
+      "GOJ",
+      "KUF",
+      "REN",
+      "DME",
+      "ZIA",
+      "UFA",
+      "PEE",
+      "CEK"
+    ],
+    "KUF": [
+      "KJA",
+      "TOF",
+      "OMS",
+      "AER",
+      "MRV",
+      "TJM",
+      "CEK",
+      "SVX"
+    ],
+    "MRV": [
+      "TOF",
+      "OMS",
+      "TJM",
+      "SVX",
+      "CEK",
+      "PEE",
+      "UFA",
+      "GOJ"
+    ],
+    "OMS": [
+      "AER",
+      "MRV",
+      "IKT",
+      "GOJ",
+      "DME",
+      "ZIA",
+      "KUF",
+      "REN"
+    ],
+    "PEE": [
+      "IKT",
+      "KJA",
+      "AER",
+      "MRV",
+      "TOF",
+      "OMS",
+      "GOJ",
+      "DME"
+    ],
+    "REN": [
+      "IKT",
+      "KJA",
+      "TOF",
+      "AER",
+      "MRV",
+      "OMS",
+      "GOJ",
+      "TJM"
+    ],
+    "SVX": [
+      "IKT",
+      "AER",
+      "KJA",
+      "MRV",
+      "TOF",
+      "GOJ",
+      "DME",
+      "ZIA"
+    ],
+    "TJM": [
+      "IKT",
+      "AER",
+      "MRV",
+      "KJA",
+      "GOJ",
+      "TOF",
+      "DME",
+      "ZIA"
+    ],
+    "TOF": [
+      "MRV",
+      "GOJ",
+      "KUF",
+      "DME",
+      "ZIA",
+      "REN",
+      "UFA",
+      "PEE"
+    ],
+    "UFA": [
+      "IKT",
+      "KJA",
+      "TOF",
+      "AER",
+      "MRV",
+      "OMS",
+      "GOJ",
+      "DME"
+    ],
+    "ZIA": [
+      "KJA",
+      "TOF",
+      "OMS",
+      "TJM",
+      "CEK",
+      "SVX",
+      "AER",
+      "MRV"
+    ]
+  },
+  "candidate_action_attempts": 480240,
+  "category_beam": "all admissible RT and2 concat RT/base; cap leader+shortest, each reverse for triangle/4/5/6; shortest cycle/base/family also overnight variant",
+  "cycle_rule": "simple physical cycles3..6; both orientations retained for category beams; CONCAT_RT explicitly repeated base; no a->a leg",
+  "duplicates": "identical weekday sets deduplicated, especially freq7 seven seeds -> one; no missing weekday",
+  "extra_airports_added": [],
+  "frequencies": [
+    1,
+    2,
+    3,
+    5,
+    7
+  ],
+  "frequency_day_offsets": {
+    "1": [
+      0
+    ],
+    "2": [
+      0,
+      3
+    ],
+    "3": [
+      0,
+      2,
+      4
+    ],
+    "5": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "7": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "gated_queue": [
+    "VVO",
+    "KHV"
+  ],
+  "global_optimum": false,
+  "graph_rule": "all distinct physical/city nodes, degree8 ranked optimistic base cap for expansion; all base RTs checked independently of degree; no DME-ZIA own-city service",
+  "max_leg_minutes": 330,
+  "max_legs": 6,
+  "month_end": "all legs constructed; any completion outside Feb UTC availability rejected, never truncated",
+  "move_rule": "one lexically first conflicting weekly job, offsets +/-30/60/120/180; all4 dated occurrences; other subsets NOT_SEARCHED",
+  "overnight": "after middle leg to next local06 with >=8h ground; paid cost UNKNOWN; not crew-rest approval",
+  "p31_weekday_mapping": "ISO minus1, 0..6 only at RE calendar boundary",
+  "partial_beam_cap_per_base_depth": 24,
+  "partial_expansions": 1473,
+  "path_proposals": 1521,
+  "period": [
+    "2027-02-01",
+    "2027-02-28"
+  ],
+  "pruning": "finite node/block/degree/beam bounds only, finance cap diagnoses and ranks but does not assert global optimality",
+  "removal_rule": "remove only conflicts; no extra negative donor manufactured; min closure equals ALL_AFFECTED for independent closed old jobs; not arbitrary powerset",
+  "repeat_weeks": 4,
+  "score": "standalone P05 monthly pool+P04 avoidable transfer for each path/freq, common base/cautious fleet/dates; thin rows reference economic_id; analytic3way shortlist only",
+  "searched_configs": 11948,
+  "searched_paths": 103,
+  "start_day_seeds": 7,
+  "start_hours_local": [
+    6,
+    10,
+    14,
+    20
+  ],
+  "starts": [
+    "SVX",
+    "ZIA",
+    "DME"
+  ],
+  "swap_rule": "one conflicting whole job + one compatible whole job other tail, all4 occurrences; same SVX rendezvous; first physical pair; other swaps/ferry-assisted crossbase queue",
+  "time_status": "SCENARIO; no measured WTP/slot and no time revenue premium",
+  "unsearched": [
+    "all simple paths outside degree8/beam24/category beam",
+    "arbitrary day subsets not the five rotating patterns",
+    "mixed paths and different clocks within a weekly candidate",
+    "new jobs split over working tails",
+    "multi-job retiming combinatorics",
+    "ferry-assisted crossbase swaps",
+    "other initial bases",
+    "stress turn90/holds/final crew/AFM gates",
+    "joint P06 final market choice with completed P36 research",
+    "other months and deliveries operational integration"
+  ],
+  "weekdays_iso": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ]
+}

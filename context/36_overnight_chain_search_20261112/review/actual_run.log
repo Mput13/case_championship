@@ -1,0 +1,88 @@
+FAIL protected_1418_and_completed_sources_before AssertionError('context/36_overnight_chain_search_20261112/delegation.local.json')
+Traceback (most recent call last):
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 20, in test
+    try:fn();checks[name]='PASS';print('PASS',name,flush=True)
+        ~~^^
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 28, in unchanged
+    for f,h in guards.items():assert sha(ROOT/f)==h,f
+                                     ^^^^^^^^^^^^^^
+AssertionError: context/36_overnight_chain_search_20261112/delegation.local.json
+PASS all_six_state_scenario_ledgers_per_candidate_OD_frequency_seat_incidence_one_fare
+PASS same_park_old_IDs_no_double_donor_157_bounded_removals
+PASS cost_units_fixedcrew_excluded_238_cautious_bounds
+PASS all_final3_calendar_local_UTC_60turn_8BH_week_month_wrap
+PASS delay_recurrence_30_60_120_turn90_no_midnight_reset
+ API C0121799 base REPLACE 18160341.67215486
+ API C0121799 cautious REPLACE -92415831.4210408
+ API X_SVX_IKT base REPLACE -17568850.314854465
+ API X_SVX_IKT cautious REPLACE -96810304.36386617
+ API X_SVX_KJA base REPLACE -17591120.682262503
+ API X_SVX_KJA cautious REPLACE -93584756.81016994
+ API C0121723 base WITHOUT_NEW -2077084.275968954
+ API C0163363 cautious WITHOUT_NEW -22502502.605168127
+PASS eight_pure_API_recalculations
+PASS direct_only_reversal_AER_q_fare_crossings_all_alternatives_shared_MOW
+PASS resource_entry_market_no_update_CONCAT_RT_label
+FAIL protected_and_all_inputs_after AssertionError('context/36_overnight_chain_search_20261112/delegation.local.json')
+Traceback (most recent call last):
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 20, in test
+    try:fn();checks[name]='PASS';print('PASS',name,flush=True)
+        ~~^^
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 28, in unchanged
+    for f,h in guards.items():assert sha(ROOT/f)==h,f
+                                     ^^^^^^^^^^^^^^
+AssertionError: context/36_overnight_chain_search_20261112/delegation.local.json
+FINAL FAIL
+Preexisting manifest mismatches: {"context/36_overnight_chain_search_20261112/delegation.local.json": {"pinned": "98f1e753dcdf5ed734c4be76a7bb91f13536c515885ec939b1b283127b664269", "review_start": "05e497e81630524969ce1aaeed74ea8529ec7cb6545b242519702fd21583ba49"}}
+PASS protected_1418_and_completed_sources_before
+PASS all_six_state_scenario_ledgers_per_candidate_OD_frequency_seat_incidence_one_fare
+PASS same_park_old_IDs_no_double_donor_157_bounded_removals
+FAIL cost_units_fixedcrew_excluded_238_cautious_bounds AssertionError((3.225, '2.9125', 1e-05))
+Traceback (most recent call last):
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 20, in test
+    try:fn();checks[name]='PASS';print('PASS',name,flush=True)
+        ~~^^
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 106, in costs
+    close(burn,r['fuel_t'],.00001)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/36_overnight_chain_search_20261112/review/checks.py", line 16, in close
+    def close(a,b,tol=.02):assert abs(float(a)-float(b))<=tol,(a,b,tol)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (3.225, '2.9125', 1e-05)
+PASS all_final3_calendar_local_UTC_60turn_8BH_week_month_wrap
+PASS delay_recurrence_30_60_120_turn90_no_midnight_reset
+ API C0121799 base REPLACE 18160341.67215486
+ API C0121799 cautious REPLACE -92415831.4210408
+ API X_SVX_IKT base REPLACE -17568850.314854465
+ API X_SVX_IKT cautious REPLACE -96810304.36386617
+ API X_SVX_KJA base REPLACE -17591120.682262503
+ API X_SVX_KJA cautious REPLACE -93584756.81016994
+ API C0121723 base WITHOUT_NEW -2077084.275968954
+ API C0163363 cautious WITHOUT_NEW -22502502.605168127
+PASS eight_pure_API_recalculations
+PASS direct_only_reversal_AER_q_fare_crossings_all_alternatives_shared_MOW
+PASS resource_entry_market_no_update_CONCAT_RT_label
+PASS protected_and_all_inputs_after
+FINAL FAIL
+
+REVIEW FIXTURE CORRECTION: base burn must use pinned 1.55 t/BH +0.2 t/cycle, not reviewer initial guessed 1.7+.25. Production unchanged. Metadata exception is preexisting delegation.local.json only. Final corrected execution follows.
+Preexisting manifest mismatches: {"context/36_overnight_chain_search_20261112/delegation.local.json": {"pinned": "98f1e753dcdf5ed734c4be76a7bb91f13536c515885ec939b1b283127b664269", "review_start": "05e497e81630524969ce1aaeed74ea8529ec7cb6545b242519702fd21583ba49"}}
+PASS protected_1418_and_completed_sources_before
+PASS all_six_state_scenario_ledgers_per_candidate_OD_frequency_seat_incidence_one_fare
+PASS same_park_old_IDs_no_double_donor_157_bounded_removals
+PASS cost_units_fixedcrew_excluded_238_cautious_bounds
+PASS all_final3_calendar_local_UTC_60turn_8BH_week_month_wrap
+PASS delay_recurrence_30_60_120_turn90_no_midnight_reset
+ API C0121799 base REPLACE 18160341.67215486
+ API C0121799 cautious REPLACE -92415831.4210408
+ API X_SVX_IKT base REPLACE -17568850.314854465
+ API X_SVX_IKT cautious REPLACE -96810304.36386617
+ API X_SVX_KJA base REPLACE -17591120.682262503
+ API X_SVX_KJA cautious REPLACE -93584756.81016994
+ API C0121723 base WITHOUT_NEW -2077084.275968954
+ API C0163363 cautious WITHOUT_NEW -22502502.605168127
+PASS eight_pure_API_recalculations
+PASS direct_only_reversal_AER_q_fare_crossings_all_alternatives_shared_MOW
+PASS resource_entry_market_no_update_CONCAT_RT_label
+PASS protected_and_all_inputs_after
+FINAL PASS

@@ -1,0 +1,19 @@
+# P36 pass1 — недельные цепочки и действия
+
+Локальный первый проход готов: **480,240** попыток config×baseline×action, 103 ограниченных путей, 11948 уникальных недельных календарных настроек, 36 разных представителей shortlist. Это кандидаты проверки, не готовые запуски и не глобальный optimum.
+
+Исследуются RT, обе ориентации triangle, настоящие closed4/5/6legs, CONCAT_RT и ночёвки вне базы. Все пути и отсечения есть в path_registry/path_expansion/search_space. 1–7ISO, 06/10/14/20 local и частоты1/2/3/5/7 — SCENARIO, не измеренный спрос удобного окна. Полный февраль2027 содержит4повтора; все плечи строятся целиком, выход за availability отклоняется.
+
+B1 SCOPED_P34 оставляет остальные часы UNKNOWN/blocked; отдельная ветвь IDLE_SCENARIO имеет неизвестный unobserved loss. B2 — полный семидневный сценарий выбранной own программы GOJ4/KUF7/OMS2/UFA2 на2условных SVX tail, не наблюдённое расписание всего перевозчика. E1 отдельно; E2 Moscow требует условный рабочий RRJ и внешний D UNKNOWN. R1 не работает. Борт не появляется в новом аэропорту: цепь от SVX/DME/ZIA замыкается, неподтверждённый feeder оплачивается как ferry без продаж.
+
+Физика UTC position/overlap/turn60/entry проверена отдельно от8BH/day. 8BH — диагностика, не FDP. Crew/MRO/AFM/slot/реальные регистрации и освобождение UNKNOWN. Даже физически согласованный swap не доказывает допуск и нулевую потерю продаж.
+
+Экономический screen использует готовые P05 monthly priors и P04 cost transfer, отдельный100seat optimistic cap, base/caut на тех же датах и парке. Cargo/support0. Операционный поиск не зарабатывает премию за время. Thin candidate_chains.score ссылается на economics_screen.economic_id; action/result раскрываются в action_ids.csv/disposition_ids.csv, config — в schedule_configs.csv, setup — baseline_definitions.json. Полные три расписания только для shortlist. 36 осторожных самостоятельных отрицательных представителей оставлены как category comparators, не победители; положительный эффект удаления старого не называется доходом нового.
+
+Структурный осторожный предел: **каждое** допустимое направленное ребро16узлов отрицательно даже при100оплаченных креслах (edge_structural_bounds.csv/structural_proof.json). Поэтому любая непустая новая цепь при тех же cost/netfare не станет положительной от широты перебора. Среди searched RT минимальное повышение взвешенного netfare для full100 break-even ≈16.3%, или landed fuel до≈130872₽/т вместо161696₽/т; спрос при новом тарифе надо пересчитать. Это верхний screen до F/overnight и opportunityD, не фактическая прибыль. Для всех семейств пороги лежат в structural_bounds.csv; перенос cost anchors на сеть — гипотеза, не контракт.
+
+Для shortlist есть KEEP / WITHOUT_NEW / REPLACE в three_state_screen: общий конечный MOW/city OD pool, capacity100, analytic capped direct-market MNL. Это не финальный P06 joint выбор с through/contract и completed новым research. Общий cancellation C у последних двух одинаков; full delta, cash, donor D, unobserved/retiming loss и F остаются UNKNOWN. Числа — только известный scoped scenario subtotal. Предполагаемые ночёвки записаны с UNKNOWN paid cost, не бесплатны.
+
+Главные гипотезы pass2: реальные продажи/own shift и pure new contribution против WITHOUT_NEW; release и outside D для Москвы; короткие соседние OD, когда ferry не требуется; differential station/parking/overnight/setup/reserve; физически согласованные swaps; осторожный fuel/netfare gate при100креслах. Resource S0/S1/S1D6 вынесены отдельно, не новые SJ в феврале и не эквивалент PD8=RRJ.
+
+Запуск: `python3 -B generate.py`, затем `python3 -B verify.py` из этой папки. validation.json фиксирует2реальных прогона, byte reproducibility,1418 protected файлов, все плечи/пулы/3состояния/слоты/types и fixture проверки. Старые builders, внешние источники и Git mutation не запускались. STOP после engine_handoff.md; pass2 отдельный.
