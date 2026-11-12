@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-11-10T22:05:12.772181+00:00",
+  "result": "PASS",
+  "original_csv": {
+    "history/events.csv": {
+      "header_width": 9,
+      "rows": 7,
+      "unique_headers": true,
+      "bad_rows": []
+    },
+    "history/sources.csv": {
+      "header_width": 12,
+      "rows": 6,
+      "unique_headers": true,
+      "bad_rows": []
+    },
+    "buyers/opportunities.csv": {
+      "header_width": 17,
+      "rows": 5,
+      "unique_headers": true,
+      "bad_rows": [
+        {
+          "line": 3,
+          "actual_width": 18
+        },
+        {
+          "line": 4,
+          "actual_width": 18
+        },
+        {
+          "line": 5,
+          "actual_width": 18
+        }
+      ]
+    },
+    "buyers/sources.csv": {
+      "header_width": 10,
+      "rows": 5,
+      "unique_headers": true,
+      "bad_rows": [
+        {
+          "line": 2,
+          "actual_width": 14
+        },
+        {
+          "line": 6,
+          "actual_width": 12
+        }
+      ]
+    }
+  },
+  "output_csv": {
+    "buyers_opportunities_corrected.csv": {
+      "header_width": 25,
+      "rows": 5,
+      "unique_headers": true,
+      "bad_rows": []
+    },
+    "buyers_sources_corrected.csv": {
+      "header_width": 13,
+      "rows": 5,
+      "unique_headers": true,
+      "bad_rows": []
+    },
+    "findings.csv": {
+      "header_width": 10,
+      "rows": 15,
+      "unique_headers": true,
+      "bad_rows": []
+    },
+    "history_corrections.csv": {
+      "header_width": 10,
+      "rows": 2,
+      "unique_headers": true,
+      "bad_rows": []
+    }
+  },
+  "input_files_unchanged": {
+    "history/history.md": true,
+    "history/events.csv": true,
+    "history/sources.csv": true,
+    "history/validation.json": true,
+    "buyers/buyers.md": true,
+    "buyers/opportunities.csv": true,
+    "buyers/sources.csv": true,
+    "buyers/validation.json": true
+  },
+  "checks": {
+    "unique_ids": true,
+    "source_references_resolve": true,
+    "finding_lines_resolve": true,
+    "all_passenger_numbers_blank": true,
+    "unknown_not_zero": true,
+    "mixed_amount_not_allocated": true,
+    "orenair_not_current_primary": true
+  },
+  "quantified_volume_rows": 0,
+  "contract_passengers": null,
+  "contract_passengers_status": "UNKNOWN",
+  "source_review": "manual; automated checks validate structure and declared invariants, not source truth",
+  "external_packages": 6,
+  "primary_attempts": {
+    "BUY-01 EIS": 2,
+    "history S03 favt": 2
+  },
+  "scope_excludes": [
+    "economics",
+    "base_costs",
+    "model_schedule",
+    "full 12-route research"
+  ]
+}

@@ -1,0 +1,405 @@
+{
+  "package": "P00R",
+  "version": "v1",
+  "role": "methods_review",
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "reviewed_at": "2026-11-12T11:56:54Z",
+  "reviewed_plan_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
+  "author_baseline_commit": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+  "five_city_commit": "c18f7640ea36647a05b39089e5293f22dd009f63",
+  "verdict": "CHANGES",
+  "verdict_scope": "Операционализация контракта перед содержательным общим расчётом. Принципы постановки приняты, реализация P06 ещё не проверялась.",
+  "package_status": "METHOD_REVIEW_COMPLETE",
+  "programme_status": "NOT_ASSESSED_NOT_COMPLETE",
+  "may_proceed": [
+    "Сбор и квалификация данных",
+    "Каркас UI",
+    "Реализация P06 по конкретным схемам и примерам",
+    "Условные сценарии и пороги по неизвестным"
+  ],
+  "must_precede_consequential_run": [
+    "Принять SP01–SP11/SP13 или эквивалентные структуры с теми же инвариантами",
+    "Повторить затронутые CE в P06 на exact SHA; P00R toy PASS не является PASS движка"
+  ],
+  "findings": [
+    {
+      "finding_id": "F01",
+      "severity": "S1",
+      "title": "Закрепить контекст оценки, даты и сезонность",
+      "evidence": [
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/common_spec.json:153–205,248–251",
+        "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6:src/network_model.py:650–668",
+        "USER_SEASON"
+      ],
+      "defect_type": "contract_operationalization_gap",
+      "impact": "Ключи markets/alternatives/flights и results_monthly не кодируют все версии, расписание и fixed/adaptive; годовой прогноз можно смешать с предложением.",
+      "minimum_fix": [
+        "SP01",
+        "SP02",
+        "SP04",
+        "SP05",
+        "SP13"
+      ],
+      "counterexample_ids": [
+        "CE02",
+        "CE04",
+        "CE17"
+      ],
+      "owners": [
+        "P00",
+        "P02",
+        "P05",
+        "P06"
+      ],
+      "blocks": [
+        "integrated_run"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    },
+    {
+      "finding_id": "F02",
+      "severity": "S1",
+      "title": "Определить будущий KEEP и одинаковый ресурсный предел",
+      "evidence": [
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/common_spec.json:253–264",
+        "c18f7640ea36647a05b39089e5293f22dd009f63:context/33_five_city_reassessment_20261112/common_economics/report.md:23"
+      ],
+      "defect_type": "contract_operationalization_gap",
+      "impact": "Исторический формальный ноль KEEP и агрегатные часы не устанавливают контрфактический бизнес, реальные ограничения и альтернативное использование борта.",
+      "minimum_fix": [
+        "SP07",
+        "SP08"
+      ],
+      "counterexample_ids": [
+        "CE01",
+        "CE03",
+        "CE11",
+        "CE19"
+      ],
+      "owners": [
+        "P00",
+        "P03",
+        "P06",
+        "P09"
+      ],
+      "blocks": [
+        "integrated_run"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    },
+    {
+      "finding_id": "F03",
+      "severity": "S1",
+      "title": "Определить общий рынок и реакцию выбора на продукт конкурента",
+      "evidence": [
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/method_map.csv:3",
+        "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6:src/network_model.py:280–298"
+      ],
+      "defect_type": "contract_gap_and_demonstrated_legacy_limit",
+      "impact": "Частотный прокси baseline не меняется с ценой конкурента. Разные аэропорты и наземные варианты могут дважды использовать один городской спрос; realized-air OD нельзя без объяснения считать всем potential travel.",
+      "minimum_fix": [
+        "SP02",
+        "SP03",
+        "SP06"
+      ],
+      "counterexample_ids": [
+        "CE08",
+        "CE10"
+      ],
+      "owners": [
+        "P02",
+        "P05",
+        "P06"
+      ],
+      "blocks": [
+        "market_claims_in_integrated_run"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    },
+    {
+      "finding_id": "F04",
+      "severity": "S1",
+      "title": "Записывать совместное распределение поездок, кресел и затрат",
+      "evidence": [
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/common_spec.json:165–175,253–264",
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/method_map.csv:5",
+        "MIT_NETWORK"
+      ],
+      "defect_type": "contract_operationalization_gap",
+      "impact": "Принцип задан верно, но нет выходного объекта allocation и точных leg references; сумма независимых сетей может нарушить кресла, спрос и владение расходом.",
+      "minimum_fix": [
+        "SP05",
+        "SP06",
+        "SP09"
+      ],
+      "counterexample_ids": [
+        "CE05",
+        "CE06",
+        "CE07",
+        "CE12"
+      ],
+      "owners": [
+        "P05",
+        "P06"
+      ],
+      "blocks": [
+        "integrated_run"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    },
+    {
+      "finding_id": "F05",
+      "severity": "S1",
+      "title": "Разделить операционный результат и разность всего затронутого бизнеса",
+      "evidence": [
+        "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6:src/network_model.py:127–141,382–415,650–668",
+        "USER_MONEY"
+      ],
+      "defect_type": "contract_operationalization_gap",
+      "impact": "Legacy revenue уже содержит forgone revenue. Повторное вычитание или сохранение только вычета старой выручки теряет сэкономленные расходы и искажает P−KEEP.",
+      "minimum_fix": [
+        "SP08",
+        "SP09",
+        "SP11"
+      ],
+      "counterexample_ids": [
+        "CE11",
+        "CE12",
+        "CE14",
+        "CE15"
+      ],
+      "owners": [
+        "P04",
+        "P06"
+      ],
+      "blocks": [
+        "financial_conclusions"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    },
+    {
+      "finding_id": "F06",
+      "severity": "S1",
+      "title": "Сделать начисления, cash и финансирование сверяемыми",
+      "evidence": [
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/common_spec.json:183–205",
+        "USER_MONEY",
+        "IAS7"
+      ],
+      "defect_type": "contract_operationalization_gap",
+      "impact": "Таблица ставок и месячный итог без payment events не объясняют депозиты, лаги, запуск, выплаты поддержки и пиковый дефицит. Чистый операционный плюс не означает достаточные деньги.",
+      "minimum_fix": [
+        "SP10",
+        "SP11"
+      ],
+      "counterexample_ids": [
+        "CE13",
+        "CE14",
+        "CE18"
+      ],
+      "owners": [
+        "P04",
+        "P06",
+        "P09"
+      ],
+      "blocks": [
+        "funding_or_full_economy_conclusions"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    },
+    {
+      "finding_id": "F07",
+      "severity": "S1_SCOPED",
+      "title": "Указать адаптер отчётных пассажиров и знаменатель доли",
+      "evidence": [
+        "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/common_spec.json:26–42",
+        "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6:src/network_model.py:657–668"
+      ],
+      "defect_type": "contract_operationalization_gap",
+      "impact": "primary_growth определён условием совместимости, но сама отчётная единица ещё не задана. +1 сегмент пересадки может не быть +1 новым пассажиром для RW; исторический знаменатель не будущая доля.",
+      "minimum_fix": [
+        "SP12"
+      ],
+      "counterexample_ids": [
+        "CE09",
+        "CE16",
+        "CE20"
+      ],
+      "owners": [
+        "P05",
+        "P06",
+        "P10"
+      ],
+      "blocks": [
+        "market_share_and_number2_claims_only"
+      ],
+      "status": "OPEN_FOR_INTEGRATION_NOT_AN_IMPLEMENTATION_FAILURE"
+    }
+  ],
+  "acceptable_unknowns": [
+    {
+      "id": "U01",
+      "field": "OD level; customer segments; price/time/frequency coefficients; airport overlap",
+      "owner": "P02/P05",
+      "treatment": "Сценарные предпосылки и пороги смены решения; вневыборочная проверка только при независимых опорах. Структурные 0..1 вероятности не эмпирический доверительный интервал.",
+      "blocks": "Безусловный прогноз рынка; не каркас или условный сценарий."
+    },
+    {
+      "id": "U02",
+      "field": "variant-specific available tails by date; donor task; reserve; crew/MRO",
+      "owner": "P03",
+      "treatment": "Четыре сценария N(t), явный ввод и аналог по типу. Не использовать batch announcement как парк.",
+      "blocks": "Заявление фактической выполнимости; сценарный расчёт возможен."
+    },
+    {
+      "id": "U03",
+      "field": "base/startup/exit/lease or aircraft-use incremental expense and payment schedule",
+      "owner": "P04",
+      "treatment": "Источники диапазона либо UNKNOWN и break-even threshold; один согласованный способ учёта использования борта.",
+      "blocks": "Полный численный результат без условности."
+    },
+    {
+      "id": "U04",
+      "field": "support entitlement, caps, accrual/payment lag, taxes, financing terms",
+      "owner": "P04",
+      "treatment": "Условия конкретной схемы, отдельные ветви с/без поддержки; налоги/финансирование отдельно; UNKNOWN не 0.",
+      "blocks": "Подтверждённая величина финансирования."
+    },
+    {
+      "id": "U05",
+      "field": "official carrier passenger definition and future denominator",
+      "owner": "P10",
+      "treatment": "Сначала сопоставимый справочник метрик и периодов; до него journeys/segments отдельно, rank/share UNKNOWN.",
+      "blocks": "Доля и №2; не seat arithmetic."
+    },
+    {
+      "id": "U06",
+      "field": "international access and currency/cost/contract terms",
+      "owner": "P02I/P08I",
+      "treatment": "Условные международные ветви отдельно; не задерживать самостоятельный CASE_SJ.",
+      "blocks": "Соответствующая международная рекомендация."
+    },
+    {
+      "id": "U07",
+      "field": "opening unrestricted company cash; existing business cash; minimum cash policy",
+      "owner": "P04/P10",
+      "treatment": "Выдать добавочную потребность с явно заданным boundary; весь бизнес UNKNOWN, если KEEP cash неизвестен.",
+      "blocks": "Полный бюджет компании; не расчёт добавочной программы."
+    }
+  ],
+  "improvements": [
+    {
+      "id": "I01",
+      "title": "Внутримесячные выплаты",
+      "severity": "nonblocking_for_labelled_monthly_estimate",
+      "action": "CE18; показывать нижнюю границу или даты крупных выплат/резерв."
+    },
+    {
+      "id": "I02",
+      "title": "Область теста монотонности",
+      "severity": "nonblocking_contract_clarification",
+      "action": "CE19; сравнивать при неизменных costs/obligations и разрешённом unused resource."
+    },
+    {
+      "id": "I03",
+      "title": "Методическая карта",
+      "severity": "nonblocking",
+      "action": "Добавить к M01–M06 связи SP/CE и отдельный M07 cash bridge (IAS7 + USER_MONEY); источники дают методы, не российские коэффициенты."
+    }
+  ],
+  "independence": {
+    "authored_packages_in_current_task": [
+      "P00R"
+    ],
+    "plan_required_must_not_be_author_of": [],
+    "source": "b4d2ddf690440eb5cd051839cc263cf16b364ca4:context/34_full_programme_plan_20261112/work_packages.json:P00R.independence",
+    "did_not_author_reviewed_plan_or_legacy_models_in_this_task": true,
+    "limitations": "Личное авторство прошлых анонимных agent сессий не устанавливалось; нет заявлений о независимой проверке собственного P06."
+  },
+  "used_assumption_ids": [
+    "P00R-CE01",
+    "P00R-CE02",
+    "P00R-CE03",
+    "P00R-CE04",
+    "P00R-CE05",
+    "P00R-CE06",
+    "P00R-CE07",
+    "P00R-CE08",
+    "P00R-CE09",
+    "P00R-CE10",
+    "P00R-CE11",
+    "P00R-CE12",
+    "P00R-CE13",
+    "P00R-CE14",
+    "P00R-CE15",
+    "P00R-CE16",
+    "P00R-CE17",
+    "P00R-CE18",
+    "P00R-CE19",
+    "P00R-CE20",
+    "P00R-M01",
+    "P00R-M02",
+    "P00R-M03",
+    "P00R-M04",
+    "P00R-M05",
+    "P00R-M06",
+    "P00R-M07",
+    "P00R-U01",
+    "P00R-U02",
+    "P00R-U03",
+    "P00R-U04",
+    "P00R-U05",
+    "P00R-U06",
+    "P00R-U07"
+  ],
+  "historical_assumptions_referenced_not_adopted": [
+    "NET-capture_freq_scale",
+    "NET-capture_open",
+    "NET-capture_competitive",
+    "NET-competitor_lf",
+    "NET-rw_existing_lf",
+    "NET-weeks_per_year",
+    "NET-market_pax_2025",
+    "NET-fuel_compensation_rub_per_t",
+    "OPEN-BASE_SETUP",
+    "OPEN-LEASE",
+    "OPEN-SJ100_TRANSFER"
+  ],
+  "source_read_boundary": "Новые web чтения пяти методических источников из source_lock и одного IAS7; локальные источники только git show закреплённых SHA. Новые данные маршрутов/тарифов/парка не собирались.",
+  "not_run": [
+    "Полная сеть",
+    "Повтор 652 исторических сетей",
+    "Текущие пакеты P02/P03/P04/P05/P06/P09",
+    "Рыночная калибровка",
+    "Реальная эксплуатационная проверка",
+    "Достаточность полного финансирования RW",
+    "UI/браузерная проверка"
+  ],
+  "exact_next_requests": [
+    {
+      "owner": "P00/coordinator",
+      "request": "Принять либо адресно скорректировать SP01–SP13; закрепить входы и confirmations без нового круга общего планирования."
+    },
+    {
+      "owner": "P03",
+      "request": "Датированный available/committed/reserve ресурс и конкретные прежние задания/альтернативы."
+    },
+    {
+      "owner": "P04",
+      "request": "События начислений/платежей, операционная конвенция стоимости ВС, депозиты/поддержка/налоги/финансирование и unknown поля."
+    },
+    {
+      "owner": "P05",
+      "request": "Demand pool/basis, продуктовый выбор, сезонное покрытие и диапазоны/пороги без ложной калибровки."
+    },
+    {
+      "owner": "P06",
+      "request": "Реализовать инварианты; предоставить exact SHA+manifest и результаты адресных CE. Не импортировать toy значения как параметры RW."
+    },
+    {
+      "owner": "P10",
+      "request": "Совместимая отчётная единица перевозок и знаменатель/конкурентный порог №2."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETED_SCOPED_CONDITIONAL_OPS_INPUT",
+  "write_scope": "ops_inputs/",
+  "ready_for": "final assembler; do not wait route_economics",
+  "source_review_gate": "source_review_delta.json; source_admission_gates.csv; canonical copies only",
+  "numeric_source_updates": 0,
+  "route_economics_read": false,
+  "network_selection": false,
+  "contract": "audit/common_contract.json",
+  "calendar_API": "calendar_engine.generate(request) or CLI",
+  "block_policy": "published historical minutes retained; explicit same-direction/type historical min/max analogue scenarios only; unsupported nominal/high blank",
+  "reserve_policy": "RES-1 unique within evaluation; alternative networks compete for same pool",
+  "critical_gates": [
+    "actual released tail+donor+reserve contract",
+    "dated KEEP commitments",
+    "direction/season/type specific blocks",
+    "physical MOW airport",
+    "positioning+crew/rest+MRO windows",
+    "payload/AFM/NOTAM/rights"
+  ],
+  "output_semantics": "physical consistency does not imply operational approval",
+  "raw_snapshot_sha256": "aed8463339b988a7c9ac81aa976a4fc25c152e4066b551d25cbdcc16ebe16d53",
+  "validation": "66 checks PASS; frozen P06 CONDITIONAL, dispatch_ready=false",
+  "output_manifest": "output_manifest.json",
+  "airport_source_urls": "source_index.csv",
+  "reference_date_status": "scenario_date_only_no_confirmed_clocks_or_tail_assignment"
+}

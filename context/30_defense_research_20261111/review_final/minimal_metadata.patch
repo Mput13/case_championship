@@ -1,0 +1,39 @@
+--- a/economics/calculate.py
++++ b/economics/calculate.py
+@@ -113,9 +113,11 @@
+         season.append(dict(z,case='BASE_48_CONCENTRATED_ANNUAL_MARKET',period_weeks=48,profile='same annual market, weekly market x52/48; QSI and seats bind; not guaranteed same realized annual receipts'))
+         for n in (48,26,22,13):
+             z={k:(v*n/52 if isinstance(v,(int,float)) and k not in ('weeks','working','reserve','flights_week','block_h_week','fuel_price_rub_t','credit_rub_t') else v) for k,v in b.items()}
++            z['weeks']=n
+             season.append(dict(z,case='UNCHANGED_WEEKLY_PROFILE',period_weeks=n,profile='lost/non-operated weeks no recovery; all weekly ledger flows proportional; F and A excluded'))
+         A=dict(AS['cautious_sub' if net['scenario'].endswith('_sub') else 'cautious'])
+         season.append(dict(replay(net,A,'cautious'),case='CAUTIOUS_FIXED_NETWORK_REPLAY',period_weeks=48,profile='48 weeks concentrated cautious market; lower captures/fares/LF; higher burn/price/hourly/ground/pax costs; grant choice can differ; no frequency reselection'))
++    season=[{(k[:-5]+'_period' if k.endswith('_year') else k):v for k,v in r.items()} | {'totals_basis':'PERIOD_NOT_ANNUALIZED'} for r in season]
+     for h in [b for b in baseline if b['network_id'] in ('OMS_CURRENT_BASE','OMS_RAMP3_BASE')]:
+         for d in [b for b in baseline if b['network_id'].startswith('DIRECT')]:
+             for k in (0,3024,32930):
+--- a/economics/verify.py
++++ b/economics/verify.py
+@@ -40,9 +40,10 @@
+  for r in rows('seasonality_cases.csv'):
+   if r['network_id']!=n:continue
+   check(n+'_fixed_weekly_flights',close(float(r['flights_week']),f('flights_week')))
++  check(n+'_period_metadata',float(r['weeks'])==float(r['period_weeks']) and r['totals_basis']=='PERIOD_NOT_ANNUALIZED')
+   if r['case']=='UNCHANGED_WEEKLY_PROFILE':
+    for k in ('contribution_rub_year','passenger_segments_year','fuel_tonnes','revenue_net_rub_year'):
+-    check(n+'_period_'+r['period_weeks']+'_'+k,close(float(r[k]),f(k)*float(r['period_weeks'])/52))
++    check(n+'_period_'+r['period_weeks']+'_'+k,close(float(r[k[:-5]+'_period' if k.endswith('_year') else k]),f(k)*float(r['period_weeks'])/52))
+  for r in rows('breakeven_frontier.csv'):
+   if r['network_id']!=n or not r.get('required_credit_rub_t'):continue
+   F=float(r['F_budget_axis_rub_year']);k=float(r['k_rub_t'])
+--- a/economics/README.md
++++ b/economics/README.md
+@@ -19,6 +19,8 @@
+ Base/sub OMS совпадают: отказ от гранта с capped fare. Старые +388/+952 — другие cases. DIRECT_SUB меняет состав/частоты, это отдельная сеть, не эффект выдачи гранта прежней сети. У неё грант 101,134488 млн уже в revenue; отдельный stress невыплаты при сохранённых capped receipts даёт −1,153632 млн до F. Будущий award UNKNOWN.
+ 
+ baseline_ledger.csv содержит годовые local endpoint OD, transfer OD, пассажирские сегменты и кресла, рейсы и часы в неделю, билетные receipts до и после однократного вычета forgone RW, отдельный grant, тонны/gross fuel/credit/net fuel и все остальные переменные компоненты. Суммы в рублях, тонны метрические; год 52 недели. `ticket_before_forgone_rub` уже учитывает выбранное ограничение тарифов. `transfer_ticket_before_cap_rub` — справочная сумма единых сквозных тарифов до leg cap, не дополнительная revenue. Для OMS cap не принят.
++
++`other_variable_rub = mro_rub + crew_rub + navigation_rub + ground_rub + deicing_rub + pax_cost_rub`. Это агрегат, а не дополнительная статья. `cost_rub_year = net_fuel_rub + other_variable_rub`: агрегат и его детали повторно не складывать. В seasonality_cases поля `*_period` содержат суммы за `period_weeks`, `weeks` равно этому периоду; суммы не annualized. Остальные денежные и пассажирские потоки этой таблицы также относятся к периоду; ставки, парк и недельные величины не масштабируются.
+ 
+ Одна пересадочная поездка оплачивает один тариф и занимает место на каждом из двух плеч. Сегменты = local OD + 2×transfer OD. Прямые совместно делят общий физический OD по суммарной частоте: повторённые пары треугольников не создают дополнительный рынок. Нет сложения отдельных triangle/hub результатов. Распределённый вклад луча не используется как marginal value. Все пассажиры — сценарные модельные поездки, не спрос закупок.
+ 

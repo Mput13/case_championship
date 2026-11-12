@@ -1,0 +1,133 @@
+{
+  "timezones": {
+    "KUF": "Europe/Samara",
+    "GOJ": "Europe/Moscow",
+    "SVX": "Asia/Yekaterinburg"
+  },
+  "turn_minutes": 45,
+  "blocks": [
+    {
+      "origin": "KUF",
+      "destination": "GOJ",
+      "nominal_minutes": 60,
+      "high_minutes": 75,
+      "evidence": "SYNTHETIC_API_TEST_NOT_RW"
+    },
+    {
+      "origin": "KUF",
+      "destination": "SVX",
+      "nominal_minutes": 60,
+      "high_minutes": 75,
+      "evidence": "SYNTHETIC_API_TEST_NOT_RW"
+    },
+    {
+      "origin": "GOJ",
+      "destination": "KUF",
+      "nominal_minutes": 60,
+      "high_minutes": 75,
+      "evidence": "SYNTHETIC_API_TEST_NOT_RW"
+    },
+    {
+      "origin": "GOJ",
+      "destination": "SVX",
+      "nominal_minutes": 60,
+      "high_minutes": 75,
+      "evidence": "SYNTHETIC_API_TEST_NOT_RW"
+    },
+    {
+      "origin": "SVX",
+      "destination": "KUF",
+      "nominal_minutes": 60,
+      "high_minutes": 75,
+      "evidence": "SYNTHETIC_API_TEST_NOT_RW"
+    },
+    {
+      "origin": "SVX",
+      "destination": "GOJ",
+      "nominal_minutes": 60,
+      "high_minutes": 75,
+      "evidence": "SYNTHETIC_API_TEST_NOT_RW"
+    }
+  ],
+  "tails": [
+    {
+      "id": "DEMO-W",
+      "type": "RRJ95_SCENARIO",
+      "initial_location": "KUF",
+      "available_from": "2027-01-01T00:00:00Z",
+      "available_to": "2029-01-01T00:00:00Z",
+      "donor": "UNKNOWN"
+    },
+    {
+      "id": "DEMO-R",
+      "type": "RRJ95_SCENARIO",
+      "reserve": true
+    }
+  ],
+  "patterns": [
+    {
+      "id": "normalRT",
+      "path": [
+        "KUF",
+        "GOJ",
+        "KUF"
+      ],
+      "weekdays": [
+        1
+      ],
+      "frequency_per_week": 1,
+      "operating_weeks": [
+        "2027-01-04"
+      ],
+      "start": "2027-01-04",
+      "end": "2027-01-10",
+      "departure_local": "09:00",
+      "workingtailids": [
+        "DEMO-W"
+      ]
+    },
+    {
+      "id": "triangle",
+      "path": [
+        "KUF",
+        "GOJ",
+        "SVX",
+        "KUF"
+      ],
+      "weekdays": [
+        2
+      ],
+      "frequency_per_week": 1,
+      "operating_weeks": [
+        "2027-01-04"
+      ],
+      "start": "2027-01-04",
+      "end": "2027-01-10",
+      "departure_local": "09:00",
+      "workingtailids": [
+        "DEMO-W"
+      ]
+    },
+    {
+      "id": "addfreq",
+      "path": [
+        "KUF",
+        "GOJ",
+        "KUF"
+      ],
+      "weekdays": [
+        3
+      ],
+      "frequency_per_week": 1,
+      "operating_weeks": [
+        "2027-01-04"
+      ],
+      "start": "2027-01-04",
+      "end": "2027-01-10",
+      "departure_local": "09:00",
+      "workingtailids": [
+        "DEMO-W"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "context": {
+    "evaluation_id": "KEEP-toy",
+    "programme_id": "KEEP",
+    "programme_version": "synthetic-v1",
+    "fleet_scope_id": "CASE_SJ",
+    "external_scenario_id": "toy-base",
+    "delivery_calendar_id": "toy-phased",
+    "market_version": "toy-potential-v1",
+    "choice_version": "toy-logit-v1",
+    "cost_version": "toy-events-v1",
+    "response_policy_id": "toy-no-response",
+    "evaluation_mode": "fixed_programme",
+    "decision_date": "2026-11-12",
+    "information_set_id": "toy-information",
+    "keep_evaluation_id": "KEEP-toy",
+    "input_manifest_sha256": "0c62020bd4227283444bd3b072c269d55240dd45a0fae13a14aac33724defc67",
+    "period_start": "2027-01",
+    "period_end": "2028-12",
+    "cash_start": "2026-12",
+    "price_year": 2027,
+    "affected_scope_id": "all-toy-affected"
+  },
+  "physical_flights": [
+    {
+      "flight_instance_id": "AB1",
+      "month": "2027-01",
+      "origin_airport": "AAA",
+      "destination_airport": "BBB",
+      "aircraft_variant": "SSJ100_analogue_TEST_ONLY",
+      "operator": "TEST",
+      "block_hours": 2.0,
+      "cycles": 1,
+      "occupied_segments": 100.0,
+      "saleable_seats": 100,
+      "allocated_journey_revenue": 400000.0,
+      "revenue_allocation_is_not_extra_revenue": true,
+      "load_factor": 1.0
+    }
+  ],
+  "journeys": [
+    {
+      "product_id": "outside:AB:2027-01",
+      "demand_pool_id": "AB",
+      "month": "2027-01",
+      "customer_segment": "all",
+      "owner": "OTHER",
+      "kind": "outside",
+      "requested": 59.20519059030006,
+      "carried": 0,
+      "final_choice": 100.00000000000001,
+      "spilled": 0,
+      "recaptured_in": 40.79480940969995,
+      "recaptured_out": 0,
+      "outside_or_other": 100.00000000000001,
+      "committed_sales": 0,
+      "contract_carried": 0.0,
+      "block_paid": false,
+      "assumption_id": "P06-TOY"
+    },
+    {
+      "product_id": "outside:AC:2027-01",
+      "demand_pool_id": "AC",
+      "month": "2027-01",
+      "customer_segment": "all",
+      "owner": "OTHER",
+      "kind": "outside",
+      "requested": 100.0,
+      "carried": 0,
+      "final_choice": 100.0,
+      "spilled": 0,
+      "recaptured_in": 0,
+      "recaptured_out": 0,
+      "outside_or_other": 100.0,
+      "committed_sales": 0,
+      "contract_carried": 0.0,
+      "block_paid": false,
+      "assumption_id": "P06-TOY"
+    },
+    {
+      "product_id": "RW",
+      "demand_pool_id": "AB",
+      "month": "2027-01",
+      "customer_segment": "all",
+      "owner": "RW",
+      "kind": "air",
+      "requested": 140.79480940969995,
+      "carried": 100.0,
+      "final_choice": 100.0,
+      "spilled": 40.79480940969995,
+      "recaptured_in": 0,
+      "recaptured_out": 40.79480940969995,
+      "outside_or_other": 0,
+      "committed_sales": 0,
+      "contract_carried": 0.0,
+      "block_paid": false,
+      "assumption_id": "P06-TOY"
+    }
+  ],
+  "tail_resource_calendar": [
+    {
+      "aircraft_id": "T1",
+      "variant": "SSJ100_analogue_TEST_ONLY",
+      "transfer_date": "2026-12-01T00:00:00Z",
+      "service_entry_date": "2027-01-01T00:00:00Z",
+      "available_from": "2027-01-01T00:00:00Z",
+      "available_to": "2029-01-01T00:00:00Z",
+      "initial_location": "AAA",
+      "turn_minutes": 30,
+      "reserve_intervals": [],
+      "maintenance_intervals": [],
+      "crew_windows": [
+        {
+          "crew_id": "crew:T1",
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2029-01-01T00:00:00Z"
+        }
+      ],
+      "max_daily_block_hours": 8,
+      "assumption_id": "P06-TOY"
+    }
+  ],
+  "base_calendar": null,
+  "base_calendar_status": "UNKNOWN",
+  "invoice_cash_events": [],
+  "quantity_policy": "fleet availability is not billed tail/base-month quantity; derive billing from identified contracts; no inferred fuel tonnes or MTOW"
+}

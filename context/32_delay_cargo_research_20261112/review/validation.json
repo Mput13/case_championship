@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "all_package_CSV_rows_and_validation_JSON_parsed",
+      "status": "PASS",
+      "detail": "{'schedule_data/sources.csv': 7, 'schedule_data/paired_control_calendars.csv': 18, 'schedule_data/mitigation_cost_anchors.csv': 4, 'schedule_data/route_selection.csv': 4, 'schedule_data/crew_reserve_gates.csv': 6, 'schedule_data/flight_chain_evidence.csv': 6, 'cargo_data/sources.csv': 9, 'cargo_data/airport_handling.csv': 6, 'cargo_data/capacity_assumptions.csv': 4, 'cargo_data/cargo_rates.csv': 4, 'cargo_data/aircraft_payload_limits.csv': 7, 'cargo_data/directional_demand.csv': 4, 'calculation/cargo_capacity_frontier.csv': 1491, 'calculation/recovery_options.csv': 324, 'calculation/control_flights.csv': 90, 'calculation/decision_thresholds.csv': 48, 'calculation/source_admission.csv': 33, 'calculation/cargo_break_even.csv': 120, 'calculation/assumptions.csv': 23, 'calculation/passenger_turn_ledger.csv': 1368, 'calculation/route_summary.csv': 3, 'calculation/delay_events.csv': 720, 'calculation/delay_summary.csv': 72}"
+    },
+    {
+      "check": "preserved_inputs_manifest_and_real_attachments",
+      "status": "PASS",
+      "detail": "436 tracked; 430 manifest inputs; both original attachments; code/docs/output hashes. Integrity only, not source truth."
+    },
+    {
+      "check": "independent_UTC_local_physical_calendars",
+      "status": "PASS",
+      "detail": "90 clocks reconstructed using explicit offsets; full dates, positions, four shared retained sectors; no placeholder flights."
+    },
+    {
+      "check": "independent_propagation_and_summary",
+      "status": "PASS",
+      "detail": "720 independently replayed events; 72 summaries; D0 identical; D monotone; no midnight reset; expected 55/40,55/40,110/95 and equal-buffer90."
+    },
+    {
+      "check": "independent_passenger_ledger_units_and_own_shift",
+      "status": "PASS",
+      "detail": "24 paired cases: monthly /4 added RT; retained-own loss once; 1344 sectors reconciled; full actual NULL."
+    },
+    {
+      "check": "completed_API_reexecuted_24_cases",
+      "status": "PASS",
+      "detail": "24 fresh completed API calls: base/cautious, alpha1/.5/.25/0; identical directed potential P/KEEP. Shared allocator test, not independent market validation."
+    },
+    {
+      "check": "independent_cargo_BE_and_mass_frontiers",
+      "status": "PASS",
+      "detail": "120 separate return/whole thresholds;1491 capacity rows; ZFW/TOW/LW, cabin vs hold, physical vs paid kg, actualNULL."
+    },
+    {
+      "check": "edge_cases_and_recovery_semantics",
+      "status": "PASS",
+      "detail": "Author pure helpers tested against independently set edge results; no build/write invoked. Positive whole turn requires zero cargo; fixed AWB once; min/rounding; crew swap cannot advance aircraft."
+    },
+    {
+      "check": "source_quarantine_reserve_retiming_decision_gates",
+      "status": "PASS",
+      "detail": "12 placeholders/3 bad clocks quarantined; S06 excluded; one reserve physical four-sector closed chain conditional; retiming old-clock delay remains;48 decisionsUNKNOWN."
+    },
+    {
+      "check": "preservation_after_execution",
+      "status": "PASS",
+      "detail": "886 protected files byte-identical during review; 436 tracked preserved; context31/networks not opened."
+    }
+  ],
+  "tracked_files": 436,
+  "manifest_inputs": 430,
+  "protected_files": 886,
+  "scope": "Targeted independent arithmetic and integration; not market/source-wide/operational audit",
+  "author_verify_executed": false,
+  "author_build_executed": false,
+  "write_scope": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/32_delay_cargo_research_20261112/review"
+}

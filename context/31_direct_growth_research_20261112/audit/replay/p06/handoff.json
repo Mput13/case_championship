@@ -1,0 +1,82 @@
+{
+  "package": "P06",
+  "role": "calculation_engine",
+  "status": "IMPLEMENTATION_COMPLETE_CONDITIONAL_ENGINE",
+  "implementation_author": "gpt-6-astra xhigh",
+  "early_usable_commit": "bc70308fe091c5767dbf26b02d06a7d750a65614",
+  "final_commit": "resolve containing commit with git rev-parse; manifest seals payload without self-reference",
+  "manifest": "output_manifest.json",
+  "interfaces": [
+    "evaluate(bundle,parent=None)",
+    "compare(project,keep,company_keep_cash=None,parents=None)",
+    "scenario(bundles,parents=None)",
+    "combine(base,components,context)",
+    "python3 -m engine evaluate|compare|scenario INPUT --out OUTPUT [--tables DIR]"
+  ],
+  "checks": {
+    "passed": 42,
+    "failed": 0,
+    "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f",
+    "scope": "actual engine functions; CE01-20 plus addressed boundary cases; author checks, not independent acceptance"
+  },
+  "mechanical_finding_status": {
+    "F01": "implemented and author-checked; independent reviewer decides closure",
+    "F02": "implemented and author-checked; independent reviewer decides closure",
+    "F03": "implemented and author-checked; independent reviewer decides closure",
+    "F04": "implemented and author-checked; independent reviewer decides closure",
+    "F05": "implemented and author-checked; independent reviewer decides closure",
+    "F06": "implemented and author-checked; independent reviewer decides closure"
+  },
+  "F07": "adapter gate implemented; no compatible real metric admitted",
+  "primary_sources": "pinned producer source evidence and plan/P00R; no new web collection or invented producer results",
+  "analytical_result": "NO_INTEGRATED_RW_MARKET_OR_MONEY_CONCLUSION",
+  "remaining_fields": [
+    {
+      "request_id": "P06-D01",
+      "owner": "P05",
+      "fields": "disjoint potential demand pools + explicit 24-month market_calendar; product gross/net fares/time/frequency/bookability; coefficients/source or scenarios; ordered flight IDs",
+      "without": "no numerical integrated RW demand/revenue; synthetic mechanics only",
+      "interface": "producer_contract.json; examples/demo_bundle.json"
+    },
+    {
+      "request_id": "P06-D02",
+      "owner": "P03/P07/P08",
+      "fields": "dated physical adjacent flights + tails/entry/position/reserve/maintenance/crew windows + assignments; same P/KEEP resource policy; airport/aircraft restrictions",
+      "without": "no actual RW operational feasibility; monthly cohorts remain evidence",
+      "interface": "producer_contract.json; examples/project_drivers.json"
+    },
+    {
+      "request_id": "P06-D03",
+      "owner": "P04",
+      "fields": "accepted driver quantities/rates + currency/price/tax basis; cost coverage; owned accrual/payment events; cash_start/opening/minimum floor/interest/terminal obligations",
+      "without": "complete result/funding UNKNOWN; explicit conditional threshold permitted",
+      "interface": "examples/project_drivers.json; examples/keep_drivers.json; engine/adapters.py:p04_event"
+    },
+    {
+      "request_id": "P06-D04",
+      "owner": "P09",
+      "fields": "same-scenario complete affected-business P and future KEEP + programme target/end-stage validity + source manifests",
+      "without": "no programme recommendation; no sums of independent money",
+      "interface": "compare; combine then evaluate"
+    },
+    {
+      "request_id": "P06-D05",
+      "owner": "P10",
+      "fields": "compatible official carrier reporting rule and whole numerator/denominator scope/year; full-company KEEP cash",
+      "without": "share/rank/whole-company funding UNKNOWN; OD and segments still separate",
+      "interface": "metric_adapter; compare(company_keep_cash=...)"
+    }
+  ],
+  "independence": {
+    "authored": [
+      "P06"
+    ],
+    "cannot_independently_review": [
+      "P06",
+      "P13 author-excluded check",
+      "P14 author-excluded check"
+    ]
+  },
+  "publication": "own branch only; no Site/dashboard/external messages/payments/restarts",
+  "temporary_dependencies_installed": false
+}

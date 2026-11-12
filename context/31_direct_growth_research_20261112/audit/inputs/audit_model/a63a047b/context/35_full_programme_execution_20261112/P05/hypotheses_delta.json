@@ -1,0 +1,94 @@
+{
+  "version": "P05-v1-scenario-20261112",
+  "pinned_inputs_only": true,
+  "proposals": [
+    {
+      "hypothesis_id": "H-P05-01",
+      "action": "NEW_OR_REFINE_SEASONAL_PROGRAMME",
+      "proposal": "Compare year-round regional skeleton with seasonally varied frequencies on the same8–12 target pairs; no Decemberweek annualization.",
+      "basis": "New primary2025 domestic monthly carrier series and2026holdout provide an aviation-season analogue. Route season remains unknown, so compare profiles and break-evenmonth demand.",
+      "source_ids": [
+        "NEW_AEROFLOT_2025_MONTHLY",
+        "NEW_AEROFLOT_2026_MONTHLY",
+        "NEW_FAVT_2025",
+        "NEW_MINTRANS_9M"
+      ],
+      "links": [
+        "P07",
+        "P08",
+        "P09",
+        "SP13"
+      ],
+      "assumption_ids": [
+        "P05-A03",
+        "P05-A04"
+      ],
+      "status": "PROPOSAL_NOT_PROFITABILITY_VERDICT"
+    },
+    {
+      "hypothesis_id": "H-P05-02",
+      "action": "REFINE_THROUGH_TICKET_VARIANT",
+      "proposal": "Evaluate a hub both with and without commercially sellable through tickets under a common endpoint pool and dated shared bottleneck seats.",
+      "basis": "Physical two-leg paths exist in P03diagnostic, but sellability/MCT are conditional. The choice model can compare direct vs stop; source absence is not rejection of allhubs.",
+      "source_ids": [
+        "P03_PINNED_DATED_SCENARIO",
+        "NEW_MIT_CHOICE",
+        "NEW_MIT_LIMITS"
+      ],
+      "links": [
+        "P07",
+        "P08",
+        "P09",
+        "SP05",
+        "SP06"
+      ],
+      "assumption_ids": [
+        "P05-A07",
+        "P05-A08"
+      ],
+      "status": "CONDITIONAL_ON_COMMERCIAL_CONNECTION_FIELDS"
+    },
+    {
+      "hypothesis_id": "H-P05-03",
+      "action": "REFINE_MOSCOW_AIRPORT_VARIANTS",
+      "proposal": "TreatSVO/DME/VKO/ZIA as alternatives inside one cityOD demand pool; preserve different airport access/time and physical flight inventory.",
+      "basis": "Author OD usesMOW while P02products are airport-level; adding one MOW demand estimate for every airport duplicates the same trip universe.",
+      "source_ids": [
+        "BASE_OD_PRIOR"
+      ],
+      "links": [
+        "P08",
+        "P09",
+        "SP02",
+        "SP12"
+      ],
+      "assumption_ids": [
+        "P05-A14"
+      ],
+      "status": "REQUIRED_ADAPTER_NOT_MARKET_PREFERENCE_VERDICT"
+    },
+    {
+      "hypothesis_id": "H-P05-04",
+      "action": "METHOD_REVISION_REQUEST",
+      "proposal": "Prioritise demand-threshold comparisons and local OD evidence before numerical ranking of weakly anchored hubpairs.",
+      "basis": "Grouped annual segment-proxy holdout:25rows,medianAPE62.05%,predict/observed0.128..14.885. No endpointOD or behavioural holdout. This criticises precision, not the existence of latentdemand.",
+      "source_ids": [
+        "BASE_OD_PRIOR"
+      ],
+      "links": [
+        "P01",
+        "P05",
+        "P07",
+        "P08",
+        "P09"
+      ],
+      "assumption_ids": [
+        "P05-A01",
+        "P05-A15",
+        "P05-A16"
+      ],
+      "status": "EVIDENCE_PRIORITY_PROPOSAL_NO_HYPOTHESIS_ECONOMIC_REJECTION"
+    }
+  ],
+  "common_inputs_silently_replaced": false
+}

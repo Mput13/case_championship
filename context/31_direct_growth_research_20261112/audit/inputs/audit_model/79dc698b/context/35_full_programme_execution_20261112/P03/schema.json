@@ -1,0 +1,47 @@
+{
+  "unknown": "Literal UNKNOWN is missing information, never numeric zero. Empty numeric values in source snapshots are not imputed.",
+  "fleet_calendar.csv": {
+    "key": [
+      "calendar_id",
+      "aircraft_or_cohort_id",
+      "date"
+    ],
+    "grain": "monthly cohort summary with inclusive period_end; exact conditional entry dates in diagnostic_delivery_events.csv",
+    "unit": "physical tails, tail-days, block hours; columns labelled screening are conditional",
+    "record_kind": [
+      "parametric_resource",
+      "diagnostic_resource_case"
+    ],
+    "delivery_forecast": "UNKNOWN in all rows",
+    "approved_project_block_hours": "UNKNOWN in all rows until actual assignment and remaining gates accepted",
+    "double_count_warning": "PARAMETRIC and DIAG are alternative descriptions, not additive pools. Choose one calendar_id per type/scenario. Existing cohort totals are family observations, not type/variant allocations."
+  },
+  "airport_constraints.csv": {
+    "key": [
+      "iata"
+    ],
+    "coverage": "20 seeds plus49 additional historical/operating endpoints, including international extension points;69 total",
+    "unit": "airport-specific published/unknown constraints",
+    "status": "Partial coverage inventory, not airport operational certification. Physical runway length is not TORA/TODA/ASDA/LDA."
+  },
+  "minimum_resource_required.csv": {
+    "key": [
+      "requirement_id"
+    ],
+    "unit": "hours-only necessary tails under declared k,u and reserve assumptions",
+    "coverage": "20 archived hub networks x2 archived market scenarios x2 route-factor points x3 utilisation points=240 rows",
+    "not_additive": "Individual networks compete for same resource; joint programme must be recalculated by common engine. MOW legs unresolved are explicitly counted."
+  },
+  "diagnostic_resource_cases": "DIAG_SJ_GOJ8 fixed archived frequencies8 physical pairs; derived target4 at k1.2,u8 plus reserve1. Not a chosen economic programme.",
+  "crew_calendar.csv": {
+    "key": [
+      "crew_pool_id",
+      "date"
+    ],
+    "unit": "qualified personnel and individual duty/rest roster, not aircraft block-hours",
+    "coverage": "All6 type cohorts x24months;144 rows; actual staffing/duty/rest UNKNOWN; ordinary80h flight-time limit and conditional90h limit are not headcounts or a roster."
+  },
+  "rebuild": "python3 context/35_full_programme_execution_20261112/P03/build_package.py && python3 context/35_full_programme_execution_20261112/P03/prepare_metadata.py && python3 context/35_full_programme_execution_20261112/P03/verify_package.py",
+  "source_refresh": "collect_sources.py performs new HTTP collection and changes evidence; not part of offline replay.",
+  "future_joint_types": "No new Tu214 mandatory for CASE_SJ; parametric Tu214 branches independent of SJ; request concrete P08I frequencies/readiness thresholds before deriving additional numerical Tu214 calendars."
+}

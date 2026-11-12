@@ -1,0 +1,1097 @@
+{
+  "package": "P03",
+  "version": "P03-v2-SP04-SP07-SP08",
+  "status": "PINNED_USABLE_P03_SOURCE_AND_OPERATING_INPUTS; full operational acceptance UNKNOWN",
+  "exact_commit": "2340ff0317b85c0757038bfbe57c1b7a4c91d7bc",
+  "subject_commit": "2340ff0317b85c0757038bfbe57c1b7a4c91d7bc",
+  "producer_payload_commit": "c1794e9d11a8b27d9407155af1e071f67eca50d1",
+  "branch": "t3/fleet-airport-operations",
+  "write_scope": "context/35_full_programme_execution_20261112/P03/",
+  "commit_binding": "exact_commit contains all listed hashed files including bound P06 fragments. This updated handoff is a later metadata commit; it is excluded from its own hash set.",
+  "preferred_P06_file": "context/35_full_programme_execution_20261112/P03/sp_adapter/p06_bound_fragments.json",
+  "preferred_P06_sha256": "044bc0e933982f5768ebeb26b6e0c442643d2c708036ecb849fe1ba5876ca7e0",
+  "manifests": [
+    {
+      "path": "context/35_full_programme_execution_20261112/P03/output_manifest.json",
+      "role": "unchanged V1 source/resource tranche",
+      "sha256": "0ce7bead8db2db18f7c0683d442acaa456b90123edcda0513e88c00b68b247d5",
+      "subject_commit": "d5d5b8f1651cbea66a55236e986ad9269e7966ff"
+    },
+    {
+      "path": "context/35_full_programme_execution_20261112/P03/sp_adapter/output_manifest.json",
+      "role": "V2 SP04/07/08 payload",
+      "sha256": "1e591d7d9d2e2e87baf6915e8f90842c2dbbc9911a031f1d833431ac0100ddff",
+      "subject_commit": "c1794e9d11a8b27d9407155af1e071f67eca50d1"
+    },
+    {
+      "path": "context/35_full_programme_execution_20261112/P03/sp_adapter/binding_manifest.json",
+      "role": "P06 binding to11 immutable P03 producer tables/code",
+      "sha256": "5ba69af8c11ed2883da7b0db11bc495b798a6df4ef1e49d92b9813c2361dd476",
+      "subject_commit": "2340ff0317b85c0757038bfbe57c1b7a4c91d7bc"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
+      "bytes": 19
+    },
+    {
+      "path": "README.txt",
+      "sha256": "ea5a6421ac83f1a2eb086c4a81e96bbe7f4276af93c4679bc6e7e72a067acf20",
+      "bytes": 19291
+    },
+    {
+      "path": "aircraft_type_parameters.csv",
+      "sha256": "5c57dee67829e79848b26327d8da592f2f85b63e9a2d2b7ac93dacb52ae5370b",
+      "bytes": 2860
+    },
+    {
+      "path": "airport_constraints.csv",
+      "sha256": "4dc5831ebc9439e8225fc0e4bb68b2b85111601c7feba7e4300b0069f65e2351",
+      "bytes": 57575
+    },
+    {
+      "path": "assumptions_register.csv",
+      "sha256": "7d3e6f9587e367629c62434c4e3e7c5821bc2f928cd731fbe12e5f5d3094e2a1",
+      "bytes": 11326
+    },
+    {
+      "path": "assumptions_register.json",
+      "sha256": "f727cb0fe0be67d63564ed7f11e5f31d169ea7d524bab69600578dedae8bc576",
+      "bytes": 16898
+    },
+    {
+      "path": "build_package.py",
+      "sha256": "9e321173d10745e953383e61865edc9ae99abb9baaa694d10fd30f298f840a6a",
+      "bytes": 48891
+    },
+    {
+      "path": "claims.csv",
+      "sha256": "fcd739bb8b19ef8a5c76901d7b99b63c07713dc96e83f4773dc06f9141bd705f",
+      "bytes": 1536
+    },
+    {
+      "path": "clarification_requests.csv",
+      "sha256": "d8455fe01d11800af2ff5e2da0e7db4feaf84c2d2d15983d067b90c9d76a39f9",
+      "bytes": 968
+    },
+    {
+      "path": "cleanup_receipt.json",
+      "sha256": "a98d72ca6f02ae2fd2db5c56b89020793f36bfc3321b15a378dd8468c8a08d1d",
+      "bytes": 612
+    },
+    {
+      "path": "colleague_check/colleague_refs.json",
+      "sha256": "75cc587a0cfd6dd1c0a9b709237999ead1394d30836a360fb0fe9d46f1d05a20",
+      "bytes": 6385
+    },
+    {
+      "path": "colleague_check/updates.jsonl",
+      "sha256": "766fcbc7996f044eee792fdb87ea7553d8faa31def7d9c0e9c342aec4d24e748",
+      "bytes": 49118
+    },
+    {
+      "path": "collect_sources.py",
+      "sha256": "265d4e9d5981a8f898d012fb338d2409fff5e0ee02109294a39ace512a9495de",
+      "bytes": 7247
+    },
+    {
+      "path": "coordination_outbox.json",
+      "sha256": "8410540f4dc00522a6200f6bc8a7b139e4342589485088526772d9fa96e0b430",
+      "bytes": 559
+    },
+    {
+      "path": "counterexamples.json",
+      "sha256": "e021c5b7d947d54b9720a8abb947397c0b9dae8d628116f198f054c4a6b7a52c",
+      "bytes": 2791
+    },
+    {
+      "path": "crew_calendar.csv",
+      "sha256": "dc5ce4d150d149048301310e71591fca66200ae01c75dadd0e245acbbb8e8cb0",
+      "bytes": 65118
+    },
+    {
+      "path": "dependency_requests.csv",
+      "sha256": "c5b16f748cd323aec1a5b15e2dcc5959c37d1bae390d9621600ca1f421f29d34",
+      "bytes": 1167
+    },
+    {
+      "path": "diagnostic_delivery_events.csv",
+      "sha256": "6fbd4dcf0abe8d8b79a5c841e0df48039ea1d533834c1132696b383a3c3ec1c7",
+      "bytes": 3347
+    },
+    {
+      "path": "diagnostic_programme_readiness.csv",
+      "sha256": "083d51895f1605b788d07d6dd3754e67ba788aca56dfa7df18a41a108cb5aa54",
+      "bytes": 30863
+    },
+    {
+      "path": "evidence_delta.csv",
+      "sha256": "dbadb5f1d9a0ecd7789d7b3e64cd06a1a574ca70bb9f089256e6956ab0af25ff",
+      "bytes": 1967
+    },
+    {
+      "path": "existing_commitments.csv",
+      "sha256": "acafb6d8cf79fdc159d9caaa457eda61eefb58200381669b1c1cb9d50dd25489",
+      "bytes": 22822
+    },
+    {
+      "path": "fap145_fetch_receipts.json",
+      "sha256": "0552920aa0370e3c6fcf63acc309e8064c9d63eae5619cb21afd5278efe2c790",
+      "bytes": 1291
+    },
+    {
+      "path": "fetch_receipts.json",
+      "sha256": "65059c3cf18f2cc850eaa65fa0c4192d7e37c7b0b32cead90ac4cd3637a4aa3f",
+      "bytes": 19263
+    },
+    {
+      "path": "fleet_calendar.csv",
+      "sha256": "87b4fc8d7281932d3f7597f64a11ad4734751dcc9e4d798352525f61434c5564",
+      "bytes": 803805
+    },
+    {
+      "path": "fleet_observations.csv",
+      "sha256": "983c157ae0ea506441e0c718bf2df4f0f5fae5ef8f13263aa55c6b406bc2bcfe",
+      "bytes": 2108
+    },
+    {
+      "path": "input_manifest.json",
+      "sha256": "12306d5041a7d1b0052f53e4247e98f9513f3a810db391699781c0a0a91e124f",
+      "bytes": 14279
+    },
+    {
+      "path": "inputs/b4d2ddf6/context/34_full_programme_plan_20261112/city_research_seed.csv",
+      "sha256": "81b1d50b87d0a310f37e9be6d49a40c4bd108650a97d5a969de648a1210d2591",
+      "bytes": 2481
+    },
+    {
+      "path": "inputs/b4d2ddf6/context/34_full_programme_plan_20261112/common_spec.json",
+      "sha256": "626a9328c750dc7a0c09ea34b939eefaf54ae07004e5b74dddd89d2b1da75859",
+      "bytes": 18272
+    },
+    {
+      "path": "inputs/b4d2ddf6/context/34_full_programme_plan_20261112/method_map.csv",
+      "sha256": "b97c69d91553e47a731fbcf4ccd8df653d5fe2ba6685b99192559138a5bc2cfe",
+      "bytes": 2766
+    },
+    {
+      "path": "inputs/b4d2ddf6/context/34_full_programme_plan_20261112/requirements.csv",
+      "sha256": "e3933542645c7e329b31ca56372b7b394687c145ddf287704be263341ed58411",
+      "bytes": 11513
+    },
+    {
+      "path": "inputs/b4d2ddf6/context/34_full_programme_plan_20261112/variant_research_plan.json",
+      "sha256": "e492d0beab760e09eea8d812b005cbcf595df72c4730b3ec3d6d06c31da06d17",
+      "bytes": 40002
+    },
+    {
+      "path": "inputs/b4d2ddf6/context/34_full_programme_plan_20261112/work_packages.json",
+      "sha256": "d3928dada6098e183434d0a8f665bdf9e7200a37bcff0580f175d2378248d8e4",
+      "bytes": 134355
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/CEK/dossier.md",
+      "sha256": "2a6a4756534ec5e9d34c69faf459c2cee1b74084a3132b1ccba9813468892373",
+      "bytes": 51935
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/CEK/features.csv",
+      "sha256": "986ec829acb49d6c454ab627e355371241206e86e57a8a7bb7b59028a2fd3a25",
+      "bytes": 11126
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/CEK/sources.csv",
+      "sha256": "373bd5e8a52ad4a4265d99cb7237fe242cd2bb12f215972f9d217a6da7333775",
+      "bytes": 22389
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/GOJ/dossier.md",
+      "sha256": "4b8bba8863a7dc3d3134adffd0f34dbee91dfca9c0578ca50eb810f77a3b16ae",
+      "bytes": 84434
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/GOJ/features.csv",
+      "sha256": "cedb90974fcc052e5763fc324304bdd5d5ef495c0db06149f801d4492f41ffcd",
+      "bytes": 8206
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/GOJ/sources.csv",
+      "sha256": "2b43812ed54162c602339968010e3f51200f6006f4ee8fad9bb9a674bc8c483b",
+      "bytes": 33752
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/PEE/dossier.md",
+      "sha256": "083223d6a6228e6f55e31daf11c89640173b107b0ce307dcbf5dc8cd9fd67cac",
+      "bytes": 59895
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/PEE/features.csv",
+      "sha256": "399cbc672a5cdb8167d1548d0ecf1996334ff171f41994e31e593634917263e1",
+      "bytes": 10458
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/PEE/sources.csv",
+      "sha256": "145e86821252e7e1e469f58a9e6259784c9bf505d265968166996fc1c078052c",
+      "bytes": 28926
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/TJM/dossier.md",
+      "sha256": "0f28bfc5215df33181936aed4e3bf94968c048c0e49734085356b77e2626048a",
+      "bytes": 57486
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/TJM/features.csv",
+      "sha256": "1fa864df18ba31401683f07ad545a615e7a408b978e5ceef0c23e30eb1e74c47",
+      "bytes": 7816
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/TJM/sources.csv",
+      "sha256": "10aeb0bf442bdce7db5a6c6c702e2261747a29c80e10a8ef8a19b162ef58a01a",
+      "bytes": 31527
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/UFA/dossier.md",
+      "sha256": "9f861ce7ac790e909738f1b43da14a140b24bdde1cc754ea05af1c31ad7ea411",
+      "bytes": 82641
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/UFA/features.csv",
+      "sha256": "80aeaf92c526476de64b86d2a2ec6c572eca951c6c47e9215bd64ae5cad35747",
+      "bytes": 10262
+    },
+    {
+      "path": "inputs/c18f7640/context/33_five_city_reassessment_20261112/cities/UFA/sources.csv",
+      "sha256": "12b07423617baab192980da77823365bc7982a8b326057c38a5ee2e94c1ac626",
+      "bytes": 44316
+    },
+    {
+      "path": "inputs/dceadc98/context/11_practical_screening/city_matrix.csv",
+      "sha256": "a26f1d967eb18ae2689443150946099857c61a85cda475429e6c576f134ec9cc",
+      "bytes": 8947
+    },
+    {
+      "path": "inputs/dceadc98/context/11_practical_screening/sources.json",
+      "sha256": "11dd6dea9d21909a6bc94cefce12b1a532bc2566896b9be6b2b939eb6b611611",
+      "bytes": 13869
+    },
+    {
+      "path": "inputs/dceadc98/data/assumptions/bases.csv",
+      "sha256": "c9b3ffb768431c158f4227e3b6eb992701221b345957f4d4064535d118ffb9db",
+      "bytes": 418
+    },
+    {
+      "path": "inputs/dceadc98/data/assumptions/network.csv",
+      "sha256": "becd841aa1093f864f7ceeb4bc647421b3183f03437f64625311fe8bdff5e051",
+      "bytes": 10197
+    },
+    {
+      "path": "inputs/dceadc98/data/manual/airport_tech.csv",
+      "sha256": "f23ec7d5d2ca7673b57dd99d22745958c1e8287a991e30c83d744ec04800eb37",
+      "bytes": 12249
+    },
+    {
+      "path": "inputs/dceadc98/data/manual/closed_airports.csv",
+      "sha256": "85d152ef03e1745c2c97e74c351794b72616f0eab6e2be5f9e28ee8f82a8da3a",
+      "bytes": 507
+    },
+    {
+      "path": "inputs/dceadc98/data/manual/rw_routes_now.csv",
+      "sha256": "98ea067bdf81dfc56ce4732c2f91308d5cdde26da6f1223fd017d81842e58d8d",
+      "bytes": 10544
+    },
+    {
+      "path": "inputs/dceadc98/data/processed/network_routes.csv",
+      "sha256": "eed74e3042dc14a4946894686121d4afc28c1be96daadd2ba1ed6195d49eec8f",
+      "bytes": 305727
+    },
+    {
+      "path": "inputs/dceadc98/data/processed/network_summary.csv",
+      "sha256": "aaf6db6c86b05f7e9bcd4ee4dc4a1d71def18a10adc28b0332c3d5bde5bc9b05",
+      "bytes": 11225
+    },
+    {
+      "path": "inputs/dceadc98/docs/17_fleet_range_maintenance_time.md",
+      "sha256": "2edaefad4dbc3c111f16fc3df47e7de9c1e3f2b590fb1e40f1780dd58904ba46",
+      "bytes": 37221
+    },
+    {
+      "path": "inputs/dceadc98/docs/20_fleet_deliveries_evidence.md",
+      "sha256": "1b126c8c4ab0342ed0f2862c92c24fa77b95dadcdc95a10ab1916dca3de8f467",
+      "bytes": 10762
+    },
+    {
+      "path": "inputs/dceadc98/src/network_model.py",
+      "sha256": "7a0b9eeed77f87386d29d41d6ae4738267746832623bc1a0935f5a366ebb4110",
+      "bytes": 48918
+    },
+    {
+      "path": "inputs/dceadc98/src/rules.py",
+      "sha256": "5abb902c65519de1bdbacbc73556105e5b52f41b60b51cf49f5bc876e9bab132",
+      "bytes": 2132
+    },
+    {
+      "path": "law381_visual_check.json",
+      "sha256": "78fd78eae033feab983e6d77805a90775bd91e86c752d26f61379eeae8a3fb90",
+      "bytes": 1163
+    },
+    {
+      "path": "minimum_resource_required.csv",
+      "sha256": "ac02930c262dfb176c5f1cd54426917d55979dea3cb9819510be2ce15392d74a",
+      "bytes": 175507
+    },
+    {
+      "path": "native_search_claims.json",
+      "sha256": "0568b00d1d50304990651b5364f8fc5fb0a1fe2477353e03a722b8465dc153b6",
+      "bytes": 1404
+    },
+    {
+      "path": "native_search_receipts.json",
+      "sha256": "abf75fa57202a3bfeeebcbca229150af6d99108c375c4ff27f886a1509e1b8aa",
+      "bytes": 18056
+    },
+    {
+      "path": "operating_rules.json",
+      "sha256": "06a6b05d2e3fc13e8ccd0793f390b3e16cc2cf52dc9f39775f8e128caa9acf19",
+      "bytes": 9854
+    },
+    {
+      "path": "pdf_qa/fap145-03.png",
+      "sha256": "3bafea14d5f6049c6dafad6bb18f31c6fa3d15f336391ab131593d098c844b08",
+      "bytes": 347045
+    },
+    {
+      "path": "pdf_qa/law-01.png",
+      "sha256": "cf1b190e9e497079a69ecb44f040989f72e8afec0f344431ed6f9a9f3af37ae7",
+      "bytes": 237482
+    },
+    {
+      "path": "pdf_qa/law-02.png",
+      "sha256": "4252a70e94a49422fff274e85d6d972f75028594a3280061cb6ec8be7a329c30",
+      "bytes": 211188
+    },
+    {
+      "path": "pdf_qa/law-03.png",
+      "sha256": "efdbb9f6be91c8ec5dba6d6b22a0ea59a469a11fdfe73e1ea0569e37b3997ecf",
+      "bytes": 218301
+    },
+    {
+      "path": "pdf_qa/law-04.png",
+      "sha256": "dd5388900a32ddf30f121873b6a86815e5a35ff269882b08134bdd9a2bfccbe7",
+      "bytes": 274632
+    },
+    {
+      "path": "pdf_qa/law-06.png",
+      "sha256": "3283faa23447320592834a241c1402e302ede92294d4af324f5198c84a47d8ae",
+      "bytes": 289809
+    },
+    {
+      "path": "pdf_qa/law-07.png",
+      "sha256": "c8ee5571a9e83ce4ece4a7fc880a89111ff9272f3abed90a3a79acb24f7b3848",
+      "bytes": 253232
+    },
+    {
+      "path": "pdf_qa/law-08.png",
+      "sha256": "c5943c7fe3209caa6f20d6bf0bbe877b626f6f8628694c3aeeed94a9d42949c4",
+      "bytes": 263267
+    },
+    {
+      "path": "pdf_qa/law-09.png",
+      "sha256": "801146eef2f10c561065ada2566cbbc27e79930b9f68c73147a9ec3ed478456e",
+      "bytes": 267915
+    },
+    {
+      "path": "pdf_qa/law-13.png",
+      "sha256": "0f15a3df56f07a5e2b73af8b397709041eaadec562cf2444b24eddc640845848",
+      "bytes": 241331
+    },
+    {
+      "path": "pdf_qa/law-14.png",
+      "sha256": "fdf2333eefd2694be7c5362a733f10e0f39c130c3c5104677fc6d50a28f42834",
+      "bytes": 273411
+    },
+    {
+      "path": "pdf_qa/law-15.png",
+      "sha256": "13eedac28fa78588cfe256c869db3676aca94807a9444dafb44d8ca1c49cfe26",
+      "bytes": 250988
+    },
+    {
+      "path": "pdf_qa/law-22.png",
+      "sha256": "59508bf2af9cb6849bce64aea0fc2d884b8c3db0c6aab8f678247c569cc6b41b",
+      "bytes": 126722
+    },
+    {
+      "path": "pdf_qa/law-26.png",
+      "sha256": "6c4ecce6068c65f13b1ce99df5976419161c935eaade5ad8a2a5a8f8dbe64dfd",
+      "bytes": 91686
+    },
+    {
+      "path": "prepare_metadata.py",
+      "sha256": "ae9606a9b96145ca36e4c83ae4e8af22553054cbe745865064779164a9a9c68d",
+      "bytes": 10036
+    },
+    {
+      "path": "schema.json",
+      "sha256": "aa8b76f9673bd7d8815f1bb4ef86292f054863753b687a09fd4cbb74a7af97fb",
+      "bytes": 2916
+    },
+    {
+      "path": "sources/FAP145-367.pdf",
+      "sha256": "3f8f14710a405f54f95df8ceac385df8c1c188b209b2f975ef4ce58381b0078a",
+      "bytes": 804389
+    },
+    {
+      "path": "sources/FAP145-367.txt",
+      "sha256": "0641ccab39dba5383de98aa07f4d8be9b425c2ad42bbae74a458630b91af065e",
+      "bytes": 268676
+    },
+    {
+      "path": "sources/FAP145-MINTRANS.txt",
+      "sha256": "91366cf2fd7fac3854d831a7a2ccaa1d94efe9ab556b388c6e945183290f4b13",
+      "bytes": 4111
+    },
+    {
+      "path": "sources/FAVT-AOC.txt",
+      "sha256": "ee796b392b77b046a833713a0b3c9bfece1efe8721f4b1d619e9ef4d55cbf738",
+      "bytes": 67847
+    },
+    {
+      "path": "sources/FAVT-PD8.txt",
+      "sha256": "84682df3aa902ab8334c76f32ab555473924bc770fbdebcef1128d90f8ed5b71",
+      "bytes": 8904
+    },
+    {
+      "path": "sources/FAVT-TU-ENTRY.txt",
+      "sha256": "16178b2135d938b72bc8bc974a6f7ea675af33ef40176029d78b64760c7d55d9",
+      "bytes": 5692
+    },
+    {
+      "path": "sources/GOJ-MRO.txt",
+      "sha256": "ab6be803e58b679a5b18471412aeb7bd8de30f1c761129265851c39c49205db7",
+      "bytes": 6016
+    },
+    {
+      "path": "sources/GOJ-TECH.txt",
+      "sha256": "04940af0c4713827a34d80a46294f0a50c18d8c10a9ac47f1eb11f4356bdd021",
+      "bytes": 4676
+    },
+    {
+      "path": "sources/GOJ-TERMS.txt",
+      "sha256": "522b86d1686a839672e5ea0c2027c736c6532ff1f564d40eda1128879e58fde6",
+      "bytes": 5451
+    },
+    {
+      "path": "sources/GSV-TECH.txt",
+      "sha256": "6cd1c0e4683482b9d0b84583f70dd5eae3c02ef759b69410049c2d21d6fa65f0",
+      "bytes": 5464
+    },
+    {
+      "path": "sources/KUF-MRO.txt",
+      "sha256": "e0e4f5e07e29ccde43f8c3267c7124c8812367089ef26fe26e60b60e7815f530",
+      "bytes": 8330
+    },
+    {
+      "path": "sources/KUF-TECH.txt",
+      "sha256": "dc3c087507d808915f60c6b701b08b00a91af26a3d70935609457b9396d0c6cd",
+      "bytes": 5298
+    },
+    {
+      "path": "sources/KUF-TERMS.txt",
+      "sha256": "d160b00938b0d9b9ae44ecd02e31c4e082541034789f551c6c02457bf3dedc5f",
+      "bytes": 5292
+    },
+    {
+      "path": "sources/LAW381-OFFICIAL-HTTP.txt",
+      "sha256": "a67dd9a6d26abf94fccf9d3d624fe49b85d12d39c7e60bc7253f022e6daf385d",
+      "bytes": 1481
+    },
+    {
+      "path": "sources/LAW381-REGISTERED-PDF.pdf",
+      "sha256": "76ffe1c45f30316a32a151914261bba507b33e42e5ec5d25c8ec423c1c8e1007",
+      "bytes": 1824327
+    },
+    {
+      "path": "sources/LAW381-REGISTERED-PDF.txt",
+      "sha256": "099d915d8573f452ff9a0eb17e5ff08eb0e354421fe5c9517cadca9d32635415",
+      "bytes": 26
+    },
+    {
+      "path": "sources/LAW381-ROSTRUD.txt",
+      "sha256": "29965f3cc6b5d2360f9caa88fc12ebab1a2a01032f4eb745eae11f621a40909a",
+      "bytes": 88948
+    },
+    {
+      "path": "sources/LAW381-TEXT-MIRROR.txt",
+      "sha256": "40550011458a5a8e56b505fb2ca83a7fc97c57698c9c404f46316127d5f2042f",
+      "bytes": 125045
+    },
+    {
+      "path": "sources/OMS-MRO.txt",
+      "sha256": "feec30962e3cc1ee66a400e9e0a1ce3baaa39f52774aebd429a5e84f04f85ba4",
+      "bytes": 14680
+    },
+    {
+      "path": "sources/REN-TECH.txt",
+      "sha256": "7aa0f8a07961ef50112f7b1f54952746bebfa8ecd0ddfe248ce85c489e39e020",
+      "bytes": 4541
+    },
+    {
+      "path": "sources/RW-FLEET.txt",
+      "sha256": "92c1c24f5222ded0918e3ee8a826e84d7b2ce92de1281a5b8dd4d11817535b37",
+      "bytes": 8899
+    },
+    {
+      "path": "sources/RW-SVX-MRO.txt",
+      "sha256": "ebcae53930c716914bd53e22aae17e8312d8e1207dca8d5504f531c829805b39",
+      "bytes": 10691
+    },
+    {
+      "path": "sources/RW-TU-HANDOVER.txt",
+      "sha256": "2cfc4ae3d3f08f1725ceeb0bb9f87fdbc43a2b87ea3ef3fffa10d82789ffe64d",
+      "bytes": 9034
+    },
+    {
+      "path": "sources/RW-WINTER.txt",
+      "sha256": "8eff6f04ca86438c64379368c3e3064c7e46c906cbeaf308133d55ca61bf04dd",
+      "bytes": 9519
+    },
+    {
+      "path": "sources/RW-ZIA-MRO.txt",
+      "sha256": "6e4c7b9f0611ed5d9eeb9de4170a97e2a7723e6d7d9cb6ed957fc602b6c2a13b",
+      "bytes": 11303
+    },
+    {
+      "path": "sources/TJM-MRO-JAN.txt",
+      "sha256": "e4a204d60a697d83cedba265621070b8585b91a4f21a325bf1ce0bba4f9fa58b",
+      "bytes": 13000
+    },
+    {
+      "path": "sources/TJM-MRO-SEP.txt",
+      "sha256": "3eb0ff7dc8c3414e04f42bec9dd28e05765c14d40196ec9f2136f6fa86125d0c",
+      "bytes": 9659
+    },
+    {
+      "path": "sources/TJM-TERMS.txt",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    {
+      "path": "sources/TU214-ANNOUNCEMENT.txt",
+      "sha256": "04651dd8a5c476e40495d8352e00da24cd0aae531a395155882b178aa088a2fd",
+      "bytes": 8555
+    },
+    {
+      "path": "sources/UFA-CERT.txt",
+      "sha256": "797e522b91994ef63529c2fc2067f559d43da91c10a792a6aee626a4f852fc42",
+      "bytes": 2693
+    },
+    {
+      "path": "sources/UFA-GENERAL.txt",
+      "sha256": "8f3608ffc99278e189485ace8cc95ecc37b69d3ef926f47e2bee304a6ffb3606",
+      "bytes": 6550
+    },
+    {
+      "path": "sources/UFA-TECH.txt",
+      "sha256": "c1c23a58d7d66aecb0bac265677224715da253902d096d704a1b8e1c2836b015",
+      "bytes": 7072
+    },
+    {
+      "path": "sources.csv",
+      "sha256": "b93bfca020f048e389b454c7943a84e74927825ceadafc6c8f6394258688ee7e",
+      "bytes": 19283
+    },
+    {
+      "path": "supplemental_fetch_receipts.json",
+      "sha256": "247ef8a5ce17ac744c4775f99b70ac9ea71cc0688330c4419d347cca17cd0c1a",
+      "bytes": 3041
+    },
+    {
+      "path": "variant_proposals.csv",
+      "sha256": "863e6b4116edacbad1d62b51c6bb12eb2732a917cd86f7bd59834828e58458b5",
+      "bytes": 844
+    },
+    {
+      "path": "verification.json",
+      "sha256": "8fae106e18b176af81d9e71a1b7d396fdbbaf4f3a148ea09d29c19056c3f15ca",
+      "bytes": 2043
+    },
+    {
+      "path": "verify_package.py",
+      "sha256": "0872a2ddc503283a9f7b3e379bde30708b2ca442713c4fecc2bffb9e44d1e965",
+      "bytes": 9688
+    },
+    {
+      "path": "bind_sp_fragments.py",
+      "sha256": "165b5275277d873540d5eead8e0d056345ac3f903292f758550bdc29a3064370",
+      "bytes": 3113
+    },
+    {
+      "path": "build_sp_adapter.py",
+      "sha256": "6fd576df9aff296adc099aeab62615c12f84322c446a83566e04ba2c177342c5",
+      "bytes": 34545
+    },
+    {
+      "path": "sp_adapter/README.txt",
+      "sha256": "302ab62bb9c455a9645ace947807fc6af2bf2ecee646861dcf4b5e4dae80663f",
+      "bytes": 12591
+    },
+    {
+      "path": "sp_adapter/assignments_sp07.csv",
+      "sha256": "675cd822b18f1792307966f22a65d08ac4e691fdb2743bfcd0b2c0295655765c",
+      "bytes": 110393
+    },
+    {
+      "path": "sp_adapter/assumption_changes.csv",
+      "sha256": "6951d7314250b711ea6222b2ec89e6b1c05571bb30ababa43b3faeba83497067",
+      "bytes": 3580
+    },
+    {
+      "path": "sp_adapter/assumption_changes.json",
+      "sha256": "81d755790c13cc9ac421d69ac4c600c8c7621368cb0c6c7d3a0864115c08de38",
+      "bytes": 4688
+    },
+    {
+      "path": "sp_adapter/assumption_ids.json",
+      "sha256": "90e35504e22a7cc27970a8d4f42910d18ebdb4a0a165a6d1462196cb0509a2b3",
+      "bytes": 436
+    },
+    {
+      "path": "sp_adapter/assumptions_register_v2.csv",
+      "sha256": "975149e7f716ba362a86cc77e870df4c8dcf919ae17f43fd86efd3f57726c400",
+      "bytes": 14739
+    },
+    {
+      "path": "sp_adapter/assumptions_register_v2.json",
+      "sha256": "cc2342010ccaa13c54d5a4c533d301108bbdb9b34616f00207bd203a9f374eff",
+      "bytes": 21601
+    },
+    {
+      "path": "sp_adapter/clarification_requests.csv",
+      "sha256": "b037ca363095a1d4e1f9e34f0cff30a909f2ea340e27be8ae748351cf561f1a4",
+      "bytes": 798
+    },
+    {
+      "path": "sp_adapter/colleague_check/colleague_refs.json",
+      "sha256": "88e179d34ce419a0eda7b339fc9aee5321f46e34cd68ccbb361f80a52b4b07e7",
+      "bytes": 6800
+    },
+    {
+      "path": "sp_adapter/colleague_check/summary.json",
+      "sha256": "02e4ede22e2062bc1e2ddbd8d6f4f57422f7cf99b7a7a9988afe4e70de1a8c83",
+      "bytes": 434
+    },
+    {
+      "path": "sp_adapter/colleague_check/updates.jsonl",
+      "sha256": "128af6fdb7d8c06bae24a59b182d837a8deebc59b6951fe4a3df705a7e78d0d7",
+      "bytes": 14799
+    },
+    {
+      "path": "sp_adapter/committed_payment_refs.csv",
+      "sha256": "82fc7d861efc87c5a07fc1fe8b6728171b436924c98d5290222a25bd9619a0f2",
+      "bytes": 6269
+    },
+    {
+      "path": "sp_adapter/crew_advisory.json",
+      "sha256": "68cb895831fc5fab192748af6eb39fd40814862622c2f9d61892e76dd734bb3b",
+      "bytes": 718
+    },
+    {
+      "path": "sp_adapter/diagnostic_resource_events_v2.csv",
+      "sha256": "277d6bb703da358573fc13d43f5556866905da0f6451c63420eae91e9c6e50c8",
+      "bytes": 10698
+    },
+    {
+      "path": "sp_adapter/diagnostic_resource_monthly_v2.csv",
+      "sha256": "171d84287310921a172b2b75cdb7120a3663edf8150b9aa0ab494ce2991e9fcb",
+      "bytes": 23447
+    },
+    {
+      "path": "sp_adapter/evidence_delta.json",
+      "sha256": "20730b64486424388f47b90af1722b59e56d0c1c8c85b1c2b99cbb61f8414c5c",
+      "bytes": 1150
+    },
+    {
+      "path": "sp_adapter/fleet_calendar_sp07.csv",
+      "sha256": "976a75819493b59c35627ede4023b0ecc2c22e261a5d69b5a221bea0617cba44",
+      "bytes": 35477
+    },
+    {
+      "path": "sp_adapter/flights_sp04.csv",
+      "sha256": "46e8b486e820f93fbdc9087c8ed62cd2a21e9e6639d36fba622a3d8563126d88",
+      "bytes": 39968
+    },
+    {
+      "path": "sp_adapter/input_manifest.json",
+      "sha256": "c5b465b947c23b14922074d19afd931e46f7807b6b526a12bf71c8901d119d97",
+      "bytes": 3588
+    },
+    {
+      "path": "sp_adapter/inputs/P06/README.md",
+      "sha256": "566f18eb3aa98254d0c650c3ff0f1edcaadb802b8a4c81d3dc85ceb6dd1643f2",
+      "bytes": 4808
+    },
+    {
+      "path": "sp_adapter/inputs/P06/engine/common.py",
+      "sha256": "046b0afbde84e1f5f0e0c65cb84dc5c17fae0001909b286e0192fe2cd3438766",
+      "bytes": 2691
+    },
+    {
+      "path": "sp_adapter/inputs/P06/engine/operations.py",
+      "sha256": "37337aeb7c56bdab6ae5a0076dcb10939bbf063d60cc33f2df78b40962b01dbf",
+      "bytes": 10103
+    },
+    {
+      "path": "sp_adapter/inputs/P06/examples/demo_bundle.json",
+      "sha256": "e861ab3517209a3d044e7efc8886d4836152bd6630b47cddbdb873f39d40c61f",
+      "bytes": 27612
+    },
+    {
+      "path": "sp_adapter/inputs/P06/producer_contract.json",
+      "sha256": "2885bce0e49135254a0f4e229ffb01569422ccad9c6c2414b9269ee2b367a48f",
+      "bytes": 11617
+    },
+    {
+      "path": "sp_adapter/inputs/contract_addendum.json",
+      "sha256": "f259bc1777b6f06bebd7f23c1ec925c403a414fcc4a98d25e608a145770328c7",
+      "bytes": 4666
+    },
+    {
+      "path": "sp_adapter/inputs/minimal_counterexamples.csv",
+      "sha256": "2804c446007f81adc3c1ee7bf265b8312489be45bce7353f87d1862651220e1d",
+      "bytes": 14067
+    },
+    {
+      "path": "sp_adapter/inputs/schema_patch.csv",
+      "sha256": "1f8cd7bcb7496f44ca3294d977bf370d81ff5040bb21e055c3feb428c53b59ea",
+      "bytes": 11025
+    },
+    {
+      "path": "sp_adapter/interface_contract.json",
+      "sha256": "5396992e1a0a4b3ad1632a8a14b446ecf8080ec53af59529becd694e0c090a4f",
+      "bytes": 2495
+    },
+    {
+      "path": "sp_adapter/keep_policies_sp08.csv",
+      "sha256": "c2b7d4ccb20eec1fe4b13dcee702600754b86023c6b6209f17157fe244db7b29",
+      "bytes": 4334
+    },
+    {
+      "path": "sp_adapter/minimum_resource_required_v2.csv",
+      "sha256": "e7474ca26beeac1329e26f46b1fe9fd8b97f6cc62b2ce5fbe5e72a03b11fccbc",
+      "bytes": 695
+    },
+    {
+      "path": "sp_adapter/ordinary_return_lower_bound.json",
+      "sha256": "ad77cd292754ed4075294bc56d671ac746a90a90e34263d8af4c1684be1b8193",
+      "bytes": 1775
+    },
+    {
+      "path": "sp_adapter/p03_operating_bundle.json",
+      "sha256": "399fad1278c569a67943af9cdaac062c7f78daa1cbc45753f2824f3724459d84",
+      "bytes": 460667
+    },
+    {
+      "path": "sp_adapter/p06_operations_results.json",
+      "sha256": "ed1abc7d8cce0f847a7ed4ce64ab59e477ac67227d7ee17e396cb4cba13cf38d",
+      "bytes": 105299
+    },
+    {
+      "path": "sp_adapter/p06_producer_fragments.json",
+      "sha256": "ed7b0eed4c5702454dfaef6fd7be02dd66ddb5107209cc3ed7aaffbfedbdc119",
+      "bytes": 958027
+    },
+    {
+      "path": "sp_adapter/prior_task_refs.csv",
+      "sha256": "4f5db09bcd3bc04adad253c8f65bba58e2a8e7396bf52c66f2f761f14371da9f",
+      "bytes": 1137
+    },
+    {
+      "path": "sp_adapter/return_template_aircraft_days.csv",
+      "sha256": "b2c9cf409a1bc959cea59928d8ad7d1a101cfadc6d1ec6f357afc01a98d0cb2b",
+      "bytes": 1566
+    },
+    {
+      "path": "sp_adapter/targeted_check_details.json",
+      "sha256": "47da8cfaa284a1f361cb10367f187b623b55cbf0e7483ed547ad62343878e3ea",
+      "bytes": 45134
+    },
+    {
+      "path": "sp_adapter/variant_proposals_v2.csv",
+      "sha256": "1878ffff8b4b36bef8a0ef61ddbe092b673260baa6bfcd27fa26f0191f47c13b",
+      "bytes": 566
+    },
+    {
+      "path": "sp_adapter/verification.json",
+      "sha256": "ce46d06ef507a46051d79df71b1c87a1318257ddd5d1945c242c8abe6e07f3f5",
+      "bytes": 2131
+    },
+    {
+      "path": "verify_sp_adapter.py",
+      "sha256": "89c72e438e040903918eba4ae8181cbc9362af11b916dbfa08ed29ab8411aad3",
+      "bytes": 9266
+    },
+    {
+      "path": "output_manifest.json",
+      "sha256": "0ce7bead8db2db18f7c0683d442acaa456b90123edcda0513e88c00b68b247d5",
+      "bytes": 20370
+    },
+    {
+      "path": "sp_adapter/output_manifest.json",
+      "sha256": "1e591d7d9d2e2e87baf6915e8f90842c2dbbc9911a031f1d833431ac0100ddff",
+      "bytes": 7590
+    },
+    {
+      "path": "sp_adapter/binding_manifest.json",
+      "sha256": "5ba69af8c11ed2883da7b0db11bc495b798a6df4ef1e49d92b9813c2361dd476",
+      "bytes": 4138
+    },
+    {
+      "path": "sp_adapter/p06_bound_fragments.json",
+      "sha256": "044bc0e933982f5768ebeb26b6e0c442643d2c708036ecb849fe1ba5876ca7e0",
+      "bytes": 989712
+    }
+  ],
+  "file_count": 164,
+  "inputs": {
+    "planning_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
+    "author_model_commit": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "five_cities_commit": "c18f7640ea36647a05b39089e5293f22dd009f63",
+    "exact_input_manifest": "context/35_full_programme_execution_20261112/P03/input_manifest.json",
+    "input_manifest_sha256": "12306d5041a7d1b0052f53e4247e98f9513f3a810db391699781c0a0a91e124f",
+    "pinned_blobs": 34,
+    "live_branches_substitute_inputs": false,
+    "later_user_steering": [
+      "P03-Q01: parametric N plus programme-derived numerical diagnostic cases",
+      "Target8-12 unique physical airport pairs by end2028 main scenario; intermediate/resource-shortfall branches may be smaller",
+      "2027-2028 monthly/seasonal horizon; separate evidence deltas by type/period"
+    ],
+    "method_contract_commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "method_contract_path": "context/35_full_programme_execution_20261112/P00R/schema_patch.csv",
+    "P06_interface_commit": "bc70308fe091c5767dbf26b02d06a7d750a65614",
+    "P06_interface_manifest_sha256": "bd167207beb3c59e4a3339f35922c277eac55f2adcbf501a6b056108165dd087",
+    "P06_manifest_files_personally_checked": 45,
+    "v2_input_manifest": "context/35_full_programme_execution_20261112/P03/sp_adapter/input_manifest.json",
+    "v1_payload118hashes_unchanged": true
+  },
+  "v1_source_tranche": {
+    "fleet_calendar.csv": 672,
+    "airport_constraints.csv": 69,
+    "operating_rules.json": "type/calendar/crew/MRO/airport gates",
+    "crew_calendar.csv": 144,
+    "minimum_resource_required.csv": 240,
+    "diagnostic_delivery_events.csv": 10,
+    "diagnostic_programme_readiness.csv": 96,
+    "assumptions_register.csv": 18,
+    "sources.csv": 42,
+    "evidence_delta.csv": 7
+  },
+  "v2_outputs": {
+    "flights_sp04.csv": 60,
+    "assignments_sp07.csv": 240,
+    "fleet_calendar_sp07.csv": "42 state intervals; anonymous scenario units",
+    "diagnostic_resource_monthly_v2.csv": 96,
+    "return_template_aircraft_days.csv": 23,
+    "p06_bound_fragments.json": "4 delivery branches, P/KEEP-owned table fragments; actual crew/MRO remain null",
+    "assumptions_register_v2.json": 22,
+    "ordinary_return_lower_bound.json": "minimum23aircraft-days under fixed ordinary-return design; at least4working+1reserve policy"
+  },
+  "conclusions": [
+    "Four current fleet families retained; actual free resource and prior task allocations UNKNOWN. Existing RRJ variants not duplicated into two20tail pools.",
+    "All20 seed cities and49 additional endpoints have explicit partial evidence or UNKNOWN. GOJ has a public RW RRJ95 DAILY agreement; distinguish outstation/overnight from full base.",
+    "TJM Yamal hangar is not RW capacity; UFA non-local hangar restriction is conditional, not proof against a negotiated new local base.",
+    "No381 registered primary scan and exact operative points saved; No139 is not current2027-28 rule. Crew status remainsUNKNOWN without roster.",
+    "Part145 Order367 transition/current approval requirements saved; historical285 station news is not2027-28 approval.",
+    "Concrete archived GOJ8 needs139.3952proxyblockh/week at k1.2;u8 gives3working+1reserve=4diagnostic tails. Numeric quarter-grid/30dayinduction/partial/6monthdelay branches derived from this threshold; no_new included.",
+    "N(t) and delivery_forecast remainUNKNOWN; numeric diagnostic capacities and minimum_required are separate from forecasts. MainCASE_SJ does not require newTu214.",
+    "V2 adds a design-specific necessary resource lower bound:16long singletons plus at least7bins for14remaining returns =23aircraft-days/week;3working units give21days, so >=4working. With policy reserve1 total>=5. This does not reject overnight/chain/frequency alternatives.",
+    "A dated60leg/8pair diagnostic template on11-17Dec2028 fits the stated temporal positions,45minturns andu8 limits with4anonymousworking units; not real tail registrations or RW schedule. P06 check_operations gives phased CONDITIONAL, other fixed-template resource branches INFEASIBLE.",
+    "Crew remains unresolved: four-landing max elapsed599min leaves31min for pre/post if ordinary daytime630min duty applies. Actual RPP, report time, roster and rest may require changed crew/schedule.",
+    "P and KEEP share identical fleet_calendar, keep_policy and unresolved committed payment envelope. Missing future KEEP flights mean missing coverage, not empty business or zero opportunity result. No additional donor deduction after P-KEEP.",
+    "Bound P06 fragments reference exact producer tables/code at c1794e9d11a8b27d9407155af1e071f67eca50d1 and canonical manifest hashes; genuine P04/P05/P07 contributions still required before full evaluation."
+  ],
+  "bounds": [
+    "No actual tail registrations/availability, crew roster, current MRO/airport access, day-of-demand suitability or payments were invented.",
+    "Same-day return lower bound applies only to specified frequencies/u8/k1.2 and indivisible returns; temporal construction alone does not establish operational sufficiency.",
+    "Only11-17Dec2028 flight template constructed; no52week extrapolation or full seasonal programme claim. Resource intervals/monthly summary cover2027-28 with post-horizon event retained.",
+    "Data are proposed scenario legs, not published/observed RW flights. SJ100PD8 technical/cost readiness stays separate from RRJ95SaM146.",
+    "P06 full financial evaluate/compare/scenario and full CE suite NOT_RUN on incomplete producer fragments; no toy market/money values filled.",
+    "Source tranche historical verdicts and all118 hashed files preserved."
+  ],
+  "checks": {
+    "v1_payload_hashes": 118,
+    "v2_targeted_checks": 351,
+    "P06_manifest_files": 45,
+    "actual_pinned_P06_check_operations": {
+      "phased": {
+        "status": "CONDITIONAL",
+        "errors_count": 0,
+        "unknowns_count": 64,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_phased_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      },
+      "partial": {
+        "status": "INFEASIBLE",
+        "errors_count": 44,
+        "unknowns_count": 73,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_partial_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      },
+      "delayed": {
+        "status": "INFEASIBLE",
+        "errors_count": 32,
+        "unknowns_count": 65,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_delayed_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      },
+      "no_new": {
+        "status": "INFEASIBLE",
+        "errors_count": 60,
+        "unknowns_count": 76,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_no_new_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      }
+    },
+    "binding": {
+      "all_input_blobs_exist_and_hash": true,
+      "owned_operating_data_unchanged": true,
+      "all_context_hashes_match": true
+    },
+    "this_handoff_exact_subject_file_hashes": 164,
+    "independent_review": false,
+    "full_P06_evaluate_compare_scenario": "NOT_RUN",
+    "full_CE_corpus": "NOT_RUN; affected SP operations/interface checks only"
+  },
+  "assumption_ids": [
+    "P03-A001",
+    "P03-A002",
+    "P03-A003",
+    "P03-A004",
+    "P03-A005",
+    "P03-A006",
+    "P03-A007",
+    "P03-A008",
+    "P03-A009",
+    "P03-A010",
+    "P03-A011",
+    "P03-A012",
+    "P03-A013",
+    "P03-A014",
+    "P03-A015",
+    "P03-A016",
+    "P03-A017",
+    "P03-A018",
+    "P03-A019",
+    "P03-A020",
+    "P03-A021",
+    "P03-A022"
+  ],
+  "register_changes": {
+    "preserved": "P03-A001..A018",
+    "added": "P03-A019..A022",
+    "complete_register": "context/35_full_programme_execution_20261112/P03/sp_adapter/assumptions_register_v2.json",
+    "changes": "context/35_full_programme_execution_20261112/P03/sp_adapter/assumption_changes.csv",
+    "base_cautious_confidence_interval": false
+  },
+  "evidence_deltas": {
+    "v1": "context/35_full_programme_execution_20261112/P03/evidence_delta.csv",
+    "new": "context/35_full_programme_execution_20261112/P03/sp_adapter/evidence_delta.json",
+    "new_ids": [
+      "P03-ED08",
+      "P03-ED09"
+    ]
+  },
+  "variant_proposals": {
+    "v1": "context/35_full_programme_execution_20261112/P03/variant_proposals.csv",
+    "new": "context/35_full_programme_execution_20261112/P03/sp_adapter/variant_proposals_v2.csv",
+    "new_id": "P03-V04"
+  },
+  "clarifications": [
+    {
+      "question_id": "P03-Q01",
+      "source": "common_spec fleet_calendar;worker brief;user steering2026-11-12",
+      "quote": "основной N(t) остаётся параметром, но для сравнений нужны также явно условные численные календари и точки потребности конкретных программ",
+      "interpretations": "parametric only;parametric plus diagnostic numerical resource cases",
+      "temporary_recommendation": "parametric primary+programme-derived numeric diagnostics;noRW forecast",
+      "affected": "fleet_calendar;minimum_resource_required;P06/P07",
+      "continuing_work": "types;airports;legal crew constraints;numeric diagnostics",
+      "status": "RESOLVED_BY_USER_STEERING",
+      "answer": "separate delivery_forecast UNKNOWN,diagnostic_resource_case,minimum_resource_required;updateprogramme needs withP06/P07",
+      "recalculation_scope": "affectedprogramme thresholds,events,monthlycounts only",
+      "coordination": "t3_thread_send steer delivered;no blockinguserask"
+    },
+    {
+      "question_id": "P03-Q02",
+      "source": "User supplied pinned P06 bc70308fe091c5767dbf26b02d06a7d750a65614",
+      "quote": "producer_contract.json; examples/demo_bundle.json; README.md; null is UNKNOWN",
+      "interpretations": "engine-native fields and P03 fragment ownership established",
+      "temporary_recommendation": "Use p06_producer_fragments.json; no implicit zero or invented aircraft registrations",
+      "affected": "SP adapter only; source tranche unchanged",
+      "continuing_work": "dated diagnostic template; return-design lower bound; KEEP/payment references",
+      "status": "RESOLVED_PINNED_P06_INTERFACE",
+      "answer": "Exact P06 interface copied and verified; only P03-owned fields instantiated, other owners remain missing rather than toy-filled",
+      "recalculation_scope": "adapter fields and affected input checks only",
+      "coordination": "t3_thread_send mode=auto delivered"
+    }
+  ],
+  "dependency_requests": [
+    {
+      "request_id": "P03-D01",
+      "owner": "P02",
+      "fields": "dated seasonal flights all2027-28;airportpair,type,blocktimes,cancelled/operatedandcoverage",
+      "why": "weeklyproxyisnotschedule;preserveexistingduties",
+      "blocks": "operationalacceptance",
+      "available_now": "archivedfrequencythresholds;airportconstraints",
+      "rerun_trigger": "pinnedseasonalinput"
+    },
+    {
+      "request_id": "P03-D02",
+      "owner": "P06/P07/P08",
+      "fields": "concreteprogramme8-12pairs,datedfrequency/launch,tailrotations,crewassignment/MROdates",
+      "why": "updateprogramme-specificresourcecasesasagreed;checkpeakandlocation",
+      "blocks": "finalschedulingandnumericalcalendaracceptance",
+      "available_now": "4derivedGOJdiagnosticbranches;240minimumresourcerows",
+      "rerun_trigger": "newpinnedprogrammeorfailedconstraint"
+    },
+    {
+      "request_id": "P03-D03",
+      "owner": "coordinator/operator",
+      "fields": "existingtailroster,subvariant,airworthiness,donor/chartertasks,crewandmaintenanceprogramme,airport/MROcontracts",
+      "why": "unknownnotzero;nominalfleetnotavailable",
+      "blocks": "realRWsparefleetorfulloperatoracceptance",
+      "available_now": "namedpublicMROevidence;thresholdsandprecisefields",
+      "rerun_trigger": "relevantacceptedfield"
+    },
+    {
+      "request_id": "P03-D04",
+      "owner": "P04",
+      "fields": "induction/crew/MRO/base/stand/repositioning/reservecontractsandcash,type-specific",
+      "why": "noMRO/basepriceinvented;lossalternativesandcashmustbecounted",
+      "blocks": "fullincrementalfinance",
+      "available_now": "namedprovidersandscope;pricestatusUNKNOWN",
+      "rerun_trigger": "pinnedcost/contractchange"
+    }
+  ],
+  "remaining_fields": [
+    "RW named tail/variant/cabin and maintenance status by date",
+    "Existing KEEP/charter/lease assignments, donor sales and alternative results",
+    "Operator crew qualifications, report/duty/positioning/rest and cumulative time",
+    "Current Part145 approval scope by type/engine/location and contracted slots/prices",
+    "2027-28 seasonal airport windows, slots, AIP/NOTAM and type-specific payload planning",
+    "P06/P07/P08 concrete programmes/readiness needs; P04 contract/cash costs",
+    "Actual calendar crew_windows/maintenance_intervals and local base report time",
+    "Dates/route/cost of reaching initialGOJ at conditional service entry",
+    "Actual P04 events bound to unresolved committed_payment_refs, including unused/terminal obligations",
+    "P05 demand/choice/contracts and full existing/alternative KEEP for complete comparison"
+  ],
+  "coordination": "User acceptedV1 usable tranche, acknowledged design-specific lower bound, resolvedQ02 with pinnedP06 interface. Updates sent by t3_thread_send mode=auto; final pinned package notification follows push.",
+  "next_recalculation": "Change only affected design/resource/interface rows when a relevant pinned input or specific finding changes. Whole joint networks require P06/P09 recomputation, not sums."
+}

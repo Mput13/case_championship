@@ -1,0 +1,55 @@
+{
+  "scope": "Synthetic exact arithmetic only; no empirical rate/market acceptance",
+  "support_lag": {
+    "operating_result_months1to6_kRUB": 80,
+    "peak_funding_lag2_kRUB": 350,
+    "peak_funding_immediate_kRUB": 350,
+    "cum_cash_end6_lag2_kRUB": 150,
+    "cum_cash_end6_immediate_kRUB": 250,
+    "interpretation": "Initial launch dominates peak here; delay worsens cash and receivable without automatically changing peak. Counterexample to adding S*lag blindly to total funding."
+  },
+  "intra_month": {
+    "start_cash": 0,
+    "day1_supplier_payment": -100,
+    "day28_customer_receipt": 100,
+    "month_end_net_cash": 0,
+    "actual_peak_funding": 100
+  },
+  "fuel_net_credit": {
+    "gross_deduction_rub_per_t": 5824,
+    "accrued_excise_rub_per_t": 2800,
+    "net_base_rub_per_t": 3024,
+    "wrong_net_if5824used": 2800
+  },
+  "existing_lease": {
+    "project_same_common_lease": 100,
+    "KEEP_same_common_lease": 100,
+    "true_incremental_common_lease": 0,
+    "interpretation": "Flight cancellation does not release common committed lease100. Show total commitment in both branches."
+  },
+  "own_migration": {
+    "KEEP_old_contribution": 100,
+    "project_new_contribution": 120,
+    "correct_incremental": 20,
+    "wrong_after_second_donor_subtraction": -80
+  },
+  "unknown": {
+    "known_subtotal": 100,
+    "missing_MRO": null,
+    "correct_total": null,
+    "wrong_total_if_null_coalesced_zero": 100
+  },
+  "shared_base": {
+    "programme_A_base": 50,
+    "programme_B_base": 50,
+    "joint_one_base": 50,
+    "standalone_sum": 100
+  },
+  "reserve_vs_invoice": "Monthly paid PBH+full later invoice double counts unless reserve setoff and scope reconciled",
+  "history_not_forecast": "2026 simple monthly industry mean is not RW paid amount, fuel-volume-weighted mean, or2027/28 rate",
+  "assumption_ids": [
+    "P04-A-FIXTURE",
+    "P04-A-COUNTERFACTUAL",
+    "P04-A-NULL"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "version": "P05-v1-scenario-20261112",
+  "model": "conditional_logit_with_capacity_recapture_P06",
+  "calibration_status": "SCENARIO_NOT_IDENTIFIED",
+  "scenarios": {
+    "base": {
+      "price_per_rub": -0.00023104906018664843,
+      "time_per_minute": -0.0057762265046662105,
+      "log_frequency": 1.0,
+      "stop_penalty": -0.6931471805599453,
+      "assumption_id": "P05-A07",
+      "calibration_status": "SCENARIO_NOT_IDENTIFIED_FROM_BOOKINGS",
+      "version": "P05-v1-scenario-20261112"
+    },
+    "cautious": {
+      "price_per_rub": -0.00046209812037329687,
+      "time_per_minute": -0.0028881132523331052,
+      "log_frequency": 0.5,
+      "stop_penalty": -1.3862943611198906,
+      "assumption_id": "P05-A07",
+      "calibration_status": "SCENARIO_NOT_IDENTIFIED_FROM_BOOKINGS",
+      "version": "P05-v1-scenario-20261112"
+    }
+  },
+  "utility": "intercept + beta_price*gross_fare + beta_time*duration_minutes + beta_frequency*ln(frequency); stop penalty and per-date normalization in intercept",
+  "supply": "Externally supplied exact dated physical legs only. Unknown competitor air is outside composite, not physical inventory; not carrier segment output.",
+  "potential_mapping": "realized_air_reference/0.6; reference air/ground/no-travel masses0.6/0.3/0.1; normalized algebraically, NOT empirical calibration",
+  "outside_interpretation": "NO_TRAVEL and UNREPRESENTED_EXISTING_AIR separate choice masses; potential pool includes both. No double no-travel deduction.",
+  "date_cohorts": "Disjoint customer_segment travel_date:YYYY-MM-DD, monthly potential prorated by actual days. Remaining dates stay outside diagnostic fragment, not zero demand.",
+  "own_migration": "UNKNOWN existingRW share. Requires explicit KEEP old products before new-toRW or compatible carrier share claims.",
+  "IIA": "Known MNL limitation. Do not treat fare families for same physical service as independent equivalent opportunities; route/date normalization retained.",
+  "price_and_net": "Choice uses gross comparable basket; revenue uses one net fare per carried journey. Net distribution drag excluded from P04cost duplication.",
+  "unresolved": [
+    "booking-choice likelihood unavailable",
+    "season/lead effects confounded in quotations",
+    "true endpointOD reconstruction not externally validated",
+    "same-market2026 monthly demand sparse"
+  ],
+  "required_patch_ids": [
+    "SP02",
+    "SP03",
+    "SP05",
+    "SP06",
+    "SP12",
+    "SP13"
+  ],
+  "assumption_ids": [
+    "P05-A01",
+    "P05-A02",
+    "P05-A03",
+    "P05-A04",
+    "P05-A05",
+    "P05-A06",
+    "P05-A07",
+    "P05-A08",
+    "P05-A09",
+    "P05-A10",
+    "P05-A11",
+    "P05-A12",
+    "P05-A13",
+    "P05-A14",
+    "P05-A15",
+    "P05-A16"
+  ]
+}

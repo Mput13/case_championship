@@ -1,0 +1,5931 @@
+{
+  "status": "PASS_ARITHMETIC_WITH_UNKNOWNS",
+  "checks_count": 1472,
+  "errors": [],
+  "unknowns": [
+    "RW credit entitlement, eligible tonnes and actual cash lag",
+    "monthly primary OD and actual retained demand/yield",
+    "F after overlap reconciliation; lease/capital or donor opportunity cost",
+    "A; deposits; working capital; VAT/tax/full PnL",
+    "actual fleet slots crews MCT and through ticket; SJ100 PD8 readiness",
+    "pilot frequencies and economics; launch approval"
+  ],
+  "determinism": {
+    "baseline_ledger.csv": "e0b00de0b6a0cf3c42199c6ee31d389906538564cc42bd298442e91872def315",
+    "fixed_network_sensitivities.csv": "adf8e3a31b1a49ccfa016a5afbefee9fa6516f6786bef4289264077a33e78447",
+    "seasonality_cases.csv": "34bd29785907df78d6daea244e6ec273ce6602985b8520b5318e43342d51088b",
+    "breakeven_frontier.csv": "24ace89f8493eda98fcbf321be87be18d1394713a0f98aebcb3f79a80d9b978e",
+    "network_comparison.csv": "5169a47cd139305881a2b29ab99159e4c98e80c5f8cd05f02e1b759410144477",
+    "findings_admission.csv": "8c0cce4c57ed8dcaf4b7bfc72ddad5d21a5a64f4f6a3f02110ea875cf7f99d2f"
+  },
+  "checks": [
+    {
+      "check": "deterministic_two_actual_runs",
+      "passed": true
+    },
+    {
+      "check": "all_named_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/bases.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/choice.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/demand.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/longlist_params.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/network.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/range.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/resort_airports.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/siberia_fareast_regions.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/south_west_regions.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/subsidy_cap_84_103.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/subsidy_hub_airports.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/assumptions/subsidy_special_fare.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/manual/airport_names.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/manual/closed_airports.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/manual/rw_routes_now.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/catchments.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/demand_estimates.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/fleet_ramp.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/network_routes.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/network_summary.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/od_fit.json",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/processed/od_pairs.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/raw/favt_subsidy_2026.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_data/raw/tochno_intercity/data_intercity_connectivity_162_v20260629.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_docs/17_fleet_range_maintenance_time.md",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_docs/24_hypotheses_comparison.md",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_docs/26_steps_2_4_5.md",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_docs/29_passport.md",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_src/airports_meta.py",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_src/demand_model.py",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_src/network_model.py",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_src/rules.py",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/late_fuel_review/calculation.json",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/late_fuel_review/fuel_sensitivity.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/dashboard_handoff/HANDOFF.md",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/dashboard_handoff/methods_final/freeze.json",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/methods/inputs/network_b471/v2/outputs/primary_service_rows.csv",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/methods/inputs/network_b471/v2/programs.json",
+      "passed": true
+    },
+    {
+      "check": "frozen_input_hash_context/28_evening_run_20261110/late_fuel_review/handoff.md",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_ticket_before_after",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_revenue_grant_once",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_net_once",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fuel_units",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_contribution",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_cost",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_48_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_48_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_48_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_48_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_26_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_26_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_26_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_26_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_22_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_22_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_22_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_22_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_13_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_13_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_13_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_period_13_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_ticket_before_after",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_revenue_grant_once",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_net_once",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fuel_units",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_contribution",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_cost",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_48_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_48_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_48_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_48_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_26_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_26_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_26_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_26_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_22_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_22_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_22_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_22_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_13_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_13_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_13_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_period_13_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_ticket_before_after",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_revenue_grant_once",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_net_once",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fuel_units",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_contribution",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_cost",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_48_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_48_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_48_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_48_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_26_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_26_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_26_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_26_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_22_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_22_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_22_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_22_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_13_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_13_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_13_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_period_13_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "OMS_RAMP3_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_ticket_before_after",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_revenue_grant_once",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_net_once",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fuel_units",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_contribution",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_cost",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_48_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_48_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_48_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_48_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_26_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_26_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_26_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_26_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_22_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_22_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_22_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_22_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_13_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_13_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_13_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_period_13_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_ticket_before_after",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_revenue_grant_once",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_net_once",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fuel_units",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_contribution",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_cost",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_pure_credit_receipts_identity",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_48_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_48_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_48_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_48_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_26_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_26_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_26_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_26_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_22_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_22_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_22_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_22_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_13_contribution_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_13_passenger_segments_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_13_fuel_tonnes",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_period_13_revenue_net_rub_year",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_fixed_weekly_flights",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_credit_frontier",
+      "passed": true
+    },
+    {
+      "check": "DIRECT_CURRENT_BASE_SUB_receipts_frontier",
+      "passed": true
+    },
+    {
+      "check": "zero_new_demand_admission",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "freeze_OMS_CURRENT_BASE_revenue_net_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_OMS_CURRENT_BASE_cost_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_OMS_CURRENT_BASE_contribution_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_hours_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "segments_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "freeze_OMS_CURRENT_BASE_SUB_revenue_net_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_OMS_CURRENT_BASE_SUB_cost_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_OMS_CURRENT_BASE_SUB_contribution_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_hours_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "segments_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "freeze_OMS_RAMP3_BASE_revenue_net_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_OMS_RAMP3_BASE_cost_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_OMS_RAMP3_BASE_contribution_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_hours_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "segments_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_OMS_RAMP3_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "freeze_DIRECT_CURRENT_BASE_revenue_net_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_DIRECT_CURRENT_BASE_cost_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_DIRECT_CURRENT_BASE_contribution_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_hours_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "segments_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "freeze_DIRECT_CURRENT_BASE_SUB_revenue_net_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_DIRECT_CURRENT_BASE_SUB_cost_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_DIRECT_CURRENT_BASE_SUB_contribution_rub_year",
+      "passed": true,
+      "delta_rub": 0.0
+    },
+    {
+      "check": "freeze_hours_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "segments_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "capacity_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    },
+    {
+      "check": "cost_components_DIRECT_CURRENT_BASE_SUB",
+      "passed": true
+    }
+  ],
+  "operational_failures": [
+    "ramp high blocks161.5h>140",
+    "22 far-end turn failures"
+  ],
+  "note": "Technical errors separated from operational FAIL and UNKNOWN"
+}

@@ -1,0 +1,186 @@
+{
+  "checked_at": "2026-11-12T13:56:11.057048+00:00",
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "market_true": false,
+  "full_baseline_pipeline_replayed": false,
+  "baseline_adapter": "AST copies exact function definitions; processed CSV adapter, no forecast refit, no formula fallback; subset only",
+  "limitations": [
+    "Raw TOCHNO file not tracked/available",
+    "numpy/pandas not installed; installation failed SSL UNEXPECTED_EOF_WHILE_READING",
+    "No completed accepted actual P/KEEP full RW input bundle"
+  ],
+  "runs": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_engine.py"
+      ],
+      "cwd": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit/replay/p06",
+      "exit_code": 0,
+      "log": "replay/p06_checks.log"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "engine",
+        "evaluate",
+        "examples/evaluate_bundle.json",
+        "--out",
+        "evaluate_replayed.json"
+      ],
+      "cwd": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit/replay/p06",
+      "exit_code": 0,
+      "log": "replay/p06_evaluate.log"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "engine",
+        "compare",
+        "examples/demo_bundle.json",
+        "--out",
+        "compare_replayed.json"
+      ],
+      "cwd": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit/replay/p06",
+      "exit_code": 0,
+      "log": "replay/p06_compare.log"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "engine",
+        "scenario",
+        "examples/scenario_bundle.json",
+        "--out",
+        "scenario_replayed.json"
+      ],
+      "cwd": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit/replay/p06",
+      "exit_code": 0,
+      "log": "replay/p06_scenario.log"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit/replay_baseline.py"
+      ],
+      "cwd": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit",
+      "exit_code": 0,
+      "log": "replay/baseline_subset.log"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit/build_audit.py"
+      ],
+      "cwd": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/31_direct_growth_research_20261112/audit",
+      "exit_code": 0,
+      "log": "replay/build_audit.log"
+    }
+  ],
+  "p06_check_summary": {
+    "scope": "author mechanical checks through actual P06 engine; not independent acceptance",
+    "synthetic_parameters_not_RW": true,
+    "last_run_selection": [
+      "CE01",
+      "CE02",
+      "CE03",
+      "CE04",
+      "CE05",
+      "CE06",
+      "CE07",
+      "CE08",
+      "CE09",
+      "CE10",
+      "CE11",
+      "CE12",
+      "CE13",
+      "CE14",
+      "CE15",
+      "CE16",
+      "CE17",
+      "CE18",
+      "CE19",
+      "CE20",
+      "B01_price_time_frequency_availability",
+      "B02_contract_block_and_release",
+      "B03_resource_entry_reserve_position_crew",
+      "B04_immutable_context",
+      "B05_unknown_money_and_company",
+      "B06_opening_minimum_financing",
+      "B07_terminal_and_prelaunch",
+      "B08_adaptation_no_future_or_erased_commitments",
+      "B09_joint_combine_recompute",
+      "B10_response_policy_is_executed",
+      "B11_interest_and_preinterest",
+      "B12_unknown_financing_does_not_erase_prefinancing_cash",
+      "B13_adaptive_direct_bypass_rejected",
+      "B14_revenue_by_leg_and_actual_service_month",
+      "B15_unknown_choice_not_zero",
+      "B16_committed_excess_and_malformed_inventory",
+      "B17_company_boundary",
+      "B18_pinned_adapters",
+      "B19_month_coverage_and_nan",
+      "B20_cash_bridge_and_duplicate_ticket",
+      "B21_adaptation_actual_action_binding",
+      "B22_dated_minimum_cash"
+    ],
+    "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f",
+    "pass": 42,
+    "fail": 0,
+    "not_run": [],
+    "market_forecast_acceptance": "NOT_ASSESSED",
+    "dispatch_acceptance": "NOT_ASSESSED"
+  },
+  "baseline_subset": {
+    "scope": "exact function AST + explicit CSV adapter; subset replay, not original full pipeline; direct connectivity reconstructed from processed demand_pairs, missing raw connectivity excluded",
+    "nodes": [
+      "MOW",
+      "SVX",
+      "OMS",
+      "KUF",
+      "GOJ",
+      "MRV",
+      "UFA",
+      "KZN"
+    ],
+    "runs": [
+      {
+        "scenario": "base",
+        "family": "hub_fixed4",
+        "hours_week": 68.30357483646335,
+        "variable_contribution_RUB_modelyear": -212911130.71842927,
+        "segments_week": 1020.4388613895309,
+        "journeys_week": 1020.4388613895309
+      },
+      {
+        "scenario": "base",
+        "family": "direct_subset_triangles",
+        "triangles": 2,
+        "hours_week": 98.05049832815638,
+        "variable_contribution_RUB_modelyear": -111365296.0807024
+      },
+      {
+        "scenario": "cautious",
+        "family": "hub_fixed4",
+        "hours_week": 68.30357483646335,
+        "variable_contribution_RUB_modelyear": -1169544123.8046837,
+        "segments_week": 624.1381905373596,
+        "journeys_week": 624.1381905373596
+      },
+      {
+        "scenario": "cautious",
+        "family": "direct_subset_triangles",
+        "triangles": 2,
+        "hours_week": 98.05049832815638,
+        "variable_contribution_RUB_modelyear": -1485570758.798154
+      }
+    ]
+  },
+  "tracked_status": "",
+  "tracked_count": 436,
+  "source_manifest_sha256": "6e6382934943d1c62ecfba551eae8f0fb56430fef58954281a04445f388bfdd9",
+  "runner_sha256": "a4fcb412743ddd9a42f264133590f234674637c3dce1b4c90e621c804f5b929c"
+}

@@ -1,0 +1,91 @@
+{
+  "package": "P05",
+  "version": "P05-v1-scenario-20261112",
+  "branch": "t3/passenger-demand-net-yield",
+  "parent_commit": "65cab12d2eae49dc91d1f77dd4860bc9bd7e20d2",
+  "package_commit_binding": "Exact finalcommit is reported to coordinator; resolve this manifest at that commit, not livebranch",
+  "manifest_sha256": "bc1cbd2b1935d0f65a80c9de8cf20ccfed7f23b072f40add588f62fcf64ad7c9",
+  "file_count": 128,
+  "outputs": [
+    "od_monthly.csv",
+    "choice_model.json",
+    "net_yield.csv",
+    "validation.json",
+    "producer_fragments.json",
+    "ordered_legs.csv",
+    "response_fragments.json"
+  ],
+  "dependencies": {
+    "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "P02v2": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+    "P04final": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "P03v2": "79dc698b99dfe866886d32376ed388e85bdd039c",
+    "P06early": "bc70308fe091c5767dbf26b02d06a7d750a65614"
+  },
+  "used_assumption_ids": [
+    "P05-A01",
+    "P05-A02",
+    "P05-A03",
+    "P05-A04",
+    "P05-A05",
+    "P05-A06",
+    "P05-A07",
+    "P05-A08",
+    "P05-A09",
+    "P05-A10",
+    "P05-A11",
+    "P05-A12",
+    "P05-A13",
+    "P05-A14",
+    "P05-A15",
+    "P05-A16"
+  ],
+  "register_change": "16 explicitP05assumptions; historicalbaselines not overwritten",
+  "own_checks": {
+    "mechanical": 32,
+    "failed": 0,
+    "engine": "evaluate/compare/scenario:conditional allocationexecuted; operationalresult/fundingnull",
+    "season_holdout": "10 primary2026 carrieraggregatemonths,notrouteOD",
+    "segment_proxy": "25annualrows groupedholdout;medianAPE62.05%;notendpointOD"
+  },
+  "coverage": {
+    "version": "P05-v1-scenario-20261112",
+    "input_files": 65,
+    "P02_source_markets": 857,
+    "domestic_unordered_pairs": 415,
+    "directed_ODs": 830,
+    "forecast_months": 24,
+    "forecast_scenarios": 2,
+    "od_monthly_rows": 39840,
+    "international_or_unknown_node_source_rows": 87,
+    "dated_P03_flights": 60,
+    "diagnostic_markets": 64,
+    "diagnostic_products": 258,
+    "diagnostic_date_span": [
+      "2028-12-11",
+      "2028-12-17"
+    ],
+    "net_fare_rows": 132,
+    "acceptance": "USABLE_SCENARIO_MODEL_AND_DATED_CHOICE_FRAGMENT; NOT_EMPIRICAL_CALIBRATION_OR_FULL_RW_ECONOMICS"
+  },
+  "remaining_fields": "dependency_requests.csv",
+  "hypothesis_proposals": "hypotheses_delta.json",
+  "independent_review": "NOT_RUN_AUTHOR_NOT_ELIGIBLE_AS_P13_REVIEWER",
+  "release": "USABLE_SCENARIO_MODEL_INTERFACE_FOR_CASE_SJ; notfullRWmarketcalibration,operationalacceptance,wholeKEEP,profit,funding ormarketsharedecision",
+  "limitations": [
+    "No new observed monthly endpointOD",
+    "Behavioural/ownmigration/potentialmapping notidentified",
+    "P03only11–17Dec2028 diagnosticweek",
+    "Unknown competitorphysicalinventory inoutsidecomposite,notinventedflights",
+    "FullKEEP,contractblocks,futureprice/tax/distributionandcash unresolved",
+    "Dynamicresponseallocationusable;earlyP06comparepolicygate unresolved",
+    "InternationalP02I separateversion;notblockingCASE_SJ"
+  ],
+  "reproduction": [
+    "python3 P05/build.py",
+    "python3 P05/check_engine.py",
+    "python3 P05/validate.py",
+    "python3 P05/package_notes.py",
+    "python3 P05/seal.py"
+  ]
+}
