@@ -1,0 +1,115 @@
+{
+  "as_of": "2026-11-12",
+  "hashes": [
+    {
+      "source_id": "GOJ-S10",
+      "url": "https://ar-goj.ru/schedule/",
+      "accessed_at": "2026-11-12T02:14:40.601897+00:00",
+      "bytes": 76923,
+      "sha256": "aaefb844a17e2e1ad8d8ecc54c12af68652ad06337ff3583fa17dfb500fb10b2",
+      "http_status": 200,
+      "method": "urllib GET, stdlib HTMLParser; dates interpreted within published winter 2026/27"
+    },
+    {
+      "source_id": "GOJ-S11",
+      "url": "https://ar-goj.ru/schedule/?type=arr",
+      "accessed_at": "2026-11-12T02:14:41.608908+00:00",
+      "bytes": 77356,
+      "sha256": "8b2aabe2a85a5b6459164a35aeb237aacb5eb35fcc65e205e9e32162c5f0b26e",
+      "http_status": 200,
+      "method": "urllib GET, stdlib HTMLParser; dates interpreted within published winter 2026/27"
+    },
+    {
+      "source_id": "GOJ-S17",
+      "bytes": 649578,
+      "sha256": "f0460614390b270f50576c4bc4f67840a0b47b8ad93761178d2559c5c99c4ef9",
+      "status": "HTTP_200_PDF_read_and_visual_check"
+    },
+    {
+      "source_id": "GOJ-S18",
+      "bytes": 579434,
+      "sha256": "a5e590011635d9570265322a01f4ac464a13ec46c337544071b8d2f40dcb0856",
+      "status": "HTTP_200_PDF_read_and_visual_check"
+    },
+    {
+      "source_id": "GOJ-S19",
+      "bytes": 662007,
+      "sha256": "5f2cbe226f1dccb76f89c95af6f0e98662174a65402eb17dfb13024df2ca6029",
+      "status": "HTTP_200_PDF_read_and_visual_check"
+    },
+    {
+      "source_id": "GOJ-X01",
+      "bytes": 668180,
+      "sha256": "efe27127ac4d0c84d493d6ae71b800442bfe442c6d8b34274fa43d91c1b703bc",
+      "status": "excluded_future_header_2026-11-16"
+    }
+  ],
+  "subsidy_extract_source": "git:dceadc98f9a293d7530cb7bc50ca4411a95aa4b6:data/raw/favt_subsidy_2026.csv",
+  "subsidy_status": "pinned transcription; not a fresh award, schedule, fare ceiling or 2027 commitment",
+  "pdf_visual_pages_checked": {
+    "GOJ-S17": [
+      1,
+      2
+    ],
+    "GOJ-S18": [
+      22
+    ],
+    "GOJ-S19": [
+      1
+    ]
+  },
+  "access_failures": [
+    {
+      "url": "https://ar-goj.ru/upload/iblock/5d6/3usj7om8df6kupkfs2rsi2j6wdfe2nh7/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf",
+      "error": "HTTP Error 404: Not Found",
+      "resolution": "same effective 2026-11-01 version found via live issuer index at /upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/"
+    },
+    {
+      "url": "https://t.me/s/permairport/384",
+      "error": "web open: Internal Error; URL not accessible via this tool",
+      "resolution": "urllib GET HTTP 200; announcement read; no browser"
+    },
+    {
+      "url": "https://favt.gov.ru/dejatelnost-vozdushnye-perevozki-subsidirovanie-regiony/",
+      "error": "HTTP Error 403: Forbidden",
+      "resolution": "live search index plus pinned transcription retained with limitation"
+    },
+    {
+      "url": "https://52.rosstat.gov.ru/",
+      "error": "web: (400) Timeout fetching; urllib: SSL UNEXPECTED_EOF_WHILE_READING",
+      "resolution": "dated official indexed publications used as indexed evidence; no claim of live spreadsheet validation"
+    },
+    {
+      "url": "https://travel.yandex.ru/pro/dinamika-turisticheskogo-sprosa-v-nizhnem-novgorode-i-oblasti/",
+      "error": "Yandex SmartCaptcha",
+      "resolution": "no origin shares extracted; gap preserved"
+    }
+  ],
+  "specific_message_checks": [
+    {
+      "source_id": "GOJ-S21",
+      "url": "https://t.me/s/permairport/384",
+      "sha256": "2372eedbb1e2e91b31c947c913b9ed76152456bf295ca9d49124d36c5f5097ba",
+      "message_id": "permairport/384",
+      "published_datetime": "2026-11-03T16:52:14+00:00",
+      "has_expected_fact": true,
+      "method": "Specific data-post block; surrounding posts excluded"
+    },
+    {
+      "source_id": "GOJ-S58",
+      "url": "https://t.me/s/government_rus/27942",
+      "sha256": "659ff84c39d49cf6bd61eff3a3c62d02980affc39dc4cc797f7cc8258a8613b4",
+      "message_id": "government_rus/27942",
+      "published_datetime": "2026-03-06T08:10:04+00:00",
+      "has_expected_fact": true,
+      "method": "Specific data-post block; surrounding posts excluded"
+    }
+  ],
+  "historical_UUA_document": {
+    "source_id": "GOJ-S37",
+    "sha256": "eb1f1401f1ee359eae5ebf8e4e0881af82659ea604ef6d4140b8c2ab67e65646",
+    "bytes": 78848,
+    "document_date": "2015-08-02",
+    "method": "HTTP GET then macOS textutil; not treated as current AIP"
+  }
+}

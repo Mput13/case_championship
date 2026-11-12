@@ -1,0 +1,56 @@
+{
+  "status": "PASS_OFFLINE_RESEARCH_PACKAGE",
+  "as_of": "2026-11-12",
+  "checks": [
+    "schema_and_row_width:sources.csv",
+    "schema_and_row_width:claims.csv",
+    "schema_and_row_width:routes.csv",
+    "schema_and_row_width:features.csv",
+    "unique_GOJ_ids_and_all_registry_references",
+    "source_metadata_dates_and_unknown_not_zero",
+    "all_33_model_rows_and_13_selected_markets_covered",
+    "six_options_with_conditions_bounds_counterarguments_and_actions",
+    "pinned_summary_totals_and_explicit_rounding_reconciled",
+    "dated_week_counts_both_directions_no_annualization_as_current_frequency",
+    "nine_listed_subsidy_pairs_fifteen_period_rows_not_current_frequencies",
+    "fee_capacity_and_household_scenario_arithmetic",
+    "dossier_references_future_tariff_exclusion_and_script_syntax",
+    "git_changes_only_GOJ_directory"
+  ],
+  "counts": {
+    "sources": 58,
+    "claims": 38,
+    "features": 10,
+    "route_products": 27,
+    "author_rows": 33,
+    "author_markets": 13,
+    "schedule_period_rows": 77,
+    "schedule_dated_records": 128,
+    "manifest_files": 34
+  },
+  "artifact_sha256": {
+    "block_comparison.csv": "6129764f73dcce6aef2f734495aff79a961404f219ab94ee42a8bf1a7ef0c4f4",
+    "calculate.py": "be4b85a79651efa7d0640a78dffd0415bfadcbc5ea1a2a18e0cde515be71c9ac",
+    "calculations.json": "1e31965113e761ad83945c17105bfa6e910fbe8229fb48659632137f96a8d56d",
+    "claims.csv": "2ce987ccc4059b85dfaabfdd938f0e0f1d03df955f5b80bb772b88f97b4f0a35",
+    "decision.json": "bbbea006b3e258c928002bb87186fe58161adfa1f62e57af63ac8b884138a7d0",
+    "dossier.md": "3a9fbf6d754203dd24f28584bd23bca7232e3bbe2abc612289bc9c37c89fc9b3",
+    "features.csv": "cedb90974fcc052e5763fc324304bdd5d5ef495c0db06149f801d4492f41ffcd",
+    "listed_subsidies_2026.csv": "964691a3107bd228f786033dab059344c1682b9232781359ad09a50c90b5b25d",
+    "model_route_diagnostics.csv": "947a322a99d9ea742dea2bfb31ba9b60cab8208012f44c381a3c81665fb09226",
+    "routes.csv": "8c9a1c798322095e880135be73bfa3c77e1c6b7baf941f7bb19f37398ad0ac34",
+    "schedule_observations.csv": "18e555ff0e40305f1fca73388b5e5975ca719febff489ffd434d80fb77419524",
+    "schedule_week.csv": "fd78fa05515ccd1705cdb5299f758942de3ba62094024c9dad3c64cfbd1676e0",
+    "source_observations.json": "250ccd8a38541ca9423decab45505c070395ea5d56f34c5777a9c83fc27afdd8",
+    "sources.csv": "2b43812ed54162c602339968010e3f51200f6006f4ee8fad9bb9a674bc8c483b",
+    "validate.py": "b756b0651efef4d5068cfcd9f00a7c6f30e45e9cbd00d3f9f9fdeb9d77cedc3c"
+  },
+  "not_validated": [
+    "market OD or actual LF",
+    "current ticket checkout fare",
+    "financial profitability or receipts",
+    "dispatch/crew/MCT",
+    "source data accessible only in web index"
+  ],
+  "source_QA": "Primary tables/PDFs read; local tariff01.11 pages1-2, discounts page22 and Volga scan visually checked; UUA document date2015 retained. No future tariff16.11 used."
+}
