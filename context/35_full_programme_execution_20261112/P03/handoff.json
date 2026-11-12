@@ -1,19 +1,35 @@
 {
   "package": "P03",
-  "version": "P03-v1",
-  "status": "RESEARCH_INPUT_TRANCHE_READY_CONDITIONAL; operational schedule acceptance not established",
-  "exact_commit": "d5d5b8f1651cbea66a55236e986ad9269e7966ff",
-  "subject_commit": "d5d5b8f1651cbea66a55236e986ad9269e7966ff",
+  "version": "P03-v2-SP04-SP07-SP08",
+  "status": "PINNED_USABLE_P03_SOURCE_AND_OPERATING_INPUTS; full operational acceptance UNKNOWN",
+  "exact_commit": "2340ff0317b85c0757038bfbe57c1b7a4c91d7bc",
+  "subject_commit": "2340ff0317b85c0757038bfbe57c1b7a4c91d7bc",
+  "producer_payload_commit": "c1794e9d11a8b27d9407155af1e071f67eca50d1",
   "branch": "t3/fleet-airport-operations",
-  "base_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
   "write_scope": "context/35_full_programme_execution_20261112/P03/",
-  "manifest": {
-    "path": "context/35_full_programme_execution_20261112/P03/output_manifest.json",
-    "sha256": "0ce7bead8db2db18f7c0683d442acaa456b90123edcda0513e88c00b68b247d5",
-    "files_in_payload": 118,
-    "bytes_in_payload": 9376394
-  },
-  "commit_binding": "exact_commit contains all hashed payload files and output_manifest.json. This handoff is a subsequent metadata commit and is excluded from the self-hash set.",
+  "commit_binding": "exact_commit contains all listed hashed files including bound P06 fragments. This updated handoff is a later metadata commit; it is excluded from its own hash set.",
+  "preferred_P06_file": "context/35_full_programme_execution_20261112/P03/sp_adapter/p06_bound_fragments.json",
+  "preferred_P06_sha256": "044bc0e933982f5768ebeb26b6e0c442643d2c708036ecb849fe1ba5876ca7e0",
+  "manifests": [
+    {
+      "path": "context/35_full_programme_execution_20261112/P03/output_manifest.json",
+      "role": "unchanged V1 source/resource tranche",
+      "sha256": "0ce7bead8db2db18f7c0683d442acaa456b90123edcda0513e88c00b68b247d5",
+      "subject_commit": "d5d5b8f1651cbea66a55236e986ad9269e7966ff"
+    },
+    {
+      "path": "context/35_full_programme_execution_20261112/P03/sp_adapter/output_manifest.json",
+      "role": "V2 SP04/07/08 payload",
+      "sha256": "1e591d7d9d2e2e87baf6915e8f90842c2dbbc9911a031f1d833431ac0100ddff",
+      "subject_commit": "c1794e9d11a8b27d9407155af1e071f67eca50d1"
+    },
+    {
+      "path": "context/35_full_programme_execution_20261112/P03/sp_adapter/binding_manifest.json",
+      "role": "P06 binding to11 immutable P03 producer tables/code",
+      "sha256": "5ba69af8c11ed2883da7b0db11bc495b798a6df4ef1e49d92b9813c2361dd476",
+      "subject_commit": "2340ff0317b85c0757038bfbe57c1b7a4c91d7bc"
+    }
+  ],
   "files": [
     {
       "path": ".gitignore",
@@ -604,8 +620,239 @@
       "path": "verify_package.py",
       "sha256": "0872a2ddc503283a9f7b3e379bde30708b2ca442713c4fecc2bffb9e44d1e965",
       "bytes": 9688
+    },
+    {
+      "path": "bind_sp_fragments.py",
+      "sha256": "165b5275277d873540d5eead8e0d056345ac3f903292f758550bdc29a3064370",
+      "bytes": 3113
+    },
+    {
+      "path": "build_sp_adapter.py",
+      "sha256": "6fd576df9aff296adc099aeab62615c12f84322c446a83566e04ba2c177342c5",
+      "bytes": 34545
+    },
+    {
+      "path": "sp_adapter/README.txt",
+      "sha256": "302ab62bb9c455a9645ace947807fc6af2bf2ecee646861dcf4b5e4dae80663f",
+      "bytes": 12591
+    },
+    {
+      "path": "sp_adapter/assignments_sp07.csv",
+      "sha256": "675cd822b18f1792307966f22a65d08ac4e691fdb2743bfcd0b2c0295655765c",
+      "bytes": 110393
+    },
+    {
+      "path": "sp_adapter/assumption_changes.csv",
+      "sha256": "6951d7314250b711ea6222b2ec89e6b1c05571bb30ababa43b3faeba83497067",
+      "bytes": 3580
+    },
+    {
+      "path": "sp_adapter/assumption_changes.json",
+      "sha256": "81d755790c13cc9ac421d69ac4c600c8c7621368cb0c6c7d3a0864115c08de38",
+      "bytes": 4688
+    },
+    {
+      "path": "sp_adapter/assumption_ids.json",
+      "sha256": "90e35504e22a7cc27970a8d4f42910d18ebdb4a0a165a6d1462196cb0509a2b3",
+      "bytes": 436
+    },
+    {
+      "path": "sp_adapter/assumptions_register_v2.csv",
+      "sha256": "975149e7f716ba362a86cc77e870df4c8dcf919ae17f43fd86efd3f57726c400",
+      "bytes": 14739
+    },
+    {
+      "path": "sp_adapter/assumptions_register_v2.json",
+      "sha256": "cc2342010ccaa13c54d5a4c533d301108bbdb9b34616f00207bd203a9f374eff",
+      "bytes": 21601
+    },
+    {
+      "path": "sp_adapter/clarification_requests.csv",
+      "sha256": "b037ca363095a1d4e1f9e34f0cff30a909f2ea340e27be8ae748351cf561f1a4",
+      "bytes": 798
+    },
+    {
+      "path": "sp_adapter/colleague_check/colleague_refs.json",
+      "sha256": "88e179d34ce419a0eda7b339fc9aee5321f46e34cd68ccbb361f80a52b4b07e7",
+      "bytes": 6800
+    },
+    {
+      "path": "sp_adapter/colleague_check/summary.json",
+      "sha256": "02e4ede22e2062bc1e2ddbd8d6f4f57422f7cf99b7a7a9988afe4e70de1a8c83",
+      "bytes": 434
+    },
+    {
+      "path": "sp_adapter/colleague_check/updates.jsonl",
+      "sha256": "128af6fdb7d8c06bae24a59b182d837a8deebc59b6951fe4a3df705a7e78d0d7",
+      "bytes": 14799
+    },
+    {
+      "path": "sp_adapter/committed_payment_refs.csv",
+      "sha256": "82fc7d861efc87c5a07fc1fe8b6728171b436924c98d5290222a25bd9619a0f2",
+      "bytes": 6269
+    },
+    {
+      "path": "sp_adapter/crew_advisory.json",
+      "sha256": "68cb895831fc5fab192748af6eb39fd40814862622c2f9d61892e76dd734bb3b",
+      "bytes": 718
+    },
+    {
+      "path": "sp_adapter/diagnostic_resource_events_v2.csv",
+      "sha256": "277d6bb703da358573fc13d43f5556866905da0f6451c63420eae91e9c6e50c8",
+      "bytes": 10698
+    },
+    {
+      "path": "sp_adapter/diagnostic_resource_monthly_v2.csv",
+      "sha256": "171d84287310921a172b2b75cdb7120a3663edf8150b9aa0ab494ce2991e9fcb",
+      "bytes": 23447
+    },
+    {
+      "path": "sp_adapter/evidence_delta.json",
+      "sha256": "20730b64486424388f47b90af1722b59e56d0c1c8c85b1c2b99cbb61f8414c5c",
+      "bytes": 1150
+    },
+    {
+      "path": "sp_adapter/fleet_calendar_sp07.csv",
+      "sha256": "976a75819493b59c35627ede4023b0ecc2c22e261a5d69b5a221bea0617cba44",
+      "bytes": 35477
+    },
+    {
+      "path": "sp_adapter/flights_sp04.csv",
+      "sha256": "46e8b486e820f93fbdc9087c8ed62cd2a21e9e6639d36fba622a3d8563126d88",
+      "bytes": 39968
+    },
+    {
+      "path": "sp_adapter/input_manifest.json",
+      "sha256": "c5b465b947c23b14922074d19afd931e46f7807b6b526a12bf71c8901d119d97",
+      "bytes": 3588
+    },
+    {
+      "path": "sp_adapter/inputs/P06/README.md",
+      "sha256": "566f18eb3aa98254d0c650c3ff0f1edcaadb802b8a4c81d3dc85ceb6dd1643f2",
+      "bytes": 4808
+    },
+    {
+      "path": "sp_adapter/inputs/P06/engine/common.py",
+      "sha256": "046b0afbde84e1f5f0e0c65cb84dc5c17fae0001909b286e0192fe2cd3438766",
+      "bytes": 2691
+    },
+    {
+      "path": "sp_adapter/inputs/P06/engine/operations.py",
+      "sha256": "37337aeb7c56bdab6ae5a0076dcb10939bbf063d60cc33f2df78b40962b01dbf",
+      "bytes": 10103
+    },
+    {
+      "path": "sp_adapter/inputs/P06/examples/demo_bundle.json",
+      "sha256": "e861ab3517209a3d044e7efc8886d4836152bd6630b47cddbdb873f39d40c61f",
+      "bytes": 27612
+    },
+    {
+      "path": "sp_adapter/inputs/P06/producer_contract.json",
+      "sha256": "2885bce0e49135254a0f4e229ffb01569422ccad9c6c2414b9269ee2b367a48f",
+      "bytes": 11617
+    },
+    {
+      "path": "sp_adapter/inputs/contract_addendum.json",
+      "sha256": "f259bc1777b6f06bebd7f23c1ec925c403a414fcc4a98d25e608a145770328c7",
+      "bytes": 4666
+    },
+    {
+      "path": "sp_adapter/inputs/minimal_counterexamples.csv",
+      "sha256": "2804c446007f81adc3c1ee7bf265b8312489be45bce7353f87d1862651220e1d",
+      "bytes": 14067
+    },
+    {
+      "path": "sp_adapter/inputs/schema_patch.csv",
+      "sha256": "1f8cd7bcb7496f44ca3294d977bf370d81ff5040bb21e055c3feb428c53b59ea",
+      "bytes": 11025
+    },
+    {
+      "path": "sp_adapter/interface_contract.json",
+      "sha256": "5396992e1a0a4b3ad1632a8a14b446ecf8080ec53af59529becd694e0c090a4f",
+      "bytes": 2495
+    },
+    {
+      "path": "sp_adapter/keep_policies_sp08.csv",
+      "sha256": "c2b7d4ccb20eec1fe4b13dcee702600754b86023c6b6209f17157fe244db7b29",
+      "bytes": 4334
+    },
+    {
+      "path": "sp_adapter/minimum_resource_required_v2.csv",
+      "sha256": "e7474ca26beeac1329e26f46b1fe9fd8b97f6cc62b2ce5fbe5e72a03b11fccbc",
+      "bytes": 695
+    },
+    {
+      "path": "sp_adapter/ordinary_return_lower_bound.json",
+      "sha256": "ad77cd292754ed4075294bc56d671ac746a90a90e34263d8af4c1684be1b8193",
+      "bytes": 1775
+    },
+    {
+      "path": "sp_adapter/p03_operating_bundle.json",
+      "sha256": "399fad1278c569a67943af9cdaac062c7f78daa1cbc45753f2824f3724459d84",
+      "bytes": 460667
+    },
+    {
+      "path": "sp_adapter/p06_operations_results.json",
+      "sha256": "ed1abc7d8cce0f847a7ed4ce64ab59e477ac67227d7ee17e396cb4cba13cf38d",
+      "bytes": 105299
+    },
+    {
+      "path": "sp_adapter/p06_producer_fragments.json",
+      "sha256": "ed7b0eed4c5702454dfaef6fd7be02dd66ddb5107209cc3ed7aaffbfedbdc119",
+      "bytes": 958027
+    },
+    {
+      "path": "sp_adapter/prior_task_refs.csv",
+      "sha256": "4f5db09bcd3bc04adad253c8f65bba58e2a8e7396bf52c66f2f761f14371da9f",
+      "bytes": 1137
+    },
+    {
+      "path": "sp_adapter/return_template_aircraft_days.csv",
+      "sha256": "b2c9cf409a1bc959cea59928d8ad7d1a101cfadc6d1ec6f357afc01a98d0cb2b",
+      "bytes": 1566
+    },
+    {
+      "path": "sp_adapter/targeted_check_details.json",
+      "sha256": "47da8cfaa284a1f361cb10367f187b623b55cbf0e7483ed547ad62343878e3ea",
+      "bytes": 45134
+    },
+    {
+      "path": "sp_adapter/variant_proposals_v2.csv",
+      "sha256": "1878ffff8b4b36bef8a0ef61ddbe092b673260baa6bfcd27fa26f0191f47c13b",
+      "bytes": 566
+    },
+    {
+      "path": "sp_adapter/verification.json",
+      "sha256": "ce46d06ef507a46051d79df71b1c87a1318257ddd5d1945c242c8abe6e07f3f5",
+      "bytes": 2131
+    },
+    {
+      "path": "verify_sp_adapter.py",
+      "sha256": "89c72e438e040903918eba4ae8181cbc9362af11b916dbfa08ed29ab8411aad3",
+      "bytes": 9266
+    },
+    {
+      "path": "output_manifest.json",
+      "sha256": "0ce7bead8db2db18f7c0683d442acaa456b90123edcda0513e88c00b68b247d5",
+      "bytes": 20370
+    },
+    {
+      "path": "sp_adapter/output_manifest.json",
+      "sha256": "1e591d7d9d2e2e87baf6915e8f90842c2dbbc9911a031f1d833431ac0100ddff",
+      "bytes": 7590
+    },
+    {
+      "path": "sp_adapter/binding_manifest.json",
+      "sha256": "5ba69af8c11ed2883da7b0db11bc495b798a6df4ef1e49d92b9813c2361dd476",
+      "bytes": 4138
+    },
+    {
+      "path": "sp_adapter/p06_bound_fragments.json",
+      "sha256": "044bc0e933982f5768ebeb26b6e0c442643d2c708036ecb849fe1ba5876ca7e0",
+      "bytes": 989712
     }
   ],
+  "file_count": 164,
   "inputs": {
     "planning_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
     "author_model_commit": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
@@ -618,9 +865,16 @@
       "P03-Q01: parametric N plus programme-derived numerical diagnostic cases",
       "Target8-12 unique physical airport pairs by end2028 main scenario; intermediate/resource-shortfall branches may be smaller",
       "2027-2028 monthly/seasonal horizon; separate evidence deltas by type/period"
-    ]
+    ],
+    "method_contract_commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "method_contract_path": "context/35_full_programme_execution_20261112/P00R/schema_patch.csv",
+    "P06_interface_commit": "bc70308fe091c5767dbf26b02d06a7d750a65614",
+    "P06_interface_manifest_sha256": "bd167207beb3c59e4a3339f35922c277eac55f2adcbf501a6b056108165dd087",
+    "P06_manifest_files_personally_checked": 45,
+    "v2_input_manifest": "context/35_full_programme_execution_20261112/P03/sp_adapter/input_manifest.json",
+    "v1_payload118hashes_unchanged": true
   },
-  "outputs": {
+  "v1_source_tranche": {
     "fleet_calendar.csv": 672,
     "airport_constraints.csv": 69,
     "operating_rules.json": "type/calendar/crew/MRO/airport gates",
@@ -632,6 +886,16 @@
     "sources.csv": 42,
     "evidence_delta.csv": 7
   },
+  "v2_outputs": {
+    "flights_sp04.csv": 60,
+    "assignments_sp07.csv": 240,
+    "fleet_calendar_sp07.csv": "42 state intervals; anonymous scenario units",
+    "diagnostic_resource_monthly_v2.csv": 96,
+    "return_template_aircraft_days.csv": 23,
+    "p06_bound_fragments.json": "4 delivery branches, P/KEEP-owned table fragments; actual crew/MRO remain null",
+    "assumptions_register_v2.json": 22,
+    "ordinary_return_lower_bound.json": "minimum23aircraft-days under fixed ordinary-return design; at least4working+1reserve policy"
+  },
   "conclusions": [
     "Four current fleet families retained; actual free resource and prior task allocations UNKNOWN. Existing RRJ variants not duplicated into two20tail pools.",
     "All20 seed cities and49 additional endpoints have explicit partial evidence or UNKNOWN. GOJ has a public RW RRJ95 DAILY agreement; distinguish outstation/overnight from full base.",
@@ -639,23 +903,72 @@
     "No381 registered primary scan and exact operative points saved; No139 is not current2027-28 rule. Crew status remainsUNKNOWN without roster.",
     "Part145 Order367 transition/current approval requirements saved; historical285 station news is not2027-28 approval.",
     "Concrete archived GOJ8 needs139.3952proxyblockh/week at k1.2;u8 gives3working+1reserve=4diagnostic tails. Numeric quarter-grid/30dayinduction/partial/6monthdelay branches derived from this threshold; no_new included.",
-    "N(t) and delivery_forecast remainUNKNOWN; numeric diagnostic capacities and minimum_required are separate from forecasts. MainCASE_SJ does not require newTu214."
+    "N(t) and delivery_forecast remainUNKNOWN; numeric diagnostic capacities and minimum_required are separate from forecasts. MainCASE_SJ does not require newTu214.",
+    "V2 adds a design-specific necessary resource lower bound:16long singletons plus at least7bins for14remaining returns =23aircraft-days/week;3working units give21days, so >=4working. With policy reserve1 total>=5. This does not reject overnight/chain/frequency alternatives.",
+    "A dated60leg/8pair diagnostic template on11-17Dec2028 fits the stated temporal positions,45minturns andu8 limits with4anonymousworking units; not real tail registrations or RW schedule. P06 check_operations gives phased CONDITIONAL, other fixed-template resource branches INFEASIBLE.",
+    "Crew remains unresolved: four-landing max elapsed599min leaves31min for pre/post if ordinary daytime630min duty applies. Actual RPP, report time, roster and rest may require changed crew/schedule.",
+    "P and KEEP share identical fleet_calendar, keep_policy and unresolved committed payment envelope. Missing future KEEP flights mean missing coverage, not empty business or zero opportunity result. No additional donor deduction after P-KEEP.",
+    "Bound P06 fragments reference exact producer tables/code at c1794e9d11a8b27d9407155af1e071f67eca50d1 and canonical manifest hashes; genuine P04/P05/P07 contributions still required before full evaluation."
   ],
-  "numeric_diagnostic": {
-    "programme": "ARCHIVE_HUB_GOJ_base",
-    "physical_airport_pairs": 8,
-    "flights_week": 60,
-    "block_hours_proxy_week": 139.3952,
-    "working_tails_hours_only": 3,
-    "policy_reserve": 1,
-    "derived_target": 4,
-    "ready_threshold_phased": "2028-05-01",
-    "ready_threshold_delayed": "2028-10-31",
-    "partial": "2conditionaltails;fullfixedprogramme threshold not reached",
-    "no_new": 0,
-    "forecast": "UNKNOWN",
-    "actual_crew_MRO_PD8_approval": "UNKNOWN",
-    "not_network_selection": true
+  "bounds": [
+    "No actual tail registrations/availability, crew roster, current MRO/airport access, day-of-demand suitability or payments were invented.",
+    "Same-day return lower bound applies only to specified frequencies/u8/k1.2 and indivisible returns; temporal construction alone does not establish operational sufficiency.",
+    "Only11-17Dec2028 flight template constructed; no52week extrapolation or full seasonal programme claim. Resource intervals/monthly summary cover2027-28 with post-horizon event retained.",
+    "Data are proposed scenario legs, not published/observed RW flights. SJ100PD8 technical/cost readiness stays separate from RRJ95SaM146.",
+    "P06 full financial evaluate/compare/scenario and full CE suite NOT_RUN on incomplete producer fragments; no toy market/money values filled.",
+    "Source tranche historical verdicts and all118 hashed files preserved."
+  ],
+  "checks": {
+    "v1_payload_hashes": 118,
+    "v2_targeted_checks": 351,
+    "P06_manifest_files": 45,
+    "actual_pinned_P06_check_operations": {
+      "phased": {
+        "status": "CONDITIONAL",
+        "errors_count": 0,
+        "unknowns_count": 64,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_phased_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      },
+      "partial": {
+        "status": "INFEASIBLE",
+        "errors_count": 44,
+        "unknowns_count": 73,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_partial_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      },
+      "delayed": {
+        "status": "INFEASIBLE",
+        "errors_count": 32,
+        "unknowns_count": 65,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_delayed_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      },
+      "no_new": {
+        "status": "INFEASIBLE",
+        "errors_count": 60,
+        "unknowns_count": 76,
+        "unused_aircraft": [
+          "P03_RETURNS_V2_no_new_SCENARIO_UNIT_01"
+        ],
+        "dispatch_ready": false
+      }
+    },
+    "binding": {
+      "all_input_blobs_exist_and_hash": true,
+      "owned_operating_data_unchanged": true,
+      "all_context_hashes_match": true
+    },
+    "this_handoff_exact_subject_file_hashes": 164,
+    "independent_review": false,
+    "full_P06_evaluate_compare_scenario": "NOT_RUN",
+    "full_CE_corpus": "NOT_RUN; affected SP operations/interface checks only"
   },
   "assumption_ids": [
     "P03-A001",
@@ -675,44 +988,59 @@
     "P03-A015",
     "P03-A016",
     "P03-A017",
-    "P03-A018"
+    "P03-A018",
+    "P03-A019",
+    "P03-A020",
+    "P03-A021",
+    "P03-A022"
   ],
   "register_changes": {
-    "added": "P03-A001 through P03-A018 in local P03 register; common seed register not modified",
-    "routine_points_not_user_approved": true,
-    "base_cautious_confidence_interval": false,
-    "unsupported_ranges": "UNKNOWN; mathematical constraints only where stated"
+    "preserved": "P03-A001..A018",
+    "added": "P03-A019..A022",
+    "complete_register": "context/35_full_programme_execution_20261112/P03/sp_adapter/assumptions_register_v2.json",
+    "changes": "context/35_full_programme_execution_20261112/P03/sp_adapter/assumption_changes.csv",
+    "base_cautious_confidence_interval": false
   },
-  "checks": {
-    "verification_file": "context/35_full_programme_execution_20261112/P03/verification.json",
-    "status": "PASS_OFFLINE_PACKAGE_CHECKS",
-    "row_checks_and_assertions": 2736,
-    "independent_review": false,
-    "source_visual_check": "context/35_full_programme_execution_20261112/P03/law381_visual_check.json",
-    "exact_payload_git_hash_check": "PASS; all118 payload files match subject commit",
-    "git_diff_cached_check": "PASS",
-    "targeted_counterexamples": [
-      "simultaneous tails",
-      "night duty5landings",
-      "ordinary vs conditional minimum rest",
-      "monthly crew sets"
-    ],
-    "operational_schedule": "NOT_RUN; actual assignments absent"
+  "evidence_deltas": {
+    "v1": "context/35_full_programme_execution_20261112/P03/evidence_delta.csv",
+    "new": "context/35_full_programme_execution_20261112/P03/sp_adapter/evidence_delta.json",
+    "new_ids": [
+      "P03-ED08",
+      "P03-ED09"
+    ]
   },
-  "boundaries": [
-    "Hours-only thresholds do not certify rotation feasibility, location, payload, airspace or crew.",
-    "Numerical calendars conditionally assume readiness gates by declared entry; approved_project_block_hours remainsUNKNOWN.",
-    "Primary technical evidence is partial; several manufacturer pages read via native-search extracts after verified TLS failures.",
-    "No costs, real spare fleet, complete annual schedules, delivery forecast or programme financial effects invented.",
-    "No paid data, messages to external parties, bookings, restarts or Site publication."
-  ],
-  "remaining_fields": [
-    "RW named tail/variant/cabin and maintenance status by date",
-    "Existing KEEP/charter/lease assignments, donor sales and alternative results",
-    "Operator crew qualifications, report/duty/positioning/rest and cumulative time",
-    "Current Part145 approval scope by type/engine/location and contracted slots/prices",
-    "2027-28 seasonal airport windows, slots, AIP/NOTAM and type-specific payload planning",
-    "P06/P07/P08 concrete programmes/readiness needs; P04 contract/cash costs"
+  "variant_proposals": {
+    "v1": "context/35_full_programme_execution_20261112/P03/variant_proposals.csv",
+    "new": "context/35_full_programme_execution_20261112/P03/sp_adapter/variant_proposals_v2.csv",
+    "new_id": "P03-V04"
+  },
+  "clarifications": [
+    {
+      "question_id": "P03-Q01",
+      "source": "common_spec fleet_calendar;worker brief;user steering2026-11-12",
+      "quote": "основной N(t) остаётся параметром, но для сравнений нужны также явно условные численные календари и точки потребности конкретных программ",
+      "interpretations": "parametric only;parametric plus diagnostic numerical resource cases",
+      "temporary_recommendation": "parametric primary+programme-derived numeric diagnostics;noRW forecast",
+      "affected": "fleet_calendar;minimum_resource_required;P06/P07",
+      "continuing_work": "types;airports;legal crew constraints;numeric diagnostics",
+      "status": "RESOLVED_BY_USER_STEERING",
+      "answer": "separate delivery_forecast UNKNOWN,diagnostic_resource_case,minimum_resource_required;updateprogramme needs withP06/P07",
+      "recalculation_scope": "affectedprogramme thresholds,events,monthlycounts only",
+      "coordination": "t3_thread_send steer delivered;no blockinguserask"
+    },
+    {
+      "question_id": "P03-Q02",
+      "source": "User supplied pinned P06 bc70308fe091c5767dbf26b02d06a7d750a65614",
+      "quote": "producer_contract.json; examples/demo_bundle.json; README.md; null is UNKNOWN",
+      "interpretations": "engine-native fields and P03 fragment ownership established",
+      "temporary_recommendation": "Use p06_producer_fragments.json; no implicit zero or invented aircraft registrations",
+      "affected": "SP adapter only; source tranche unchanged",
+      "continuing_work": "dated diagnostic template; return-design lower bound; KEEP/payment references",
+      "status": "RESOLVED_PINNED_P06_INTERFACE",
+      "answer": "Exact P06 interface copied and verified; only P03-owned fields instantiated, other owners remain missing rather than toy-filled",
+      "recalculation_scope": "adapter fields and affected input checks only",
+      "coordination": "t3_thread_send mode=auto delivered"
+    }
   ],
   "dependency_requests": [
     {
@@ -752,22 +1080,18 @@
       "rerun_trigger": "pinnedcost/contractchange"
     }
   ],
-  "clarifications": [
-    {
-      "question_id": "P03-Q01",
-      "source": "common_spec fleet_calendar;worker brief;user steering2026-11-12",
-      "quote": "основной N(t) остаётся параметром, но для сравнений нужны также явно условные численные календари и точки потребности конкретных программ",
-      "interpretations": "parametric only;parametric plus diagnostic numerical resource cases",
-      "temporary_recommendation": "parametric primary+programme-derived numeric diagnostics;noRW forecast",
-      "affected": "fleet_calendar;minimum_resource_required;P06/P07",
-      "continuing_work": "types;airports;legal crew constraints;numeric diagnostics",
-      "status": "RESOLVED_BY_USER_STEERING",
-      "answer": "separate delivery_forecast UNKNOWN,diagnostic_resource_case,minimum_resource_required;updateprogramme needs withP06/P07",
-      "recalculation_scope": "affectedprogramme thresholds,events,monthlycounts only",
-      "coordination": "t3_thread_send steer delivered;no blockinguserask"
-    }
+  "remaining_fields": [
+    "RW named tail/variant/cabin and maintenance status by date",
+    "Existing KEEP/charter/lease assignments, donor sales and alternative results",
+    "Operator crew qualifications, report/duty/positioning/rest and cumulative time",
+    "Current Part145 approval scope by type/engine/location and contracted slots/prices",
+    "2027-28 seasonal airport windows, slots, AIP/NOTAM and type-specific payload planning",
+    "P06/P07/P08 concrete programmes/readiness needs; P04 contract/cash costs",
+    "Actual calendar crew_windows/maintenance_intervals and local base report time",
+    "Dates/route/cost of reaching initialGOJ at conditional service entry",
+    "Actual P04 events bound to unresolved committed_payment_refs, including unused/terminal obligations",
+    "P05 demand/choice/contracts and full existing/alternative KEEP for complete comparison"
   ],
-  "variant_proposals": "P03-V01 GOJ outstation/overnight versus base; P03-V02 TJM third-partyMRO access; P03-V03 UFA negotiatedlocalbase/remoteMRO",
-  "coordination": "First two steers delivered; last FAP145 steer failed thread_not_sendable because parent had no running turn. Exact failure and pending content saved in coordination_outbox.json; no parent restart/new child.",
-  "next_recalculation": "Replace only affected programme thresholds/events/seasonal rows after accepted P02/P06/P07/P08 input or specific failed constraint; combined programmes through common engine."
+  "coordination": "User acceptedV1 usable tranche, acknowledged design-specific lower bound, resolvedQ02 with pinnedP06 interface. Updates sent by t3_thread_send mode=auto; final pinned package notification follows push.",
+  "next_recalculation": "Change only affected design/resource/interface rows when a relevant pinned input or specific finding changes. Whole joint networks require P06/P09 recomputation, not sums."
 }
