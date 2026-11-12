@@ -248,13 +248,14 @@ def main():
     assert not any('__pycache__' in str(p) for p in HERE.rglob('*'))
     assert preserved==baseline()
     passed('manifest_inputs_outputs_hashes_all_preserved_no_pycache_outside_write_no_git_HEAD_assertion')
-    validation=dict(status='PASS_CONDITIONAL_MODEL_NOT_DECISION_INDEPENDENT_REVIEW_PENDING',
+    validation=dict(status='PASS_CONDITIONAL_MODEL_REVIEW_EXPLANATION_CHANGES_ADDRESSED',
         tests_passed=len(checknames),checks=checknames,actual_calculation_runs=2,
         determinism=True,qualified_new_routes=0,protected1190_count=1190,
         old_package_file_count=len(preserved),old_package_content_preserved=True,
         no_HEAD_assertion=True,tracked_total_may_exceed1190=True,
         output_hashes=runs[1]['hashes'],runs=[dict(returncode=r['returncode'],stdout=r['stdout']) for r in runs],
-        remaining='Independent review; own RW register/OD/yield/actual donor/variant/tail/slots/crew/MRO/payload/F/cash UNKNOWN')
+        independent_review='CHANGES; R1/R2 explanatory fixes applied by coordinator; no claim of a second independent acceptance',
+        remaining='own RW register/OD/yield/actual donor/variant/tail/slots/crew/MRO/payload/F/cash UNKNOWN')
     (HERE/'validation.json').write_text(json.dumps(validation,ensure_ascii=False,indent=2,sort_keys=True,allow_nan=False)+'\n')
     print(json.dumps(dict(status=validation['status'],tests=len(checknames),two_runs_identical=True,protected1190='PASS'),ensure_ascii=False))
 
