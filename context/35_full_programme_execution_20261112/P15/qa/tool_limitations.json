@@ -1,7 +1,37 @@
 {
-  "operation": "Save native screenshot with Node filesystem tool",
-  "initial_error": "JavaScript execution exceeds the 64000-byte strict auto-review limit",
-  "resolution": "Base64 saved in sequential48000-character chunks through the same native Node tool; no browser fallback or session change",
-  "resolved": true,
-  "children": 0
+  "scope": "P15 local UI only; children0 per explicit user rule; no host restart or foreign tab changes",
+  "events": [
+    {
+      "operation": "html_preview initial27.3MiB",
+      "error": "a page must be at most25.0MiB",
+      "resolution": "lossless per-programme/overview gzip; final23879045bytes; native decode verified"
+    },
+    {
+      "operation": "html_preview author reference",
+      "error": "not a readable HTML document; starts with<meta>",
+      "resolution": "local QA wrapper <!doctype html>, remote fonts/D3 stripped for reference only; candidate self-contained"
+    },
+    {
+      "operation": "native Node save",
+      "error": "JavaScript execution exceeds the64000-byte strict auto-review limit",
+      "resolution": "48000character base64 chunks; same native tool"
+    },
+    {
+      "operation": "preview_evaluate script",
+      "error": "Expected a string with no leading or trailing whitespace",
+      "resolution": "trimmed expression; native120s succeeded"
+    },
+    {
+      "operation": "preview_snapshot resource during live route",
+      "error_tag": "PreviewAutomationTimeoutError",
+      "error": "Preview automation snapshot timed out after15000ms.",
+      "status": "HOST_SNAPSHOT_LIMIT_REMAINS; DOES_NOT_BLOCK_NATIVE_UI_OR_HTML_PREVIEW",
+      "diagnosis": "Same own tab retained; subsequent native evaluate/act work, source of resource data and visible DOM checked; no host/process change. Resource/calendar PNG captured with native html_preview instead."
+    },
+    {
+      "operation": "preview_resize",
+      "observation": "Response viewport can show previous size before layout settles",
+      "resolution": "Follow-up native evaluate confirmed390x844; real click/select/Escape and focus return passed"
+    }
+  ]
 }

@@ -1,0 +1,336 @@
+{
+  "review_id": "P13_FINAL_PROGRAMMES_P09_FINAL_INDEPENDENT_20261112",
+  "reviewer_role": "independent_review_subagent_not_P09_author",
+  "verdict": "APPROVE_WITH_EXPLICIT_LIMITS",
+  "target": {
+    "root_commit": "736859fdd08448c2564b7b9269b751abe00b5cbc",
+    "prefix": "context/35_full_programme_execution_20261112/P09/",
+    "manifest_sha256": "7b20a1a247ee4b3cf96d94648bb36d61482cb0a58eb7a296ada49a78c818d1fa",
+    "manifest_payload_files": 2617,
+    "manifest_payload_bytes": 754088586,
+    "fixed_P06_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "later_b51_fix_requires_fixed_matrix_rerun": false
+  },
+  "accepted_scope": "Условный вычислительный research release P09 и явно ограниченные choice/frontier/threshold выводы; canonical числа можно подключать к принятому envelope.",
+  "findings": [],
+  "severity_counts": {
+    "S1": 0,
+    "S2": 0,
+    "S3": 0
+  },
+  "personal_execution": {
+    "status": "PASS",
+    "groups": [
+      {
+        "group": "G1_REAL_REPLAY_AND_CANONICAL_PROJECTION",
+        "status": "PASS",
+        "checks": 34,
+        "evidence": {
+          "projection": [
+            {
+              "evaluation_id": "VOG_RADIAL:phased:base:passive",
+              "leaves": 127178,
+              "null_leaves": 6266
+            },
+            {
+              "evaluation_id": "VOG_RADIAL:phased:cautious:passive",
+              "leaves": 127178,
+              "null_leaves": 6266
+            }
+          ],
+          "delta_journeys": 82256.4113338269,
+          "delta_revenue_net": 660787735.5656477,
+          "H": 595671593.9168794,
+          "monthly_max_difference": {
+            "journeys": 1.2732925824820995e-11,
+            "passenger_segments": 1.2732925824820995e-11,
+            "revenue_net": 7.450580596923828e-08,
+            "known_operating_subtotal": 4.76837158203125e-07
+          },
+          "post_horizon_cash_events": 68
+        },
+        "seconds": 31.119268207985442
+      },
+      {
+        "group": "G2_JOINT_OD_SEATS_FARE_AND_UNKNOWN_BOUNDARIES",
+        "status": "PASS",
+        "checks": 19,
+        "evidence": {
+          "actual_dates": [
+            "2028-12-04",
+            "2028-12-05"
+          ],
+          "saturated_pools": 33,
+          "transfer_products": 17,
+          "fare_once": 17139426.35247281,
+          "incorrect_per_leg_revenue": 19324523.219740193,
+          "naive_silo_max_segments": 400.0,
+          "H_before": -5660861.599288065,
+          "H_after_added_prelaunch": -5662095.599288065
+        },
+        "seconds": 0.3106011670315638
+      },
+      {
+        "group": "G3_RESOURCE_DONOR_CASH_THRESHOLDS_AND_CONCLUSIONS",
+        "status": "PASS",
+        "checks": 62,
+        "evidence": {
+          "resource": [
+            {
+              "delivery": "phased",
+              "tails": 5,
+              "flights": 2662,
+              "shared_unknown_tail_months": 72
+            },
+            {
+              "delivery": "partial",
+              "tails": 3,
+              "flights": 1984,
+              "shared_unknown_tail_months": 57
+            },
+            {
+              "delivery": "delayed",
+              "tails": 3,
+              "flights": 1356,
+              "shared_unknown_tail_months": 34
+            },
+            {
+              "delivery": "none",
+              "tails": 1,
+              "flights": 1252,
+              "shared_unknown_tail_months": 24
+            }
+          ],
+          "donor_delta_journeys": 94283.74992200345,
+          "donor_H": 719265939.4130021,
+          "cash_day_end_peak": 90.0,
+          "cash_month_end_peak": 0.0,
+          "dispositions": {
+            "УСЛОВНА_ПАРТНЕРСКАЯ_KEEP_ИЛИ_НЕПРИВЯЗАННЫЙ_РЕЦЕПТ_OPEN": 20,
+            "УСЛОВНА_МЕЖДУНАРОДНАЯ_ИЛИ_СМЕШАННАЯ_ВЕТВЬ_OPEN": 27,
+            "ЧАСТИЧНО_ОБЩИЙ_SCREEN_АВТОРСКИЙ_STAGE_B_OPEN": 119,
+            "ОЦЕНЕНА_УСЛОВНАЯ_ПРИВЯЗКА_АВТОРСКОГО_PATH": 30,
+            "КОНКРЕТНЫЙ_КАЛЕНДАРЬ_НЕВЫПОЛНИМ; АВТОРСКАЯ_ЭКОНОМИКА_NOT_RUN": 27
+          },
+          "frontier": [
+            "AER_HYBRID",
+            "AER_SEASONAL",
+            "MRV_HYBRID",
+            "VOG_HYBRID",
+            "VOG_RADIAL"
+          ]
+        },
+        "seconds": 1.9694941250490956
+      }
+    ],
+    "assertions": 141,
+    "results": "tests/results.json",
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 context/35_full_programme_execution_20261112/P13_FINAL_PROGRAMMES/tests/run_review.py",
+    "new_research_campaign": false,
+    "author_validator_run": false,
+    "fixed_P06_original_Git_bytes_verified": true,
+    "provenance_assertions": 26,
+    "three_control_groups_assertions": 115
+  },
+  "selected_exact_sources": {
+    "count": 80,
+    "total_unique_bytes": 27991699,
+    "inventory": "sources/pins.json",
+    "full_754MB_package_copied": false,
+    "all_1958_large_inputs_read": false,
+    "minimal_execution_runtime_removed": true
+  },
+  "author_or_coordinator_evidence_kept_separate": {
+    "author_validation_checks": 232,
+    "author_status": "PASS_AS_RECORDED",
+    "coordinator_all_hashes_scope_check": "SUPPLIED_HISTORY_NOT_PERSONAL_ALL_BLOBS_VERIFICATION",
+    "canonical_receipt_numeric_differences_all_18": "INSPECTED; only stated representatives personally replayed"
+  },
+  "canonical_projection": {
+    "personally_replayed_fullcompare": [
+      "VOG_RADIAL__phased__base__passive"
+    ],
+    "personally_verified_saved_exact_JSON_projection": [
+      "VOG_RADIAL__phased__base__passive",
+      "VOG_RADIAL__phased__cautious__passive"
+    ],
+    "leaves_per_scenario": 127178,
+    "null_leaves_per_scenario": 6266,
+    "hash_paths_types_arrays_and_required_fields_verified": true,
+    "null_to_zero_and_filtered_array_negative_controls": "REJECTED",
+    "overview_result_mode_is_distinct": true,
+    "overview_canonical_numeric_tolerance": {
+      "journeys_absolute": 1e-06,
+      "RUB_absolute": 0.01
+    },
+    "overview_vs_canonical_byte_identity_required": false
+  },
+  "conclusion_acceptability": {
+    "common_OD_date_joint_inventory_fare_once": "PASS: saturation and sensitive independent-silo counterexample",
+    "same_fleet_delivery_scoped_future_KEEP": "PASS: four delivery branches, retained E1 and shared unknown tail charges; mismatches rejected",
+    "existing_E1_donor": "PASS: real full-horizon overview replay, old KEEP opportunity included, no extra donor deduction",
+    "none_partial": "PASS: none zero project flights is resource control, partial 3 pairs is shortfall; neither admits target path",
+    "full_unknown_known_subtotal_separation": "PASS: demand/seats/fare NULL counterexamples and full finance NULL preserved",
+    "support": "PASS: explicit no-support scenario; no unsupported entitlement claim",
+    "cash_threshold_equations": "PASS: prelaunch H shift, independent before-financing day-end arithmetic, unknown cash/opening propagation, post-horizon payments retained",
+    "maincase_target_8_12": "PASS: own counts of nine finalists in network_end2028.csv are 8 or 9; actual dispatch not inferred",
+    "choice_frontier": "PASS: independently recomputed minima frontier over limited searched set; no global optimality or citywide rejection",
+    "recipes_hypotheses": "223 author rows / 169 local rows / 35 historical rows; 30 calculated bindings, 27 NOT_RUN infeasible, 166 author OPEN; OPEN is unfinished individual work",
+    "losses_before_profit": "Allowed conditional trajectory/threshold/funding/stop rules; no requirement of immediate profit and no invented payback date"
+  },
+  "permitted_numeric_example": {
+    "programme": "VOG_RADIAL",
+    "period": [
+      "2027-01",
+      "2028-12"
+    ],
+    "delivery": "phased",
+    "response": "passive",
+    "support": 0,
+    "currency": "RUB",
+    "price_year": 2026,
+    "comparison": "P minus future KEEP with identical committed fleet",
+    "base": {
+      "delta_journeys": 82256.4113338269,
+      "delta_revenue_net": 660787735.5656477,
+      "H": 595671593.9168794
+    },
+    "cautious": {
+      "delta_journeys": 46428.55700353075,
+      "delta_revenue_net": 328353706.8753664,
+      "H": 263891478.0220616
+    },
+    "equation": "delta_full = H - delta_missing_cost + delta_unknown_revenue; mutually exclusive residual terms, all other terms fixed",
+    "full_profit": null,
+    "whole_company_funding": null,
+    "reported_share": null
+  },
+  "explicit_limits": [
+    "SCENARIO_NOT_IDENTIFIED for passenger flow/choice and unknown physical competitor inventory are accepted research boundaries, not new release gates.",
+    "No actual free fleet/crew/MRO/AFM/slots or future delivery promise is established; SJ100/PD8 uses an explicitly marked SSJ analogue.",
+    "Scoped future KEEP is a declared counterfactual; affected own/international/through remainder can change ranking and remains symbolic.",
+    "Positive known subtotal is conditional headroom, not full profit or a simultaneous budget for all missing costs; cash equation needs missing dated flows and no interest double count.",
+    "Unprofitable early months are not automatic rejection; funded trajectory and stopping limits are conditional, actual financing and payback remain unknown.",
+    "Reported share, all-business growth and number2 date are unknown; 8-9 constructed pairs do not establish those outcomes.",
+    "No independent replay of all 1958 evaluations or all 18 canonical results; no browser integration, dispatch, market or investment acceptance.",
+    "All OPEN author/hypothesis work remains OPEN; this approval does not complete the whole strategy."
+  ],
+  "required_fixes_for_this_conditional_release": [],
+  "coordinator_action": "May attach these exact P09 canonical/UI numbers to conditional research release using a separate accepted envelope binding actual commit and manifest. Do not rewrite frozen canonical results or interpret PENDING metadata as a review finding.",
+  "write_boundary": "context/35_full_programme_execution_20261112/P13_FINAL_PROGRAMMES/",
+  "git_mutations": false,
+  "subagents": 0,
+  "external_research_calls": 0,
+  "publications": 0,
+  "sources_and_code_locations": [
+    {
+      "path": "P09/programme_builder.py",
+      "lines": [
+        66,
+        89,
+        172,
+        220,
+        244,
+        272
+      ],
+      "purpose": "fleet, full dated calendars, common union, known/unknown events, scoped KEEP"
+    },
+    {
+      "path": "P09/evaluate_programmes.py",
+      "lines": [
+        19,
+        119,
+        142,
+        149,
+        156,
+        169,
+        174
+      ],
+      "purpose": "joint dated allocation, additive overview, infeasible precheck, full NULL separation"
+    },
+    {
+      "path": "P09/canonical_finalists.py",
+      "lines": [
+        13,
+        22,
+        48,
+        74,
+        78
+      ],
+      "purpose": "projection and source hashes, limited frontier, separate overview tolerance"
+    },
+    {
+      "path": "P09/subject/P06/engine/choice.py",
+      "lines": [
+        52,
+        87,
+        125,
+        157,
+        160
+      ],
+      "purpose": "shared demand/physical capacity, recapture, conservation"
+    },
+    {
+      "path": "P09/subject/P06/engine/finance.py",
+      "lines": [
+        18,
+        44,
+        69,
+        150,
+        173,
+        200,
+        220
+      ],
+      "purpose": "journey fare once, funding, coverage NULL, known subtotal"
+    },
+    {
+      "path": "P09/subject/P06/engine/core.py",
+      "lines": [
+        83,
+        101,
+        152,
+        162,
+        186,
+        205
+      ],
+      "purpose": "journey/segment metrics, target, common inputs, cash, thresholds"
+    },
+    {
+      "path": "P09/existing_ssj_transfer.py",
+      "lines": [
+        9,
+        35,
+        59
+      ],
+      "purpose": "busy E1 replacement and separate resource group"
+    },
+    {
+      "path": "P09/choice_report.md",
+      "lines": [
+        13,
+        15,
+        21,
+        23,
+        29,
+        56,
+        58,
+        60
+      ],
+      "purpose": "OPEN, scenario demand, limited frontier and reporting boundaries"
+    },
+    {
+      "path": "P09/economics_report.md",
+      "lines": [
+        3,
+        11,
+        15,
+        19,
+        25,
+        29,
+        35,
+        39
+      ],
+      "purpose": "no-support, missing-cost/cash functions, donor and shared charges"
+    }
+  ]
+}

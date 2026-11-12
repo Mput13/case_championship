@@ -2,3 +2,6 @@
 *.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # The rejected SDMX fragment is retained byte-for-byte for the audit.
 context/04_research/flash_aviation_data/sample_fedstat_31411_sdmx.xml -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Keep pinned source snapshots and dashboard transport bytes intact.
+context/36_source_inventory_checkpoint_20261112/** -text -whitespace
+context/38_author_dashboard_integration_20261112/** -text -whitespace

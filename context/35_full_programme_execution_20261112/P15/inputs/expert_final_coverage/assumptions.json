@@ -1,0 +1,71 @@
+[
+  {
+    "assumption_id": "EFC-A01",
+    "kind": "ACCOUNTING_IDENTITY_AND_REVIEW_COMPARISON",
+    "definition": "R_P is the net residual cost of P versus KEEP: omitted costs minus omitted revenues, with disjoint coverage. Full delta_P=H_P-R_P. P beats Q iff R_P-R_Q<=H_P-H_Q.",
+    "basis": "P09/economics_report.md:15-25 and exact canonical_summary.csv",
+    "values": "No new rate, probability or budget. H copied exactly; pairwise differences calculated.",
+    "scope": "2027-01..2028-12, RUB2026, phased, passive, base/cautious separately. Not absolute profit, funding or willingness to invest.",
+    "status": "ARITHMETIC_COMPLETED; real residuals UNKNOWN"
+  },
+  {
+    "assumption_id": "EFC-A02",
+    "kind": "SYMBOLIC_STATION_AND_RAMP_DESIGN",
+    "definition": "Residual station cost comprises non-overlapping representatives/local crew/line maintenance/spares/startup/exit terms above included P04 hourly analogues. Local-vs-travel comparison holds required availability constant. Ramp is a net-contribution shortfall L_t, not a fabricated demand growth rate.",
+    "basis": "Expert fragment3 lines68, fragment4 line71, fragment5 lines76-78; P09-MISSING and existing P04 UNKNOWN components",
+    "values": "No staffing count, wage, travel cost, ramp duration or percentage assigned.",
+    "threshold": "Against KEEP: sum(residual_station_delta + ramp_net_loss + other_net_residuals)<=H. Against another network use EFC-A01. Local staff threshold: F_local-F_travel <= n*(transport+hotel+allowance+lost_seat_contribution), disjoint from paid salary already counted.",
+    "cash_rule": "Stock purchase/working capital is not automatically a P&L expense; separate inventory consumption, capex, deposits and payment dates.",
+    "status": "SPECIFIED_NOT_RUN; not a RW cost estimate"
+  },
+  {
+    "assumption_id": "EFC-A03",
+    "kind": "DETERMINISTIC_UNAVAILABILITY_SENSITIVITY",
+    "definition": "One explicitly named tail at a time is unavailable over an interval whose boundaries follow the existing dated rotations. A reserve must physically reach the failed tail station with compatible crew/type before covering any flight. No invented failure frequency or MEL permission.",
+    "basis": "Expert64/71; P09 fleet N1 initial_location=SVX; P06 operations checks intervals and locations",
+    "values": "Outage duration is an independent stress coordinate, not a forecast. Diagnostic endpoints at existing flight/turn/delivery opportunities; no assumed probability.",
+    "threshold": "Find first unavailable interval/recovery delay that changes feasible network or programme ordering after joint P/KEEP reallocations; unknown incident costs remain symbols. If no verified MEL restriction profile, branch is UNKNOWN, never dispatch-ready.",
+    "status": "SPECIFIED_NOT_RUN; existing calendar extraction confirms N1 has no assigned flights"
+  },
+  {
+    "assumption_id": "EFC-A04",
+    "kind": "GENERALIZED_PASSENGER_COST_SENSITIVITY",
+    "definition": "Add external passenger monetary burden M and extra door-to-door/preferred-time burden T to choice, while airline revenue remains the ticket net fare only. For otherwise identical products, discount d offsets the burden when d>=M+(abs(beta_time)/abs(beta_price))*T.",
+    "basis": "Expert100-102; P05/model.py78-85,242-250. Existing beta ratios give 25 RUB/min base and 6.25 RUB/min cautious.",
+    "values": "25/6.25 are algebraic ratios of uncalibrated P05 scenario coefficients, NOT measured values of time. M,T and real slot availability UNKNOWN. The expert's 5000 RUB example is not used as a rate.",
+    "threshold": "Recalculate net revenue after any ticket discount; indifference in choice does not imply break-even for airline. Accepted slot/handling is a separate feasibility condition, not a utility penalty.",
+    "status": "FORMULA_DERIVED; schedule/choice/finance replay NOT_RUN"
+  },
+  {
+    "assumption_id": "EFC-A05",
+    "kind": "EVENT_ROTATION_OPPORTUNITY_THRESHOLD",
+    "definition": "For an explicitly dated replacement flight/rotation, event net revenue must exceed its incremental known operating costs plus lost net contribution of displaced business plus non-overlapping residual costs. Recompute shared demand and capacity; never add an event percentage to baseline demand.",
+    "basis": "Expert85/88; existing P09 calendar/KEEP/opportunity accounting",
+    "values": "No event date, attendance, fare uplift, extra fleet or expected demand invented. If an event is absent from pinned inputs, the exercise is only an unnamed dated capacity diagnostic and no event launch is recommended.",
+    "status": "SPECIFIED_NOT_RUN; baseline receives no event uplift"
+  },
+  {
+    "assumption_id": "EFC-A06",
+    "kind": "CARGO_MAIL_OPTION_EXCLUSION_AND_THRESHOLD",
+    "definition": "Cargo source=literal expert76/E2:23. Mail source=USER_CONTEXT only. Additional net effect is cargo/mail net revenue minus incremental handling, carriage, capital and displaced passenger/baggage contribution under weight, volume and payload limits.",
+    "basis": "H-EXPERT-NET-CARGO-01; literal source audit; user task clarification",
+    "values": "Tonnage, mail contract, rate, payload, seasonal pattern and costs UNKNOWN. No positive revenue included; excluded upside is not evidence that actual business revenue equals zero.",
+    "status": "SOURCE_SPLIT_AND_FORMULA_READY; joint capacity/economics NOT_RUN"
+  },
+  {
+    "assumption_id": "EFC-A07",
+    "kind": "ROTATION_CONTROL_DESIGN",
+    "definition": "Use an existing pinned ordered-path candidate and a feasible return pattern with identical committed fleet/time horizon/external scenario and common OD/date universe. Different edges/markets are part of a combined policy change, not pure proof of rotation efficiency.",
+    "basis": "Expert57; P09/choice_report.md13 and programme_builder.py126-132",
+    "values": "No new aircraft, speed, fuel rate, reserve ratio or flight length assumption. Reuse named P03/P04/P05/P09 assumptions; preserve infeasible status without fictional sales.",
+    "status": "SPECIFIED_NOT_RUN; 57 previous ordered recipes are existing evidence, not a new optimality proof"
+  },
+  {
+    "assumption_id": "EFC-A08",
+    "kind": "CONDITIONAL_CASE_PRESENTATION_RULE",
+    "definition": "Present VOG_RADIAL as the reference first-stage construction under the explicit criterion of preserving cautious known-subtotal headroom; keep growth-oriented alternatives and their additional thresholds visible.",
+    "basis": "Existing P09 Pareto set and canonical_summary.csv; user asks a usable conditional decision rather than waiting for internal inputs",
+    "values": "Not an asserted user risk preference, accepted team vote, globally optimal network or authorisation to open a base. 8–12 project pairs remain the main case result; number2 is a separate whole-business objective.",
+    "status": "REVIEW_PROPOSAL_FOR_FINAL_WORDING; no model or UI changed"
+  }
+]

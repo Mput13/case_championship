@@ -1,0 +1,74 @@
+{
+  "package": "expert_final_coverage",
+  "version": "1.0-20261112",
+  "status": "COMPLETE_BOUNDED_REVIEW_WITH_FINAL_CONDITIONAL_WORDING",
+  "coverage_verdict": "PARTIAL_COVERAGE_CONDITIONAL_DECISION_READY_WITH_SPECIFIED_LIMITS",
+  "overall_market_approval": false,
+  "dispatch_approval": false,
+  "financial_approval": false,
+  "source_project_commit": "736859fdd08448c2564b7b9269b751abe00b5cbc",
+  "source_expert_commit": "b16c28c6fd2ba9ea509e8a618f5f3b7137f1985e",
+  "P09_manifest_sha256": "7b20a1a247ee4b3cf96d94648bb36d61482cb0a58eb7a296ada49a78c818d1fa",
+  "P15_manifest_sha256": "e7a94a8569f466b91e6676347f3058d88c0aaaf32e777205f26aea1196a14b0e",
+  "entrypoint": "summary.md",
+  "coverage": "coverage.csv",
+  "final_copy": "final_insertions.md",
+  "actions": "action_specification.md",
+  "assumptions": "assumptions.json",
+  "counts": {
+    "COVERED": 6,
+    "PARTIAL": 22,
+    "OUTSIDE_APPLICABILITY": 4,
+    "UNKNOWN": 2,
+    "NOT_MODELLED": 8
+  },
+  "claim_rows": 42,
+  "input_files_verified": 148,
+  "material_gaps": [
+    "G1 rotations",
+    "G2 hub ramp/local support",
+    "G3 outage/recovery",
+    "G4 slots/time/generalized trip cost",
+    "G5 dated events"
+  ],
+  "delivery_gap": "P15 evaluations and programmes empty; strategy null at the exact source pin. Conditional P09 projection already exists.",
+  "decision": "EFC-A08 proposes VOG_RADIAL as conditional cautious-headroom reference, preserving growth alternatives and the 8-12 pair case; not an accepted investment recommendation.",
+  "done": [
+    "Full reading/deduplication of both transcripts",
+    "148 pinned input files and all 87 P03/P04 pins checked",
+    "42 atomic coverage rows",
+    "18 canonical arithmetic thresholds",
+    "55 existing scenario rows extracted",
+    "source/copy/action package"
+  ],
+  "concurrent_worktree_changes_outside_review": [
+    "context/35_full_programme_execution_20261112/P15/dashboard_data.json"
+  ],
+  "not_run": [
+    "new T01-T05 model evaluations",
+    "browser/visual test",
+    "market/live acceptance"
+  ],
+  "root_action": "Consume final wording/coverage; correct conditional result handoff and exact P09-to-P15 binding. No request to user for missing internal data; no new indefinite research cycle.",
+  "write_scope": "context/35_full_programme_execution_20261112/expert_final_coverage",
+  "boundaries": {
+    "children": 0,
+    "git_mutations": 0,
+    "foreign_file_writes": 0,
+    "web_calls": 0,
+    "paid_runs": 0,
+    "publications": 0,
+    "restarts": 0,
+    "external_communications": 0,
+    "authorised_root_delivery": true
+  },
+  "delivery_target": {
+    "environmentId": "d463a92a-a497-4213-aeb8-69f0a1470b87",
+    "threadId": "91bc9ad6-4e9f-4954-8714-1e4366064b78"
+  },
+  "reproduce": [
+    "python3 context/35_full_programme_execution_20261112/expert_final_coverage/build_package.py",
+    "python3 context/35_full_programme_execution_20261112/expert_final_coverage/coverage_builder.py",
+    "python3 context/35_full_programme_execution_20261112/expert_final_coverage/verify_and_seal.py"
+  ]
+}

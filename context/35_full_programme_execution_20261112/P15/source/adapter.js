@@ -1,7 +1,7 @@
 /* Display adapter only. No allocation, pricing, finance, extrapolation or scenario generation. */
 const ResultAdapter = (() => {
  const known = v => typeof v === 'number' && Number.isFinite(v);
- const fmt = v => known(v) ? new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(v) : 'Нет расчёта';
+ const fmt = v => known(v) ? new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(v) : 'Неизвестно';
  const requiredContext=['evaluation_id','programme_id','programme_version','fleet_scope_id','external_scenario_id','delivery_calendar_id','response_policy_id','market_version','choice_version','cost_version','evaluation_mode','keep_evaluation_id','input_manifest_sha256','period_start','period_end','affected_scope_id','price_year','cash_start','decision_date','information_set_id'];
  function validate(pack){
   if(pack?.dataset_kind!=='RED_WINGS' || pack?.synthetic!==false) throw Error('Нужен пакет результатов Red Wings. Синтетические примеры не подключаются.');

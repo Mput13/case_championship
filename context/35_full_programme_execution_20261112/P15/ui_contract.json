@@ -1,6 +1,6 @@
 {
-  "version": "P15-import-v3-root20-Q-P09-UI01",
-  "parent_commit": "65cab12d2eae49dc91d1f77dd4860bc9bd7e20d2",
+  "version": "P15-import-v4-final-conditional-Q-P09-UI01-Q-P15-UI02",
+  "parent_commit": "736859fdd08448c2564b7b9269b751abe00b5cbc",
   "candidate": "dashboard_candidate.html",
   "source": "source/",
   "sections": [
@@ -45,7 +45,7 @@
     "resultNetworkPage",
     "resultRotationPage"
   ],
-  "state_implementation": "One shared state object; native anchors; source dialog preserves state and restores focus; presentation snapshot preserves selectors/details/scroll. Source period independent from forecast period.",
+  "state_implementation": "One shared state and lazy accepted programme cache; author v2 tabs; source/detail dialogs preserve state and restore focus; presets restore programme/scenario/city/filters/details/scroll. Source period independent of forecast.",
   "source_binding": {
     "P02": "exact d9486f1 source export; no physical-seat admission",
     "cities": "20 sealed Stage A packages at6a6326c2dcfe32e47ec25621bda0d15fcfe48ae1;160 programmes/169 hypotheses",
@@ -54,13 +54,19 @@
     "P10": "128 capacity-only conditions; actual P09 bridge null",
     "P11": "4 real policy cards,commercial uplift UNKNOWN",
     "P01_MONTHLY": "133segment observations/86airport-month observations/36UTcarrier-month with9helicopter excluded from fixed-wing view; no endpointOD; KJA conflicts preserved",
-    "P09_contract_only_pending": {
-      "sha256": "d721896cdc4193b9e2a70bd54a25baaedd00db0e967a711c5a359d424b0c1e7d",
-      "status": "ROOT_APPROVED_PROJECTION_CONTRACT; ACTUAL_QUANTITATIVE_ACCEPTANCE_PENDING"
+    "P09": {
+      "commit": "736859fdd08448c2564b7b9269b751abe00b5cbc",
+      "manifest_sha256": "7b20a1a247ee4b3cf96d94648bb36d61482cb0a58eb7a296ada49a78c818d1fa",
+      "projection_contract_sha256": "d721896cdc4193b9e2a70bd54a25baaedd00db0e967a711c5a359d424b0c1e7d",
+      "status": "ACCEPTED_FOR_UI_CONDITIONAL_RESEARCH",
+      "own_envelopes": "accepted/index.json; producer pending envelopes unchanged",
+      "programmes": 9,
+      "canonical_evaluations": 18,
+      "independent_P13": "APPROVE_WITH_EXPLICIT_LIMITS"
     }
   },
   "result_import": {
-    "entry": "replay.py --results-commit EXACT_ARTIFACT_SHA --results-path GIT_PATH, RW.load(envelope), local JSON import. Artifact commit may differ from producer payload commit; no self-referential SHA required.",
+    "entry": "bind_final.py reads exact736 Git blobs and root b16 acceptance; replay.py builds selected snapshots. accepted/index.json and per-programme gzip envelopes supply runtime. RW.load accepts only this exact authorised producer/manifest.",
     "envelope_required": {
       "dataset_kind": "RED_WINGS",
       "synthetic": false,
@@ -110,14 +116,14 @@
     "number2_gate": "release_gates.F07 must equal ACCEPTED and strategy must map by evaluation_id; P15 verifies compatible whole-business bridge; no rank/date inferred from regional programme",
     "resource_monthly": "Optional accepted evaluation.resource_monthly rows: month,aircraft_variant,transferred,entered_service,project_available,reserve,crew_maintenance_status; display only, no tail construction",
     "comparison_group": "Optional accepted comparison_group_id permits changed input versions within a validated experiment; always preserve programme/version/fleet scope/evaluation mode/period/affected scope",
-    "root_approved_version": "Q-P09-UI01",
+    "root_approved_version": "Q-P09-UI01 + root conditional UI authorisation + separate1958overview extension",
     "compatible_payloads": [
       "P12 full compare field structure without allocation/event payload in UI",
       "P09_UI_PROJECTION preserving exact used numbers/null/status/context/evaluation links"
     ],
     "projection": {
       "payload_kind": "P09_UI_PROJECTION",
-      "projection_contract": "Объект P09: version,jsonpaths,hash convention,audit/replay; producer-owned exact path mapping. После получения sealed P09 path mapping сверить до binding.",
+      "projection_contract": "Producer-owned JSONpaths/hash/audit/replay contract verified from exact736 and manifest7b20.",
       "per_evaluation_meta": "e.projection_meta or e: source_full_result_sha256,projection_sha256,input_pins,result_mode,audit,replay",
       "required_display_paths": {
         "context": "evaluations[].result.project.context",
@@ -143,19 +149,36 @@
       "precision": "Числа/null и инварианты копируются точно; округление только в Intl.NumberFormat видимой строки. Денежных/choice агрегатов в JS нет.",
       "full_results": "gzip финалистов/основных выводов; остальные с sourcefullresultSHA256 и повторяемым replay",
       "acceptance": "Формат и supplied coordinator marker не являются независимой эмпирической/экономической/операционной приёмкой.",
-      "producer_contract_snapshot": "inputs/P09/projection_contract_pending.json",
+      "producer_contract_snapshot": "inputs/P09_final/projection_contract.json",
       "paths": "P09 exact projection retains P12 paths. No remapping from overview. Receipt and contract are read by git show at the accepted artifact commit.",
       "metadata_binding": "P09 evaluation.source_full_result_sha256/source_full_result_path/projection_sha256/audit_receipt; adapter copies receipt.input_manifest/full, contract.replay/audit_script into projection_meta. No duplicate input_pins fields required from P09.",
       "hash_verification": "SHA256 json.dumps(e.result,ensure_ascii=False,sort_keys=True,separators=(comma,colon),allow_nan=False).encode() equals e.projection_sha256 and receipt.projection_sha256; full link equals receipt.full.sha256/path.",
       "financial_nulls": "operating_result and full funding null remain unknown; known_operating_subtotal is a separately labelled known subtotal, never full profit.",
-      "pagination": "16rows of rotations/network per page; arrays unchanged. Actual accepted-result pagination and scenario switch remain NOT_RUN."
+      "pagination": "16rows per page; full arrays retained; native paging/base+cautious checked on actual accepted canonical results."
     },
-    "binding_status": "OPEN: ожидает sealed P09 projection contract+data+coordinator acceptance"
+    "binding_status": "BOUND_CONDITIONAL_RESEARCH",
+    "overview": {
+      "rows": 1958,
+      "constructs": 178,
+      "result_mode": "P06_DISJOINT_DATE_COMPONENTS_WITH_ADDITIVE_P06_FINANCE",
+      "numeric_equivalence": "Producer documented equivalence; not byte-identity with canonical",
+      "source_row_sha256": true,
+      "may_replace_canonical_fields": false
+    },
+    "transport": {
+      "codec": "lossless gzip/base64 per programme",
+      "runtime": "DecompressionStream(gzip)",
+      "numeric_reaggregation": false,
+      "browser_sha256": "null when crypto.subtle unavailable; explicitly audited; build verifies every JSONleaf/SHA256"
+    }
   },
   "presentation": {
     "route": "presentation_route.json",
     "preset": "presentation_preset.json",
-    "status": "ROUTE_BINDINGS_CHECKED_STAGE_A; P16_ACTUAL_FULL_RESULTS_REHEARSAL_NOT_RUN"
+    "status": "AUTHOR_NATIVE_ACTUAL_FULL_UI_120S_PASS; independent P16 NOT_RUN",
+    "speech_seconds": 300,
+    "questions_seconds": 180,
+    "ui_seconds": 120
   },
   "delivery": {
     "local": "Single self-contained HTML; no remote fonts/scripts/assets required",
@@ -163,11 +186,19 @@
     "public_site_changed": false,
     "author_branch_changed": false
   },
-  "acceptance_boundary": "Working UI skeleton with real source evidence; not acceptance of integrated programme, allocation, dispatch, profitability, number2 strategy or two-minute presentation",
-  "root_approval": "Q-P09-UI01: компактная UI projection вместо110MB full compare на оценку",
+  "acceptance_boundary": "Conditional research visualisation; independent programme P13 APPROVE_WITH_EXPLICIT_LIMITS. SCENARIO_NOT_IDENTIFIED/fullprofit/funding/reportedshare/number2 remain unknown; no market, dispatch or investment recommendation.",
+  "root_approval": "Q-P09-UI01 root-approved exact-field projection; root b16c28c6 conditional numerical UI authorisation; Q-P15-UI02 author v2 presentation; overview separate mode extension",
   "previous_version": {
     "commit": "06207b1650bd1c83e0f0761b25d063f2c395ace7",
     "path": "context/35_full_programme_execution_20261112/P12/ui_contract.json",
     "preserved": "inputs/P12/ui_contract.json"
+  },
+  "author_view": {
+    "commit": "6cbe817320f75db9823984e7c4eeb6091fd7d996",
+    "paths": [
+      "src/dashboard_template.html",
+      "outputs/redwings_panel.html"
+    ],
+    "scope": "Presentation only; four tabs and detail windows; author monetary JS not imported"
   }
 }

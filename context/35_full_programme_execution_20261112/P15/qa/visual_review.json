@@ -1,56 +1,60 @@
 {
-  "status": "AUTHOR_VISUAL_REVIEW_COMPLETE_FOR_STAGE_A_UI",
-  "dashboard_sha256": "567c603fa733dd50f36d762beb70dfc5c490845898ea6a0aec3419a7f6808b75",
-  "tool": "native t3-code html_preview",
-  "desktop1440": {
-    "artifact": "desktop.png",
-    "finding": "Сохранены авторское табло, четыре последовательных раздела и общий контекст. Исследуемый вариант отделён от принятого результата."
-  },
-  "narrow390": {
-    "artifact": "narrow.png",
-    "finding": "Переносы и селекторы укладываются в ширину. Таблицы и карта прокручиваются внутри своих областей; page-wide overflow отсутствует."
-  },
-  "projector_layout1280": {
-    "artifact": "projector-network.png",
-    "finding": "Сценарные группы ресурса, числитель/единицы и неизвестные различимы. Отсутствующие численные итоги не подменены нулями.",
-    "physical_projector": "NOT_RUN"
-  },
-  "direct390": {
-    "artifact": "direct-narrow.png",
-    "finding": "P02 продукты, локальные тарифные ограничения и P08 программы доступны с исходными датами/альтернативами. Селектор длинных программ не расширяет страницу."
-  },
-  "strategy1280": {
-    "artifact": "strategy.png",
-    "finding": "Четыре режима поставки сравниваются по условной сегментной вместимости. Исторический масштаб/метрика/цифровые механизмы доступны отдельно. Интегрированный прирост P09 не заявлен."
-  },
-  "source390": {
-    "artifact": "source-narrow.png",
-    "finding": "Длинный заголовок источника переносится внутри dialog. Кнопка закрытия доступна. Источник, период, единица, status/coverage и hash сохранены в раскрытии."
-  },
-  "fixed_during_review": [
-    "Ширина select P08 на390px",
-    "Перенос длинного h2 в диалоге источника",
-    "Сохранение destination и исследуемого кандидата при возврате к маршруту",
-    "Перенос длинного неразделённого заголовка GOJ внутри card",
-    "Минимальная ширина P01 таблиц для локальной горизонтальной прокрутки",
-    "Различение количества строк месячных наблюдений и числа месяцев"
+  "status": "AUTHOR_NATIVE_VISUAL_QA_PASS_WITH_EXPLICIT_SCOPE",
+  "dashboard_sha256": "f9e472dbd5b45dd65f4828764215eb9db78747d83103439ada043976a60ea8e9",
+  "author_view_commit": "6cbe817320f75db9823984e7c4eeb6091fd7d996",
+  "view_preserved": "four tabs, window components, departure board, boarding ticket, palette, map; mathematical JS of author not imported",
+  "native_html_preview_widths": [
+    1440,
+    390,
+    1280
   ],
-  "interaction_evidence": {
-    "desktop": "interaction-desktop.json",
-    "narrow": "interaction-narrow.json",
-    "checks_each": 55,
-    "scope": "Фактическая работа JS/DOM в native HTML renderer, включая клавиатурные события, модальный фокус, раскрытия, пресет и ошибки; это отдельно от визуальных PNG."
-  },
-  "limits": [
-    "Изолированные QA views скрывают соседние разделы только для снимка. Полный кандидат не имеет скрытых вкладками глав.",
-    "Actual P09 import/scenario switch NOT_RUN.",
-    "P16 independent review and120s actual-full-results rehearsal NOT_RUN.",
-    "Исходные авторские формулировки/коды сохранены в доказательствах; не исправлялись общие файлы."
+  "PNGs": [
+    "desktop.png",
+    "narrow.png",
+    "projector-network.png",
+    "network.png",
+    "resource-narrow.png",
+    "calendar-narrow.png",
+    "strategy.png",
+    "direct-narrow.png",
+    "source-narrow.png"
   ],
-  "root_source_commit": "6a6326c2dcfe32e47ec25621bda0d15fcfe48ae1",
-  "source_bindings": "20sealed cities;P01monthly separate from endpointOD;P09contract only, quantitative PENDING",
-  "monthly390": {
-    "artifact": "monthly-vvo.png",
-    "finding": "Период/совокупность/точность показаны отдельно. Повторяющиеся ограничения не растягивают каждую строку; полный источник доступен по запросу. Подтверждённый endpointOD не заявлен."
+  "personally_inspected": [
+    "desktop/narrow tab and board",
+    "network conditional equation/H/comparisons",
+    "resource/calendar dialog on narrow",
+    "strategy/P10/P11",
+    "direct source coverage",
+    "source wrapping"
+  ],
+  "findings_fixed": [
+    "Initial hash navigation caused load-time scroll and sticky-tab overlap: avoid writing fragment during initial load",
+    "Asynchronous dialog close could clear next pane: synchronous clear and guarded close handler;29transition checks",
+    "Disposition search matched hidden raw JSON rather than visible ID/city: search visible fields"
+  ],
+  "current_limits": [
+    "Physical projector not tested;1280layout only",
+    "html_preview full-page screenshots cap at4000pixels; fixed dialogs captured in native preview viewport, content scrolls",
+    "Independent P16 UI acceptance NOT_RUN",
+    "No market/dispatch/investment readiness claimed"
+  ],
+  "live_native_actual": {
+    "full_suite_checks": 117,
+    "window_checks": 29,
+    "narrow": {
+      "dashboard_sha256": "f9e472dbd5b45dd65f4828764215eb9db78747d83103439ada043976a60ea8e9",
+      "H": 263891478.0220616,
+      "active": "network",
+      "dialog_closed": true,
+      "focus_return": true,
+      "height": 844,
+      "no_overflow": true,
+      "one_section": [
+        "network"
+      ],
+      "scenario": "VOG_RADIAL:phased:cautious:passive",
+      "width": 390
+    },
+    "rehearsal_ms": 120023.40000003576
   }
 }

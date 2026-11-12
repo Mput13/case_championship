@@ -226,11 +226,18 @@ def build(extra_intake=None, results_commit=None, results_path=None,snapshot_onl
         (HERE/'inputs/P09').mkdir(exist_ok=True);(HERE/'inputs/P09/result_package.json').write_bytes(b)
         dump(HERE/'inputs/P09/ui_envelope_bound.json',result)
         intake.files.append(dict(package='P09',path=results_path,sha256=sha(b),version=results_commit,manifest_sha256=result['manifest_sha256']))
+    if (HERE/'quantitative_data.json').exists():
+        from bind_final import attach
+        d=attach(d,intake)
     d['integration']={'sealed_cities':list(d['dossiers']),
                       'pending_cities':[c['iata'] for c in d['cities'] if c['iata'] not in d['dossiers']],
-                      'finalquantitativebinding':'BOUND' if d['result_package'] else 'OPEN',
-                      'P16_actual_full_results_rehearsal':'NOT_RUN',
+                      'finalquantitativebinding':'BOUND_CONDITIONAL_RESEARCH' if d.get('lazy_results') else 'BOUND' if d['result_package'] else 'OPEN',
+                      'independent_programme_review':d.get('lazy_results',{}).get('root_authorisation',{}).get('independent_acceptance','NOT_BOUND'),
+                      'author_rehearsal_artifact':'qa/rehearsal.json',
                       'root_intake_snapshot_sha256':sha((HERE/'inputs/sealed_intake.json').read_bytes())}
+    for source in json.loads((HERE/'inputs/author_view2/source_manifest.json').read_text()):
+        snapshot='inputs/author_view2/'+pathlib.Path(source['path']).name
+        intake.files.append(dict(package='AUTHOR_VIEW2_DESIGN',path=source['path'],sha256=source['sha256'],version=source['commit'],snapshot=snapshot,bytes=source['bytes'],scope='presentation only; no author monetary JS imported'))
     d['assumptions']+=json.loads((HERE/'assumptions_register.json').read_text())
     # Unique registry key is package + ID; retain original IDs as authored.
     dump(HERE/'dashboard_data.json',d);dump(HERE/'input_manifest.json',{'files':intake.files,'boundary':'Selected sealed source rows only; no entire foreign fixture/archive copied.'})
@@ -238,12 +245,14 @@ def build(extra_intake=None, results_commit=None, results_path=None,snapshot_onl
         keys=list(intake.claims[0]);w=csv.DictWriter(f,fieldnames=keys);w.writeheader()
         for r in intake.claims:w.writerow({k:json.dumps(v,ensure_ascii=False) if isinstance(v,(dict,list)) else v for k,v in r.items()})
     css='\n'.join((HERE/'source'/n).read_text() for n in ['author-components.css','app.css'])
-    code='\n'.join((HERE/'source'/n).read_text() for n in ['adapter.js','app.js','stage_a.js'])
+    code='\n'.join((HERE/'source'/n).read_text() for n in ['adapter.js','app.js','stage_a.js','final.js','view2.js'])
     html=(HERE/'source/template.html').read_text().replace('/* CSS */',css).replace('/* DATA */',json.dumps(d,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')).replace('/* CODE */',code)
     (HERE/'dashboard_candidate.html').write_text(html)
     dump(HERE/'integration_coverage.json',{'data':d['integration'],'counts':{'products':len(products),'city_programmes':sum(len(x['programmes']) for x in d['dossiers'].values()),'city_hypotheses':sum(len(x['hypotheses']) for x in d['dossiers'].values()),'evidence_rows':sum(len(x['evidence']) for x in d['dossiers'].values()),'claim_links':len(intake.claims),'clock_conflicts':len(d['clock_conflicts'])},
          'sections':{'hubs':'sealed cases/hypotheses/controls/markets, all20 hubs and mapped endpoints','direct':'P02 source products and local fare restrictions; P08/P02I only when sealed','network':'source-stage specification/resource pairs; P09 results only from pinned accepted package','strategy':'P11 real policies and test mechanisms; P10 capacity separated from reported passengers'},
          'not_claimed':['operational PASS','economic winner','physical seat admission','2028 observed network','integrated market share','P16 acceptance']})
+    cov=json.loads((HERE/'integration_coverage.json').read_text())
+    if d.get('lazy_results'):cov['counts'].update(canonical_programmes=9,canonical_evaluations=18,overview_evaluations=1958,producer_constructs=178,author_recipe_dispositions=223);dump(HERE/'integration_coverage.json',cov)
     print(json.dumps(d['integration'],ensure_ascii=False))
 
 if __name__=='__main__':
