@@ -1,0 +1,233 @@
+{
+  "subject": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+  "scenarios": [
+    {
+      "threshold_km": 0,
+      "n_cities": 20,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Челябинск"
+      ],
+      "omsk_rank": 4
+    },
+    {
+      "threshold_km": 166,
+      "n_cities": 20,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Челябинск"
+      ],
+      "omsk_rank": 4
+    },
+    {
+      "threshold_km": 167,
+      "n_cities": 19,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Омск"
+      ],
+      "omsk_rank": 3
+    },
+    {
+      "threshold_km": 250,
+      "n_cities": 19,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Омск"
+      ],
+      "omsk_rank": 3
+    },
+    {
+      "threshold_km": 300,
+      "n_cities": 18,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Омск"
+      ],
+      "omsk_rank": 3
+    },
+    {
+      "threshold_km": 350,
+      "n_cities": 17,
+      "top3": [
+        "Уфа",
+        "Омск",
+        "Самара"
+      ],
+      "omsk_rank": 2
+    },
+    {
+      "threshold_km": 380,
+      "n_cities": 16,
+      "top3": [
+        "Уфа",
+        "Омск",
+        "Самара"
+      ],
+      "omsk_rank": 2
+    },
+    {
+      "threshold_km": 400,
+      "n_cities": 15,
+      "top3": [
+        "Омск",
+        "Самара",
+        "Оренбург"
+      ],
+      "omsk_rank": 1
+    },
+    {
+      "threshold_km": 500,
+      "n_cities": 15,
+      "top3": [
+        "Омск",
+        "Самара",
+        "Оренбург"
+      ],
+      "omsk_rank": 1
+    },
+    {
+      "threshold_km": 650,
+      "n_cities": 15,
+      "top3": [
+        "Омск",
+        "Самара",
+        "Оренбург"
+      ],
+      "omsk_rank": 1
+    },
+    {
+      "threshold_km": 800,
+      "n_cities": 11,
+      "top3": [
+        "Омск",
+        "Барнаул",
+        "Волгоград"
+      ],
+      "omsk_rank": 1
+    }
+  ],
+  "ablation": [
+    {
+      "removed_weights": [],
+      "threshold_km": 0,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Челябинск"
+      ]
+    },
+    {
+      "removed_weights": [],
+      "threshold_km": 500,
+      "top3": [
+        "Омск",
+        "Самара",
+        "Оренбург"
+      ]
+    },
+    {
+      "removed_weights": [
+        "last365_days"
+      ],
+      "threshold_km": 0,
+      "top3": [
+        "Самара",
+        "Уфа",
+        "Пермь"
+      ]
+    },
+    {
+      "removed_weights": [
+        "last365_days"
+      ],
+      "threshold_km": 500,
+      "top3": [
+        "Самара",
+        "Саратов",
+        "Волгоград"
+      ]
+    },
+    {
+      "removed_weights": [
+        "bad_weather_days"
+      ],
+      "threshold_km": 0,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Челябинск"
+      ]
+    },
+    {
+      "removed_weights": [
+        "bad_weather_days"
+      ],
+      "threshold_km": 500,
+      "top3": [
+        "Омск",
+        "Самара",
+        "Оренбург"
+      ]
+    },
+    {
+      "removed_weights": [
+        "transfer_demand_base"
+      ],
+      "threshold_km": 0,
+      "top3": [
+        "Омск",
+        "Челябинск",
+        "Уфа"
+      ]
+    },
+    {
+      "removed_weights": [
+        "transfer_demand_base"
+      ],
+      "threshold_km": 500,
+      "top3": [
+        "Омск",
+        "Барнаул",
+        "Самара"
+      ]
+    },
+    {
+      "removed_weights": [
+        "gap_pop"
+      ],
+      "threshold_km": 0,
+      "top3": [
+        "Уфа",
+        "Пермь",
+        "Челябинск"
+      ]
+    },
+    {
+      "removed_weights": [
+        "gap_pop"
+      ],
+      "threshold_km": 500,
+      "top3": [
+        "Самара",
+        "Омск",
+        "Казань"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "independent weighted scores agree with author rounded exports",
+      "pass": true
+    },
+    {
+      "name": "independent rank agrees with author export",
+      "pass": true
+    }
+  ]
+}
