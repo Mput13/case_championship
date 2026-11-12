@@ -81,6 +81,17 @@ def main():
     assert set(by_id['P14']['independence']['must_not_be_author_of']) >= {'P06','P09','P10','P11','P15'}
     assert 'P09' in by_id['P13']['independence']['must_not_be_author_of']
     assert all(by_id[k]['target']['options']['reasoningEffort']=='xhigh' for k in assigned)
+    demo=json.loads((BASE/'demo_requirements.json').read_text())
+    assert demo['target_seconds']==120
+    assert demo['same_product']['same_full_dashboard']
+    assert demo['same_product']['same_results_and_sources']
+    assert not demo['same_product']['separate_simplified_analytical_model']
+    assert not demo['same_product']['demo_numbers_or_fabricated_results']
+    assert demo['stops'][0]['start_seconds']==0
+    assert demo['stops'][-1]['end_seconds']==120
+    assert all(a['end_seconds']==b['start_seconds'] for a,b in zip(demo['stops'],demo['stops'][1:]))
+    assert 'presentation_rehearsal.json' in by_id['P16']['outputs']
+    assert demo['status']=='SPECIFIED_NOT_IMPLEMENTED_OR_REHEARSED'
     assert len(spec['accepted']['sections']) == 4
     assert not any(spec['execution_boundary'].values())
     assert set(by_id['P09']['depends_on']) >= {'P02','P03','P04','P05','P06','P07','P08'}

@@ -1,0 +1,92 @@
+{
+  "status": "SPECIFIED_NOT_IMPLEMENTED_OR_REHEARSED",
+  "user_requirement": "The full dashboard must support an approximately two-minute presentation of the decision process while preserving analytical depth and exploration.",
+  "target_seconds": 120,
+  "timing_status": "Proposed pacing; actual rehearsal has not been performed. This is not a measured completion time or a rigid automatic cutoff.",
+  "same_product": {
+    "same_results_and_sources": true,
+    "same_full_dashboard": true,
+    "all_alternatives_and_details_remain_accessible": true,
+    "presentation_changes": ["navigation_order", "focus_and_expansion_state", "selection_of_existing_results", "visual_emphasis"],
+    "separate_simplified_analytical_model": false,
+    "demo_numbers_or_fabricated_results": false
+  },
+  "audience_should_understand": [
+    "What problem and aircraft constraints the original case sets.",
+    "Which inputs are observations, estimates or scenarios, and how to inspect their sources.",
+    "Which hub and direct-route alternatives were evaluated, how competitors affect the analysis, and why programmes advance or are rejected.",
+    "How one common demand, seat inventory, fleet and funding model connects the components into a programme.",
+    "Which changes of conditions alter the result and what action the strategy takes.",
+    "What the 2027–2028 programme contributes to the whole-business strategy and what remains to reach number two."
+  ],
+  "stops": [
+    {
+      "id": "D0",
+      "start_seconds": 0,
+      "end_seconds": 15,
+      "focus": "Задача и основание расчёта",
+      "show": "Goal, period, available resource, principal input sources and coverage; distinguish observations, estimates and scenarios.",
+      "audience_takeaway": "We allocate constrained aircraft to growth; the standalone Superjet case is preserved.",
+      "data_binding": "Pinned final input version and standalone Superjet scope."
+    },
+    {
+      "id": "D1",
+      "start_seconds": 15,
+      "end_seconds": 40,
+      "focus": "Хабы и базы",
+      "show": "Comparable alternatives, one selected programme and its key demand, competition, resource and uncertainty evidence.",
+      "audience_takeaway": "A city score is screening; selection depends on a specific programme and its conditions.",
+      "data_binding": "Actual final shortlist and evaluated programmes; no city is predetermined by this script."
+    },
+    {
+      "id": "D2",
+      "start_seconds": 40,
+      "end_seconds": 60,
+      "focus": "Прямые рейсы",
+      "show": "One or two decision-relevant products, passenger alternatives and the complete aircraft rotation on comparable resource.",
+      "audience_takeaway": "Direct products contribute to the choice; both demand and competing supply affect their result.",
+      "data_binding": "Evaluated physical airport pairs and programme-level results."
+    },
+    {
+      "id": "D3",
+      "start_seconds": 60,
+      "end_seconds": 95,
+      "focus": "Итоговая сеть и изменение условий",
+      "show": "Combined network against KEEP, monthly resource and funding, followed by one material precomputed stress and the resulting action.",
+      "audience_takeaway": "Components share demand and aircraft; the recommendation changes or remains robust for an explainable reason.",
+      "data_binding": "One final programme plus a real computed comparison scenario. Choose a consequential competitor-response or delivery scenario after results exist."
+    },
+    {
+      "id": "D4",
+      "start_seconds": 95,
+      "end_seconds": 120,
+      "focus": "Стратегия роста и №2",
+      "show": "Contribution of stage one, remaining scale gap, roadmap and one concrete digital/commercial mechanism with its conditions.",
+      "audience_takeaway": "The regional programme is a first stage; further growth and uncertain fleet extensions remain explicit conditions.",
+      "data_binding": "The same primary programme/scenario and the integrated whole-business bridge."
+    }
+  ],
+  "ui_contract": {
+    "four_sections": true,
+    "compact_navigation": "Keep the agreed section navigation; a compact optional guided route may select the relevant existing states.",
+    "controls": "Start, previous, next and exit only if they help the rehearsed flow; native focus and keyboard behaviour remain usable.",
+    "preset": "A named, versioned state selecting real programme/scenario results, not a copy of the dataset or a predetermined winning city.",
+    "state_fields": ["result_version", "fleet_scope_id", "programme_id", "period", "primary_scenario_id", "comparison_scenario_id", "active_section", "expanded_details"],
+    "comparison_state": "Keep the primary scenario identifiable while showing a stress comparison; preserve a consistent state on the strategy section.",
+    "scenario_overview": "A compact view of evaluated delivery, market and competitor-response branches is available; the short walk demonstrates one material branch without reducing the underlying scenario set.",
+    "source_access": "A visible value opens its particular source, method, period and assumptions without losing the current comparison.",
+    "full_exploration": "Exit the route at any point, inspect other cities, routes, assumptions or scenarios, and return to the saved presentation state.",
+    "scenario_changes": "Only display computed results. Unsupported combinations remain visibly uncomputed; a price control must not imply a recalculated demand response when none exists.",
+    "important_limits": "Relevant uncertainty, negative economics and conditions that change the choice remain visible in the short presentation.",
+    "legibility": "Key comparisons are readable on a projected screen; detailed tables remain available in the same interface.",
+    "stability": "The prepared presentation runs on pinned local results and necessary assets; transitions do not require external data collection or new optimisation."
+  },
+  "acceptance": {
+    "packages": ["P12", "P15", "P16", "P17"],
+    "actual_dashboard_rehearsal": true,
+    "checks": ["walk_the_full_route", "record_actual_duration_and_actions", "check_programme_and_scenario_consistency", "open_a_real_source_and_assumption", "show_a_real_stress_and_strategy_action", "exit_to_free_exploration_and_return", "check_keyboard_focus_and_projector_legibility"],
+    "depth_policy": "If the route is slow or unclear, improve hierarchy, navigation and choice of example rather than removing substantive calculations or concealing conditions.",
+    "outputs": ["presentation_route.json", "presentation_preset.json", "presentation_script.txt", "presentation_rehearsal.json"],
+    "presentation_readiness": "Not established by this specification or by green model tests; requires rehearsal in the implemented dashboard."
+  }
+}
