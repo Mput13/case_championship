@@ -1004,7 +1004,7 @@
       "task_id": "node:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p13-core-recheck-v1",
       "child_thread_id": "thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p13-core-recheck-v1",
       "link": "[Red Wings: перепроверка adaptive F01/F02](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p13-core-recheck-v1)",
-      "status": "running",
+      "status": "completed",
       "requested_model": "gpt-6.1-sol",
       "options": [
         {
@@ -1017,7 +1017,40 @@
       "write_scope": "context/35_full_programme_execution_20261112/P13_CORE_RECHECK/",
       "isolation": "shared",
       "git_owner": "coordinator_only",
-      "receipt_at_utc": "2026-11-12T14:29:21.105021+00:00"
+      "receipt_at_utc": "2026-11-12T14:29:21.105021+00:00",
+      "verdict": "CHANGES",
+      "finding": "F01-R1 S2 current-month past accrual selection; F02 closed for tested scope",
+      "manifest_sha256": "a418149e30d1b70a4234e1674dc3cb74676e0e415f595b33a107425505267f6c"
+    },
+    {
+      "package_id": "GEMINI-METHOD-BRIEF-FAILED",
+      "task_id": "node:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-gemini-data-method-brief-v1",
+      "status": "failed",
+      "provider_instance_id": "opencode",
+      "requested_model": "google/gemini-3.8-flash",
+      "options": [
+        {
+          "id": "variant",
+          "value": "high"
+        }
+      ],
+      "error": "The Gemini API free tier is not available for this project.",
+      "replacement_basis": "User explicitly requires Antigravity; no billing setup attempted."
+    },
+    {
+      "package_id": "GEMINI-METHOD-BRIEF",
+      "task_id": "node:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-gemini-antigravity-method-brief-v1",
+      "child_thread_id": "thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-gemini-antigravity-method-brief-v1",
+      "link": "[Red Wings: логика анализа кейса — Gemini через Antigravity](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-gemini-antigravity-method-brief-v1)",
+      "status": "running",
+      "provider_instance_id": "antigravity",
+      "requested_model": "gemini-3.8-flash-high",
+      "options": [],
+      "isolation": "shared",
+      "write_scope": "context/35_full_programme_execution_20261112/data_method_brief_gemini_antigravity/",
+      "git_owner": "coordinator_only",
+      "purpose": "Explain case decision process and defensible conclusions to the user, with sources, hypotheses, economics and limitations.",
+      "receipt_at_utc": "2026-11-12T14:36:57.729810+00:00"
     }
   ],
   "next_ready_work": [

@@ -5,7 +5,7 @@ import json
 import math
 from datetime import datetime, timezone
 
-VERSION = "P06-1.0.1-adaptive"
+VERSION = "P06-1.0.2-adaptive"
 EPS = 1e-8
 
 

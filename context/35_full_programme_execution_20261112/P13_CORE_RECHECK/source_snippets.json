@@ -1,0 +1,339 @@
+[
+  {
+    "commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+    "path": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+    "blob_sha256": "454c48084885fc65177cc5f3728a2d098da33b14201bb52df3fd2b61b2a93e80",
+    "line_start": 230,
+    "line_end": 245,
+    "lines": [
+      {
+        "line": 230,
+        "text": "    old_products = {p[\"product_id\"]: p for p in parent[\"products\"]}"
+      },
+      {
+        "line": 231,
+        "text": "    new_products = {p[\"product_id\"]: p for p in bundle[\"products\"]}"
+      },
+      {
+        "line": 232,
+        "text": "    new_contracts = {c[\"contract_id\"]: c for c in bundle[\"contracts\"]}"
+      },
+      {
+        "line": 233,
+        "text": "    for contract in parent[\"contracts\"]:"
+      },
+      {
+        "line": 234,
+        "text": "        # This kernel has no cancellation/refund model. An existing allocation or"
+      },
+      {
+        "line": 235,
+        "text": "        # unqualified commitment cannot disappear through a documented 'remove'."
+      },
+      {
+        "line": 236,
+        "text": "        if (contract.get(\"carried\") != 0 or contract.get(\"reserved_seats\") != 0"
+      },
+      {
+        "line": 237,
+        "text": "                or contract.get(\"committed_at\") is None"
+      },
+      {
+        "line": 238,
+        "text": "                or contract[\"committed_at\"] <= decision):"
+      },
+      {
+        "line": 239,
+        "text": "            cid, pid = contract[\"contract_id\"], contract[\"product_id\"]"
+      },
+      {
+        "line": 240,
+        "text": "            require(new_contracts.get(cid) == contract,"
+      },
+      {
+        "line": 241,
+        "text": "                    \"adaptation erases/changes prior contract; cancellation/refund model required\")"
+      },
+      {
+        "line": 242,
+        "text": "            require(new_products.get(pid) == old_products.get(pid),"
+      },
+      {
+        "line": 243,
+        "text": "                    \"adaptation changes product bound to prior contract\")"
+      },
+      {
+        "line": 244,
+        "text": ""
+      },
+      {
+        "line": 245,
+        "text": "    def date_floor(value):"
+      }
+    ]
+  },
+  {
+    "commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+    "path": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+    "blob_sha256": "454c48084885fc65177cc5f3728a2d098da33b14201bb52df3fd2b61b2a93e80",
+    "line_start": 277,
+    "line_end": 285,
+    "lines": [
+      {
+        "line": 277,
+        "text": "            if old.get(rid) != new.get(rid):"
+      },
+      {
+        "line": 278,
+        "text": "                require((table, rid) in actions, f\"adaptive change lacks action and information provenance: {table}/{rid}\")"
+      },
+      {
+        "line": 279,
+        "text": "                action = \"add\" if rid not in old else \"remove\" if rid not in new else \"replace\""
+      },
+      {
+        "line": 280,
+        "text": "                require(actions[table, rid][\"action\"] == action, \"adaptive action does not match actual change\")"
+      },
+      {
+        "line": 281,
+        "text": "                effective = actions[table, rid][\"effective_date\"]"
+      },
+      {
+        "line": 282,
+        "text": "                for record, source in ((old.get(rid), parent), (new.get(rid), bundle)):"
+      },
+      {
+        "line": 283,
+        "text": "                    if record is not None:"
+      },
+      {
+        "line": 284,
+        "text": "                        require(all(d >= effective for d in affected_dates(table, record, source)),"
+      },
+      {
+        "line": 285,
+        "text": "                                f\"adaptive action rewrites a record before its effective date: {table}/{rid}\")"
+      }
+    ]
+  },
+  {
+    "commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+    "path": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+    "blob_sha256": "454c48084885fc65177cc5f3728a2d098da33b14201bb52df3fd2b61b2a93e80",
+    "line_start": 296,
+    "line_end": 313,
+    "lines": [
+      {
+        "line": 296,
+        "text": "    def historical_ledger(source):"
+      },
+      {
+        "line": 297,
+        "text": "        # Recompute in fixed mode only to compare realised ledgers, without"
+      },
+      {
+        "line": 298,
+        "text": "        # recursively entering adaptation. This also covers generated payments:"
+      },
+      {
+        "line": 299,
+        "text": "        # changing a future competitor must not rewrite a past customer advance."
+      },
+      {
+        "line": 300,
+        "text": "        fixed = copy.deepcopy(source)"
+      },
+      {
+        "line": 301,
+        "text": "        fixed[\"context\"][\"evaluation_mode\"] = \"fixed_programme\""
+      },
+      {
+        "line": 302,
+        "text": "        result = evaluate(fixed)"
+      },
+      {
+        "line": 303,
+        "text": "        money = result[\"finance\"]"
+      },
+      {
+        "line": 304,
+        "text": "        def rounded(value):"
+      },
+      {
+        "line": 305,
+        "text": "            return round(value, 8) if isinstance(value, float) else value"
+      },
+      {
+        "line": 306,
+        "text": "        accruals = {e[\"economic_event_id\"]: (e[\"accrual_month\"], e[\"owner\"], e[\"category\"], rounded(e[\"quantity\"]), rounded(e[\"amount\"]))"
+      },
+      {
+        "line": 307,
+        "text": "                    for e in money[\"economic_events\"] if e[\"accrual_month\"] < decision[:7]}"
+      },
+      {
+        "line": 308,
+        "text": "        cash = {e[\"cash_event_id\"]: (e[\"payment_date\"], e[\"economic_event_id\"], e[\"category\"], rounded(e[\"amount_signed\"]))"
+      },
+      {
+        "line": 309,
+        "text": "                for e in money[\"cash_events\"] if date_floor(e[\"payment_date\"]) < decision}"
+      },
+      {
+        "line": 310,
+        "text": "        return accruals, cash"
+      },
+      {
+        "line": 311,
+        "text": ""
+      },
+      {
+        "line": 312,
+        "text": "    require(historical_ledger(bundle) == historical_ledger(parent),"
+      },
+      {
+        "line": 313,
+        "text": "            \"adaptation rewrites historical derived accruals or cash\")"
+      }
+    ]
+  },
+  {
+    "commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+    "path": "context/35_full_programme_execution_20261112/P06/engine/finance.py",
+    "blob_sha256": "687b596fd85fbfe3f57eda396367f05e45021a3b0dcf31473ef083982101bd6c",
+    "line_start": 27,
+    "line_end": 43,
+    "lines": [
+      {
+        "line": 27,
+        "text": "        if \"driver\" in e:"
+      },
+      {
+        "line": 28,
+        "text": "            d = e[\"driver\"]"
+      },
+      {
+        "line": 29,
+        "text": "            kind = d[\"kind\"]"
+      },
+      {
+        "line": 30,
+        "text": "            if kind == \"journeys\":"
+      },
+      {
+        "line": 31,
+        "text": "                q = total(amounts.get(pid) for pid in d[\"product_ids\"])"
+      },
+      {
+        "line": 32,
+        "text": "            elif kind == \"segments\":"
+      },
+      {
+        "line": 33,
+        "text": "                q = total(None if amounts.get(pid) is None else amounts[pid] * len(products_by_id[pid][\"legs\"]) for pid in d[\"product_ids\"])"
+      },
+      {
+        "line": 34,
+        "text": "            elif kind == \"flights\":"
+      },
+      {
+        "line": 35,
+        "text": "                require(all(fid in flights for fid in d[\"flight_ids\"]), \"cost driver absent flight\")"
+      },
+      {
+        "line": 36,
+        "text": "                q = len(d[\"flight_ids\"])"
+      },
+      {
+        "line": 37,
+        "text": "            elif kind == \"block_hours\":"
+      },
+      {
+        "line": 38,
+        "text": "                from .common import utc"
+      },
+      {
+        "line": 39,
+        "text": "                q = sum((utc(flights[fid][\"arrival_utc\"]) - utc(flights[fid][\"departure_utc\"])).total_seconds() / 3600 for fid in d[\"flight_ids\"])"
+      },
+      {
+        "line": 40,
+        "text": "            else:"
+      },
+      {
+        "line": 41,
+        "text": "                raise ValueError(f\"Unsupported driver {kind}; use explicit sourced quantity\")"
+      },
+      {
+        "line": 42,
+        "text": "            e[\"quantity\"] = q"
+      },
+      {
+        "line": 43,
+        "text": "            e[\"amount\"] = None if q is None or e[\"rate\"] is None else q * e[\"rate\"]"
+      }
+    ]
+  },
+  {
+    "commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+    "path": "context/35_full_programme_execution_20261112/P06/engine/finance.py",
+    "blob_sha256": "687b596fd85fbfe3f57eda396367f05e45021a3b0dcf31473ef083982101bd6c",
+    "line_start": 44,
+    "line_end": 56,
+    "lines": [
+      {
+        "line": 44,
+        "text": "    for p in products:"
+      },
+      {
+        "line": 45,
+        "text": "        if p[\"owner\"] != \"RW\" or p[\"kind\"] == \"outside\":"
+      },
+      {
+        "line": 46,
+        "text": "            continue"
+      },
+      {
+        "line": 47,
+        "text": "        pid = p[\"product_id\"]"
+      },
+      {
+        "line": 48,
+        "text": "        q = amounts.get(pid)"
+      },
+      {
+        "line": 49,
+        "text": "        amount = None if q is None or p[\"net_fare\"] is None else q * p[\"net_fare\"]"
+      },
+      {
+        "line": 50,
+        "text": "        eid = \"journey_revenue:\" + pid"
+      },
+      {
+        "line": 51,
+        "text": "        events.append({\"economic_event_id\": eid, \"owner\": pid, \"category\": \"revenue\", \"scope\": \"affected_business\", \"driver_unit\": \"journey\", \"quantity\": q, \"rate\": p[\"net_fare\"], \"amount\": amount, \"currency\": \"RUB\", \"price_year\": bundle[\"context\"][\"price_year\"], \"fx_policy\": \"RUB_input\", \"accrual_month\": p[\"month\"], \"noncash\": False, \"avoidability\": \"per_carried_journey\", \"shared_event_id\": eid, \"source_id\": p.get(\"source_id\", \"SCENARIO\"), \"assumption_id\": p[\"assumption_id\"], \"cash_plan_status\": \"unknown\" if p[\"cash_profile\"] is None else \"explicit\"})"
+      },
+      {
+        "line": 52,
+        "text": "        if p[\"cash_profile\"] is not None:"
+      },
+      {
+        "line": 53,
+        "text": "            require(abs(sum(x[\"fraction\"] for x in p[\"cash_profile\"]) - 1) < EPS, f\"{pid}: cash fractions must sum to 1\")"
+      },
+      {
+        "line": 54,
+        "text": "            for i, payment in enumerate(p[\"cash_profile\"]):"
+      },
+      {
+        "line": 55,
+        "text": "                number(payment[\"fraction\"], \"cash fraction\", 0)"
+      },
+      {
+        "line": 56,
+        "text": "                cash.append({\"cash_event_id\": f\"{eid}:payment:{i}\", \"economic_event_id\": eid, \"related_asset_or_contract_id\": pid, \"payment_date\": payment[\"date\"], \"amount_signed\": None if amount is None else amount * payment[\"fraction\"], \"category\": \"operating\", \"currency\": \"RUB\", \"fx_at_payment\": 1, \"deposit_flag\": False, \"source_id\": p.get(\"source_id\", \"SCENARIO\"), \"status\": \"scenario\", \"assumption_id\": p[\"assumption_id\"]})"
+      }
+    ]
+  }
+]

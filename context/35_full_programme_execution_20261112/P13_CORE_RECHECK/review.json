@@ -1,0 +1,107 @@
+{
+  "package": "P13_CORE_RECHECK",
+  "verdict": "CHANGES",
+  "reviewer": "Independent narrow review sub-agent; not P06 author or root fix author",
+  "subject_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+  "subject_prefix": "context/35_full_programme_execution_20261112/P06/",
+  "source_version": "P06-1.0.1-adaptive",
+  "subject_manifest_sha256": "74b37e90d6221957e56e26e559b85d07bc58e3138458354c51db9fda568b67b1",
+  "subject_payload_files": 101,
+  "frozen_review": {
+    "path": "context/35_full_programme_execution_20261112/P13_CORE/",
+    "base_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "manifest_sha256": "85c2c9fc9ee9f5b548252671d597dd17ace6fc57523f822c18a9e66d859111a7",
+    "payload_files": 45,
+    "unchanged": true
+  },
+  "scope": "Closure исходных F01/F02 и непосредственно затронутые historical derived cash/accrual, будущие допустимые действия, fixed comparisons и очевидные ложные отказы в заявленном контракте.",
+  "closure": {
+    "P13_CORE/F01": {
+      "status": "PARTIAL_NOT_CLOSED",
+      "literal_original_reproducers": "2/2 REJECTED",
+      "residual": "F01-R1: current-month past derived accruals"
+    },
+    "P13_CORE/F02": {
+      "status": "CLOSED_FOR_TESTED_SCOPE",
+      "literal_original_reproducer": "REJECTED",
+      "boundaries": "carried/reserved/unknown commitment/contract rebind/bound product защищены; no-op, unbound future product и zero future-uncommitted contract removal допустимы"
+    }
+  },
+  "findings": [
+    {
+      "finding_id": "P13_CORE_RECHECK/F01-R1",
+      "parent_finding": "P13_CORE/F01",
+      "severity": "S2",
+      "status": "OPEN",
+      "title": "Прошлые производные начисления внутри месяца решения остаются изменяемыми",
+      "subject_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+      "file": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+      "line_start": 306,
+      "line_end": 307,
+      "related_locations": [
+        "context/35_full_programme_execution_20261112/P06/engine/core.py:312",
+        "context/35_full_programme_execution_20261112/P06/engine/finance.py:42",
+        "context/35_full_programme_execution_20261112/P06/engine/finance.py:51"
+      ],
+      "cause": "historical_ledger отбирает accrual_month < decision[:7], исключая весь текущий месяц. Неизменённый event может изменить quantity/amount через изменённый будущий driver, минуя affected_dates для самого event.",
+      "smallest_reproducer": {
+        "input": "inputs/derived_same_month_dated_accrual_indirect.json",
+        "command": "PYTHONDONTWRITEBYTECODE=1 python3 context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py",
+        "parent": "Один TEST-рейс MARCH 10.03.2027 08:00–10:00 UTC; одно unchanged economic_event PAST_DERIVED: accrual_date=10.02.2027, accrual_month=2027-02, driver=block_hours(MARCH), rate=10, payment=10.04.2027. Продуктов/рынков/контрактов нет.",
+        "action": "Решение 15.02.2027, effective_date=01.03.2027; единственное действие replace flights/MARCH с arrival_utc 10:00→11:00. Сам event не изменяется.",
+        "expected": "ContractError: неизменяемое начисление 10.02 не может получить новую сумму по решению 15.02.",
+        "actual": "CONDITIONAL: quantity 2→3, amount 20→30 RUB на accrual_date=10.02.2027; operating_result -20→-30. Апрельский производный платёж -20→-30.",
+        "actual_result": "results/derived_same_month_dated_accrual_indirect_adaptive.json",
+        "paired_fixed_diagnostic": "results/derived_same_month_dated_accrual_indirect_fixed_ledgers.json"
+      },
+      "corroborating_reproducers": [
+        {
+          "input": "inputs/derived_same_month_monthly_accrual_indirect.json",
+          "actual": "Тот же обход без accrual_date; согласно adaptive_fix monthly date означает 1-е число, но февральское начисление тоже пропускается."
+        },
+        {
+          "input": "inputs/derived_same_month_flown_revenue.json",
+          "actual": "Рейс RW 10.02, решение 15.02 добавляет альтернативу 20.02 в тот же monthly pool. При оплате RW 28.02 новая защита принимает пересчёт уже выполненного рейса: 50→33.3333 поездки, earned revenue 6000→4000 RUB. Это не требование новой калибровки, а нарушение сохранения прошлого."
+        }
+      ],
+      "smallest_fix": "Внутри historical_ledger выбирать исторические начисления по доступной дате относительно полного decision_date: явный accrual_date, для generated journey_revenue дата исходного продукта/первого физического плеча, при действительно только monthly дате — объявленное консервативное 1-е число. Сравнивать те же quantity/amount. Не замораживать все будущие датированные начисления текущего месяца.",
+      "acceptance": [
+        "Все три сохранённых residual-воспроизводителя получают ContractError.",
+        "future_same_month_dated_accrual (20.02 при решении 15.02) и future_same_month_product_reprice остаются допустимыми.",
+        "Исходные три воспроизводителя, B21, I03 и fixed regression сохраняют текущий результат."
+      ]
+    }
+  ],
+  "personal_checks": {
+    "counts": {
+      "PASS": 25,
+      "FAIL": 3
+    },
+    "total": 28,
+    "independently_constructed_boundary_checks": 23,
+    "frozen_original_reproducers_rerun": 3,
+    "author_B21_rerun_separately": 1,
+    "frozen_I03_control_rerun_separately": 1,
+    "failures_are_three_reproducers_of_one_finding": true,
+    "all_source_reads": "git show exact commit:path; verified manifests and read_set.json; in-memory modules",
+    "historical_generated_payments": "Indirect block-hours payment and customer advance through added competitor both rejected",
+    "fixed_regression": "Exact base-vs-candidate evaluate/compare/scenario output equality, recursively excluding only engine_version",
+    "root_42_pass_claim_used_as_acceptance": false,
+    "author_42_suite_rerun": false,
+    "subject_edits": false,
+    "frozen_review_edits": false,
+    "git_mutations": false,
+    "children": false,
+    "external_or_paid_calls": false,
+    "publication": false
+  },
+  "limits": [
+    "Все числа синтетические и проверяют исполняемый контракт.",
+    "Рынок, калибровка, полный KEEP, реальные договоры и приёмка всей программы вне scope.",
+    "Не проверялись все 42 CE/boundary, CLI/API identity и полноценная отмена/возврат.",
+    "APPROVE F02 относится только к перечисленным проверенным границам; общий verdict CHANGES относится только к этому патчу."
+  ],
+  "results": "results.json",
+  "coverage_and_limits": "coverage_and_limits.md",
+  "source_verification": "source_verification.json"
+}

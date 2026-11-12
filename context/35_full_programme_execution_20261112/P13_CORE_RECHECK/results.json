@@ -1,0 +1,353 @@
+{
+  "subject_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+  "checks": [
+    {
+      "check_id": "F01_historical_reprice",
+      "origin": "frozen_original_reproducer",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptive action rewrites a record before its effective date: products/BOOKED",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F01_backdated_add",
+      "origin": "frozen_original_reproducer",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptive action rewrites a record before its effective date: cash_events/PAST_RECEIPT",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_contract_erasure",
+      "origin": "frozen_original_reproducer",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "B21_future_action",
+      "origin": "author_test_independently_rerun",
+      "status": "PASS",
+      "unexplained_change_rejected": true,
+      "documented_change_evaluated": true,
+      "parent_substitution_rejected": true
+    },
+    {
+      "check_id": "I03_fixed_contract_release",
+      "origin": "frozen_control_independently_rerun",
+      "status": "PASS",
+      "summary": {
+        "journeys": 45.0,
+        "passenger_segments": 70.0,
+        "revenue_net": 9500.0,
+        "variable_contribution": 9500.0,
+        "operating_result": 9500.0,
+        "cash_before_financing": 7500.0,
+        "operating_result_including_prelaunch": 9500.0
+      },
+      "seats": [
+        {
+          "flight_instance_id": "L1",
+          "saleable_seats": 50,
+          "carried_segments": 45.0,
+          "unfilled_contract_seats": 5.0,
+          "unsold_seats": 0
+        },
+        {
+          "flight_instance_id": "L2",
+          "saleable_seats": 30,
+          "carried_segments": 25.0,
+          "unfilled_contract_seats": 0.0,
+          "unsold_seats": 5.0
+        }
+      ],
+      "released_journeys": 50,
+      "conserved_total_choices": 120
+    },
+    {
+      "check_id": "F02_preserved_contract_noop",
+      "origin": "independent",
+      "status": "PASS",
+      "accepted": true,
+      "parent_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 7000.0,
+        "variable_contribution": 7000.0,
+        "operating_result": 7000.0,
+        "cash_before_financing": 7000.0,
+        "operating_result_including_prelaunch": 7000.0
+      },
+      "adaptive_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 7000.0,
+        "variable_contribution": 7000.0,
+        "operating_result": 7000.0,
+        "cash_before_financing": 7000.0,
+        "operating_result_including_prelaunch": 7000.0
+      }
+    },
+    {
+      "check_id": "F02_reserved_only",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_carried_without_committed_at",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_zero_unknown_commitment",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_shrink_carried",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_release_reserved",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_rebind_product",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_bound_product_fare",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation changes product bound to prior contract",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_bound_product_legs",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation changes product bound to prior contract",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "F02_future_uncommitted_zero_contract_removable",
+      "origin": "independent",
+      "status": "PASS",
+      "accepted": true,
+      "parent_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 10000.0,
+        "variable_contribution": 10000.0,
+        "operating_result": 10000.0,
+        "cash_before_financing": 10000.0,
+        "operating_result_including_prelaunch": 10000.0
+      },
+      "adaptive_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 10000.0,
+        "variable_contribution": 10000.0,
+        "operating_result": 10000.0,
+        "cash_before_financing": 10000.0,
+        "operating_result_including_prelaunch": 10000.0
+      }
+    },
+    {
+      "check_id": "F02_unbound_future_product_change",
+      "origin": "independent",
+      "status": "PASS",
+      "accepted": true,
+      "parent_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 7000.0,
+        "variable_contribution": 7000.0,
+        "operating_result": 7000.0,
+        "cash_before_financing": 7000.0,
+        "operating_result_including_prelaunch": 7000.0
+      },
+      "adaptive_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 7400.0,
+        "variable_contribution": 7400.0,
+        "operating_result": 7400.0,
+        "cash_before_financing": 7400.0,
+        "operating_result_including_prelaunch": 7400.0
+      }
+    },
+    {
+      "check_id": "F01_preserved_history_noop",
+      "origin": "independent",
+      "status": "PASS",
+      "accepted": true,
+      "parent_summary": {
+        "journeys": 20.0,
+        "passenger_segments": 20.0,
+        "revenue_net": 2400.0,
+        "variable_contribution": 2400.0,
+        "operating_result": 2400.0,
+        "cash_before_financing": 2400.0,
+        "operating_result_including_prelaunch": 2400.0
+      },
+      "adaptive_summary": {
+        "journeys": 20.0,
+        "passenger_segments": 20.0,
+        "revenue_net": 2400.0,
+        "variable_contribution": 2400.0,
+        "operating_result": 2400.0,
+        "cash_before_financing": 2400.0,
+        "operating_result_including_prelaunch": 2400.0
+      }
+    },
+    {
+      "check_id": "future_same_month_dated_accrual",
+      "origin": "independent",
+      "status": "PASS",
+      "accepted": true,
+      "parent_summary": {
+        "journeys": 0,
+        "passenger_segments": 0,
+        "revenue_net": 0,
+        "variable_contribution": -20.0,
+        "operating_result": -20.0,
+        "cash_before_financing": -20.0,
+        "operating_result_including_prelaunch": -20.0
+      },
+      "adaptive_summary": {
+        "journeys": 0,
+        "passenger_segments": 0,
+        "revenue_net": 0,
+        "variable_contribution": -30.0,
+        "operating_result": -30.0,
+        "cash_before_financing": -30.0,
+        "operating_result_including_prelaunch": -30.0
+      }
+    },
+    {
+      "check_id": "future_same_month_product_reprice",
+      "origin": "independent",
+      "status": "PASS",
+      "accepted": true,
+      "parent_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 6000.0,
+        "variable_contribution": 6000.0,
+        "operating_result": 6000.0,
+        "cash_before_financing": 6000.0,
+        "operating_result_including_prelaunch": 6000.0
+      },
+      "adaptive_summary": {
+        "journeys": 50.0,
+        "passenger_segments": 50.0,
+        "revenue_net": 7500.0,
+        "variable_contribution": 7500.0,
+        "operating_result": 7500.0,
+        "cash_before_financing": 7500.0,
+        "operating_result_including_prelaunch": 7500.0
+      }
+    },
+    {
+      "check_id": "past_customer_advance_indirect_competitor",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "derived_past_cash_indirect",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "derived_prior_month_accrual_indirect",
+      "origin": "independent",
+      "status": "PASS",
+      "rejected": true,
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "parent_status": "CONDITIONAL"
+    },
+    {
+      "check_id": "derived_same_month_dated_accrual_indirect",
+      "origin": "independent",
+      "status": "FAIL",
+      "error": "Expected ContractError; accepted CONDITIONAL; summary={\"journeys\": 0, \"passenger_segments\": 0, \"revenue_net\": 0, \"variable_contribution\": -30.0, \"operating_result\": -30.0, \"cash_before_financing\": -30.0, \"operating_result_including_prelaunch\": -30.0}",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 138, in check\n    details = fn()\n              ^^^^\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 315, in <lambda>\n    check(cid, lambda pair=pair: reject_pair(pair))\n                                 ^^^^^^^^^^^^^^^^^\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 155, in reject_pair\n    raise AssertionError(\"Expected ContractError; accepted \" + after[\"status\"] + \"; summary=\" + json.dumps(after[\"summary\"]))\nAssertionError: Expected ContractError; accepted CONDITIONAL; summary={\"journeys\": 0, \"passenger_segments\": 0, \"revenue_net\": 0, \"variable_contribution\": -30.0, \"operating_result\": -30.0, \"cash_before_financing\": -30.0, \"operating_result_including_prelaunch\": -30.0}\n"
+    },
+    {
+      "check_id": "derived_same_month_monthly_accrual_indirect",
+      "origin": "independent",
+      "status": "FAIL",
+      "error": "Expected ContractError; accepted CONDITIONAL; summary={\"journeys\": 0, \"passenger_segments\": 0, \"revenue_net\": 0, \"variable_contribution\": -30.0, \"operating_result\": -30.0, \"cash_before_financing\": -30.0, \"operating_result_including_prelaunch\": -30.0}",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 138, in check\n    details = fn()\n              ^^^^\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 315, in <lambda>\n    check(cid, lambda pair=pair: reject_pair(pair))\n                                 ^^^^^^^^^^^^^^^^^\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 155, in reject_pair\n    raise AssertionError(\"Expected ContractError; accepted \" + after[\"status\"] + \"; summary=\" + json.dumps(after[\"summary\"]))\nAssertionError: Expected ContractError; accepted CONDITIONAL; summary={\"journeys\": 0, \"passenger_segments\": 0, \"revenue_net\": 0, \"variable_contribution\": -30.0, \"operating_result\": -30.0, \"cash_before_financing\": -30.0, \"operating_result_including_prelaunch\": -30.0}\n"
+    },
+    {
+      "check_id": "derived_same_month_flown_revenue",
+      "origin": "independent",
+      "status": "FAIL",
+      "error": "Expected ContractError; accepted CONDITIONAL; summary={\"journeys\": 33.333333333333336, \"passenger_segments\": 33.333333333333336, \"revenue_net\": 4000.0000000000005, \"variable_contribution\": 4000.0000000000005, \"operating_result\": 4000.0000000000005, \"cash_before_financing\": 4000.0000000000005, \"operating_result_including_prelaunch\": 4000.0000000000005}",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 138, in check\n    details = fn()\n              ^^^^\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 315, in <lambda>\n    check(cid, lambda pair=pair: reject_pair(pair))\n                                 ^^^^^^^^^^^^^^^^^\n  File \"/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P13_CORE_RECHECK/recheck.py\", line 155, in reject_pair\n    raise AssertionError(\"Expected ContractError; accepted \" + after[\"status\"] + \"; summary=\" + json.dumps(after[\"summary\"]))\nAssertionError: Expected ContractError; accepted CONDITIONAL; summary={\"journeys\": 33.333333333333336, \"passenger_segments\": 33.333333333333336, \"revenue_net\": 4000.0000000000005, \"variable_contribution\": 4000.0000000000005, \"operating_result\": 4000.0000000000005, \"cash_before_financing\": 4000.0000000000005, \"operating_result_including_prelaunch\": 4000.0000000000005}\n"
+    },
+    {
+      "check_id": "fixed_regression_demo_bundle",
+      "origin": "independent",
+      "status": "PASS",
+      "equal_except_engine_version": true,
+      "normalized_result_sha256": "cbe85bd1b208d7e4224aeed92567509fa5eff8799ebedfbdd743866cbfa9a4ab",
+      "base_engine_version": "P06-1.0",
+      "candidate_engine_version": "P06-1.0.1-adaptive"
+    },
+    {
+      "check_id": "fixed_regression_evaluate_bundle",
+      "origin": "independent",
+      "status": "PASS",
+      "equal_except_engine_version": true,
+      "normalized_result_sha256": "29870566a0f0d97dc6d6806fe1b81e0f5d9a7541907e9b205a6f531080433fca",
+      "base_engine_version": "P06-1.0",
+      "candidate_engine_version": "P06-1.0.1-adaptive"
+    },
+    {
+      "check_id": "fixed_regression_scenario_bundle",
+      "origin": "independent",
+      "status": "PASS",
+      "equal_except_engine_version": true,
+      "normalized_result_sha256": "e2401ebd902044b381d1bbe073c508f555a4b8eacdd93ae804ac8e98f46b2865",
+      "base_engine_version": "P06-1.0",
+      "candidate_engine_version": "P06-1.0.1-adaptive"
+    }
+  ],
+  "counts": {
+    "PASS": 25,
+    "FAIL": 3
+  }
+}

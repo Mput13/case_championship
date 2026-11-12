@@ -1,0 +1,97 @@
+{
+  "base_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+  "finding": "P13_CORE_RECHECK/F01-R1",
+  "results": [
+    {
+      "case": "P13_CORE/reproducer_inputs/F01_backdated_add.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptive action rewrites a record before its effective date: cash_events/PAST_RECEIPT",
+      "input_sha256": "ecf91209a598e4105494315454e214e4879ab636007c532138b4d06183cf447f"
+    },
+    {
+      "case": "P13_CORE/reproducer_inputs/F01_historical_reprice.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptive action rewrites a record before its effective date: products/BOOKED",
+      "input_sha256": "4f6980021f3e1b1b03c6ae054fe75ec90a0ee1920441e255df3e59101192387e"
+    },
+    {
+      "case": "P13_CORE/reproducer_inputs/F02_contract_erasure.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required",
+      "input_sha256": "80e62eb254c268f8077e66b5bf36bbd3ea867bd5333c9009672753b2c8bc58ea"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/derived_past_cash_indirect.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "input_sha256": "01262fa24c6694abc13a6469ca48fbab2cc4b893e9e4916b8728cfdcdc44c3e0"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/derived_prior_month_accrual_indirect.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "input_sha256": "e8d4ffe77d9082ee0cad46af34c23e3d6c73de56d42bf510b7e9750c3fc8d1f0"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/derived_same_month_dated_accrual_indirect.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "input_sha256": "95cabbdb24a23bce9d90c4d48b2fd1c8e416ba1f020d4ac77cb7cbcfd7e92e1d"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/derived_same_month_flown_revenue.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "input_sha256": "3827cb2a8009b322162c0c6068f0b3bbf32fe74bfdceaca203a3b6a116d9c53f"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/derived_same_month_monthly_accrual_indirect.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "input_sha256": "eb9c7ca0d39504b54ebcfc878d44dc220871615f5a4d1b4025913d878db8f5c8"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/future_same_month_dated_accrual.json",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "status": "PASS",
+      "error": null,
+      "input_sha256": "67a88e4d90805c4118aaa32c88c9e5c2396a718ec0e45460ca89b25a59ba6220"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/future_same_month_product_reprice.json",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "status": "PASS",
+      "error": null,
+      "input_sha256": "2a501e2d42548051786d9aa5d97aca077c5f9133827e2c6fcdaa3d8535df47c6"
+    },
+    {
+      "case": "P13_CORE_RECHECK/inputs/past_customer_advance_indirect_competitor.json",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "status": "PASS",
+      "error": "adaptation rewrites historical derived accruals or cash",
+      "input_sha256": "8ab1da5cc9196f6e6bca92f897707fa41cbda30582acc5d6a69a82ddda20cd01"
+    }
+  ],
+  "independent_recheck": "NOT_RUN",
+  "engine_version": "P06-1.0.2-adaptive",
+  "source_fingerprint": "98e7baf58f3016c59ce6ee20a90fc7ecb12ffcb7eea6edd4997a9a4d7b631115"
+}

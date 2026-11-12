@@ -301,10 +301,23 @@ def check_adaptation(bundle, parent):
         fixed["context"]["evaluation_mode"] = "fixed_programme"
         result = evaluate(fixed)
         money = result["finance"]
+        products = {p["product_id"]: p for p in source["products"]}
+        flights = {f["flight_instance_id"]: f for f in source["flights"]}
+        def accrual_date(event):
+            if event.get("accrual_date"):
+                return date_floor(event["accrual_date"])
+            pid = event["owner"]
+            if event["economic_event_id"] == "journey_revenue:" + pid and pid in products:
+                product = products[pid]
+                if product.get("departure_date"):
+                    return date_floor(product["departure_date"])
+                if product["legs"]:
+                    return date_floor(flights[product["legs"][0]]["departure_utc"])
+            return event["accrual_month"] + "-01"
         def rounded(value):
             return round(value, 8) if isinstance(value, float) else value
-        accruals = {e["economic_event_id"]: (e["accrual_month"], e["owner"], e["category"], rounded(e["quantity"]), rounded(e["amount"]))
-                    for e in money["economic_events"] if e["accrual_month"] < decision[:7]}
+        accruals = {e["economic_event_id"]: (accrual_date(e), e["owner"], e["category"], rounded(e["quantity"]), rounded(e["amount"]))
+                    for e in money["economic_events"] if accrual_date(e) < decision}
         cash = {e["cash_event_id"]: (e["payment_date"], e["economic_event_id"], e["category"], rounded(e["amount_signed"]))
                 for e in money["cash_events"] if date_floor(e["payment_date"]) < decision}
         return accruals, cash
