@@ -1,0 +1,148 @@
+{
+  "subject": {
+    "commit": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "ref": "origin/шаг-1",
+    "author": "kiruha355",
+    "committed_at": "2026-11-11T23:35:36+03:00",
+    "checked_at": "2026-11-12T03:16:40+03:00"
+  },
+  "provenance": {
+    "current_model": "Exact tracked blobs from pinned author commit, no checkout or merge.",
+    "untracked_raw": "Preserved Tochno v20260629 input SHA256 2228111a787e39dd158f4025bd4a2158327479ece589c0cbd34b4108c8ce865a. Raw equality to an unavailable author workstation was not established; 42 published baseline rows reproduced at their published precision.",
+    "python": "3.11.9"
+  },
+  "validation": {
+    "independent_screening_scores_and_order": true,
+    "network_solves": 164,
+    "published_baselines_matched_segments_and_contribution": 42,
+    "scenarios": [
+      "base",
+      "cautious"
+    ],
+    "route_subsidy_scenarios_replayed": false,
+    "full_demand_refit": false,
+    "live_dashboard_changed": false,
+    "author_branch_changed": false
+  },
+  "findings": [
+    {
+      "id": "DIST-01",
+      "finding": "City screening excludes five cities based on straight-line distance to SVO/DME/VKO or SVX, despite distance having zero score weight. The 500 km rationale is an explicitly unmeasured cannibalisation assumption, not a case requirement.",
+      "evidence": [
+        "data/assumptions/longlist_params.csv:4",
+        "src/longlist_data.py:114",
+        "src/longlist_score.py:104",
+        "docs/25_step1_open_questions.md:7"
+      ]
+    },
+    {
+      "id": "DIST-02",
+      "finding": "Holding input utilities and weights fixed, removing the city gate changes top three OMS/KUF/REN to UFA/PEE/CEK; OMS changes from rank 1 to 4. The 400 and 500 km candidate sets are identical.",
+      "evidence": [
+        "screening.json",
+        "screening_scores.csv"
+      ]
+    },
+    {
+      "id": "DIST-03",
+      "finding": "The shared transfer_min_km parameter gates both connecting OD and all local sales in leg_share. Splitting these gates is necessary for attribution. The dashboard city-filter toggle does not remove these demand gates.",
+      "evidence": [
+        "src/network_model.py:286",
+        "src/network_model.py:338",
+        "src/dashboard_template.html:660"
+      ]
+    },
+    {
+      "id": "DIST-04",
+      "finding": "Removing only the connecting OD distance gate changes no selected hub networks in base/cautious replay. Removing the local gate changes multiple networks and the direct alternative. These are diagnostics under existing demand/capture assumptions, not market-validated forecasts.",
+      "evidence": [
+        "network_reselection.json",
+        "transfer_gate.json"
+      ]
+    },
+    {
+      "id": "DIST-05",
+      "finding": "Fuel support assumption alone changes fixed OMS base contribution from +503.022 million RUB to -531.715 million RUB at the cautious reimbursement parameter. No legal or future entitlement conclusion.",
+      "evidence": [
+        "fuel_fixed_network.json",
+        "data/assumptions/network.csv"
+      ]
+    },
+    {
+      "id": "DIST-06",
+      "finding": "Changing a demand gate also changes endogenous frequencies, seat allocation, fleet and greedy network selection; it need not improve the returned objective. REN diagnostic does not prove a greedy-search bug.",
+      "evidence": [
+        "endogenous_frequency_diagnostic.json"
+      ]
+    },
+    {
+      "id": "DIST-07",
+      "finding": "Setting the Kover weight to zero, keeping other utilities and relative weights fixed and retaining 500 km, changes top three to Samara/Saratov/Volgograd. This is sensitivity, not advice to ignore restrictions.",
+      "evidence": [
+        "screening.json"
+      ]
+    }
+  ],
+  "other_material_assumptions": [
+    "75 km population catchments; different population universe/year in screening and demand",
+    "12-hour rail substitution cutoff and 96-hour imputation for 198/1428 pairs",
+    "31 fitted link flows, OD reconstruction not observed OD; published leave-one-out median relative error 55%",
+    "Uniform capture fractions; binary presence of direct flight; one connecting path; 1.35 and 1.6 circuity gates; no dated connection banks",
+    "Linear net yield fitted to 31 scenario estimates, not 31 actual fare observations",
+    "Ufa fuel/handling cost proxies; existing SSJ parameter analogue for SJ-100/PD-8; fixed 10 block hours/day and one spare",
+    "Different fleet sizes, forced 8 routes, and hub spokes versus direct triangles in comparisons",
+    "Full-year extrapolation, uncertain fleet delivery calendar, full incremental cost/cash and future denominator missing",
+    "Correlated population/gap/transfer criteria and min-max scaling across a limited 20-city candidate universe",
+    "Route subsidy eligibility, specific awards, rates and seasonality remain scenario-specific"
+  ],
+  "recommended_method": {
+    "unit": "origin zone × final destination × date/season × passenger purpose",
+    "alternatives": [
+      "local airport direct",
+      "own existing base with ground access",
+      "air connection via own or competitor hub",
+      "rail",
+      "road",
+      "do not travel"
+    ],
+    "choice_variables": [
+      "full price including ground access",
+      "door-to-door time",
+      "schedule mismatch",
+      "connection and reliability costs",
+      "trip purpose and affordability"
+    ],
+    "catchments": "Travel-time access and observed airport choices, allowing shared catchments without assigning the same passenger twice.",
+    "objective": "Compare full-network incremental contribution/cash against a same-period no-project counterfactual at a common fleet budget, including displaced existing business and alternative aircraft uses.",
+    "estimation": "Calibrate parsimoniously to observed choices and OD counts; validate held-out cities and periods; use explicit ranges if evidence is inadequate. Do not replace 500 km with an uncalibrated weighted regional distance formula."
+  },
+  "sources": [
+    {
+      "url": "https://www.caa.co.uk/media/meog3vta/heathrowmarketpowerassessment.pdf",
+      "scope": "CAA February 2012, paragraphs 3.123-3.125: travel-time and observed-use catchments and route overlap. Method example; UK numeric thresholds are not Russian calibration."
+    },
+    {
+      "url": "https://www.caa.co.uk/media/t3qnoihx/stal-cap-1135-appendix-f-evidence-and-analysis-on-competitive-constraints-by-passenger-switching-non-con.pdf",
+      "scope": "CAA CAP1135 Appendix F, F13-F18: access, trip purpose, timing and frequency, different passenger segments."
+    },
+    {
+      "url": "https://www.hse.ru/en/edu/vkr/473572807?vision=enabled",
+      "scope": "Maksim Diukin 2021 masters thesis abstract, Irkutsk/Zabaykalsky/Kamchatka: generalized trip cost, frequency and accessibility. Regional methodological illustration, not current demand proof."
+    },
+    {
+      "url": "https://tochno.st/datasets/intercity_connectivity",
+      "scope": "Dataset primary page: 2026 coverage, 29 June 2026 release. Source implementation caveats additionally documented in pinned author docs/34."
+    }
+  ],
+  "reproduction": [
+    "python3 context/31_distance_rule_audit_20261112/audit.py",
+    "python3 context/31_distance_rule_audit_20261112/audit.py --raw-connectivity /path/to/data_intercity_connectivity_162_v20260629.csv",
+    "python3 context/31_distance_rule_audit_20261112/plot.py"
+  ],
+  "limitations": [
+    "No calibrated regional mode/airport-choice model was fitted.",
+    "Other gates, costs and source weaknesses stay fixed in distance experiments.",
+    "No route-subsidy replay, calendar/slots/crews validation, new demand collection or live dashboard verification.",
+    "Published model results and scenario sensitivities are not full profit or investment acceptance."
+  ]
+}
