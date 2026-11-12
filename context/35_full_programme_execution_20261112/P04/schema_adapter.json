@@ -74,6 +74,19 @@
     "tax_support_guard": "Fuel credit is either operating support receipt or tax settlement flow under one posting policy. Tax offset has no bank receipt.",
     "balances": "Reconcile opening/closing receivables, payables, inventory, advances, customer advances, deposits, debt and obligations beyond the horizon"
   },
+  "interest_bridge": {
+    "assumption_id": "P04-A-SP10-INTEREST",
+    "policy_status": "Explicit analytical presentation convention; established RW accounting policy UNKNOWN",
+    "operating_cash_before_finance_interest": "Operating receipts minus non-interest operating payments; diagnostic subtotal",
+    "interest_paid": "Separate nonnegative paid-interest amount; null until financing contract and payment schedule are known or explicit scenario defines them",
+    "finance_interest_cash": "Signed cash flow: -interest_paid; null when interest_paid is null",
+    "operating_cash": "operating_cash_before_finance_interest + finance_interest_cash",
+    "cash_before_financing": "operating_cash + investing_cash + tax_cash; includes paid interest under this convention",
+    "pre_interest_cash_diagnostic": "operating_cash_before_finance_interest + investing_cash + tax_cash; explicitly excludes finance interest",
+    "interpretation": "cash_before_financing is financing-dependent under this convention; do not label it unlevered or before all financing costs",
+    "unknown_propagation": "Unknown contract terms or interest leave complete cash_before_financing and funding UNKNOWN/conditional; pre-interest diagnostic remains separately labelled",
+    "double_count_guard": "Interest accrual stays outside operating_result A; interest cash is not subtracted again in financing_cash"
+  },
   "boundaries": {
     "cash_before_financing": "operating_cash + investing_cash + tax_cash",
     "funding_before_financing": "max_over_event_t(0,minimum_cash_t - opening_cash - cumulative_cash_before_financing_t)",

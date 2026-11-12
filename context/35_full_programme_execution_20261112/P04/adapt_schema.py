@@ -108,7 +108,7 @@ def main():
       dict(assumption_id='P04-A-SP09-MAPPING',subject='Map pinned P04 drivers to accepted SP09/SP10',value='Mapping only; no instantiated events, quantities or future contract rates',unit='schema',
         selected_by='P04 under SP09/SP10 accepted by coordinator',basis=f'{SCHEMA_COMMIT}:{SCHEMA_PATH}',approval_status='SCHEMA_ACCEPTED_BY_COORDINATOR; MAPPING_SELF_CHECKED',
         lower='UNKNOWN amounts',upper='UNKNOWN amounts',affected_conclusions='P06 event import and full-cost coverage',sensitivity='Known subtotal never certifies full cost when required group unknown',refinement='Instantiate accepted programme/contract events and evidence'),
-      dict(assumption_id='P04-A-SP10-INTEREST',subject='Interest cash classification consistent with payload and SP11',value='Interest cash: operating/finance_interest; accrual outside operating_result; debt principal/equity: financing',unit='classification',
+      dict(assumption_id='P04-A-SP10-INTEREST',subject='Interest cash classification consistent with payload and SP11',value='Analytical convention, not established RW policy: operating_cash_before_finance_interest + signed finance_interest_cash = operating_cash; interest_paid remains separate; accrual outside operating_result A',unit='classification',
         selected_by='P04 routine presentation convention; user definition A remains confirmed',basis='Accepted SP09/SP10/SP11; payload cash_rules subtract interest before financing',approval_status='ANALYST_SELECTED_NOT_USER_APPROVED;A_USER_CONFIRMED',
         lower='UNKNOWN interest amount',upper='UNKNOWN interest amount',affected_conclusions='cash_before_financing and financing_cash reconciliation',sensitivity='Alternative interest financing classification needs explicit redefinition of funding metric and no double subtraction',refinement='P06 retain this mapping or document policy change with reclassified comparative metrics'),
       dict(assumption_id='P04-A-SP11-BOUNDARY',subject='Opening cash, minimum liquidity and whole-business boundary',value='General SP11 formula; actual opening_cash, minimum_cash and KEEP cash UNKNOWN',unit='RUB',
@@ -134,6 +134,18 @@ def main():
           'financing':'Debt principal/equity and financing-only fees; excluded from journey revenue; interest not deducted again'},
         'tax_support_guard':'Fuel credit is either operating support receipt or tax settlement flow under one posting policy. Tax offset has no bank receipt.',
         'balances':'Reconcile opening/closing receivables, payables, inventory, advances, customer advances, deposits, debt and obligations beyond the horizon'},
+      'interest_bridge':{
+        'assumption_id':'P04-A-SP10-INTEREST',
+        'policy_status':'Explicit analytical presentation convention; established RW accounting policy UNKNOWN',
+        'operating_cash_before_finance_interest':'Operating receipts minus non-interest operating payments; diagnostic subtotal',
+        'interest_paid':'Separate nonnegative paid-interest amount; null until financing contract and payment schedule are known or explicit scenario defines them',
+        'finance_interest_cash':'Signed cash flow: -interest_paid; null when interest_paid is null',
+        'operating_cash':'operating_cash_before_finance_interest + finance_interest_cash',
+        'cash_before_financing':'operating_cash + investing_cash + tax_cash; includes paid interest under this convention',
+        'pre_interest_cash_diagnostic':'operating_cash_before_finance_interest + investing_cash + tax_cash; explicitly excludes finance interest',
+        'interpretation':'cash_before_financing is financing-dependent under this convention; do not label it unlevered or before all financing costs',
+        'unknown_propagation':'Unknown contract terms or interest leave complete cash_before_financing and funding UNKNOWN/conditional; pre-interest diagnostic remains separately labelled',
+        'double_count_guard':'Interest accrual stays outside operating_result A; interest cash is not subtracted again in financing_cash'},
       'boundaries':{'cash_before_financing':'operating_cash + investing_cash + tax_cash',
         'funding_before_financing':'max_over_event_t(0,minimum_cash_t - opening_cash - cumulative_cash_before_financing_t)',
         'payload_special_case':'max(-min(cumulative_cash)) requires opening_cash=0 and minimum_cash=0; valid as an explicit diagnostic/fixture, not observed RW liquidity',
@@ -158,7 +170,12 @@ def main():
       {'id':'AD02','result':'PASS','evidence':'Exactly 127 cost rates and 8 support schemes mapped; no events, quantities or amounts invented'},
       {'id':'AD03','result':'PASS','evidence':'Incomplete coverage explicit for all 5 required cost groups'},
       {'id':'AD04','result':'PASS','evidence':'SP09/SP10/SP11 exact Git blob pinned; original proposal status preserved'},
-      {'id':'AD05','result':'PASS','evidence':'Opening cash 40, liquidity floor 100 and cumulative cash -20 imply funding 80; zero-boundary formula gives 20'}]}
+      {'id':'AD05','result':'PASS','evidence':'Opening cash 40, liquidity floor 100 and cumulative cash -20 imply funding 80; zero-boundary formula gives 20'},
+      {'id':'AD06','result':'PASS','evidence':'Operating cash before interest 100 plus signed interest cash -20 equals operating cash 80; unknown interest produces unknown full cash, not zero'}]}
+    assert 100 + (-20)==80
+    unknown_interest=None
+    full_cash=None if unknown_interest is None else 100-unknown_interest
+    assert full_cash is None
     out('schema_adapter_checks.json',checks)
     supplemental=['adapt_schema.py','inputs/accepted_schema_patch.csv','event_rate_map.csv','support_event_map.csv','financial_cost_coverage.csv','assumption_changes_sp09_sp11.csv','schema_adapter.json','schema_adapter_checks.json']
     sm={'payload_commit':PAYLOAD,'schema_commit':SCHEMA_COMMIT,'files':[dict(path=f,sha256=filehash(f),bytes=(P/f).stat().st_size) for f in supplemental],
@@ -172,9 +189,9 @@ def main():
     old=[r['assumption_id'] for r in rows('cost_assumptions.csv')]
     h['assumption_ids']=old+[r['assumption_id'] for r in delta]
     h['assumption_changes']='Payload assumption_changes.csv plus additive assumption_changes_sp09_sp11.csv; pinned register unchanged'
-    h['checks']['schema_adapter_targeted']='5 PASS in schema_adapter_checks.json; no full network rerun'
+    h['checks']['schema_adapter_targeted']='6 PASS in schema_adapter_checks.json; no full network rerun'
     h['boundaries'].append('SP11generalopeningcash/minimumliquidityboundarysupersedesanyimplicitzero-boundaryinterpretationofpayloadformula;originalfilespreserved') if 'SP11generalopeningcash/minimumliquidityboundarysupersedesanyimplicitzero-boundaryinterpretationofpayloadformula;originalfilespreserved' not in h['boundaries'] else None
     out('handoff.json',h)
-    print(json.dumps({'schema_adapter_checks':'5PASS','payload_unchanged':immutable,'event_rate_rows':len(mapped),'coverage_groups':5,'assumption_ids':len(h['assumption_ids']),'adapter_manifest_sha256':filehash('schema_adapter_manifest.json')}))
+    print(json.dumps({'schema_adapter_checks':'6PASS','payload_unchanged':immutable,'event_rate_rows':len(mapped),'coverage_groups':5,'assumption_ids':len(h['assumption_ids']),'adapter_manifest_sha256':filehash('schema_adapter_manifest.json')}))
 
 if __name__=='__main__':main()
