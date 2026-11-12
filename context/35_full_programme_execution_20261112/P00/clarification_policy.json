@@ -3,7 +3,7 @@
   "authority": "Explicit current user instruction",
   "agent_action": "Raise ambiguous requirements to coordinator and continue independent work.",
   "coordinator_thread_id": "91bc9ad6-4e9f-4954-8714-1e4366064b78",
-  "message_tool": "t3_thread_send mode=steer; this is internal coordination, not external messaging",
+  "message_tool": "t3_thread_send mode=auto to coordinator: start idle turn or steer a running turn",
   "required_fields": [
     "question_id",
     "quoted_requirement_and_source",
@@ -21,5 +21,10 @@
   ],
   "while_pending": "Keep alternatives or a clearly provisional assumption. Do not treat elapsed time or silence as approval. Do not publish dependent assertions as established.",
   "when_answered": "Record exact answer/provenance, notify responsible active tasks and rerun affected work only.",
-  "boundaries": "No new permissions for paid services, external messages, booking, publication or restarts."
+  "boundaries": "No new permissions for paid services, external messages, booking, publication or restarts.",
+  "known_state_error": {
+    "message": "thread_not_sendable: no running turn can be steered",
+    "cause": "mode=steer requires a currently running parent turn",
+    "remedy": "Use mode=auto for coordinator questions; no infrastructure restart or polling."
+  }
 }

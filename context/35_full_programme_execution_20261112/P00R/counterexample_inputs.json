@@ -1,0 +1,639 @@
+[
+  {
+    "case_id": "CE01",
+    "finding_id": "F02",
+    "title": "Будущий KEEP",
+    "assumption_id": "P00R-CE01",
+    "source_ids": [
+      "PLAN",
+      "IATA"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки/одинаковый будущий год",
+    "inputs": {
+      "historical": 100,
+      "keep_future": 120,
+      "project_future": 130
+    },
+    "expected": {
+      "delta": 10
+    },
+    "incorrect_result": {
+      "historical_delta": 30
+    },
+    "equation": "130 - 120 = 10",
+    "conclusion": "Рост без проекта нельзя приписывать проекту.",
+    "affected_recheck": "KEEP period or external scenario"
+  },
+  {
+    "case_id": "CE02",
+    "finding_id": "F01",
+    "title": "Коллизия режима оценки",
+    "assumption_id": "P00R-CE02",
+    "source_ids": [
+      "PLAN"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "строк",
+    "inputs": {
+      "fixed": 100,
+      "adapted": 125,
+      "old_key": [
+        "CASE_SJ",
+        "P",
+        "base",
+        "2028-01"
+      ]
+    },
+    "expected": {
+      "distinct_records": 2
+    },
+    "incorrect_result": {
+      "old_key_distinct_records": 1
+    },
+    "equation": "key includes evaluation_id -> 2 rows",
+    "conclusion": "results_monthly без режима/версии оценки не различает fixed и adaptation.",
+    "affected_recheck": "evaluation identifiers"
+  },
+  {
+    "case_id": "CE03",
+    "finding_id": "F02",
+    "title": "Самолёт нельзя назначить двум одновременным рейсам",
+    "assumption_id": "P00R-CE03",
+    "source_ids": [
+      "PLAN",
+      "MIT_SCHEDULE"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "ВС; UTC-часы",
+    "inputs": {
+      "available": 2,
+      "reserve": 1,
+      "block_limit": 8,
+      "flights": [
+        [
+          8,
+          10
+        ],
+        [
+          8.5,
+          10.5
+        ]
+      ]
+    },
+    "expected": {
+      "total_block_hours": 4,
+      "active_required": 2,
+      "active_available": 1,
+      "feasible": false
+    },
+    "incorrect_result": {
+      "hours_only_feasible": true
+    },
+    "equation": "4 <= 8, but 2 simultaneous assignments > 1 active tail",
+    "conclusion": "Часы — необходимое, но недостаточное условие; резерв не выполняет одновременно плановый рейс.",
+    "affected_recheck": "tail intervals or reserve policy"
+  },
+  {
+    "case_id": "CE04",
+    "finding_id": "F01",
+    "title": "Ссылка на датированное плечо",
+    "assumption_id": "P00R-CE04",
+    "source_ids": [
+      "PLAN",
+      "MIT_SCHEDULE"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "минуты",
+    "inputs": {
+      "arrive": "2028-01-02T10:00:00+00:00",
+      "depart": "2028-01-03T11:00:00+00:00",
+      "min_connection_min": 45,
+      "max_connection_min": 180
+    },
+    "expected": {
+      "connection_min": 1500,
+      "bookable": false
+    },
+    "incorrect_result": {
+      "same_clock_connection_min": 60
+    },
+    "equation": "(dated departure - dated arrival) / minute",
+    "conclusion": "Номер рейса/время суток без даты создаёт ложную стыковку. Пороги здесь учебные.",
+    "affected_recheck": "itinerary leg reference or MCT"
+  },
+  {
+    "case_id": "CE05",
+    "finding_id": "F04",
+    "title": "Локальные и пересадочные продажи делят одно плечо",
+    "assumption_id": "P00R-CE05",
+    "source_ids": [
+      "PLAN",
+      "MIT_NETWORK"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки; сегменты; RUB",
+    "inputs": {
+      "seats_ab": 100,
+      "seats_bc": 100,
+      "committed_local_ab": 70,
+      "through_requests": 50,
+      "local_fare": 4000,
+      "through_fare": 9000
+    },
+    "expected": {
+      "through_carried": 30,
+      "ab_load": 100,
+      "bc_load": 30,
+      "journeys": 100,
+      "segments": 130,
+      "revenue": 550000
+    },
+    "incorrect_result": {
+      "ab_load": 120
+    },
+    "equation": "through=min(50,100-70,100); R=70*4000+30*9000",
+    "conclusion": "При зафиксированных 70 локальных бронированиях допустимы 30 сквозных. Это не доказательство оптимальности такого sales mix.",
+    "affected_recheck": "shared seat allocation"
+  },
+  {
+    "case_id": "CE06",
+    "finding_id": "F04",
+    "title": "Сквозной тариф учитывается один раз",
+    "assumption_id": "P00R-CE06",
+    "source_ids": [
+      "PLAN",
+      "MIT_SCHEDULE"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB; сегменты",
+    "inputs": {
+      "journeys": 10,
+      "legs": 2,
+      "fare": 9000
+    },
+    "expected": {
+      "revenue": 90000,
+      "segments": 20
+    },
+    "incorrect_result": {
+      "revenue": 180000
+    },
+    "equation": "R=10*9000; segments=10*2",
+    "conclusion": "Разнесение дохода по плечам возможно только с весами, сумма которых равна 1.",
+    "affected_recheck": "fare ownership"
+  },
+  {
+    "case_id": "CE07",
+    "finding_id": "F04",
+    "title": "Сумма отдельных программ превышает рынок",
+    "assumption_id": "P00R-CE07",
+    "source_ids": [
+      "PLAN",
+      "MIT_NETWORK"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки",
+    "inputs": {
+      "market": 100,
+      "standalone_rw_weight": 6,
+      "competitor_weight": 4,
+      "joint_rw_weights": [
+        6,
+        6
+      ]
+    },
+    "expected": {
+      "standalone_each": 60,
+      "joint_rw": 75,
+      "joint_other": 25,
+      "sum_standalone": 120
+    },
+    "incorrect_result": {
+      "joint_rw": 120
+    },
+    "equation": "standalone=100*6/(6+4); joint=100*(6+6)/(6+6+4)",
+    "conclusion": "Сравниваемые альтернативные программы получают отдельные копии рынка; совместно выбранные программы делят один рынок. Веса — только учебная функция.",
+    "affected_recheck": "joint product set"
+  },
+  {
+    "case_id": "CE08",
+    "finding_id": "F03",
+    "title": "Ответ на изменение конкурента",
+    "assumption_id": "P00R-CE08",
+    "source_ids": [
+      "PLAN",
+      "BASELINE",
+      "MITRE"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки",
+    "inputs": {
+      "market": 100,
+      "rw_weight": 4,
+      "competitor_before": 4,
+      "competitor_after": 8,
+      "outside_weight": 2
+    },
+    "expected": {
+      "rw_before": 40,
+      "rw_after": 28.571428571428573
+    },
+    "incorrect_result": {
+      "rw_after_frozen": 40
+    },
+    "equation": "100*4/(4+4+2)=40; 100*4/(4+8+2)=200/7",
+    "conclusion": "Изменение привлекательности конкурента должно проходить через выбор, не только через подпись. Коэффициенты не оценены по рынку.",
+    "affected_recheck": "competitor price/capacity/product or response policy"
+  },
+  {
+    "case_id": "CE09",
+    "finding_id": "F07",
+    "title": "Собственный переток и единицы роста",
+    "assumption_id": "P00R-CE09",
+    "source_ids": [
+      "PLAN",
+      "REQ"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки; сегменты",
+    "inputs": {
+      "same_rw_journeys": 50,
+      "old_legs": 1,
+      "new_legs": 2
+    },
+    "expected": {
+      "net_new_journeys": 0,
+      "delta_segments": 50
+    },
+    "incorrect_result": {
+      "net_new_journeys": 50
+    },
+    "equation": "delta journeys=50-50; delta segments=50*2-50*1",
+    "conclusion": "Дополнительный сегмент не доказывает нового клиента. Отчётная метрика перевозчика требует отдельного адаптера.",
+    "affected_recheck": "metric mapping or own migration"
+  },
+  {
+    "case_id": "CE10",
+    "finding_id": "F03",
+    "title": "Соседние аэропорты делят городской рынок",
+    "assumption_id": "P00R-CE10",
+    "source_ids": [
+      "PLAN",
+      "MITRE"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки",
+    "inputs": {
+      "city_demand": 100,
+      "airport_a": 60,
+      "airport_b": 40
+    },
+    "expected": {
+      "total_allocated": 100
+    },
+    "incorrect_result": {
+      "separate_full_markets": 200
+    },
+    "equation": "60+40=100",
+    "conclusion": "Дублирующиеся зоны тяготения не независимые рынки; альтернатива аэропорта входит в выбор единого demand_pool_id.",
+    "affected_recheck": "catchment allocation"
+  },
+  {
+    "case_id": "CE11",
+    "finding_id": "F05",
+    "title": "Донор учитывается один раз",
+    "assumption_id": "P00R-CE11",
+    "source_ids": [
+      "PLAN",
+      "BASELINE",
+      "IATA"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба",
+    "inputs": {
+      "keep_revenue": 100,
+      "keep_cost": 60,
+      "project_old_revenue": 70,
+      "project_old_cost": 50,
+      "project_new_revenue": 80,
+      "project_new_cost": 40
+    },
+    "expected": {
+      "keep_result": 40,
+      "project_result": 60,
+      "delta_result": 20,
+      "lost_donor_contribution": 20
+    },
+    "incorrect_result": {
+      "double_deduction_delta": 0,
+      "deduct_old_revenue_only_delta": 10
+    },
+    "equation": "(70+80-50-40)-(100-60)=20; new contribution 40 minus donor contribution 20 = 20",
+    "conclusion": "Полная разность P−KEEP уже содержит переток и сэкономленные затраты; ещё один вычет донора ошибочен.",
+    "affected_recheck": "affected-business scope or cost avoidability"
+  },
+  {
+    "case_id": "CE12",
+    "finding_id": "F04",
+    "title": "Совместная фиксированная стоимость",
+    "assumption_id": "P00R-CE12",
+    "source_ids": [
+      "PLAN"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба",
+    "inputs": {
+      "revenue_a": 80,
+      "revenue_b": 70,
+      "flight_cost_a": 40,
+      "flight_cost_b": 40,
+      "shared_base_cost": 30
+    },
+    "expected": {
+      "sum_standalone_result": 10,
+      "joint_result": 40
+    },
+    "incorrect_result": {
+      "joint_result": 10
+    },
+    "equation": "joint=80+70-40-40-30; standalone sum=(80-40-30)+(70-40-30)",
+    "conclusion": "Даже при непересекающемся спросе общий запуск базы начисляется один раз; автономные суммы не равны совместному результату.",
+    "affected_recheck": "cost event ownership"
+  },
+  {
+    "case_id": "CE13",
+    "finding_id": "F06",
+    "title": "Прибыль, денежный поток и пиковое финансирование",
+    "assumption_id": "P00R-CE13",
+    "source_ids": [
+      "USER_MONEY",
+      "IAS7"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба; месяцы m0..m3",
+    "inputs": {
+      "revenue": 100,
+      "support": 30,
+      "variable_cost": 60,
+      "fixed_cost": 20,
+      "startup_expense": 30,
+      "depreciation": 10,
+      "capex": 60,
+      "deposit": 50,
+      "ticket_cash_m1": 80,
+      "ticket_cash_m2": 20,
+      "support_cash_m3": 30,
+      "deposit_refund_m3": 50,
+      "opening_cash": 0,
+      "minimum_cash": 0,
+      "tax_cash": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "interest_cash": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "financing_cash": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "expected": {
+      "operating_result": 10,
+      "cash_before_financing": [
+        -110,
+        -30,
+        20,
+        80
+      ],
+      "cumulative_cash": [
+        -110,
+        -140,
+        -120,
+        -40
+      ],
+      "peak_funding_month_end": 140,
+      "terminal_shortfall": 40,
+      "cash_from_profit_bridge": -40
+    },
+    "incorrect_result": {
+      "profit_as_cash": 10,
+      "funding_from_terminal_only": 40
+    },
+    "equation": "op=100+30-60-20-30-10; cash=[-60-50,80-60-20-30,20,30+50]; F=max(0,-min(cumsum))",
+    "conclusion": "Положительный операционный результат совместим с потребностью 140. Ссуда не выручка; CAPEX и депозит не текущие расходы. Налоги/проценты равны нулю только в этом явно искусственном примере.",
+    "affected_recheck": "accrual/cash event or funding boundary"
+  },
+  {
+    "case_id": "CE14",
+    "finding_id": "F06",
+    "title": "Компенсация топлива не учитывается дважды",
+    "assumption_id": "P00R-CE14",
+    "source_ids": [
+      "PLAN",
+      "BASELINE",
+      "IAS7"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба",
+    "inputs": {
+      "gross_fuel": 100,
+      "fuel_support": 20
+    },
+    "expected": {
+      "net_expense": 80,
+      "cash_m1": -100,
+      "cash_m3": 20
+    },
+    "incorrect_result": {
+      "net_expense_after_double_support": 60
+    },
+    "equation": "economic=100-20; cash dates remain -100 then +20",
+    "conclusion": "Выбрать gross fuel + support либо net fuel без второго support; в cash восстановить валовой платёж и дату возмещения.",
+    "affected_recheck": "support recognition or payment lag"
+  },
+  {
+    "case_id": "CE15",
+    "finding_id": "F05",
+    "title": "Неизвестный расход и порог",
+    "assumption_id": "P00R-CE15",
+    "source_ids": [
+      "PLAN"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба",
+    "inputs": {
+      "known_delta_before_missing_cost": 20,
+      "missing_cost": null
+    },
+    "expected": {
+      "full_delta": null,
+      "break_even_missing_cost": 20
+    },
+    "incorrect_result": {
+      "full_delta_assuming_zero": 20
+    },
+    "equation": "delta=20-X; sign positive iff X<20",
+    "conclusion": "Порог помогает принять решение без выдуманного диапазона; неизвестное поле не превращается в ноль.",
+    "affected_recheck": "missing cost estimate"
+  },
+  {
+    "case_id": "CE16",
+    "finding_id": "F07",
+    "title": "Изменившийся знаменатель доли",
+    "assumption_id": "P00R-CE16",
+    "source_ids": [
+      "PLAN",
+      "REQ"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "процентные пункты",
+    "inputs": {
+      "keep_rw": 10,
+      "keep_market": 100,
+      "project_rw": 20,
+      "project_market": 110
+    },
+    "expected": {
+      "delta_share_pp": 8.181818181818182
+    },
+    "incorrect_result": {
+      "delta_share_pp_fixed_denominator": 10
+    },
+    "equation": "100*(20/110-10/100)",
+    "conclusion": "Если проект привлекает поездки из других видов транспорта, общий авиационный рынок может измениться. Фиксированный знаменатель допустим лишь как подписанное допущение.",
+    "affected_recheck": "denominator policy"
+  },
+  {
+    "case_id": "CE17",
+    "finding_id": "F01",
+    "title": "Сезонная неделя не год",
+    "assumption_id": "P00R-CE17",
+    "source_ids": [
+      "USER_SEASON",
+      "BASELINE"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "поездки/условный год",
+    "inputs": {
+      "summer_weeks": 10,
+      "summer_pax_week": 100,
+      "other_weeks": 42,
+      "other_pax_week": 20
+    },
+    "expected": {
+      "annual_pax": 1840
+    },
+    "incorrect_result": {
+      "annual_pax_peak_times_52": 5200
+    },
+    "equation": "10*100+42*20=1840",
+    "conclusion": "Недельные шаблоны требуют покрытия сезона и календарного развёртывания. В рабочей модели используются даты и 24 месяца, не учебные 52 недели.",
+    "affected_recheck": "season/calendar profile"
+  },
+  {
+    "case_id": "CE18",
+    "finding_id": "I01",
+    "title": "Помесячный пик — нижняя граница внутримесячного",
+    "assumption_id": "P00R-CE18",
+    "source_ids": [
+      "IAS7",
+      "USER_MONEY"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба",
+    "inputs": {
+      "prelaunch_cash": -110,
+      "month1_payments_first": -110,
+      "month1_receipts_last": 80
+    },
+    "expected": {
+      "month_end_funding": 140,
+      "event_order_funding": 220
+    },
+    "incorrect_result": {
+      "sufficient_liquidity_claim": 140
+    },
+    "equation": "month-end deficit=110+110-80; interim deficit=110+110",
+    "conclusion": "Можно выпустить помесячный результат с явной границей; для обещания достаточной ликвидности нужны даты крупных выплат или запас.",
+    "affected_recheck": "large cash event timing"
+  },
+  {
+    "case_id": "CE19",
+    "finding_id": "I02",
+    "title": "Монотонность требует неизменной стоимости ресурса",
+    "assumption_id": "P00R-CE19",
+    "source_ids": [
+      "PLAN"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB условного масштаба",
+    "inputs": {
+      "candidate_contribution": 100,
+      "new_committed_idle_lease": 20
+    },
+    "expected": {
+      "larger_feasible_set_keeps_candidate": true,
+      "new_result_after_extra_commitment": 80
+    },
+    "incorrect_result": {
+      "must_be_at_least": 100
+    },
+    "equation": "100-20=80",
+    "conclusion": "Дополнительная доступность сохраняет старую допустимую программу, но рост обязательных платежей может уменьшить её результат. Не применять тест монотонности прибыли к изменившемуся сценарию затрат.",
+    "affected_recheck": "resource envelope or committed costs"
+  },
+  {
+    "case_id": "CE20",
+    "finding_id": "F07",
+    "title": "Yield и средний доход на поездку",
+    "assumption_id": "P00R-CE20",
+    "source_ids": [
+      "REQ"
+    ],
+    "status": "synthetic_counterexample",
+    "period": "fictional unless explicit in inputs",
+    "unit": "RUB",
+    "inputs": {
+      "yield_rub_per_pax_km": 2,
+      "journeys": 10,
+      "distance_km": 1000
+    },
+    "expected": {
+      "revenue": 20000
+    },
+    "incorrect_result": {
+      "revenue_without_distance": 20
+    },
+    "equation": "2*10*1000=20000",
+    "conclusion": "Различать RUB/поездку и RUB/пасс.км. Для маршрута с пересадкой заранее закрепить базу расстояния и состав дохода.",
+    "affected_recheck": "net fare/yield unit"
+  }
+]

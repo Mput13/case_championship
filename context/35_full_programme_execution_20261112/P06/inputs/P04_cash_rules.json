@@ -1,0 +1,148 @@
+{
+  "version": "P04-v1-20261112",
+  "metric_choice": "A",
+  "metric_choice_status": "USER_CONFIRMED",
+  "input_commits": {
+    "plan": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
+    "author": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "five_city": "c18f7640ea36647a05b39089e5293f22dd009f63"
+  },
+  "accounting_currency": "RUB nominal by month; retain original currency, FX date, price year and tax basis",
+  "comparison": "Project minus future KEEP on same period/fleet-scope/scenario and all affected sales/obligations",
+  "unknown_policy": {
+    "CSV": "empty numeric with status=unknown, exact missing field and assumption ID",
+    "JSON": "null",
+    "totals": "known_subtotal + missing_ids; final_total=null if any required nonzero-quantity component unresolved",
+    "zero_allowed": "Only sourced zero or explicitly inapplicable item with applicability evidence; synthetic fixture zero labelled",
+    "no_support_branch": "Deliberate counterfactual with award=0; actual award remains UNKNOWN",
+    "no_paid_bound": "No unsupported±percent range; historical base/cautious are scenario points, not confidence bounds"
+  },
+  "metrics": {
+    "variable_contribution_before_support": "R_net - C_flight_variable - C_passenger_variable",
+    "variable_contribution_after_eligible_support": "variable_contribution_before_support + S_recognisable_fuel + S_recognisable_route",
+    "full_operating_result": "R_net + S_recognisable - C_variable - C_incremental_fixed - C_aircraft_use - D_and_A_owned_or_capex - C_startup_expense - C_exit_expense",
+    "incremental_full_result": "full_operating_result_project - full_operating_result_KEEP",
+    "post_finance_tax_result": "incremental_full_result - incremental_interest_and_finance_expense - incremental_profit_tax; nullable",
+    "project_cash_pre_financing_pre_interest_tax": "customer_cash + support_cash + operating_rebates - gross_operating_cash - capex_cash - advances_cash - deposits_cash + returned_deposits + disposal_cash",
+    "project_cash_before_financing": "project_cash_pre_financing_pre_interest_tax - project_interest_cash - project_tax_cash",
+    "funding_before_financing": "max(0,-min(cumsum(project_cash_before_financing))) at actual event dates, including pre-launch and wind-down; not annual loss",
+    "financing_cash": "equity_cash + debt_draws - debt_principal_repayments - financing_only_fees; interest is already in project_cash_before_financing, do not repeat",
+    "post_financing_cash": "project_cash_before_financing + financing_cash",
+    "incremental_cash": "cash_project - cash_KEEP; enterprise total and incremental project funding separately labelled",
+    "operating_to_cash_bridge": "Operating_result + D&A + noncash_MRO_reserve_expense - actual_MRO_cash_excluded_from_P&L - delta_receivables - delta_inventory - delta_advances - delta_deposits + delta_payables + delta_customer_advances - capex_cash + disposal_cash - interest_cash - tax_cash; reconcile to direct event ledger",
+    "reserve_treatment": "If PBH reserve is actually remitted monthly, that payment is cash and must not be added back as noncash. Later maintenance invoice net of reserve setoff/refunds. If accounting reserve only: add back then cash at event."
+  },
+  "aircraft_cost_basis": {
+    "cash_operating_lease": "Lease/use charge in operating result; contractual rental cash in cash ledger; purchase capex and owned depreciation absent for same contract",
+    "owned": "Depreciation, insurance, maintenance and crew in operating result; purchase/advance in investing cash; principal financing separate",
+    "capitalised_lease": "Explicit management/accounting mapping: right-of-use depreciation/use cost, interest separate; liability principal cash; never full rent plus depreciation",
+    "existing_aircraft": "Committed common lease/crew remain in both KEEP and project; not cancelled merely because flight cancelled. Show total commitments and avoidable delta.",
+    "new_aircraft": "No lost historical donor necessarily; availability/acceptance/induction and alternative use jointly evaluated",
+    "reserve": "One physical reserve with dated assignment; cost charged once including idle calendar commitments; availability is not price"
+  },
+  "double_count_guards": [
+    "One journey fare once; each flown leg consumes seat and incurs physical flight cost.",
+    "Aircraft t/hour*blockh and t/cycle must be calibrated as additive decomposition; do not add cycle burn to an already complete total flight burn.",
+    "Fuel product + uplift + storage only if separately billed; exclude recoverable VAT from result but track gross VAT cash and recovery.",
+    "Deduction5824 includes excise2800 liability: net base benefit3024; gross and net presentations reconcile.",
+    "Airport turn charged once at actual airport using billing rules; origin/destination physical movements and landing/takeoff package not blindly duplicated.",
+    "Full passenger service versus reduced/no-baggage/transit packages are alternatives. Terminal and passenger service may be separate where tariff says so.",
+    "Historical aggregate pax500/650 cannot be added to itemised terminal+service+catering until overlap decomposed.",
+    "UFA receive/release is ground service, not a complete engine/airframe PBH reserve; verify scope before combining with MRO contract.",
+    "Airport basing133477/month in KHV is aerodrome service, not complete staff/crew/MRO base cost; parking/basing replacement verified by contract.",
+    "Once donor contribution is included in all-affected-business project-KEEP, no extra subtraction. Shadow alternative cost is memo, not another cash outflow.",
+    "Shared base, reserve, entry cost, support cap and common OD are evaluated once for combined programme, not sum of standalone variants.",
+    "Airframe advance offsets final purchase payment; deposit is asset/cash until expense or forfeiture. Capex and depreciation are different ledgers.",
+    "Airport rebate either reduces expense or is support credit once; charter guaranteed blocks replace corresponding inventory revenue, not added to it."
+  ],
+  "support_eligibility": {
+    "three_valued_logic": "true/false/null per test; null never becomes true; no-award sensitivity is separate from actual unknown",
+    "required_keys": [
+      "scheme_version",
+      "operator",
+      "award_year",
+      "airport_pair",
+      "service_regime",
+      "eligible_dates",
+      "seat_band",
+      "distance",
+      "fare_cap",
+      "award_rate",
+      "award_volume",
+      "budget_limit",
+      "required_documents",
+      "cash_schedule"
+    ],
+    "regional_ordinary": "Different subjects + eligible endpoint/listed hub + distance limit + previous traffic criterion + no overlapping federal route support + admissible calendar + selected operator/contract/volume/fare/budget",
+    "seasonal_branch": "Winter-only operations where p5z applies; not merely remove summer subsidy while retaining untested year-round supported programme",
+    "year_round_branch": "Requires proven Arctic/FE/remote or requested federal rate<=5%cap exception (and all other criteria) or independently validated applicable contract/rule",
+    "p5z_status": "INTERPRETATION_REQUIRES_VALIDATION; rule addresses route carriage, not only payment months; no prohibition of unsubsidised year-round service",
+    "new_rule_or_contract": "New pinned evidence version; do not silently substitute historic V7 for future award terms",
+    "fuel": "Qualifying received and uplifted fuel registry and excise position; model burnt tonnes only physical proxy; domestic-flight boolean is insufficient"
+  },
+  "cash_dates": {
+    "ticket": "Booking/payment, merchant/agent settlement, carriage revenue and refund separate; bookings beyond horizon retain liability",
+    "regional": "Report<=15 next month -> decision<=10 days -> payment<=10 working days; returned report correction5 days/review5 days; use Russian workday calendar including holidays",
+    "fuel_tax": "Actual filing/audit/offset/refund dates; no supported universal1/2/3month bank lag; tax offset is not bank cash",
+    "cost": "Order/advance, service/invoice, supplier due and payment date; fixed minima survive cancellation if committed",
+    "end_of_horizon": "Include terminal receivables/payables/deposits/refunds/lease return/penalties; do not recognise refunds or liquidate assets at arbitrary horizon",
+    "funding": "Use event-level intra-month peak; month-end minimum can understate liquidity. Monthly reporting carries event extrema."
+  },
+  "regional_cash_calendar": {
+    "source_id": "regional_rules_v7_retry",
+    "source_pages": [
+      6,
+      7
+    ],
+    "report": {
+      "relative_to": "carriage_month_end",
+      "next_month_day_latest": 15,
+      "actual_submission_date": null
+    },
+    "decision": {
+      "relative_to": "report_received_date",
+      "days_max": 10,
+      "day_unit": "days_as_written;calendar_classification_requires_legal_calendar_mapping"
+    },
+    "payment": {
+      "relative_to": "positive_decision_date",
+      "days_max": 10,
+      "day_unit": "working_days",
+      "actual_bank_credit_date": null
+    },
+    "correction": {
+      "carrier_days_max": 5,
+      "agency_review_days_max": 5,
+      "clock_starts": "actual_return/receipt_dates"
+    },
+    "future_applicability": "Needs pinned applicable2027/28rule and agreement; current published deadlines are not unconditional future receipt promise",
+    "funding_application": "Use event deadline/actual date per explicit scenario; unresolved report date/workday calendar/award leaves receipt and peak unknown"
+  },
+  "scenario_policy": {
+    "base_cautious": "External/scenario definitions, not confidence intervals",
+    "joint_fuel": "Procurement fuel, export/netback, FX, statutory credit and qualifying tonnes jointly scenario-defined; isolated rate sensitivity labelled",
+    "prices_2027_2028": "Unknown until dated contract/forecast with rationale; 2026 references do not auto-escalate",
+    "international": "Costs by country, airport, currency, route corridor, ground handler, fuel and payment regime; separately model charter guarantee/default",
+    "delivery": "Monthly aircraft acceptance, induction, crew/MRO readiness and reserve; phased/partial/delayed/no_new separate by type"
+  },
+  "dependencies": {
+    "P03": [
+      "type/variant/MTOW;blockhour/cycle/tail-month;fuel model;crew and MRO calendar;induction/reserve"
+    ],
+    "P06_P09": [
+      "accepted monthly project+KEEP programme by airport/type;dated physical flights and occupied segments;net journey revenue;donor/restored sales;contract cost mapping;support claims;event payment dates"
+    ],
+    "P02I_P08I": [
+      "international airport/country costs/FX/access/charter contracts and guarantees"
+    ],
+    "budget_release": "No final RW budget/peak funding without accepted quantities and required price/settlement evidence; publish known subtotal plus affine unknown exposure and thresholds"
+  },
+  "assumption_ids": [
+    "P04-A-METRIC-A",
+    "P04-A-NULL",
+    "P04-A-PRICEYEAR",
+    "P04-A-COUNTERFACTUAL",
+    "P04-A-ELIGIBILITY"
+  ],
+  "implementation_boundary": "Financial contract and worked arithmetic, not replacement for P06 common engine; no market/network simulation executed here"
+}

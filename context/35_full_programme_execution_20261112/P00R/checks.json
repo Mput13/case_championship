@@ -1,0 +1,227 @@
+{
+  "status": "PASS",
+  "scope": "P00R independent synthetic arithmetic and artifact integrity; not P06 acceptance",
+  "cases_checked": 20,
+  "results": [
+    {
+      "case_id": "CE01",
+      "status": "PASS",
+      "actual": {
+        "delta": 10
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE02",
+      "status": "PASS",
+      "actual": {
+        "distinct_records": 2
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE03",
+      "status": "PASS",
+      "actual": {
+        "total_block_hours": 4.0,
+        "active_required": 2,
+        "active_available": 1,
+        "feasible": false
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE04",
+      "status": "PASS",
+      "actual": {
+        "connection_min": 1500.0,
+        "bookable": false
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE05",
+      "status": "PASS",
+      "actual": {
+        "through_carried": 30,
+        "ab_load": 100,
+        "bc_load": 30,
+        "journeys": 100,
+        "segments": 130,
+        "revenue": 550000
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE06",
+      "status": "PASS",
+      "actual": {
+        "revenue": 90000,
+        "segments": 20
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE07",
+      "status": "PASS",
+      "actual": {
+        "standalone_each": 60.0,
+        "joint_rw": 75.0,
+        "joint_other": 25.0,
+        "sum_standalone": 120.0
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE08",
+      "status": "PASS",
+      "actual": {
+        "rw_before": 40.0,
+        "rw_after": 28.571428571428573
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE09",
+      "status": "PASS",
+      "actual": {
+        "net_new_journeys": 0,
+        "delta_segments": 50
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE10",
+      "status": "PASS",
+      "actual": {
+        "total_allocated": 100
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE11",
+      "status": "PASS",
+      "actual": {
+        "keep_result": 40,
+        "project_result": 60,
+        "delta_result": 20,
+        "lost_donor_contribution": 20
+      },
+      "rejected_wrong_values": 2
+    },
+    {
+      "case_id": "CE12",
+      "status": "PASS",
+      "actual": {
+        "sum_standalone_result": 10,
+        "joint_result": 40
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE13",
+      "status": "PASS",
+      "actual": {
+        "operating_result": 10,
+        "cash_before_financing": [
+          -110,
+          -30,
+          20,
+          80
+        ],
+        "cumulative_cash": [
+          -110,
+          -140,
+          -120,
+          -40
+        ],
+        "peak_funding_month_end": 140,
+        "terminal_shortfall": 40,
+        "cash_from_profit_bridge": -40
+      },
+      "rejected_wrong_values": 2
+    },
+    {
+      "case_id": "CE14",
+      "status": "PASS",
+      "actual": {
+        "net_expense": 80,
+        "cash_m1": -100,
+        "cash_m3": 20
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE15",
+      "status": "PASS",
+      "actual": {
+        "full_delta": null,
+        "break_even_missing_cost": 20
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE16",
+      "status": "PASS",
+      "actual": {
+        "delta_share_pp": 8.181818181818182
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE17",
+      "status": "PASS",
+      "actual": {
+        "annual_pax": 1840
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE18",
+      "status": "PASS",
+      "actual": {
+        "month_end_funding": 140,
+        "event_order_funding": 220
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE19",
+      "status": "PASS",
+      "actual": {
+        "larger_feasible_set_keeps_candidate": true,
+        "new_result_after_extra_commitment": 80
+      },
+      "rejected_wrong_values": 1
+    },
+    {
+      "case_id": "CE20",
+      "status": "PASS",
+      "actual": {
+        "revenue": 20000
+      },
+      "rejected_wrong_values": 1
+    }
+  ],
+  "pinned_inputs_verified": 11,
+  "referential_integrity": "PASS",
+  "unknown_not_zero": "PASS (CE15)",
+  "write_boundary": "PASS",
+  "not_run": [
+    "Полная сеть",
+    "Повтор 652 исторических сетей",
+    "Текущие пакеты P02/P03/P04/P05/P06/P09",
+    "Рыночная калибровка",
+    "Реальная эксплуатационная проверка",
+    "Достаточность полного финансирования RW",
+    "UI/браузерная проверка"
+  ],
+  "command": "python3 context/35_full_programme_execution_20261112/P00R/run_checks.py",
+  "affected_recheck": {
+    "case_ids": [
+      "CE13"
+    ],
+    "reason": "Explicit zero tax/interest cash in synthetic fixture; no real tax exemption assumed.",
+    "status": "PASS"
+  }
+}

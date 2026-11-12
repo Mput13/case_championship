@@ -1,6 +1,6 @@
 {
   "programme_id": "RW_FULL_20261112",
-  "status": "RUNNING_FIRST_TASKS",
+  "status": "RUNNING_ENGINE_AND_ADAPTERS_AWAITING_COMPLETION_EVENTS",
   "authorized_by": "User explicitly requested full execution and parallel launch in the current turn",
   "authorized_at_utc": "2026-11-12T11:48:18.393Z",
   "planning_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
@@ -26,12 +26,15 @@
           "value": "xhigh"
         }
       ],
-      "status": "running",
+      "status": "completed",
       "parent_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
       "write_scope": "context/35_full_programme_execution_20261112/P00R/",
       "receipt_at_utc": "2026-11-12T11:49:31.826Z",
       "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it.",
-      "error": null
+      "error": null,
+      "delivery_commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+      "payload_commit": "dba294eb6c8cb66917967f758db716d5a471b3c9",
+      "acceptance": "HASHES_VERIFIED_METHOD_CONTRACT_ACCEPTED_PENDING_ENGINE_IMPLEMENTATION"
     },
     {
       "package_id": "P02",
@@ -51,7 +54,7 @@
           "value": "default"
         }
       ],
-      "status": "running",
+      "status": "final_reported_pending_terminal",
       "parent_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
       "write_scope": "context/35_full_programme_execution_20261112/P02/",
       "receipt_at_utc": "2026-11-12T11:51:43.577Z",
@@ -75,11 +78,21 @@
           "value": "default"
         }
       ],
-      "status": "running",
+      "status": "completed",
       "parent_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
       "write_scope": "context/35_full_programme_execution_20261112/P03/",
       "receipt_at_utc": "2026-11-12T11:51:43.692Z",
-      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it.",
+      "continuation": {
+        "run_ordinal": 2,
+        "run_id": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%253Adelegate-task%253Arw-full-20261112-p03-v1:ordinal:2",
+        "trigger": "auto delivery of accepted schema requirements after first research turn completed",
+        "scope": "SP04/SP07/SP08 source adapter; same child worktree, not an independent recheck",
+        "manager_task_id": "node:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p03-v1",
+        "delivery_client_request_id": "rw-full-20261112-p03-schema-and-parent-auto-v1"
+      },
+      "delivery_commit": "eb4a6020451f66070ec91e26a47e002ec0019f52",
+      "completion_evidence": "Native recentRuns ordinal1 completed2026-11-12T12:21:16.597Z; follow-up is a distinct task below."
     },
     {
       "package_id": "P04",
@@ -99,18 +112,51 @@
           "value": "default"
         }
       ],
-      "status": "running",
+      "status": "final_reported_pending_terminal",
       "parent_commit": "b4d2ddf690440eb5cd051839cc263cf16b364ca4",
       "write_scope": "context/35_full_programme_execution_20261112/P04/",
       "receipt_at_utc": "2026-11-12T11:51:43.902Z",
       "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "package_id": "P06",
+      "task_id": "node:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p06-v1",
+      "link": "[Red Wings P06: Общее расчётное ядро](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p06-v1)",
+      "child_thread_id": "thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p06-v1",
+      "requested_model": "gpt-6-astra",
+      "executed_model": "gpt-6-astra",
+      "options": [
+        {
+          "id": "reasoningEffort",
+          "value": "xhigh"
+        }
+      ],
+      "status": "running",
+      "parent_commit": "3ec2a39cc2519457e87eb98c1d55e5635815d931",
+      "write_scope": "context/35_full_programme_execution_20261112/P06/",
+      "receipt_at_utc": "2026-11-12T12:16:44.660Z",
+      "next": "Completion wakes this thread, so end your turn. Do not wait on it or poll it."
+    },
+    {
+      "package_id": "P03-ADAPTER",
+      "task_id": "node:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Athread-send%3Arw-full-20261112-p03-schema-and-parent-auto-v1",
+      "child_thread_id": "thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p03-v1",
+      "link": "[Red Wings P03: Парк, аэропорты и эксплуатация](t3-thread://v2/d463a92a-a497-4213-aeb8-69f0a1470b87/thread:delegated-task:command%3Amcp%3Aea745d2b-3ec1-4d51-9448-b6f9ff0f6d9d%3Adelegate-task%3Arw-full-20261112-p03-v1)",
+      "status": "running",
+      "requested_model": "gpt-6.1-sol",
+      "executed_model": null,
+      "settings_basis": "Inherited same thread Sol xhigh; current execution confirmation pending",
+      "scope": "SP04/SP07/SP08 adapter and distinct GOJ8 return diagnostic; not an independent review",
+      "source_run_ordinal": 2,
+      "receipt_recovered_from": "Native auto-send response during subsequent steering",
+      "parent_commit": "original P03 worktree plus its own pinned source payload"
     }
   ],
   "next_ready_work": [
-    "P06 after early methods review frees a slot",
-    "P12 UI skeleton from the shared contract as capacity permits",
-    "P05 from accepted market input versions",
-    "Data-driven variant instances under P07/P08/P08I"
+    "P05 from pinned market/source tranche and P01 grain-qualified inventory",
+    "P12 UI skeleton from accepted contracts",
+    "P02I/P10/P11 as capacity and dependencies permit",
+    "Data-driven P07/P08/P08I variant instances after usable demand/engine inputs"
   ],
   "open_questions_for_user": [],
   "research_uncertainties": [
@@ -127,12 +173,84 @@
   ],
   "data_horizon_contract": "P00/data_horizon_contract.json",
   "initial_inventory": "P01/initial_inventory.json",
-  "updated_at_utc": "2026-11-12T12:05:11.267Z",
+  "updated_at_utc": "2026-11-12T12:34:57.009281+00:00",
   "scope_status": "FULL_PROGRAMME_IN_PROGRESS",
   "not_yet_established": [
     "Common engine and joint scenario results",
     "All viable variants deep evaluation",
     "Four-section dashboard implementation",
     "Independent final verification and presentation rehearsal"
-  ]
+  ],
+  "accepted_input_tranches": [
+    {
+      "package": "P00R",
+      "commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+      "payload": "dba294eb6c8cb66917967f758db716d5a471b3c9",
+      "manifest_sha256": "88455f38716d6a1e4305bcf094e732ee873fe7ef429924ddb88c550504919858",
+      "verified_files": 17,
+      "acceptance": "METHOD_CONTRACT_ACCEPTED_PENDING_ENGINE_IMPLEMENTATION",
+      "limits": "20 synthetic cases personally replayed using reviewer code; not actual P06 or market acceptance."
+    },
+    {
+      "package": "P02",
+      "commit": "fb918c857c9fecd109e85b8d2c3e83ff22dce639",
+      "manifest_sha256": "3958d48daac966f62f0a4c1364eba28645f4d5dc95d3d5778804ce36c2ec9326",
+      "verified_files": 105,
+      "acceptance": "USABLE_SOURCE_TRANCHE_ONLY",
+      "limits": "277 partial/580 uncovered markets; physical inventory UNKNOWN; 30clock conflicts; incomplete monthlyOD and seasonal fare coverage; RT581 README/interpretation superseded by pending correction."
+    },
+    {
+      "package": "P03",
+      "commit": "eb4a6020451f66070ec91e26a47e002ec0019f52",
+      "payload": "d5d5b8f1651cbea66a55236e986ad9269e7966ff",
+      "manifest_sha256": "0ce7bead8db2db18f7c0683d442acaa456b90123edcda0513e88c00b68b247d5",
+      "verified_files": 118,
+      "acceptance": "USABLE_RESOURCE_RULES_TRANCHE_ONLY",
+      "limits": "Parametric/diagnostic monthly calendars and hours-only thresholds are not dated assignments or actual free fleet; SP04/SP07/SP08 adapter pending."
+    },
+    {
+      "package": "P04",
+      "commit": "dfda83ed8f3a17d57025a70c1a45ade544a96a1f",
+      "manifest_sha256": "4f08c7c7d6d58db3df8fda5b000ac956e47ea08c8ec5021f3d0d43a8be46a7fe",
+      "verified_files": 134,
+      "acceptance": "USABLE_COST_RULES_TRANCHE_ONLY",
+      "limits": "61 internal/future cost unknowns; references are not confirmed2027–2028 rates; subsidy legal interpretation pending; no total budget/funding without programme drivers and contracts; SP09–SP11 adapter pending."
+    },
+    {
+      "package": "P02-v2",
+      "commit": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+      "payload": "68d74d2036e41abefd96a150dd557fdca67f6913",
+      "manifest_sha256": "89a5c10821c90d7c398c27c7e68d1a23af65fa600147f6a6a9197356566f0629",
+      "verified_files": 121,
+      "acceptance": "SOURCE_EXPORT_AND_SCHEMA_MAPPING_ONLY",
+      "limits": "Demand pools, segment choice, net yields, physical inventory and response policy unresolved. 277partial/580uncovered; RT581 corrected. Not admission to allocation."
+    },
+    {
+      "package": "P04-final",
+      "commit": "620a0ac4bb11763319c4227485f6a3996b91d367",
+      "payload": "dfda83ed8f3a17d57025a70c1a45ade544a96a1f",
+      "manifest_sha256": "4f08c7c7d6d58db3df8fda5b000ac956e47ea08c8ec5021f3d0d43a8be46a7fe",
+      "adapter_manifest_sha256": "7ea1765a449f6baa94c65be9fa504f628f86d34cabb095c39453133549d30176",
+      "handoff_sha256": "aa9dae237499999d7c1f8f5dd1c13202dcfc484269da5724559f8549147692a7",
+      "verified_files": 142,
+      "acceptance": "COST_SUPPORT_EVENT_MAPPING_WITH_EXPLICIT_UNKNOWNS",
+      "limits": "Actual programme budget/funding absent until drivers and contracts; regulatory interpretation conditional; interest cash convention registered, not proven RW policy."
+    },
+    {
+      "package": "P06-interface-v0.1",
+      "commit": "bc70308fe091c5767dbf26b02d06a7d750a65614",
+      "manifest_sha256": "bd167207beb3c59e4a3339f35922c277eac55f2adcbf501a6b056108165dd087",
+      "verified_files": 45,
+      "acceptance": "EARLY_PRODUCER_INTERFACE_AND_SYNTHETIC_CLI_ONLY",
+      "limits": "CE01–20 not yet accepted in this pin. Example executed personally by coordinator; synthetic results are not Red Wings economics."
+    }
+  ],
+  "current_input_pins": {
+    "methods": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "market_source_export": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+    "fleet_source_v1": "eb4a6020451f66070ec91e26a47e002ec0019f52",
+    "cost_rules_and_adapter": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "engine_interface": "bc70308fe091c5767dbf26b02d06a7d750a65614"
+  },
+  "active_slot_count_basis": "P02/P04 count occupied until native terminal events; P03 original replaced by its active adapter continuation, not a fifth slot."
 }
