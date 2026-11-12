@@ -92,6 +92,21 @@ def main():
     assert all(a['end_seconds']==b['start_seconds'] for a,b in zip(demo['stops'],demo['stops'][1:]))
     assert 'presentation_rehearsal.json' in by_id['P16']['outputs']
     assert demo['status']=='SPECIFIED_NOT_IMPLEMENTED_OR_REHEARSED'
+    variants=json.loads((BASE/'variant_research_plan.json').read_text())
+    cities={c['iata'] for c in variants['seed_cities']}
+    assert len(cities)==variants['seed_city_count']==20
+    assert {c['iata'] for c in variants['seed_cities'] if c['distance_500km_reassessment']}=={'UFA','GOJ','PEE','CEK','TJM'}
+    assert len({h['candidate_id'] for h in variants['legacy_hypotheses']})==35
+    assert not spec['variant_research']['historical_35_are_fixed_experiments']
+    assert not spec['variant_research']['city_list_is_closed']
+    assert spec['variant_research']['hypotheses_generated_and_revised_from_data']
+    assert not spec['variant_research']['joint_result_is_sum_of_standalone_results']
+    assert not any(variants['execution'].values())
+    assert variants['parallel_investigation']['max_active_children_including_shared_engine_and_reviews']==policy['capacity']['max_active_children']
+    assert not variants['parallel_investigation']['workers_may_spawn_children']
+    assert all(by_id[k]['variant_research_plan']=='variant_research_plan.json' for k in ['P01','P06','P07','P08','P08I','P09'])
+    assert 'active_hypotheses.csv' in by_id['P01']['outputs']
+    assert 'joint_comparison.csv' in by_id['P09']['outputs']
     assert len(spec['accepted']['sections']) == 4
     assert not any(spec['execution_boundary'].values())
     assert set(by_id['P09']['depends_on']) >= {'P02','P03','P04','P05','P06','P07','P08'}

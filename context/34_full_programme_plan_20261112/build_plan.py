@@ -56,6 +56,7 @@ REQUIREMENTS = [
     ('R27', 'Последнее уточнение пользователя', 'Самостоятельное решение исходного кейса на суперджетах', 'P09', 'sec1,sec2,sec3', 'Обязательные хаб/прямые/смешанные программы на ресурсе суперджетов сохраняются и не требуют новых Ту-214. Расширения парка и международной сети подписаны отдельно; ветвь без новых Ту-214 в 2027–2028 обязательна.'),
     ('R28', 'Пользователь', 'Реестр субъективных решений и неопределённых оценок', 'P17', 'all,delivery', 'Все используемые веса, пороги, аналоги, сценарии и приблизительные затраты имеют ID, значение, происхождение, основание, статус согласования и влияние. Пользователь получает полный реестр и список существенных условий; base/cautious не названы доверительным интервалом.'),
     ('R29', 'Пользователь', 'Презентационный проход примерно за две минуты', 'P16', 'all,delivery', 'Тот же полный дашборд объясняет данные, альтернативы, общую сборку, стратегию и сценарии по подготовленному маршруту; реальные результаты, доступные детали и существенные ограничения сохраняются. Готовность проверяется репетицией реализованного UI.'),
+    ('R30', 'Пользователь', 'Гипотезы из данных и параллельное углубление вариантов', 'P09', 'all', 'Исходный список городов доступен; рабочие гипотезы формируются и пересматриваются по данным. Координатор параллельно назначает целостные варианты, сохраняет происхождение и сводит их общим пересчётом спроса, ресурса и экономики; прежние 35 формулировок не фиксируют новое пространство поиска.'),
 ]
 
 PACKAGES = [
@@ -175,6 +176,8 @@ def section(key, title, body):
 
 def main():
     BASE.mkdir(exist_ok=True)
+    from build_variant_research import main as build_variant_research
+    build_variant_research()
     register,reuse=seed_registers()
     spec = {
         'version':'full-v1-20261112', 'state':'PREPARED_NOT_LAUNCHED',
@@ -209,6 +212,8 @@ def main():
     }
     policy=json.loads((BASE/'orchestration_policy.json').read_text())
     demo=json.loads((BASE/'demo_requirements.json').read_text())
+    variants=json.loads((BASE/'variant_research_plan.json').read_text())
+    spec['variant_research']={'plan_file':'variant_research_plan.json','seed_city_file':'city_research_seed.csv','seed_cities':variants['seed_city_count'],'city_list_is_closed':False,'hypotheses_generated_and_revised_from_data':True,'historical_35_are_fixed_experiments':False,'parallel_whole_variant_investigation':True,'joint_result_is_sum_of_standalone_results':False}
     spec['presentation']={'requirements_file':'demo_requirements.json','target_seconds':demo['target_seconds'],'status':demo['status'],'same_full_dashboard':True,'same_results_and_sources':True,'rehearsal_required':True}
     spec['orchestration'].update({'policy_file':'orchestration_policy.json','worker_roles':policy['roles'],'initial_dispatch':policy['initial_dispatch'],'launch_mode':'async','max_active_children':policy['capacity']['max_active_children'],'review_model_proposal':['gpt-6.1-sol','gpt-6-astra']})
     dump('common_spec.json',spec)
@@ -222,6 +227,9 @@ def main():
         if ident=='P15':outputs.append('presentation_preset.json')
         if ident=='P16':outputs.append('presentation_rehearsal.json')
         if ident=='P17':outputs.append('presentation_script.txt')
+        if ident=='P01':outputs.extend(['active_hypotheses.csv','hypothesis_history.csv','city_coverage.csv'])
+        if ident in {'P07','P08','P08I'}:outputs.append('variant_handoffs.json')
+        if ident=='P09':outputs.append('joint_comparison.csv')
         scope=f'context/35_full_programme_execution_20261112/{ident}/'
         brief=(f'Задача {ident}: {title}. Работай самостоятельно, без детей. '
             f'Пиши только в {scope} своего подготовленного оркестратором worktree. '
@@ -262,6 +270,9 @@ def main():
         if ident in {'P12','P15','P16','P17'}:
             pkgs[-1]['task_brief']+=' Прочитай demo_requirements.json: тот же полный дашборд должен поддерживать подготовленный проход примерно за две минуты по реальным результатам, с доступными источниками, альтернативами и существенными условиями. Не упрощай аналитическую модель ради показа; готовность подтверждается репетицией реализованного UI.'
             pkgs[-1]['acceptance']+=' Дополнительно выполнить относящуюся к пакету часть demo_requirements.json; запланированные 120 секунд не объявлять измеренным результатом.'
+        if ident in {'P01','P02','P02I','P03','P04','P05','P06','P07','P08','P08I','P09','P12','P13','P15','P16'}:
+            pkgs[-1]['task_brief']+=' Прочитай variant_research_plan.json: гипотезы формируются и пересматриваются из данных, включая новые находки в процессе. Исторические 35 — происхождение и проверенные области старой работы, не обязательные неизменные опыты. Предложения о новых, изменённых или объединённых вариантах передай координатору с основанием и связями; новые данные не подменяют общие входы незаметно. P07/P08/P08I — семейства работ: координатор может назначать несколько параллельных самостоятельных задач на конкретные варианты, в общем пуле четырёх слотов. Собственных детей не запускай. Итоговое сочетание пересчитывается целиком через общее ядро, а не складывается из отдельных результатов.'
+            pkgs[-1]['variant_research_plan']='variant_research_plan.json'
     dump('work_packages.json',{'version':spec['version'],'state':'NOT_LAUNCHED','packages':pkgs})
     for name,head,rows in [('requirements.csv',['id','authority','requirement','primary_package','destination','acceptance'],REQUIREMENTS),('method_map.csv',['id','method','source_id','packages','implementation','evidence'],METHODS)]:
         with (BASE/name).open('w',newline='') as f:
@@ -347,6 +358,51 @@ def main():
     chapters.append(section('sources','Источники и файлы','<ul>'+''.join(f'<li><a href="{c}">{b}</a>. {d}</li>' for a,b,c,d in SOURCES)+'</ul><p>Версии входов: <a href="source_lock.json">source_lock.json</a>. Общие правила: <a href="common_spec.json">common_spec.json</a>. Граф заданий: <a href="work_packages.json">work_packages.json</a>. Требования: <a href="requirements.csv">requirements.csv</a>. Методическая карта: <a href="method_map.csv">method_map.csv</a>. Эти файлы — проект запуска, аналитические результаты в них не объявлены полученными.</p>'))
 
     css='''*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:#f6f5f1;color:#242a30;font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#225c85;text-underline-offset:3px}code,pre{font:13px/1.5 ui-monospace,monospace}code{overflow-wrap:anywhere}pre{overflow:auto;background:#eeeae2;padding:16px;border-radius:8px}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);gap:36px;max-width:1280px;margin:auto;padding:24px 28px 90px}nav#toc{position:sticky;top:16px;align-self:start;max-height:780px;overflow:auto;font-size:14px;line-height:1.4}nav a{display:block;padding:7px 0;text-decoration:none;color:#4b5661}nav a[aria-current]{color:#225c85;font-weight:650}h1{font-size:32px;line-height:1.2;font-weight:650;margin:0 0 16px}h2{font-size:24px;line-height:1.3;font-weight:650;margin:0 0 18px}p{margin:0 0 18px}section{margin-top:42px;padding-top:24px;border-top:1px solid #d8d6ce}li{margin-bottom:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5}th,td{text-align:left;vertical-align:top;padding:12px 10px;border-bottom:1px solid #d8d6ce;overflow-wrap:anywhere}th{font-weight:650;background:#eae8df}.table-wrap{overflow:auto}td:first-child{min-width:90px}.intro{color:#56616c}.mobile-nav{display:none}details{margin-bottom:20px}summary{font-weight:600;cursor:pointer}@media(max-width:800px){.layout{display:block;padding:18px 18px 64px}nav#toc{position:static;max-height:none;display:none}.mobile-nav{display:block;position:sticky;top:0;z-index:5;background:#f6f5f1;border-bottom:1px solid #d8d6ce;padding:8px 0}.mobile-nav nav{display:block;max-height:420px;overflow:auto}h1{font-size:27px}h2{font-size:22px}body{font-size:16px}section{margin-top:30px}.table-wrap{max-width:100%}table{min-width:560px}table.cols-2{min-width:0}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}'''
+    chapters.insert(3, section('variants','Города, гипотезы и совместное сравнение',
+        '<p>Рабочие гипотезы формируем по данным о рынках, конкурентах, парке и ограничениях. '
+        'Старые 35 формулировок сохраняют историю и пригодные результаты; их можно пересматривать, '
+        'объединять и заменять с объяснением причин. Они не являются фиксированной очередью новых расчётов. '
+        'Новые наблюдения во время работы могут добавить город, коммерческий продукт или способ использования самолёта.</p>'
+        '<p>Исходный инвентарь содержит 20 городов. Это кандидаты на проверку роли хаба или базы. '
+        'Действующую роль, доступный ресурс и обязательства устанавливаем отдельно; список конечных точек прямых рейсов шире.</p>'
+        +table(['Группа исходного списка','Города'],[
+            ('Конкретные сопоставления ниже','Уфа, Нижний Новгород, Омск, Самара'),
+            ('Другие близкие к Екатеринбургу варианты','Пермь, Челябинск, Тюмень'),
+            ('Остальная часть исходного списка','Оренбург, Барнаул, Волгоград, Калининград, Красноярск, Казань, Махачкала, Минеральные Воды, Владивосток, Саратов, Хабаровск, Иркутск, Сочи'),
+        ])
+        +'<p>Пять городов Уфа, Нижний Новгород, Пермь, Челябинск и Тюмень не исключаются только по правилу 500 км. '
+        'Предварительные примеры проверяемых вопросов приведены ниже. Это ещё не выбранные программы: '
+        'конкретные направления, частоты и формы сети уточняются по данным.</p>'
+        +table(['Вариант','Проверяемый вопрос','Сопоставляемые способы'],[
+            (html.escape(e['title']),html.escape(e['question']),'; '.join(html.escape(x) for x in e['alternatives']))
+            for e in variants['matched_examples']
+        ])
+        +'<p>Для прямых рейсов исследуем обычные обороты, изменение действующих частот и расписаний, '
+        'сезонные рейсы, полные цепочки и обоснованные контрактные продукты. '
+        'Старые треугольники остаются источником идей. Наличие существующего рейса требует оценки изменения продукта, '
+        'а отсутствие строки в собранном расписании не доказывает свободный рынок.</p>'
+        '<p>У каждого существенного варианта будет ответственный агент Sol xhigh, который изучает его целиком '
+        'и ищет как основания, так и контраргументы. Координатор запускает разные варианты параллельно по готовности '
+        'закреплённых данных в общем пуле до четырёх активных задач, включая ядро и проверки. '
+        'P07/P08/P08I обозначают семейства работ; внутри возможны несколько самостоятельных назначений '
+        'на конкретные варианты. Исполнители собственных детей не запускают.</p>'
+        '<p>Агент передаёт гипотезу, источники, изменения сети, потребность в ресурсе, ссылки на результат общего ядра, '
+        'неизвестные и условие пересмотра. Новая находка идёт координатору: он обновляет общий вход и передаёт '
+        'изменение всем затронутым вариантам. Финальное сравнение и совместный расчёт выполняет Astra xhigh.</p>'
+        +table(['Семейство программы','Содержание'],[
+            (html.escape(p['id']),html.escape(p['meaning'])) for p in variants['programme_families']
+        ])
+        +'<p>Сначала сравниваем отдельные программы при одном календаре доступного ресурса, периоде и внешнем сценарии. '
+        'Затем строим смешанные программы из рейсов и действий и заново считаем общие поездки, кресла, самолёты, '
+        'базовые расходы, резерв и деньги. Результат сочетания нельзя получить сложением отдельных прибылей и пассажиров. '
+        'Учитываем изменения качества продукта, собственный переток и адресную реакцию конкурентов. '
+        'При неизвестном бюджете показываем варианты роста, финансирования и риска, между которыми ещё нужен выбор.</p>'
+        '<p>Итог — таблица «программа × сценарий × месяц» с изменением сети относительно будущего KEEP, '
+        'ресурсом, ростом перевозок, экономикой, финансированием и действиями при изменении условий. '
+        'В интерфейсе сохраняется путь: исходное наблюдение → гипотеза → проверка → составная программа → решение и условия его пересмотра.</p>'
+        '<p>Подробная спецификация: <a href="variant_research_plan.json">variant_research_plan.json</a>. '
+        'Исходный список городов: <a href="city_research_seed.csv">city_research_seed.csv</a>. '
+        'Система и новые расчёты ещё не запущены.</p>'))
     links=[]
     import re
     for chapter in chapters:
@@ -357,7 +413,7 @@ def main():
     document='<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>План полного анализа Red Wings и агентской работы</title><style>'+css+'</style><body><div class="layout"><nav id="toc" aria-label="Оглавление">'+nav+'</nav><main><h1>План полного анализа Red Wings и агентской работы</h1><p class="intro">12 ноября 2026 · спецификация для обсуждения · исследовательская система ещё не запущена</p><details class="mobile-nav"><summary>Содержание</summary><nav aria-label="Оглавление на узком экране">'+nav+'</nav></details>'+''.join(chapters)+'</main></div><script>'+script+'</script></body></html>'
     (BASE/'plan.html').write_text(document)
     outputs=['common_spec.json','work_packages.json','requirements.csv','method_map.csv','source_lock.json','plan.html','build_plan.py','check_plan.py','capture_brief.py','assumptions_register.csv','assumptions_register.json','reuse_map.csv']
-    outputs += [name for name in ['prepare_qa.py','system_flow.html','orchestration_policy.json','orchestration_flow.html','demo_requirements.json'] if (BASE/name).exists()]
+    outputs += [name for name in ['prepare_qa.py','system_flow.html','orchestration_policy.json','orchestration_flow.html','demo_requirements.json','build_variant_research.py','variant_research_plan.json','city_research_seed.csv'] if (BASE/name).exists()]
     outputs += [str(p.relative_to(BASE)) for p in sorted((BASE/'inputs').glob('*'))] if (BASE/'inputs').exists() else []
     dump('output_manifest.json',{'files':[{'path':n,'sha256':hashlib.sha256((BASE/n).read_bytes()).hexdigest()} for n in outputs]})
     print(json.dumps({'requirements':len(REQUIREMENTS),'packages':len(PACKAGES),'methods':len(METHODS),'tables':len(TABLES),'state':spec['state'],'output':str(BASE/'plan.html')},ensure_ascii=False))
