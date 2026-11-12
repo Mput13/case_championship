@@ -6,7 +6,7 @@
     "path": "context/35_full_programme_execution_20261112/P00R/schema_patch.csv",
     "local_path": "inputs/accepted_schema_patch.csv",
     "sha256": "1f8cd7bcb7496f44ca3294d977bf370d81ff5040bb21e055c3feb428c53b59ea",
-    "admission": "Coordinator explicitly acceptedSP01-SP13 in current message; source CSVhistoricalstatusPROPOSED is preserved as bytes"
+    "admission": "Coordinator explicitly accepted SP01-SP13 in current message; original CSV status PROPOSED is preserved in the exact source bytes"
   },
   "patches": {
     "SP09": {
@@ -44,6 +44,7 @@
     }
   },
   "rate_map": "event_rate_map.csv",
+  "support_map": "support_event_map.csv",
   "cost_coverage": "financial_cost_coverage.csv",
   "assumption_delta": "assumption_changes_sp09_sp11.csv",
   "economic_events": {
@@ -51,10 +52,10 @@
       "evaluation_id",
       "economic_event_id"
     ],
-    "construction": "Admitted rate*accepted quantity by owner,month and currency;net journey revenue once;shared_event_iddeduplicates only inside sameevaluation",
-    "negative_delta": "Compute complete P and completeKEEP then subtract;donor/opportunity memo not second expense",
-    "noncash": "Owned/capitalisedassetdepreciation true;PBHreserve cash status by actual contract;do not infer allMROhourlyreservesnoncash",
-    "unknown": "No economic event amount until rate/quantity/scope known or explicit scenario/threshold branch;publicationprice is historicalreference until futureapplication admitted"
+    "construction": "Admitted rate * accepted quantity by owner, month and currency; net journey revenue once; shared_event_id deduplicates only inside the same evaluation",
+    "negative_delta": "Compute complete P and complete KEEP, then subtract; donor/opportunity memo is not a second expense",
+    "noncash": "Owned/capitalised asset depreciation: true. PBH reserve cash status depends on contract; hourly MRO reserves are not automatically noncash.",
+    "unknown": "No event amount until rate, quantity and scope are known or explicitly defined in a scenario/threshold branch. Published price stays a dated reference until future applicability is admitted."
   },
   "cash_events": {
     "key": [
@@ -62,31 +63,31 @@
       "cash_event_id"
     ],
     "economic_event_id": "nullable;CAPEX/advance/deposit can have no current operatingexpense",
-    "owner": "related_asset_or_contract_id links advances,finalpayment,deposit,refund and terminalbalance",
-    "one_to_many": "One economic event may settle in several payments;cash event not created by merely copyingaccrual_month",
+    "owner": "related_asset_or_contract_id links advances, final payment, deposit, refund and terminal balance",
+    "one_to_many": "One event may settle in several payments; copying accrual_month does not establish payment date",
     "categories": {
-      "operating": "Customer/chartercash;suppliers/rent/crew/MRO;supportreceipts/rebates;interestcash subcategoryfinance_interest",
-      "investing": "Ownedaircraft/basecapex and capitaladvances;refundablecontractdeposit assetflow separatelyflagged;assetdisposal",
-      "tax": "VAT/profittax/excise payments/refunds/offsetcashmapping;fuel supportalready mapped once",
-      "financing": "Debtprincipal/equity and financingonlyfees;notjourneyrevenue;interestnotdeductedagain"
+      "operating": "Customer/charter receipts; suppliers/rent/crew/MRO; support receipts/rebates; interest cash in finance_interest subcategory",
+      "investing": "Owned aircraft/base CAPEX and capital advances; refundable deposit asset flow flagged separately; asset disposal",
+      "tax": "VAT/profit-tax/excise payments and refunds under explicit posting policy; fuel support counted once",
+      "financing": "Debt principal/equity and financing-only fees; excluded from journey revenue; interest not deducted again"
     },
-    "tax_support_guard": "Fuelcredit either separate supportoperatingreceipt or taxsettlementflow using explicitpostingpolicy;neverboth.Settlementbyoffsethasnobankreceipt.",
-    "balances": "Opening/closingAR,AP,inventory,advances,customeradvances,deposits,debt and posthorizonobligations reconcile"
+    "tax_support_guard": "Fuel credit is either operating support receipt or tax settlement flow under one posting policy. Tax offset has no bank receipt.",
+    "balances": "Reconcile opening/closing receivables, payables, inventory, advances, customer advances, deposits, debt and obligations beyond the horizon"
   },
   "boundaries": {
     "cash_before_financing": "operating_cash + investing_cash + tax_cash",
     "funding_before_financing": "max_over_event_t(0,minimum_cash_t - opening_cash - cumulative_cash_before_financing_t)",
-    "payload_special_case": "payloadmax(-mincumcash) requiresopening_cash=0 andminimum_cash=0;onlyexplicitdiagnostic/fixture,notobservedRWliquidity",
-    "unknown_opening_or_floor": "FinalactualfundingUNKNOWN;publishconditionalincrementalflowandboundarythreshold,notassumedzero",
-    "project_incremental": "DerivedfromPminusKEEPcashbyeventonthesameboundary;positiveKEEPcashnotavailableunlessincludedwithprovenliquidity",
-    "whole_business": "FullRWfundingUNKNOWNifunaffected/KEEPcashunknown;selectedprojectbudgetdoesnotestablishwholecompanybudget",
-    "time": "Prelaunchthroughpost2028obligations;eventminimaandmonthlyreports;end2028receivables/depositsnotautomaticallycollected",
-    "minimum_cash": "Liquidityfloorbydate;separatefromminimumobservedclosingcashmetric;noarbitraryreservepercentage"
+    "payload_special_case": "max(-min(cumulative_cash)) requires opening_cash=0 and minimum_cash=0; valid as an explicit diagnostic/fixture, not observed RW liquidity",
+    "unknown_opening_or_floor": "Actual funding remains UNKNOWN; publish conditional incremental cash and boundary thresholds",
+    "project_incremental": "P minus KEEP cash by event on the same boundary; positive KEEP cash is available only if included with evidence of liquidity",
+    "whole_business": "Full RW funding is UNKNOWN if unaffected/KEEP cash is unknown; project budget does not establish company budget",
+    "time": "Include pre-launch and obligations beyond 2028; preserve event minima and monthly reports; end-2028 receivables/deposits are not automatically collected",
+    "minimum_cash": "Dated liquidity floor, separate from the minimum realised closing cash metric; no arbitrary reserve percentage"
   },
   "assumption_ids": [
     "P04-A-SP09-MAPPING",
     "P04-A-SP10-INTEREST",
     "P04-A-SP11-BOUNDARY"
   ],
-  "existing_inputs_unmodified": "All134payloadfiles and output_manifest remainbyteidentical;newaddon has separate manifest"
+  "existing_inputs_unmodified": "All 134 payload files and output_manifest remain byte-identical; supplement has a separate manifest"
 }
