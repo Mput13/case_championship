@@ -1,0 +1,115 @@
+{
+  "version": "P12-ui-v1",
+  "parent_commit": "65cab12d2eae49dc91d1f77dd4860bc9bd7e20d2",
+  "candidate": "ui_candidate/dashboard.html",
+  "source": "ui_candidate/source/",
+  "sections": [
+    {
+      "id": "hubs",
+      "title": "Хабы и базы"
+    },
+    {
+      "id": "direct",
+      "title": "Прямые рейсы"
+    },
+    {
+      "id": "network",
+      "title": "Итоговая сеть 2027–2028"
+    },
+    {
+      "id": "strategy",
+      "title": "Стратегия роста и №2"
+    }
+  ],
+  "state": [
+    "result_version",
+    "fleet_scope_id",
+    "programme_id",
+    "evaluation_id",
+    "period",
+    "primary_scenario_id",
+    "comparison_scenario_id",
+    "active_section",
+    "expanded_details",
+    "city",
+    "sourceMonth",
+    "carrier",
+    "destination",
+    "layer",
+    "page"
+  ],
+  "state_implementation": "One shared state object; native anchors; source dialog preserves state and restores focus; presentation snapshot preserves selectors/details/scroll. Source period independent from forecast period.",
+  "source_binding": {
+    "cities": "P02/city_coverage.csv",
+    "offers": "P02/competitor_products.csv, source status only; no inventory construction",
+    "costs": "P04/cost_ranges.csv, published 2026 references only",
+    "history": "FIVE city decision/claims/sources, separately labelled exact pin",
+    "base": "Author CSS component subset and geographic/city coordinates, no original score/financial outputs",
+    "P03": "Read p06_bound_fragments and crew advisory; pending root acceptance, no operational result admitted",
+    "P06": "Read producer contract, no demo data imported"
+  },
+  "result_import": {
+    "entry": "RW.load(package), local JSON file input, or build.py --results-commit EXACT_SHA --results-path GIT_PATH; source package is read by git show",
+    "envelope_required": {
+      "dataset_kind": "RED_WINGS",
+      "synthetic": false,
+      "coordinator_acceptance": "ACCEPTED_FOR_UI",
+      "commit": "40hex Git commit",
+      "manifest_sha256": "64hex artifact hash",
+      "evaluations": "array",
+      "strategy": "optional mapping by evaluation_id"
+    },
+    "evaluation_fields": {
+      "label": "real programme title",
+      "scenario_label": "precomputed scenario label, not confidence interval",
+      "source_refs": "nonempty array of source paths/versions/rows",
+      "assumption_ids": "array of registry IDs",
+      "result": "unmodified P06 compare output",
+      "conclusion": "optional accepted conclusion",
+      "competition_conclusion": "optional competitive choice conclusion",
+      "strategy_action": "optional scenario action"
+    },
+    "mapping": {
+      "context": "result.project.context",
+      "monthly_absolute": "result.project.results_monthly",
+      "monthly_delta": "result.delta_monthly",
+      "period_delta_precomputed": "result.delta_summary for 24months; result.delta_annual for selected year",
+      "network": "result.network_changes[].project / keep",
+      "rotations": "result.project.operations.rotations",
+      "funding": "result.project_incremental_funding, whole_company_funding separate",
+      "fleet_scope": "result.project.context.fleet_scope_id"
+    },
+    "gates": [
+      "exact version and manifest format",
+      "explicit RW/non-synthetic/coordinator acceptance",
+      "24 unique months 2027-01…2028-12",
+      "required evaluation context",
+      "same external scenario/resource/future horizon for KEEP",
+      "same programme/version/scope/evaluation mode/market-choice-cost scope for scenario comparison"
+    ],
+    "trust_boundary": "UI checks structure and supplied acceptance marker. Coordinator must verify exact SHA/manifest and release gates F01–F06; no claim of cryptographic acceptance or economic validation from upload.",
+    "no_computation": [
+      "no demand/price response",
+      "no scenario extrapolation",
+      "no summation of independent variants",
+      "no allocation",
+      "no financial model; producer aggregates only"
+    ],
+    "missing_or_error": "Unknown/null displays as unavailable; malformed import reports one error, prior valid state retained; unsupported scenario never enabled as result",
+    "number2_gate": "release_gates.F07 must equal ACCEPTED and strategy must map by evaluation_id; P15 verifies compatible whole-business bridge; no rank/date inferred from regional programme",
+    "resource_monthly": "Optional accepted evaluation.resource_monthly rows: month,aircraft_variant,transferred,entered_service,project_available,reserve,crew_maintenance_status; display only, no tail construction",
+    "comparison_group": "Optional accepted comparison_group_id permits changed input versions within a validated experiment; always preserve programme/version/fleet scope/evaluation mode/period/affected scope"
+  },
+  "presentation": {
+    "route": "presentation_route.json",
+    "preset": "presentation_preset.json",
+    "status": "NAVIGATION_IMPLEMENTED_FINAL_RESULTS_AND_REHEARSAL_NOT_RUN"
+  },
+  "delivery": {
+    "local": "Single self-contained HTML; no remote fonts/scripts/assets required",
+    "new_dependencies": [],
+    "public_site_changed": false,
+    "author_branch_changed": false
+  },
+  "acceptance_boundary": "Working UI skeleton with real source evidence; not acceptance of integrated programme, allocation, dispatch, profitability, number2 strategy or two-minute presentation"
+}

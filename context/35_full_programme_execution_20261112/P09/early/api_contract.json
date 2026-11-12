@@ -1,0 +1,37 @@
+{
+  "version": "P09-early-interface-v1",
+  "status": "USABLE_BUILDER_AND_TWO_DATE_CONTROL_NOT_FINAL_ECONOMIC_ACCEPTANCE",
+  "module": "early/interface_v1.py",
+  "interfaces": {
+    "build_calendar(programme,delivery)": "731 date calendar, flights, assignments, same fleet; 4delivery branches",
+    "build_pair(programme,delivery,scenario,response,dates=None)": "project/KEEP P06 bundles; same markets/resource/response. Full calendar when dates=None; control2dates is only mechanical integration check",
+    "core.compare(project,keep)": "unchanged pinned P06 982f13d fixed comparison"
+  },
+  "programme_schema": {
+    "programme_id": "string",
+    "label": "русское имя",
+    "working_slots": [
+      {
+        "base": "physical IATA",
+        "spokes": [
+          "physical IATA"
+        ],
+        "bank": "bool"
+      }
+    ],
+    "transfers": "bool"
+  },
+  "limitations": [
+    "P05 SCENARIO_NOT_IDENTIFIED",
+    "crew/MRO/KEEP/internal rates UNKNOWN",
+    "SJ100 PD8 analogue separated from existing SSJ100",
+    "local candidate full Stage B not yet evaluated",
+    "positive partial subtotal != operating profit"
+  ],
+  "root_only_publication": "Координатор закрепляет Git SHA и release acceptance. Не вносить ACCEPTED_FOR_UI автоматически.",
+  "control_scope": "4–5Dec2028, общий календарь отдельно2027–2028, не экстраполяция результата контроля",
+  "source_pins": {
+    "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "P05": "a63a047bc6559df8bac3b2dde5c6464c3c9e6a0b"
+  }
+}

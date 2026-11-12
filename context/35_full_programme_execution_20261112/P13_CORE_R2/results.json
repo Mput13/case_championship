@@ -1,0 +1,610 @@
+{
+  "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+  "version": "P06-1.0.2-adaptive",
+  "checks": [
+    {
+      "check_id": "F01_historical_reprice",
+      "origin": "frozen_original_reproducer_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptive action rewrites a record before its effective date: products/BOOKED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 2400.0,
+        "diagnostic_revenue_after": 24000.0,
+        "input_unchanged": true,
+        "input": "inputs/F01_historical_reprice.json"
+      }
+    },
+    {
+      "check_id": "F01_backdated_add",
+      "origin": "frozen_original_reproducer_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptive action rewrites a record before its effective date: cash_events/PAST_RECEIPT",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/F01_backdated_add.json"
+      }
+    },
+    {
+      "check_id": "F02_contract_erasure",
+      "origin": "frozen_original_reproducer_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation erases/changes prior contract; cancellation/refund model required",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 7000.0,
+        "diagnostic_revenue_after": 10000.0,
+        "input_unchanged": true,
+        "input": "inputs/F02_contract_erasure.json"
+      }
+    },
+    {
+      "check_id": "derived_past_cash_indirect",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/derived_past_cash_indirect.json"
+      }
+    },
+    {
+      "check_id": "derived_prior_month_accrual_indirect",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/derived_prior_month_accrual_indirect.json"
+      }
+    },
+    {
+      "check_id": "derived_same_month_dated_accrual_indirect",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/derived_same_month_dated_accrual_indirect.json"
+      }
+    },
+    {
+      "check_id": "derived_same_month_monthly_accrual_indirect",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/derived_same_month_monthly_accrual_indirect.json"
+      }
+    },
+    {
+      "check_id": "derived_same_month_flown_revenue",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 4000.0000000000005,
+        "input_unchanged": true,
+        "input": "inputs/derived_same_month_flown_revenue.json"
+      }
+    },
+    {
+      "check_id": "past_customer_advance_indirect_competitor",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 4000.0000000000005,
+        "input_unchanged": true,
+        "input": "inputs/past_customer_advance_indirect_competitor.json"
+      }
+    },
+    {
+      "check_id": "future_same_month_dated_accrual",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/future_same_month_dated_accrual.json"
+      }
+    },
+    {
+      "check_id": "future_same_month_product_reprice",
+      "origin": "frozen_recheck_input_unchanged",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 7500.0,
+        "input_unchanged": true,
+        "input": "inputs/future_same_month_product_reprice.json"
+      }
+    },
+    {
+      "check_id": "B21_valid_future_action",
+      "origin": "author_B21_code_independently_executed_not_author_result",
+      "expected": "valid documented future action accepted",
+      "status": "PASS",
+      "actual": {
+        "unexplained_change_rejected": true,
+        "documented_change_evaluated": true,
+        "parent_substitution_rejected": true
+      }
+    },
+    {
+      "check_id": "I03_fixed_contract_release",
+      "origin": "frozen_I03_control_independently_executed",
+      "expected": "fixed allocation/release control unchanged",
+      "status": "PASS",
+      "actual": {
+        "summary": {
+          "journeys": 45.0,
+          "passenger_segments": 70.0,
+          "revenue_net": 9500.0,
+          "variable_contribution": 9500.0,
+          "operating_result": 9500.0,
+          "cash_before_financing": 7500.0,
+          "operating_result_including_prelaunch": 9500.0
+        },
+        "seats": [
+          {
+            "flight_instance_id": "L1",
+            "saleable_seats": 50,
+            "carried_segments": 45.0,
+            "unfilled_contract_seats": 5.0,
+            "unsold_seats": 0
+          },
+          {
+            "flight_instance_id": "L2",
+            "saleable_seats": 30,
+            "carried_segments": 25.0,
+            "unfilled_contract_seats": 0.0,
+            "unsold_seats": 5.0
+          }
+        ],
+        "released_journeys": 50,
+        "conserved_total_choices": 120
+      }
+    },
+    {
+      "check_id": "boundary_dated_day_before",
+      "origin": "independent_dated_boundary",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_dated_day_before.json"
+      }
+    },
+    {
+      "check_id": "boundary_dated_on_decision",
+      "origin": "independent_dated_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_dated_on_decision.json"
+      }
+    },
+    {
+      "check_id": "boundary_dated_day_after",
+      "origin": "independent_dated_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_dated_day_after.json"
+      }
+    },
+    {
+      "check_id": "boundary_dated_first_on_decision",
+      "origin": "independent_dated_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_dated_first_on_decision.json"
+      }
+    },
+    {
+      "check_id": "boundary_dated_first_before_decision",
+      "origin": "independent_dated_boundary",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_dated_first_before_decision.json"
+      }
+    },
+    {
+      "check_id": "boundary_explicit_month_only_before_decision",
+      "origin": "independent_dated_boundary",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_explicit_month_only_before_decision.json"
+      }
+    },
+    {
+      "check_id": "boundary_explicit_month_only_on_first",
+      "origin": "independent_dated_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_explicit_month_only_on_first.json"
+      }
+    },
+    {
+      "check_id": "boundary_timestamp_prior_UTC_day",
+      "origin": "independent_dated_boundary",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_timestamp_prior_UTC_day.json"
+      }
+    },
+    {
+      "check_id": "boundary_timestamp_same_UTC_day",
+      "origin": "independent_dated_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_timestamp_same_UTC_day.json"
+      }
+    },
+    {
+      "check_id": "boundary_monthly_on_first",
+      "origin": "independent_month_only_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_monthly_on_first.json"
+      }
+    },
+    {
+      "check_id": "boundary_monthly_after_first",
+      "origin": "independent_month_only_boundary",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_monthly_after_first.json"
+      }
+    },
+    {
+      "check_id": "boundary_future_month_only",
+      "origin": "independent_month_only_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 0,
+        "diagnostic_revenue_after": 0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_future_month_only.json"
+      }
+    },
+    {
+      "check_id": "boundary_generated_product_day_14",
+      "origin": "independent_generated_revenue_boundary",
+      "expected": "ContractError",
+      "status": "PASS",
+      "actual": {
+        "outcome": "REJECTED",
+        "exception": "ContractError",
+        "message": "adaptation rewrites historical derived accruals or cash",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 4000.0000000000005,
+        "input_unchanged": true,
+        "input": "inputs/boundary_generated_product_day_14.json"
+      }
+    },
+    {
+      "check_id": "boundary_generated_product_day_15",
+      "origin": "independent_generated_revenue_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 4000.0000000000005,
+        "input_unchanged": true,
+        "input": "inputs/boundary_generated_product_day_15.json"
+      }
+    },
+    {
+      "check_id": "boundary_generated_product_day_16",
+      "origin": "independent_generated_revenue_boundary",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 4000.0000000000005,
+        "input_unchanged": true,
+        "input": "inputs/boundary_generated_product_day_16.json"
+      }
+    },
+    {
+      "check_id": "boundary_historical_revenue_noop",
+      "origin": "independent_preserved_history_control",
+      "expected": "ACCEPTED CONDITIONAL",
+      "status": "PASS",
+      "actual": {
+        "outcome": "ACCEPTED",
+        "parent_status": "CONDITIONAL",
+        "diagnostic_revenue_before": 6000.0,
+        "diagnostic_revenue_after": 6000.0,
+        "input_unchanged": true,
+        "input": "inputs/boundary_historical_revenue_noop.json"
+      }
+    },
+    {
+      "check_id": "helper_no_departure_first_leg_14",
+      "origin": "independent_exact_AST_helper",
+      "expected": "2027-02-14; first leg overrides monthly fallback",
+      "status": "PASS",
+      "actual": {
+        "date": "2027-02-14",
+        "direct_exact_AST_helper_only": true,
+        "input": "inputs/helper_no_departure_first_leg_14.json"
+      }
+    },
+    {
+      "check_id": "helper_no_departure_first_leg_15",
+      "origin": "independent_exact_AST_helper",
+      "expected": "2027-02-15; first leg overrides monthly fallback",
+      "status": "PASS",
+      "actual": {
+        "date": "2027-02-15",
+        "direct_exact_AST_helper_only": true,
+        "input": "inputs/helper_no_departure_first_leg_15.json"
+      }
+    },
+    {
+      "check_id": "helper_no_departure_first_leg_16",
+      "origin": "independent_exact_AST_helper",
+      "expected": "2027-02-16; first leg overrides monthly fallback",
+      "status": "PASS",
+      "actual": {
+        "date": "2027-02-16",
+        "direct_exact_AST_helper_only": true,
+        "input": "inputs/helper_no_departure_first_leg_16.json"
+      }
+    },
+    {
+      "check_id": "helper_generated_truly_month_only",
+      "origin": "independent_exact_AST_helper",
+      "expected": "2027-02-01",
+      "status": "PASS",
+      "actual": {
+        "date": "2027-02-01",
+        "direct_exact_AST_helper_only": true,
+        "input": "inputs/helper_generated_truly_month_only.json"
+      }
+    },
+    {
+      "check_id": "helper_explicit_accrual_precedes_product_and_leg",
+      "origin": "independent_exact_AST_helper",
+      "expected": "2027-02-18",
+      "status": "PASS",
+      "actual": {
+        "date": "2027-02-18",
+        "direct_exact_AST_helper_only": true,
+        "input": "inputs/helper_explicit_accrual_precedes_product_and_leg.json"
+      }
+    },
+    {
+      "check_id": "missing_departure_date_public_contract",
+      "origin": "independent_API_reachability_limit",
+      "expected": "ContractError: departure_date is a required itinerary field",
+      "status": "PASS",
+      "actual": {
+        "exception": "ContractError",
+        "message": "products: missing ['departure_date']",
+        "first_leg_fallback_reachable_via_public_API": false,
+        "meaning": "Required field is missing; no claim of valid adaptive acceptance for this malformed bundle."
+      }
+    },
+    {
+      "check_id": "fixed_982f13d_evaluate_bundle",
+      "origin": "independent_paired_fixed_execution",
+      "expected": "exact equality excluding only engine_version recursively",
+      "status": "PASS",
+      "actual": {
+        "reference_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+        "equal_except_engine_version": true,
+        "normalized_reference_sha256": "29870566a0f0d97dc6d6806fe1b81e0f5d9a7541907e9b205a6f531080433fca",
+        "normalized_subject_sha256": "29870566a0f0d97dc6d6806fe1b81e0f5d9a7541907e9b205a6f531080433fca"
+      }
+    },
+    {
+      "check_id": "fixed_982f13d_demo_bundle",
+      "origin": "independent_paired_fixed_execution",
+      "expected": "exact equality excluding only engine_version recursively",
+      "status": "PASS",
+      "actual": {
+        "reference_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+        "equal_except_engine_version": true,
+        "normalized_reference_sha256": "cbe85bd1b208d7e4224aeed92567509fa5eff8799ebedfbdd743866cbfa9a4ab",
+        "normalized_subject_sha256": "cbe85bd1b208d7e4224aeed92567509fa5eff8799ebedfbdd743866cbfa9a4ab"
+      }
+    },
+    {
+      "check_id": "fixed_982f13d_scenario_bundle",
+      "origin": "independent_paired_fixed_execution",
+      "expected": "exact equality excluding only engine_version recursively",
+      "status": "PASS",
+      "actual": {
+        "reference_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+        "equal_except_engine_version": true,
+        "normalized_reference_sha256": "e2401ebd902044b381d1bbe073c508f555a4b8eacdd93ae804ac8e98f46b2865",
+        "normalized_subject_sha256": "e2401ebd902044b381d1bbe073c508f555a4b8eacdd93ae804ac8e98f46b2865"
+      }
+    },
+    {
+      "check_id": "fixed_bb378f1_evaluate_bundle",
+      "origin": "independent_paired_fixed_execution",
+      "expected": "exact equality excluding only engine_version recursively",
+      "status": "PASS",
+      "actual": {
+        "reference_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+        "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+        "equal_except_engine_version": true,
+        "normalized_reference_sha256": "29870566a0f0d97dc6d6806fe1b81e0f5d9a7541907e9b205a6f531080433fca",
+        "normalized_subject_sha256": "29870566a0f0d97dc6d6806fe1b81e0f5d9a7541907e9b205a6f531080433fca"
+      }
+    },
+    {
+      "check_id": "fixed_bb378f1_demo_bundle",
+      "origin": "independent_paired_fixed_execution",
+      "expected": "exact equality excluding only engine_version recursively",
+      "status": "PASS",
+      "actual": {
+        "reference_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+        "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+        "equal_except_engine_version": true,
+        "normalized_reference_sha256": "cbe85bd1b208d7e4224aeed92567509fa5eff8799ebedfbdd743866cbfa9a4ab",
+        "normalized_subject_sha256": "cbe85bd1b208d7e4224aeed92567509fa5eff8799ebedfbdd743866cbfa9a4ab"
+      }
+    },
+    {
+      "check_id": "fixed_bb378f1_scenario_bundle",
+      "origin": "independent_paired_fixed_execution",
+      "expected": "exact equality excluding only engine_version recursively",
+      "status": "PASS",
+      "actual": {
+        "reference_commit": "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec",
+        "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+        "equal_except_engine_version": true,
+        "normalized_reference_sha256": "e2401ebd902044b381d1bbe073c508f555a4b8eacdd93ae804ac8e98f46b2865",
+        "normalized_subject_sha256": "e2401ebd902044b381d1bbe073c508f555a4b8eacdd93ae804ac8e98f46b2865"
+      }
+    }
+  ],
+  "counts": {
+    "PASS": 41,
+    "FAIL": 0
+  },
+  "author_evidence_used_as_independent_acceptance": false
+}

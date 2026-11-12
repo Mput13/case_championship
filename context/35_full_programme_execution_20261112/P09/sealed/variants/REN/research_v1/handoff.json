@@ -1,0 +1,93 @@
+{
+  "package_id": "REN-research-v1-20261112",
+  "stage_a": "COMPLETE",
+  "stage_b": "PENDING_COMMON_INPUTS_AND_ADMISSION",
+  "write_root": "/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/variants/REN/research_v1",
+  "language": "ru",
+  "as_of": "2026-11-12",
+  "read_first": "README.md",
+  "manifest": "output_manifest.json",
+  "manifest_hash_rule": "SHA256 for every retained file except output_manifest.json itself; handoff has no circular hash of manifest",
+  "counts": {
+    "programmes": 7,
+    "hypotheses": 9,
+    "evidence_facts": 35,
+    "offer_rows": 109,
+    "prototype_flights": 458,
+    "comparison_requests": 12,
+    "assumptions": 20
+  },
+  "source_pins": {
+    "BASE": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "FIVE": "c18f7640ea36647a05b39089e5293f22dd009f63",
+    "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+    "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+    "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "PLAN": "b4d2ddf690440eb5cd051839cc263cf16b364ca4"
+  },
+  "conclusion": "REN сохраняется в сравнении. Сначала R1/E1/D1 на одинаковом G1, затем H1/H1-U и лучший direct на G2; экономический победитель не назначен.",
+  "current_role": "Опубликованное присутствие RW/outstation и origin-market; собственные летние EVN и partner MSQ. База/хаб/свободный ресурс RW в REN UNKNOWN.",
+  "new_useful_evidence": [
+    "Локальный fuel reference141405руб/т безНДС с01.11.2026, подписан30.10; общие handling references получены для P04. Они не будущие оплаченные RW ставки.",
+    "64% transit discount для45–50т закончился31.10.2026. Не финансировать будущий хаб этой скидкой; MRV50% лишь до31.12.2026 и доступ RW неизвестен.",
+    "Bus101 от вокзала120руб, первая подача10:00. Текущий RW09:50 в среду требует иного наземного доступа. В опытеR1/E1 местные часы строго совпадают: outboundREN11:30.",
+    "Есть собственная летняя линияREN-EVN1/нед; её нельзя обнулить вKEEP. Есть заявленный единый билетREN-SVX-MSQ.",
+    "109 официальных outbound/inbound schedule rows сsource row IDs/hash; ранее P02 имел лишь3частично описанных исходящих рынкаREN из28. Новые строки тоже не admission физических кресел.",
+    "Непрерывность/no-overlap на458 diagnostic flights проверена; H1 90мин связи имеют контрольH1-U на тех же рейсах. Crew/TO/MCT/слоты/reserve иSJ100непроверены."
+  ],
+  "comparison_priority": [
+    {
+      "id": "REN-G1",
+      "programmes": [
+        "CP-REN-R1",
+        "CP-REN-E1",
+        "CP-REN-D1"
+      ],
+      "required": "Общий tail/calendar/initial location, futureKEEP, P05 sharedOD/choice, P04 differential base/extra-leg/alternative-use costs; не19часов=прибыль."
+    },
+    {
+      "id": "REN-G2",
+      "programmes": [
+        "CP-REN-H1",
+        "CP-REN-H1-U"
+      ],
+      "required": "Сначала effect bank on same flights; затем лучший прямой портфель на тех же2line хвостах. OMSovernight и длинные служебные дни учитываются."
+    },
+    {
+      "id": "REN-extension",
+      "programmes": [
+        "CP-REN-R2",
+        "CP-REN-00",
+        "CP-REN-X1"
+      ],
+      "required": "Совместный ресурс/свои продажи и сценарии поставок; туристические блоки только по договору, international с0новыхТу214."
+    }
+  ],
+  "shared_inputs_needed": {
+    "P02": "dated seasons, through/physical legs, quote baskets and response resource",
+    "P03": "real common resource/initial positioning, futureKEEP/donors, supply/service_entry, crew/TO/reserve, SJ100 separate, slots/MCT/airport contracts",
+    "P04": "accept local reference applicability and future rate ranges/thresholds; full base/launch/exit/contract cash and no cost double counts",
+    "P05": "one monthly finalOD/choice/cannibalization model; no independent local capture/money model",
+    "P07/P08/P09": "joint P/KEEP recompute and global8–12unique pairs; exact manifests; no sum of separate author outcomes"
+  },
+  "blockers_are_not_rejections": "H-REN-01..08 условны по названным неизвестным; H-REN-ROLE оценена по текущим источникам. Один шаблон/500км/старыйscore не экономический отказ городу.",
+  "personal_checks": {
+    "validation": "validation.json",
+    "resource": "resource_checks.json",
+    "matched": "matched_comparison_checks.json",
+    "pdf": "pdf_visual_qa.json"
+  },
+  "not_run": [
+    "P06 evaluate/compare for real RW",
+    "P05 calibration",
+    "annual/monthly financial outcome",
+    "actual crew/TO/reserve feasibility",
+    "live quote/booking inventory",
+    "newSJ100_PD8 dispatch",
+    "independent acceptance of commonP06"
+  ],
+  "operations_boundary": "All shared inputs read via git show exactSHA; no shell Git mutations or edits outside assigned root. No child agents.",
+  "commit_instruction": "Координатор может коммитить завершённый Stage A по output_manifest.json. Не менять frozen авторские исходы, другие ветки/файлы, публичный Site или дашборд Анастасии."
+}

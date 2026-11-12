@@ -1,0 +1,372 @@
+{
+  "version": "P06-v0.1-usable-interface",
+  "status": "EXECUTABLE_SYNTHETIC_DEMO_NOT_FULL_CHECK_ACCEPTANCE",
+  "encoding": "JSON null means UNKNOWN; CSV adapter must preserve it",
+  "context_required": [
+    "evaluation_id",
+    "programme_id",
+    "programme_version",
+    "fleet_scope_id",
+    "external_scenario_id",
+    "delivery_calendar_id",
+    "market_version",
+    "choice_version",
+    "cost_version",
+    "response_policy_id",
+    "evaluation_mode",
+    "decision_date",
+    "information_set_id",
+    "keep_evaluation_id",
+    "input_manifest_sha256",
+    "period_start",
+    "period_end",
+    "cash_start",
+    "price_year",
+    "affected_scope_id"
+  ],
+  "bundle_required": [
+    "markets",
+    "products",
+    "flights",
+    "fleet_calendar",
+    "assignments",
+    "contracts",
+    "economic_events",
+    "cash_events",
+    "opening_balances",
+    "assumptions",
+    "input_manifest",
+    "choice_model",
+    "response_policy",
+    "cost_coverage",
+    "cash_coverage",
+    "cash_policy",
+    "resource_operators",
+    "accounting_policy",
+    "information_set",
+    "keep_policy",
+    "programme_target",
+    "metric_adapter"
+  ],
+  "owners": {
+    "P03": [
+      "flights",
+      "fleet_calendar",
+      "assignments",
+      "keep_policy"
+    ],
+    "P05": [
+      "markets",
+      "products",
+      "contracts",
+      "choice_model",
+      "response_policy"
+    ],
+    "P04": [
+      "economic_events",
+      "cash_events",
+      "opening_balances",
+      "cost_coverage",
+      "cash_coverage",
+      "cash_policy",
+      "accounting_policy"
+    ],
+    "P07/P08/P09": [
+      "complete bundles with shared context/markets/fleet; whole joint programme recalculated"
+    ]
+  },
+  "record_templates": {
+    "input_manifest": {
+      "source_id": "SYNTHETIC_TEST_ONLY",
+      "commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+      "path": "P00R/counterexample_inputs.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "markets": {
+      "demand_pool_id": "AB",
+      "month": "2027-01",
+      "customer_segment": "all",
+      "potential_journeys": 200,
+      "market_basis": "potential_travel",
+      "mapping_to_potential": "synthetic mutually exclusive demand",
+      "source_id": "SYNTHETIC",
+      "source_period": "2027-01",
+      "as_of": "2026-11-12",
+      "coverage": "toy only",
+      "status": "scenario",
+      "assumption_id": "P06-TOY"
+    },
+    "products": {
+      "product_id": "outside:AB:2027-01",
+      "demand_pool_id": "AB",
+      "month": "2027-01",
+      "customer_segment": "all",
+      "kind": "outside",
+      "owner": "OTHER",
+      "gross_fare": 0,
+      "net_fare": 0,
+      "fare_unit": "RUB/journey",
+      "duration_minutes": 120,
+      "frequency": 1,
+      "availability": true,
+      "capacity": null,
+      "legs": [],
+      "departure_date": "2027-01-02",
+      "min_connection_minutes": 45,
+      "max_connection_minutes": 180,
+      "revenue_weights": [],
+      "committed_sales": 0,
+      "contract_only": false,
+      "cash_profile": [
+        {
+          "date": "2027-01-02",
+          "fraction": 1
+        }
+      ],
+      "assumption_id": "P06-TOY",
+      "intercept": 0.0,
+      "source_id": "SYNTHETIC"
+    },
+    "flights": {
+      "flight_instance_id": "AB1",
+      "schedule_id": "toy",
+      "operator": "TEST",
+      "flight_number": "AB1",
+      "origin_airport": "AAA",
+      "destination_airport": "BBB",
+      "departure_utc": "2027-01-02T08:00:00Z",
+      "arrival_utc": "2027-01-02T10:00:00Z",
+      "aircraft_variant": "SSJ100_analogue_TEST_ONLY",
+      "seats": 100,
+      "technical_blocked_seats": 0,
+      "saleable_seats": 100,
+      "physical_adjacent_leg": true,
+      "scheduled_status": "proposed",
+      "source_status": "scenario",
+      "source_period": "2027-2028",
+      "assumption_id": "P06-TOY",
+      "distance_km": 1000,
+      "project_network": true
+    },
+    "fleet_calendar": {
+      "aircraft_id": "T1",
+      "variant": "SSJ100_analogue_TEST_ONLY",
+      "transfer_date": "2026-12-01T00:00:00Z",
+      "service_entry_date": "2027-01-01T00:00:00Z",
+      "available_from": "2027-01-01T00:00:00Z",
+      "available_to": "2029-01-01T00:00:00Z",
+      "initial_location": "AAA",
+      "turn_minutes": 30,
+      "reserve_intervals": [],
+      "maintenance_intervals": [],
+      "crew_windows": [
+        {
+          "crew_id": "crew:T1",
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2029-01-01T00:00:00Z"
+        }
+      ],
+      "max_daily_block_hours": 8,
+      "assumption_id": "P06-TOY"
+    },
+    "assignments": {
+      "flight_instance_id": "AB1",
+      "aircraft_id": "T1",
+      "crew_id": "crew:T1",
+      "action": "add",
+      "assumption_id": "P06-TOY"
+    },
+    "economic_events": {
+      "economic_event_id": "T1-use-Jan",
+      "owner": "T1-use-Jan",
+      "category": "aircraft_use",
+      "scope": "affected_business",
+      "driver_unit": "explicit_event",
+      "quantity": 1,
+      "rate": 80000,
+      "amount": 80000,
+      "currency": "RUB",
+      "price_year": 2027,
+      "fx_policy": "RUB_input",
+      "accrual_month": "2027-01",
+      "noncash": false,
+      "avoidability": "explicit_scenario",
+      "shared_event_id": "T1-use-Jan",
+      "source_id": "SYNTHETIC",
+      "assumption_id": "P06-TOY",
+      "cash_plan_status": "explicit",
+      "payments": [
+        {
+          "date": "2027-01-01",
+          "fraction": 1
+        }
+      ],
+      "committed_at": "2026-11-01"
+    },
+    "cash_events": {
+      "cash_event_id": "deposit",
+      "economic_event_id": null,
+      "related_asset_or_contract_id": "launch-deposit",
+      "payment_date": "2026-12-15",
+      "amount_signed": -20000,
+      "category": "investing",
+      "currency": "RUB",
+      "fx_at_payment": 1,
+      "deposit_flag": true,
+      "source_id": "SYNTHETIC",
+      "status": "scenario",
+      "assumption_id": "P06-TOY"
+    },
+    "assumptions": {
+      "assumption_id": "P06-TOY",
+      "value": "all numeric values and explicit zero/inapplicability in synthetic bundle",
+      "unit": "see each field",
+      "selected_by": "P06 implementation agent",
+      "basis": "P00R minimal counterexamples and independently constructed boundary checks; not market calibration",
+      "approval_status": "synthetic_test_not_user_approved_RW_parameter",
+      "range_or_unknown": "UNKNOWN for real RW",
+      "affected_conclusions": "software invariants only",
+      "sensitivity": "specific CE perturbations",
+      "refinement": "replace with pinned P02/P03/P04/P05 inputs and source-specific assumption IDs"
+    },
+    "resource_operators": "TEST"
+  },
+  "object_templates": {
+    "context": {
+      "evaluation_id": "P-toy",
+      "programme_id": "P",
+      "programme_version": "synthetic-v1",
+      "fleet_scope_id": "CASE_SJ",
+      "external_scenario_id": "toy-base",
+      "delivery_calendar_id": "toy-phased",
+      "market_version": "toy-potential-v1",
+      "choice_version": "toy-logit-v1",
+      "cost_version": "toy-events-v1",
+      "response_policy_id": "toy-no-response",
+      "evaluation_mode": "fixed_programme",
+      "decision_date": "2026-11-12",
+      "information_set_id": "toy-information",
+      "keep_evaluation_id": "KEEP-toy",
+      "input_manifest_sha256": "4f78ca438d34fa4c43e205d68ee79b53b33ec92d4068fe7690173107610ef2b8",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "cash_start": "2026-12",
+      "price_year": 2027,
+      "affected_scope_id": "all-toy-affected"
+    },
+    "choice_model": {
+      "price_per_rub": -0.0001,
+      "time_per_minute": -0.001,
+      "log_frequency": 0.5,
+      "assumption_id": "P06-TOY",
+      "calibration_status": "SYNTHETIC_NOT_CALIBRATED"
+    },
+    "response_policy": {
+      "response_policy_id": "toy-no-response",
+      "rules": [],
+      "assumption_id": "P06-TOY"
+    },
+    "cost_coverage": {
+      "variable_cost": {
+        "status": "explicit",
+        "event_ids": [
+          "flight-AB",
+          "flight-BC"
+        ],
+        "rationale": "toy event",
+        "assumption_id": "P06-TOY"
+      },
+      "base": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "explicit zero ONLY in isolated synthetic test",
+        "assumption_id": "P06-TOY"
+      },
+      "aircraft_use": {
+        "status": "explicit",
+        "event_ids": [
+          "T1-use-Jan"
+        ],
+        "rationale": "toy event",
+        "assumption_id": "P06-TOY"
+      },
+      "reserve": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "explicit zero ONLY in isolated synthetic test",
+        "assumption_id": "P06-TOY"
+      },
+      "startup": {
+        "status": "explicit",
+        "event_ids": [
+          "startup"
+        ],
+        "rationale": "toy event",
+        "assumption_id": "P06-TOY"
+      },
+      "exit": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "explicit zero ONLY in isolated synthetic test",
+        "assumption_id": "P06-TOY"
+      },
+      "support": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "explicit zero ONLY in isolated synthetic test",
+        "assumption_id": "P06-TOY"
+      }
+    },
+    "cash_coverage": {
+      "operating": "explicit",
+      "investing": "explicit",
+      "tax": "explicit",
+      "financing": "explicit"
+    },
+    "cash_policy": {
+      "opening_cash": 0,
+      "minimum_cash": 0,
+      "project_opening_cash": 0,
+      "project_minimum_cash": 0,
+      "assumption_id": "P06-TOY"
+    },
+    "information_set": {
+      "information_set_id": "toy-information",
+      "facts": [
+        {
+          "fact_id": "toy-observation",
+          "available_at": "2026-11-01"
+        }
+      ]
+    },
+    "keep_policy": {
+      "keep_policy_id": "toy-future-KEEP",
+      "future_period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "resource_policy": "same committed availability",
+      "existing_business": "explicit whole affected toy set",
+      "alternative_new_resource_use": "explicit KEEP products",
+      "excluded_unaffected_scope": "none in toy",
+      "avoidable_cost_rules": "events in each bundle",
+      "assumption_id": "P06-TOY"
+    },
+    "programme_target": {
+      "branch": "mechanical_test",
+      "rationale": "small fixture not candidate network",
+      "assumption_id": "P06-TOY"
+    }
+  },
+  "specific_requests": {
+    "P03": "Monthly cohort rows alone do not instantiate physical tails; provide explicit scenario tails with same resource envelope for P/KEEP, UTC dated adjacent flights, assignments, crew windows, maintenance/reserve intervals, turnaround and initial positions. Include ferry flights. No hours-only operational pass.",
+    "P04": "Rates need actual driver quantity, event owner, accrual month, currency/price normalization and settlement events. aircraft-use/startup/reserve/base/exit coverage must explicit or UNKNOWN. Use monthly driver exports from example. Interest excluded operating result; dedicated cash annotation pending next tranche.",
+    "P05": "Potential demand pools disjoint by month/segment; source mapping for realized-air estimates; gross comparable fare/time/frequency/availability utility inputs; one net journey fare and ordered physical legs. Published station-pair offers are evidence, not inventories."
+  },
+  "limitations": [
+    "synthetic example parameters not RW estimates",
+    "all P00R CE checks pending in this initial tranche",
+    "automatic revenue cash settlement requires explicit cash_profile; null marks unknown",
+    "no global optimization or dispatch-ready claim"
+  ]
+}

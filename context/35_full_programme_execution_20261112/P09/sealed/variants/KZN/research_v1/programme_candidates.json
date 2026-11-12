@@ -1,0 +1,2334 @@
+{
+  "schema": "KZN-stageA-v1; producer proposal, НЕ готовый P06 evaluation bundle",
+  "resource_groups": {
+    "G1": "одна активная линия + один договорный shared contingency tail; доступность и цена UNKNOWN",
+    "G2": "две активные линии + тот же по определению shared contingency tail; не один и тот же физический резерв одновременно для несовместимых программ",
+    "G0": "без добавления flight tails; ресурс существующих и партнёра всё равно расходуется",
+    "G1_EVENT_WINDOW": "один выделенный хвост только на конкретное окно; сравнивать на тех же датах"
+  },
+  "programmes": [
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-02"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-R1",
+      "name": "Четыре радиальных рынка с одной лётной линией",
+      "role": "развитие существующего опорного аэропорта; новая базировка условна",
+      "resource_group": "G1",
+      "airport_pairs": [
+        "KZN-OMS",
+        "KZN-PEE",
+        "KZN-MRV",
+        "KZN-MCX"
+      ],
+      "frequencies_rt_per_week": {
+        "KZN-OMS": 3,
+        "KZN-PEE": 2,
+        "KZN-MRV": 3,
+        "KZN-MCX": 2
+      },
+      "journey_ods": [
+        "KZN↔OMS",
+        "KZN↔PEE",
+        "KZN↔MRV",
+        "KZN↔MCX"
+      ],
+      "own_business_changes": {
+        "preserve": "Весь будущий KEEP, включая SVX/NJC/NUX и международные продукты, если они подтверждены.",
+        "add": "Только проектные частоты на четырёх рынках; наличие собственных будущих рейсов сначала сверить.",
+        "retime": "Не требуется как условие базовой радиальной ветви.",
+        "reduce_or_move": "Никакой донор не выбран; перенос существующего борта требует отдельного delta к KEEP."
+      },
+      "distinguishing_test": "Сравнить с C1 и D1 при одном и том же доступном flight tail и оплаченной защите резерва. Радиальная база выигрывает только если локальный вклад покрывает base premium/запуск/выход и потерянное применение ресурса.",
+      "ancestor_ids": [
+        "E-KZN-20",
+        "E-KZN-01"
+      ],
+      "priority": "основной опыт",
+      "diagnostic_resource": {
+        "programme_id": "P-KZN-R1",
+        "leg_count": 20,
+        "block_min": 2840,
+        "active_tail_templates": 1,
+        "max_tail_day_span_min": 775.0,
+        "minimum_adjacent_ground_min": 45.0,
+        "position_and_turn_screen": "PASS",
+        "crew": "UNKNOWN; длинный день борта не допуск рабочего дня экипажа",
+        "mro": "UNKNOWN",
+        "slots": "UNKNOWN",
+        "real_available_tails": "UNKNOWN",
+        "status": "ARITHMETIC_ONLY_NOT_OPERATIONAL_ACCEPTANCE",
+        "period": "2028-06-05/11",
+        "unit": "legs;minutes;tail templates",
+        "source_id": "KZN-LOCAL-DESIGN",
+        "coverage": "только собственная конструкция",
+        "assumption_ids": "A-KZN-03;A-KZN-04;A-KZN-06"
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-02"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-C1",
+      "name": "Рейсы через Казань с возвращением самолёта в SVX",
+      "role": "цепочки из существующей базы",
+      "resource_group": "G1",
+      "airport_pairs": [
+        "SVX-KZN",
+        "KZN-OMS",
+        "KZN-MRV",
+        "KZN-MCX"
+      ],
+      "frequencies_rt_per_week": {
+        "SVX-KZN": 6,
+        "KZN-OMS": 2,
+        "KZN-MRV": 2,
+        "KZN-MCX": 2
+      },
+      "journey_ods": [
+        "SVX↔KZN",
+        "KZN↔OMS",
+        "KZN↔MRV",
+        "KZN↔MCX",
+        "SVX↔OMS/MRV/MCX при допустимом through-stop"
+      ],
+      "own_business_changes": {
+        "preserve": "Действующие продажи SVX–KZN и другие KEEP не удалять.",
+        "add": "Шесть проектных оборотов SVX–KZN–X–KZN–SVX. Все плечи физические и оплачиваются.",
+        "retime": "Подбирается время проектных цепочек, не переписывается действующее расписание без отдельного решения.",
+        "reduce_or_move": "Возможно замещение части нового R1-продукта; не автоматическое сокращение KEEP."
+      },
+      "distinguishing_test": "R1 vs C1 отделяет стоимость базировки от дополнительных плеч, времени пассажира и собственного перетока SVX–KZN. Одновременно продаваемый SVX–X — одна поездка, не два тарифа.",
+      "ancestor_ids": [
+        "E-KZN-01",
+        "PIN-P03"
+      ],
+      "priority": "основной опыт",
+      "diagnostic_resource": {
+        "programme_id": "P-KZN-C1",
+        "leg_count": 24,
+        "block_min": 3080,
+        "active_tail_templates": 1,
+        "max_tail_day_span_min": 675.0,
+        "minimum_adjacent_ground_min": 45.0,
+        "position_and_turn_screen": "PASS",
+        "crew": "UNKNOWN; длинный день борта не допуск рабочего дня экипажа",
+        "mro": "UNKNOWN",
+        "slots": "UNKNOWN",
+        "real_available_tails": "UNKNOWN",
+        "status": "ARITHMETIC_ONLY_NOT_OPERATIONAL_ACCEPTANCE",
+        "period": "2028-06-05/11",
+        "unit": "legs;minutes;tail templates",
+        "source_id": "KZN-LOCAL-DESIGN",
+        "coverage": "только собственная конструкция",
+        "assumption_ids": "A-KZN-03;A-KZN-04;A-KZN-06"
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-02"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-D1",
+      "name": "Альтернативное применение линии в SVX",
+      "role": "прямые продукты существующей базы",
+      "resource_group": "G1",
+      "airport_pairs": [
+        "SVX-OMS",
+        "SVX-MRV",
+        "SVX-MCX",
+        "SVX-PEE"
+      ],
+      "frequencies_rt_per_week": {
+        "SVX-OMS": 3,
+        "SVX-MRV": 3,
+        "SVX-MCX": 2,
+        "SVX-PEE": 2
+      },
+      "journey_ods": [
+        "SVX↔OMS",
+        "SVX↔MRV",
+        "SVX↔MCX",
+        "SVX↔PEE"
+      ],
+      "own_business_changes": {
+        "preserve": "Весь будущий KEEP; новые частоты на уже собственных рынках считаются добавлением/замещением только после сверки.",
+        "add": "Альтернативные частоты на ресурс R1.",
+        "retime": "Под фактические интервалы P03.",
+        "reduce_or_move": "Не перемещает имеющийся борт автоматически."
+      },
+      "distinguishing_test": "Сравнить итог затронутого бизнеса R1/C1/D1 при одном available tail и одном внешнем сценарии, сохранив разные локальные OD. Не объявлять более высокую выручку одной пары достаточным критерием.",
+      "ancestor_ids": [
+        "RW-WINTER",
+        "PIN-P03"
+      ],
+      "priority": "основной опыт",
+      "diagnostic_resource": {
+        "status": "NOT_RUN",
+        "reason": "Прямые альтернативы требуют принятого P03 block matrix; partner/event/international зависят от договора/дат."
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-05",
+        "A-KZN-10",
+        "A-KZN-11"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-W2",
+      "name": "Две парные защищённые волны",
+      "role": "хабовая надстройка над существующим присутствием RW",
+      "resource_group": "G2",
+      "airport_pairs": [
+        "KZN-OMS",
+        "KZN-MRV",
+        "KZN-NJC",
+        "KZN-MCX"
+      ],
+      "frequencies_rt_per_week": {
+        "KZN-OMS": 4,
+        "KZN-MRV": 4,
+        "KZN-NJC": 4,
+        "KZN-MCX": 4
+      },
+      "journey_ods": [
+        "локальные KZN↔OMS/MRV/NJC/MCX",
+        "OMS↔MRV через KZN",
+        "NJC↔MCX через KZN"
+      ],
+      "own_business_changes": {
+        "preserve": "Весь будущий KEEP. Исторический KZN–NJC не объявляется новым/закрытым до сверки.",
+        "add": "Проектные пары север–юг и локальные продажи на тех же креслах.",
+        "retime": "Синхронизировать проектные рейсы; сдвиг собственных прежних продаж — отдельное действие с ценой.",
+        "reduce_or_move": "Без удаления KEEP. Если существующие рейсы включаются в волну, заменить delta и календарь, а не сложить дважды."
+      },
+      "distinguishing_test": "W2 vs R2: те же 32 плеча в неделю, те же две активные линии и резерв. Отличие — порядок/время и защищённый сквозной продукт. Сравнить дополнительный вклад трансфера с costs гарантии, потерей локального времени, задержками и реакцией N4/EO.",
+      "ancestor_ids": [
+        "E-KZN-03",
+        "E-KZN-15",
+        "E-KZN-20"
+      ],
+      "priority": "основной опыт",
+      "diagnostic_resource": {
+        "programme_id": "P-KZN-W2",
+        "leg_count": 32,
+        "block_min": 5280,
+        "active_tail_templates": 2,
+        "max_tail_day_span_min": 860.0,
+        "minimum_adjacent_ground_min": 45.0,
+        "position_and_turn_screen": "PASS",
+        "crew": "UNKNOWN; длинный день борта не допуск рабочего дня экипажа",
+        "mro": "UNKNOWN",
+        "slots": "UNKNOWN",
+        "real_available_tails": "UNKNOWN",
+        "status": "ARITHMETIC_ONLY_NOT_OPERATIONAL_ACCEPTANCE",
+        "period": "2028-06-05/11",
+        "unit": "legs;minutes;tail templates",
+        "source_id": "KZN-LOCAL-DESIGN",
+        "coverage": "только собственная конструкция",
+        "assumption_ids": "A-KZN-03;A-KZN-04;A-KZN-06"
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-05",
+        "A-KZN-10"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-R2",
+      "name": "Радиальная программа на двух линиях",
+      "role": "контроль без защищённых пересадок",
+      "resource_group": "G2",
+      "airport_pairs": [
+        "KZN-OMS",
+        "KZN-MRV",
+        "KZN-NJC",
+        "KZN-MCX"
+      ],
+      "frequencies_rt_per_week": {
+        "KZN-OMS": 4,
+        "KZN-MRV": 4,
+        "KZN-NJC": 4,
+        "KZN-MCX": 4
+      },
+      "journey_ods": [
+        "KZN↔OMS",
+        "KZN↔MRV",
+        "KZN↔NJC",
+        "KZN↔MCX"
+      ],
+      "own_business_changes": {
+        "preserve": "Тот же KEEP, что W2.",
+        "add": "Те же физические плечи/частоты; продавать только локальные проектные поездки.",
+        "retime": "Время под локальный спрос; контрольный R2-clock использует W2 расписание с выключенной продажей сквозных продуктов.",
+        "reduce_or_move": "Ничего сверх принятого KEEP."
+      },
+      "distinguishing_test": "Два контроля: (a) identical-clock R2 vs W2 изолирует наличие защищённого продукта; (b) local-time R2 против W2 измеряет цену синхронизации. Не приписывать весь доход кресел трансферу.",
+      "ancestor_ids": [
+        "P-KZN-W2"
+      ],
+      "priority": "основной опыт",
+      "diagnostic_resource": {
+        "programme_id": "P-KZN-R2",
+        "leg_count": 32,
+        "block_min": 5280,
+        "active_tail_templates": 2,
+        "max_tail_day_span_min": 860.0,
+        "minimum_adjacent_ground_min": 45.0,
+        "position_and_turn_screen": "PASS",
+        "crew": "UNKNOWN; длинный день борта не допуск рабочего дня экипажа",
+        "mro": "UNKNOWN",
+        "slots": "UNKNOWN",
+        "real_available_tails": "UNKNOWN",
+        "status": "ARITHMETIC_ONLY_NOT_OPERATIONAL_ACCEPTANCE",
+        "period": "2028-06-05/11",
+        "unit": "legs;minutes;tail templates",
+        "source_id": "KZN-LOCAL-DESIGN",
+        "coverage": "только собственная конструкция",
+        "assumption_ids": "A-KZN-03;A-KZN-04;A-KZN-06"
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-10"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-D2",
+      "name": "Две линии прямых рейсов из SVX",
+      "role": "альтернативное использование двух линий",
+      "resource_group": "G2",
+      "airport_pairs": [
+        "SVX-OMS",
+        "SVX-MRV",
+        "SVX-NJC",
+        "SVX-MCX"
+      ],
+      "frequencies_rt_per_week": {
+        "SVX-OMS": 4,
+        "SVX-MRV": 4,
+        "SVX-NJC": 4,
+        "SVX-MCX": 4
+      },
+      "journey_ods": [
+        "SVX↔OMS",
+        "SVX↔MRV",
+        "SVX↔NJC",
+        "SVX↔MCX"
+      ],
+      "own_business_changes": {
+        "preserve": "Тот же весь будущий KEEP и ресурсы, что W2/R2.",
+        "add": "Проектные прямые частоты из SVX; полный донор/переток учитывается в общем выборе.",
+        "retime": "Требуются блоки и duty P03.",
+        "reduce_or_move": "Никакого автоматического освобождения существующего ресурса."
+      },
+      "distinguishing_test": "G2 all-affected P−KEEP при одинаковой available fleet; не сравнивать W2 на двух хвостах с R1 на одном без оценки дополнительного хвоста.",
+      "ancestor_ids": [
+        "P-KZN-W2",
+        "RW-WINTER"
+      ],
+      "priority": "основной опыт",
+      "diagnostic_resource": {
+        "status": "NOT_RUN",
+        "reason": "Прямые альтернативы требуют принятого P03 block matrix; partner/event/international зависят от договора/дат."
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-05",
+        "A-KZN-13"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-P0",
+      "name": "Подвоз и партнёрский сквозной продукт",
+      "role": "партнёрская ветвь без нового местного flight tail",
+      "resource_group": "G0",
+      "airport_pairs": [],
+      "frequencies_rt_per_week": {},
+      "journey_ods": [
+        "NJC/NUX/OMS↔KZN↔MRV/MCX только при договоре и связном расписании"
+      ],
+      "own_business_changes": {
+        "preserve": "Все существующие прямые/own продажи.",
+        "add": "Только реально договорные partner seats, прорейт и защита пересадки.",
+        "retime": "Возможен обмен времени в пределах договора, цена UNKNOWN.",
+        "reduce_or_move": "Без снятия своих продаж и без присвоения чужих кресел."
+      },
+      "distinguishing_test": "Сравнить с KEEP без договора и с W2 при том же суммарном бюджете/обязательствах. Партнёрский продукт конкурирует в общих OD, непроданный/закрытый блок расходует физические кресла один раз.",
+      "ancestor_ids": [
+        "E-KZN-15",
+        "E-KZN-02"
+      ],
+      "priority": "условная организационная альтернатива",
+      "existing_pairs_binding_required": true,
+      "diagnostic_resource": {
+        "status": "NOT_RUN",
+        "reason": "Прямые альтернативы требуют принятого P03 block matrix; partner/event/international зависят от договора/дат."
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-05",
+        "A-KZN-14"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-I1",
+      "name": "Предельное расширение существующего международного продукта",
+      "role": "дополнение основной программы SSJ",
+      "resource_group": "G1",
+      "airport_pairs": [
+        "KZN-NQZ или KZN-TBS плюс сохраняемые пары R1"
+      ],
+      "frequencies_rt_per_week": {
+        "KZN-NQZ or KZN-TBS": 1
+      },
+      "journey_ods": [
+        "KZN↔NQZ или KZN↔TBS; трансфер только при принятом MCT"
+      ],
+      "own_business_changes": {
+        "preserve": "Существующие WZ4667/WZ1501 и EVN/ALA не обнуляются.",
+        "add": "Один маргинальный RT в выбранном месяце.",
+        "retime": "Проверить вечер/праздничные даты, багаж и границу.",
+        "reduce_or_move": "Заменить один проектный внутренний оборот R1; точный исключаемый RT задаёт общий выбор, не добавлять поверх ресурса."
+      },
+      "distinguishing_test": "I1 vs R1: same G1, общий demand/choice, реальные права SSJ/SJ100 отдельно и FX/cash. Обязательна ветвь0 новых Ту214; международное не вытесняет main CASE_SJ.",
+      "ancestor_ids": [
+        "E-KZN-26",
+        "SCH-NQZ",
+        "SCH-TBS",
+        "RW-WINTER"
+      ],
+      "priority": "дополнение после основного CASE_SJ",
+      "diagnostic_resource": {
+        "status": "NOT_RUN",
+        "reason": "Прямые альтернативы требуют принятого P03 block matrix; partner/event/international зависят от договора/дат."
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "period": "24 месяца: 2027-01 — 2028-12; дата запуска зависит от P03",
+      "aircraft_variants": [
+        "Действующий SSJ100/RRJ-95: отдельный календарь/расходы/допуск",
+        "SJ-100/ПД-8: отдельный тип; параметры аналога только с A-KZN-03/17 и чувствительностью"
+      ],
+      "zero_new_tu214_branch": "Обязательна во всех программах; ни одна основная программа не требует Ту-214.",
+      "future_keep": "Сохранить весь затронутый будущий бизнес RW и его продажи в том же внешнем сценарии. Исходные 2026 частоты не продлеваются автоматически. Отсутствие WZ в одной странице не удаляет KEEP.",
+      "new_resource_counterfactual": "Те же доступные борта и обязательства в KEEP; альтернативные рейсы из SVX и другие принятые общие программы. Неиспользованный ресурс сохраняет свои платежи.",
+      "demand_owner": "Только общий P05 и P06: единые OD/pool/date/segment и конечный тариф один раз.",
+      "season_policy": "Зима, лето, межсезонье рассчитываются помесячно. Шаблон — единица конструкции, не прогноз годового спроса. Публичные W26/27 правила не расписание 2028.",
+      "cost_policy": "P04 drivers + local_cost_reference.csv; будущие ставки/скидки/запуск/выход/crew/MRO UNKNOWN, не нули.",
+      "source_ids": [
+        "PIN-P00R",
+        "PIN-P02",
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06",
+        "RW-WINTER",
+        "KZN-WINTER"
+      ],
+      "assumption_ids": [
+        "A-KZN-01",
+        "A-KZN-03",
+        "A-KZN-04",
+        "A-KZN-06",
+        "A-KZN-07",
+        "A-KZN-09",
+        "A-KZN-12",
+        "A-KZN-16",
+        "A-KZN-17",
+        "A-KZN-18",
+        "A-KZN-15"
+      ],
+      "stage_b_required_inputs": [
+        "P03 actual tail/date/crew/MRO/KEEP commitments and release calendar",
+        "P05 demand/choice accepted calibration",
+        "P02 dates, comparable fares/baggage, competitor resource response",
+        "P04 rate/cash events, base/startup/exit/alternative-use cost",
+        "P06 accepted integrated input bundle, independent acceptance"
+      ],
+      "money_result": "NOT_RUN; экономический победитель не установлен",
+      "global_target": "Локальный модуль общей сети 8–12 уникальных airport pairs к концу 2028; локальный модуль может быть меньше.",
+      "programme_id": "P-KZN-E1",
+      "name": "Ограниченные событием рейсы из SVX",
+      "role": "датированный блок вместо годового расширения",
+      "resource_group": "G1_EVENT_WINDOW",
+      "airport_pairs": [
+        "SVX-KZN"
+      ],
+      "frequencies_rt_per_week": {
+        "SVX-KZN": "0/1/2 дополнительных RT на подтверждённые даты"
+      },
+      "journey_ods": [
+        "SVX↔KZN"
+      ],
+      "own_business_changes": {
+        "preserve": "Обычный WZ1067/1068 и продажи KEEP.",
+        "add": "Только подтверждённые датой/плательщиком события.",
+        "retime": "Датированный подбор, не годовая линия.",
+        "reduce_or_move": "Альтернативный обычный рейс/перегон/гарантия заказчика учитываются."
+      },
+      "distinguishing_test": "Event vs существующее регулярное предложение + наземный продукт при том же окне ресурса; без договора нет предположенного объёма. Разовые рейсы не кредитовать стандартной скидкой по§5.8.",
+      "ancestor_ids": [
+        "C32",
+        "KIR_Н9",
+        "EC_H11",
+        "E-KZN-06"
+      ],
+      "priority": "условная по будущему событию",
+      "diagnostic_resource": {
+        "status": "NOT_RUN",
+        "reason": "Прямые альтернативы требуют принятого P03 block matrix; partner/event/international зависят от договора/дат."
+      },
+      "month_policy": [
+        {
+          "month": "2027-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2027-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-01",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-02",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-03",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-04",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-05",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-06",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-07",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-08",
+          "season": "лето",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-09",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-10",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-11",
+          "season": "межсезонье",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        },
+        {
+          "month": "2028-12",
+          "season": "зима",
+          "frequency_policy": "кандидатная частота, требуется P05/P03 решение",
+          "start_gate": "P03 commercial_ready + crew/MRO/contracts; 2027 новых SJ не раньше H2",
+          "status": "CONDITIONAL_NOT_PUBLISHED"
+        }
+      ]
+    }
+  ],
+  "calendar_rules": {
+    "phased": "R1/C1/D1 при одном реально готовом борте; W2/R2/D2 при двух; не считатьпоставкуготовностью",
+    "partial": "допустим меньший локальный модуль/частота; пересчитать slots/crew и обязательства",
+    "delay": "сдвиг только будущих непринятых действий; сохранять sunk/проданные поездки",
+    "zero_new_aircraft": "KEEP и organisational P0; R1/C1/D1/W2 допустимы только при явно освобождённом существующем ресурсе с полной потерей его прежнего задания",
+    "tu214": "0 новых Ту214 не отменяет основнойCASE_SJ"
+  }
+}

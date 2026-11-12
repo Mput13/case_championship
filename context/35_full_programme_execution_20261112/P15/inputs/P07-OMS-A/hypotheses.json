@@ -1,0 +1,456 @@
+{
+  "schema_version": "OMS-stageA-1",
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-OMS-01",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "Объявление 2021; сообщение 2025; действующее опубликованное расписание",
+      "source_ids": [
+        "OMS-S03",
+        "OMS-S04",
+        "OMS-S07"
+      ],
+      "claim": "OMS — обслуживаемый пункт; статус действующей базы и свободный ресурс не установлены.",
+      "mechanism": "Историческая база не убирает нынешние запуск, экипажи и местные договоры.",
+      "counterfactual": "Продолжение из SVX; либо подтверждённая действующая база после нового доказательства.",
+      "distinguishing_test": "Проверить текущие договор, ночёвки, crew roster и перрон.",
+      "ancestorIDs": [
+        "C04",
+        "EC_H01",
+        "KIR_PAIR_B",
+        "FRONT_GAP"
+      ],
+      "parent_ids": [
+        "C04",
+        "EC_H01",
+        "KIR_PAIR_B",
+        "FRONT_GAP"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "История и текущий продукт разделены. Нынешняя база UNKNOWN.",
+      "critical_unknowns": [
+        "A-OMS-10",
+        "A-OMS-11"
+      ],
+      "revisit_condition": "Действующий договор, ресурс и технология подтверждены.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-02",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "C04; KJA наблюдается; у KUF длинный поезд; UFA имеет объявленного конкурента",
+      "source_ids": [
+        "OMS-S07",
+        "OMS-S09",
+        "P02",
+        "REASSESS:GOJ/UFA"
+      ],
+      "claim": "Компактная радиальная база KUF3/KJA2/UFA2 может улучшить результат против тех же OD из SVX.",
+      "mechanism": "Экономия мостов оплачивает местную базу, если общий спрос и собственный переток выдерживают цену.",
+      "counterfactual": "Те же частоты, дни, парк и KEEP в цепочках из SVX.",
+      "distinguishing_test": "CR-OMS-01: общий P05/P06, полный ресурс, фиксированные расходы и альтернативное применение остатка.",
+      "ancestorIDs": [
+        "C04",
+        "C07"
+      ],
+      "parent_ids": [
+        "C04",
+        "C07"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "Спецификация построена, превосходство не установлено.",
+      "critical_unknowns": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-04",
+        "A-OMS-10",
+        "A-OMS-11",
+        "P05monthly"
+      ],
+      "revisit_condition": "Получены спрос, полная стоимость базы и готовая группа.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-03",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "Существующий SVX–OMS 2/нед и предложение «России» OMS–KJA 2/нед",
+      "source_ids": [
+        "OMS-S07",
+        "PLAN:C07"
+      ],
+      "claim": "Продление двух оборотов до KJA может использовать существующий заход, меняя собственный возврат.",
+      "mechanism": "Добавляет OMS–KJA, но задерживает OMS–SVX и может отнять следующее задание.",
+      "counterfactual": "KEEP старых оборотов плюс прямой SVX–KJA или иное применение ресурса.",
+      "distinguishing_test": "CR-OMS-02: учесть +355 минут при turn45, потери связок, crew и общий OD.",
+      "ancestorIDs": [
+        "C07",
+        "C04",
+        "KIR_G4",
+        "KIR_PAIR_B"
+      ],
+      "parent_ids": [
+        "C07",
+        "C04",
+        "KIR_G4",
+        "KIR_PAIR_B"
+      ],
+      "status": "оценена в указанном диагностическом сценарии",
+      "outcome_explanation": "Геометрия прототипа: 7 ч 55 блока и 10 ч 10 длительности; не операционная приёмка.",
+      "critical_unknowns": [
+        "P05choice",
+        "P03crew/донор",
+        "A-OMS-03"
+      ],
+      "revisit_condition": "Иные часы, блок, экипажи или ценность потерянных продаж меняют исход.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-04",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "Авторская сеть использует transfer; директор в 2025 сообщил об отсутствии транзитной зоны",
+      "source_ids": [
+        "MODEL:network_routes",
+        "OMS-S04",
+        "OMS-S07"
+      ],
+      "claim": "Четырёхлучевая волна может добавить ценность местным линиям только с принятой технологией и продажей.",
+      "mechanism": "Общие кресла принимают локальные и сквозные конечные поездки; тариф поездки один.",
+      "counterfactual": "Те же пары, даты, частоты и G3 без защищённого продукта; отдельно тот же синхронный календарь без защиты.",
+      "distinguishing_test": "CR-OMS-03: единый OD, оба направления, сроки поездки, багаж, MCT и действующие хабы конкурентов.",
+      "ancestorIDs": [
+        "C04",
+        "EC_H01",
+        "KIR_PAIR_B",
+        "MODEL:ХабOMS"
+      ],
+      "parent_ids": [
+        "C04",
+        "EC_H01",
+        "KIR_PAIR_B",
+        "MODEL:ХабOMS"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "Хаб не принят к запуску. Отсутствие зоны — критический gate, не отказ всем пересадкам.",
+      "critical_unknowns": [
+        "A-OMS-05",
+        "A-OMS-06",
+        "P05throughfare",
+        "багаж/защита/мисконнект"
+      ],
+      "revisit_condition": "Подтверждены технология, сквозная продажа, ресурс и калибровка.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-05",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "Исторический SVX–OMS–MRV; в текущем зимнем предложении Азимут 2/нед",
+      "source_ids": [
+        "OMS-S08",
+        "OMS-S07"
+      ],
+      "claim": "Сезонный еженедельный MRV может быть полезен отдельно от полного OMS хаба.",
+      "mechanism": "Один weekday даёт 7/14 ночей; местные и сквозные продажи делят кресла.",
+      "counterfactual": "Цепочка из SVX, база OMS и прямой SVX–MRV на одинаковой доступной группе.",
+      "distinguishing_test": "CR-OMS-04: сезон, багаж, Азимут, своя миграция, длинный цикл экипажа и прочие задания.",
+      "ancestorIDs": [
+        "C04",
+        "EC_H02",
+        "KIR_G4",
+        "OMS-S08"
+      ],
+      "parent_ids": [
+        "C04",
+        "EC_H02",
+        "KIR_G4",
+        "OMS-S08"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "Первичный прототип найден. Денежной победы и оплаченного туристического пакета нет.",
+      "critical_unknowns": [
+        "A-OMS-15",
+        "P03crew",
+        "P05seasonalOD"
+      ],
+      "revisit_condition": "Цены, фактический календарь, оплата блока или ограничения crew меняют результат.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-06",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "Объявление RW 2025 и список поддержки 2026 при неполном зимнем календаре",
+      "source_ids": [
+        "OMS-S15",
+        "OMS-S08",
+        "OMS-S09"
+      ],
+      "claim": "UUD может быть изменением собственного продукта; его KEEP нельзя по умолчанию обнулить.",
+      "mechanism": "Изменение восточного плеча сохраняет историю и учитывает нынешних собственных пассажиров.",
+      "counterfactual": "Будущий KEEP UUD с реальными билетами, прямые SVX/UUD и другие восточные лучи.",
+      "distinguishing_test": "Сверить календарь, продажу и фактическое выполнение; CR-OMS-05 и P03 KEEP binding.",
+      "ancestorIDs": [
+        "C04",
+        "MODEL:rw_routes_now:OMS-UUD"
+      ],
+      "parent_ids": [
+        "C04",
+        "MODEL:rw_routes_now:OMS-UUD"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "История сохранена. Частота 1/нед из модели не стала подтверждённым рейсом 2026.",
+      "critical_unknowns": [
+        "A-OMS-10",
+        "P03KEEP-UUD",
+        "P05contract/sales"
+      ],
+      "revisit_condition": "Получен датированный календарь собственных продаж.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-07",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "NQZ 56405/год и IQ ежедневно с 23.11 в зимней публикации",
+      "source_ids": [
+        "OMS-S01",
+        "OMS-S07",
+        "OMS-S16"
+      ],
+      "claim": "Партнёрский подвоз может расширить международный охват без нового RW рейса.",
+      "mechanism": "Договор, тариф и реальные места создают один конечный продукт; чужой полный поток не считается перевозками RW.",
+      "counterfactual": "Самостоятельная пересадка OTHER, отсутствие договора, отдельный прямой RW опыт после допуска.",
+      "distinguishing_test": "CR-OMS-06: SPA, места, общий тариф, граница, багаж; ноль новых Ту-214.",
+      "ancestorIDs": [
+        "C04",
+        "INTERNATIONAL_ADDITIONAL",
+        "OMS-S01"
+      ],
+      "parent_ids": [
+        "C04",
+        "INTERNATIONAL_ADDITIONAL",
+        "OMS-S01"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "Международный сигнал подтверждён; доступность защищённого продукта UNKNOWN.",
+      "critical_unknowns": [
+        "A-OMS-16",
+        "P05partnercontract",
+        "P03border/bag"
+      ],
+      "revisit_condition": "Появился договор, подтверждённый отказ партнёра или новый допуск.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-08",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "SGC 29964 и NUX 27762 за 2025; действующие Utair и Ямал",
+      "source_ids": [
+        "OMS-S01",
+        "OMS-S07"
+      ],
+      "claim": "Север можно проверить как прямой или партнёрский продукт; корпоративный блок не доказан.",
+      "mechanism": "Сменный или семейный календарь учитывается только после источника о целях и оплате.",
+      "counterfactual": "Действующие Utair/Ямал, наземные варианты и альтернативные задачи RW.",
+      "distinguishing_test": "Собрать цель, датированный fare basket и календарь; не выдумывать договор из наличия промышленных предприятий.",
+      "ancestorIDs": [
+        "C04",
+        "C10",
+        "KIR_Н4"
+      ],
+      "parent_ids": [
+        "C04",
+        "C10",
+        "KIR_Н4"
+      ],
+      "status": "работа не выполнена: Stage B",
+      "outcome_explanation": "Потоки и конкуренты изучены. Конкретная корпоративная программа и её Stage B не выполнены, это не отсев.",
+      "critical_unknowns": [
+        "P05purpose/OD/fare",
+        "A-OMS-13"
+      ],
+      "revisit_condition": "Появились оплаченный запрос, иной календарь или изменение конкуренции.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-09",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "C04 содержит PEE/TJM; reassessment сохранил ночную наземную альтернативу PEE",
+      "source_ids": [
+        "PLAN:C04",
+        "REASSESS:PEE"
+      ],
+      "claim": "PEE/TJM остаются кандидатами замены одного луча компактной базы.",
+      "mechanism": "На том же ресурсе замена может оказаться лучше KJA/UFA после общего расчёта.",
+      "counterfactual": "P-OMS-RADIAL, пары из SVX и наземный продукт.",
+      "distinguishing_test": "CR-OMS-05: месячный OD, dated предложения, поезд, block и частоты 1/2/3.",
+      "ancestorIDs": [
+        "C04",
+        "KIR_PAIR_B",
+        "REASSESS:PEE"
+      ],
+      "parent_ids": [
+        "C04",
+        "KIR_PAIR_B",
+        "REASSESS:PEE"
+      ],
+      "status": "работа не выполнена: Stage B",
+      "outcome_explanation": "Полная экономика замены NOT_RUN. Недостаток источников не экономический отказ.",
+      "critical_unknowns": [
+        "A-OMS-17",
+        "P02marketcoverage",
+        "P05OD",
+        "P03blocks"
+      ],
+      "revisit_condition": "Получены локальный спрос, полный продукт и ресурсные параметры.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    },
+    {
+      "hypothesis_id": "H-OMS-10",
+      "version": "1.0",
+      "city_or_markets": "OMS и связанные рынки",
+      "observed_signal": "План Федоровки на IV квартал 2028; в сентябре 2026 ещё ожидалось начало работ",
+      "source_ids": [
+        "OMS-S13",
+        "OMS-S20"
+      ],
+      "claim": "Основная программа строится на действующем OMS; Федоровка — отдельное событие.",
+      "mechanism": "Будущая инфраструктура не используется заранее, переезд и старые обязательства учитываются.",
+      "counterfactual": "Подтверждённый ранний или поздний ввод; задержка и отсутствие ввода.",
+      "distinguishing_test": "CR-OMS-09: операционный ввод, перенос слотов, договоров, багажа, наземного доступа и расходов.",
+      "ancestorIDs": [
+        "C04",
+        "C07"
+      ],
+      "parent_ids": [
+        "C04",
+        "C07"
+      ],
+      "status": "условна из-за конкретного неизвестного",
+      "outcome_explanation": "Новый терминал не принят как готовый. Это не отказ городу.",
+      "critical_unknowns": [
+        "A-OMS-14"
+      ],
+      "revisit_condition": "Есть однозначная дата допуска и операционная технология.",
+      "owner": "Исследователь OMS, без дочерних агентов",
+      "input_versions": {
+        "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+        "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+        "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+        "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+        "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "MODEL": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+        "REASSESS": "c18f7640ea36647a05b39089e5293f22dd009f63"
+      },
+      "result_scope": "Stage A: источники и варианты; общая экономика — Stage B",
+      "team_approval": false
+    }
+  ],
+  "economic_eliminations": [],
+  "note": "Невыполненная Stage B означает незавершённость конкретного опыта, а не экономический отсев."
+}

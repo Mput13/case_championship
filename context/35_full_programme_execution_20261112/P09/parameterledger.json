@@ -1,0 +1,2207 @@
+[
+  {
+    "assumption_id": "P09-RESOURCE",
+    "value": "E1 занят KEEP; новые: phased 4, partial 2, delayed 2, none 0; один новый резерв, остальные рабочие",
+    "unit": "физические сценарные борта",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Минимальные целочисленные группы 1/2/3 рабочих + 1 резерв; раздельный резерв типов. Числа выбраны для проверки масштаба, а не как план RW.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Объём сети и платежи за занятые/неиспользуемые борта",
+    "sensitivity": "Все четыре ветви; группа 1/2/3",
+    "refinement": "Поставка по бортам, назначения, crew и ТО; P03 UNKNOWN"
+  },
+  {
+    "assumption_id": "P09-ENTRY",
+    "value": {
+      "phased": [
+        "2027-08-01",
+        "2027-11-01",
+        "2028-04-01",
+        "2028-09-01"
+      ],
+      "partial": [
+        "2027-08-01",
+        "2027-11-01"
+      ],
+      "delayed": [
+        "2028-07-01",
+        "2028-11-01"
+      ],
+      "none": []
+    },
+    "unit": "даты ввода; передача за30 календарных дней",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Поступление не раньше2027H2; 30 дней ввода — открытая проверочная задержка, договорный срок UNKNOWN.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Календарь/доступность/обязательства",
+    "sensitivity": "phased/partial/delayed/none",
+    "refinement": "План поставок и фактический ввод"
+  },
+  {
+    "assumption_id": "P09-KEEP",
+    "value": "E1: SVX–UFA/OMS/REN/GOJ/PEE/MCX, одна RT по одному дню пн–сб; воскресенье без коммерческих рейсов. Новые рабочие борта в KEEP усиливают этот набор",
+    "unit": "датированные рейсы и поездки",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Условный контрфакт действующих направлений; не полный наблюдаемый бизнес. Названия направлений проверяются по закреплённым SVX inputs. Неизвестный остальной бизнес учитывается символическим affected remainder.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Собственный переток, альтернативное применение ресурса, потерянные продажи",
+    "sensitivity": "KEEP интенсивность/тариф и дополнительные own через общие P05; остаток UNKNOWN",
+    "refinement": "RW dated schedule/coupon sales/задания по хвостам"
+  },
+  {
+    "assumption_id": "P09-SCHEDULE",
+    "value": "пн/чт,вт/пт,ср/сб; 3 маршрута на рабочий борт; радиальная1RT/день; bank2RT/день только block<=10h; воскресенье без рейсов",
+    "unit": "RT/week; UTC",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Общий структурный шаблон; генерация всех731 дат, изменение состава при вводе ресурса. Не расширение недели P03.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Частота, вместимость, ценность времени и хвосты",
+    "sensitivity": "Сезонный пик: дополнительный воскресный RT для radial; bank требует отдельный контроль",
+    "refinement": "Слоты, часовые ограничения, crew, спрос по дням"
+  },
+  {
+    "assumption_id": "P09-PERFORMANCE",
+    "value": {
+      "seats": 100,
+      "blocked": 0,
+      "block_formula": "ceil5(45+km/650*60)",
+      "turn_min": 45,
+      "max_block_day": 10,
+      "range_screen_km": 3000,
+      "mtow_t": 49.45
+    },
+    "unit": "места;мин;ч;км;т",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Открытый SSJ-аналог. ПД8 — отдельный вариант с переносом аналога только для чувствительности; не подтверждённый AFM, load/range или burn. Прямой геодезический путь не airways.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Геометрический/ресурсный сценарий и расходы",
+    "sensitivity": "8h и 10h; дальность2500/3000; никакого dispatchPASS",
+    "refinement": "AFM конкретных RRJ/SJ, ETOPS/маршрутизация, crew/MRO, реальная компоновка"
+  },
+  {
+    "assumption_id": "P09-OPS",
+    "value": "crew окна и ТО UNKNOWN; воскресенье + ночные интервалы не доказательство нормативного отдыха; резерв N1 не выполняет коммерческие рейсы",
+    "unit": "условия допуска",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Отделение механической выполнимости от реальных crew/MRO/dispatch. Старый E1 имеет собственную неизвестную резервную инфраструктуру.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Любой допуск",
+    "sensitivity": "Дефицит ресурса и дополнительные простои открыты",
+    "refinement": "P03 принятые roster/maintenance/KEEP"
+  },
+  {
+    "assumption_id": "P09-COST",
+    "value": "P04 базовые/осторожные HIST burn/MRO/crew/nav + UFA fuel136300/t; airport movement reference UFA либо закреплённая местная ставка",
+    "unit": "постоянные RUB2026",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Явный аналитический аналог. Ни одна ставка не названа контрактом2028. HIST pax500/650 не добавляется к локальным paxfees: состав неизвестен.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Частичный операционный subtotal; полный результат функция отсутствующих ставок",
+    "sensitivity": "Base/cautious; раздельные BH/cycle/pax/base/tail пороги",
+    "refinement": "Договоры топлива/ТО/crew/навигации, service mapping; P04"
+  },
+  {
+    "assumption_id": "P09-MISSING",
+    "value": "полная база, launch/exit, tail lease, own remainder, crew fixed premium, foreign alternative и finance UNKNOWN",
+    "unit": "RUB по драйверам",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Нет credible bounds. Общие обязательства одинакового флота сокращаются только при одинаковом договоре; это не нулевая цена.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Полный delta и финансирование",
+    "sensitivity": "Пороги остаточной стоимости; символические коэффициенты",
+    "refinement": "P04/P03/RW finance contract fields"
+  },
+  {
+    "assumption_id": "P09-CASH",
+    "value": {
+      "receipt_days_before_flight": 30,
+      "variable_invoice_days_after": 30,
+      "opening_cash_test": 0,
+      "minimum_cash_test": 0
+    },
+    "unit": "дни;RUB",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Условная симметричная политика известных компонентов; фактические lag/opening/mincash/interest неизвестны. Выручка одна на поездку.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Только known-component funding diagnostic; full peak UNKNOWN",
+    "sensitivity": "Получение0/30/60 дней, оплата0/30 дней; missing cash symbolic",
+    "refinement": "Billing, эквайринг, налоги, договоры, opening cash и interest schedule"
+  },
+  {
+    "assumption_id": "P09-SUPPORT",
+    "value": 0,
+    "unit": "RUB",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Ветвь без поддержки. Отсутствие начисления — выбранный сценарий, не утверждение об отсутствии законного права. Неподходящие/истёкшие льготы не начисляются.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Известный subtotal без поддержки",
+    "sensitivity": "Порог поддержки; фактическое право/платёж отдельно",
+    "refinement": "P04 eligibility/contract/payment events"
+  },
+  {
+    "assumption_id": "P09-SCOPE",
+    "value": "Объединение OD P и KEEP; немоделируемый затронутый внутренний/международный остаток сохранён символически. Место№2 и reportedshare UNKNOWN",
+    "unit": "поездки/сегменты/рейсы",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Пока нет P10 совместимого reporting_flight_id/boarding_group и полного бизнеса.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Нет выводов о доле рынка или компании в целом",
+    "sensitivity": "Remainder opportunity threshold",
+    "refinement": "P10 adapter; международные OD и own contracts"
+  },
+  {
+    "assumption_id": "P09-SEASON",
+    "value": {
+      "peak_months": [
+        6,
+        7,
+        8
+      ],
+      "winter_months": [
+        12,
+        1,
+        2
+      ],
+      "rest": "межсезонье"
+    },
+    "unit": "месяцы",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Помесячный спрос P05 уже сезонный. Peak radial Sunday — отдельный тест частоты, не повышение спроса.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Реальное число дат, пик загрузки",
+    "sensitivity": "bad_season использует cautious P05 в6–8; flat_daily есть в P05 и может быть дополнительным тестом",
+    "refinement": "Маршрутные месяц/OD и сезонные slot данные"
+  },
+  {
+    "assumption_id": "P09-RESPONSE",
+    "value": "P05-A13: incumbent fare−10% в тех OD/date, где присутствует RW",
+    "unit": "условный логит outside inclusive value",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Одна и та же адресная функция ответа для P и KEEP; outside composite не физические кресла конкурента.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Спрос/выручка/переток",
+    "sensitivity": "passive/response10",
+    "refinement": "P02 future dated competitor supply и booking evidence"
+  },
+  {
+    "assumption_id": "P05-A01",
+    "value": "author od_pairs.od_base and od_cautious; gravity fallback only when absent",
+    "unit": "bidirectional annual endpoint journeys scenario",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Pinned dceadc9 src/od_model.py recovers OD from mixed segment counts with shortest one-stop2026 network. Its legacy fit includes fourH1rows doubled, one regionalrow and one internally citedKUFrow. Pure od_pairs avoids demand_estimates December seats; legacy annualization is retained only as scenario lineage, not accepted historical full-year fact. It does NOT identify true endpoint OD.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN population forecast bounds; legacy cautious/base residual0.3508 is stress, not confidence interval",
+    "affected_conclusions": "all market scales and carried passengers",
+    "sensitivity": "scale0.1, legacy0.3508,1,legacy2.2398; solve cost/share demand threshold",
+    "refinement": "Monthly ticket/coupon OD2025 and2026 incl transfers, ticketing coverage and ground/no-travel sampling",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A02",
+    "value": 0.5,
+    "unit": "directional share of bidirectional OD",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Source totals combine both directions; neutral symmetric split, no measured directionality",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "Logical0..1 with opposite=1-share; empirical bounds UNKNOWN",
+    "affected_conclusions": "directional market and load asymmetry",
+    "sensitivity": "0.3/0.5/0.7 diagnostic; reverse changes jointly",
+    "refinement": "Separate departure/arrival OD counts by month",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A03",
+    "value": "AeroflotGroup domestic2025 monthly shares, leap-day daily-intensity adjustment; national_blocks and flat_daily diagnostics",
+    "unit": "annual fraction",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "NEW_AEROFLOT_2025_MONTHLY sheetAeroflotGroup row13 exact monthly carrier traffic. NEW_AEROFLOT_2026_MONTHLY JanOct reserved for out-of-period profile test. Transferred to endpoint markets as analogue. National checks H1=38.1/81.45;Q3=25.2/81.45;Q4=18.15/81.45. Carrier mix, supply and route differences unresolved.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN route seasonal envelope; flat_daily is diagnostic counterfactual",
+    "affected_conclusions": "month volumes, weak season and month funding",
+    "sensitivity": "Aeroflot2025 vs national_blocks vs flat_daily;2026outofperiod aggregate check; independent route month multipliers renormalized annually",
+    "refinement": "Monthly same-pair OD; airports/airlines full-year comparable counts",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A04",
+    "value": "base2025 level flat; cautious legacyOD*cumulative0.962^(year-2025)",
+    "unit": "annual multiplier",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Base is no-growth scenario; cautious continues observed national domestic2025 decline3.8%, not a forecast. No optimism selected for profitability.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN forward market growth range",
+    "affected_conclusions": "2027–2028 total market",
+    "sensitivity": "vary annual growth; change-of-decision threshold from supplied costs",
+    "refinement": "Comparable2026 same-market observations and forecast assumptions",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A05",
+    "value": "reference air0.6;ground0.3;no-travel0.1; potential=legacyair/0.6",
+    "unit": "shares of potential pool",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Unidentified mapping: reference normalization reproduces air prior as an algebraic identity. Outside composite represents unresolved competing air; not physical seats. One outside choice only.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "airshare0<s<=1; sample0.3/0.6/0.85 diagnostic, empirical bounds UNKNOWN; ground/no-travel split UNKNOWN",
+    "affected_conclusions": "induced journeys, ground substitution, diversion and new-to-RW",
+    "sensitivity": "hold realizedair fixed, vary potential mapping; ownRW share UNKNOWN0..1 logical envelope",
+    "refinement": "Multimodal trip survey and true ticketOD; ownRW source sales",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A06",
+    "value": "gross=max(5200,5200+6.3*(km-393)); constant2026RUB; one basket",
+    "unit": "RUB/oneway journey including20kg",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "P02 Standard WZ quotes5200 on8Dec2026 and12Jan2027, same market/airline. 6.3RUB/km is an explicit transfer of author's scenario curve slope, formerly labelled net; here NEW gross scenario, not fitted law. Floor5200 is analyst scenario.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN real market fare curve; two independent flight-date baskets, not four independent fares",
+    "affected_conclusions": "price choice and revenues",
+    "sensitivity": "fare multipliers0.7/1/1.3/1.5 recalculate choice; max-fare thresholds",
+    "refinement": "Same-date alternative carrier20kg totals across seasons and lead times; realized booking ledger",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A07",
+    "value": "base odds halve per3000RUB/per120min;frequency coefficient1;stop penalty ln2. cautious1500RUB/240min/.5/ln4",
+    "unit": "utility units",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Interpretable analyst diagnostic points; MIT supports model structure and data requirements, NOT these coefficients. No booking choices/availability panel identifies them.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN empirical coefficient bounds; stress grids diagnostic only",
+    "affected_conclusions": "all allocation and capture rankings",
+    "sensitivity": "price halfodds1500/3000/6000;time60/120/240;freq0/.5/1;stop0/ln2/ln4; IIA clone counterexample",
+    "refinement": "Estimate likelihood on actual accepted/rejected alternatives with seat availability; holdout on markets/time blocks",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A08",
+    "value": "dated P03 RW scenario flights only; cohort tied to first departure UTC day; monthly share prorated by calendar days;45..240min connection;equal-leg revenue weights; diagnostic proposed retail products without advance sales/contractblocks",
+    "unit": "day/minute/fraction",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "No demand permitted on an unsupplied date. Date-flexibility, commercial connection acceptance, MCT and proration not measured; numeric window is a diagnostic candidate generator, not certified airportMCT.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN actual date-flexibility/MCT; test45/60/90 and max180/240; proration any nonnegative sum1",
+    "affected_conclusions": "dated itinerary usability and allocation; does not annualize P03 December week",
+    "sensitivity": "remove transfer products, alter connection window; direct retained",
+    "refinement": "Ticket availability, airportMCT, RW through-ticket agreements, preferred travel-day survey",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A09",
+    "value": "ground reference fare0.5*airfare; rail hours from author table else96h; scenario capacity=potential, hence nonbinding",
+    "unit": "RUB/minute/journeys",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Rail time is a legacy source proxy (sometimes96h imputation); fare and capacity are explicit illustrative alternative, not a measured train/bus inventory. Ground intercept normalization is not observed preference.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN fare/capacity/support; factor0.25/0.5/1 diagnostic, do not interpret as empirical bounds",
+    "affected_conclusions": "ground-versus-air choice and baseline mapping",
+    "sensitivity": "vary price/time/capacity; absent ground alternative scenario",
+    "refinement": "Primary dated railway/bus fare20kg-equivalent basket and availability; applicable journey time",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A10",
+    "value": "regional baseVAT0 subject to eligibility; cautiousVAT0.10 diagnostic; future actual rate UNKNOWN",
+    "unit": "tax fraction",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "FNS2019 source describes outside Moscow/Moscowregion route condition; all intermediate points matter. It is not accepted2027–2028 legal determination. Stress is not legal fact.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN future legal treatment;0/.10 diagnostic cases",
+    "affected_conclusions": "net journey revenue only; income tax remains P04 separately",
+    "sensitivity": "net=G/(1+VAT); check whole ordered route",
+    "refinement": "Current TaxCode for travel date, operator/legal invoice mapping; P04 legal review",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A11",
+    "value": "distribution drag base3%, cautious8%, ceiling0% only structural bound",
+    "unit": "fraction of transport revenue excludingVAT",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "No RW agency/acquiring agreement. These are analyst diagnostic points, not negotiated cost estimates. Model nets distribution once; P04 must exclude corresponding duplicated passenger cost.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN empirical drag bounds; mathematical0..1",
+    "affected_conclusions": "net revenue and incremental operating result",
+    "sensitivity": "solve maximum affordable distribution drag from actual incremental cost; sweep0/.03/.08/.15",
+    "refinement": "RW sales-channel mix, agent/acquiring rates, commissions policy and cost ledger",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A12",
+    "value": "20kg basket includes its baggage; additional ancillary and separately paid pass-through excluded in reference scenario; cash_profileUNKNOWN",
+    "unit": "RUB/journey and cash dates",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "No extra baggage income added to included allowance. Airline airport/handling costs stay P04, not pass-through. Carried journeys not multiplied again by refund probability; cancellations retained fees require separate events.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "Actual extra ancillary/pass-through/cash UNKNOWN; reference exclusion is a scope choice, not actual zero",
+    "affected_conclusions": "net fare, no double refund/distribution/airport deductions; no cash forecast",
+    "sensitivity": "vary ancillary and genuine pass-through separately; no invented settlement date",
+    "refinement": "Fare tax breakdown, agent settlement, refunds/no-shows and ancillary recognized revenue",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A13",
+    "value": "same high-level passive or price_match10 policy forP andKEEP; month/cohort-specific triggers precomputed",
+    "unit": "policy",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Incumbent reaction unobserved;10%farecut is diagnostic. P06early sums frequencies across months; adapter binds rule to exact pool/month/cohort then emits activated intercept shift. No added competitor supply.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN reaction policy;0/10/20%farecut diagnostic only",
+    "affected_conclusions": "competitive capture and deltas",
+    "sensitivity": "compare passive vs pricecut; scope-leak counterexample",
+    "refinement": "Dated competitor price/capacity response panel, local city research",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A14",
+    "value": "MOW airport demand aliases one city pool; all others author endpoint markets; physical airport legs unchanged",
+    "unit": "market mapping",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "One forecast per directed endpoint pair independent of programme. Author catchment overlaps may bias prior population; no claim that regional population is uniquely assigned. No same-city airport source counts added.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN own-airport substitution and disjoint catchment geometry",
+    "affected_conclusions": "sharedpool conservation, MOW demand and own migration",
+    "sensitivity": "reuse same pool across all alternatives; do not duplicateMOW forZIA",
+    "refinement": "Geocoded catchment/trip origins, airport-choice survey and nonoverlap partition",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A15",
+    "value": "grouped leave-origin-out OLS only for annual airport segment proxy; exclude partial-year, regional and airline-subset rows",
+    "unit": "validation design",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Retained observations have same reported annual airport segment unit. These historical sources are inherited secondary extracts. Segment proxy prediction cannot validate endpointOD, monthly seasons or behaviour.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "External primary endpointOD holdout UNKNOWN",
+    "affected_conclusions": "validation/calibration status",
+    "sensitivity": "report every heldout prediction incl failures; no train reuse as empiricalholdout",
+    "refinement": "New independent compatible endpointOD observations outside fitting group",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P05-A16",
+    "value": "unconstrained share and revenue thresholds; actual full operating costs not supplied toP05",
+    "unit": "threshold method",
+    "selected_by": "P05 research agent gpt-6.1-sol xhigh",
+    "basis": "Threshold computations use conservation/choice algebra. Endogenous price-demand response recomputed. Cost threshold remains symbolic until P04programme drivers, alternative use and KEEP scope accepted.",
+    "approval_status": "ANALYST_ROUTINE_CHOICE_NOT_USER_APPROVED_PARAMETER",
+    "range_or_unknown": "UNKNOWN actual breakeven cost; no profitability assertion",
+    "affected_conclusions": "price, demand and commission decision thresholds",
+    "sensitivity": "break-evenRUB=carried*netfare; affordability condition explicit",
+    "refinement": "Full incremental programme costs and jointly recomputedKEEP",
+    "version": "P05-v1-scenario-20261112"
+  },
+  {
+    "assumption_id": "P04-A-UFA-takeoff_landing",
+    "value": "553",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "553..553; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-security",
+    "value": "499",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "499..499; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-terminal_domestic",
+    "value": "70.5",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "70.5..70.5; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-terminal_international",
+    "value": "102",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "102..102; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-pax_service_domestic",
+    "value": "268",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "268..268; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-pax_service_international",
+    "value": "452",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "452..452; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-stairs_both",
+    "value": "19300",
+    "unit": "RUB/pair",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "19300..19300; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(stairs_arrival_departure_pair); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-bus",
+    "value": "8100",
+    "unit": "RUB/vehicle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "8100..8100; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(bus_units); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-fuel_uplift",
+    "value": "1696",
+    "unit": "RUB/t",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "1696..1696; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(uplifted_t); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-fuel_storage",
+    "value": "1353",
+    "unit": "RUB/t",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "1353..1353; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(stored_t); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-parking_SSJ",
+    "value": "685",
+    "unit": "RUB/h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "685..685; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(billable_parking_h); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-deice_one_stage_SSJ",
+    "value": "49970",
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "49970..49970; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(deice_events); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-deice_two_stage_SSJ",
+    "value": "65000",
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "65000..65000; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(deice_events); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-receive_release_SSJ",
+    "value": "16668",
+    "unit": "RUB/turn",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "16668..16668; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(turns); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-deice_one_stage_Tu214",
+    "value": "53160",
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "53160..53160; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(deice_events); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-deice_two_stage_Tu214",
+    "value": "69200",
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "69200..69200; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(deice_events); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-receive_release_Tu214",
+    "value": "31457",
+    "unit": "RUB/turn",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "31457..31457; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(turns); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-crew_preflight_medical",
+    "value": "420",
+    "unit": "RUB/person",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "420..420; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_persons); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-crew_transport",
+    "value": "4950",
+    "unit": "RUB/transport",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_services_20261111 https://www.airportufa.ru/upload/medialibrary/d47/ncxe76bimym6txhx3wgk089z7l63pc0x.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "4950..4950; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-11. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_transport_units); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-takeoff_landing",
+    "value": "870",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "870..870; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-security",
+    "value": "663",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "663..663; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-terminal_domestic",
+    "value": "180",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "180..180; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-terminal_international",
+    "value": "180",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "180..180; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-pax_service_domestic",
+    "value": "780",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "780..780; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-pax_service_international",
+    "value": "1050",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "1050..1050; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-stairs_both",
+    "value": "15600",
+    "unit": "RUB/pair",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "15600..15600; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(stairs_arrival_departure_pair); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-bus",
+    "value": "7260",
+    "unit": "RUB/approach",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "7260..7260; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(bus_approaches); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-crew_preflight_medical",
+    "value": "436",
+    "unit": "RUB/person",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "436..436; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_persons); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-crew_postflight_medical",
+    "value": "1990",
+    "unit": "RUB/person",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "1990..1990; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_persons); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-crew_transport",
+    "value": "3405",
+    "unit": "RUB/transport",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "3405..3405; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_transport_units); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-GOJ-towing",
+    "value": "25400",
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "goj_tariff_20261101 https://ar-goj.ru/upload/iblock/008/32a7i9ohluqvgol92lw70vtcynigw4kd/Preyskurant-na-uslugi-i-tovary-AO-MANN-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus-s-21.12.2025-_.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "25400..25400; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(towing_events); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-takeoff_landing",
+    "value": "410.6",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "410.6..410.6; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-security",
+    "value": "360.4",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "360.4..360.4; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-terminal_domestic",
+    "value": "142",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "142..142; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-terminal_international",
+    "value": "202",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "202..202; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-pax_service_domestic",
+    "value": "436.8",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "436.8..436.8; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-pax_service_international",
+    "value": "524.2",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "524.2..524.2; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-stairs_both",
+    "value": "25000",
+    "unit": "RUB/pair",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "25000..25000; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(stairs_arrival_departure_pair); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-bus",
+    "value": "8180",
+    "unit": "RUB/approach",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "8180..8180; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(bus_approaches); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-crew_preflight_medical",
+    "value": "420",
+    "unit": "RUB/person",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "420..420; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_persons); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-crew_postflight_medical",
+    "value": "1690",
+    "unit": "RUB/person",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "1690..1690; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_persons); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-crew_transport",
+    "value": "3400",
+    "unit": "RUB/transport",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "3400..3400; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_transport_units); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KUF-towing",
+    "value": "25300",
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "kuf_tariff_20261101 https://ar-kuf.ru/upload/iblock/c3c/7tacuyovbfc0yqf5nd4xyj2lu68rss8x/Preyskurant-na-uslugi-i-tovary-AO-MAK-dlya-rossiyskikh-potrebiteley-uslug-i-potrebiteley-uslug-Respubliki-Belarus_-deystvuet-s-21.12.2025g._-s-izmeneniyami-ot-01.11.2026g-.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "25300..25300; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-11-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(towing_events); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-OMS-takeoff_landing",
+    "value": "911",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "omsk_tariff_base_20260821 https://www.aeroomsk.ru/aviakompaniyam/stavki-i-tarify/2026/tarifs_rus_20260821.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "911..911; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-08-21. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-OMS-security",
+    "value": "947",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "omsk_tariff_base_20260821 https://www.aeroomsk.ru/aviakompaniyam/stavki-i-tarify/2026/tarifs_rus_20260821.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "947..947; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-08-21. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-OMS-terminal_domestic",
+    "value": "97",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "omsk_tariff_base_20260821 https://www.aeroomsk.ru/aviakompaniyam/stavki-i-tarify/2026/tarifs_rus_20260821.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "97..97; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-08-21. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_adult_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-OMS-terminal_international",
+    "value": "140",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "omsk_tariff_base_20260821 https://www.aeroomsk.ru/aviakompaniyam/stavki-i-tarify/2026/tarifs_rus_20260821.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "140..140; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-08-21. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_adult_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-OMS-pax_service_domestic",
+    "value": "200",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "omsk_tariff_base_20260821 https://www.aeroomsk.ru/aviakompaniyam/stavki-i-tarify/2026/tarifs_rus_20260821.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "200..200; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-08-21. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_adult_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-OMS-pax_service_international",
+    "value": "297",
+    "unit": "RUB/pax",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "omsk_tariff_base_20260821 https://www.aeroomsk.ru/aviakompaniyam/stavki-i-tarify/2026/tarifs_rus_20260821.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "297..297; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-08-21. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(eligible_departing_adult_pax); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-takeoff_landing",
+    "value": "700",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "700..700; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-security",
+    "value": "609",
+    "unit": "RUB/t_MTOW",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "609..609; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(mtow_t_per_billed_turn); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-basing_40_60t",
+    "value": "133477",
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "133477..133477; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(based_aircraft_months); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-basing_60_120t",
+    "value": "168160",
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "168160..168160; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(based_aircraft_months); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-basing_120_300t",
+    "value": "210200",
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "210200..210200; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(based_aircraft_months); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-parking_40_60t",
+    "value": "1051",
+    "unit": "RUB/h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "1051..1051; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(billable_parking_h); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-stairs_single",
+    "value": "9144",
+    "unit": "RUB/operation",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "9144..9144; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(stairs_operations); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-bus_large",
+    "value": "4740",
+    "unit": "RUB/vehicle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "4740..4740; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(bus_units); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-KHV-crew_medical",
+    "value": "264",
+    "unit": "RUB/person",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "khv_tariff_202611 https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "264..264; published_offer",
+    "affected_conclusions": "Local reference; document edition 2026-01-01. OMS base amendments require item-by-item check; not 2027 forecast.",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_persons); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-fuel-20261111",
+    "value": "136300",
+    "unit": "RUB/t",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_fuel_20261111 https://www.airportufa.ru/upload/medialibrary/2bf/ow4eayup87onwcj9faekxpmzamddh571.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "136300..136300; published_offer",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(uplifted_t); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-UFA-fuel-20260817",
+    "value": "133200",
+    "unit": "RUB/t",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "ufa_fuel_20260817 https://www.airportufa.ru/upload/medialibrary/38c/4agy8jfom9bcf7504sc6m053wnfjo646.pdf SINGLE_PUBLISHED_LOCAL_POINT; not bounds on RW paid/future rate. Published local price; not a paid RW invoice or future contractual bound",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "133200..133200; published_offer",
+    "affected_conclusions": "Historical author reference only; not added together with new fuel price",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(uplifted_t); quantity=0 requires separate branch",
+    "refinement": "RW contract plus airport revision and service specification"
+  },
+  {
+    "assumption_id": "P04-A-HIST-fuel_t_per_hour",
+    "value": {
+      "base": "1.55",
+      "cautious": "1.9"
+    },
+    "unit": "t/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "author_network.csv  Two author scenario points at dceadc98; credible range UNKNOWN; not estimated confidence bounds",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; scenario",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Fuel: P03 dispatch/tail data. Crew: roster/payroll/flight pay. MRO: type-engine PBH and cycles/minimum utilisation contract. Navigation: route/MTOW tariff."
+  },
+  {
+    "assumption_id": "P04-A-HIST-fuel_t_per_cycle",
+    "value": {
+      "base": "0.2",
+      "cautious": "0.25"
+    },
+    "unit": "t/cycle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "author_network.csv  Two author scenario points at dceadc98; credible range UNKNOWN; not estimated confidence bounds",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; scenario",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(cycles); quantity=0 requires separate branch",
+    "refinement": "Fuel: P03 dispatch/tail data. Crew: roster/payroll/flight pay. MRO: type-engine PBH and cycles/minimum utilisation contract. Navigation: route/MTOW tariff."
+  },
+  {
+    "assumption_id": "P04-A-HIST-mro_rub_per_hour",
+    "value": {
+      "base": "35000",
+      "cautious": "55000"
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "author_network.csv  Two author scenario points at dceadc98; credible range UNKNOWN; not estimated confidence bounds",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; scenario",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Fuel: P03 dispatch/tail data. Crew: roster/payroll/flight pay. MRO: type-engine PBH and cycles/minimum utilisation contract. Navigation: route/MTOW tariff."
+  },
+  {
+    "assumption_id": "P04-A-HIST-crew_rub_per_hour",
+    "value": {
+      "base": "15000",
+      "cautious": "22000"
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "author_network.csv  Two author scenario points at dceadc98; credible range UNKNOWN; not estimated confidence bounds",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; scenario",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Fuel: P03 dispatch/tail data. Crew: roster/payroll/flight pay. MRO: type-engine PBH and cycles/minimum utilisation contract. Navigation: route/MTOW tariff."
+  },
+  {
+    "assumption_id": "P04-A-HIST-navigation_rub_per_hour",
+    "value": {
+      "base": "6000",
+      "cautious": "8000"
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "author_network.csv  Two author scenario points at dceadc98; credible range UNKNOWN; not estimated confidence bounds",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; scenario",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Fuel: P03 dispatch/tail data. Crew: roster/payroll/flight pay. MRO: type-engine PBH and cycles/minimum utilisation contract. Navigation: route/MTOW tariff."
+  },
+  {
+    "assumption_id": "P04-A-HIST-pax_cost_rub",
+    "value": {
+      "base": "500",
+      "cautious": "650"
+    },
+    "unit": "RUB/occupied_segment",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "author_network.csv  Two author scenario points at dceadc98; credible range UNKNOWN; not estimated confidence bounds",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; scenario",
+    "affected_conclusions": "Use local published rate only in its scope",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(occupied_segments); quantity=0 requires separate branch",
+    "refinement": "Fuel: P03 dispatch/tail data. Crew: roster/payroll/flight pay. MRO: type-engine PBH and cycles/minimum utilisation contract. Navigation: route/MTOW tariff."
+  },
+  {
+    "assumption_id": "P04-A-UNK-fuel_contract_future-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/t",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(uplifted_t); quantity=0 requires separate branch",
+    "refinement": "2027/28 airport supplier invoice and fuel tankering plan"
+  },
+  {
+    "assumption_id": "P04-A-UNK-fuel_burn_SJ100_PD8-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "t/flight",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_fuel_t_per_flight = residual_headroom_RUB / (completed_flights * effective_net_fuel_RUB_per_t); physical model must fit route/payload",
+    "refinement": "Type/engine flight-plan burn versus distance/payload/weather; P03"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_hour-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Engine+airframe PBH scope, minimum BH, hard-time parts and exclusions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_hour-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Engine+airframe PBH scope, minimum BH, hard-time parts and exclusions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_hour-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Engine+airframe PBH scope, minimum BH, hard-time parts and exclusions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_hour-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Engine+airframe PBH scope, minimum BH, hard-time parts and exclusions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_cycle-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/cycle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(cycles); quantity=0 requires separate branch",
+    "refinement": "Landing gear/brakes/engine life-limited-parts cycle policy; separate from PBH"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_cycle-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/cycle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(cycles); quantity=0 requires separate branch",
+    "refinement": "Landing gear/brakes/engine life-limited-parts cycle policy; separate from PBH"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_cycle-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/cycle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(cycles); quantity=0 requires separate branch",
+    "refinement": "Landing gear/brakes/engine life-limited-parts cycle policy; separate from PBH"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_cycle-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/cycle",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(cycles); quantity=0 requires separate branch",
+    "refinement": "Landing gear/brakes/engine life-limited-parts cycle policy; separate from PBH"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_calendar-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(tail_months); quantity=0 requires separate branch",
+    "refinement": "Scheduled calendar checks, committed reserves, escalation and recovery"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_calendar-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(tail_months); quantity=0 requires separate branch",
+    "refinement": "Scheduled calendar checks, committed reserves, escalation and recovery"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_calendar-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(tail_months); quantity=0 requires separate branch",
+    "refinement": "Scheduled calendar checks, committed reserves, escalation and recovery"
+  },
+  {
+    "assumption_id": "P04-A-UNK-mro_calendar-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(tail_months); quantity=0 requires separate branch",
+    "refinement": "Scheduled calendar checks, committed reserves, escalation and recovery"
+  },
+  {
+    "assumption_id": "P04-A-UNK-crew_payroll-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/FTE/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_FTE_months); quantity=0 requires separate branch",
+    "refinement": "Roster, employer charges, training, leave/standby and duty limits"
+  },
+  {
+    "assumption_id": "P04-A-UNK-crew_payroll-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/FTE/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_FTE_months); quantity=0 requires separate branch",
+    "refinement": "Roster, employer charges, training, leave/standby and duty limits"
+  },
+  {
+    "assumption_id": "P04-A-UNK-crew_payroll-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/FTE/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_FTE_months); quantity=0 requires separate branch",
+    "refinement": "Roster, employer charges, training, leave/standby and duty limits"
+  },
+  {
+    "assumption_id": "P04-A-UNK-crew_payroll-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/FTE/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(crew_FTE_months); quantity=0 requires separate branch",
+    "refinement": "Roster, employer charges, training, leave/standby and duty limits"
+  },
+  {
+    "assumption_id": "P04-A-UNK-crew_variable-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/block_h",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(block_hours); quantity=0 requires separate branch",
+    "refinement": "Flight pay only if not already in salary/historical hourly proxy"
+  },
+  {
+    "assumption_id": "P04-A-UNK-crew_hotel-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/person/night",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(person_nights); quantity=0 requires separate branch",
+    "refinement": "Airport-city hotel rate, room occupancy, season and transport"
+  },
+  {
+    "assumption_id": "P04-A-UNK-navigation-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/flight",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(route_distance_MTOW_airspace); quantity=0 requires separate branch",
+    "refinement": "Dated domestic/foreign ANSP tariff, route distance and currency"
+  },
+  {
+    "assumption_id": "P04-A-UNK-lease-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(committed_tail_months); quantity=0 requires separate branch",
+    "refinement": "RW lessor term sheet by aircraft/engine; include minimum and return conditions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-lease-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(committed_tail_months); quantity=0 requires separate branch",
+    "refinement": "RW lessor term sheet by aircraft/engine; include minimum and return conditions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-lease-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(committed_tail_months); quantity=0 requires separate branch",
+    "refinement": "RW lessor term sheet by aircraft/engine; include minimum and return conditions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-lease-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(committed_tail_months); quantity=0 requires separate branch",
+    "refinement": "RW lessor term sheet by aircraft/engine; include minimum and return conditions"
+  },
+  {
+    "assumption_id": "P04-A-UNK-owned_depreciation-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(owned_tail_months); quantity=0 requires separate branch",
+    "refinement": "Acquisition basis, residual and useful life; choose ownership basis"
+  },
+  {
+    "assumption_id": "P04-A-UNK-insurance-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(tail_months_and_ASK); quantity=0 requires separate branch",
+    "refinement": "Hull/war/liability certificate, territories, premium and deductibles"
+  },
+  {
+    "assumption_id": "P04-A-UNK-base_operations-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/base/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(base_months); quantity=0 requires separate branch",
+    "refinement": "Incremental station staff/room/IT/security/utilities not airport parking"
+  },
+  {
+    "assumption_id": "P04-A-UNK-base_MRO_capacity-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/base/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(base_months); quantity=0 requires separate branch",
+    "refinement": "Available certified line station, tools, minimum fee and qualified people"
+  },
+  {
+    "assumption_id": "P04-A-UNK-reserve_aircraft-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(reserve_tail_months); quantity=0 requires separate branch",
+    "refinement": "Dedicated/shared reserve allocation and truly additional commitments"
+  },
+  {
+    "assumption_id": "P04-A-UNK-reserve_aircraft-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(reserve_tail_months); quantity=0 requires separate branch",
+    "refinement": "Dedicated/shared reserve allocation and truly additional commitments"
+  },
+  {
+    "assumption_id": "P04-A-UNK-reserve_aircraft-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(reserve_tail_months); quantity=0 requires separate branch",
+    "refinement": "Dedicated/shared reserve allocation and truly additional commitments"
+  },
+  {
+    "assumption_id": "P04-A-UNK-reserve_aircraft-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(reserve_tail_months); quantity=0 requires separate branch",
+    "refinement": "Dedicated/shared reserve allocation and truly additional commitments"
+  },
+  {
+    "assumption_id": "P04-A-UNK-entry_expense-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/launch",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(launches); quantity=0 requires separate branch",
+    "refinement": "Hiring, training, certification, commercial launch expensed portion"
+  },
+  {
+    "assumption_id": "P04-A-UNK-induction_expense-SSJ100_SaM146",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(inducted_tails); quantity=0 requires separate branch",
+    "refinement": "Acceptance, familiarisation, training, ferry and entry into service"
+  },
+  {
+    "assumption_id": "P04-A-UNK-induction_expense-SJ100_PD8",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(inducted_tails); quantity=0 requires separate branch",
+    "refinement": "Acceptance, familiarisation, training, ferry and entry into service"
+  },
+  {
+    "assumption_id": "P04-A-UNK-induction_expense-Tu214",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(inducted_tails); quantity=0 requires separate branch",
+    "refinement": "Acceptance, familiarisation, training, ferry and entry into service"
+  },
+  {
+    "assumption_id": "P04-A-UNK-induction_expense-other_existing_RW_type",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(inducted_tails); quantity=0 requires separate branch",
+    "refinement": "Acceptance, familiarisation, training, ferry and entry into service"
+  },
+  {
+    "assumption_id": "P04-A-UNK-launch_capex-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/launch",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(launches); quantity=0 requires separate branch",
+    "refinement": "Base equipment/spares/IT assets and depreciation basis"
+  },
+  {
+    "assumption_id": "P04-A-UNK-aircraft_purchase-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(accepted_tails); quantity=0 requires separate branch",
+    "refinement": "RW purchase/lease structure and actual acceptance payment calendar"
+  },
+  {
+    "assumption_id": "P04-A-UNK-aircraft_advance-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(ordered_tails); quantity=0 requires separate branch",
+    "refinement": "Pre-delivery deposit/advance dates; offset against final purchase amount"
+  },
+  {
+    "assumption_id": "P04-A-UNK-security_deposit-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/contract",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(contracts); quantity=0 requires separate branch",
+    "refinement": "Refundable deposit timing, setoff, restrictions, forfeiture and release"
+  },
+  {
+    "assumption_id": "P04-A-UNK-exit_penalty-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/exit",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(terminated_contracts); quantity=0 requires separate branch",
+    "refinement": "Notice period, severance, station restoration and supplier minimum bills"
+  },
+  {
+    "assumption_id": "P04-A-UNK-redelivery-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/tail",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(returned_tails); quantity=0 requires separate branch",
+    "refinement": "Engine/airframe condition, reserve credit, ferry and redelivery location"
+  },
+  {
+    "assumption_id": "P04-A-UNK-ferry-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/leg",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(physical_ferry_legs); quantity=0 requires separate branch",
+    "refinement": "Fuel, fees, crew and end-position restoration; no passengers needed to incur costs"
+  },
+  {
+    "assumption_id": "P04-A-UNK-distribution_payment-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/booking_or_fraction",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(bookings_or_revenue); quantity=0 requires separate branch",
+    "refinement": "GDS/agent/acquiring/channel settlement; gross versus net sales basis"
+  },
+  {
+    "assumption_id": "P04-A-UNK-passenger_other-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/segment",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(occupied_segments); quantity=0 requires separate branch",
+    "refinement": "Catering, baggage and connection support excluding separately charged terminal fees"
+  },
+  {
+    "assumption_id": "P04-A-UNK-disruption-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/event",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(affected_journeys_nights_legs); quantity=0 requires separate branch",
+    "refinement": "Refunds/rebooking/hotels and preventable cancellation costs by event"
+  },
+  {
+    "assumption_id": "P04-A-UNK-charter_guarantee-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/block",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "min_required_net_guarantee_RUB_per_block = (full_cost_other - revenue_other - eligible_support) / guaranteed_blocks",
+    "refinement": "Tour-operator allotment, guarantees, release, advance and failure terms"
+  },
+  {
+    "assumption_id": "P04-A-UNK-foreign_handling-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "LOCAL/turn",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(foreign_turns); quantity=0 requires separate branch",
+    "refinement": "SGHA/local supplier quote with currency, airport and service regime"
+  },
+  {
+    "assumption_id": "P04-A-UNK-foreign_fuel-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "LOCAL/t",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(uplifted_t); quantity=0 requires separate branch",
+    "refinement": "Airport supplier price, tax, uplift and payment currency; no automatic Russian fuel credit"
+  },
+  {
+    "assumption_id": "P04-A-UNK-fx-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/LOCAL",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "break_even_RUB_per_LOCAL = remaining_RUB_headroom / net_foreign_cost_exposure_LOCAL; sign/zero exposure branches explicit",
+    "refinement": "Dated FX/hedge and bank conversion fees; no common arbitrary FX multiplier"
+  },
+  {
+    "assumption_id": "P04-A-UNK-international_access-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/programme",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(authorisations_slots); quantity=0 requires separate branch",
+    "refinement": "Permits, visa/crew handling, overflight, slots, insurance and local representative"
+  },
+  {
+    "assumption_id": "P04-A-UNK-tax_profit-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(taxable_profit_and_losses); quantity=0 requires separate branch",
+    "refinement": "Actual taxable base, carryforwards, tax status and payment dates"
+  },
+  {
+    "assumption_id": "P04-A-UNK-interest-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(daily_debt_balances); quantity=0 requires separate branch",
+    "refinement": "Loan margin, floor, fees, day count, collateral and cash dates; CBR rate is not RW offer"
+  },
+  {
+    "assumption_id": "P04-A-UNK-VAT-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(invoice_taxes); quantity=0 requires separate branch",
+    "refinement": "Invoice-level output/input VAT, recoverable fraction and refund/payment period"
+  },
+  {
+    "assumption_id": "P04-A-UNK-ticket_collection-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(bookings_date); quantity=0 requires separate branch",
+    "refinement": "Advance sales, agent/merchant holdbacks, refunds and month-of-carriage mapping"
+  },
+  {
+    "assumption_id": "P04-A-UNK-supplier_payment-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(invoice_date); quantity=0 requires separate branch",
+    "refinement": "Prepayment days, credit days, minimum guaranteed settlement and invoice lag"
+  },
+  {
+    "assumption_id": "P04-A-UNK-support_payment-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "max_affordable_rate = residual_headroom / quantity(approved_claim_date); quantity=0 requires separate branch",
+    "refinement": "Agency/tax approval date, bank-credit date and corrections; no immediate refund"
+  },
+  {
+    "assumption_id": "P04-A-UNK-donor_lost_contribution-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "Full affected-business project-KEEP already includes donor sales/cost change; do not subtract this bridge memo again",
+    "refinement": "KEEP full affected revenue/cost with same resource and passenger recapture"
+  },
+  {
+    "assumption_id": "P04-A-UNK-new_tail_opportunity-specified_type_required",
+    "value": {
+      "base": "",
+      "cautious": ""
+    },
+    "unit": "RUB/month",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "plan_common_spec.json  Credible internal/local contract range UNKNOWN; physical non-negativity is not a price estimate",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "..; unknown",
+    "affected_conclusions": "Required by budget coverage; unresolved amount propagates to full total",
+    "sensitivity": "Compare full feasible alternative programme result under common resource; memo opportunity value is not another cash cost",
+    "refinement": "Best available alternative from common engine; no fictional donor for new delivery"
+  },
+  {
+    "assumption_id": "P09-AIRWAY-SENSITIVITY",
+    "value": [
+      1.1,
+      1.2
+    ],
+    "unit": "длина геодезического участка × множитель",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "P03 sp_adapter/assumptions_register_v2 source: author network.csv points; не эмпирические границы",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Общее P05/P06 time/choice/cost и возможность bank",
+    "sensitivity": "Прямой пересчёт всех dated legs и совместного спроса; UNKNOWN при операционном нарушении",
+    "refinement": "OFP/ATC реальная трасса; type-specific fuel; сезонные ограничения"
+  },
+  {
+    "assumption_id": "P09-INTERNATIONAL",
+    "value": "Два RT/week вт/пт; опубликованныйonewayelapsed240/275minсимметрично в обе стороны; российскийcostаналог",
+    "unit": "RT;min;RUB2026",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "P02I IMC-SVX-URC/IMC-KUF-IST; новыйпрозрачный ресурсныйопыт; не прогнозспроса/допуск",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Цена отказаот внутренних рейсов и минимальныйnet международного применения",
+    "sensitivity": "Иностранные расходы/допуски/нагрузка/OD остаются переменными; никакого доверительного интервала",
+    "refinement": "P05 foreign markets/SPA; P03 OFP/AFM and own KEEP; P04 contracts/FX; P02I access"
+  },
+  {
+    "assumption_id": "P09-EXISTING-SSJ",
+    "value": "E1 занят старым KEEP; перенос с2027-01-01 на3луча,2RT/week каждый; ferry/потерянные продажи включены",
+    "unit": "SSJ100 SaM146; 1 условныйзанятыйборт",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Материальная no-new альтернатива к сохранению E1; не утверждение о реально свободном SSJ. Старый условный KEEP тотже, новые самолёты0.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Проверка переноса существующего ресурса отдельно от получения SJ100",
+    "sensitivity": "base/cautious и response10; величина реального donor результата остаётся неизвестной",
+    "refinement": "Tail-level assignments/ownsales, reserve/crew/ТО, договорные переходные расходы"
+  },
+  {
+    "assumption_id": "H-EXPERT-NET-CARGO-01",
+    "value": "PROPOSED; income/payload/cost/mail contract UNKNOWN",
+    "unit": "груз/почта;RUB",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Координатор: экспертный контекст AFL/hubs и belly cargo/mail; отдельный экспертный пакет готовится",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Никакой добавки в базовую выручку; потенциальный дополнительный эффект требует отдельного совместного capacity/cost расчёта",
+    "sensitivity": "Не задана произвольная доля или тариф",
+    "refinement": "Договор, тоннаж/сезон/плотность, payload/cargo hold, наземная обработка/почтовые SLA"
+  },
+  {
+    "assumption_id": "P09-SELECTION",
+    "value": {
+      "screen_date": "2028-04-03",
+      "pairs_per_working_tail": 3,
+      "target_pairs": 9,
+      "frontier_objectives": [
+        "min_base_cautious_delta_known_subtotal",
+        "min_base_cautious_delta_journeys"
+      ],
+      "numerical_tolerance": {
+        "journeys": 1e-06,
+        "RUB": 0.01
+      }
+    },
+    "unit": "дата; пары; RUB2026; поездки",
+    "selected_by": "P09 исследователь Astra xhigh",
+    "basis": "Один одинаковый контрольный оборот помогает построить конструкции; окончательная экономика считается на всех 731 датах. Три маршрута × два оборота в неделю дают шесть рабочих дней. Цель 9 внутри заданных пользователем 8–12. Pareto без весов/вероятностей.",
+    "approval_status": "ANALYTIC_SCENARIO_NOT_RW_PLAN_OR_USER_PARAMETER_APPROVAL",
+    "range_or_unknown": "UNKNOWN; сценарные точки не доверительный интервал",
+    "affected_conclusions": "Состав исследуемого множества и приоритеты; не критерий окончательного отказа другим парам",
+    "sensitivity": "Уже посчитаны все 20 городов, существующая база, полные bank-контроли, hybrid и отдельные московские пути; альтернативная оптимизация частот остаётся OPEN",
+    "refinement": "Месячный локальный OD/ownsales, slot/crew/AFM и полный ratebook"
+  }
+]

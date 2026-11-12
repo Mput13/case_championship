@@ -1,0 +1,85 @@
+{
+  "stageA_status": "COMPLETE_WITH_EXPLICIT_SOURCE_LIMITS",
+  "stageB_status": "NOT_RUN_PENDING_COMMON_INPUT_ACCEPTANCE",
+  "status_meaning": "Stage A завершён как локальное исследование источников и построение вариантов. Рыночная, эксплуатационная и финансовая приёмка Stage B не выполнена.",
+  "domains": [
+    {
+      "domain": "Роль RW",
+      "status": "Обслуживаемый пункт подтверждён, действующая база UNKNOWN",
+      "evidence": "OMS-S03/S04/S07/S09/S15",
+      "remaining": "Текущий договор базы и датированные UUD продажи."
+    },
+    {
+      "domain": "Потоки",
+      "status": "Годовые направления аэропорта и вторичный июнь; будущий OD UNKNOWN",
+      "evidence": "OMS-S01/S02/S14",
+      "remaining": "P05: независимые месячные пулы и калибровка."
+    },
+    {
+      "domain": "Конкуренция",
+      "status": "Частичные датированные источники; UFA и international уточнены",
+      "evidence": "P02; OMS-S07/S09/S16/S19",
+      "remaining": "Обе стороны нужных пар, сопоставимые цены, багаж, lead, места и ответ."
+    },
+    {
+      "domain": "Местная эксплуатация",
+      "status": "RRJ95/H24/ВПП опубликованы; свободные мощности и договоры UNKNOWN",
+      "evidence": "OMS-S05/S06/S10/S17",
+      "remaining": "P03: тип, борта, crew, ТО, слоты, ПД8, MCT и багаж."
+    },
+    {
+      "domain": "Затраты",
+      "status": "Reference P04 и процедура скидок; полный счёт UNKNOWN",
+      "evidence": "P04; OMS-S11",
+      "remaining": "Полные условия, запуск, выход, платежи и финансирование."
+    },
+    {
+      "domain": "Программы",
+      "status": "9 спецификаций, парные запросы и календарь на 24 месяца",
+      "evidence": "programme_candidates.json; comparison_requests.csv",
+      "remaining": "P03 привязка к физическим рейсам; общий P05/P06."
+    },
+    {
+      "domain": "Геометрия",
+      "status": "Только условный C07 прототип",
+      "evidence": "resource_diagnostic.json",
+      "remaining": "Crew и dispatch UNKNOWN; P06 NOT_RUN."
+    },
+    {
+      "domain": "Экономика",
+      "status": "NOT_RUN",
+      "evidence": "CR-OMS-01..09",
+      "remaining": "Принятые общие входы P03/P04/P05; независимая приёмка P06 по brief ещё pending."
+    }
+  ],
+  "launch_readiness": false,
+  "investment_acceptance": false,
+  "financial_winner": null,
+  "annual_passenger_forecast": null,
+  "unconditional_city_rejection": false,
+  "future_eight_to_twelve_network_acceptance": false,
+  "new_paid_services": false,
+  "external_messages": "Только разрешённые handoff координатору T3.",
+  "git_mutations": false,
+  "browser_used": false,
+  "source_http_limitations": [
+    {
+      "url": "https://www.aeroomsk.ru/aviakompaniyam/marketingovaya-podderzhka/polozhenie-o-skidkakh/polozhenie-30-03-26.pdf",
+      "tool": "web.click",
+      "error": "(400) Content length is too large: 16079678",
+      "handling": "Размерыdiscountнеприняты;процедураподтвержденаHTML;никакихbrowser/платныхобходов"
+    },
+    {
+      "url": "https://www.aeroomsk.ru/aviakompaniyam/marketingovaya-podderzhka/polozhenie-o-skidkakh/pr-465-2026.pdf",
+      "tool": "web.screenshot page4",
+      "error": "TimeoutError",
+      "handling": "УсловияиразмерыUNKNOWN;невыведеныизназванияредакции"
+    },
+    {
+      "url": "https://www.aeroomsk.ru/ob-aeroporte/press-tsentr/novosti/; /karta-poleta/; /partneram/",
+      "tool": "PythonurllibHTTPread",
+      "error": "HTTP Error 403: Forbidden",
+      "handling": "Нативныйwebopenчитаетконкретныестраницы;данныесохраненыпонему;браузернетребовался"
+    }
+  ]
+}

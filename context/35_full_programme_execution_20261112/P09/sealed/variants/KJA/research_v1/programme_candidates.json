@@ -1,0 +1,1138 @@
+{
+  "version": "KJA-research-v1",
+  "as_of": "2026-11-12",
+  "programmes": [
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-B1",
+      "name": "Пилот радиальной базы KJA на одном самолёте",
+      "role": "new_radial_base_not_existing_RW_hub",
+      "hypothesis_ids": [
+        "H-KJA-01",
+        "H-KJA-02"
+      ],
+      "flights": [
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "OMS",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "135",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 145,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "IKT",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "246",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "UUD",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 2,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "KJA-OMS",
+        "KJA-IKT",
+        "KJA-UUD"
+      ],
+      "resource": {
+        "active_tails_required": 1,
+        "initial_location": "KJA",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "rotation_design": [
+        "Пн KJA-OMS-KJA затем KJA-UUD-KJA; Чт KJA-IKT-KJA затем KJA-UUD-KJA; остальные дни по таблице",
+        "назначениясогласовать: ПнOMS+UUD,ВтIKT,СрOMS,ЧтIKT+UUD,ПтOMS,СбIKT; воскресеньеТО/резервтолькопоP03"
+      ],
+      "note": "дниUUD14 и OMS135 дают Пн двойнуюмиссию, ЧтIKT+UUD; списокrotation отражаетихточно",
+      "reference_week_legs": 16,
+      "nominal_segment_seats_per_week": 1600,
+      "scope": "3пар; промежуточнаяступень, нецель8–12",
+      "comparison": "KJA-D1: тотже1доступныйборт/месяцы/резерв vs SVX-KJA3RT и остаточноеKEEP",
+      "why_frequency": "локальнаядоступностьнесколькоразвнеделю; некомандировочнаяdailyсеть; проверкаP05по3/4ночнымstay"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-R2",
+      "name": "База KJA: локальные радиальные продукты",
+      "role": "new_radial_base",
+      "hypothesis_ids": [
+        "H-KJA-01",
+        "H-KJA-02"
+      ],
+      "flights": [
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "OMS",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 145,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "UUD",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "TOF",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "25",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 90,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "IKT",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "25",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "KJA-OMS",
+        "KJA-UUD",
+        "KJA-TOF",
+        "KJA-IKT"
+      ],
+      "resource": {
+        "active_tails_required": 2,
+        "initial_location": "KJA",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "reference_week_legs": 32,
+      "nominal_segment_seats_per_week": 3200,
+      "flight_schedule_fragment": "тежеphysicallegcounts; P03выбираетместныеclockwindows, transferproductsотключены",
+      "protected_saleability": "локальныеproducts; будущаяпродажаUNKNOWN",
+      "isolation_test": "B2vsR2: одинаковыеfourpairs/flights/tails/сезоны/рынки; изменениеclock/стыковочногоproduct, ценаchoiceединаяP05",
+      "revenue_rule": "сквознойтарифодинраззаjourney; креслонакаждомleg; местныесобственныесегментыконкурируютзатемжекреслом",
+      "scope": "4пар; недобавлятьполученныепассажиры к другойпрограмме",
+      "why_frequency": "дваbankdayнакаждомcorridor (Пн/Чт иВт/Пт); вкаждыйденьпо2RTнаспицу длядвустороннейсвязи. Возврат3или4ночи; нетежедневныйпродукт"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-B2",
+      "name": "База KJA: стыковочные волны",
+      "role": "new_protected_transfer_hub",
+      "hypothesis_ids": [
+        "H-KJA-01",
+        "H-KJA-02"
+      ],
+      "flights": [
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "OMS",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 145,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "UUD",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "TOF",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "25",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 90,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "IKT",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "25",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "KJA-OMS",
+        "KJA-UUD",
+        "KJA-TOF",
+        "KJA-IKT",
+        "OMS-KJA-UUD",
+        "UUD-KJA-OMS",
+        "TOF-KJA-IKT",
+        "IKT-KJA-TOF"
+      ],
+      "resource": {
+        "active_tails_required": 2,
+        "initial_location": "KJA",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "reference_week_legs": 32,
+      "nominal_segment_seats_per_week": 3200,
+      "flight_schedule_fragment": "proposed_bank_flights.csv",
+      "protected_saleability": "UNKNOWN; договор/сквознойтариф/MCT/багаж/IRROPS gate",
+      "isolation_test": "B2vsR2: одинаковыеfourpairs/flights/tails/сезоны/рынки; изменениеclock/стыковочногоproduct, ценаchoiceединаяP05",
+      "revenue_rule": "сквознойтарифодинраззаjourney; креслонакаждомleg; местныесобственныесегментыконкурируютзатемжекреслом",
+      "scope": "4пар; недобавлятьполученныепассажиры к другойпрограмме",
+      "why_frequency": "дваbankdayнакаждомcorridor (Пн/Чт иВт/Пт); вкаждыйденьпо2RTнаспицу длядвустороннейсвязи. Возврат3или4ночи; нетежедневныйпродукт"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-D2",
+      "name": "Те же два самолёта в Екатеринбурге",
+      "role": "existing_base_direct_products",
+      "hypothesis_ids": [
+        "H-KJA-01",
+        "H-KJA-04"
+      ],
+      "flights": [
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "KJA",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "135",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-10",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "OMS",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "246",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": null,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-10",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "TOF",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "135",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": null,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-10",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "IKT",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "246",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": null,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-10",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "SVX-KJA",
+        "SVX-OMS",
+        "SVX-TOF",
+        "SVX-IKT"
+      ],
+      "resource": {
+        "active_tails_required": 2,
+        "initial_location": "SVX",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "tail_rotation_design": {
+        "T1": "Пн/Ср/Пт SVX-KJA-SVX; Вт/Чт/Сб SVX-OMS-SVX",
+        "T2": "Пн/Ср/Пт SVX-TOF-SVX; Вт/Чт/Сб SVX-IKT-SVX"
+      },
+      "reference_week_legs": 24,
+      "nominal_segment_seats_per_week": 2400,
+      "flight_times": "UNKNOWN; блоквремя иflightclockP03, международныхне требуется",
+      "same_resource_comparison": "KJA-B2/R2 и D2 получаютодинаковуюservice-entry/24monthavailability/reservepolicy/tailtype. Разноеиспользованиечасовнеобнуляетстоимостьостатка; существующиеSVXпродажисохраняются/заменяютсяявно",
+      "scope": "4пары, одинсовместныйODpool; больше/меньшекресел следствиепрограммы, неметодическоеуравниваниевыручки",
+      "why_frequency": "каждаяпара3разавнеделю; одинRT/борт/день, 2–3ночныепребывания; частотаусловнаиз-заP05"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-M-RGK",
+      "name": "Смешанная программа: стратегический Горно-Алтайск",
+      "role": "mixed_base_or_partner_feeder",
+      "hypothesis_ids": [
+        "H-KJA-03",
+        "H-KJA-05"
+      ],
+      "flights": [
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "OMS",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 145,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "UUD",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "14",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "RGK",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "25",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 125,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        },
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "IKT",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 4,
+          "weekdays_iso": "25",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-09",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "KJA-OMS",
+        "KJA-UUD",
+        "KJA-RGK",
+        "KJA-IKT",
+        "RGK-KJA-IKT",
+        "IKT-KJA-RGK"
+      ],
+      "resource": {
+        "active_tails_required": 2,
+        "initial_location": "KJA",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "replaces": "KJA-B2 TOFspoke заменяетсяRGK; KEEPTOFcompetitorsиRWпродажисохраняются; никакихсуммB2+M",
+      "reference_week_legs": 32,
+      "nominal_segment_seats_per_week": 3200,
+      "distinguishing_test": "приодинаковых2tails RGKwithverifiedairportbenefit vs TOFwithoutpromisedbenefit; затем KVpartnerRGKvsownSSJ; alternative SVX-RGK собственныепродажинеобнулять",
+      "discount": "UNKNOWN; стратегическийперечень — основаниесчитатьP04 eligibility, недобавленнаясубсидия",
+      "scope": "4пары; обновлённаягипотезаданных, нерасширениерадиquota"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-D1",
+      "name": "Один самолёт из Екатеринбурга: прямой KJA и остаточный KEEP",
+      "role": "existing_base_direct_control",
+      "hypothesis_ids": [
+        "H-KJA-03",
+        "H-KJA-04"
+      ],
+      "flights": [
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "KJA",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "135",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-10",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "SVX-KJA"
+      ],
+      "resource": {
+        "active_tails_required": 1,
+        "initial_location": "SVX",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "reference_week_legs": 6,
+      "nominal_segment_seats_per_week": 600,
+      "comparison": "B1 и D1 получают один и тот же tail-month/reserve/type endowment; оставшиеся дни ресурса участвуют в одинаковом KEEP/alternative-use пуле. PARTNER отличается только принятым партнёрским продуктом и его расходами.",
+      "existing_RW_flights": "UNKNOWN; заменить/add только после binding",
+      "why_frequency": "три RT в неделю для нескольких ночей пребывания, проверка P05"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "CASE_SJ",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-PARTNER",
+      "name": "Прямой SVX–KJA и подвоз партнёрами",
+      "role": "existing_base_direct_plus_conditional_partner",
+      "hypothesis_ids": [
+        "H-KJA-03",
+        "H-KJA-04"
+      ],
+      "flights": [
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "KJA",
+          "operation": "round_trip_both_directions",
+          "rt_per_week": 3,
+          "weekdays_iso": "135",
+          "status": "scenario",
+          "season": "отдельные24месячныесценарии; calendar.json",
+          "change_vs_KEEP": "add_or_replace_after_KEEP_binding",
+          "existing_rw_sales": "UNKNOWN; bind existing flight IDs before add/replace",
+          "fare_rub": null,
+          "journeys": null,
+          "nominal_seats_analogue": 100,
+          "aircraft_variant": "SSJ100_100seat_analogue; SJ100_PD8separate_gate",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "A-KJA-03",
+            "A-KJA-04",
+            "A-KJA-10",
+            "A-KJA-15"
+          ]
+        }
+      ],
+      "od_products": [
+        "SVX-KJA",
+        "KYZ-KJA-SVX",
+        "RGK-KJA-SVX",
+        "ABAground-KJA-SVX"
+      ],
+      "resource": {
+        "active_tails_required": 1,
+        "initial_location": "SVX",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "rw_reference_week_legs": 6,
+      "rw_nominal_segment_seats_per_week": 600,
+      "partner_inventory": "UNKNOWN; KVлетитсамнапринятыхleg/date; услуги/креслаучитываютсякакпартнёрские, несвоиRWпассажирскиесегменты",
+      "ground": "ABAairportcode/gatewayнужен; crossairportнебесплатен; busdiagnosticнеinventory",
+      "comparison": "D1single-tail SVX-KJA3RTбезpartner; затем B1с темжеRWресурсом иучтённымpartnerfee/защитой",
+      "contract": "NOT_SIGNED_OR_VERIFIED; продуктнедопущенкпродаже; фактическийSU/KVinterlineтолькоаналогизисточника",
+      "why_frequency": "3RT/weekможетподходить3–4ночнымпоездкам; месячныйспрос/стыковкиP05неизвестны"
+    },
+    {
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL_NOT_ENGINE_ADMITTED",
+      "unit": "programme; flights/seats are proposal, not sales",
+      "source_ids": [
+        "KJA-SCHEDULE",
+        "KJA-2025",
+        "KV-INTERLINE",
+        "PIN-P06-producer_contract"
+      ],
+      "fleet_scope_id": "EXT_NO_NEW_TU214",
+      "new_tu214": 0,
+      "keep": "KEEPfuture все затронутые продажи/рейсы/обязательства и alternative use того же ресурса; выгрузкаUNKNOWN",
+      "keep_actions": {
+        "preserve": "все unaffected RW flights/sales/business",
+        "remove": "NONE_AUTHORISED",
+        "retime": "только exact existing flight IDs после P03/P05 binding",
+        "incremental": "add если source flight не дублирует KEEP; иначе replace и lost-sales учет",
+        "donor": "существующийSSJтолько с прежнимзаданием/потеряннымрезультатом; новыйSJс альтернативнымиспользованием"
+      },
+      "delivery_branches": [
+        "phased_P03_calendar",
+        "partial_P03_calendar",
+        "delayed_P03_calendar",
+        "zero_new_aircraft"
+      ],
+      "season_calendar_ref": "month_calendar.json",
+      "rollout": {
+        "pilot_requested": "2027-10-01",
+        "expansion_requested": "2028-04-01",
+        "rule": "не раньше разрешённогоservice_entry, crew, MRO, slot/stand и финансирования; A-KJA-08, не прогноз",
+        "prelaunch": "KEEP продолжается; startup cash до запуска учитывается; проектныеполёты только послеgates",
+        "zero_new": "без нового ресурса KEEP; существующийSSJможет участвовать только с донором; недопоставка не разрешает назначить phantomtail"
+      },
+      "required_common_inputs": [
+        "P03 datedKEEP/flightcalendar/tail/crew/MRO/reserve/admission",
+        "P02 dated competing/own products, fare20kg/all-in, adjacent legs/operator/inventory",
+        "P05 monthly endpointOD and unified calibratedchoice/contracts/response",
+        "P04 full incremental/cash/rate/scheme mappings",
+        "P06 independentlyaccepted version, completeP/KEEPbundles"
+      ],
+      "programme_id": "KJA-I-GYD",
+      "name": "Дополнительная международная проверка Баку",
+      "role": "conditional_international_direct_or_partner",
+      "hypothesis_ids": [
+        "H-KJA-06"
+      ],
+      "flights": [
+        {
+          "origin_airport": "KJA",
+          "destination_airport": "GYD",
+          "rt_per_week": 1,
+          "status": "scenario",
+          "change_vs_KEEP": "replace alternative programme flight block, not free extra aircraft",
+          "aircraft_variant": "SSJ100_LR_only_if_P03_payload_range_and_support_pass; SJ100separate",
+          "seats": null,
+          "block_minutes": null,
+          "assumption_ids": [
+            "A-KJA-20",
+            "A-KJA-21"
+          ]
+        }
+      ],
+      "od_products": [
+        "KJA-GYD"
+      ],
+      "resource": {
+        "active_tails_required": 1,
+        "initial_location": "KJA_or_partner",
+        "physical_tail_ids": null,
+        "reserve_tails_required": "UNKNOWN; отдельныйRпринимаетсяеслидоступен иоплачен",
+        "maintenance_capacity": "UNKNOWN",
+        "crew_roster": "UNKNOWN; отдельные dutyокна на каждуюмиссию",
+        "lost_previous_task": "UNKNOWN; нельзяобнулить",
+        "unused_hours_policy": "учитываются aircraft_use/base/crew; остаточныйресурс предлагаетсяодинаковомуKEEP/альтернативам",
+        "assumption_ids": [
+          "A-KJA-06",
+          "A-KJA-07",
+          "A-KJA-15",
+          "A-KJA-20"
+        ]
+      },
+      "reference_week_legs": 2,
+      "scope": "расширениенеобязательнодлясамостоятельногоCASE_SJ",
+      "gates": [
+        "bilateraltrafficrights",
+        "actualadjacentleg:IO473endpointdoesnotprovephysicalnonstop",
+        "P03fuel_payload_range_reserveandforeignMRO",
+        "P04RUB/FX/crossbordercashandeligibility",
+        "P05ODandbags20kg/all-infare"
+      ],
+      "reason": "приоритетGYDаэропорта+датированноеIOпредложениеRRJ95; не доказанныйприбыльныймаршрут"
+    }
+  ],
+  "global_network_target": "8–12uniqueairportpairsвобщейсети; этокандидатыфрагментов",
+  "not_engine_bundle": true
+}

@@ -1,0 +1,45 @@
+{
+  "scope": "одинаково для каждого T/C/O и своего futureKEEP; SSJ и SJ_PD8 раздельно",
+  "branches": [
+    {
+      "branch_id": "existing_donor",
+      "new_SJ_count": null,
+      "resource_release": "только именованный действующий tail/date с prior_task; перенос/потерянный вклад",
+      "ready_rule": "P03 existing availability минус reserve/MRO/KEEP; UNKNOWN",
+      "before_H2_2027": "возможно только при подтверждённом действующем ресурсе"
+    },
+    {
+      "branch_id": "new_phased_H2_2027_or_later",
+      "N_t": null,
+      "earliest_handover": "2027-07-01",
+      "service_entry": null,
+      "ready_rule": "max(handover+induction,crew_ready,MRO_ready,type/operator/airport approvals); все составляющие UNKNOWN",
+      "counterfactual": "alternative use того же нового tail в KEEP, commitments остаются"
+    },
+    {
+      "branch_id": "partial",
+      "N_t": null,
+      "rule": "общий пониженный целочисленный вектор поставок из P03; не произвольный прогноз; уменьшение service counts через реальные даты"
+    },
+    {
+      "branch_id": "delayed",
+      "N_t": null,
+      "delay": null,
+      "rule": "общий сдвинутый календарь P03; сезонное окно может быть пропущено, sunk/committed затраты сохраняются"
+    },
+    {
+      "branch_id": "no_new_SJ",
+      "new_SJ_count": 0,
+      "rule": "никакого нового SJ; действующий SSJ_KEEP сохраняется; проект возможен только при доказанном donor release, иначе добавления нет и рынок не0"
+    }
+  ],
+  "new_Tu214_maincase": 0,
+  "all_counts_forecast_status": "UNKNOWN; пакет не выбирает новый прогноз RW",
+  "assumption_ids": [
+    "MOW-A07",
+    "MOW-A11",
+    "MOW-A12",
+    "MOW-A17",
+    "MOW-A20"
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-KHV-01",
+      "title": "Новая радиальная ступень лучше немедленного большого хаба",
+      "signal": "UUD2публикуемыхдня;UUSплотнаясеть;объёмlocalODнеизвестен",
+      "source_ids": [
+        "E-KHV-05",
+        "E-KHV-18",
+        "KHV_OUT"
+      ],
+      "mechanism": "Радиальная ступень позволяет проверить местные рынки до вложений во второй борт и банк.",
+      "counterfactual": "R1vsE1vsKEEP1tail",
+      "distinguishing_test": "Сравнить R1, E1 и KEEP при одном календаре борта, crew, ТО и резерва. Частоты2/3/4 проверить по длительности поездок P05.",
+      "ancestorIDs": [
+        "C21",
+        "FRONT_GAP",
+        "EC_H01",
+        "KIR_PAIR_D"
+      ],
+      "programme_ids": [
+        "KHV-R1",
+        "KHV-E1"
+      ],
+      "disposition": "условна_изза_конкретного_неизвестного",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Сильные конкуренты на UUS;станционные расходы и нетто-тариф UNKNOWN.",
+      "revisit_condition": "получитьвходыStageBиобщийP06повторныйрасчёт"
+    },
+    {
+      "hypothesis_id": "H-KHV-02",
+      "title": "Защищённые KHVбанки могут объединить UUD–UUS и HTA–GDX",
+      "signal": "историческаяработатрансфера;существующиерейсынаплечахнеравныпроданномуполномупродукту",
+      "source_ids": [
+        "E-KHV-14",
+        "E-KHV-05",
+        "E-KHV-07"
+      ],
+      "mechanism": "Защищённые банки объединяют конечные межрегиональные поездки с местными;все используют одни и те же кресла.",
+      "counterfactual": "H2vsD2vsR1+same2ndtailalternative",
+      "distinguishing_test": "H2 против D2: одинаковые два хвоста, конечные OD, внешний сценарий и доступ к опорной сети. Отдельно выключить защиту и перестроить часы при тех же частотах.",
+      "ancestorIDs": [
+        "C21",
+        "EC_H01",
+        "KIR_PAIR_D"
+      ],
+      "programme_ids": [
+        "KHV-H2",
+        "KHV-D2"
+      ],
+      "disposition": "условна_изза_конкретного_неизвестного",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Технология Авроры2017 не даёт RW MCT;слоты,багаж,crew и собственный переток UNKNOWN.",
+      "revisit_condition": "получитьвходыStageBиобщийP06повторныйрасчёт"
+    },
+    {
+      "hypothesis_id": "H-KHV-03",
+      "title": "KHV может быть outstationсуществующейопорнойSVX",
+      "signal": "RWподтвердилSVXопорным;KHVпримерно4847кмотнего",
+      "source_ids": [
+        "E-KHV-15",
+        "P03_aircraft_type_parameters",
+        "GEOMETRY_airports"
+      ],
+      "mechanism": "KHV может быть концом цепочки из подтверждённой опорной SVX через IKT,без новой постоянной базы.",
+      "counterfactual": "E1vsR1same1tailandKEEP",
+      "distinguishing_test": "E1 против R1:один и тот же хвост;добавить ночёвку,перегоны,экипажи и все продажи SVX–IKT/KHV–IKT/KHV–SVX.",
+      "ancestorIDs": [
+        "C21",
+        "FRONT_GAP"
+      ],
+      "programme_ids": [
+        "KHV-E1"
+      ],
+      "disposition": "условна_изза_конкретного_неизвестного",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Два длинных плеча,расходы и неудобные дни могут поглотить экономию новой базы. Дальность и payload проверяются по варианту.",
+      "revisit_condition": "получитьвходыStageBиобщийP06повторныйрасчёт"
+    },
+    {
+      "hypothesis_id": "H-KHV-04",
+      "title": "Партнёрство может быть лучше дублирования дальневосточной сети",
+      "signal": "Аврораплотнаярегиональнаясетьиопыттрансфера;малыеаэропортыобслуживаютсямалымитипами",
+      "source_ids": [
+        "E-KHV-07",
+        "E-KHV-14",
+        "E-KHV-18"
+      ],
+      "mechanism": "Покупка защищённого подвоза может заменить дублирование сети,сохранив самолёты RW для другого задания.",
+      "counterfactual": "P0+alternativeRWtailsvsH2",
+      "distinguishing_test": "P0 плюс альтернативное применение тех же хвостов против H2;найти порог комиссии и ограничить продажи реальными местами и договором.",
+      "ancestorIDs": [
+        "C24",
+        "EC_H03",
+        "KIR_PAIR_D"
+      ],
+      "programme_ids": [
+        "KHV-P0"
+      ],
+      "disposition": "условна_изза_конкретного_неизвестного",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Партнёр одновременно конкурент;договор,доступные места и ответственность UNKNOWN.",
+      "revisit_condition": "получитьвходыStageBиобщийP06повторныйрасчёт"
+    },
+    {
+      "hypothesis_id": "H-KHV-05",
+      "title": "Треугольник KHV–UUS–PKC не равен лучшей программе",
+      "signal": "C24предлагаеттреугольник;PKCежедневноизKHVуАвроры",
+      "source_ids": [
+        "PLAN_variant_research_plan.json",
+        "E-KHV-07"
+      ],
+      "mechanism": "Треугольник C24 объединён с опытом partner/radial при сохранении происхождения. Отдельная own-operation экономика ещё не выполнена.",
+      "counterfactual": "singletrianglevsradialpairvsP0;sameaircraftcalendar",
+      "distinguishing_test": "Сравнить KHV–UUS–PKC–KHV,два радиальных продукта и партнёра при одинаковом ресурсе и общем OD. Каждую физическую посадку и кресло учесть один раз.",
+      "ancestorIDs": [
+        "C24",
+        "EC_H03",
+        "KIR_PAIR_D"
+      ],
+      "programme_ids": [
+        "KHV-P0"
+      ],
+      "disposition": "объединена_с_партнерским_опытом_с_сохранением_происхождения",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Через остановку поездка длиннее;местные рынки не независимы. Один плохой треугольник не опровергает город.",
+      "revisit_condition": "P03календарьUUS-PKCиP05ODдляотдельногоownoperationсабкейса"
+    },
+    {
+      "hypothesis_id": "H-KHV-06",
+      "title": "Ближний международный продукт может заменить часть UUSресурса",
+      "signal": "Харбин5/неделя;internationalрастёт,нонетобъёмаOD",
+      "source_ids": [
+        "E-KHV-08",
+        "E-KHV-02"
+      ],
+      "mechanism": "Ближний международный рынок проверяется заменой двух UUS-оборотов,без увеличения парка и без новых Ту-214.",
+      "counterfactual": "I1vsR1same1tail;lostUUSsales+internationalcosts",
+      "distinguishing_test": "I1 против R1:учесть права,пограничные процедуры,новые расходы,реакцию конкурентов и потерянные продажи UUS.",
+      "ancestorIDs": [
+        "C21"
+      ],
+      "programme_ids": [
+        "KHV-I1"
+      ],
+      "disposition": "условна_изза_конкретного_неизвестного",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Рост международного агрегата аэропорта не доказывает спрос или прибыль RW;тарифы и допуски UNKNOWN.",
+      "revisit_condition": "получитьвходыStageBиобщийP06повторныйрасчёт"
+    },
+    {
+      "hypothesis_id": "H-KHV-07",
+      "title": "Беспосадочный KHV–SVX на maincaseSJ100PD8непринят",
+      "signal": "геометриябольшемаркетинговых3530км",
+      "source_ids": [
+        "P03_aircraft_type_parameters",
+        "GEOMETRY_airports"
+      ],
+      "mechanism": "Для maincase SJ100/ПД-8 беспосадочный KHV–SVX не проходит раннюю геометрическую границу опубликованных3530км.",
+      "counterfactual": "nonstopvsE1",
+      "distinguishing_test": "Расстояние по координатам4846.8км больше описанной дальности;проверить вариант с посадкой E1 и точный AFM при изменении типа.",
+      "ancestorIDs": [
+        "C21"
+      ],
+      "programme_ids": [
+        "KHV-E1"
+      ],
+      "disposition": "отклонена_только_беспосадочная_SJ100_PD8_конструкция",
+      "evidence_scope": "StageAисточники/конструкция;экономикаNOT_RUN",
+      "counterevidence": "Это отказ конкретной беспосадочной конструкции,а не всей стратегии KHV. Другая конфигурация или тип требуют новой проверки.",
+      "revisit_condition": "точныйодобренныйAFMсполезнойнагрузкойнаKHV-SVXилидругойтип;городоткрыт"
+    }
+  ],
+  "not_closed_as_economic_rejection": [
+    "весьKHV",
+    "C21",
+    "C24",
+    "редкиемалыефидерырегиона",
+    "проектприотсутствииновыхбортов"
+  ],
+  "status_boundary": "StageAзавершён;StageBзапросыявные;работаневыполненапоэкономике,неотсев"
+}

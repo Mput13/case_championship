@@ -1,0 +1,375 @@
+{
+  "programmes": [
+    {
+      "programme": {
+        "programme_id": "SVX_RADIAL_INTL_RESERVATION",
+        "label": "SVX–URC: международная замена двух внутренних оборотов в неделю",
+        "family": "EXISTING_BASE_DEVELOPMENT",
+        "city": "SVX",
+        "working_slots": [
+          {
+            "base": "SVX",
+            "spokes": [
+              "AER",
+              "MRV",
+              "LED"
+            ],
+            "bank": false,
+            "ordered_paths_iso_weekday": {
+              "1": [
+                "SVX",
+                "AER",
+                "SVX"
+              ],
+              "3": [
+                "SVX",
+                "LED",
+                "SVX"
+              ],
+              "4": [
+                "SVX",
+                "AER",
+                "SVX"
+              ],
+              "6": [
+                "SVX",
+                "LED",
+                "SVX"
+              ]
+            }
+          },
+          {
+            "base": "SVX",
+            "spokes": [
+              "KUF",
+              "UFA",
+              "IJK"
+            ],
+            "bank": false
+          },
+          {
+            "base": "SVX",
+            "spokes": [
+              "KZN",
+              "OVB",
+              "OMS"
+            ],
+            "bank": false
+          }
+        ],
+        "transfers": false,
+        "source_programme_ids": [],
+        "source_city_manifest": "db88e7c0ab962662afc962931d4184d4d836b866c6b1cc93ee607e32b241bce2",
+        "network_pairs": [
+          [
+            "AER",
+            "SVX"
+          ],
+          [
+            "MRV",
+            "SVX"
+          ],
+          [
+            "LED",
+            "SVX"
+          ],
+          [
+            "KUF",
+            "SVX"
+          ],
+          [
+            "SVX",
+            "UFA"
+          ],
+          [
+            "IJK",
+            "SVX"
+          ],
+          [
+            "KZN",
+            "SVX"
+          ],
+          [
+            "OVB",
+            "SVX"
+          ],
+          [
+            "OMS",
+            "SVX"
+          ]
+        ],
+        "selection_rule": "До9 лучших локальных/P05 пар по общему однооборотному P05/P06 control; не глобальный optimum, не экономический отказ остальных.",
+        "comparison_controls": "same fleet/KEEP; HUB отличается частотой, отдельный same-schedule no-transfer control обязателен",
+        "stage": "CONDITIONAL_CALCULATED_SCENARIO",
+        "unknowns": [
+          "свободный ресурс",
+          "crew/MRO/AFM",
+          "полный KEEP и own international",
+          "local contracts/rates",
+          "неидентифицированный спрос"
+        ],
+        "assumption_ids": [
+          "P09-RESOURCE",
+          "P09-ENTRY",
+          "P09-KEEP",
+          "P09-SCHEDULE",
+          "P09-PERFORMANCE",
+          "P09-OPS",
+          "P09-COST",
+          "P09-MISSING",
+          "P09-CASH",
+          "P09-SUPPORT",
+          "P09-SCOPE",
+          "P09-SEASON",
+          "P09-RESPONSE"
+        ]
+      },
+      "parent": "SVX_RADIAL",
+      "hypothesis_id": "I06",
+      "new_Tu214": 0,
+      "international_OD": "UNKNOWN; не расширять domestic P05 gravity на foreign",
+      "revenue_mode": "FOREIGN_NET_REVENUE_SYMBOLIC",
+      "source_card": {
+        "market_card_id": "IMC-SVX-URC",
+        "origin_airport": "SVX",
+        "destination_airport": "URC",
+        "via_airport": "NONE_IF_NONSTOP_CONFIRMED",
+        "country": "CN",
+        "form": "direct_candidate_or_existing",
+        "domain_basis": "Китайская SSJ альтернатива из существующей базы",
+        "rw_baseline_status": "опубликованное/историческое предложение; выполнение UNKNOWN",
+        "rw_keep_requirement": "Не обнулять действующие продажи и ресурс; точный KEEPUNKNOWN",
+        "source_ids": "RW-URC",
+        "source_row_ids": "UNKNOWN",
+        "source_row_hashes": "UNKNOWN",
+        "source_periods": "объявлено с 01.07.2026; окончание UNKNOWN",
+        "nominal_type": "SSJ100; subtype/tailUNKNOWN",
+        "frequency_evidence": "2/нед, ср/вс",
+        "published_elapsed_minutes": "240",
+        "real_route_distance_km": "UNKNOWN",
+        "source_granularity": "пара; источник может быть правилом/объявлением",
+        "coverage": "Частичное покрытие; отсутствие найденного конкурента не означает его отсутствие",
+        "demand_outbound": "UNKNOWN помесячные поездки из России; Отдых/городские/семейныепоездки — сегментная гипотеза, объёмы P05UNKNOWN",
+        "demand_inbound": "UNKNOWN исходный поток из страны партнёра и возврат российских туристов раздельно",
+        "demand_pool_rule": "Общаяпоездка/сегмент в P05;не суммировать прямые/подвоз/кодшер/чартерныеблоки",
+        "seasonality": "Лето/плечи/зима раздельно; помесячный профиль UNKNOWN",
+        "competitors_observed": "UNKNOWN_NOT_ZERO",
+        "competitor_coverage": "Только извлечённые строки/первичный релиз; перечень неполный",
+        "competition_products": "",
+        "price_as_of": "2026-11-12",
+        "departure_date_for_price": "UNKNOWN",
+        "booking_lead_days": "UNKNOWN",
+        "fare_gross_rub": "UNKNOWN",
+        "fare_net_rub": "UNKNOWN",
+        "baggage_fees_basket": "UNKNOWN",
+        "open_physical_seats": "UNKNOWN",
+        "route_payload_status": "UNKNOWN; опубликованныйтип/времяне admission2028",
+        "access_ids": "ACCESS-CN-regular;ACCESS-CN-charter",
+        "cost_status": "Полныйоборот/страна/тип UNKNOWN; ratesreference только TBS/TLV",
+        "status": "CONDITIONAL_RESEARCH_CARD_NOT_ECONOMIC_REJECTION",
+        "stage_b": "P03 datedKEEP/resource/payload/access +P05demand/choice+P04cost/FX/contracts→P06joint",
+        "assumption_ids": "P02I-A01;P02I-A02;P02I-A03;P02I-A04;P02I-A05;P02I-A10;P02I-A11;P02I-A14",
+        "source_urls": "https://flyredwings.com/en/press/news/red-wings-nachnet-letat-iz-ekaterinburga-v-kitaj/",
+        "organizations": "Red Wings",
+        "as_of": "2026-11-12",
+        "unit": "поездка/месяц/направление/сегмент UNKNOWN; предложение не capacity"
+      },
+      "source_row_sha256": "c1eb958779ae8f3e6d3defff95ec46d24540e0d0765e3c4bc8d0cb4efbafe504",
+      "return_duration_assumption": "Симметричный published elapsed аналог; обратный OFP/season/routing UNKNOWN",
+      "foreign_cost_coverage": "Только явно перенесённый SSJ hourly/fuel аналог и российский movement; foreign handling/FX/insurance/permits/tax/SPA UNKNOWN",
+      "through_journeys": "UNKNOWN, не удалять существующие own/partner contracts"
+    },
+    {
+      "programme": {
+        "programme_id": "KUF_RADIAL_INTL_RESERVATION",
+        "label": "KUF–IST: международная замена двух внутренних оборотов в неделю",
+        "family": "EXISTING_BASE_DEVELOPMENT",
+        "city": "KUF",
+        "working_slots": [
+          {
+            "base": "KUF",
+            "spokes": [
+              "LED",
+              "AER",
+              "MRV"
+            ],
+            "bank": false,
+            "ordered_paths_iso_weekday": {
+              "1": [
+                "KUF",
+                "LED",
+                "KUF"
+              ],
+              "3": [
+                "KUF",
+                "MRV",
+                "KUF"
+              ],
+              "4": [
+                "KUF",
+                "LED",
+                "KUF"
+              ],
+              "6": [
+                "KUF",
+                "MRV",
+                "KUF"
+              ]
+            }
+          },
+          {
+            "base": "KUF",
+            "spokes": [
+              "KJA",
+              "VOG",
+              "CEK"
+            ],
+            "bank": false
+          },
+          {
+            "base": "KUF",
+            "spokes": [
+              "GOJ",
+              "SVX",
+              "UFA"
+            ],
+            "bank": false
+          }
+        ],
+        "transfers": false,
+        "source_programme_ids": [
+          "P-KUF-ARH-SWAP",
+          "P-KUF-C4",
+          "P-KUF-PARTNER",
+          "P-KUF-R2",
+          "P-KUF-R4",
+          "P-KUF-VOG",
+          "P-KUF-W4"
+        ],
+        "source_city_manifest": "8c00e6ac0f580f97239b26249ece45a18d19125ebd8c623e4e60540d80cd220f",
+        "network_pairs": [
+          [
+            "KUF",
+            "LED"
+          ],
+          [
+            "AER",
+            "KUF"
+          ],
+          [
+            "KUF",
+            "MRV"
+          ],
+          [
+            "KJA",
+            "KUF"
+          ],
+          [
+            "KUF",
+            "VOG"
+          ],
+          [
+            "CEK",
+            "KUF"
+          ],
+          [
+            "GOJ",
+            "KUF"
+          ],
+          [
+            "KUF",
+            "SVX"
+          ],
+          [
+            "KUF",
+            "UFA"
+          ]
+        ],
+        "selection_rule": "До9 лучших локальных/P05 пар по общему однооборотному P05/P06 control; не глобальный optimum, не экономический отказ остальных.",
+        "comparison_controls": "same fleet/KEEP; HUB отличается частотой, отдельный same-schedule no-transfer control обязателен",
+        "stage": "CONDITIONAL_CALCULATED_SCENARIO",
+        "unknowns": [
+          "свободный ресурс",
+          "crew/MRO/AFM",
+          "полный KEEP и own international",
+          "local contracts/rates",
+          "неидентифицированный спрос"
+        ],
+        "assumption_ids": [
+          "P09-RESOURCE",
+          "P09-ENTRY",
+          "P09-KEEP",
+          "P09-SCHEDULE",
+          "P09-PERFORMANCE",
+          "P09-OPS",
+          "P09-COST",
+          "P09-MISSING",
+          "P09-CASH",
+          "P09-SUPPORT",
+          "P09-SCOPE",
+          "P09-SEASON",
+          "P09-RESPONSE"
+        ]
+      },
+      "parent": "KUF_RADIAL",
+      "hypothesis_id": "I03",
+      "new_Tu214": 0,
+      "international_OD": "UNKNOWN; не расширять domestic P05 gravity на foreign",
+      "revenue_mode": "FOREIGN_NET_REVENUE_SYMBOLIC",
+      "source_card": {
+        "market_card_id": "IMC-KUF-IST",
+        "origin_airport": "KUF",
+        "destination_airport": "IST",
+        "via_airport": "NONE_IF_NONSTOP_CONFIRMED",
+        "country": "TR",
+        "form": "market_candidate_source_form_unknown",
+        "domain_basis": "Сохранённая строка предложения/объявления по городу программы",
+        "rw_baseline_status": "RW/конкурент/котировка: см.source rows; не доказательство выполнения",
+        "rw_keep_requirement": "Не обнулять действующие продажи и ресурс; точный KEEPUNKNOWN",
+        "source_ids": "P02_PIN;RW-KUF-IST",
+        "source_row_ids": "P02-1bed014b8e42dc73;P02-cd987640ee8b022b",
+        "source_row_hashes": "472e95da09ce1dab511a27f850b575db69960b564ce1d9074069818e45df0452;0c43b02d2da98bdc416912d843dd21157f1b781a45dc5cd1d9d49dd413066803",
+        "source_periods": "2026-11-08/2027-01-03;2027-01-06;зима 2026/27 с 25.10.2026",
+        "nominal_type": "SSJ100; subtype/tailUNKNOWN",
+        "frequency_evidence": "1/нед по воскресеньям",
+        "published_elapsed_minutes": "275",
+        "real_route_distance_km": "UNKNOWN",
+        "source_granularity": "пара; источник может быть правилом/объявлением",
+        "coverage": "Частичное покрытие; отсутствие найденного конкурента не означает его отсутствие",
+        "demand_outbound": "UNKNOWN помесячные поездки из России; Отдых/городские/семейныепоездки — сегментная гипотеза, объёмы P05UNKNOWN",
+        "demand_inbound": "UNKNOWN исходный поток из страны партнёра и возврат российских туристов раздельно",
+        "demand_pool_rule": "Общаяпоездка/сегмент в P05;не суммировать прямые/подвоз/кодшер/чартерныеблоки",
+        "seasonality": "Лето/плечи/зима раздельно; помесячный профиль UNKNOWN",
+        "competitors_observed": "UNKNOWN_NOT_ZERO",
+        "competitor_coverage": "Только извлечённые строки/первичный релиз; перечень неполный",
+        "competition_products": "",
+        "price_as_of": "2026-11-12",
+        "departure_date_for_price": "UNKNOWN",
+        "booking_lead_days": "UNKNOWN",
+        "fare_gross_rub": "UNKNOWN",
+        "fare_net_rub": "UNKNOWN",
+        "baggage_fees_basket": "UNKNOWN",
+        "open_physical_seats": "UNKNOWN",
+        "route_payload_status": "UNKNOWN; опубликованныйтип/времяне admission2028",
+        "access_ids": "ACCESS-TR-regular;ACCESS-TR-charter",
+        "cost_status": "Полныйоборот/страна/тип UNKNOWN; ratesreference только TBS/TLV",
+        "status": "CONDITIONAL_RESEARCH_CARD_NOT_ECONOMIC_REJECTION",
+        "stage_b": "P03 datedKEEP/resource/payload/access +P05demand/choice+P04cost/FX/contracts→P06joint",
+        "assumption_ids": "P02I-A01;P02I-A02;P02I-A03;P02I-A04;P02I-A05;P02I-A10;P02I-A11;P02I-A14",
+        "source_urls": "git:d9486f113f074c185a94bcc5c0afeef12ea3574f:context/35_full_programme_execution_20261112/P02/competitor_products.csv;https://flyredwings.com/en/press/news/red-wings-osenyu-zapustit-rejsy-iz-samary-v-stambul/",
+        "organizations": "P02; происхождение первичных URL в строках;Red Wings",
+        "as_of": "2026-11-12",
+        "unit": "поездка/месяц/направление/сегмент UNKNOWN; предложение не capacity"
+      },
+      "source_row_sha256": "6779993fb179990949c85636f727828cb8de097fda311eba72d8332af3b0ca80",
+      "return_duration_assumption": "Симметричный published elapsed аналог; обратный OFP/season/routing UNKNOWN",
+      "foreign_cost_coverage": "Только явно перенесённый SSJ hourly/fuel аналог и российский movement; foreign handling/FX/insurance/permits/tax/SPA UNKNOWN",
+      "through_journeys": "UNKNOWN, не удалять существующие own/partner contracts"
+    }
+  ],
+  "main_CASE_SJ_independent": true,
+  "new_Tu214": 0,
+  "existing_Tu214": "KEEP не обнулён; общий неизменный остаток вне CASE_SJ; перераспределение требует отдельного источника",
+  "other_8_P02I_hypotheses": "CONDITIONAL_OPEN; exact missing fields retained in sealed/P02I/programme_hypotheses.json",
+  "capital_branch": "Инвестиционная ветвь новогоТу214 UNKNOWN; единица сравнительного опыта не поставочный прогноз"
+}

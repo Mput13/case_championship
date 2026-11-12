@@ -1,0 +1,449 @@
+{
+  "parent": {
+    "context": {
+      "evaluation_id": "P-independent",
+      "programme_id": "P",
+      "programme_version": "P13-synthetic-v1",
+      "fleet_scope_id": "P13-SJ",
+      "external_scenario_id": "P13-synthetic",
+      "delivery_calendar_id": "P13-resource",
+      "market_version": "P13-potential",
+      "choice_version": "P13-zero-coefficients",
+      "cost_version": "P13-event-values",
+      "response_policy_id": "P13-policy",
+      "evaluation_mode": "fixed_programme",
+      "decision_date": "2026-11-12",
+      "information_set_id": "P13-information",
+      "keep_evaluation_id": "KEEP-independent",
+      "input_manifest_sha256": "9d7808716e1b721bacd55c7dee54e3f985f6a0dd0044ef6768c62aef9f98d2a3",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "cash_start": "2026-12",
+      "price_year": 2027,
+      "affected_scope_id": "P13-complete-toy"
+    },
+    "markets": [],
+    "market_calendar": [],
+    "products": [],
+    "flights": [
+      {
+        "flight_instance_id": "MARCH",
+        "schedule_id": "P13-dated",
+        "operator": "TEST",
+        "flight_number": "MARCH",
+        "origin_airport": "AAA",
+        "destination_airport": "BBB",
+        "departure_utc": "2027-03-10T08:00:00Z",
+        "arrival_utc": "2027-03-10T10:00:00Z",
+        "aircraft_variant": "SSJ100_TEST_ANALOGUE",
+        "seats": 50,
+        "technical_blocked_seats": 0,
+        "saleable_seats": 50,
+        "physical_adjacent_leg": true,
+        "scheduled_status": "proposed",
+        "source_status": "scenario",
+        "source_period": "2027-2028",
+        "assumption_id": "P13-A001",
+        "distance_km": 500,
+        "project_network": true
+      }
+    ],
+    "fleet_calendar": [],
+    "assignments": [],
+    "contracts": [],
+    "economic_events": [
+      {
+        "economic_event_id": "PAST_DERIVED",
+        "owner": "PAST_DERIVED",
+        "category": "variable_cost",
+        "scope": "affected_business",
+        "driver_unit": "block_hour",
+        "quantity": 2,
+        "rate": 10,
+        "amount": 20,
+        "currency": "RUB",
+        "price_year": 2027,
+        "fx_policy": "RUB_input",
+        "accrual_month": "2027-02",
+        "noncash": false,
+        "avoidability": "explicit_scenario",
+        "shared_event_id": "PAST_DERIVED",
+        "source_id": "P13-SYNTHETIC",
+        "assumption_id": "P13-A001",
+        "cash_plan_status": "explicit",
+        "driver": {
+          "kind": "block_hours",
+          "flight_ids": [
+            "MARCH"
+          ]
+        },
+        "payments": [
+          {
+            "date": "2027-04-10",
+            "fraction": 1
+          }
+        ],
+        "accrual_date": "2027-02-01"
+      }
+    ],
+    "cash_events": [],
+    "opening_balances": [],
+    "assumptions": [
+      {
+        "assumption_id": "P13-A001",
+        "value": "Все искусственные числа, нули, даты и допуски в P13",
+        "unit": "Указана в полях; RUB, journeys, seats, UTC, minutes, block hours",
+        "selected_by": "Независимый reviewer P13-CORE",
+        "basis": "Аналитические граничные примеры для проверки инвариантов",
+        "approval_status": "SYNTHETIC_TEST_ONLY",
+        "range_or_unknown": "Для Red Wings UNKNOWN; не оценка рынка или доверительный интервал",
+        "affected_conclusions": "Только корректность ядра на exact subject",
+        "sensitivity": "Изменение одного поля и парные сценарии в reproduce.py",
+        "refinement": "Реальные значения требуют принятого P02/P03/P04/P05, здесь не подбираются"
+      }
+    ],
+    "input_manifest": [
+      {
+        "source_id": "P06-CONTRACT",
+        "commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "path": "context/35_full_programme_execution_20261112/P06/producer_contract.json",
+        "sha256": "666582e2093fe13fd60be65e917c993bc5471ba481cc0c5647f4c5fc34ffb163"
+      }
+    ],
+    "choice_model": {
+      "price_per_rub": 0,
+      "time_per_minute": 0,
+      "log_frequency": 0,
+      "assumption_id": "P13-A001",
+      "calibration_status": "SYNTHETIC_NOT_CALIBRATED"
+    },
+    "response_policy": {
+      "response_policy_id": "P13-policy",
+      "rules": [],
+      "assumption_id": "P13-A001"
+    },
+    "cost_coverage": {
+      "variable_cost": {
+        "status": "explicit",
+        "event_ids": [
+          "PAST_DERIVED"
+        ],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "base": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "aircraft_use": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "reserve": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "startup": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "exit": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "support": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      }
+    },
+    "cash_coverage": {
+      "operating": "explicit",
+      "investing": "explicit",
+      "tax": "explicit",
+      "financing": "explicit",
+      "finance_interest": "explicit"
+    },
+    "cash_policy": {
+      "opening_cash": 0,
+      "minimum_cash": 0,
+      "project_opening_cash": 0,
+      "project_minimum_cash": 0,
+      "assumption_id": "P13-A001"
+    },
+    "resource_operators": [],
+    "accounting_policy": "operating_aircraft_use_excludes_interest",
+    "information_set": {
+      "information_set_id": "P13-information",
+      "facts": [
+        {
+          "fact_id": "P13-known",
+          "available_at": "2026-11-01"
+        }
+      ]
+    },
+    "keep_policy": {
+      "keep_policy_id": "P13-future-KEEP",
+      "future_period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "resource_policy": "same available tails",
+      "existing_business": "all affected toy business",
+      "alternative_new_resource_use": "explicit KEEP",
+      "excluded_unaffected_scope": "none",
+      "avoidable_cost_rules": "explicit events",
+      "assumption_id": "P13-A001"
+    },
+    "programme_target": {
+      "branch": "mechanical_test",
+      "rationale": "Не проектная сеть RW",
+      "assumption_id": "P13-A001"
+    },
+    "metric_adapter": null
+  },
+  "adaptive": {
+    "context": {
+      "evaluation_id": "P13-recheck-adaptive",
+      "programme_id": "P",
+      "programme_version": "P13-synthetic-v1",
+      "fleet_scope_id": "P13-SJ",
+      "external_scenario_id": "P13-synthetic",
+      "delivery_calendar_id": "P13-resource",
+      "market_version": "P13-potential",
+      "choice_version": "P13-zero-coefficients",
+      "cost_version": "P13-event-values",
+      "response_policy_id": "P13-policy",
+      "evaluation_mode": "feasible_adaptation_with_existing_commitments",
+      "decision_date": "2027-02-02",
+      "information_set_id": "P13-information",
+      "keep_evaluation_id": "KEEP-independent",
+      "input_manifest_sha256": "9d7808716e1b721bacd55c7dee54e3f985f6a0dd0044ef6768c62aef9f98d2a3",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "cash_start": "2026-12",
+      "price_year": 2027,
+      "affected_scope_id": "P13-complete-toy"
+    },
+    "markets": [],
+    "market_calendar": [],
+    "products": [],
+    "flights": [
+      {
+        "flight_instance_id": "MARCH",
+        "schedule_id": "P13-dated",
+        "operator": "TEST",
+        "flight_number": "MARCH",
+        "origin_airport": "AAA",
+        "destination_airport": "BBB",
+        "departure_utc": "2027-03-10T08:00:00Z",
+        "arrival_utc": "2027-03-10T11:00:00Z",
+        "aircraft_variant": "SSJ100_TEST_ANALOGUE",
+        "seats": 50,
+        "technical_blocked_seats": 0,
+        "saleable_seats": 50,
+        "physical_adjacent_leg": true,
+        "scheduled_status": "proposed",
+        "source_status": "scenario",
+        "source_period": "2027-2028",
+        "assumption_id": "P13-A001",
+        "distance_km": 500,
+        "project_network": true
+      }
+    ],
+    "fleet_calendar": [],
+    "assignments": [],
+    "contracts": [],
+    "economic_events": [
+      {
+        "economic_event_id": "PAST_DERIVED",
+        "owner": "PAST_DERIVED",
+        "category": "variable_cost",
+        "scope": "affected_business",
+        "driver_unit": "block_hour",
+        "quantity": 2,
+        "rate": 10,
+        "amount": 20,
+        "currency": "RUB",
+        "price_year": 2027,
+        "fx_policy": "RUB_input",
+        "accrual_month": "2027-02",
+        "noncash": false,
+        "avoidability": "explicit_scenario",
+        "shared_event_id": "PAST_DERIVED",
+        "source_id": "P13-SYNTHETIC",
+        "assumption_id": "P13-A001",
+        "cash_plan_status": "explicit",
+        "driver": {
+          "kind": "block_hours",
+          "flight_ids": [
+            "MARCH"
+          ]
+        },
+        "payments": [
+          {
+            "date": "2027-04-10",
+            "fraction": 1
+          }
+        ],
+        "accrual_date": "2027-02-01"
+      }
+    ],
+    "cash_events": [],
+    "opening_balances": [],
+    "assumptions": [
+      {
+        "assumption_id": "P13-A001",
+        "value": "Все искусственные числа, нули, даты и допуски в P13",
+        "unit": "Указана в полях; RUB, journeys, seats, UTC, minutes, block hours",
+        "selected_by": "Независимый reviewer P13-CORE",
+        "basis": "Аналитические граничные примеры для проверки инвариантов",
+        "approval_status": "SYNTHETIC_TEST_ONLY",
+        "range_or_unknown": "Для Red Wings UNKNOWN; не оценка рынка или доверительный интервал",
+        "affected_conclusions": "Только корректность ядра на exact subject",
+        "sensitivity": "Изменение одного поля и парные сценарии в reproduce.py",
+        "refinement": "Реальные значения требуют принятого P02/P03/P04/P05, здесь не подбираются"
+      }
+    ],
+    "input_manifest": [
+      {
+        "source_id": "P06-CONTRACT",
+        "commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "path": "context/35_full_programme_execution_20261112/P06/producer_contract.json",
+        "sha256": "666582e2093fe13fd60be65e917c993bc5471ba481cc0c5647f4c5fc34ffb163"
+      }
+    ],
+    "choice_model": {
+      "price_per_rub": 0,
+      "time_per_minute": 0,
+      "log_frequency": 0,
+      "assumption_id": "P13-A001",
+      "calibration_status": "SYNTHETIC_NOT_CALIBRATED"
+    },
+    "response_policy": {
+      "response_policy_id": "P13-policy",
+      "rules": [],
+      "assumption_id": "P13-A001"
+    },
+    "cost_coverage": {
+      "variable_cost": {
+        "status": "explicit",
+        "event_ids": [
+          "PAST_DERIVED"
+        ],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "base": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "aircraft_use": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "reserve": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "startup": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "exit": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      },
+      "support": {
+        "status": "not_applicable",
+        "event_ids": [],
+        "rationale": "Явное отсутствие только в этом синтетическом примере",
+        "assumption_id": "P13-A001"
+      }
+    },
+    "cash_coverage": {
+      "operating": "explicit",
+      "investing": "explicit",
+      "tax": "explicit",
+      "financing": "explicit",
+      "finance_interest": "explicit"
+    },
+    "cash_policy": {
+      "opening_cash": 0,
+      "minimum_cash": 0,
+      "project_opening_cash": 0,
+      "project_minimum_cash": 0,
+      "assumption_id": "P13-A001"
+    },
+    "resource_operators": [],
+    "accounting_policy": "operating_aircraft_use_excludes_interest",
+    "information_set": {
+      "information_set_id": "P13-information",
+      "facts": [
+        {
+          "fact_id": "P13-known",
+          "available_at": "2026-11-01"
+        }
+      ]
+    },
+    "keep_policy": {
+      "keep_policy_id": "P13-future-KEEP",
+      "future_period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "resource_policy": "same available tails",
+      "existing_business": "all affected toy business",
+      "alternative_new_resource_use": "explicit KEEP",
+      "excluded_unaffected_scope": "none",
+      "avoidable_cost_rules": "explicit events",
+      "assumption_id": "P13-A001"
+    },
+    "programme_target": {
+      "branch": "mechanical_test",
+      "rationale": "Не проектная сеть RW",
+      "assumption_id": "P13-A001"
+    },
+    "metric_adapter": null,
+    "adaptation": {
+      "parent_evaluation_id": "P-independent",
+      "parent_bundle_sha256": "4870d8c51a9d1074d0626d7e0b487f5ebd46906da90d304abda3671e671efe73",
+      "actions": [
+        {
+          "table": "flights",
+          "record_id": "MARCH",
+          "action": "replace",
+          "decision_date": "2027-02-02",
+          "effective_date": "2027-03-01",
+          "based_on_fact_ids": [
+            "P13-known"
+          ],
+          "assumption_id": "P13-A001"
+        }
+      ],
+      "preserved_commitment_ids": [],
+      "assumption_id": "P13-A001"
+    }
+  }
+}

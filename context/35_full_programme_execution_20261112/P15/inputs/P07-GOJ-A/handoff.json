@@ -1,0 +1,47 @@
+{
+  "city": "GOJ",
+  "package": "variants/GOJ/research_v1",
+  "as_of": "2026-11-12",
+  "stage_A": "COMPLETE",
+  "stage_B": "PENDING_COMMON_EVALUATION",
+  "summary": [
+    "Stage A завершена: 12 гипотез, 8 программных кандидатов, 17 рынков, 37 записей доказательств, 15 запросов Stage B.",
+    "GOJ — действующий пункт RW с опубликованным договором DAILY CHECK. Постоянная база, свободный ресурс и допуск SJ-100/ПД-8 не установлены.",
+    "P01/P02 содержат одинаковые датированные авиаплечи для сравнения SVX и ночёвки GOJ; P03/P04 сохраняют четыре спока и два борта, меняя through-продукт.",
+    "ЦИПР-2027 объявлен на 31 мая — 3 июня. Событийный продукт требует существующего ресурса, перестановки или партнёра; новые SJ-100 из H2 не могут обслужить эти даты.",
+    "Редакция тарифов с 16 ноября опубликована как будущая на дату 12 ноября. В комплексе ПОО RRJ-95B подготовка уже включена; материалы считаются отдельно.",
+    "Необходимы общие P05 OD/choice, P03 future KEEP/UTC/crew/reserve, P04 полная экономика и cash, независимая приёмка P06 и совместный пересчёт."
+  ],
+  "merge_entrypoints": [
+    "case.json",
+    "programme_candidates.json",
+    "programme_calendar.csv",
+    "comparison_requests.csv",
+    "hypotheses.json"
+  ],
+  "reproducible_commands": [
+    "python3 context/35_full_programme_execution_20261112/variants/GOJ/research_v1/collect_inputs.py",
+    "python3 context/35_full_programme_execution_20261112/variants/GOJ/research_v1/build_package.py",
+    "python3 context/35_full_programme_execution_20261112/variants/GOJ/research_v1/validate_package.py"
+  ],
+  "collection_command": "fetch_live.py — толькоотдельныйновыйсбор,меняетas_of;длявоспроизведенияненужен",
+  "sourcepins": {
+    "BASE": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "FIVE": "c18f7640ea36647a05b39089e5293f22dd009f63",
+    "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+    "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+    "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3"
+  },
+  "source_lock": "source_pins.json",
+  "rowprovenance": "goj_source_rows.json",
+  "remaining_requests": "comparison_requests.csv: 15 конкретных запросов с владельцем, полями и критерием сравнения.",
+  "write_boundary": "ONLYcontext/35_full_programme_execution_20261112/variants/GOJ/research_v1/",
+  "git_operations": "READ_ONLY_gitshow/lstree/revparse;noGitmutations",
+  "external_actions": "Publicsearch/HTTPGETonly;nobrowser/account/messages/bookings/paidservices/restarts/Site",
+  "coordinator_notification": "Ранние находки отправлены координатору; output_manifest.json запечатывается после проверки целостности.",
+  "frozen_unchanged": true,
+  "independent_acceptance": "NOT_RUN",
+  "read_first": "research_note.txt"
+}

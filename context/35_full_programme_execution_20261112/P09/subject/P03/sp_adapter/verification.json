@@ -1,0 +1,70 @@
+{
+  "status": "PASS_TARGETED_SP04_SP07_SP08_INPUT_CHECKS",
+  "checks_passed": 351,
+  "author_checks_not_independent_review": true,
+  "method_contract_commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+  "P06_interface_commit": "bc70308fe091c5767dbf26b02d06a7d750a65614",
+  "P06manifest45hashes_verified": true,
+  "prior_v1_payload118hashes_unchanged": true,
+  "P06_check_operations": {
+    "phased": {
+      "status": "CONDITIONAL",
+      "errors_count": 0,
+      "unknowns_count": 64,
+      "unused_aircraft": [
+        "P03_RETURNS_V2_phased_SCENARIO_UNIT_01"
+      ],
+      "dispatch_ready": false
+    },
+    "partial": {
+      "status": "INFEASIBLE",
+      "errors_count": 44,
+      "unknowns_count": 73,
+      "unused_aircraft": [
+        "P03_RETURNS_V2_partial_SCENARIO_UNIT_01"
+      ],
+      "dispatch_ready": false
+    },
+    "delayed": {
+      "status": "INFEASIBLE",
+      "errors_count": 32,
+      "unknowns_count": 65,
+      "unused_aircraft": [
+        "P03_RETURNS_V2_delayed_SCENARIO_UNIT_01"
+      ],
+      "dispatch_ready": false
+    },
+    "no_new": {
+      "status": "INFEASIBLE",
+      "errors_count": 60,
+      "unknowns_count": 76,
+      "unused_aircraft": [
+        "P03_RETURNS_V2_no_new_SCENARIO_UNIT_01"
+      ],
+      "dispatch_ready": false
+    }
+  },
+  "template": {
+    "flights": 60,
+    "physical_pairs": 8,
+    "return_aircraft_days": 23,
+    "working_scenario_units": 4,
+    "reserve_scenario_units": 1,
+    "maximum_daily_block_minutes": 464.0,
+    "weekly_block_minutes_after_minute_rounding": 8400.0
+  },
+  "new_rejections_exercised": [
+    "MOW",
+    "seat bridge",
+    "duplicate physical leg",
+    "reserve use",
+    "missing positioning",
+    "assignment position/overlap",
+    "changed P/KEEP envelope",
+    "erased unresolved payments"
+  ],
+  "full_P06_evaluate_compare_scenario": "NOT_RUN: producer fragments omit genuine P04/P05/P07 contributions; no toy demand or money imputed",
+  "full_CE_suite": "NOT_RUN; only affected operations/interface cases checked",
+  "actual_crew_MRO_airports_and_demand_days": "UNKNOWN",
+  "raw_operations_result_file": "p06_operations_results.json"
+}

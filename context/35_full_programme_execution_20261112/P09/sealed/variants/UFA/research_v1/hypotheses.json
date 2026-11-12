@@ -1,0 +1,443 @@
+{
+  "schema": "UFA-local-hypotheses-v1",
+  "stage": "A",
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-UFA-01",
+      "title": "Малая прямая программа TOF/KEJ/OMS",
+      "signal": "В индексах TOF/KEJ не найдены; в истории KEJ был один субсидируемый рейс в неделю. Существует собственная длинная поездка через SVX.",
+      "source_ids": [
+        "UFA-E10",
+        "UFA-E13",
+        "UFA-E16",
+        "PIN-AUTHOR"
+      ],
+      "mechanism": "Прямой рейс сокращает время; редкие поездки с несколькими ночами могут поддержать меньшую частоту.",
+      "counterfactual": "Тот же новый борт на лучах SVX и улучшенный feeder UFA; плюс отсутствие местного расширения.",
+      "distinguishing_test": "P01 против P02 и P00: единые OD, свои продажи, пригодные возвраты; никакого независимого захвата одного OD двумя программами.",
+      "ancestorIDs": [
+        "E01",
+        "C01",
+        "UFA-F03",
+        "UFA-S01"
+      ],
+      "stage_A_outcome": "CONDITIONAL: конкретные частоты и ротация построены; спрос и экономика не установлены.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Недостаток прямого спроса при всех обоснованных частотах либо более эффективная альтернатива борта; пересмотр при подтверждённых блоках или спросе.",
+      "programme_ids": [
+        "UFA-P01-RADIAL",
+        "UFA-P02-SVX"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-02",
+      "title": "Защищённый банк запад–восток",
+      "signal": "Есть местная технология трансфера и рынки MRV/GOJ; старые TOF/KEJ сильно зависели от модельного трансфера.",
+      "source_ids": [
+        "UFA-E07",
+        "UFA-E13",
+        "UFA-S09",
+        "UFA-S14",
+        "PIN-AUTHOR"
+      ],
+      "mechanism": "Синхронизация двух самолётов создаёт совместные поездки четырёх пар между лучами.",
+      "counterfactual": "Те же рейсы без банка; два борта в существующей SVX; будущий KEEP.",
+      "distinguishing_test": "P04 bank против unbanked и P05 direct2: общий OD, MCT 60/90/120, багаж/ответственность, ночёвки, восстановление и цена единой поездки.",
+      "ancestorIDs": [
+        "E01",
+        "C01",
+        "EC_H01",
+        "EC_H04",
+        "T16_HUB_UFA",
+        "UFA-F05"
+      ],
+      "stage_A_outcome": "CONDITIONAL: механически проверен двухбортный пример; защищённая продажа и общая экономика UNKNOWN.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Если защищённый продукт недоступен или стоимость синхронизации превышает его рассчитанную ценность, уменьшить банк либо перейти к прямым продуктам; это не отказ всем хабам Уфы.",
+      "programme_ids": [
+        "UFA-P04-BANK-EW",
+        "UFA-P05-DIRECT2"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-03",
+      "title": "Цепочка из SVX без постоянной базы в Уфе",
+      "signal": "Есть собственный UFA–SVX и препятствие доступу неместных бортов в ангары.",
+      "source_ids": [
+        "UFA-E06",
+        "UFA-S08"
+      ],
+      "mechanism": "Использовать Уфу как промежуточную рабочую станцию; ночёвки на восточных концах заменяют длинный однодневный pendulum.",
+      "counterfactual": "Один борт с базой UFA либо прямые рейсы SVX.",
+      "distinguishing_test": "Сопоставить одинаковую частоту каждого луча: все перегонные/продаваемые плечи, прежние назначения feeder, ночёвки, crew/ТО. Однодневный шаблон TOF/KEJ не проходит выбранные 8 часов.",
+      "ancestorIDs": [
+        "C10",
+        "KIR_Н4",
+        "KIR_Н9",
+        "KIR_G4"
+      ],
+      "stage_A_outcome": "CONDITIONAL: двухдневная геометрия построена; замена feeder и стоимость чужих ночёвок не приняты.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Согласованное ангарное/линейное ТО в UFA или подтверждённые меньшие блоки могут изменить выбор; отсутствие чужих ночёвок требует нового расписания.",
+      "programme_ids": [
+        "UFA-P03-OUTSTATION",
+        "UFA-P01-RADIAL"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-04",
+      "title": "Дополнительная дата UFA–NUX",
+      "signal": "RW уже присутствует, конкуренты имеют частые северные продукты; вахтовый механизм возможен, но договор не получен.",
+      "source_ids": [
+        "UFA-S16",
+        "UFA-S41",
+        "PIN-P02"
+      ],
+      "mechanism": "Новая дата может лучше совпасть со сменой или семейной поездкой, не требуя открытия полностью нового рынка.",
+      "counterfactual": "Тот же борт и омский оборот из P01; перенос старых NUX между днями учитывается.",
+      "distinguishing_test": "P06-NORTH против P01: конечные новые поездки, собственный переток, release блока, багаж, возможность конкурентного изменения времени.",
+      "ancestorIDs": [
+        "C11",
+        "EC_H08",
+        "KIR_Н4",
+        "UFA-F02"
+      ],
+      "stage_A_outcome": "CONDITIONAL: ротация и изменение ассортимента заданы; корпоративный спрос UNKNOWN.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Реальный блок/расписательная ниша усиливают гипотезу; перенос только старых продаж без нового эффекта ослабляет.",
+      "programme_ids": [
+        "UFA-P06-NORTH"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-05",
+      "title": "Партнёрский либо собственный стыковочный продукт",
+      "signal": "Utair имеет свою технологию в Уфе; исторически N4/Икар обещали продолжения через KZN; RW присутствует в выдаче через SVX.",
+      "source_ids": [
+        "UFA-E08",
+        "UFA-E11",
+        "UFA-E13"
+      ],
+      "mechanism": "Улучшить полную поездку без новой локальной базы: единый билет, пригодное время, багаж и защита.",
+      "counterfactual": "Новый прямой продукт P01, существующий самостоятельный билет и KEEP.",
+      "distinguishing_test": "Проверить реальные продаваемые маршруты в обе стороны, комиссию/нетто-доход RW, договор ответственности, открытые места на всех плечах.",
+      "ancestorIDs": [
+        "E01",
+        "UFA-F05"
+      ],
+      "stage_A_outcome": "CONDITIONAL: продуктовая альтернатива сформирована; текущие договоры RW UNKNOWN.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Действующий договор и выгодная полная поездка могут сделать большой локальный запуск ненужным для части OD; отсутствие договора не обнуляет отдельные билеты.",
+      "programme_ids": [
+        "UFA-P07-PARTNER"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-06",
+      "title": "Летний международный луч на SSJ",
+      "signal": "Международный поток существует; есть опубликованный UFA–TBS Азимута и летняя сеть СНГ.",
+      "source_ids": [
+        "UFA-E01",
+        "UFA-E02",
+        "UFA-E12",
+        "UFA-S55"
+      ],
+      "mechanism": "Один самолёт может иметь более полезное международное применение в конкретном сезоне.",
+      "counterfactual": "Те же два TOF вместо TBS, тот же борт и месяцы; новые Ту-214 = 0.",
+      "distinguishing_test": "TBS substitution против P01 summer: права/допуски, единый OD, сборы, валютная корзина, собственные международные продажи.",
+      "ancestorIDs": [
+        "UFA-S55",
+        "расширение scope international из common_spec"
+      ],
+      "stage_A_outcome": "CONDITIONAL: маршрутная замена задана; текущая ниша, права RW и экономика UNKNOWN.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Подтверждённый спрос/право/договор либо отсутствие их; не заменять факты общим ростом международного аэропортового потока.",
+      "programme_ids": [
+        "UFA-P08-TBS"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-07",
+      "title": "Наземный подвоз как отдельная ниша",
+      "signal": "Есть 8-часовая карточка автобуса до остановки у SVX и местные автобусы в UFA.",
+      "source_ids": [
+        "UFA-S21",
+        "UFA-S22",
+        "UFA-S23",
+        "UFA-S51"
+      ],
+      "mechanism": "Для некоторых адресов, дальних редких рейсов или ценочувствительных групп полная корзина через соседний аэропорт может быть выгоднее.",
+      "counterfactual": "Местный прямой рейс либо авиаподвоз; общий спрос одного адресного pool.",
+      "distinguishing_test": "Сравнить адрес–терминал–назначение, цену багажа, доступность дня и ожидаемый ущерб; договорная защита не предполагается.",
+      "ancestorIDs": [
+        "UFA-F01",
+        "UFA-S21"
+      ],
+      "stage_A_outcome": "CONDITIONAL: ниша сохранена; цены и надёжность конкретных дат UNKNOWN.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Датированная полная корзина и измеренная надёжность; автоматическая замена всей Уфы не поддерживается.",
+      "programme_ids": [
+        "UFA-P07-PARTNER",
+        "UFA-P00-KEEP"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-08",
+      "title": "Автоматическое исключение Уфы по расстоянию до SVX",
+      "signal": "Местный аэропорт обслуживает миллионы пассажиров; опубликованы короткие платные UFA–SVX; наземный путь занимает часы.",
+      "source_ids": [
+        "UFA-E01",
+        "UFA-S08",
+        "UFA-S21"
+      ],
+      "mechanism": "Расстояние по прямой не измеряет полную поездку и не доказывает дублирование всей зоны охвата.",
+      "counterfactual": "Маршрутное сравнение с адресным спросом и собственным перетоком.",
+      "distinguishing_test": "Показать конкретный продукт, который проигрывает соседней базе по полной поездке; общего порога недостаточно.",
+      "ancestorIDs": [
+        "distance500km",
+        "UFA-F01"
+      ],
+      "stage_A_outcome": "REJECTED_NARROW_CLAIM: универсальный отсев по 393 км не обоснован контрпримером действующего самостоятельного рынка.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Данные могут отклонить конкретный рейс или базу; географическое расстояние остаётся входом, а не достаточным экономическим критерием.",
+      "programme_ids": [
+        "UFA-P00-KEEP",
+        "UFA-P01-RADIAL"
+      ],
+      "status": "REJECTED_NARROW_CLAIM",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-09",
+      "title": "Промышленность и студенты как сегменты, не готовый контракт",
+      "signal": "Есть производственная цепочка ОДК, промышленная отгрузка города и 1858 иностранных студентов УУНиТ в отчёте 2024 года.",
+      "source_ids": [
+        "UFA-S33",
+        "UFA-S34",
+        "UFA-S35"
+      ],
+      "mechanism": "Могут создавать группы, сезонные визиты и командировки, но местонахождение и расписание поездок надо измерить.",
+      "counterfactual": "Общий городской OD без придуманного контрактного блока.",
+      "distinguishing_test": "Получить пары, периоды, поездки и travel budget; студенты не должны повторно входить в общий населённый pool.",
+      "ancestorIDs": [
+        "UFA-F04",
+        "UFA-F08"
+      ],
+      "stage_A_outcome": "CONDITIONAL: сегментные механизмы оставлены; промышленный выпуск не конвертирован в пассажиров.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Проверенный travel block или календарь поездок; наличие центра ОДК не доказывает допуск/доступ RW к ТО ПД-8.",
+      "programme_ids": [
+        "UFA-P06-NORTH",
+        "UFA-P07-PARTNER"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    },
+    {
+      "hypothesis_id": "H-UFA-10",
+      "title": "Северный банк как развитие C01",
+      "signal": "NUX/SGC имеют опубликованные продукты и собственный RW NUX; MRV и GOJ дают южный/западный выход.",
+      "source_ids": [
+        "UFA-S09",
+        "UFA-S14",
+        "UFA-S15",
+        "UFA-S16"
+      ],
+      "mechanism": "Пересадка может связать несмежные север–юг OD при правильных возвратах; обе стороны банка расходуют кресла.",
+      "counterfactual": "Та же пара бортов в прямой системе и те же рейсы без синхронизации; исходные NJC/ARH/MCX/OMS не считаются закрытыми.",
+      "distinguishing_test": "P09 против P05 direct2 и unbanked: один набор спроса, KEEP NUX, конкурентные пересадки, корпораты, 7/10/14 ночей и M90.",
+      "ancestorIDs": [
+        "C01",
+        "EC_H01",
+        "EC_H04",
+        "T16_HUB_UFA"
+      ],
+      "stage_A_outcome": "CONDITIONAL: новый состав лучей и двухбортная геометрия; у исходного C01 остаётся Stage B по прежним парам.",
+      "economic_acceptance": "NOT_EVALUATED_IN_COMMON_P05_P06",
+      "condition_for_reconsideration": "Если банк не поддерживает возвраты/защиту либо проигрывает альтернативному применению, изменить состав; прежние пары не отвергать по непроверенному шаблону.",
+      "programme_ids": [
+        "UFA-P09-BANK-NS",
+        "UFA-P05-DIRECT2"
+      ],
+      "status": "CONDITIONAL",
+      "period": "2027-01..2028-12",
+      "unit": "Конечные поездки, сегменты, физические рейсы, RUB; численный итог UNKNOWN.",
+      "coverage": "Локальная гипотеза, не вердикт всей системе Уфы.",
+      "assumption_ids": [
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A24"
+      ]
+    }
+  ],
+  "lineage_policy": "Предшествующие результаты остаются frozen. Новые лучи — новая гипотеза или версия, не переписанный исторический вердикт. C02/C04/C30/C34 с UFA в пути переданы для общего сведения, не объявлены закрытыми локальным пакетом.",
+  "legacy_references": [
+    {
+      "candidate_id": "C01",
+      "title": "Уфа: север–юг с защищённой мини-волной",
+      "author_network_form": "NEW_HUB",
+      "author_operating_base": "UFA",
+      "author_paths": "NJC>UFA>MRV;SGC>UFA>MCX;ARH>UFA>OMS",
+      "ancestor_ids": "EC_H01;EC_H04;T16_HUB_UFA",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "Frozen sync даёт 5/6 сочетаний выезда и 7/10/14 ночей при M45/60, 0/6 при M90; реальный no-new-base baseline UNKNOWN"
+    },
+    {
+      "candidate_id": "C02",
+      "title": "Нижний Новгород: деловой календарь с возвратом",
+      "author_network_form": "NEW_HUB",
+      "author_operating_base": "GOJ",
+      "author_paths": "KUF>GOJ>ARH;UFA>GOJ>MMK;PEE>GOJ",
+      "ancestor_ids": "EC_H04;EC_H05;KIR_G2",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "Только спецификация/геометрия; оплата рабочего окна не проверена"
+    },
+    {
+      "candidate_id": "C04",
+      "title": "Омск: новая компактная база",
+      "author_network_form": "NEW_RADIAL_BASE",
+      "author_operating_base": "OMS",
+      "author_paths": "OMS>KJA;OMS>KUF;OMS>PEE;OMS>TJM;OMS>UFA",
+      "ancestor_ids": "EC_H01;KIR_PAIR_B;FRONT_GAP",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "C07 — условный контроль времени, не доказательство более дешёвой новой базы; ТО в Омске в 2024 не свободная мощность 2026"
+    },
+    {
+      "candidate_id": "C10",
+      "title": "Сургут: асимметричный корпоративный блок",
+      "author_network_form": "EXISTING_BASE_CHAIN",
+      "author_operating_base": "SVX",
+      "author_paths": "SVX>UFA>SGC>SVX;SVX>SGC>UFA>SVX",
+      "ancestor_ids": "KIR_Н4;KIR_Н9;KIR_G4",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "Сайты предприятий/групповые работники не действующий договор; предложение асимметрии не оценено"
+    },
+    {
+      "candidate_id": "C11",
+      "title": "Новый Уренгой: улучшение уже существующего продукта",
+      "author_network_form": "EXISTING_PRODUCT_CHANGE",
+      "author_operating_base": "SVX",
+      "author_paths": "UFA>NUX;KUF>NUX",
+      "ancestor_ids": "EC_H08;KIR_Н4",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "Исторические наблюдения WZ1081/WZ5303 исключают допущение полностью нового рынка; current dated baseline UNKNOWN"
+    },
+    {
+      "candidate_id": "C30",
+      "title": "Изменение доступности южных аэропортов",
+      "author_network_form": "STATE_CONTINGENT_PROGRAM",
+      "author_operating_base": "UNRESOLVED",
+      "author_paths": "KRR>GSV;ROV>UFA;ROV>OMS",
+      "ancestor_ids": "KIR_Н5;CTX06_04",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "Дата смены режима NULL; не утверждается текущая открытость/закрытость любого аэропорта"
+    },
+    {
+      "candidate_id": "C34",
+      "title": "Общий резерв и восстановление сети",
+      "author_network_form": "RESILIENCE_MODULE",
+      "author_operating_base": "UNRESOLVED",
+      "author_paths": "UFA>GOJ;SVX>ZIA",
+      "ancestor_ids": "EC_H09;KON03",
+      "author_evaluation_status": "NOT_EVALUATED",
+      "checked_result_and_scope": "Cost/Kover owner-only; нет вероятности из числа публикаций; резерв не мгновенный"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "status": "PROPOSED_MEASUREMENT_ADAPTER_NOT_IMPLEMENTED_OR_ADMITTED",
+  "consumer": "P09 joint comparison using P05/P06",
+  "producer_contract_pin": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+  "context_required": [
+    "evaluation_id",
+    "programme_id",
+    "programme_version",
+    "fleet_scope_id",
+    "external_scenario_id",
+    "delivery_calendar_id",
+    "market_version",
+    "choice_version",
+    "cost_version",
+    "keep_evaluation_id",
+    "input_manifest_sha256",
+    "affected_scope_id",
+    "price_year"
+  ],
+  "input_columns": [
+    "digital_change_id",
+    "experiment_id",
+    "cohort_id",
+    "randomization_unit",
+    "month",
+    "airport_pair",
+    "flight_instance_id",
+    "product_id",
+    "channel",
+    "eligible_denominator",
+    "effect_status",
+    "effect_estimator",
+    "uncertainty_method",
+    "net_margin_scope",
+    "cash_avoidable_status",
+    "source_id",
+    "assumption_id",
+    "sha256"
+  ],
+  "route": [
+    "D01: измеренный all-channel treatment effect передаётся P05/P09 для совместного распределения; P11 не меняет intercept/logit и не задаёт процент роста спроса.",
+    "D02: только принятое joint число реально исполненных услуг и net unit rate; признание дохода/расхода и денежные события у P04/P06.",
+    "D03/D04: только подтверждённый avoids cost как уникальный economic/cash event; освободившееся время отдельно.",
+    "Внедрение и сопровождение: уникальные startup/operating_fixed events с владельцем, accrual_month, payment plan; не списывать бюджет и амортизацию дважды."
+  ],
+  "acceptance_gates": [
+    "Эксперимент измерен и дозрел",
+    "Все4изменения имеют joint контроль/дедупликацию",
+    "Принятая dated physical capacity и same-resource KEEP",
+    "P05 choice согласована",
+    "P04 net rates/cost/tax/cash accepted",
+    "P06 required context and full manifests accepted; авторские42checks не независимая приёмка RW"
+  ],
+  "output_gates": [
+    "Нет доступных кресел→никакого обещания добавочных пассажиров",
+    "8–12пар project scope отдельно от whole_business",
+    "Zero-new-Tu214 branch не отменяет digital, но digital не создаёт новые самолёты",
+    "Все неизвестные величины null/UNKNOWN, не0"
+  ]
+}

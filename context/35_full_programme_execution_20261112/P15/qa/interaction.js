@@ -1,0 +1,51 @@
+(async()=>{
+ const checks=[];const test=(name,ok)=>{checks.push({name,pass:!!ok});if(!ok)throw Error(name);};
+ try{
+ test('Four full sections',document.querySelectorAll('main>section').length===4&&sections.every(id=>$(id)));
+ test('20 cities all sealed at root pin',DATA.cities.length===20&&Object.keys(DATA.dossiers).length===20&&DATA.integration.pending_cities.length===0);
+ test('P01 monthly/segment evidence no OD',DATA.branches.P01_MONTHLY['airport_monthly.csv'].length===86&&DATA.branches.P01_MONTHLY['airport_pair_segment_observations.csv'].length===133&&DATA.branches.P01_MONTHLY['endpoint_od_observations.csv'].length===0);
+ test('P02 actual source export2274',DATA.products.length===2274);
+ test('All physical candidate legs remain non-admitted',DATA.physical_boundaries.length===6&&DATA.physical_boundaries.every(r=>r.accepted_for_physical_capacity==='false'));
+ test('30 source clock conflicts preserved',DATA.clock_conflicts.length===30);
+ test('No fabricated accepted programme/rank',evaluations.length===0&&pack===null&&state.programme==='');
+ test('Unknown different from zero',ResultAdapter.fmt(null)==='Нет расчёта'&&ResultAdapter.fmt(0)==='0');
+ test('4 real digital cards',DATA.digital['digital_cards.json'].cards.length===4);
+ test('P10 all128capacity-only conditions',DATA.branches.P10['growth_cases.csv'].length===128&&DATA.branches.P10['growth_cases.csv'].every(r=>r.actual_P09_net_reported_passengers===''));
+ test('P08 two actual programme groups',DATA.branches['P08-SVX']['programme_candidates.json'].programmes.length>1&&DATA.branches['P08-MOSCOW']['programme_candidates.json'].programmes.length>1);
+ test('P02I87market cards retained',DATA.branches.P02I['international_market_cards.csv'].length===87);
+ for(const c of DATA.cities){chooseCity(c.iata);test('City binding '+c.iata,$('city-name').textContent===c.city&&state.programme==='');}
+ chooseCity('GOJ');test('GOJ why/how real finding',$('research-summary').textContent.includes('GOJ')&&$('research-programme').options.length===8);test('Long GOJ title does not overflow',document.documentElement.scrollWidth<=innerWidth+1);
+ $('research-programme').selectedIndex=1;$('research-programme').dispatchEvent(new Event('change'));test('Research candidate does not accept programme',researchProgramme().programme_id===$('research-programme').value&&state.programme==='');
+ $('evidence-panel').querySelector('details').open=true;
+ const evidenceButton=$('research-evidence').querySelector('[data-research-kind]');evidenceButton.focus();evidenceButton.click();
+ test('Real evidence/source/hash modal',$('source-dialog').open&&$('source-body').textContent.includes('row_sha256')&&$('source-body').querySelector('a[href^="https:"]'));
+ $('source-close').click();await new Promise(requestAnimationFrame);test('Evidence modal returns focus',document.activeElement===evidenceButton);
+ $('carrier').value='RW';$('carrier').dispatchEvent(new Event('change'));test('Carrier filter actual products',offers().length>0&&offers().every(r=>rw(r)));
+ $('source-month').value='2026-12';$('source-month').dispatchEvent(new Event('change'));test('Source month independent from forecast',state.sourceMonth==='2026-12'&&state.period==='2027–2028');
+ $('destination').selectedIndex=1;$('destination').dispatchEvent(new Event('change'));test('Destination filter',offers().every(r=>r.destination===state.destination));
+ $('layer').value='observed';$('layer').dispatchEvent(new Event('change'));test('Observed incomplete explicit',$('map-status').textContent.includes('Нет принятого'));
+ $('layer').value='proposed';$('layer').dispatchEvent(new Event('change'));test('Uncomputed final network explicit',$('map-status').textContent.includes('не рассчитана'));
+ $('layer').value='research_proposed';$('layer').dispatchEvent(new Event('change'));test('Research map labelled not dated acceptance',$('map-status').textContent.includes('Датированные рейсы'));
+ $('period').value='2027';$('period').dispatchEvent(new Event('change'));test('Shared forecast period updates results+growth',state.period==='2027'&&$('context-summary').textContent.includes('2027')&&$('growth-data').textContent.includes('вместимость новых бортов · 2027'));
+ $('scope').value='EXT_NO_NEW_TU214';$('scope').dispatchEvent(new Event('change'));test('No new Tu scope does not invent result',state.scope==='EXT_NO_NEW_TU214'&&state.scenario===''&&$('growth-data').textContent.includes('нет такой диагностической серии'));
+ $('scope').value='CASE_SJ';$('scope').dispatchEvent(new Event('change'));
+ const beforeTour={city:state.city,destination:state.destination,sourceMonth:state.sourceMonth,period:state.period,researchProgramme:state.researchProgramme};
+ $('tour-start').click();$('tour-next').click();$('tour-next').click();test('Five-stop route uses full sections',state.tour===2&&state.active==='direct');
+ $('tour-exit').click();chooseCity('KHV');$('period').value='2028';$('period').dispatchEvent(new Event('change'));$('tour-return').click();
+ test('Preset return restores city/destination/period/candidate',Object.entries(beforeTour).every(([k,v])=>state[k]===v)&&state.tour===2);
+ $('tour-exit').click();
+ const pnt=document.querySelector('.map-point[data-city="MRV"]');pnt.focus();pnt.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));test('Map keyboard city selection',state.city==='MRV'&&!$('research-programme-panel').hidden);
+ document.querySelector('.topnav a[href="#strategy"]').click();test('Section nav keyboard focus',document.activeElement.id==='strategy-title');
+ const oldState=JSON.stringify(state);const dt=new DataTransfer();dt.items.add(new File(['{"dataset_kind":"RED_WINGS","synthetic":true}'],'synthetic.json',{type:'application/json'}));$('result-file').files=dt.files;await $('result-file').onchange();
+ test('Bad import error explicit',$('import-status').className==='error'&&$('import-status').textContent.includes('Синтетические'));
+ test('Bad import preserves existing state',JSON.stringify(state)===oldState&&pack===null);
+ const pending=new DataTransfer();pending.items.add(new File([JSON.stringify({dataset_kind:'RED_WINGS',synthetic:false,coordinator_acceptance:'PENDING_COORDINATOR_ACCEPTANCE',commit:null,manifest_sha256:null,evaluations:[]})],'P09-pending-header.json',{type:'application/json'}));$('result-file').files=pending.files;await $('result-file').onchange();test('P09 PENDING cannot enter financial selector',pack===null&&state.programme===''&&$('import-status').className==='error');
+ $('city-search').value='неттакогогорода';$('city-search').dispatchEvent(new Event('input'));test('Search empty state',$('cities').textContent.includes('не найден'));
+ $('city-search').value='';$('city-search').dispatchEvent(new Event('input'));
+ chooseCity('OMS');$('carrier').value='all';state.carrier='all';state.sourceMonth='all';$('source-month').value='all';state.layer='published_offer';$('layer').value=state.layer;renderOffers();renderMap();
+ test('Endpoints visible and all20hubs retained',document.querySelectorAll('.map-point').length===20&&document.querySelectorAll('.map-endpoint').length>0);
+ test('No page-wide overflow',document.documentElement.scrollWidth<=window.innerWidth+1);
+ window.scrollTo(0,0);
+ console.log('P15_INTERACTION_CHECKS '+JSON.stringify({status:'PASS',width:window.innerWidth,check_count:checks.length,actual_P09_import:'NOT_RUN',P16_rehearsal:'NOT_RUN'}));for(let i=0;i<checks.length;i+=3)console.log('P15_CHECKS '+JSON.stringify(checks.slice(i,i+3)));
+ }catch(e){console.error('P15_INTERACTION_CHECKS '+JSON.stringify({status:'FAIL',width:window.innerWidth,error:e.message}));for(let i=0;i<checks.length;i+=3)console.log('P15_CHECKS '+JSON.stringify(checks.slice(i,i+3)));}
+})();

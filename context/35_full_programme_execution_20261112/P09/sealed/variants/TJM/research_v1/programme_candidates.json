@@ -1,0 +1,1790 @@
+{
+  "schema": "TJM-stageA-programme-v1",
+  "language": "ru",
+  "scope": "Локальные компоненты общей сети; проекты взаимоисключающие/пересекающиеся, не суммировать",
+  "baseline": {
+    "programme_id": "TJM-P00",
+    "name_ru": "Будущий KEEP всего затронутого бизнеса",
+    "status": "BASELINE_REQUIRES_P03_P05_BINDING",
+    "period": "2027-01/2028-12",
+    "preserve": "KUF/MCX–TJM, опубликованные/обязанные будущие сезонные программы, собственные SVX/KUF стыковки/прямые и донорские задания",
+    "flight_calendar": null,
+    "sales": null,
+    "source_id": "TJM-N01;TJM-P02;TJM-P03",
+    "assumption_ids": [
+      "TJM-A09"
+    ],
+    "zero_new_Tu214_branch": true
+  },
+  "programmes": [
+    {
+      "programme_id": "TJM-P01",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Самара: выездные обороты в Тюмень, GOJ и VOG",
+      "role": "развитие outstation из существующей базы",
+      "hypothesis_ids": [
+        "H-TJM-02"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "2027-10-01/2028-12-31",
+      "season": "W/S/межсезонье",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A01",
+        "TJM-A02",
+        "TJM-A04",
+        "TJM-A05",
+        "TJM-A06",
+        "TJM-A09",
+        "TJM-A10"
+      ],
+      "rotation_paths": [
+        {
+          "path_id": "GOJ",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "airports": [
+            "KUF",
+            "TJM",
+            "GOJ",
+            "TJM",
+            "KUF"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "VOG",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "airports": [
+            "KUF",
+            "TJM",
+            "VOG",
+            "TJM",
+            "KUF"
+          ],
+          "resource_group": "RG1"
+        }
+      ],
+      "flight_templates": [
+        {
+          "leg_template_id": "TJM-P01:GOJ:1",
+          "origin_airport": "KUF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:GOJ:2",
+          "origin_airport": "TJM",
+          "destination_airport": "GOJ",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:GOJ:3",
+          "origin_airport": "GOJ",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:GOJ:4",
+          "origin_airport": "TJM",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 4,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:VOG:1",
+          "origin_airport": "KUF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:VOG:2",
+          "origin_airport": "TJM",
+          "destination_airport": "VOG",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:VOG:3",
+          "origin_airport": "VOG",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P01:VOG:4",
+          "origin_airport": "TJM",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 4,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        }
+      ],
+      "airport_pairs": [
+        "GOJ-TJM",
+        "KUF-TJM",
+        "TJM-VOG"
+      ],
+      "unique_airport_pairs": 3,
+      "affected_journey_OD": [
+        "TJM–GOJ",
+        "TJM–VOG",
+        "TJM–KUF",
+        "KUF–GOJ/TJM–GOJ viaKUF existing alternative"
+      ],
+      "rw_sales_changes": {
+        "keep": "остальные рейсыKEEP сохраняются",
+        "add_or_retime": "KUF–TJM4RT/нед суммарно, GOJ2,VOG2; текущиеKUFрейсы включить в эту сумму, не прибавлять ещё4",
+        "reduce": "ни одно сокращение не задано; P03обязан назвать donorпристаромборте",
+        "own_migration": "KUFconnections/SVX–GOJ, историческийVOG и текущиеTJMстарые продукты совместно вP05"
+      },
+      "matched_comparison_id": "CMP-TJM-01",
+      "resource": {
+        "working_tails_lower_bound": 1,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0,
+        "crew_warning": "Четыре плеча за день — только нижняя граница одного tail. Геометрический аналог VOG-дня даёт 9.964/10.688 блок-часа при k1.1/1.2 и 12.214/12.938 часа с тремя разворотами по45мин. Вариант требует проверки смены/подвоза экипажей вTJM, отдыха/жилья и ТО. Это не разрешённая смена и не принятый суточный лимит."
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "paired_control": "P02 имеет те же16направленных legs/нед и те жеairportpairs; различаются часы/local residence, стоимость базы/crew/ferry. Одинаковый available ресурс, не только суммачасов.",
+      "fallback": "Если полный четырёхплечевой оборот не допускается P03, проверить отдельный GOJ или VOG продукт, смену экипажа, двухдневный оборот и его стоимость/изменение дат поездок. Непригодность этой цепочки не означает отказ от города."
+    },
+    {
+      "programme_id": "TJM-P02",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Тюмень: те же рынки и рейсы с локальным началом дня",
+      "role": "радиальная база с договорным ТО",
+      "hypothesis_ids": [
+        "H-TJM-03"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "2027-10-01/2028-12-31",
+      "season": "W/S/межсезонье",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A01",
+        "TJM-A02",
+        "TJM-A04",
+        "TJM-A05",
+        "TJM-A06",
+        "TJM-A09",
+        "TJM-A10"
+      ],
+      "rotation_paths": [
+        {
+          "path_id": "GOJ",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "airports": [
+            "TJM",
+            "KUF",
+            "TJM",
+            "GOJ",
+            "TJM"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "VOG",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "airports": [
+            "TJM",
+            "KUF",
+            "TJM",
+            "VOG",
+            "TJM"
+          ],
+          "resource_group": "RG1"
+        }
+      ],
+      "flight_templates": [
+        {
+          "leg_template_id": "TJM-P02:GOJ:1",
+          "origin_airport": "TJM",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:GOJ:2",
+          "origin_airport": "KUF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:GOJ:3",
+          "origin_airport": "TJM",
+          "destination_airport": "GOJ",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:GOJ:4",
+          "origin_airport": "GOJ",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 4,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:VOG:1",
+          "origin_airport": "TJM",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:VOG:2",
+          "origin_airport": "KUF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:VOG:3",
+          "origin_airport": "TJM",
+          "destination_airport": "VOG",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P02:VOG:4",
+          "origin_airport": "VOG",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 4,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        }
+      ],
+      "airport_pairs": [
+        "GOJ-TJM",
+        "KUF-TJM",
+        "TJM-VOG"
+      ],
+      "unique_airport_pairs": 3,
+      "affected_journey_OD": [
+        "TJM–GOJ",
+        "TJM–VOG",
+        "TJM–KUF",
+        "KUF–GOJ/TJM–GOJ viaKUF existing alternative"
+      ],
+      "rw_sales_changes": {
+        "keep": "остальные рейсыKEEP сохраняются",
+        "add_or_retime": "KUF–TJM4RT/нед суммарно, GOJ2,VOG2; текущиеKUFрейсы включить в эту сумму, не прибавлять ещё4",
+        "reduce": "ни одно сокращение не задано; P03обязан назвать donorпристаромборте",
+        "own_migration": "KUFconnections/SVX–GOJ, историческийVOG и текущиеTJMстарые продукты совместно вP05"
+      },
+      "matched_comparison_id": "CMP-TJM-01",
+      "resource": {
+        "working_tails_lower_bound": 1,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0,
+        "crew_warning": "Четыре плеча за день — только нижняя граница одного tail. Геометрический аналог VOG-дня даёт 9.964/10.688 блок-часа при k1.1/1.2 и 12.214/12.938 часа с тремя разворотами по45мин. Вариант требует проверки смены/подвоза экипажей вTJM, отдыха/жилья и ТО. Это не разрешённая смена и не принятый суточный лимит."
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "paired_control": "Не приписывать базе повышенный capture без P05. Проверить более раннее местное отправление против выездной программы и обязательствKEEP.",
+      "fallback": "Если полный четырёхплечевой оборот не допускается P03, проверить отдельный GOJ или VOG продукт, смену экипажа, двухдневный оборот и его стоимость/изменение дат поездок. Непригодность этой цепочки не означает отказ от города."
+    },
+    {
+      "programme_id": "TJM-P03",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Два защищённых банка в Тюмени с выездом из SVX",
+      "role": "пересадочный узел без обязательного ночного базированияTJM",
+      "hypothesis_ids": [
+        "H-TJM-04",
+        "H-TJM-05"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "2027-10-01/2028-12-31",
+      "season": "W/S/межсезонье",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A01",
+        "TJM-A03",
+        "TJM-A04",
+        "TJM-A05",
+        "TJM-A06",
+        "TJM-A08",
+        "TJM-A09",
+        "TJM-A10",
+        "TJM-A11"
+      ],
+      "rotation_paths": [
+        {
+          "path_id": "Aout",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "airports": [
+            "SVX",
+            "TOF",
+            "TJM",
+            "MRV"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "Aback",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "airports": [
+            "MRV",
+            "TJM",
+            "TOF",
+            "SVX"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "Bout",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "airports": [
+            "SVX",
+            "KEJ",
+            "TJM",
+            "VOG"
+          ],
+          "resource_group": "RG2"
+        },
+        {
+          "path_id": "Bback",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "airports": [
+            "VOG",
+            "TJM",
+            "KEJ",
+            "SVX"
+          ],
+          "resource_group": "RG2"
+        }
+      ],
+      "flight_templates": [
+        {
+          "leg_template_id": "TJM-P03:Aout:1",
+          "origin_airport": "SVX",
+          "destination_airport": "TOF",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Aout:2",
+          "origin_airport": "TOF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Aout:3",
+          "origin_airport": "TJM",
+          "destination_airport": "MRV",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Aback:1",
+          "origin_airport": "MRV",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Aback:2",
+          "origin_airport": "TJM",
+          "destination_airport": "TOF",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Aback:3",
+          "origin_airport": "TOF",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Bout:1",
+          "origin_airport": "SVX",
+          "destination_airport": "KEJ",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Bout:2",
+          "origin_airport": "KEJ",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Bout:3",
+          "origin_airport": "TJM",
+          "destination_airport": "VOG",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Bback:1",
+          "origin_airport": "VOG",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Bback:2",
+          "origin_airport": "TJM",
+          "destination_airport": "KEJ",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P03:Bback:3",
+          "origin_airport": "KEJ",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        }
+      ],
+      "airport_pairs": [
+        "KEJ-SVX",
+        "KEJ-TJM",
+        "MRV-TJM",
+        "SVX-TOF",
+        "TJM-TOF",
+        "TJM-VOG"
+      ],
+      "unique_airport_pairs": 6,
+      "affected_journey_OD": [
+        "TOF–MRV",
+        "TOF–VOG",
+        "KEJ–MRV",
+        "KEJ–VOG",
+        "TJM–TOF",
+        "TJM–KEJ",
+        "TJM–MRV",
+        "TJM–VOG",
+        "SVX–TOF",
+        "SVX–KEJ"
+      ],
+      "rw_sales_changes": {
+        "keep": "действующиеKUF/MCXпрограммы не сокращены;SVX–TOF/KEJфрагменты могут бытьexistingKEEP",
+        "add_or_retime": "TOF/KEJ–TJM–MRV/VOGпо2/нед;синхронныйвосточныйприлёт/западныйвылет",
+        "reduce": "ниодногоавтоматическогоотказаотKEEP;еслиресурсснятсSVXзадания,пересчитатьего",
+        "own_migration": "тежеTOF/KEJ→MRV/VOGчерезSVX/OVB/MOWиlocalTJMOD общие"
+      },
+      "matched_comparison_id": "CMP-TJM-02",
+      "resource": {
+        "working_tails_lower_bound": 2,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0,
+        "bank_warning": "До двух групп по три плеча в день; bank90 добавляет ожидание к resource_diagnostics lower bound45turn. Синхронность двух входящих/исходящих путей, crew/ТО/standby и защита не проверены P06."
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "bank_contract": {
+        "outbound_days": [
+          1,
+          4
+        ],
+        "return_days": [
+          2,
+          5
+        ],
+        "connection_buffer_scenario_min": 90,
+        "protected_cross_connections": [
+          "TOF–TJM–MRV",
+          "TOF–TJM–VOG",
+          "KEJ–TJM–MRV",
+          "KEJ–TJM–VOG"
+        ],
+        "reverse_required": true,
+        "west_overnights_per_tail_per_week": 2,
+        "plane_overnight_locations": [
+          "MRV",
+          "VOG"
+        ],
+        "TJM_overnight_base_required": false,
+        "resource_warning": "Между рейсами две физические машины, не четыре независимых ODкресла;crossconnectionобаоперационныхпутидолжныприбиватьодновременно",
+        "stay_lengths": "Пн→вт/пт=1/4ночи;чт→пт/следвт=1/5ночей. Это ограничение продукта; стандартная7ночнаяпутёвка не гарантирована. P05 должен распределить реальные даты, не абстрактный годовойOD.",
+        "fallback_without_protection": "Только отдельные прямые localпродукты; transfer revenue не предполагается"
+      },
+      "calendar_start_rule": "Первый полный цикл — понедельник после design_active_window start. Для пилотаQ4 2027 это04.10.2027; до этого не считать одиночный обратный рейс без предшествующего outbound. Первичное позиционирование и ввод — отдельные P03/P04 события."
+    },
+    {
+      "programme_id": "TJM-P04",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Те же восток–западные поездки через действующий SVX",
+      "role": "существующая база/прямые радиальные рынки",
+      "hypothesis_ids": [
+        "H-TJM-04"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "2027-10-01/2028-12-31",
+      "season": "W/S/межсезонье",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A01",
+        "TJM-A03",
+        "TJM-A04",
+        "TJM-A05",
+        "TJM-A06",
+        "TJM-A08",
+        "TJM-A09",
+        "TJM-A10",
+        "TJM-A11"
+      ],
+      "rotation_paths": [
+        {
+          "path_id": "Aout",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "airports": [
+            "SVX",
+            "TOF",
+            "SVX",
+            "MRV"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "Aback",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "airports": [
+            "MRV",
+            "SVX",
+            "TOF",
+            "SVX"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "Bout",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "airports": [
+            "SVX",
+            "KEJ",
+            "SVX",
+            "VOG"
+          ],
+          "resource_group": "RG2"
+        },
+        {
+          "path_id": "Bback",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "airports": [
+            "VOG",
+            "SVX",
+            "KEJ",
+            "SVX"
+          ],
+          "resource_group": "RG2"
+        }
+      ],
+      "flight_templates": [
+        {
+          "leg_template_id": "TJM-P04:Aout:1",
+          "origin_airport": "SVX",
+          "destination_airport": "TOF",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Aout:2",
+          "origin_airport": "TOF",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Aout:3",
+          "origin_airport": "SVX",
+          "destination_airport": "MRV",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Aback:1",
+          "origin_airport": "MRV",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Aback:2",
+          "origin_airport": "SVX",
+          "destination_airport": "TOF",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Aback:3",
+          "origin_airport": "TOF",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Bout:1",
+          "origin_airport": "SVX",
+          "destination_airport": "KEJ",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Bout:2",
+          "origin_airport": "KEJ",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Bout:3",
+          "origin_airport": "SVX",
+          "destination_airport": "VOG",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Bback:1",
+          "origin_airport": "VOG",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Bback:2",
+          "origin_airport": "SVX",
+          "destination_airport": "KEJ",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P04:Bback:3",
+          "origin_airport": "KEJ",
+          "destination_airport": "SVX",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "resource_group": "RG2",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        }
+      ],
+      "airport_pairs": [
+        "KEJ-SVX",
+        "MRV-SVX",
+        "SVX-TOF",
+        "SVX-VOG"
+      ],
+      "unique_airport_pairs": 4,
+      "affected_journey_OD": [
+        "TOF–MRV",
+        "TOF–VOG",
+        "KEJ–MRV",
+        "KEJ–VOG",
+        "TJM–TOF",
+        "TJM–KEJ",
+        "TJM–MRV",
+        "TJM–VOG",
+        "SVX–TOF",
+        "SVX–KEJ"
+      ],
+      "rw_sales_changes": {
+        "keep": "все затронутыеKEEP продукты общего контрольного контура",
+        "add_or_retime": "SVX–TOF/KEJ4RTвнед;SVX–MRV/VOG2RTвнед;точныечастотыP03сверяетсKEEP",
+        "reduce": "не считатьвсеплечиновыми: частьподменяет действующий оборот",
+        "own_migration": "тотжеP05 demandpool;TJMклиентимеетgroundfeedилидругойairoutsideoption"
+      },
+      "matched_comparison_id": "CMP-TJM-02",
+      "resource": {
+        "working_tails_lower_bound": 2,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0,
+        "overnight_locations": [
+          "MRV",
+          "VOG"
+        ],
+        "unused_resource_disclosure": "Сравнивать один доступный календарь2бортов; разница фактически налётанныхчасов и оставшихсядней явна; не искусственно добивать равенство пустыми рейсами.",
+        "bank_warning": "До двух групп по три плеча в день; bank90 добавляет ожидание к resource_diagnostics lower bound45turn. Синхронность двух входящих/исходящих путей, crew/ТО/standby и защита не проверены P06."
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "calendar_start_rule": "Первый полный цикл — понедельник после design_active_window start. Для пилотаQ4 2027 это04.10.2027; до этого не считать одиночный обратный рейс без предшествующего outbound. Первичное позиционирование и ввод — отдельные P03/P04 события."
+    },
+    {
+      "programme_id": "TJM-P05",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Север: партнёрский блок мест для семейных и медицинских поездок",
+      "role": "подвоз/партнёр вместо новой SSJбазы",
+      "hypothesis_ids": [
+        "H-TJM-06"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "только после подписанного договора; датаUNKNOWN",
+      "season": "W/S/межсезонье",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A09",
+        "TJM-A10",
+        "TJM-A11",
+        "TJM-A14"
+      ],
+      "rotation_paths": [],
+      "flight_templates": [],
+      "airport_pairs": [],
+      "unique_airport_pairs": 0,
+      "affected_journey_OD": [
+        "SLY–TJM",
+        "NUX–TJM",
+        "NJC–TJM",
+        "север→TJM→юг приотдельнойзащите"
+      ],
+      "rw_sales_changes": {
+        "keep": "своиTJMмаршруты иcurrentcompetitoroutsideoptions сохраняются",
+        "add_or_retime": "условныйпартнёрский inventory на SLY/NUX/NJC→TJM поистиннымдатам поездок",
+        "reduce": "непланируется",
+        "own_migration": "невыдаватьперепродажусегментаконкурентаза собственногоoperatedпассажираRW"
+      },
+      "matched_comparison_id": "CMP-TJM-03",
+      "resource": {
+        "working_tails_lower_bound": 0,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0,
+        "clarification": "0новых собственных рабочих бортов — определение partnerварианта, не отсутствие ресурсной цены/обязательств/спроса"
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "partner_inventory": null,
+      "frequency": "Сначала обслуживаемые даты/квота; не фиктивное2/нед на каждом рынке",
+      "counterfactual": "Тотже пассажир на действующем конкурентном рейсе или новаясобственнаяSSJрадиальнаяпрограммаC13наобщемресурсе;последняянеобъявленапроверенной."
+    },
+    {
+      "programme_id": "TJM-P06",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Братск: один контрактный оборот через Тюмень",
+      "role": "корпоративный продукт/сменная ротация",
+      "hypothesis_ids": [
+        "H-TJM-07"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "2027-10-01/2028-12-31",
+      "season": "W/S/межсезонье",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A01",
+        "TJM-A04",
+        "TJM-A05",
+        "TJM-A09",
+        "TJM-A10",
+        "TJM-A12"
+      ],
+      "rotation_paths": [
+        {
+          "path_id": "out",
+          "weekdays_iso": [
+            1
+          ],
+          "airports": [
+            "KUF",
+            "TJM",
+            "BTK"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "back",
+          "weekdays_iso": [
+            2
+          ],
+          "airports": [
+            "BTK",
+            "TJM",
+            "KUF"
+          ],
+          "resource_group": "RG1"
+        }
+      ],
+      "flight_templates": [
+        {
+          "leg_template_id": "TJM-P06:out:1",
+          "origin_airport": "KUF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            1
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P06:out:2",
+          "origin_airport": "TJM",
+          "destination_airport": "BTK",
+          "weekdays_iso": [
+            1
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P06:back:1",
+          "origin_airport": "BTK",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            2
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P06:back:2",
+          "origin_airport": "TJM",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            2
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        }
+      ],
+      "airport_pairs": [
+        "BTK-TJM",
+        "KUF-TJM"
+      ],
+      "unique_airport_pairs": 2,
+      "affected_journey_OD": [
+        "TJM–BTK",
+        "KUF–TJM",
+        "KUF–BTK viaTJM"
+      ],
+      "rw_sales_changes": {
+        "keep": "конкурентныйUtairчартер остаётся вне RW; собственныеKUF–TJMне обнулены",
+        "add_or_retime": "1BTKRTи1KUFRT/нед,сночьюBTK;KUFчастьвключитьвобщееtargetчисло",
+        "reduce": "толькоеслисуществующийкорпоративныйзаказперезаключён — не присваиватьегоавтоматически",
+        "own_migration": "договорная/розничнаяквоты общие ссистемой, не дваждыполнаяёмкость"
+      },
+      "matched_comparison_id": "CMP-TJM-04",
+      "resource": {
+        "working_tails_lower_bound": 1,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "commercial_gate": "Нет подписаннойгарантии → нет контрактныхпродажвпрогнозе; остаток30уUtair не30местгарантииRW. Проверить платёж/блок/неявки/отмена/выход."
+    },
+    {
+      "programme_id": "TJM-P07",
+      "programme_version": "TJM-research-v1",
+      "name_ru": "Тбилиси: повтор сезонного прямого продукта в треугольнике с KUF",
+      "role": "дополнительная международная ветвь",
+      "hypothesis_ids": [
+        "H-TJM-08"
+      ],
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "period": "2027–2028",
+      "design_active_window": "2028-05-01/2028-09-30;2027толькоподтверждённаяаналогичнаясезоннаядата",
+      "season": "май–сентябрь;годовые месяцы не экстраполировать",
+      "as_of": "2026-11-12",
+      "source_id": "TJM-S01;TJM-P02;TJM-P03;TJM-P04;TJM-P06",
+      "assumption_ids": [
+        "TJM-A01",
+        "TJM-A04",
+        "TJM-A09",
+        "TJM-A10",
+        "TJM-A13"
+      ],
+      "rotation_paths": [
+        {
+          "path_id": "out",
+          "weekdays_iso": [
+            5
+          ],
+          "airports": [
+            "KUF",
+            "TJM",
+            "TBS",
+            "KUF"
+          ],
+          "resource_group": "RG1"
+        },
+        {
+          "path_id": "back",
+          "weekdays_iso": [
+            1
+          ],
+          "airports": [
+            "KUF",
+            "TBS",
+            "TJM",
+            "KUF"
+          ],
+          "resource_group": "RG1"
+        }
+      ],
+      "flight_templates": [
+        {
+          "leg_template_id": "TJM-P07:out:1",
+          "origin_airport": "KUF",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P07:out:2",
+          "origin_airport": "TJM",
+          "destination_airport": "TBS",
+          "weekdays_iso": [
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P07:out:3",
+          "origin_airport": "TBS",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            5
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P07:back:1",
+          "origin_airport": "KUF",
+          "destination_airport": "TBS",
+          "weekdays_iso": [
+            1
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 1,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P07:back:2",
+          "origin_airport": "TBS",
+          "destination_airport": "TJM",
+          "weekdays_iso": [
+            1
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 2,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        },
+        {
+          "leg_template_id": "TJM-P07:back:3",
+          "origin_airport": "TJM",
+          "destination_airport": "KUF",
+          "weekdays_iso": [
+            1
+          ],
+          "resource_group": "RG1",
+          "sequence_in_rotation": 3,
+          "source_status": "предлагаемый сценарий",
+          "unit": "рейс на каждый выбранный день",
+          "physical_adjacent_leg": true,
+          "seats_analogue": 100,
+          "saleable_seats": null,
+          "assumption_ids": [
+            "TJM-A01",
+            "TJM-A04"
+          ]
+        }
+      ],
+      "airport_pairs": [
+        "KUF-TBS",
+        "KUF-TJM",
+        "TBS-TJM"
+      ],
+      "unique_airport_pairs": 3,
+      "affected_journey_OD": [
+        "TJM–TBS",
+        "KUF–TBS",
+        "KUF–TJM"
+      ],
+      "rw_sales_changes": {
+        "keep": "весьмеждународный/чартерныйRWKEEP; действующийKUF–TBSсначала сверить, не прибавлятьснова",
+        "add_or_retime": "TJM–TBS1RT/нед;TJM–KUF1RT;KUF–TBS1RTв составе треугольника",
+        "reduce": "донор и сезонныепродажиUNKNOWN",
+        "own_migration": "SVX/KUF→TBSи собственнаяисторияTJM2026"
+      },
+      "matched_comparison_id": "CMP-TJM-05",
+      "resource": {
+        "working_tails_lower_bound": 1,
+        "actual_available_tails": null,
+        "reserve_aircraft": null,
+        "reserve_policy": "Именованный shared reserve или отдельный контракт/борт P03; не считать свободным/бесплатным",
+        "crew_TObase_stands_slots": "UNKNOWN; P03",
+        "new_aircraft_branch": "только operationally ready календарь; минимумH2 2027; альтернативное использование того же нового борта обязательно",
+        "existing_aircraft_branch": "точный KEEP donor и потерянный результат один раз",
+        "SJ100_PD8": "отдельный типовой расчёт; ангарSSJнеподтверждаетдопуск",
+        "new_Tu214": 0
+      },
+      "required_common_inputs": [
+        "P02 dated products/full-basket fares + physical leg binding",
+        "P03 same N(t), KEEP, assignments, crew, ТО, reserve, airports",
+        "P04 cost/event/cash contract, localTJMterms, thresholds",
+        "P05 common potential OD pools/month/segment, choice, response",
+        "P06 complete P/KEEP context + input acceptance"
+      ],
+      "not_claimed": [
+        "эксплуатационный допуск",
+        "подтверждённый спрос/контракт",
+        "финансовый победитель",
+        "calibrated P06 result"
+      ],
+      "international_constraints": "Действующие права/слоты/foreignhandling/currency/SSJpayload UNKNOWN;новыеТу214=0;непереноситьнаCASE_SJдальниеcharterпотоки."
+    }
+  ],
+  "integration_rules": [
+    "Union уникальных неориентированных airportpairs общей maincaseсети —8–12кконцу2028;не требовать8вTJM",
+    "P01/P02 сравниваются какразныережимытехжерейсов; P03/P04 — одинвосток–западныйресурс/OD",
+    "P05/P06/P07не добавлятькосновнойпрограмме безобщихjointchoice/flightassignment",
+    "Каждый дополнительныйрейс конфликтуетилиделитресурссbaseline;непросто суммаденегавторскихмоделей"
+  ]
+}

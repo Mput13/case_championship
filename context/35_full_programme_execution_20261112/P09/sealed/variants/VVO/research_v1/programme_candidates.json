@@ -1,0 +1,539 @@
+{
+  "stage": "A",
+  "main_network_target": "8–12 уникальных airport pairs в общей проектной сети на конец 2028; здесьлокальные компоненты 3/4 пар",
+  "programmes": [
+    {
+      "status": "Stage A: проверяемый кандидат; условен до общих входов Stage B",
+      "period": "2027-01/2028-12",
+      "unit": "программа/физические плечи/конечные поездки",
+      "coverage": "локальный компонент общей сети; не самостоятельная сеть 8–12 и не доказательство№2",
+      "aircraft_branches": [
+        "RRJ95B/SaM146:свои AFM/хвосты/затраты",
+        "RRJ95LR/SaM146:отдельныйвариант",
+        "SJ100/PD8:своипоставка/ввод/AFM/crew/ТО/затраты"
+      ],
+      "tu214_new_aircraft_branch": 0,
+      "sources": [
+        "RW_2022_CANCEL",
+        "VVO_WINTER",
+        "VVO_TRANSFER_RULES",
+        "PIN-P06-producer_contract",
+        "PIN-P04-thresholds"
+      ],
+      "needs_common_inputs": [
+        "P03:одинаковый P/KEEPtailcalendar, donor, current sales, reserve, MRO, crew, slots, AFM, перегоны",
+        "P05:единые month×OD×segment пулы, цены 20 кг, choice, tripduration, existingRWproducts, response_policy",
+        "P04:rate-to-driver применимость, launch/base/fuel/MRO/crew/exit, расписаниеоплат, начальныеобязательства",
+        "P06:полный bundle иобщийпересчёт затронутого KEEP"
+      ],
+      "own_sales_policy": {
+        "retained": "Все не изменённые существующие продажи/обязательства RW сохраняются в будущем KEEP и P. Их перечень UNKNOWN, не пустой.",
+        "new": "Только явно добавленные датированные плечи и продукты.",
+        "shifted": "Только с departure-product ID, изменение времени/дня учитывается в спросе.",
+        "reduced": "Нет предполагаемого бесплатного донора. Если переносится существующий борт, его прежние рейсы/маржа/продажи/восстановление входят в сравнение.",
+        "cannibalization": "Один общий P05 demand_pool, в том числе варианты с пересадкой через действующие базы; не сумма независимых моделей."
+      },
+      "delivery_logic": {
+        "0ready": "Нет добавочных собственных рейсов VVO на новом SJ; KEEP и partner-вариант остаются. Это не обнуление существующего RW.",
+        "1ready": "R1 только после доказанного ввода, экипажа и резерва; сопоставить альтернативу для того же одного борта.",
+        "2ready_phased": "R2/H2 только после обоих вводов и отдельного резерва; дата не назначена местным исследователем.",
+        "partial": "Частоты/сеть снижаются до R1 либо остаётся KEEP; проектная цель 8–12 общая.",
+        "delay": "Сдвиг по календарю P03, пересчёт сезона/платежей/запуска; нельзяпростоумножитьнеделю.",
+        "existing_tail_redeploy": "Допустимтолькопослеустановлениядонора и его потерянногорезультата."
+      },
+      "finance": "NOT_RUN. Использовать P04 TH-OPTION/TH-FIXED/TH-LAUNCH/TH-FUNDING; положительный variable contribution не полный результат. Нет локальной калибровкиспроса или денег.",
+      "assumption_ids": [
+        "VVO-A02",
+        "VVO-A03",
+        "VVO-A04",
+        "VVO-A05",
+        "VVO-A06",
+        "VVO-A07",
+        "VVO-A08",
+        "VVO-A09",
+        "VVO-A10",
+        "VVO-A11",
+        "VVO-A12",
+        "VVO-A13",
+        "VVO-A14"
+      ],
+      "programme_id": "P-VVO-R1",
+      "title": "Небольшая радиальная программа VVO",
+      "role": "новая компактная сезонная база, существование базы RW непредполагается",
+      "flight_pattern": {
+        "BQS": {
+          "RT_week": 4,
+          "days": "пн/ср/пт/вс"
+        },
+        "UUS": {
+          "RT_week": 3,
+          "days": "пн/чт/пт"
+        },
+        "HTA": {
+          "RT_week": 2,
+          "days": "вт/сб"
+        }
+      },
+      "OD_products": [
+        "VVO–BQS",
+        "VVO–UUS",
+        "VVO–HTA"
+      ],
+      "resource_group": {
+        "operating_tails": 1,
+        "diagnostic_legs_week": 18,
+        "reserve": "UNKNOWN; ветви выделенный 1 дополнительный либо договорнойсместом/SLA",
+        "overnight": "VVO; ТО/crew/стоянка не подтверждены",
+        "paid_tail_scope": "тот же календарь и 1 рабочийборт у альтернативы; зимойинойресурсне исчезает"
+      },
+      "changes": "Добавить только разрешённые физические рейсы; защищённые пересадки не обещать. Летнийпилот; межсезонье/зима отдельныечастоты и условия.",
+      "counterfactual": "Тотже 1 борт остаётся в принятой существующейбазе; остальнаясетьсохраняется. Перегоны, новая база и потеря донороввключены.",
+      "distinguishing_tests": [],
+      "source_id": "RW_2022_CANCEL;VVO_WINTER;VVO_TRANSFER_RULES;PIN-P06-producer_contract;PIN-P04-thresholds"
+    },
+    {
+      "status": "Stage A: проверяемый кандидат; условен до общих входов Stage B",
+      "period": "2027-01/2028-12",
+      "unit": "программа/физические плечи/конечные поездки",
+      "coverage": "локальный компонент общей сети; не самостоятельная сеть 8–12 и не доказательство№2",
+      "aircraft_branches": [
+        "RRJ95B/SaM146:свои AFM/хвосты/затраты",
+        "RRJ95LR/SaM146:отдельныйвариант",
+        "SJ100/PD8:своипоставка/ввод/AFM/crew/ТО/затраты"
+      ],
+      "tu214_new_aircraft_branch": 0,
+      "sources": [
+        "RW_2022_CANCEL",
+        "VVO_WINTER",
+        "VVO_TRANSFER_RULES",
+        "PIN-P06-producer_contract",
+        "PIN-P04-thresholds"
+      ],
+      "needs_common_inputs": [
+        "P03:одинаковый P/KEEPtailcalendar, donor, current sales, reserve, MRO, crew, slots, AFM, перегоны",
+        "P05:единые month×OD×segment пулы, цены 20 кг, choice, tripduration, existingRWproducts, response_policy",
+        "P04:rate-to-driver применимость, launch/base/fuel/MRO/crew/exit, расписаниеоплат, начальныеобязательства",
+        "P06:полный bundle иобщийпересчёт затронутого KEEP"
+      ],
+      "own_sales_policy": {
+        "retained": "Все не изменённые существующие продажи/обязательства RW сохраняются в будущем KEEP и P. Их перечень UNKNOWN, не пустой.",
+        "new": "Только явно добавленные датированные плечи и продукты.",
+        "shifted": "Только с departure-product ID, изменение времени/дня учитывается в спросе.",
+        "reduced": "Нет предполагаемого бесплатного донора. Если переносится существующий борт, его прежние рейсы/маржа/продажи/восстановление входят в сравнение.",
+        "cannibalization": "Один общий P05 demand_pool, в том числе варианты с пересадкой через действующие базы; не сумма независимых моделей."
+      },
+      "delivery_logic": {
+        "0ready": "Нет добавочных собственных рейсов VVO на новом SJ; KEEP и partner-вариант остаются. Это не обнуление существующего RW.",
+        "1ready": "R1 только после доказанного ввода, экипажа и резерва; сопоставить альтернативу для того же одного борта.",
+        "2ready_phased": "R2/H2 только после обоих вводов и отдельного резерва; дата не назначена местным исследователем.",
+        "partial": "Частоты/сеть снижаются до R1 либо остаётся KEEP; проектная цель 8–12 общая.",
+        "delay": "Сдвиг по календарю P03, пересчёт сезона/платежей/запуска; нельзяпростоумножитьнеделю.",
+        "existing_tail_redeploy": "Допустимтолькопослеустановлениядонора и его потерянногорезультата."
+      },
+      "finance": "NOT_RUN. Использовать P04 TH-OPTION/TH-FIXED/TH-LAUNCH/TH-FUNDING; положительный variable contribution не полный результат. Нет локальной калибровкиспроса или денег.",
+      "assumption_ids": [
+        "VVO-A02",
+        "VVO-A03",
+        "VVO-A04",
+        "VVO-A05",
+        "VVO-A06",
+        "VVO-A07",
+        "VVO-A08",
+        "VVO-A09",
+        "VVO-A10",
+        "VVO-A11",
+        "VVO-A12",
+        "VVO-A13",
+        "VVO-A14"
+      ],
+      "programme_id": "P-VVO-R2",
+      "title": "Радиальная программа на двух бортах",
+      "role": "новая база без намеренно синхронизированной волны",
+      "flight_pattern": {
+        "BQS": {
+          "RT_week": 7,
+          "days": "2RT вт/чт/сб;1RT вс"
+        },
+        "UUS": {
+          "RT_week": 7,
+          "days": "2RT вт/чт/сб;1RT вс"
+        },
+        "HTA": {
+          "RT_week": 3,
+          "days": "пн/ср/пт"
+        },
+        "PKC": {
+          "RT_week": 3,
+          "days": "пн/ср/пт"
+        }
+      },
+      "OD_products": [
+        "VVO–BQS",
+        "VVO–UUS",
+        "VVO–HTA",
+        "VVO–PKC"
+      ],
+      "resource_group": {
+        "operating_tails": 2,
+        "diagnostic_legs_week": 40,
+        "reserve": "UNKNOWN; тот же reservecalendar в P/KEEP",
+        "overnight": "оба в VVO",
+        "crew": "все FTE, duty, отдых UNKNOWN"
+      },
+      "changes": "Добавление 4 уникальныхпар; предлагаемыечастотынеявляютсяоценкойспроса. Естественныепересадки допускаютсяобщим choice.",
+      "counterfactual": "H2 при тех же 20RT/днях/парке; ALT-SVX при томжепарке; KEEP сбудущимиобязательствами.",
+      "distinguishing_tests": [],
+      "source_id": "RW_2022_CANCEL;VVO_WINTER;VVO_TRANSFER_RULES;PIN-P06-producer_contract;PIN-P04-thresholds"
+    },
+    {
+      "status": "Stage A: проверяемый кандидат; условен до общих входов Stage B",
+      "period": "2027-01/2028-12",
+      "unit": "программа/физические плечи/конечные поездки",
+      "coverage": "локальный компонент общей сети; не самостоятельная сеть 8–12 и не доказательство№2",
+      "aircraft_branches": [
+        "RRJ95B/SaM146:свои AFM/хвосты/затраты",
+        "RRJ95LR/SaM146:отдельныйвариант",
+        "SJ100/PD8:своипоставка/ввод/AFM/crew/ТО/затраты"
+      ],
+      "tu214_new_aircraft_branch": 0,
+      "sources": [
+        "RW_2022_CANCEL",
+        "VVO_WINTER",
+        "VVO_TRANSFER_RULES",
+        "PIN-P06-producer_contract",
+        "PIN-P04-thresholds"
+      ],
+      "needs_common_inputs": [
+        "P03:одинаковый P/KEEPtailcalendar, donor, current sales, reserve, MRO, crew, slots, AFM, перегоны",
+        "P05:единые month×OD×segment пулы, цены 20 кг, choice, tripduration, existingRWproducts, response_policy",
+        "P04:rate-to-driver применимость, launch/base/fuel/MRO/crew/exit, расписаниеоплат, начальныеобязательства",
+        "P06:полный bundle иобщийпересчёт затронутого KEEP"
+      ],
+      "own_sales_policy": {
+        "retained": "Все не изменённые существующие продажи/обязательства RW сохраняются в будущем KEEP и P. Их перечень UNKNOWN, не пустой.",
+        "new": "Только явно добавленные датированные плечи и продукты.",
+        "shifted": "Только с departure-product ID, изменение времени/дня учитывается в спросе.",
+        "reduced": "Нет предполагаемого бесплатного донора. Если переносится существующий борт, его прежние рейсы/маржа/продажи/восстановление входят в сравнение.",
+        "cannibalization": "Один общий P05 demand_pool, в том числе варианты с пересадкой через действующие базы; не сумма независимых моделей."
+      },
+      "delivery_logic": {
+        "0ready": "Нет добавочных собственных рейсов VVO на новом SJ; KEEP и partner-вариант остаются. Это не обнуление существующего RW.",
+        "1ready": "R1 только после доказанного ввода, экипажа и резерва; сопоставить альтернативу для того же одного борта.",
+        "2ready_phased": "R2/H2 только после обоих вводов и отдельного резерва; дата не назначена местным исследователем.",
+        "partial": "Частоты/сеть снижаются до R1 либо остаётся KEEP; проектная цель 8–12 общая.",
+        "delay": "Сдвиг по календарю P03, пересчёт сезона/платежей/запуска; нельзяпростоумножитьнеделю.",
+        "existing_tail_redeploy": "Допустимтолькопослеустановлениядонора и его потерянногорезультата."
+      },
+      "finance": "NOT_RUN. Использовать P04 TH-OPTION/TH-FIXED/TH-LAUNCH/TH-FUNDING; положительный variable contribution не полный результат. Нет локальной калибровкиспроса или денег.",
+      "assumption_ids": [
+        "VVO-A02",
+        "VVO-A03",
+        "VVO-A04",
+        "VVO-A05",
+        "VVO-A06",
+        "VVO-A07",
+        "VVO-A08",
+        "VVO-A09",
+        "VVO-A10",
+        "VVO-A11",
+        "VVO-A12",
+        "VVO-A13",
+        "VVO-A14"
+      ],
+      "programme_id": "P-VVO-H2",
+      "title": "Те же рейсы с волной BQS–VVO–UUS",
+      "role": "смешанная радиальная программа и защищённая внутренняя пересадка",
+      "flight_pattern": {
+        "BQS": {
+          "RT_week": 7,
+          "days": "2RT вт/чт/сб;1RT вс"
+        },
+        "UUS": {
+          "RT_week": 7,
+          "days": "2RT вт/чт/сб;1RT вс"
+        },
+        "HTA": {
+          "RT_week": 3,
+          "days": "пн/ср/пт"
+        },
+        "PKC": {
+          "RT_week": 3,
+          "days": "пн/ср/пт"
+        }
+      },
+      "OD_products": [
+        "теже 4 локальных OD",
+        "BQS–VVO–UUS и UUS–VVO–BQS вт/чт/сб; возвратчерез 2/3/7 ночей"
+      ],
+      "resource_group": {
+        "operating_tails": 2,
+        "diagnostic_legs_week": 40,
+        "reserve": "UNKNOWN; единыйресурсс R2",
+        "overnight": "оба в VVO",
+        "bank": "вт/чт/сб:оба inbound11:00, оба outbound13:00;120 мин",
+        "needs": "двеодновременныестоянки/handling/трансфер/багаж, местане установлены"
+      },
+      "changes": "Переставить время 7+7 коротких RT; HTA/PKC безизменений. На деньволны по 2RT с BQS/UUS. Одинсквознойтарифнапоездку и 2 занятыхкресельныхсегмента.",
+      "counterfactual": "R2 с темижефизическимирейсами/днями/типами; сохранить P05 пулы, считатьпотерилокальныхпродажиззасдвигавремени и recoverycost.",
+      "distinguishing_tests": [
+        "Дополнительный полный результат H2–R2 после перераспределения всех продаж и расходовзащиты, не добавлениестаройтрансфернойвыручки.",
+        "Сравнить прямой BQS–UUS иконкурентныепересадки через KHV: не считать отсутствие ихв VVOAPI отсутствиемрынка.",
+        "Тесттайминга/возвратов 90/120/180 мин,+30/+60delay, лето/зима/межсезонье."
+      ],
+      "source_id": "RW_2022_CANCEL;VVO_WINTER;VVO_TRANSFER_RULES;PIN-P06-producer_contract;PIN-P04-thresholds"
+    },
+    {
+      "status": "Stage A: проверяемый кандидат; условен до общих входов Stage B",
+      "period": "2027-01/2028-12",
+      "unit": "программа/физические плечи/конечные поездки",
+      "coverage": "локальный компонент общей сети; не самостоятельная сеть 8–12 и не доказательство№2",
+      "aircraft_branches": [
+        "RRJ95B/SaM146:свои AFM/хвосты/затраты",
+        "RRJ95LR/SaM146:отдельныйвариант",
+        "SJ100/PD8:своипоставка/ввод/AFM/crew/ТО/затраты"
+      ],
+      "tu214_new_aircraft_branch": 0,
+      "sources": [
+        "RW_2022_CANCEL",
+        "VVO_WINTER",
+        "VVO_TRANSFER_RULES",
+        "PIN-P06-producer_contract",
+        "PIN-P04-thresholds"
+      ],
+      "needs_common_inputs": [
+        "P03:одинаковый P/KEEPtailcalendar, donor, current sales, reserve, MRO, crew, slots, AFM, перегоны",
+        "P05:единые month×OD×segment пулы, цены 20 кг, choice, tripduration, existingRWproducts, response_policy",
+        "P04:rate-to-driver применимость, launch/base/fuel/MRO/crew/exit, расписаниеоплат, начальныеобязательства",
+        "P06:полный bundle иобщийпересчёт затронутого KEEP"
+      ],
+      "own_sales_policy": {
+        "retained": "Все не изменённые существующие продажи/обязательства RW сохраняются в будущем KEEP и P. Их перечень UNKNOWN, не пустой.",
+        "new": "Только явно добавленные датированные плечи и продукты.",
+        "shifted": "Только с departure-product ID, изменение времени/дня учитывается в спросе.",
+        "reduced": "Нет предполагаемого бесплатного донора. Если переносится существующий борт, его прежние рейсы/маржа/продажи/восстановление входят в сравнение.",
+        "cannibalization": "Один общий P05 demand_pool, в том числе варианты с пересадкой через действующие базы; не сумма независимых моделей."
+      },
+      "delivery_logic": {
+        "0ready": "Нет добавочных собственных рейсов VVO на новом SJ; KEEP и partner-вариант остаются. Это не обнуление существующего RW.",
+        "1ready": "R1 только после доказанного ввода, экипажа и резерва; сопоставить альтернативу для того же одного борта.",
+        "2ready_phased": "R2/H2 только после обоих вводов и отдельного резерва; дата не назначена местным исследователем.",
+        "partial": "Частоты/сеть снижаются до R1 либо остаётся KEEP; проектная цель 8–12 общая.",
+        "delay": "Сдвиг по календарю P03, пересчёт сезона/платежей/запуска; нельзяпростоумножитьнеделю.",
+        "existing_tail_redeploy": "Допустимтолькопослеустановлениядонора и его потерянногорезультата."
+      },
+      "finance": "NOT_RUN. Использовать P04 TH-OPTION/TH-FIXED/TH-LAUNCH/TH-FUNDING; положительный variable contribution не полный результат. Нет локальной калибровкиспроса или денег.",
+      "assumption_ids": [
+        "VVO-A02",
+        "VVO-A03",
+        "VVO-A04",
+        "VVO-A05",
+        "VVO-A06",
+        "VVO-A07",
+        "VVO-A08",
+        "VVO-A09",
+        "VVO-A10",
+        "VVO-A11",
+        "VVO-A12",
+        "VVO-A13",
+        "VVO-A14"
+      ],
+      "programme_id": "P-VVO-ALT-SVX",
+      "title": "Альтернативное применение двух бортов в SVX",
+      "role": "существующая база RW; конкретныйсвободныйресурсне подтверждён",
+      "flight_pattern": {
+        "OMS": {
+          "RT_week": 7
+        },
+        "GOJ": {
+          "RT_week": 7
+        },
+        "KUF": {
+          "RT_week": 3
+        },
+        "UFA": {
+          "RT_week": 3
+        }
+      },
+      "OD_products": [
+        "SVX–OMS",
+        "SVX–GOJ",
+        "SVX–KUF",
+        "SVX–UFA"
+      ],
+      "resource_group": {
+        "operating_tails": 2,
+        "diagnostic_legs_week": 40,
+        "reserve": "тотже физический календарьчто у VVO; небесплатныйпул",
+        "overnight": "SVX",
+        "note": "Число RT одинаковое, блок-часы отличаются; доступныйнеиспользованныйресурссохраняется/можетбытьпереоптимизированобщимядром"
+      },
+      "changes": "Добавочные частоты из действующей базы, с сохранением существующихрейсов и общегоучётасобственногоперетока. Сетка — контролируемыйресурсныйконтроль, не новаяоценкарынков OMS/GOJ/KUF/UFA.",
+      "counterfactual": "R2/H2VVO приодинаковых tailavailability, external/calendar и fullbusinessKEEP. Дельта включаетвыгодыальтернативныхрынков, несравниваетнезависимые скоринги.",
+      "distinguishing_tests": [],
+      "source_id": "RW_2022_CANCEL;VVO_WINTER;VVO_TRANSFER_RULES;PIN-P06-producer_contract;PIN-P04-thresholds"
+    },
+    {
+      "status": "Stage A: проверяемый кандидат; условен до общих входов Stage B",
+      "period": "2027-01/2028-12",
+      "unit": "программа/физические плечи/конечные поездки",
+      "coverage": "локальный компонент общей сети; не самостоятельная сеть 8–12 и не доказательство№2",
+      "aircraft_branches": [
+        "RRJ95B/SaM146:свои AFM/хвосты/затраты",
+        "RRJ95LR/SaM146:отдельныйвариант",
+        "SJ100/PD8:своипоставка/ввод/AFM/crew/ТО/затраты"
+      ],
+      "tu214_new_aircraft_branch": 0,
+      "sources": [
+        "RW_2022_CANCEL",
+        "VVO_WINTER",
+        "VVO_TRANSFER_RULES",
+        "PIN-P06-producer_contract",
+        "PIN-P04-thresholds"
+      ],
+      "needs_common_inputs": [
+        "P03:одинаковый P/KEEPtailcalendar, donor, current sales, reserve, MRO, crew, slots, AFM, перегоны",
+        "P05:единые month×OD×segment пулы, цены 20 кг, choice, tripduration, existingRWproducts, response_policy",
+        "P04:rate-to-driver применимость, launch/base/fuel/MRO/crew/exit, расписаниеоплат, начальныеобязательства",
+        "P06:полный bundle иобщийпересчёт затронутого KEEP"
+      ],
+      "own_sales_policy": {
+        "retained": "Все не изменённые существующие продажи/обязательства RW сохраняются в будущем KEEP и P. Их перечень UNKNOWN, не пустой.",
+        "new": "Только явно добавленные датированные плечи и продукты.",
+        "shifted": "Только с departure-product ID, изменение времени/дня учитывается в спросе.",
+        "reduced": "Нет предполагаемого бесплатного донора. Если переносится существующий борт, его прежние рейсы/маржа/продажи/восстановление входят в сравнение.",
+        "cannibalization": "Один общий P05 demand_pool, в том числе варианты с пересадкой через действующие базы; не сумма независимых моделей."
+      },
+      "delivery_logic": {
+        "0ready": "Нет добавочных собственных рейсов VVO на новом SJ; KEEP и partner-вариант остаются. Это не обнуление существующего RW.",
+        "1ready": "R1 только после доказанного ввода, экипажа и резерва; сопоставить альтернативу для того же одного борта.",
+        "2ready_phased": "R2/H2 только после обоих вводов и отдельного резерва; дата не назначена местным исследователем.",
+        "partial": "Частоты/сеть снижаются до R1 либо остаётся KEEP; проектная цель 8–12 общая.",
+        "delay": "Сдвиг по календарю P03, пересчёт сезона/платежей/запуска; нельзяпростоумножитьнеделю.",
+        "existing_tail_redeploy": "Допустимтолькопослеустановлениядонора и его потерянногорезультата."
+      },
+      "finance": "NOT_RUN. Использовать P04 TH-OPTION/TH-FIXED/TH-LAUNCH/TH-FUNDING; положительный variable contribution не полный результат. Нет локальной калибровкиспроса или денег.",
+      "assumption_ids": [
+        "VVO-A02",
+        "VVO-A03",
+        "VVO-A04",
+        "VVO-A05",
+        "VVO-A06",
+        "VVO-A07",
+        "VVO-A08",
+        "VVO-A09",
+        "VVO-A10",
+        "VVO-A11",
+        "VVO-A12",
+        "VVO-A13",
+        "VVO-A14",
+        "VVO-A15"
+      ],
+      "programme_id": "P-VVO-PARTNER",
+      "title": "Пересадки через VVO с партнёром",
+      "role": "VVO как рынок/стыковочный аэропорт без новойсобственнойбазы",
+      "flight_pattern": {
+        "own_VVO": "не добавлять до договора",
+        "partner_markets": [
+          "BQS/HTA/IKT/UUS/YKS→VVO→HRB/PKX/PEK/PVG"
+        ],
+        "physical_flights": "только выбранные датированные рейсы партнёров, не весь опубликованный набор"
+      },
+      "OD_products": [
+        "подтверждаемые сквозные OD; PEK/PKX раздельно"
+      ],
+      "resource_group": {
+        "own_operating_tails_VVO": 0,
+        "same_fleet": "два борта остаются в ALT-SVX; внутригрупповыеобязательствасохраняются",
+        "partner_capacity": "UNKNOWN, не free; требуется allotment/prorate/SLA",
+        "reserve": "вреальномоператорскомсоглашении, нефиктивный RWtail"
+      },
+      "changes": "Заключение/тестдоговоровсамо неавторизовановэтомисследовании. ВStageB одинкорпоративныйдоход, платаоператору, misconnectcash.",
+      "counterfactual": "ALT-SVX безпартнёрскогопродуктаи VVOH2/новая база; теже RW борта, добавочныедоговорныесобытияявны.",
+      "distinguishing_tests": [],
+      "source_id": "RW_2022_CANCEL;VVO_WINTER;VVO_TRANSFER_RULES;PIN-P06-producer_contract;PIN-P04-thresholds"
+    },
+    {
+      "status": "Stage A: проверяемый кандидат; условен до общих входов Stage B",
+      "period": "2027-01/2028-12",
+      "unit": "программа/физические плечи/конечные поездки",
+      "coverage": "локальный компонент общей сети; не самостоятельная сеть 8–12 и не доказательство№2",
+      "aircraft_branches": [
+        "RRJ95B/SaM146:свои AFM/хвосты/затраты",
+        "RRJ95LR/SaM146:отдельныйвариант",
+        "SJ100/PD8:своипоставка/ввод/AFM/crew/ТО/затраты"
+      ],
+      "tu214_new_aircraft_branch": 0,
+      "sources": [
+        "RW_2022_CANCEL",
+        "VVO_WINTER",
+        "VVO_TRANSFER_RULES",
+        "PIN-P06-producer_contract",
+        "PIN-P04-thresholds"
+      ],
+      "needs_common_inputs": [
+        "P03:одинаковый P/KEEPtailcalendar, donor, current sales, reserve, MRO, crew, slots, AFM, перегоны",
+        "P05:единые month×OD×segment пулы, цены 20 кг, choice, tripduration, existingRWproducts, response_policy",
+        "P04:rate-to-driver применимость, launch/base/fuel/MRO/crew/exit, расписаниеоплат, начальныеобязательства",
+        "P06:полный bundle иобщийпересчёт затронутого KEEP"
+      ],
+      "own_sales_policy": {
+        "retained": "Все не изменённые существующие продажи/обязательства RW сохраняются в будущем KEEP и P. Их перечень UNKNOWN, не пустой.",
+        "new": "Только явно добавленные датированные плечи и продукты.",
+        "shifted": "Только с departure-product ID, изменение времени/дня учитывается в спросе.",
+        "reduced": "Нет предполагаемого бесплатного донора. Если переносится существующий борт, его прежние рейсы/маржа/продажи/восстановление входят в сравнение.",
+        "cannibalization": "Один общий P05 demand_pool, в том числе варианты с пересадкой через действующие базы; не сумма независимых моделей."
+      },
+      "delivery_logic": {
+        "0ready": "Нет добавочных собственных рейсов VVO на новом SJ; KEEP и partner-вариант остаются. Это не обнуление существующего RW.",
+        "1ready": "R1 только после доказанного ввода, экипажа и резерва; сопоставить альтернативу для того же одного борта.",
+        "2ready_phased": "R2/H2 только после обоих вводов и отдельного резерва; дата не назначена местным исследователем.",
+        "partial": "Частоты/сеть снижаются до R1 либо остаётся KEEP; проектная цель 8–12 общая.",
+        "delay": "Сдвиг по календарю P03, пересчёт сезона/платежей/запуска; нельзяпростоумножитьнеделю.",
+        "existing_tail_redeploy": "Допустимтолькопослеустановлениядонора и его потерянногорезультата."
+      },
+      "finance": "NOT_RUN. Использовать P04 TH-OPTION/TH-FIXED/TH-LAUNCH/TH-FUNDING; положительный variable contribution не полный результат. Нет локальной калибровкиспроса или денег.",
+      "assumption_ids": [
+        "VVO-A02",
+        "VVO-A03",
+        "VVO-A04",
+        "VVO-A05",
+        "VVO-A06",
+        "VVO-A07",
+        "VVO-A08",
+        "VVO-A09",
+        "VVO-A10",
+        "VVO-A11",
+        "VVO-A12",
+        "VVO-A13",
+        "VVO-A14",
+        "VVO-A15"
+      ],
+      "programme_id": "P-VVO-I1",
+      "title": "Северо-восточный Китай как дополнительный продукт",
+      "role": "дополнительная международная ветвь, необязательнаядляисходногокейса",
+      "flight_pattern": {
+        "HRB": {
+          "RT_week": 2
+        },
+        "PKX": {
+          "RT_week": 2
+        },
+        "source_of_hours": "заменитьв R1 по 2RTBQS и UUS, не добавлятьбесплатныечасы"
+      },
+      "OD_products": [
+        "VVO–HRB",
+        "VVO–PKX"
+      ],
+      "resource_group": {
+        "operating_tails": 1,
+        "reserve": "как R1; права/международныйдопуск/SJ100 раздельно UNKNOWN",
+        "new_Tu214": 0
+      },
+      "changes": "Условная замена части предложения R1, а не действующихнеизвестных RW продаж. СпроситаймингоценитьпротивнаблюдаемогопредложенияКитая.",
+      "counterfactual": "R1 беззамены; PARTNER на тех жемаршрутах; выпадающие BQSUUS продажипересчитываются.",
+      "distinguishing_tests": [],
+      "source_id": "RW_2022_CANCEL;VVO_WINTER;VVO_TRANSFER_RULES;PIN-P06-producer_contract;PIN-P04-thresholds"
+    }
+  ],
+  "kernel_delivery": "Это спецификации ичастичныйоперационный fragment, не полный bundle producer_contract P06. Датированные flightIDs естьтолько 4 диагностическихпрограмм. Для PARTNER/I1 сознательнонетмнимогослота/договора/кресел."
+}

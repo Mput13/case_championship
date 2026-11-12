@@ -1,0 +1,71 @@
+{
+  "package_id": "VVO-research-v1",
+  "output_directory": "context/35_full_programme_execution_20261112/variants/VVO/research_v1",
+  "write_boundary": "Запись только в context/35_full_programme_execution_20261112/variants/VVO/research_v1/. Git и общие файлы не менялись; координатор получает manifest и сам решает, что коммитить.",
+  "stage": "A COMPLETE; B OPEN",
+  "main_conclusion": "VVO остаётся условным кандидатом. Действующая база RW не подтверждена; объявленную региональную программу 2022 года отменили из-за дефицита ресурса в существующей сети. Построены R1, парные R2/H2, альтернативное использование тех же бортов в SVX, партнёрский и международный варианты. Экономического победителя нет.",
+  "new_high_value_evidence": [
+    "Официальные RW2022announcement/cancellation/reprotection с точными URL/hash.",
+    "28API ответовза 2 неделивобе стороны,1178source rows, stoplistsIO106 иразделение PEK/PKX.",
+    "Местные airport/terminal ставки иусловияскидок, исходныйзимнийрегламент.",
+    "Jan/Aug/9M2026 поаэропорту; округление 2025 неисправлялось.",
+    "В перечне Росавиации2026 уже есть BQS–UUS Авроры:8460 RUB за направление. Это контроль H2; не датированная цена с20кг. Геометрический путь черезVVO в1.493раза длиннее прямого."
+  ],
+  "consume_first": [
+    "case.json",
+    "hypotheses.json",
+    "programme_candidates.json",
+    "comparison_requests.csv",
+    "readiness.json"
+  ],
+  "P02_merge_inputs": [
+    "schedule_observations.csv",
+    "schedule_collision_groups.json",
+    "throughstop_observations.json",
+    "competition_summary.csv"
+  ],
+  "P03_merge_inputs": [
+    "diagnostic_flights.csv",
+    "connection_candidates.json",
+    "resource_diagnostic.json",
+    "geometry_and_block_proxies.csv",
+    "sources/VVO_WINTER_REG.doc"
+  ],
+  "P04_merge_inputs": [
+    "local_reference_rates.csv",
+    "sources/VVO_INCENTIVES.pdf",
+    "sources/VVO_AIRPORT_RATES.pdf",
+    "sources/VVO_TERMINAL_DOWNLOAD.pdf"
+  ],
+  "P05_requests": [
+    "VVO-B05",
+    "VVO-B06",
+    "VVO-B07",
+    "VVO-B12"
+  ],
+  "prohibitions": [
+    "Не превращать SU/HZ/FV-ярлыки и collision groups в физические кресла.",
+    "Не считать IO-106 VVO–IKT беспосадочным.",
+    "Не считать объявленные в2022 три SSJ свободным парком.",
+    "Не умножать диагностическую неделю на52.",
+    "Не назначать RW скидки2026 по историческим порогам без доказанной применимости.",
+    "Не складывать результаты независимых денежных моделей."
+  ],
+  "known_unknowns": "Открыты 12 адресных запросов Stage B. Не приняты спрос/выбор, реальные хвосты и резерв, crew/ТО/слоты, договорные затраты и график денег. Stage A не является итоговой стратегией.",
+  "manifest": "output_manifest.json",
+  "verification": "validation.json; проверки локальные, не независимаяприёмкаи не операционный допуск.",
+  "coordinator_action": "Сначала проверить source pins, README.txt, case.json и requests. Для общего расчёта принять версии P03/P04/P05, собрать полные P/KEEP-bundles P06 и пересчитать совместную сеть. VVO-компонент даёт3–4 внутренние пары; общий целевой размер8–12 не является требованием наполнить их одним городом.",
+  "unit": "handoff пакета",
+  "period": "2027-01/2028-12",
+  "coverage": "локальный StageA",
+  "status": "готов",
+  "source_id": "input_manifest.json;evidence.csv",
+  "reproduce_offline": [
+    "python3 build_package.py",
+    "python3 programmes.py",
+    "python3 finalize_package.py",
+    "python3 polish_outputs.py",
+    "python3 verify_and_seal.py"
+  ],
+  "early_tranche_note": "Ранее координатору отправлен транш604d413f676945d5c5e4442aef9b821522d976b581f1b047ac6ac9bf191ed184; его не редактировали. В итоговом пакете появились E34–E36, новые расписания и проверки."
+}

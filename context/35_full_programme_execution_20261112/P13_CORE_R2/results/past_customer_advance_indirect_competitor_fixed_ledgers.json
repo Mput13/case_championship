@@ -1,0 +1,232 @@
+{
+  "parent": {
+    "status": "CONDITIONAL",
+    "summary": {
+      "journeys": 50.0,
+      "passenger_segments": 50.0,
+      "revenue_net": 6000.0,
+      "variable_contribution": 6000.0,
+      "operating_result": 6000.0,
+      "cash_before_financing": 6000.0,
+      "operating_result_including_prelaunch": 6000.0
+    },
+    "economic_events": [
+      {
+        "economic_event_id": "journey_revenue:BOOKED",
+        "owner": "BOOKED",
+        "category": "revenue",
+        "scope": "affected_business",
+        "driver_unit": "journey",
+        "quantity": 50.0,
+        "rate": 120,
+        "amount": 6000.0,
+        "currency": "RUB",
+        "price_year": 2027,
+        "fx_policy": "RUB_input",
+        "accrual_month": "2027-02",
+        "noncash": false,
+        "avoidability": "per_carried_journey",
+        "shared_event_id": "journey_revenue:BOOKED",
+        "source_id": "P13-SYNTHETIC",
+        "assumption_id": "P13-A001",
+        "cash_plan_status": "explicit"
+      }
+    ],
+    "cash_events": [
+      {
+        "cash_event_id": "journey_revenue:BOOKED:payment:0",
+        "economic_event_id": "journey_revenue:BOOKED",
+        "related_asset_or_contract_id": "BOOKED",
+        "payment_date": "2027-02-10",
+        "amount_signed": 6000.0,
+        "category": "operating",
+        "currency": "RUB",
+        "fx_at_payment": 1,
+        "deposit_flag": false,
+        "source_id": "P13-SYNTHETIC",
+        "status": "scenario",
+        "assumption_id": "P13-A001"
+      }
+    ],
+    "allocations": {
+      "allocations": [
+        {
+          "product_id": "BOOKED",
+          "demand_pool_id": "X",
+          "month": "2027-02",
+          "customer_segment": "all",
+          "owner": "RW",
+          "kind": "air",
+          "requested": 50.0,
+          "carried": 50.0,
+          "final_choice": 50.0,
+          "spilled": 0,
+          "recaptured_in": 0,
+          "recaptured_out": 0,
+          "outside_or_other": 0,
+          "committed_sales": 0,
+          "contract_carried": 0.0,
+          "block_paid": false,
+          "assumption_id": "P13-A001"
+        },
+        {
+          "product_id": "OUT",
+          "demand_pool_id": "X",
+          "month": "2027-02",
+          "customer_segment": "all",
+          "owner": "OTHER",
+          "kind": "outside",
+          "requested": 50.0,
+          "carried": 0,
+          "final_choice": 50.0,
+          "spilled": 0,
+          "recaptured_in": 0,
+          "recaptured_out": 0,
+          "outside_or_other": 50.0,
+          "committed_sales": 0,
+          "contract_carried": 0.0,
+          "block_paid": false,
+          "assumption_id": "P13-A001"
+        }
+      ],
+      "seats": [
+        {
+          "flight_instance_id": "L1",
+          "saleable_seats": 50,
+          "carried_segments": 50.0,
+          "unfilled_contract_seats": 0.0,
+          "unsold_seats": 0
+        }
+      ],
+      "iterations": 1,
+      "choice_method": "conditional_logit_simultaneous_proportional_recapture",
+      "optimal": false
+    },
+    "unknown_dependencies": []
+  },
+  "candidate_fixed_diagnostic": {
+    "status": "CONDITIONAL",
+    "summary": {
+      "journeys": 33.333333333333336,
+      "passenger_segments": 33.333333333333336,
+      "revenue_net": 4000.0000000000005,
+      "variable_contribution": 4000.0000000000005,
+      "operating_result": 4000.0000000000005,
+      "cash_before_financing": 4000.0000000000005,
+      "operating_result_including_prelaunch": 4000.0000000000005
+    },
+    "economic_events": [
+      {
+        "economic_event_id": "journey_revenue:BOOKED",
+        "owner": "BOOKED",
+        "category": "revenue",
+        "scope": "affected_business",
+        "driver_unit": "journey",
+        "quantity": 33.333333333333336,
+        "rate": 120,
+        "amount": 4000.0000000000005,
+        "currency": "RUB",
+        "price_year": 2027,
+        "fx_policy": "RUB_input",
+        "accrual_month": "2027-02",
+        "noncash": false,
+        "avoidability": "per_carried_journey",
+        "shared_event_id": "journey_revenue:BOOKED",
+        "source_id": "P13-SYNTHETIC",
+        "assumption_id": "P13-A001",
+        "cash_plan_status": "explicit"
+      }
+    ],
+    "cash_events": [
+      {
+        "cash_event_id": "journey_revenue:BOOKED:payment:0",
+        "economic_event_id": "journey_revenue:BOOKED",
+        "related_asset_or_contract_id": "BOOKED",
+        "payment_date": "2027-02-10",
+        "amount_signed": 4000.0000000000005,
+        "category": "operating",
+        "currency": "RUB",
+        "fx_at_payment": 1,
+        "deposit_flag": false,
+        "source_id": "P13-SYNTHETIC",
+        "status": "scenario",
+        "assumption_id": "P13-A001"
+      }
+    ],
+    "allocations": {
+      "allocations": [
+        {
+          "product_id": "BOOKED",
+          "demand_pool_id": "X",
+          "month": "2027-02",
+          "customer_segment": "all",
+          "owner": "RW",
+          "kind": "air",
+          "requested": 33.333333333333336,
+          "carried": 33.333333333333336,
+          "final_choice": 33.333333333333336,
+          "spilled": 0,
+          "recaptured_in": 0,
+          "recaptured_out": 0,
+          "outside_or_other": 0,
+          "committed_sales": 0,
+          "contract_carried": 0.0,
+          "block_paid": false,
+          "assumption_id": "P13-A001"
+        },
+        {
+          "product_id": "OUT",
+          "demand_pool_id": "X",
+          "month": "2027-02",
+          "customer_segment": "all",
+          "owner": "OTHER",
+          "kind": "outside",
+          "requested": 33.333333333333336,
+          "carried": 0,
+          "final_choice": 33.333333333333336,
+          "spilled": 0,
+          "recaptured_in": 0,
+          "recaptured_out": 0,
+          "outside_or_other": 33.333333333333336,
+          "committed_sales": 0,
+          "contract_carried": 0.0,
+          "block_paid": false,
+          "assumption_id": "P13-A001"
+        },
+        {
+          "product_id": "FUTURE_COMPETITOR",
+          "demand_pool_id": "X",
+          "month": "2027-02",
+          "customer_segment": "all",
+          "owner": "OTHER",
+          "kind": "ground",
+          "requested": 33.333333333333336,
+          "carried": 33.333333333333336,
+          "final_choice": 33.333333333333336,
+          "spilled": 0,
+          "recaptured_in": 0,
+          "recaptured_out": 0,
+          "outside_or_other": 33.333333333333336,
+          "committed_sales": 0,
+          "contract_carried": 0.0,
+          "block_paid": false,
+          "assumption_id": "P13-A001"
+        }
+      ],
+      "seats": [
+        {
+          "flight_instance_id": "L1",
+          "saleable_seats": 50,
+          "carried_segments": 33.333333333333336,
+          "unfilled_contract_seats": 0.0,
+          "unsold_seats": 16.666666666666664
+        }
+      ],
+      "iterations": 1,
+      "choice_method": "conditional_logit_simultaneous_proportional_recapture",
+      "optimal": false
+    },
+    "unknown_dependencies": []
+  },
+  "meaning": "Diagnostic only: candidate is deliberately evaluated in fixed mode without adaptation guards."
+}

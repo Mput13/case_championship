@@ -1,0 +1,549 @@
+{
+  "city": "VOG",
+  "version": "research_v1",
+  "status": "StageA proposed components; NOT acceptedP06bundles",
+  "target": "Общаясеть8–12уникальныхairportpairs на конец2028;ниодинлокальныйпакетненазванобщейсетью",
+  "normalisation": "Одинаковыйдоступныйресурс,внешнийсценарий,marketversion,choice/cost/response иfutureKEEP;невыравниватьскрытофактическииспользованныеblockhours",
+  "delivery_scenarios": [
+    "P03planphased",
+    "P03partial",
+    "P03delay",
+    "P03nonew;partner0newtails andexplicitexistingSSJdonorbranch"
+  ],
+  "programmes": [
+    {
+      "programme_id": "P-VOG-00",
+      "title": "Партнёрские продажи SVX и проверка стыковок",
+      "role": "partner/outstation",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 0,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [],
+      "endpoint_ODs": [
+        "VOG–SVX;VOG–other viaSVX only ifsellable"
+      ],
+      "counterfactual": "KEEP partner unchanged vs ownflightP10",
+      "ancestorIDs": [
+        "H-VOG-01"
+      ],
+      "frequency_rule": "ДействующиеY7Mon/Thu источникP02; никакихновыхчастотнеприсвоено",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "НовыеRWphysicaltails0 поопределению программы; marketingfee/cost UNKNOWN,не0. Защищённость конкретныхconnectionsUNKNOWN.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-10",
+      "title": "Прямой SVX–VOG из существующего узла",
+      "role": "direct_existingbase",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "SVX>VOG>SVX"
+      ],
+      "endpoint_ODs": [
+        "VOG–SVX"
+      ],
+      "counterfactual": "P00 plus exactsame newtail opportunityset",
+      "ancestorIDs": [
+        "H-VOG-02"
+      ],
+      "frequency_rule": "winter2:Tue/Fri;shoulder2:Tue/Fri;peak3:Tue/Fri/Sun",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "Дополнение/заменаpartner не решены; сравнить сохранениеpartner и cannibalisation.2/3частоты — пилот, не спрос.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-20",
+      "title": "W-оборот через VOG без ночной базы",
+      "role": "through/outstation",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "SVX>VOG>MRV>VOG>SVX"
+      ],
+      "endpoint_ODs": [
+        "SVX–VOG",
+        "VOG–MRV",
+        "SVX–MRV viaVOG ifprotected"
+      ],
+      "counterfactual": "P30 samelegs/tail; and directSVX–MRV plus localVOG under samefleet",
+      "ancestorIDs": [
+        "H-VOG-03"
+      ],
+      "frequency_rule": "winter1:Fri;shoulder2:Tue/Fri;peak3:Tue/Fri/Sun",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "КаждыйRT сохраняетместоSVX; сквознаяпоездкаSVX–MRV не удваивает тариф. Сравнить с ужеимеющимсяdirect.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-30",
+      "title": "Один рабочий самолёт с ночной базой VOG",
+      "role": "radial_base",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "VOG>SVX>VOG>MRV>VOG"
+      ],
+      "endpoint_ODs": [
+        "VOG–SVX",
+        "VOG–MRV"
+      ],
+      "counterfactual": "P20, identical weeklysectors, plus positioning/launch differences",
+      "ancestorIDs": [
+        "H-VOG-03"
+      ],
+      "frequency_rule": "КакP20",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "НочёвкапереведенавVOG; setup/exitferry explicit.Утренние часы отличаются; на одномtail не обещаныдвунаправленныестыковки.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-40",
+      "title": "Две пересадочные волны VOG из двух опор сети",
+      "role": "protected_transfer_outstation",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 2,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "SVX>VOG>MRV>VOG>SVX",
+        "KUF>VOG>AER>VOG>KUF"
+      ],
+      "endpoint_ODs": [
+        "SVX–MRV",
+        "KUF–AER",
+        "SVX–AER",
+        "KUF–MRV",
+        "VOG–SVX/KUF/MRV/AER"
+      ],
+      "counterfactual": "P41 identicaltwo-tail/calendar and all affectedKEEP; other unuseddays remain opportunity",
+      "ancestorIDs": [
+        "H-VOG-04",
+        "C29"
+      ],
+      "frequency_rule": "winter1:Sun;shoulder2:Wed/Sun;peak2:Wed/Sun",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "Северприбывает08:00Z,югвылет09:30Z,северназад15:30Z.ЧерезVOGпересадкаприусловииMCT/договора;свободныйKUFtailнеустановлен.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-41",
+      "title": "Прямые южные рейсы и локальные рейсы в VOG",
+      "role": "matched_direct_control",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 2,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "SVX>MRV>SVX (south days)",
+        "SVX>VOG>SVX (north days)",
+        "KUF>AER>KUF (south days)",
+        "KUF>VOG>KUF (north days)"
+      ],
+      "endpoint_ODs": [
+        "SVX–MRV",
+        "KUF–AER",
+        "VOG–SVX",
+        "VOG–KUF"
+      ],
+      "counterfactual": "P40 on samephysicaltailavailability, responsepolicy and markets",
+      "ancestorIDs": [
+        "H-VOG-04"
+      ],
+      "frequency_rule": "winter1:southSat/northSun;shoulder2:southTue/Sat,northWed/Sun;peaksame2",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "РазнесениеRTпоразнымдням устраняет искусственнотяжёлый8секторныйдень; более высокиеblockhours не скрыты.Объединённыекресла/ODпересчитать.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-50",
+      "title": "Короткие фидеры Нижней Волги",
+      "role": "radial_feeder_trial",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "VOG>GSV>VOG>ASF>VOG"
+      ],
+      "endpoint_ODs": [
+        "VOG–GSV",
+        "VOG–ASF",
+        "GSV–ASF viaVOG ifsellable; longerconnections separately"
+      ],
+      "counterfactual": "GroundviaVOG airport vsgrounddirect plus use same tailonP10/outsideVOG",
+      "ancestorIDs": [
+        "H-VOG-05",
+        "C29"
+      ],
+      "frequency_rule": "winter0 plannedtrialclosed;shoulder1:Fri;peak2:Tue/Fri",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "Winter0 — решение толькоэтогопилота, не нулевойрынок.ДлялокальногоGSV–ASFгеометриянепроверяетготовностькпересадке; количествоспасённыхчасовбезdoor-to-doorUNKNOWN.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-60",
+      "title": "Самара–Волгоград: цепь с обратной ориентацией",
+      "role": "triangle_existingbase",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "Fri:SVX>KUF>VOG>SVX",
+        "Sun:SVX>VOG>KUF>SVX"
+      ],
+      "endpoint_ODs": [
+        "SVX–KUF",
+        "KUF–VOG",
+        "VOG–SVX; through alternatives shareseats"
+      ],
+      "counterfactual": "KEEPdirectSVX–KUF andpartnerSVX–VOG plusdirectRTKUF–VOG alternative",
+      "ancestorIDs": [
+        "H-VOG-06",
+        "C09"
+      ],
+      "frequency_rule": "Fri/Sun everyweek,1flightperdirectionperpair",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "Все6плеч/week;не называтьдвухчастотнымRTкаждойпары.Частота1длякаждогонаправленияможетнеподойтидатампоездки.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-70",
+      "title": "Двухдневная поездка Волгоград–Дагестан",
+      "role": "triangle_existingbase",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "Fri:ZIA>VOG>MCX>ZIA",
+        "Sun:ZIA>MCX>VOG>ZIA"
+      ],
+      "endpoint_ODs": [
+        "VOG–MCX weekend",
+        "ZIA–VOG",
+        "ZIA–MCX"
+      ],
+      "counterfactual": "FutureownMCX/VOGKEEP anddirectRTfromMCX withsamefleet",
+      "ancestorIDs": [
+        "H-VOG-07",
+        "C19"
+      ],
+      "frequency_rule": "Fri/Sun everyweek,1flightperdirectionperpair",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "Сначалаpayload/airspace/ZIAcontracts;полнаяцепьусловная,включаетдлинноеZIA–MCX.Периодические2ночинеравныполномугодовомуспросу.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    },
+    {
+      "programme_id": "P-VOG-80",
+      "title": "Батуми: дополнительный сезонный продукт",
+      "role": "international_extension",
+      "status": "STAGE_A_CONSTRUCTED_CONDITIONAL",
+      "period": "2027-01/2028-12 nominal envelope; actualentry gating required",
+      "aircraft_branches": [
+        "existingSSJ100_with_donor",
+        "SJ100_PD8_separate_assumptions_after_P03_entry"
+      ],
+      "new_Tu214": 0,
+      "working_tail_requirement": 1,
+      "reserve": "Отдельный общий pool либо dedicated1 поP03; доступность/реакция UNKNOWN",
+      "rotation_templates": [
+        "HOST>VOG>BUS>VOG>HOST; HOST/positioning UNKNOWN"
+      ],
+      "endpoint_ODs": [
+        "VOG–BUS"
+      ],
+      "counterfactual": "DomesticP10/P20 andactualinternationalKEEP, zero-new-Tu214",
+      "ancestorIDs": [
+        "H-VOG-09"
+      ],
+      "frequency_rule": "peak2Tue/Fri;shoulder1Fri;winterclosed onlyasproposedpilot",
+      "frequency_unit": "departures_per_direction_per_week; triangle has1 per direction for Fri/Sun pair",
+      "sales_changes": {
+        "preserve": "Весь затронутый futureKEEP, включая own/partnerSVX, actualMCX/SGC/BUS и продажи донорского задания",
+        "add": "Только явно датированная дельта после reconciliation KEEP; proposed templates не доказанный прирост",
+        "move": "Физическийtail переносится только с donor opportunity/result; партнёрскийY7tail не переносится",
+        "reduce": "Ничего не сокращено по умолчанию; reduction требует конкретныхdatedKEEPflightIDs"
+      },
+      "needed_shared_inputs": [
+        "P02 dated air/ground/connection basket, operator, dedup, slots",
+        "P03 same-tail availability/entry/donor/crew/MRO/range/reserve",
+        "P04 local rates/fullfixed/cash/exit/settlement; driver exports",
+        "P05 mutuallyexclusiveOD×month×travel-duration/choice/response",
+        "P06 accepted input bundle, inventory and futureKEEP",
+        "P09 best alternative outsideVOG, total8–12pair portfolio"
+      ],
+      "assumption_ids": [
+        "A-VOG-FREQ",
+        "A-VOG-SEASON",
+        "A-VOG-RESOURCE",
+        "A-VOG-ENTRY",
+        "A-VOG-KEEP",
+        "A-VOG-COST"
+      ],
+      "note": "Нет координат/типоспецифичногоblockдляBUSвназначенныхвходах,непридуман operationalfragment;launchrights/type/rangeUNKNOWN.Не выбранныйсамолёт/хост.",
+      "release_rule": "Это конструкторский календарь, а не выделенные самолёты или открытая продажа. P03 должен наложить ввод/доступность и сохранить донора/KEEP; P05/P04 — спрос, цены и расходы. Непринятые поля остаются UNKNOWN.",
+      "reserve_rule": "Рабочий самолёт и резерв раздельны. Dedicated1 — диагностическая политика P03, не свободный борт. Общий резерв требует доказанного покрытия VOG и времени восстановления."
+    }
+  ]
+}

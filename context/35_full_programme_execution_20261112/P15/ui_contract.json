@@ -1,0 +1,173 @@
+{
+  "version": "P15-import-v3-root20-Q-P09-UI01",
+  "parent_commit": "65cab12d2eae49dc91d1f77dd4860bc9bd7e20d2",
+  "candidate": "dashboard_candidate.html",
+  "source": "source/",
+  "sections": [
+    {
+      "id": "hubs",
+      "title": "Хабы и базы"
+    },
+    {
+      "id": "direct",
+      "title": "Прямые рейсы"
+    },
+    {
+      "id": "network",
+      "title": "Итоговая сеть 2027–2028"
+    },
+    {
+      "id": "strategy",
+      "title": "Стратегия роста и №2"
+    }
+  ],
+  "state": [
+    "result_version",
+    "fleet_scope_id",
+    "programme_id",
+    "evaluation_id",
+    "period",
+    "primary_scenario_id",
+    "comparison_scenario_id",
+    "active_section",
+    "expanded_details",
+    "city",
+    "sourceMonth",
+    "carrier",
+    "destination",
+    "layer",
+    "page",
+    "researchProgramme",
+    "directSVX",
+    "directMOSCOW",
+    "internationalMarket",
+    "resultPageKey",
+    "resultNetworkPage",
+    "resultRotationPage"
+  ],
+  "state_implementation": "One shared state object; native anchors; source dialog preserves state and restores focus; presentation snapshot preserves selectors/details/scroll. Source period independent from forecast period.",
+  "source_binding": {
+    "P02": "exact d9486f1 source export; no physical-seat admission",
+    "cities": "20 sealed Stage A packages at6a6326c2dcfe32e47ec25621bda0d15fcfe48ae1;160 programmes/169 hypotheses",
+    "P08": "sealed SVX/MOSCOW specimens,not operational acceptance",
+    "P02I": "87 market cards+access constraints,additional to CASE_SJ",
+    "P10": "128 capacity-only conditions; actual P09 bridge null",
+    "P11": "4 real policy cards,commercial uplift UNKNOWN",
+    "P01_MONTHLY": "133segment observations/86airport-month observations/36UTcarrier-month with9helicopter excluded from fixed-wing view; no endpointOD; KJA conflicts preserved",
+    "P09_contract_only_pending": {
+      "sha256": "d721896cdc4193b9e2a70bd54a25baaedd00db0e967a711c5a359d424b0c1e7d",
+      "status": "ROOT_APPROVED_PROJECTION_CONTRACT; ACTUAL_QUANTITATIVE_ACCEPTANCE_PENDING"
+    }
+  },
+  "result_import": {
+    "entry": "replay.py --results-commit EXACT_ARTIFACT_SHA --results-path GIT_PATH, RW.load(envelope), local JSON import. Artifact commit may differ from producer payload commit; no self-referential SHA required.",
+    "envelope_required": {
+      "dataset_kind": "RED_WINGS",
+      "synthetic": false,
+      "coordinator_acceptance": "ACCEPTED_FOR_UI",
+      "commit": "40hex Git commit",
+      "manifest_sha256": "64hex artifact hash",
+      "evaluations": "array",
+      "strategy": "optional mapping by evaluation_id"
+    },
+    "evaluation_fields": {
+      "label": "real programme title",
+      "scenario_label": "precomputed scenario label, not confidence interval",
+      "source_refs": "nonempty array of source paths/versions/rows",
+      "assumption_ids": "array of registry IDs",
+      "result": "unmodified P06 compare output",
+      "conclusion": "optional accepted conclusion",
+      "competition_conclusion": "optional competitive choice conclusion",
+      "strategy_action": "optional scenario action"
+    },
+    "mapping": {
+      "context": "result.project.context",
+      "monthly_absolute": "result.project.results_monthly",
+      "monthly_delta": "result.delta_monthly",
+      "period_delta_precomputed": "result.delta_summary for 24months; result.delta_annual for selected year",
+      "network": "result.network_changes[].project / keep",
+      "rotations": "result.project.operations.rotations",
+      "funding": "result.project_incremental_funding, whole_company_funding separate",
+      "fleet_scope": "result.project.context.fleet_scope_id"
+    },
+    "gates": [
+      "exact version and manifest format",
+      "explicit RW/non-synthetic/coordinator acceptance",
+      "24 unique months 2027-01…2028-12",
+      "required evaluation context",
+      "same external scenario/resource/future horizon for KEEP",
+      "same programme/version/scope/evaluation mode/market-choice-cost scope for scenario comparison"
+    ],
+    "trust_boundary": "UI checks structure and supplied acceptance marker. Coordinator must verify exact SHA/manifest and release gates F01–F06; no claim of cryptographic acceptance or economic validation from upload.",
+    "no_computation": [
+      "no demand/price response",
+      "no scenario extrapolation",
+      "no summation of independent variants",
+      "no allocation",
+      "no financial model; producer aggregates only"
+    ],
+    "missing_or_error": "Unknown/null displays as unavailable; malformed import reports one error, prior valid state retained; unsupported scenario never enabled as result",
+    "number2_gate": "release_gates.F07 must equal ACCEPTED and strategy must map by evaluation_id; P15 verifies compatible whole-business bridge; no rank/date inferred from regional programme",
+    "resource_monthly": "Optional accepted evaluation.resource_monthly rows: month,aircraft_variant,transferred,entered_service,project_available,reserve,crew_maintenance_status; display only, no tail construction",
+    "comparison_group": "Optional accepted comparison_group_id permits changed input versions within a validated experiment; always preserve programme/version/fleet scope/evaluation mode/period/affected scope",
+    "root_approved_version": "Q-P09-UI01",
+    "compatible_payloads": [
+      "P12 full compare field structure without allocation/event payload in UI",
+      "P09_UI_PROJECTION preserving exact used numbers/null/status/context/evaluation links"
+    ],
+    "projection": {
+      "payload_kind": "P09_UI_PROJECTION",
+      "projection_contract": "Объект P09: version,jsonpaths,hash convention,audit/replay; producer-owned exact path mapping. После получения sealed P09 path mapping сверить до binding.",
+      "per_evaluation_meta": "e.projection_meta or e: source_full_result_sha256,projection_sha256,input_pins,result_mode,audit,replay",
+      "required_display_paths": {
+        "context": "evaluations[].result.project.context",
+        "status": "evaluations[].result.project.status",
+        "monthly_absolute": "evaluations[].result.project.results_monthly",
+        "monthly_delta": "evaluations[].result.delta_monthly",
+        "annual_delta": "evaluations[].result.delta_annual",
+        "horizon_delta": "evaluations[].result.delta_summary",
+        "operations": "evaluations[].result.project.operations.rotations",
+        "network": "evaluations[].result.network_changes",
+        "unknowns": "evaluations[].result.project.unknown_dependencies",
+        "KEEP_context": "evaluations[].result.keep.context",
+        "funding": "evaluations[].result.project_incremental_funding",
+        "whole_company_funding": "evaluations[].result.whole_company_funding",
+        "resources": "evaluations[].resource_monthly"
+      },
+      "may_omit": [
+        "allocation",
+        "full event payload",
+        "unused effective products",
+        "other full compare fields not displayed"
+      ],
+      "precision": "Числа/null и инварианты копируются точно; округление только в Intl.NumberFormat видимой строки. Денежных/choice агрегатов в JS нет.",
+      "full_results": "gzip финалистов/основных выводов; остальные с sourcefullresultSHA256 и повторяемым replay",
+      "acceptance": "Формат и supplied coordinator marker не являются независимой эмпирической/экономической/операционной приёмкой.",
+      "producer_contract_snapshot": "inputs/P09/projection_contract_pending.json",
+      "paths": "P09 exact projection retains P12 paths. No remapping from overview. Receipt and contract are read by git show at the accepted artifact commit.",
+      "metadata_binding": "P09 evaluation.source_full_result_sha256/source_full_result_path/projection_sha256/audit_receipt; adapter copies receipt.input_manifest/full, contract.replay/audit_script into projection_meta. No duplicate input_pins fields required from P09.",
+      "hash_verification": "SHA256 json.dumps(e.result,ensure_ascii=False,sort_keys=True,separators=(comma,colon),allow_nan=False).encode() equals e.projection_sha256 and receipt.projection_sha256; full link equals receipt.full.sha256/path.",
+      "financial_nulls": "operating_result and full funding null remain unknown; known_operating_subtotal is a separately labelled known subtotal, never full profit.",
+      "pagination": "16rows of rotations/network per page; arrays unchanged. Actual accepted-result pagination and scenario switch remain NOT_RUN."
+    },
+    "binding_status": "OPEN: ожидает sealed P09 projection contract+data+coordinator acceptance"
+  },
+  "presentation": {
+    "route": "presentation_route.json",
+    "preset": "presentation_preset.json",
+    "status": "ROUTE_BINDINGS_CHECKED_STAGE_A; P16_ACTUAL_FULL_RESULTS_REHEARSAL_NOT_RUN"
+  },
+  "delivery": {
+    "local": "Single self-contained HTML; no remote fonts/scripts/assets required",
+    "new_dependencies": [],
+    "public_site_changed": false,
+    "author_branch_changed": false
+  },
+  "acceptance_boundary": "Working UI skeleton with real source evidence; not acceptance of integrated programme, allocation, dispatch, profitability, number2 strategy or two-minute presentation",
+  "root_approval": "Q-P09-UI01: компактная UI projection вместо110MB full compare на оценку",
+  "previous_version": {
+    "commit": "06207b1650bd1c83e0f0761b25d063f2c395ace7",
+    "path": "context/35_full_programme_execution_20261112/P12/ui_contract.json",
+    "preserved": "inputs/P12/ui_contract.json"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+  "path": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+  "source_sha256": "cfa9ec5ab3606e65bbba50bff00a0896aaf87817dfc62f2e27baee2a12697d82",
+  "nodes": [
+    {
+      "name": "date_floor",
+      "line_start": 245,
+      "line_end": 249,
+      "source": "def date_floor(value):\n        # A monthly date does not prove that a change is effective mid-month.\n        if len(value) == 7:\n            return month(value) + \"-01\"\n        return utc(value).date().isoformat() if \"T\" in value else dated(value)"
+    },
+    {
+      "name": "accrual_date",
+      "line_start": 306,
+      "line_end": 316,
+      "source": "def accrual_date(event):\n            if event.get(\"accrual_date\"):\n                return date_floor(event[\"accrual_date\"])\n            pid = event[\"owner\"]\n            if event[\"economic_event_id\"] == \"journey_revenue:\" + pid and pid in products:\n                product = products[pid]\n                if product.get(\"departure_date\"):\n                    return date_floor(product[\"departure_date\"])\n                if product[\"legs\"]:\n                    return date_floor(flights[product[\"legs\"][0]][\"departure_utc\"])\n            return event[\"accrual_month\"] + \"-01\""
+    }
+  ],
+  "method": "Exact parsed AST nodes executed without source edits. This is a helper check, not public API acceptance."
+}

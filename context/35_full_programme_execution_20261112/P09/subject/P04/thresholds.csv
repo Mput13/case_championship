@@ -1,0 +1,11 @@
+threshold_id,field,formula,unit,conditions,assumption_id
+TH-FIXED,max_affordable_incremental_fixed_monthly,(R+S-C_variable-C_aircraft_use-D&A-C_launch_exp-C_exit_exp)/active_base_months,RUB/base/month,active_base_months>0; all other terms fixed and defined,P04-A-THRESHOLD
+TH-LAUNCH,max_affordable_one_time_launch_expense,sum(R+S-C_variable-C_fixed-C_aircraft_use-D&A-C_exit_exp),RUB/launch,Given horizon; not discounted investment threshold or finance capacity,P04-A-THRESHOLD
+TH-MRO,max_affordable_MRO_hourly,(R+S-C_excluding_MRO)/block_hours,RUB/block_h,MRO calendar/cycle fees separately counted; no joint claim all unknowns at separate maxima,P04-A-THRESHOLD
+TH-SUPPORT,required_recognisable_support,C_full_operating-R_net,RUB/period,Compare against eligibility/contract cap; legal cap does not imply award,P04-A-THRESHOLD
+TH-FUEL,max_effective_net_fuel_price,(R+S_nonfuel-C_nonfuel_full)/eligible_consumed_t,RUB/t,Separate nonqualifying fuel and future excise cash; fixed sales arithmetic only,P04-A-THRESHOLD
+TH-FARE,break_even_net_journey_yield,(C_full_operating-S)/unique_sold_journeys,RUB/journey,Fare changes require demand reassignment in P06; no fixed-pax market forecast,P04-A-THRESHOLD
+TH-COFINANCE,minimum_incremental_regional_or_commercial_funding,"max(0,required_support-confirmed_federal_support)",RUB/period,Keep no-award baseline; regional cofinance must have its own signed terms,P04-A-THRESHOLD
+TH-FUNDING,required_committed_liquidity,"max(0,-min_event(cumsum(project_cash_before_financing)))",RUB,Include prelaunch/exits and terminal liabilities; unknown dates imply unknown peak,P04-A-THRESHOLD
+TH-DELAY,support_delay_extra_bridge_constant_flow,eligible_monthly_support * extra_unpaid_months,RUB,Steady monthly toy flow only; actual event cash path may differ,P04-A-THRESHOLD
+TH-OPTION,new_base_vs_existing_base_operating_headroom,result_before_new_base_costs_new - result_before_extra_costs_existing,RUB/period,Common fleet/KEEP and common input versions; subtract only truly different uncounted costs,P04-A-THRESHOLD

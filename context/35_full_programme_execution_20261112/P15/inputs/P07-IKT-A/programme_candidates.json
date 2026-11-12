@@ -1,0 +1,795 @@
+{
+  "schema": "IKT-programme-proposal-1",
+  "not_a_complete_P06_bundle": true,
+  "P06_pin": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+  "programmes": [
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "horizon": "2027-01-01..2028-12-31",
+      "source_ids": [
+        "E01",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E11",
+        "E12",
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "assumption_ids": [
+        "A-IKT-RESOURCE",
+        "A-IKT-TYPE",
+        "A-IKT-FREQ",
+        "A-IKT-SEASON",
+        "A-IKT-BLOCK",
+        "A-IKT-TURN",
+        "A-IKT-DAILY",
+        "A-IKT-KEEP",
+        "A-IKT-RATES",
+        "A-IKT-STARTEXIT",
+        "A-IKT-CHOICE",
+        "A-IKT-REACTION",
+        "A-IKT-FIN"
+      ],
+      "preserve_rule": "Всё будущее KEEP в одинаковом внешнем сценарии сохраняется, кроме явно датированных delta actions. Неизвестные собственные продажи и задания донора не обнулять. Каждый новый борт имеет альтернативное применение.",
+      "shared_inputs_required": [
+        "P03 dated KEEP + monthly fleet/induction/crew/MRO/reserve/performance",
+        "P02 accepted physical leg IDs, operating carriers and sale status",
+        "P05 route-month journeys, products, own diversion, fares and choice/response policy",
+        "P04 admitted rates, full incremental events, opening balances, payment/exit events",
+        "P06 complete versioned P and KEEP bundles, independent acceptance"
+      ],
+      "metrics_required": [
+        "passenger_segments",
+        "final_journeys",
+        "net_Red_Wings_passengers_vs_KEEP",
+        "revenue_once_per_journey",
+        "incremental_variable_contribution",
+        "full_incremental_operating_result",
+        "monthly_cash_and_peak_funding",
+        "national_market_share_compatible_denominator",
+        "decision_reversal_thresholds"
+      ],
+      "monetary_winner": null,
+      "programme_id": "P-IKT-ENDPOINT",
+      "title": "IKT как конечный пункт из действующей базы SVX",
+      "role": "DIRECT_FROM_EXISTING_BASE",
+      "operating_base": "SVX",
+      "resource_group": {
+        "group_id": "IKT-R2-SAME-COHORT",
+        "working_tails": 2,
+        "reserve_tails": 1,
+        "reserve_status": "условный отдельный ресурс группы; не заявлен существующим RW",
+        "reserve_cost_shared_event": "P03/P04 обязаны задать один раз",
+        "commercial_availability": "UNKNOWN; не раньше H2 2027 для новых SJ100",
+        "location": "SVX",
+        "aircraft_scope": "SSJ100/SaM146 и отдельный SJ100/PD8 run; типы не взаимозаменяются молча"
+      },
+      "legs": [
+        {
+          "airport_pair": "IKT:SVX",
+          "origin": "SVX",
+          "destination": "IKT",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "NOZ:SVX",
+          "origin": "SVX",
+          "destination": "NOZ",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "SVX:TOF",
+          "origin": "SVX",
+          "destination": "TOF",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "OMS:SVX",
+          "origin": "SVX",
+          "destination": "OMS",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        }
+      ],
+      "target_OD": [
+        "SVX–IKT",
+        "SVX–NOZ",
+        "SVX–TOF",
+        "SVX–OMS"
+      ],
+      "mechanism": "При том же выделенном числе хвостов проверить прямые продукты из существующей базы. IKT не несёт расходов новой постоянной базы; длинный SVX–IKT использует существенную часть дня. Это альтернативное использование всего ресурса, а не только сравнение IKT airport P&L.",
+      "paired_counterfactuals": [
+        "P-IKT-RADIAL",
+        "P-IKT-BANK",
+        "KEEP-SAME-COHORT"
+      ],
+      "own_network_actions": {
+        "keep": "Существующие рейсы и продажи RW в SVX, включая затронутые NOZ/TOF/OMS, сначала связать с KEEP.",
+        "add": "IKT2/нед. как gross target; прирост сверх KEEP UNKNOWN. Остальные 3 пары: изменение частот/времени только после baseline binding.",
+        "reduce": "Никакого автоматического удаления прежних рейсов. Если хвост переносится, его donor flights и потерянные продажи отдельные actions.",
+        "transfer": "Дополнительное собственное перетекание через SVX/ZIA входит в P05."
+      },
+      "unique_airport_pairs": 4,
+      "distinguishing_test": "Полный P–KEEP на объединении всех затронутых OD; не сравнивать разные локальные scopes.",
+      "resource_and_delivery_branches": [
+        {
+          "branch": "ZERO_NEW",
+          "action": "Сохранить KEEP; при переносе существующего борта — явный donor loss и тот же хвост в контрфакте. Нет автоматического свободного самолёта."
+        },
+        {
+          "branch": "DELAYED",
+          "action": "До коммерческой готовности ресурс не расходуется на предложенные рейсы; понесённые launch commitments остаются. Дата UNKNOWN от P03."
+        },
+        {
+          "branch": "PARTIAL",
+          "action": "R1 RESTORE/ENDPOINT тест возможен только при 1 доступном рабочем хвосте плюс оплаченный резерв; R2 BANK не выполняется под видом 2 хвостов."
+        },
+        {
+          "branch": "PHASED_AS_PLANNED_SCENARIO",
+          "action": "R2 после 2 коммерчески доступных выделенных хвостов и резерва/crew/MRO;2 есть проектный бюджет, не объём поставки RW."
+        }
+      ],
+      "resource_variants": [
+        {
+          "variant_id": "P-IKT-ENDPOINT-R1",
+          "resource_group": {
+            "group_id": "IKT-R1-SAME-COHORT",
+            "working_tails": 1,
+            "reserve_tails": 1,
+            "reserve_status": "условный отдельный ресурс группы; не заявлен существующим RW",
+            "reserve_cost_shared_event": "P03/P04 обязаны задать один раз",
+            "commercial_availability": "UNKNOWN; не раньше H2 2027 для новых SJ100",
+            "location": "по варианту; ferry/induction/return учитываются",
+            "aircraft_scope": "SSJ100/SaM146 и отдельный SJ100/PD8 run; типы не взаимозаменяются молча"
+          },
+          "legs": [
+            {
+              "airport_pair": "IKT:SVX",
+              "origin": "SVX",
+              "destination": "IKT",
+              "frequency_week_each_direction": 2,
+              "peak_frequency_week_each_direction": 3,
+              "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+              "flight_type": "nonstop_proposal",
+              "operation_status": "proposed_or_incremental_subject_KEEP",
+              "unit": "departures/direction/week",
+              "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+              "coverage": "Project design, not published RW schedule",
+              "status": "PROPOSED",
+              "sold_seats": null
+            }
+          ],
+          "alternative_to": "P-IKT-RESTORE-NOZ",
+          "comparison": "Те же 1 рабочийборт+1 условный резерв, частота 2/нед. и 18blockh внеделю; nonstopSVX–IKT vs двухплечевой SVX–NOZ–IKT. Дополнительные SVX–NOZ продажи/NOZ–IKT иэффектвремени P05 пересчитываетсовместно."
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "horizon": "2027-01-01..2028-12-31",
+      "source_ids": [
+        "E01",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E11",
+        "E12",
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "assumption_ids": [
+        "A-IKT-RESOURCE",
+        "A-IKT-TYPE",
+        "A-IKT-FREQ",
+        "A-IKT-SEASON",
+        "A-IKT-BLOCK",
+        "A-IKT-TURN",
+        "A-IKT-DAILY",
+        "A-IKT-KEEP",
+        "A-IKT-RATES",
+        "A-IKT-STARTEXIT",
+        "A-IKT-CHOICE",
+        "A-IKT-REACTION",
+        "A-IKT-FIN"
+      ],
+      "preserve_rule": "Всё будущее KEEP в одинаковом внешнем сценарии сохраняется, кроме явно датированных delta actions. Неизвестные собственные продажи и задания донора не обнулять. Каждый новый борт имеет альтернативное применение.",
+      "shared_inputs_required": [
+        "P03 dated KEEP + monthly fleet/induction/crew/MRO/reserve/performance",
+        "P02 accepted physical leg IDs, operating carriers and sale status",
+        "P05 route-month journeys, products, own diversion, fares and choice/response policy",
+        "P04 admitted rates, full incremental events, opening balances, payment/exit events",
+        "P06 complete versioned P and KEEP bundles, independent acceptance"
+      ],
+      "metrics_required": [
+        "passenger_segments",
+        "final_journeys",
+        "net_Red_Wings_passengers_vs_KEEP",
+        "revenue_once_per_journey",
+        "incremental_variable_contribution",
+        "full_incremental_operating_result",
+        "monthly_cash_and_peak_funding",
+        "national_market_share_compatible_denominator",
+        "decision_reversal_thresholds"
+      ],
+      "monetary_winner": null,
+      "programme_id": "P-IKT-RESTORE-NOZ",
+      "title": "NOZ–IKT с возвратом борта в SVX",
+      "role": "THROUGHSTOP_FROM_EXISTING_BASE",
+      "operating_base": "SVX",
+      "resource_group": {
+        "group_id": "IKT-R1-SAME-COHORT",
+        "working_tails": 1,
+        "reserve_tails": 1,
+        "reserve_status": "условный отдельный ресурс группы; не заявлен существующим RW",
+        "reserve_cost_shared_event": "P03/P04 обязаны задать один раз",
+        "commercial_availability": "UNKNOWN; не раньше H2 2027 для новых SJ100",
+        "location": "SVX",
+        "aircraft_scope": "SSJ100/SaM146 и отдельный SJ100/PD8 run; типы не взаимозаменяются молча"
+      },
+      "legs": [
+        {
+          "airport_pair": "NOZ:SVX",
+          "origin": "SVX",
+          "destination": "NOZ",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:NOZ",
+          "origin": "NOZ",
+          "destination": "IKT",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        }
+      ],
+      "target_OD": [
+        "NOZ–IKT",
+        "SVX–NOZ",
+        "SVX–IKT через NOZ"
+      ],
+      "mechanism": "Двухдневная в неделю цепочка SVX–NOZ–IKT–NOZ–SVX проверяет восстановление исторического RW продукта без постоянной базы IKT. SVX–IKT через NOZ и NOZ–IKT используют общие физические места на втором плече.",
+      "paired_counterfactuals": [
+        "P-IKT-ENDPOINT restricted to R1",
+        "KEEP-SAME-COHORT"
+      ],
+      "own_network_actions": {
+        "keep": "Связать фактические/будущие SVX–NOZ и возможные NOZ–IKT с KEEP; текущая частота RW в IKT не установлена.",
+        "add": "Целевая NOZ–IKT2/нед. после доступности R1; не вся gross capacity новая.",
+        "reduce": "Если прямой SVX–IKT заменяется viaNOZ, зафиксировать потерю времени/продаж; это альтернативные продукты.",
+        "transfer": "Донор ресурса и собственные пересадки через SVX отдельными строками."
+      },
+      "unique_airport_pairs": 2,
+      "operating_chain": [
+        "SVX",
+        "NOZ",
+        "IKT",
+        "NOZ",
+        "SVX"
+      ],
+      "frequency_reason": "Историческая 2/нед. доказана публикацией 2024; сейчас это тест поездок 3/4 ночи, а не договорный спрос.",
+      "risk": "4 плеча в один день; расчёт экипажа и зимнего буфера обязателен; по одному плохому duty не отвергать NOZ–IKT целиком.",
+      "resource_and_delivery_branches": [
+        {
+          "branch": "ZERO_NEW",
+          "action": "Сохранить KEEP; при переносе существующего борта — явный donor loss и тот же хвост в контрфакте. Нет автоматического свободного самолёта."
+        },
+        {
+          "branch": "DELAYED",
+          "action": "До коммерческой готовности ресурс не расходуется на предложенные рейсы; понесённые launch commitments остаются. Дата UNKNOWN от P03."
+        },
+        {
+          "branch": "PARTIAL",
+          "action": "R1 RESTORE/ENDPOINT тест возможен только при 1 доступном рабочем хвосте плюс оплаченный резерв; R2 BANK не выполняется под видом 2 хвостов."
+        },
+        {
+          "branch": "PHASED_AS_PLANNED_SCENARIO",
+          "action": "R2 после 2 коммерчески доступных выделенных хвостов и резерва/crew/MRO;2 есть проектный бюджет, не объём поставки RW."
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "horizon": "2027-01-01..2028-12-31",
+      "source_ids": [
+        "E01",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E11",
+        "E12",
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "assumption_ids": [
+        "A-IKT-RESOURCE",
+        "A-IKT-TYPE",
+        "A-IKT-FREQ",
+        "A-IKT-SEASON",
+        "A-IKT-BLOCK",
+        "A-IKT-TURN",
+        "A-IKT-DAILY",
+        "A-IKT-KEEP",
+        "A-IKT-RATES",
+        "A-IKT-STARTEXIT",
+        "A-IKT-CHOICE",
+        "A-IKT-REACTION",
+        "A-IKT-FIN"
+      ],
+      "preserve_rule": "Всё будущее KEEP в одинаковом внешнем сценарии сохраняется, кроме явно датированных delta actions. Неизвестные собственные продажи и задания донора не обнулять. Каждый новый борт имеет альтернативное применение.",
+      "shared_inputs_required": [
+        "P03 dated KEEP + monthly fleet/induction/crew/MRO/reserve/performance",
+        "P02 accepted physical leg IDs, operating carriers and sale status",
+        "P05 route-month journeys, products, own diversion, fares and choice/response policy",
+        "P04 admitted rates, full incremental events, opening balances, payment/exit events",
+        "P06 complete versioned P and KEEP bundles, independent acceptance"
+      ],
+      "metrics_required": [
+        "passenger_segments",
+        "final_journeys",
+        "net_Red_Wings_passengers_vs_KEEP",
+        "revenue_once_per_journey",
+        "incremental_variable_contribution",
+        "full_incremental_operating_result",
+        "monthly_cash_and_peak_funding",
+        "national_market_share_compatible_denominator",
+        "decision_reversal_thresholds"
+      ],
+      "monetary_winner": null,
+      "programme_id": "P-IKT-RADIAL",
+      "title": "Небольшая радиальная база IKT",
+      "role": "NEW_LOCAL_BASE",
+      "operating_base": "IKT",
+      "resource_group": {
+        "group_id": "IKT-R2-SAME-COHORT",
+        "working_tails": 2,
+        "reserve_tails": 1,
+        "reserve_status": "условный отдельный ресурс группы; не заявлен существующим RW",
+        "reserve_cost_shared_event": "P03/P04 обязаны задать один раз",
+        "commercial_availability": "UNKNOWN; не раньше H2 2027 для новых SJ100",
+        "location": "IKT",
+        "aircraft_scope": "SSJ100/SaM146 и отдельный SJ100/PD8 run; типы не взаимозаменяются молча"
+      },
+      "legs": [
+        {
+          "airport_pair": "IKT:NOZ",
+          "origin": "IKT",
+          "destination": "NOZ",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:TOF",
+          "origin": "IKT",
+          "destination": "TOF",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:OMS",
+          "origin": "IKT",
+          "destination": "OMS",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:VVO",
+          "origin": "IKT",
+          "destination": "VVO",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        }
+      ],
+      "target_OD": [
+        "IKT–NOZ",
+        "IKT–TOF",
+        "IKT–OMS",
+        "IKT–VVO"
+      ],
+      "mechanism": "Проверить четыре прямых рынка, включая восстановление NOZ и конкуренцию с Utair на TOF и S7 на OMS/VVO. Рейсы распределены по дням, продажи защищённых пересадок выключены. Иные базовые функции и договоры оплачиваются, даже если налёт невысок.",
+      "paired_counterfactuals": [
+        "P-IKT-ENDPOINT",
+        "P-IKT-BANK",
+        "KEEP-SAME-COHORT"
+      ],
+      "own_network_actions": {
+        "keep": "Все прежние продажи RW во всём затронутом бизнесе в KEEP; наличие RW local base не предполагается.",
+        "add": "По 2/нед. в каждом направлении, peak3 как отдельный тест.",
+        "reduce": "Не сокращать incumbents или RW автоматически; только явный trade-off по общим хвостам.",
+        "transfer": "NOZ–IKT имеет исторический RW предок. Partner feeders и собственные прежние пересадки не новые независимые рынки."
+      },
+      "unique_airport_pairs": 4,
+      "connection_policy": "No advertised protected connections; local products still compete in P05",
+      "not_eight_pair_full_case": true,
+      "resource_and_delivery_branches": [
+        {
+          "branch": "ZERO_NEW",
+          "action": "Сохранить KEEP; при переносе существующего борта — явный donor loss и тот же хвост в контрфакте. Нет автоматического свободного самолёта."
+        },
+        {
+          "branch": "DELAYED",
+          "action": "До коммерческой готовности ресурс не расходуется на предложенные рейсы; понесённые launch commitments остаются. Дата UNKNOWN от P03."
+        },
+        {
+          "branch": "PARTIAL",
+          "action": "R1 RESTORE/ENDPOINT тест возможен только при 1 доступном рабочем хвосте плюс оплаченный резерв; R2 BANK не выполняется под видом 2 хвостов."
+        },
+        {
+          "branch": "PHASED_AS_PLANNED_SCENARIO",
+          "action": "R2 после 2 коммерчески доступных выделенных хвостов и резерва/crew/MRO;2 есть проектный бюджет, не объём поставки RW."
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "horizon": "2027-01-01..2028-12-31",
+      "source_ids": [
+        "E01",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E11",
+        "E12",
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "assumption_ids": [
+        "A-IKT-RESOURCE",
+        "A-IKT-TYPE",
+        "A-IKT-FREQ",
+        "A-IKT-SEASON",
+        "A-IKT-BLOCK",
+        "A-IKT-TURN",
+        "A-IKT-DAILY",
+        "A-IKT-KEEP",
+        "A-IKT-RATES",
+        "A-IKT-STARTEXIT",
+        "A-IKT-CHOICE",
+        "A-IKT-REACTION",
+        "A-IKT-FIN",
+        "A-IKT-BANK"
+      ],
+      "preserve_rule": "Всё будущее KEEP в одинаковом внешнем сценарии сохраняется, кроме явно датированных delta actions. Неизвестные собственные продажи и задания донора не обнулять. Каждый новый борт имеет альтернативное применение.",
+      "shared_inputs_required": [
+        "P03 dated KEEP + monthly fleet/induction/crew/MRO/reserve/performance",
+        "P02 accepted physical leg IDs, operating carriers and sale status",
+        "P05 route-month journeys, products, own diversion, fares and choice/response policy",
+        "P04 admitted rates, full incremental events, opening balances, payment/exit events",
+        "P06 complete versioned P and KEEP bundles, independent acceptance"
+      ],
+      "metrics_required": [
+        "passenger_segments",
+        "final_journeys",
+        "net_Red_Wings_passengers_vs_KEEP",
+        "revenue_once_per_journey",
+        "incremental_variable_contribution",
+        "full_incremental_operating_result",
+        "monthly_cash_and_peak_funding",
+        "national_market_share_compatible_denominator",
+        "decision_reversal_thresholds"
+      ],
+      "monetary_winner": null,
+      "programme_id": "P-IKT-BANK",
+      "title": "Те же четыре радиала с пересадочным банком",
+      "role": "DOMESTIC_PROTECTED_BANK",
+      "operating_base": "IKT",
+      "resource_group": {
+        "group_id": "IKT-R2-SAME-COHORT",
+        "working_tails": 2,
+        "reserve_tails": 1,
+        "reserve_status": "условный отдельный ресурс группы; не заявлен существующим RW",
+        "reserve_cost_shared_event": "P03/P04 обязаны задать один раз",
+        "commercial_availability": "UNKNOWN; не раньше H2 2027 для новых SJ100",
+        "location": "IKT",
+        "aircraft_scope": "SSJ100/SaM146 и отдельный SJ100/PD8 run; типы не взаимозаменяются молча"
+      },
+      "legs": [
+        {
+          "airport_pair": "IKT:NOZ",
+          "origin": "IKT",
+          "destination": "NOZ",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:TOF",
+          "origin": "IKT",
+          "destination": "TOF",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:OMS",
+          "origin": "IKT",
+          "destination": "OMS",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        },
+        {
+          "airport_pair": "IKT:VVO",
+          "origin": "IKT",
+          "destination": "VVO",
+          "frequency_week_each_direction": 2,
+          "peak_frequency_week_each_direction": 3,
+          "season": "2 weekly by default; trial3 Feb-Mar/Jun-Aug2028, conditional on resource activation",
+          "flight_type": "nonstop_proposal",
+          "operation_status": "proposed_or_incremental_subject_KEEP",
+          "unit": "departures/direction/week",
+          "source_id": "IKT_RESEARCH_DESIGN;A-IKT-FREQ",
+          "coverage": "Project design, not published RW schedule",
+          "status": "PROPOSED",
+          "sold_seats": null
+        }
+      ],
+      "target_OD": [
+        "NOZ–VVO через IKT",
+        "TOF–VVO через IKT",
+        "NOZ–OMS через IKT",
+        "TOF–OMS через IKT",
+        "все 4 локальные IKT OD"
+      ],
+      "mechanism": "Парный опыт с P-IKT-RADIAL: те же четыре пары и частоты, но рейсы собраны в два дня с волной. На первом дне западные NOZ/TOF прилетают до вылета OMS/VVO, на втором направлении волна обратная. Пассажиры проводят 3/4 ночи; обе стороны не объявляются удобными для поездки одним днём.",
+      "paired_counterfactuals": [
+        "P-IKT-RADIAL same cohort/frequency",
+        "P-IKT-ENDPOINT",
+        "KEEP-SAME-COHORT"
+      ],
+      "own_network_actions": {
+        "keep": "Одинаковая внешняя сеть и собственные продажи как в RADIAL; время затронутых рейсов меняется явно.",
+        "retime": "Радиалы Tue/Fri перенести в Mon/Thu для 2 дневной волны; в peak дополнительная волна. Пересчитать локальных пассажиров из-за иных дат.",
+        "add": "Защищённые through-products только при принятых MCT/багаже/ответственности; тариф поездки начисляется один раз.",
+        "reduce": "Нет заранее заданного захвата/штрафа конкуренту; общая seat allocation ограничивает local/transfer.",
+        "transfer": "NOZ/TOF–VVO/OMS из существующих связей OVB/KJA и собственных альтернатив RW с учётом outside option."
+      },
+      "unique_airport_pairs": 4,
+      "scheduled_connections_status": "CONDITIONAL_MCT_AND_CONTRACT_UNKNOWN",
+      "admissible_claim": "Проверяемый механизм выбора времени и защиты; экономическая выгода UNKNOWN",
+      "calendar_caveat": "Неделя diagnostic не годовая сеть; 24monthly inputs обязательны.",
+      "resource_and_delivery_branches": [
+        {
+          "branch": "ZERO_NEW",
+          "action": "Сохранить KEEP; при переносе существующего борта — явный donor loss и тот же хвост в контрфакте. Нет автоматического свободного самолёта."
+        },
+        {
+          "branch": "DELAYED",
+          "action": "До коммерческой готовности ресурс не расходуется на предложенные рейсы; понесённые launch commitments остаются. Дата UNKNOWN от P03."
+        },
+        {
+          "branch": "PARTIAL",
+          "action": "R1 RESTORE/ENDPOINT тест возможен только при 1 доступном рабочем хвосте плюс оплаченный резерв; R2 BANK не выполняется под видом 2 хвостов."
+        },
+        {
+          "branch": "PHASED_AS_PLANNED_SCENARIO",
+          "action": "R2 после 2 коммерчески доступных выделенных хвостов и резерва/crew/MRO;2 есть проектный бюджет, не объём поставки RW."
+        }
+      ]
+    },
+    {
+      "status": "STAGE_A_CANDIDATE_CONDITIONAL",
+      "horizon": "2027-01-01..2028-12-31",
+      "source_ids": [
+        "E01",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E11",
+        "E12",
+        "E14",
+        "E16",
+        "E17"
+      ],
+      "assumption_ids": [
+        "A-IKT-RESOURCE",
+        "A-IKT-TYPE",
+        "A-IKT-FREQ",
+        "A-IKT-SEASON",
+        "A-IKT-BLOCK",
+        "A-IKT-TURN",
+        "A-IKT-DAILY",
+        "A-IKT-KEEP",
+        "A-IKT-RATES",
+        "A-IKT-STARTEXIT",
+        "A-IKT-CHOICE",
+        "A-IKT-REACTION",
+        "A-IKT-FIN",
+        "A-IKT-PARTNER"
+      ],
+      "preserve_rule": "Всё будущее KEEP в одинаковом внешнем сценарии сохраняется, кроме явно датированных delta actions. Неизвестные собственные продажи и задания донора не обнулять. Каждый новый борт имеет альтернативное применение.",
+      "shared_inputs_required": [
+        "P03 dated KEEP + monthly fleet/induction/crew/MRO/reserve/performance",
+        "P02 accepted physical leg IDs, operating carriers and sale status",
+        "P05 route-month journeys, products, own diversion, fares and choice/response policy",
+        "P04 admitted rates, full incremental events, opening balances, payment/exit events",
+        "P06 complete versioned P and KEEP bundles, independent acceptance"
+      ],
+      "metrics_required": [
+        "passenger_segments",
+        "final_journeys",
+        "net_Red_Wings_passengers_vs_KEEP",
+        "revenue_once_per_journey",
+        "incremental_variable_contribution",
+        "full_incremental_operating_result",
+        "monthly_cash_and_peak_funding",
+        "national_market_share_compatible_denominator",
+        "decision_reversal_thresholds"
+      ],
+      "monetary_winner": null,
+      "programme_id": "P-IKT-PARTNER",
+      "title": "Региональный подвоз без предположения новой базы RW",
+      "role": "PARTNER_FEED",
+      "operating_base": "IKT station; resource alternatives kept elsewhere",
+      "resource_group": {
+        "group_id": "IKT-R2-SAME-COHORT",
+        "working_tails": 2,
+        "reserve_tails": 1,
+        "reserve_status": "условный отдельный ресурс группы; не заявлен существующим RW",
+        "reserve_cost_shared_event": "P03/P04 обязаны задать один раз",
+        "commercial_availability": "UNKNOWN; не раньше H2 2027 для новых SJ100",
+        "location": "R2 остаётся в ENDPOINT/иной альтернативной программе; не исчезает из сравнения",
+        "aircraft_scope": "SSJ100/SaM146 и отдельный SJ100/PD8 run; типы не взаимозаменяются молча",
+        "local_RW_working_tails": 0
+      },
+      "legs": [],
+      "target_OD": [
+        "ULK–IKT–SVX",
+        "ODO–IKT–SVX",
+        "BTK–IKT–SVX; возможные конечные поездки в IKT отдельно"
+      ],
+      "mechanism": "На основе существующих regional services проверить interline/protected feeder либо самостоятельные билеты как разные продукты. Самолёт RW не подменяет автоматически региональные турбовинтовые линии. Полный ресурс сравнения работает в другой принятой программе.",
+      "paired_counterfactuals": [
+        "P-IKT-ENDPOINT",
+        "P-IKT-RADIAL",
+        "KEEP-SAME-COHORT"
+      ],
+      "own_network_actions": {
+        "keep": "Региональные пассажиры и кресла других перевозчиков остаются в их inventory; использование требует договора.",
+        "add": "Новый защищённый продукт/соглашение, а не новые собственные сегменты на каждом партнёрском плече.",
+        "reduce": "Никаких сокращений Utair/IrAero или заявления их мест свободными.",
+        "transfer": "Partner revenue settlement и disruption liabilities P04/P05."
+      },
+      "unique_airport_pairs": 0,
+      "operating_flights": "Только уже принятые P02 physical leg instances; ни один партнёрский segment не создан как RWflight.",
+      "resource_and_delivery_branches": [
+        {
+          "branch": "ZERO_NEW",
+          "action": "Сохранить KEEP; при переносе существующего борта — явный donor loss и тот же хвост в контрфакте. Нет автоматического свободного самолёта."
+        },
+        {
+          "branch": "DELAYED",
+          "action": "До коммерческой готовности ресурс не расходуется на предложенные рейсы; понесённые launch commitments остаются. Дата UNKNOWN от P03."
+        },
+        {
+          "branch": "PARTIAL",
+          "action": "R1 RESTORE/ENDPOINT тест возможен только при 1 доступном рабочем хвосте плюс оплаченный резерв; R2 BANK не выполняется под видом 2 хвостов."
+        },
+        {
+          "branch": "PHASED_AS_PLANNED_SCENARIO",
+          "action": "R2 после 2 коммерчески доступных выделенных хвостов и резерва/crew/MRO;2 есть проектный бюджет, не объём поставки RW."
+        }
+      ]
+    }
+  ],
+  "global_network_target": "Локальные 2–4 пары — альтернативные модули общей сети 8–12airportpairs, не суммировать.",
+  "international_and_Tu214": "Основной SSJ/SJ расчёт отдельно; international optional; branch0 новых Tu214."
+}

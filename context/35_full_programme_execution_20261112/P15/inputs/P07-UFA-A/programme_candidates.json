@@ -1,0 +1,1063 @@
+{
+  "schema": "UFA-local-programme-candidates-v1",
+  "stage": "A",
+  "common_calendar_policy": "Спрос и ресурс покрывают 24 месяца; неделя используется только как механический пример ротаций.",
+  "programme_target_note": "8–12 пар — общий проект к концу 2028 года. Суммирование независимых денежных результатов запрещено.",
+  "programmes": [
+    {
+      "programme_id": "UFA-P00-KEEP",
+      "programme_version": "UFA-research-v1",
+      "title": "Будущий KEEP и альтернативное применение ресурса",
+      "role": "NO_LOCAL_EXPANSION",
+      "additional_working_tail_requirement": 0,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [],
+      "final_journeys": [
+        "всесвоибудущиелокальные/стыковочныеOD"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Уфа не получает новых рейсов по умолчанию. Улучшение расписания допускается только с оценкой всех затронутых продаж.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Сохранить собственные обязательства в том же будущем периоде. Дополнительные 1–2 борта доступны системе для других программ и сохраняют свои денежные обязательства.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A27",
+        "UFA-A27"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      }
+    },
+    {
+      "programme_id": "UFA-P01-RADIAL",
+      "programme_version": "UFA-research-v1",
+      "title": "Малая радиальная база: Томск, Кемерово, Омск",
+      "role": "NEW_RADIAL_BASE",
+      "additional_working_tail_requirement": 1,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "TOF",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 200,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "OMS",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 135,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "UFA↔TOF",
+        "UFA↔KEJ",
+        "UFA↔OMS"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Сохранить будущие UFA–SVX, UFA–NUX и остальные обязательства. Переток с собственной поездки UFA–SVX–TOF/KEJ учитывает P05. Перенос действующего борта требует донора; новый борт имеет альтернативное применение.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Один дополнительный борт: по два оборота в неделю на трёх лучах. Проверяется экономия времени прямого рейса и поездки на 3–4 ночи. Ежедневный деловой продукт не обещается.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A27",
+        "UFA-A27"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "UFA-P02-SVX",
+      "assortment_assumption": "UFA-A02"
+    },
+    {
+      "programme_id": "UFA-P02-SVX",
+      "programme_version": "UFA-research-v1",
+      "title": "Тот же новый борт в существующей базе SVX",
+      "role": "EXISTING_BASE_DIRECT",
+      "additional_working_tail_requirement": 1,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "TOF",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 170,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 175,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "OMS",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 125,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "SVX↔TOF/KEJ/OMS",
+        "UFA↔TOF/KEJ/OMS через SVXпри пригодной стыковке"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Существующие рейсы SVX и feeder UFA сохраняются. Два проектных оборота означают добавление к будущему KEEP, а не повторную монетизацию старого рейса. Изменение feeder требует оценки потерь других OD.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Те же три города и один физический борт, но прямые лучи из SVX. Продукт для Уфы использует подтверждённую пригодную стыковку. Неиспользованный остаток времени остаётся видимым.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A27",
+        "UFA-A27"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "UFA-P01-RADIAL"
+    },
+    {
+      "programme_id": "UFA-P03-OUTSTATION",
+      "programme_version": "UFA-research-v1",
+      "title": "Обороты из SVX с ночёвкой в Томске и Кемерово",
+      "role": "EXISTING_BASE_CHAIN",
+      "additional_working_tail_requirement": 1,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "TOF",
+          "round_trips_per_week": 1,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 1,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 200,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "OMS",
+          "round_trips_per_week": 1,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 135,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "UFA",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "replace_or_add_explicitly_after_KEEP",
+          "block_minutes_each_way_scenario": 75,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "UFA↔TOF/KEJ/OMS прямо",
+        "SVX↔UFAлокально",
+        "SVX↔TOF/KEJ/OMSсUFAthroughstop только после проверки"
+      ],
+      "keep_sales_and_actions": {
+        "description": "До трёх оборотов SVX–UFA могут заменять действующие назначения только после привязки к будущему KEEP. Высвобожденные часы прежних назначений не равны освобождённому самолёту. Ветка добавления feeder оценивает свой переток отдельно.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "По одному прямому обороту UFA–TOF/KEJ/OMS. Восточные цепочки двухдневные: SVX–UFA–восток и обратно следующим днём. Постоянная новая база в Уфе не требуется, но ночёвки и обслуживание в других аэропортах оплачиваются.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A02"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "P01на1RTкаждоголуча+тотжесвободныйостаток;P02втомжепериоде",
+      "operating_caveat": "Однодневная цепочка в TOF/KEJ превышает выбранные 8 блок-часов; двухдневная цепочка проверяется отдельно."
+    },
+    {
+      "programme_id": "UFA-P04-BANK-EW",
+      "programme_version": "UFA-research-v1",
+      "title": "Двухбортный банк GOJ/MRV ↔ TOF/KEJ",
+      "role": "PROTECTED_CONNECTING_STATION_DISTRIBUTED_OVERNIGHTS",
+      "additional_working_tail_requirement": 2,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "GOJ",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "MRV",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 210,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "TOF",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 200,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "UFA↔каждыйиз4лучей",
+        "GOJ↔TOF",
+        "GOJ↔KEJ",
+        "MRV↔TOF",
+        "MRV↔KEJ"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Сохранить собственные SVX/NUX и прочие обязательства. Два новых борта имеют тот же календарь, что в контроле. Нужны обслуживание и экипаж во всех ночёвках. Защищённая продажа и ответственность RW UNKNOWN.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "По три оборота на каждом из четырёх лучей. Два борта встречаются в Уфе; сценарная стыковка 90 минут. Ночёвки в GOJ, TOF, MRV и KEJ делают распределение ресурса явным. Проверяется ценность совместного продукта.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A08",
+        "UFA-A09",
+        "UFA-A25",
+        "UFA-A26"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_controls": [
+        "UFA-P05-DIRECT2",
+        "UFA-P04-BANK-EW-UNBANKED"
+      ],
+      "unbanked_control": "Те же 24 физических плеча, два борта, месяцы и ставки; изменить синхронизацию до 300 минут стыковки. Повторить операционную проверку, учесть парковку и экипаж. 300 минут — размер теста, не факт расписания.",
+      "protected_sale_status": "UNKNOWN;покаусловныйсовместныйпродукт"
+    },
+    {
+      "programme_id": "UFA-P05-DIRECT2",
+      "programme_version": "UFA-research-v1",
+      "title": "Два новых борта на прямых лучах из SVX",
+      "role": "EXISTING_BASE_DIRECT",
+      "additional_working_tail_requirement": 2,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "GOJ",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 140,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "MRV",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 225,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "TOF",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 170,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "SVX",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add_or_reinforce_after_KEEP",
+          "block_minutes_each_way_scenario": 175,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "SVX↔4луча",
+        "UFA↔теже4города через существующийSVXfeeder",
+        "всеальтернативныеODсистемы"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Сохранить будущий KEEP и его продажи. Новые частоты добавляются к собственным действующим лучам с общим перераспределением спроса. Остаток доступного ресурса не теряется.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Те же два доступных борта и 24 месяца. Четыре прямых луча из существующей базы; Уфа обслуживается существующим feeder только при пригодной стыковке. Контроль учитывает весь общий набор OD.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A27",
+        "UFA-A27"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "UFA-P04-BANK-EW;UFA-P09-BANK-NS"
+    },
+    {
+      "programme_id": "UFA-P06-NORTH",
+      "programme_version": "UFA-research-v1",
+      "title": "Усиление UFA–NUX вместо одного омского оборота",
+      "role": "NEW_RADIAL_BASE_PLUS_EXISTING_PRODUCT",
+      "additional_working_tail_requirement": 1,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "TOF",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 195,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 200,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "OMS",
+          "round_trips_per_week": 1,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 135,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "NUX",
+          "round_trips_per_week": 1,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "shift_calendar_subject_contract",
+          "action": "reinforce_above_KEEP",
+          "block_minutes_each_way_scenario": 170,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "UFA↔TOF/KEJ/OMS",
+        "UFA↔NUXстарыеиоднановаядата"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Сохранить все будущие свои NUX и SVX. Дополнительная частота NUX может переносить продажи между днями; рост числа рейсов сам по себе не рост перевозок.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "По сравнению с P01 один из двух оборотов в Омск заменён дополнительным NUX. Проверяется ценность новой даты для известного северного продукта. Договорная загрузка не придумана.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A15",
+        "UFA-A22"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "UFA-P01-RADIAL"
+    },
+    {
+      "programme_id": "UFA-P07-PARTNER",
+      "programme_version": "UFA-research-v1",
+      "title": "Пригодные пересадки через существующую сеть",
+      "role": "PARTNER_OR_FEEDER_PRODUCT",
+      "additional_working_tail_requirement": 0,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [],
+      "final_journeys": [
+        "UFA↔TOF/KEJ через SVX/KZN/OVB",
+        "север↔юг через UFAтолькоприналичиидоговора"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Не создавать кресла из endpoint-строк. Прямой продукт Уфы не заменяется автоматически. Перенос времени существующего рейса требует расчёта всех потерянных локальных и сквозных продаж.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Сначала проверить собственные связи через SVX и партнёрские через KZN/OVB. Новых рабочих бортов в дизайне нет, но договор, обслуживание и ответственность стоят денег.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A27",
+        "UFA-A27"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "UFA-P01/P02/P00;ресурсразвитияпродуктаизатратыявноучитываются"
+    },
+    {
+      "programme_id": "UFA-P08-TBS",
+      "programme_version": "UFA-research-v1",
+      "title": "Летняя замена Томска на Тбилиси",
+      "role": "SUPPLEMENTARY_INTERNATIONAL_SUBSTITUTION",
+      "additional_working_tail_requirement": 1,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "TBS",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "summer_subject_P05_rights",
+          "action": "add",
+          "block_minutes_each_way_scenario": 200,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "KEJ",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "summer_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 200,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "OMS",
+          "round_trips_per_week": 2,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "summer_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 135,
+          "assumption_ids": [
+            "UFA-A02",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "UFA↔TBS/KEJ/OMS;winterP01илиKEEPпослеотдельноговыбора"
+      ],
+      "keep_sales_and_actions": {
+        "description": "Сохранить собственный будущий KEEP, включая международные и стыковочные продажи. Рейсы проектной ветви TOF летом здесь не выполняются; исторические собственные продажи не обнуляются. Права и договоры UNKNOWN.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Один борт: два оборота TBS вместо двух TOF, остальные KEJ/OMS сохраняются. Это дополнительная международная ветвь на SSJ, с нулём новых Ту-214.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A17",
+        "UFA-A23"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_control": "UFA-P01-RADIAL втомжелетнемкалендаре",
+      "market_admission": "UNKNOWN"
+    },
+    {
+      "programme_id": "UFA-P09-BANK-NS",
+      "programme_version": "UFA-research-v1",
+      "title": "Северный банк NUX/SGC ↔ MRV/GOJ",
+      "role": "PROTECTED_CONNECTING_STATION",
+      "additional_working_tail_requirement": 2,
+      "reserve_requirement": "UNKNOWN: общий резерв, время его подлёта и потерянная альтернатива учитываются явно.",
+      "route_changes": [
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "NUX",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "reinforce_above_KEEP",
+          "block_minutes_each_way_scenario": 170,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "SGC",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 135,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "MRV",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 210,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        },
+        {
+          "origin_airport": "UFA",
+          "destination_airport": "GOJ",
+          "round_trips_per_week": 3,
+          "frequency_unit": "Обороты туда-обратно в неделю: столько же вылетов в каждую сторону.",
+          "season": "all_months_subject_P05",
+          "action": "add",
+          "block_minutes_each_way_scenario": 110,
+          "assumption_ids": [
+            "UFA-A09",
+            "UFA-A06",
+            "UFA-A18"
+          ]
+        }
+      ],
+      "final_journeys": [
+        "UFA↔NUX/SGC/MRV/GOJ",
+        "NUX↔MRV",
+        "SGC↔MRV",
+        "NUX↔GOJ",
+        "SGC↔GOJ"
+      ],
+      "keep_sales_and_actions": {
+        "description": "NUX +3 означает сверх будущего KEEP, не три рейса всего. Корпоративные endpoint-записи не превращаются в открытые кресла. Прежние ARH/NJC/MCX/OMS остаются непроверенными ответвлениями, а не экономически отклонёнными.",
+        "future_keep_status": "UNKNOWN",
+        "own_migration_model": "Единый P05; не ноль по умолчанию"
+      },
+      "reason_for_test": "Два борта, по три дополнительных оборота на каждом луче. Сохраняется происхождение C01 о север–юг. Плотная конкуренция и собственные NUX требуют общего расчёта, а не отказа по наличию конкурента.",
+      "fleet_variants": {
+        "SSJ100_RRJ95": "Отдельный основной расчёт; доступный физический ресурс UNKNOWN.",
+        "SJ100_PD8": "Отдельный расчёт модификации; кресла, расходы и допуск Уфы UNKNOWN. Параметры SSJ — только явно принятый аналог.",
+        "Tu214_new_count": 0
+      },
+      "delivery_behavior": {
+        "Nready0": "Сохранить будущий KEEP; новые рейсы не выполнять. Возможны улучшения продукта без дополнительного борта после проверки потерь.",
+        "Nready1": "Доступна только однобортная ступень после ввода и готовности договоров; двухбортный банк не запускать.",
+        "Nready2plus": "Сравнить банк и альтернативу с теми же двумя бортами и календарём; выделить резерв отдельно.",
+        "partial_or_delayed": "Сдвинуть фактический календарь и масштаб; не начислять выручку за невыполненные месяцы."
+      },
+      "period": "2027-01..2028-12",
+      "unit": "Обороты туда-обратно в неделю; физические борта; минуты; конечные поездки",
+      "status": "STAGE_A_DESIGN_NOT_ADMITTED_TO_ECONOMICS",
+      "coverage": "Локальный компонент общей сети. Цель 8–12 уникальных airport pairs относится к общему проекту конца 2028 года.",
+      "source_id": "PIN-P02;PIN-P03;PIN-P04;PIN-P06",
+      "assumption_ids": [
+        "UFA-A01",
+        "UFA-A03",
+        "UFA-A04",
+        "UFA-A05",
+        "UFA-A06",
+        "UFA-A07",
+        "UFA-A10",
+        "UFA-A11",
+        "UFA-A12",
+        "UFA-A13",
+        "UFA-A14",
+        "UFA-A16",
+        "UFA-A18",
+        "UFA-A19",
+        "UFA-A24",
+        "UFA-A08",
+        "UFA-A09",
+        "UFA-A15",
+        "UFA-A25"
+      ],
+      "required_common_inputs": {
+        "P02": "Датированные физические смежные плечи, остановки, продажа, остатки, единый билет, багаж и сопоставимая цена.",
+        "P03": "24 месяца бортов, ввода, KEEP, экипажей, ТО, резерва, слотов и местных договоров.",
+        "P04": "Будущие ставки и реальные драйверы; база, запуск, выход, обязательства и платежи.",
+        "P05": "Единые конечные OD по месяцу и сегменту; собственный переток, outside option, выбор и ответ.",
+        "P06": "Полные P/KEEP с точными версиями и manifest; toy не используется."
+      },
+      "matched_controls": [
+        "UFA-P05-DIRECT2содинаковымисевернымиODвdemanduniverse",
+        "sameflightsUNBANKED"
+      ],
+      "legacy_trace": "C01 с NJC/SGC/ARH→MRV/MCX/OMS не опровергнут. Этот набор лучей — новая проверяемая версия, сохранившая происхождение."
+    }
+  ]
+}

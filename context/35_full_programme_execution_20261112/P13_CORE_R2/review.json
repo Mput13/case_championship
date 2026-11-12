@@ -1,0 +1,120 @@
+{
+  "package": "P13_CORE_R2",
+  "verdict": "APPROVE",
+  "reviewer_role": "Independent narrow review sub-agent; no children",
+  "subject_commit": "b51a47cf93cc01ca899d18d2ef94d9340261963f",
+  "subject_prefix": "context/35_full_programme_execution_20261112/P06/",
+  "source_version": "P06-1.0.2-adaptive",
+  "subject_manifest_sha256": "c8d1f7a6463e44b6072820c59ccecb8746cf0151f69fc06f4ed2f0f3c06d301d",
+  "subject_payload_files": 101,
+  "frozen_review_pins": {
+    "P13_CORE_RECHECK": {
+      "manifest_sha256": "a418149e30d1b70a4234e1674dc3cb74676e0e415f595b33a107425505267f6c",
+      "payload_files": 30,
+      "previous_verdict": "CHANGES",
+      "unchanged": true
+    },
+    "P13_CORE": {
+      "manifest_sha256": "85c2c9fc9ee9f5b548252671d597dd17ace6fc57523f822c18a9e66d859111a7",
+      "payload_files": 45,
+      "previous_verdict": "CHANGES",
+      "unchanged": true
+    }
+  },
+  "scope": "Close P13_CORE_RECHECK/F01-R1; check changed accrual date boundaries and requested frozen regression controls only.",
+  "closure": {
+    "P13_CORE_RECHECK/F01-R1": {
+      "status": "CLOSED_FOR_TESTED_SCOPE",
+      "original_severity": "S2",
+      "reason": "Все три frozen residual-входа отвергнуты конкретным historical derived accruals or cash guard; будущие датированные начисления и reprice того же месяца сохранены.",
+      "source_location": {
+        "path": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+        "line_start": 296,
+        "line_end": 326
+      },
+      "mandatory_residual_rejections": [
+        "derived_same_month_dated_accrual_indirect",
+        "derived_same_month_monthly_accrual_indirect",
+        "derived_same_month_flown_revenue"
+      ],
+      "mandatory_future_acceptance": [
+        "future_same_month_dated_accrual",
+        "future_same_month_product_reprice"
+      ]
+    },
+    "P13_CORE/F01": {
+      "status": "CLOSED_FOR_TESTED_SCOPE",
+      "basis": "Original two reproducers rejected; residual F01-R1 closed above. No claim of all possible adaptive histories."
+    },
+    "P13_CORE/F02": {
+      "status": "PRIOR_CLOSURE_PRESERVED_FOR_TESTED_SCOPE",
+      "basis": "Original erasure input and frozen I03 pass; no new contract gates."
+    }
+  },
+  "findings": [],
+  "personal_checks": {
+    "counts": {
+      "PASS": 41,
+      "FAIL": 0
+    },
+    "total": 41,
+    "frozen_original_reproducers": 3,
+    "frozen_recheck_inputs": 8,
+    "independent_adaptive_date_and_noop_checks": 16,
+    "exact_AST_date_helper_checks": 5,
+    "public_API_required_field_check": 1,
+    "paired_fixed_comparisons": 6,
+    "author_B21_code_independently_executed": 1,
+    "frozen_I03_independently_executed": 1,
+    "frozen_11_inputs": {
+      "ContractError": 9,
+      "accepted_CONDITIONAL": 2
+    },
+    "fixed_equality": {
+      "reference_commits": [
+        "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+        "bb378f1e8bd3c621e83ccf50086f9ce15c6bb9ec"
+      ],
+      "interfaces": [
+        "evaluate",
+        "compare",
+        "scenario"
+      ],
+      "excluded_fields": [
+        "engine_version recursively"
+      ],
+      "all_other_fields_equal": true
+    },
+    "manifest_payloads_verified": 176,
+    "tree_coverage_exact": true,
+    "subject_inputs": "git show exact SHA:path; source modules executed in memory, no moving shared inputs accepted",
+    "author_results_used_as_acceptance": false,
+    "subject_or_frozen_edits": false,
+    "git_mutations": false,
+    "children": false,
+    "external_or_paid_calls": false,
+    "publications": false,
+    "restarts": false,
+    "dependencies_installed": false
+  },
+  "limits": [
+    "Все входы и суммы синтетические; это не RW forecast, оценка спроса или приёмка стратегии.",
+    "Проверены F01-R1 и непосредственно затронутые даты. Рынок, полный KEEP, реальные договоры, транзакционная отмена/возврат и всеобщая корректность ядра вне scope.",
+    "Дата решения имеет точность дня. Условие историчности строго date < decision_date; сам день решения не заморожен. UTC timestamps приводятся к UTC date, intraday не моделируется.",
+    "Monthly-only дата для adaptive guard означает 1-е число. Это консервативная граница допустимости изменения, а не установленная фактическая дата начисления или платежа. Финансовое month-end размещение monthly платежей этим review не меняется.",
+    "Ветка generated revenue без departure_date проверена на пяти точных AST helper-примерах. Публичный itinerary API требует departure_date и отклоняет отсутствующее поле до historical_ledger. First-leg fallback не заявлен как поддержка такого публичного входа.",
+    "B21 — лично исполненный авторский код отдельного control; это не независимо спроектированный тест. I03 — лично повторённый frozen control. Авторские 11 regression, 42 suite и 3 CLI/API + invalid-manifest не засчитаны как независимая приёмка и полностью не перезапускались.",
+    "F02 не переоткрыт и не получил новых gates; повторены только исходный erasure-воспроизводитель и frozen I03.",
+    "Утверждение APPROVE ограничено exact subject b51a47cf93cc01ca899d18d2ef94d9340261963f / P06-1.0.2-adaptive."
+  ],
+  "artifacts": {
+    "results": "results.json",
+    "runner": "reproduce.py",
+    "coverage": "coverage.csv",
+    "limits": "coverage_and_limits.md",
+    "source_verification": "source_verification.json",
+    "source_read_set": "read_set.json",
+    "source_inspection": "source_inspection.md",
+    "helper_source": "source_snippets.json"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "parent": {
+    "status": "CONDITIONAL",
+    "summary": {
+      "journeys": 0,
+      "passenger_segments": 0,
+      "revenue_net": 0,
+      "variable_contribution": -20.0,
+      "operating_result": -20.0,
+      "cash_before_financing": -20.0,
+      "operating_result_including_prelaunch": -20.0
+    },
+    "economic_events": [
+      {
+        "economic_event_id": "PAST_DERIVED",
+        "owner": "PAST_DERIVED",
+        "category": "variable_cost",
+        "scope": "affected_business",
+        "driver_unit": "block_hour",
+        "quantity": 2.0,
+        "rate": 10,
+        "amount": 20.0,
+        "currency": "RUB",
+        "price_year": 2027,
+        "fx_policy": "RUB_input",
+        "accrual_month": "2027-02",
+        "noncash": false,
+        "avoidability": "explicit_scenario",
+        "shared_event_id": "PAST_DERIVED",
+        "source_id": "P13-SYNTHETIC",
+        "assumption_id": "P13-A001",
+        "cash_plan_status": "explicit",
+        "driver": {
+          "kind": "block_hours",
+          "flight_ids": [
+            "MARCH"
+          ]
+        },
+        "payments": [
+          {
+            "date": "2027-04-10",
+            "fraction": 1
+          }
+        ],
+        "accrual_date": "2027-02-15"
+      }
+    ],
+    "cash_events": [
+      {
+        "cash_event_id": "PAST_DERIVED:payment:0",
+        "economic_event_id": "PAST_DERIVED",
+        "related_asset_or_contract_id": "PAST_DERIVED",
+        "payment_date": "2027-04-10",
+        "amount_signed": -20.0,
+        "category": "operating",
+        "currency": "RUB",
+        "fx_at_payment": 1,
+        "deposit_flag": false,
+        "source_id": "P13-SYNTHETIC",
+        "status": "scenario",
+        "assumption_id": "P13-A001"
+      }
+    ],
+    "allocations": {
+      "allocations": [],
+      "seats": [
+        {
+          "flight_instance_id": "MARCH",
+          "saleable_seats": 50,
+          "carried_segments": 0,
+          "unfilled_contract_seats": 0.0,
+          "unsold_seats": 50.0
+        }
+      ],
+      "iterations": 0,
+      "choice_method": "conditional_logit_simultaneous_proportional_recapture",
+      "optimal": false
+    },
+    "unknown_dependencies": []
+  },
+  "candidate_fixed_diagnostic": {
+    "status": "CONDITIONAL",
+    "summary": {
+      "journeys": 0,
+      "passenger_segments": 0,
+      "revenue_net": 0,
+      "variable_contribution": -30.0,
+      "operating_result": -30.0,
+      "cash_before_financing": -30.0,
+      "operating_result_including_prelaunch": -30.0
+    },
+    "economic_events": [
+      {
+        "economic_event_id": "PAST_DERIVED",
+        "owner": "PAST_DERIVED",
+        "category": "variable_cost",
+        "scope": "affected_business",
+        "driver_unit": "block_hour",
+        "quantity": 3.0,
+        "rate": 10,
+        "amount": 30.0,
+        "currency": "RUB",
+        "price_year": 2027,
+        "fx_policy": "RUB_input",
+        "accrual_month": "2027-02",
+        "noncash": false,
+        "avoidability": "explicit_scenario",
+        "shared_event_id": "PAST_DERIVED",
+        "source_id": "P13-SYNTHETIC",
+        "assumption_id": "P13-A001",
+        "cash_plan_status": "explicit",
+        "driver": {
+          "kind": "block_hours",
+          "flight_ids": [
+            "MARCH"
+          ]
+        },
+        "payments": [
+          {
+            "date": "2027-04-10",
+            "fraction": 1
+          }
+        ],
+        "accrual_date": "2027-02-15"
+      }
+    ],
+    "cash_events": [
+      {
+        "cash_event_id": "PAST_DERIVED:payment:0",
+        "economic_event_id": "PAST_DERIVED",
+        "related_asset_or_contract_id": "PAST_DERIVED",
+        "payment_date": "2027-04-10",
+        "amount_signed": -30.0,
+        "category": "operating",
+        "currency": "RUB",
+        "fx_at_payment": 1,
+        "deposit_flag": false,
+        "source_id": "P13-SYNTHETIC",
+        "status": "scenario",
+        "assumption_id": "P13-A001"
+      }
+    ],
+    "allocations": {
+      "allocations": [],
+      "seats": [
+        {
+          "flight_instance_id": "MARCH",
+          "saleable_seats": 50,
+          "carried_segments": 0,
+          "unfilled_contract_seats": 0.0,
+          "unsold_seats": 50.0
+        }
+      ],
+      "iterations": 0,
+      "choice_method": "conditional_logit_simultaneous_proportional_recapture",
+      "optimal": false
+    },
+    "unknown_dependencies": []
+  },
+  "meaning": "Diagnostic only: candidate is deliberately evaluated in fixed mode without adaptation guards."
+}

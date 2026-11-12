@@ -1,0 +1,49 @@
+{
+  "version": "P09-delivery-v1",
+  "language": "ru",
+  "source_root_pin": "6a6326c2dcfe32e47ec25621bda0d15fcfe48ae1",
+  "UI": {
+    "index": "ui/index.json",
+    "projection": "projection_contract.json",
+    "mode": "P06_FIXED_COMPARE_CANONICAL_EXACT_FIELD_PROJECTION",
+    "acceptance": "PENDING_COORDINATOR_ACCEPTANCE",
+    "do_not_replace_with": "overview CSV or recalculated UI totals",
+    "preserves": "Exact JSON numbers, null, units, period, statuses, context; no revenue reaggregation"
+  },
+  "overview": {
+    "results": "scenario_results.csv",
+    "monthly": "results_monthly.csv",
+    "input_manifests": "evaluation_input_manifests.jsonl",
+    "result_mode": "P06_DISJOINT_DATE_COMPONENTS_WITH_ADDITIVE_P06_FINANCE",
+    "csv_null": "UNKNOWN text; not0. This CSV convention is not the JSON projection.",
+    "numeric_equivalence": "canonical_equivalence_checks.json; no equal bytes claim",
+    "programme_additivity": "ALTERNATIVES; never sum different programme rows as launched network"
+  },
+  "geometry": {
+    "flights": "dated_flights.csv",
+    "assignments": "assignments.csv",
+    "fleet": "fleet_calendar.json",
+    "monthly": "resource_monthly.csv",
+    "UI_sidecar": "ui_resource_monthly.json",
+    "network": "network_end2028.csv",
+    "scope": "9finalists ×4resourcebranches, proposed calendar; all others deterministic builder"
+  },
+  "existing_ssj": {
+    "path": "existing_ssj/",
+    "mode": "EXISTING_SSJ100_TRANSFER_NO_NEW_SEPARATE_RESOURCE_GROUP",
+    "programmes": 21,
+    "evaluations": 84
+  },
+  "international": {
+    "path": "international/",
+    "mode": "OPPORTUNITY_THRESHOLD_WITH_FOREIGN_REVENUE_SYMBOLIC",
+    "new_Tu214": 0
+  },
+  "claims": {
+    "full_profit": null,
+    "whole_company_funding": null,
+    "reported_market_share": null,
+    "rank2_date": null,
+    "global_optimum": false
+  }
+}

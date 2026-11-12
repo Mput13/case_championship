@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+"""Manifest payload; handoff is a later Git envelope to avoid self-reference."""
+import argparse,hashlib,json,subprocess
+from pathlib import Path
+P=Path(__file__).resolve().parent
+parser=argparse.ArgumentParser();parser.add_argument('--handoff',action='store_true');args=parser.parse_args()
+def put(n,d):(P/n).write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+if not args.handoff:
+ entries=[]
+ for f in sorted(P.rglob('*')):
+  if not f.is_file() or '__pycache__' in f.parts or f.suffix=='.pyc':continue
+  rel=str(f.relative_to(P))
+  if rel in ['output_manifest.json','handoff.json'] or (rel.startswith('qa/') and f.suffix=='.html'):continue
+  entries.append({'path':rel,'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'bytes':f.stat().st_size})
+ put('output_manifest.json',{'package':'P12','version':'P12-ui-v1','files':entries,'excludes':['output_manifest.json','handoff.json','qa/*.html','__pycache__','*.pyc'],'scope':'Working source-based UI skeleton and evidence; final computations and rehearsal not performed','commit_binding':'handoff.json binds exact payload commit and this manifest hash'})
+ print(json.dumps({'files':len(entries),'manifest_sha256':hashlib.sha256((P/'output_manifest.json').read_bytes()).hexdigest()}))
+else:
+ payload=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()
+ put('handoff.json',{'package':'P12','version':'P12-ui-v1','branch':'t3/p12-four-section-ui','parent_commit':'65cab12d2eae49dc91d1f77dd4860bc9bd7e20d2','payload_commit':payload,'output_manifest_sha256':hashlib.sha256((P/'output_manifest.json').read_bytes()).hexdigest(),'status':'WORKING_UI_SKELETON_READY_FOR_P15_BINDING; FINAL_RESULTS_REHEARSAL_NOT_RUN','outputs':['ui_candidate/dashboard.html','ui_candidate/source/','ui_contract.json','presentation_route.json','presentation_preset.json','presentation_script.txt','presentation_rehearsal.json','input_manifest.json','source_version_links.json','used_assumption_ids.json','used_assumptions_register.json','qa/','README.md'],
+ 'summary':'Preserved Nastya/kiruha355 component basis and attribution; four sections use shared state, 20 city research, actual source offers/competitors, separate source/forecast horizons, source/assumption dialogs, live result adapter and compact saved route. No invented programme/economics/rank.',
+ 'source_scope':{'new_external_collection':False,'source_products':2274,'seed_cities':20,'cost_reference_rows':14,'historical_city_dossiers':5,'physical_inventory_created':False,'financial_model_in_JS':False},
+ 'checks':{'source_binding':'qa/verification.json: 115 checks; 11 used-file upstream manifest matches','deterministic_build':'qa/reproducibility.json','native_DOM':'28 checks at1440 and390; qa/interaction-*.json','targeted_errors':'8 checks after import/version state changes; qa/targeted-errors.json','native_visual':'desktop1440/narrow390/projector-layout1280/source; qa screenshots and visual_review.json','inline_final':'qa/final-inline.json; final build displayed by html_render','independent_P16':'NOT_RUN','real_accepted_result_import':'NOT_RUN','real_computed_scenario_switch':'NOT_RUN','full_120_second_rehearsal':'NOT_RUN'},
+ 'assumptions':{'new_ids':['P12-UI-01','P12-UI-02','P12-UI-03','P12-UI-04','P12-UI-05'],'used_total':28,'full_used_register':'used_assumptions_register.json','upstream_edits':False,'new_demand_cost_delivery_parameters':False},
+ 'remaining_fields':['accepted P06/P09 programme and same-future KEEP output with release gates and exact manifest','real programme/scenario labels, source_refs, assumption_ids and accepted comparison_group','accepted monthly resource including crew/TO/commitments; P03 root acceptance still pending at pin','compatible whole-business/market-share bridge and F07 before number2 fields','accepted scenario actions, digital mechanisms and funding conditions','P15 binds real preset and scenario; P16 rehearses actual UI and independently reviews'],
+ 'new_published_inputs_observed_not_adopted':{'P06':'982f13d9b6c378ed9581125ecc5c40f17dade6a3','P05':'a63a047bc6559df8bac3b2dde5c6464c3c9e6a0b'},
+ 'boundaries':{'children':0,'public_Site':False,'root_dashboard_changed':False,'author_branch_changed':False,'paid_services':False,'external_messages':False,'restarts':False,'independent_acceptance_claim':False},
+ 'handoff_commit':'Git commit containing this handoff envelope; exact SHA reported in completion message; payload remains separately pinned'})
+ print(json.dumps({'payload_commit':payload,'manifest_sha256':hashlib.sha256((P/'output_manifest.json').read_bytes()).hexdigest()}))

@@ -1,0 +1,56 @@
+{
+  "scope": "ONLY fixed30 ordinary same-day returns/week, each return indivisible, u8 daily block budget, k1.2 proxy. Not a lower bound for overnight/chain/retimed-frequency programmes.",
+  "frequencies_each_way": {
+    "LED": 5,
+    "AER": 5,
+    "UUA": 3,
+    "MRV": 5,
+    "MMK": 3,
+    "KRR": 3,
+    "CEK": 3,
+    "UFA": 3
+  },
+  "roundtrip_proxy_block_hours": {
+    "LED": 3.8415999999999997,
+    "AER": 5.6304,
+    "UUA": 2.904,
+    "MRV": 5.2752,
+    "MMK": 5.8032,
+    "KRR": 5.1152,
+    "CEK": 4.552,
+    "UFA": 3.512
+  },
+  "long_singletons": {
+    "count": 16,
+    "minimum_long_plus_minimum_other": 8.0192,
+    "reason": "All16 returns in these4markets are>5h; even shortest remaining return cannot join within8h."
+  },
+  "CEK": {
+    "count": 3,
+    "compatible_other_only": "UUA",
+    "CEK_plus_UUA": 7.4559999999999995,
+    "CEK_plus_UFA": 8.064,
+    "CEK_plus_LED": 8.3936,
+    "reason": "Pair3CEK with3UUA for minimum bins; splitting them cannot reduce bins."
+  },
+  "remaining_short": {
+    "returns": 8,
+    "markets": "5LED+3UFA",
+    "max_returns_per_day": 2,
+    "minimum_bins": 4
+  },
+  "minimum_aircraft_days_week": 23,
+  "three_working_aircraft_days_week": 21,
+  "minimum_working_tails_for_this_design": 4,
+  "policy_reserve": 1,
+  "minimum_total_under_policy": 5,
+  "temporal_sufficiency": "Dated template separately checked for physical adjacency, aircraft-unit overlap, turn and selected daily block limit. Actual crew, MRO, airport admission/slots and day-of-demand suitability UNKNOWN.",
+  "not_a_correction_of_frozen_v1": "V1 target4 remains valid as an hours-only necessary threshold. V2 is an additional design-specific constraint.",
+  "assumption_ids": [
+    "P03-A001",
+    "P03-A002",
+    "P03-A003",
+    "P03-A006",
+    "P03-A020"
+  ]
+}
