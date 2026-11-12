@@ -1,7 +1,10 @@
 """Synthetic fixtures ONLY. None of these values are Red Wings estimates."""
 import copy
 import math
+import hashlib
+from pathlib import Path
 from .core import seal
+from .common import months
 from .finance import COVERAGE
 
 TOY = "P06-TOY"
@@ -10,13 +13,13 @@ TOY = "P06-TOY"
 def blank(programme="P", eid=None):
     b = {
         "context": {"evaluation_id": eid or programme + "-toy", "programme_id": programme, "programme_version": "synthetic-v1", "fleet_scope_id": "CASE_SJ", "external_scenario_id": "toy-base", "delivery_calendar_id": "toy-phased", "market_version": "toy-potential-v1", "choice_version": "toy-logit-v1", "cost_version": "toy-events-v1", "response_policy_id": "toy-no-response", "evaluation_mode": "fixed_programme", "decision_date": "2026-11-12", "information_set_id": "toy-information", "keep_evaluation_id": "KEEP-toy", "input_manifest_sha256": "", "period_start": "2027-01", "period_end": "2028-12", "cash_start": "2026-12", "price_year": 2027, "affected_scope_id": "all-toy-affected"},
-        "input_manifest": [{"source_id": "SYNTHETIC_TEST_ONLY", "commit": "b7d74e67dd6c603db049b1915b1afec987e3b458", "path": "P00R/counterexample_inputs.json", "sha256": "0" * 64}],
-        "markets": [], "products": [], "flights": [], "fleet_calendar": [], "assignments": [], "contracts": [], "economic_events": [], "cash_events": [], "opening_balances": [],
+        "input_manifest": [{"source_id": "SYNTHETIC_TEST_ONLY", "commit": "b7d74e67dd6c603db049b1915b1afec987e3b458", "path": "context/35_full_programme_execution_20261112/P00R/counterexample_inputs.json", "sha256": hashlib.sha256((Path(__file__).resolve().parents[1] / "inputs/P00R_counterexample_inputs.json").read_bytes()).hexdigest()}],
+        "markets": [], "market_calendar": [], "products": [], "flights": [], "fleet_calendar": [], "assignments": [], "contracts": [], "economic_events": [], "cash_events": [], "opening_balances": [],
         "assumptions": [{"assumption_id": TOY, "value": "all numeric values and explicit zero/inapplicability in synthetic bundle", "unit": "see each field", "selected_by": "P06 implementation agent", "basis": "P00R minimal counterexamples and independently constructed boundary checks; not market calibration", "approval_status": "synthetic_test_not_user_approved_RW_parameter", "range_or_unknown": "UNKNOWN for real RW", "affected_conclusions": "software invariants only", "sensitivity": "specific CE perturbations", "refinement": "replace with pinned P02/P03/P04/P05 inputs and source-specific assumption IDs"}],
         "choice_model": {"price_per_rub": 0, "time_per_minute": 0, "log_frequency": 0, "assumption_id": TOY, "calibration_status": "SYNTHETIC_NOT_CALIBRATED"},
         "response_policy": {"response_policy_id": "toy-no-response", "rules": [], "assumption_id": TOY},
         "cost_coverage": {k: {"status": "not_applicable", "event_ids": [], "rationale": "explicit zero ONLY in isolated synthetic test", "assumption_id": TOY} for k in COVERAGE},
-        "cash_coverage": {k: "explicit" for k in ("operating", "investing", "tax", "financing")},
+        "cash_coverage": {k: "explicit" for k in ("operating", "investing", "tax", "financing", "finance_interest")},
         "cash_policy": {"opening_cash": 0, "minimum_cash": 0, "project_opening_cash": 0, "project_minimum_cash": 0, "assumption_id": TOY},
         "resource_operators": [], "accounting_policy": "operating_aircraft_use_excludes_interest",
         "information_set": {"information_set_id": "toy-information", "facts": [{"fact_id": "toy-observation", "available_at": "2026-11-01"}]},
@@ -27,6 +30,12 @@ def blank(programme="P", eid=None):
 
 
 def market(b, pool="AB", demand=100, m="2027-01"):
+    cal = next((r for r in b["market_calendar"] if r["demand_pool_id"] == pool), None)
+    if cal is None:
+        cal = {"demand_pool_id": pool, "customer_segment": "all", "zero_months": months("2027-01", "2028-12"), "unknown_months": [], "assumption_id": TOY}
+        b["market_calendar"].append(cal)
+    if m in cal["zero_months"]:
+        cal["zero_months"].remove(m)
     b["markets"].append({"demand_pool_id": pool, "month": m, "customer_segment": "all", "potential_journeys": demand, "market_basis": "potential_travel", "mapping_to_potential": "synthetic mutually exclusive demand", "source_id": "SYNTHETIC", "source_period": m, "as_of": "2026-11-12", "coverage": "toy only", "status": "scenario", "assumption_id": TOY})
     return b
 

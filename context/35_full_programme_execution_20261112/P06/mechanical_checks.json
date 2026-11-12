@@ -1,7 +1,547 @@
 {
-  "version": "early-interface",
-  "demo_compare": "PASS",
-  "monthly_rows_per_evaluation": 24,
-  "P00R_CE_acceptance": "NOT_RUN_YET",
-  "market_acceptance": "NOT_ASSESSED"
+  "scope": "author mechanical checks through actual P06 engine; not independent acceptance",
+  "synthetic_parameters_not_RW": true,
+  "last_run_selection": [
+    "CE01",
+    "CE02",
+    "CE03",
+    "CE04",
+    "CE05",
+    "CE06",
+    "CE07",
+    "CE08",
+    "CE09",
+    "CE10",
+    "CE11",
+    "CE12",
+    "CE13",
+    "CE14",
+    "CE15",
+    "CE16",
+    "CE17",
+    "CE18",
+    "CE19",
+    "CE20",
+    "B01_price_time_frequency_availability",
+    "B02_contract_block_and_release",
+    "B03_resource_entry_reserve_position_crew",
+    "B04_immutable_context",
+    "B05_unknown_money_and_company",
+    "B06_opening_minimum_financing",
+    "B07_terminal_and_prelaunch",
+    "B08_adaptation_no_future_or_erased_commitments",
+    "B09_joint_combine_recompute",
+    "B10_response_policy_is_executed",
+    "B11_interest_and_preinterest",
+    "B12_unknown_financing_does_not_erase_prefinancing_cash",
+    "B13_adaptive_direct_bypass_rejected",
+    "B14_revenue_by_leg_and_actual_service_month",
+    "B15_unknown_choice_not_zero",
+    "B16_committed_excess_and_malformed_inventory",
+    "B17_company_boundary",
+    "B18_pinned_adapters",
+    "B19_month_coverage_and_nan",
+    "B20_cash_bridge_and_duplicate_ticket",
+    "B21_adaptation_actual_action_binding",
+    "B22_dated_minimum_cash"
+  ],
+  "source_hashes": {
+    "engine/__init__.py": "1b9a39e557cf66ab7b00ce1e3a9043050fa1e9f4a9a3ee43e135c0c9457d9966",
+    "engine/__main__.py": "18e53a5b26f74867eefa68d1731b3d4ab67c56700b82086f69811a86a1d04ea1",
+    "engine/adapters.py": "b6e4b4d6b4f97463ad9d4c6390ef61f851aa8827291ae877d03d3d05440ef80e",
+    "engine/choice.py": "2adb7910ae292e9a8e28d208bea697b7e79559f674baf96414c40bc1a92efaa4",
+    "engine/common.py": "bc21ec07c77a59abefd5e63e3dfbc79461e94b5b03da0d5a608a47d9b5b99aa2",
+    "engine/core.py": "cdb544ac4eeaf43a4a774179273a46570e1d80a24baf316127000b090387622d",
+    "engine/finance.py": "687b596fd85fbfe3f57eda396367f05e45021a3b0dcf31473ef083982101bd6c",
+    "engine/fixtures.py": "0c01ddf3b81899ba89ac893119522ddd027a0574514ce6d7a6f44b3d977c9a1a",
+    "engine/operations.py": "cfa43be7e01666c670e65c15e4e903c9eda379fee8a2887cca50d29e53736616",
+    "check_engine.py": "5136a8fc37c3d2c86ce8ffbcdc64fea279925defdd3cb2c5847347a9bec355ee"
+  },
+  "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f",
+  "checks": [
+    {
+      "check_id": "CE01",
+      "status": "PASS",
+      "actual": {
+        "delta": 10.0,
+        "historical_input_not_used": 100
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE02",
+      "status": "PASS",
+      "actual": {
+        "distinct_records": 2,
+        "rows": 48
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE03",
+      "status": "PASS",
+      "actual": {
+        "feasible": false,
+        "errors": [
+          "other: tail at BBB, required AAA; include dated positioning leg",
+          "other: overlapping flight/turnaround",
+          "crew crew:T1: simultaneous assignments"
+        ]
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE04",
+      "status": "PASS",
+      "actual": {
+        "rejected": true,
+        "error": "RW: dated connection 1500.0 minutes outside limits"
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE05",
+      "status": "PASS",
+      "actual": {
+        "ab_load": 100.0,
+        "bc_load": 30.0,
+        "journeys": 100.0,
+        "passenger_segments": 130.0,
+        "revenue_net": 550000.0,
+        "variable_contribution": 550000.0,
+        "operating_result": 550000.0,
+        "cash_before_financing": 550000.0,
+        "operating_result_including_prelaunch": 550000.0
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE06",
+      "status": "PASS",
+      "actual": {
+        "journeys": 10.0,
+        "passenger_segments": 20.0,
+        "revenue_net": 90000.0,
+        "variable_contribution": 90000.0,
+        "operating_result": 90000.0,
+        "cash_before_financing": 90000.0,
+        "operating_result_including_prelaunch": 90000.0
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE07",
+      "status": "PASS",
+      "actual": {
+        "standalone_each": 60.00000000000001,
+        "sum_standalone": 120.00000000000001,
+        "joint_rw": 75.0
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE08",
+      "status": "PASS",
+      "actual": {
+        "rw_before": 40.0,
+        "rw_after": 28.57142857142858
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE09",
+      "status": "PASS",
+      "actual": {
+        "year": 2027,
+        "net_new_RW_journeys": 0.0,
+        "delta_passenger_segments": 50.0,
+        "delta_share_pp": null,
+        "rank_or_number2_date": null
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE10",
+      "status": "PASS",
+      "actual": {
+        "total_allocated": 100.0,
+        "allocations": [
+          60.00000000000001,
+          40.0
+        ],
+        "duplicate_pool_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE11",
+      "status": "PASS",
+      "actual": {
+        "keep_result": 40,
+        "project_result": 60,
+        "delta_result": 20
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE12",
+      "status": "PASS",
+      "actual": {
+        "joint_result": 40,
+        "duplicate_shared_event_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE13",
+      "status": "PASS",
+      "actual": {
+        "operating_result": 10,
+        "cash_before_financing": [
+          -110,
+          -30,
+          20,
+          80
+        ],
+        "peak_funding_month_end": 140.0,
+        "terminal_shortfall": 40
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE14",
+      "status": "PASS",
+      "actual": {
+        "net_expense": 80,
+        "cash_m1": -100,
+        "cash_m3": 20,
+        "double_support_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE15",
+      "status": "PASS",
+      "actual": {
+        "full_delta": null,
+        "break_even_missing_cost": 20
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE16",
+      "status": "PASS",
+      "actual": {
+        "year": 2027,
+        "net_new_RW_journeys": 10.0,
+        "delta_passenger_segments": 10.0,
+        "delta_share_pp": 8.181818181818182,
+        "rank_or_number2_date": null
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE17",
+      "status": "PASS",
+      "actual": {
+        "annual_pax": 1840.0,
+        "explicit_monthly_journeys": {
+          "2027-01": 400,
+          "2027-02": 400,
+          "2027-03": 260,
+          "2027-04": 80,
+          "2027-05": 100,
+          "2027-06": 80,
+          "2027-07": 80,
+          "2027-08": 100,
+          "2027-09": 80,
+          "2027-10": 80,
+          "2027-11": 100,
+          "2027-12": 80
+        }
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE18",
+      "status": "PASS",
+      "actual": {
+        "month_end_funding": 140.0,
+        "event_order_funding": 220.0,
+        "precision": "DAY_END_LOWER_BOUND_INTRADAY_UNKNOWN"
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE19",
+      "status": "PASS",
+      "actual": {
+        "larger_feasible_set_keeps_candidate": true,
+        "new_result_after_extra_commitment": 80,
+        "previous": 100
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "CE20",
+      "status": "PASS",
+      "actual": {
+        "revenue": 20000.0,
+        "unconverted_yield_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B01_price_time_frequency_availability",
+      "status": "PASS",
+      "actual": {
+        "base": 15.355070457983716,
+        "perturbations": {
+          "gross_fare": 6.256042192287666,
+          "duration_minutes": 5.180765469364522,
+          "frequency": 8.315998980350903,
+          "availability": 0.0
+        }
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B02_contract_block_and_release",
+      "status": "PASS",
+      "actual": {
+        "held_journeys": 90,
+        "released_journeys": 100,
+        "block_duplicate_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B03_resource_entry_reserve_position_crew",
+      "status": "PASS",
+      "actual": {
+        "entry": [
+          "AB1: before service entry"
+        ],
+        "position": [
+          "AB1: tail at CCC, required AAA; include dated positioning leg"
+        ],
+        "reserve": [
+          "AB1: overlaps reserve_intervals"
+        ],
+        "maintenance": [
+          "AB1: overlaps maintenance_intervals"
+        ],
+        "crew": [
+          "AB1: outside explicit crew availability"
+        ]
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B04_immutable_context",
+      "status": "PASS",
+      "actual": {
+        "no_mutation": true,
+        "mismatched_context_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B05_unknown_money_and_company",
+      "status": "PASS",
+      "actual": {
+        "delta": null,
+        "funding": null,
+        "company_funding": null
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B06_opening_minimum_financing",
+      "status": "PASS",
+      "actual": {
+        "need_before_financing": 45,
+        "close_after_financing": 970,
+        "loan_not_revenue": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B07_terminal_and_prelaunch",
+      "status": "PASS",
+      "actual": {
+        "period_result": 50,
+        "including_prelaunch": 20,
+        "receivable": 50,
+        "future_obligation": 70
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B08_adaptation_no_future_or_erased_commitments",
+      "status": "PASS",
+      "actual": {
+        "feasible_adaptation_runs": true,
+        "commitment_deletion_rejected": true,
+        "future_information_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B09_joint_combine_recompute",
+      "status": "PASS",
+      "actual": {
+        "joint_rw": 75.0
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B10_response_policy_is_executed",
+      "status": "PASS",
+      "actual": {
+        "before_response": 29.76951624041552,
+        "after_competitor_price_cut": 24.95095773902098
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B11_interest_and_preinterest",
+      "status": "PASS",
+      "actual": {
+        "operating_result": 100,
+        "cash_including_interest": 70,
+        "pre_interest_cash": 100,
+        "unknown_interest_full_cash": null
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B12_unknown_financing_does_not_erase_prefinancing_cash",
+      "status": "PASS",
+      "actual": {
+        "cash_before_financing": -50,
+        "funding_before_financing": 50,
+        "closing_cash": null
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B13_adaptive_direct_bypass_rejected",
+      "status": "PASS",
+      "actual": {
+        "rejected": true,
+        "error": "adaptive evaluate requires exact parent bundle"
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B14_revenue_by_leg_and_actual_service_month",
+      "status": "PASS",
+      "actual": {
+        "leg_revenues": [
+          45000.0,
+          45000.0
+        ],
+        "total_journey_revenue": 90000.0
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B15_unknown_choice_not_zero",
+      "status": "PASS",
+      "actual": {
+        "journeys": null,
+        "revenue": null,
+        "unknowns": [
+          "RW: commercial availability UNKNOWN",
+          "journey_revenue:RW.amount"
+        ]
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B16_committed_excess_and_malformed_inventory",
+      "status": "PASS",
+      "actual": {
+        "excess_committed_rejected": true,
+        "marketing_pair_rejected": true,
+        "MOW_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B17_company_boundary",
+      "status": "PASS",
+      "actual": {
+        "project_funding": 20,
+        "company_funding": 115
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B18_pinned_adapters",
+      "status": "PASS",
+      "actual": {
+        "clock_conflicts_preserved_v1_and_v2": 30,
+        "physical_arcs_admitted": 0,
+        "v2_source_instances": 13040,
+        "p04_rates": 127,
+        "automatic_future_rates": 0
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B19_month_coverage_and_nan",
+      "status": "PASS",
+      "actual": {
+        "missing_month_rejected": true,
+        "unknown_month_preserved": true,
+        "NaN_invalid_not_unknown": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B20_cash_bridge_and_duplicate_ticket",
+      "status": "PASS",
+      "actual": {
+        "bridge": {
+          "operating_result_known_events": 10,
+          "noncash_signed": -10,
+          "signed_receivable_payable_advance_change": 0,
+          "extra_operating_cash_including_interest": 0,
+          "nonoperating_settlement": 0,
+          "operating_cash_from_accrual": 20,
+          "operating_cash_direct": 20,
+          "residual": 0,
+          "status": "RECONCILED_EXPLICIT_SCOPE"
+        },
+        "manual_duplicate_fare_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B21_adaptation_actual_action_binding",
+      "status": "PASS",
+      "actual": {
+        "unexplained_change_rejected": true,
+        "documented_change_evaluated": true,
+        "parent_substitution_rejected": true
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    },
+    {
+      "check_id": "B22_dated_minimum_cash",
+      "status": "PASS",
+      "actual": {
+        "no_payments_month_with_higher_floor_detected": true,
+        "funding": 55
+      },
+      "source_fingerprint": "f1dcbcc2bf87c6f31106d50b1107fc922fd4397be2eb35b85e2816aff3abb29f"
+    }
+  ],
+  "pass": 42,
+  "fail": 0,
+  "not_run": [],
+  "market_forecast_acceptance": "NOT_ASSESSED",
+  "dispatch_acceptance": "NOT_ASSESSED"
 }

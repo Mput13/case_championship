@@ -6,14 +6,19 @@ The allocation is deterministic but is not a revenue-optimal inventory policy.
 """
 import copy
 import math
-from .common import EPS, ContractError, fields, number, pool_key, require, unique
+from .common import EPS, ContractError, UnknownInput, fields, number, pool_key, require, unique
 
 
 def apply_response(bundle):
     products = copy.deepcopy(bundle["products"])
     for rule in bundle["response_policy"]["rules"]:
-        fields(rule, "demand_pool_id rw_frequency_at_least target_product_ids gross_fare_multiplier frequency_multiplier intercept_delta assumption_id", "response rule")
-        rw_frequency = sum(p["frequency"] for p in products if p["owner"] == "RW" and p["demand_pool_id"] == rule["demand_pool_id"] and p["availability"] is True and p["frequency"] is not None)
+        fields(rule, "demand_pool_id month customer_segment rw_frequency_at_least target_product_ids gross_fare_multiplier frequency_multiplier intercept_delta assumption_id", "response rule")
+        key = (rule["demand_pool_id"], rule["month"], rule["customer_segment"])
+        rw = [p for p in products if p["owner"] == "RW" and pool_key(p) == key and p["availability"] is True]
+        if any(p["frequency"] is None for p in rw):
+            raise UnknownInput("competitor response trigger frequency UNKNOWN")
+        rw_frequency = sum(p["frequency"] for p in rw)
+        require(set(rule["target_product_ids"]) <= {p["product_id"] for p in products if pool_key(p) == key and p["owner"] != "RW"}, "response target outside pool/month/segment or not competitor")
         if rw_frequency >= rule["rw_frequency_at_least"]:
             for p in products:
                 if p["product_id"] in rule["target_product_ids"]:
@@ -29,12 +34,13 @@ def utility(product, coefficients):
     if product["availability"] is False or product["contract_only"]:
         return None
     if product["availability"] is None:
-        raise ContractError(f"{product['product_id']}: unknown commercial availability")
+        raise UnknownInput(f"{product['product_id']}: unknown commercial availability")
     fields(product, "intercept", product["product_id"])
     if product["kind"] == "outside":
         return number(product["intercept"], "outside intercept")
     for k in ("gross_fare", "duration_minutes", "frequency"):
-        require(product[k] is not None, f"{product['product_id']}: unknown choice input {k}")
+        if product[k] is None:
+            raise UnknownInput(f"{product['product_id']}: unknown choice input {k}")
     if product["frequency"] <= 0:
         return None
     return (number(product["intercept"], "intercept")
@@ -49,6 +55,8 @@ def allocate(bundle, products):
         fields(m, "demand_pool_id month customer_segment potential_journeys market_basis mapping_to_potential source_id source_period as_of coverage status assumption_id", "market")
         k = pool_key(m)
         require(k not in markets, f"duplicate demand pool {k}")
+        if m["potential_journeys"] is None:
+            raise UnknownInput(f"{k}: potential demand UNKNOWN")
         number(m["potential_journeys"], str(k), 0)
         require(m["market_basis"] == "potential_travel", f"{k}: realized air demand needs explicit upstream potential mapping")
         markets[k] = m
@@ -60,6 +68,8 @@ def allocate(bundle, products):
     require(coeff["price_per_rub"] <= 0 and coeff["time_per_minute"] <= 0 and coeff["log_frequency"] >= 0, "choice coefficient signs")
     capacity = {}
     for f in bundle["flights"]:
+        if f["saleable_seats"] is None:
+            raise UnknownInput(f"{f['flight_instance_id']}: saleable seats UNKNOWN")
         capacity["flight:" + f["flight_instance_id"]] = number(f["saleable_seats"], "physical seats", 0)
     resources, u, assigned, initial, requested, committed = {}, {}, {}, {}, {}, {}
     remaining = {k: m["potential_journeys"] for k, m in markets.items()}
@@ -70,7 +80,7 @@ def allocate(bundle, products):
             capacity["product:" + pid] = p["capacity"]
             resources[pid].append("product:" + pid)
         elif p["kind"] != "outside" and not p["legs"]:
-            raise ContractError(f"{pid}: unknown capacity; explicit scenario or physical inventory required")
+            raise UnknownInput(f"{pid}: unknown capacity; explicit scenario or physical inventory required")
         u[pid] = utility(p, coeff)
         assigned[pid] = initial[pid] = requested[pid] = 0.0
         committed[pid] = p["committed_sales"]

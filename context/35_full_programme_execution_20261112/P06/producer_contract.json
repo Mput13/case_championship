@@ -1,7 +1,13 @@
 {
-  "version": "P06-v0.1-usable-interface",
-  "status": "EXECUTABLE_SYNTHETIC_DEMO_NOT_FULL_CHECK_ACCEPTANCE",
-  "encoding": "JSON null means UNKNOWN; CSV adapter must preserve it",
+  "version": "P06-1.0",
+  "status": "EXECUTABLE_CONDITIONAL_ENGINE",
+  "validation_authority": [
+    "engine/core.py:validate",
+    "engine/operations.py:check_operations/check_itineraries",
+    "engine/choice.py:allocate",
+    "engine/finance.py:finance"
+  ],
+  "encoding": "UTF-8 JSON; null is UNKNOWN; monthly results 2027-01..2028-12; cash_start includes prelaunch",
   "context_required": [
     "evaluation_id",
     "programme_id",
@@ -26,6 +32,7 @@
   ],
   "bundle_required": [
     "markets",
+    "market_calendar",
     "products",
     "flights",
     "fleet_calendar",
@@ -48,6 +55,7 @@
     "programme_target",
     "metric_adapter"
   ],
+  "canonical_manifest_hash": "SHA256 json.dumps(input_manifest,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode(); engine.seal returns a copy",
   "owners": {
     "P03": [
       "flights",
@@ -57,6 +65,7 @@
     ],
     "P05": [
       "markets",
+      "market_calendar",
       "products",
       "contracts",
       "choice_model",
@@ -72,15 +81,18 @@
       "accounting_policy"
     ],
     "P07/P08/P09": [
-      "complete bundles with shared context/markets/fleet; whole joint programme recalculated"
+      "versioned complete P/KEEP bundles",
+      "programmes/actions",
+      "joint recomputation",
+      "input acceptance and exact manifests"
     ]
   },
   "record_templates": {
     "input_manifest": {
       "source_id": "SYNTHETIC_TEST_ONLY",
       "commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
-      "path": "P00R/counterexample_inputs.json",
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      "path": "context/35_full_programme_execution_20261112/P00R/counterexample_inputs.json",
+      "sha256": "1625225f7b251dbadaa3b87ffe1379e7046a39f32140c1a391b9b6c29e522d19"
     },
     "markets": {
       "demand_pool_id": "AB",
@@ -94,6 +106,37 @@
       "as_of": "2026-11-12",
       "coverage": "toy only",
       "status": "scenario",
+      "assumption_id": "P06-TOY"
+    },
+    "market_calendar": {
+      "demand_pool_id": "AB",
+      "customer_segment": "all",
+      "zero_months": [
+        "2027-02",
+        "2027-03",
+        "2027-04",
+        "2027-05",
+        "2027-06",
+        "2027-07",
+        "2027-08",
+        "2027-09",
+        "2027-10",
+        "2027-11",
+        "2027-12",
+        "2028-01",
+        "2028-02",
+        "2028-03",
+        "2028-04",
+        "2028-05",
+        "2028-06",
+        "2028-07",
+        "2028-08",
+        "2028-09",
+        "2028-10",
+        "2028-11",
+        "2028-12"
+      ],
+      "unknown_months": [],
       "assumption_id": "P06-TOY"
     },
     "products": {
@@ -247,7 +290,7 @@
       "decision_date": "2026-11-12",
       "information_set_id": "toy-information",
       "keep_evaluation_id": "KEEP-toy",
-      "input_manifest_sha256": "4f78ca438d34fa4c43e205d68ee79b53b33ec92d4068fe7690173107610ef2b8",
+      "input_manifest_sha256": "0c62020bd4227283444bd3b072c269d55240dd45a0fae13a14aac33724defc67",
       "period_start": "2027-01",
       "period_end": "2028-12",
       "cash_start": "2026-12",
@@ -321,7 +364,8 @@
       "operating": "explicit",
       "investing": "explicit",
       "tax": "explicit",
-      "financing": "explicit"
+      "financing": "explicit",
+      "finance_interest": "explicit"
     },
     "cash_policy": {
       "opening_cash": 0,
@@ -358,15 +402,103 @@
       "assumption_id": "P06-TOY"
     }
   },
-  "specific_requests": {
-    "P03": "Monthly cohort rows alone do not instantiate physical tails; provide explicit scenario tails with same resource envelope for P/KEEP, UTC dated adjacent flights, assignments, crew windows, maintenance/reserve intervals, turnaround and initial positions. Include ferry flights. No hours-only operational pass.",
-    "P04": "Rates need actual driver quantity, event owner, accrual month, currency/price normalization and settlement events. aircraft-use/startup/reserve/base/exit coverage must explicit or UNKNOWN. Use monthly driver exports from example. Interest excluded operating result; dedicated cash annotation pending next tranche.",
-    "P05": "Potential demand pools disjoint by month/segment; source mapping for realized-air estimates; gross comparable fare/time/frequency/availability utility inputs; one net journey fare and ordered physical legs. Published station-pair offers are evidence, not inventories."
+  "contract_template": {
+    "contract_id": "CONTRACT_ID",
+    "product_id": "CONTRACT_ONLY_PRODUCT",
+    "reserved_seats": 40,
+    "carried": 30,
+    "release_unused": false,
+    "payment_mode": "block",
+    "economic_event_id": "OWNED_BLOCK_REVENUE_EVENT",
+    "assumption_id": "SYNTHETIC_EXAMPLE_REPLACE"
   },
-  "limitations": [
-    "synthetic example parameters not RW estimates",
-    "all P00R CE checks pending in this initial tranche",
-    "automatic revenue cash settlement requires explicit cash_profile; null marks unknown",
-    "no global optimization or dispatch-ready claim"
+  "response_rule_template": {
+    "demand_pool_id": "POOL",
+    "month": "2027-01",
+    "customer_segment": "SEGMENT",
+    "rw_frequency_at_least": 3,
+    "target_product_ids": [
+      "COMPETITOR"
+    ],
+    "gross_fare_multiplier": 0.9,
+    "frequency_multiplier": 1,
+    "intercept_delta": 0,
+    "assumption_id": "SYNTHETIC_EXAMPLE_REPLACE"
+  },
+  "adaptation_template": {
+    "parent_evaluation_id": "P-toy",
+    "parent_bundle_sha256": "8e452e6fdde0b1b6eb9bb4520cf3ca2c33335d6b04af97b42b4cb748c3b8e985",
+    "actions": [],
+    "preserved_commitment_ids": [
+      "T1-use-Jan"
+    ],
+    "assumption_id": "P06-TOY"
+  },
+  "adaptive_action_fields": [
+    "table",
+    "record_id",
+    "action:add/remove/replace",
+    "decision_date",
+    "effective_date",
+    "based_on_fact_ids",
+    "assumption_id"
+  ],
+  "money_categories": {
+    "operating": [
+      "revenue",
+      "support",
+      "variable_cost",
+      "operating_fixed",
+      "aircraft_use",
+      "startup",
+      "exit",
+      "depreciation",
+      "operating_credit"
+    ],
+    "excluded_operating_result": [
+      "interest",
+      "tax",
+      "investing",
+      "financing"
+    ],
+    "cash": [
+      "operating",
+      "investing",
+      "tax",
+      "financing"
+    ],
+    "cash_interest": "operating + subcategory finance_interest; mandatory explicit/unknown finance_interest coverage"
+  },
+  "cash_floor": "minimum_cash and project_minimum_cash: nonnegative number, null, or complete {YYYY-MM: value_or_null} across cash_start..2028-12",
+  "driver_kinds": [
+    "journeys/product_ids",
+    "segments/product_ids",
+    "flights/flight_ids",
+    "block_hours/flight_ids",
+    "explicit quantity for accepted tail/base months, fuel tonnes and other units"
+  ],
+  "outputs": [
+    "results_monthly",
+    "results_annual",
+    "allocation.allocations",
+    "allocation.seats",
+    "operations.rotations",
+    "economic_events",
+    "cash_events",
+    "terminal balances/obligations",
+    "accrual_cash_bridge",
+    "project incremental / whole company funding",
+    "pre_interest_funding_diagnostic",
+    "cost_driver_exports"
+  ],
+  "required_notes": [
+    "all examples are synthetic, including every coefficient/price/zero",
+    "each physical tail count=1; no cohort automatic expansion",
+    "market_calendar explicitly lists zero/unknown months; all 24 months covered",
+    "gross fare drives choice; net fare earned once; yield needs explicit distance basis",
+    "cash before financing includes interest under declared P04 presentation convention",
+    "unknown financing principal affects closing cash, not pre-financing need",
+    "parent hash/actions/information facts/commitments required for adaptive run",
+    "source export != accepted future market/capacity/rate"
   ]
 }

@@ -1,0 +1,122 @@
+{
+  "patches": [
+    {
+      "patch_id": "SP01",
+      "finding_id": "F01",
+      "implementation": "core.validate/compare/scenario/check_adaptation",
+      "case_ids": "CE01;CE02",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP02",
+      "finding_id": "F01",
+      "implementation": "core.validate market_calendar; choice.allocate",
+      "case_ids": "CE10;CE17",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP03",
+      "finding_id": "F03",
+      "implementation": "choice.utility/apply_response/allocate",
+      "case_ids": "CE08;CE10",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP04",
+      "finding_id": "F01",
+      "implementation": "operations.check_operations",
+      "case_ids": "CE03;CE04;CE05",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP05",
+      "finding_id": "F04",
+      "implementation": "operations.check_itineraries; core.cost_driver_exports",
+      "case_ids": "CE04;CE06",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP06",
+      "finding_id": "F04",
+      "implementation": "choice.allocate",
+      "case_ids": "CE05;CE07;CE12",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP07",
+      "finding_id": "F02",
+      "implementation": "operations.check_operations",
+      "case_ids": "CE03;CE19",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP08",
+      "finding_id": "F02",
+      "implementation": "core.compare/check_adaptation",
+      "case_ids": "CE01;CE11;CE19",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP09",
+      "finding_id": "F05",
+      "implementation": "finance.materialize_events/finance",
+      "case_ids": "CE11;CE12;CE14;CE15",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP10",
+      "finding_id": "F06",
+      "implementation": "finance.finance/funding",
+      "case_ids": "CE13;CE14;CE18",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP11",
+      "finding_id": "F06",
+      "implementation": "finance.funding; core.compare",
+      "case_ids": "CE13;CE16;CE18",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP12",
+      "finding_id": "F07",
+      "implementation": "core.annual_metrics/compare",
+      "case_ids": "CE09;CE16;CE20",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    },
+    {
+      "patch_id": "SP13",
+      "finding_id": "F01",
+      "implementation": "core.validate/evaluate; market_calendar",
+      "case_ids": "CE17;Q-P00R-001",
+      "status": "IMPLEMENTED_AUTHOR_CHECKED",
+      "acceptance_boundary": "independent/source/producer acceptance not established by author checks"
+    }
+  ],
+  "checks_file": "mechanical_checks.json",
+  "checks": 42,
+  "not_implemented_or_not_validated": [
+    "empirical RW market calibration and out-of-sample fit",
+    "automatic airline schedule generation/global optimization",
+    "all legal crew duty/rest rules, airport slots/access, MEL/payload-range and recovery dispatch",
+    "booked itinerary cancellation/reaccommodation optimization",
+    "foreign currency/tax legal applicability inference",
+    "integer seat-ticket transactions",
+    "intraday payment ordering",
+    "official carrier reporting metric/number2 forecast",
+    "automatic cohort to free-tail conversion",
+    "automatic published station-pair to physical inventory conversion"
+  ]
+}
