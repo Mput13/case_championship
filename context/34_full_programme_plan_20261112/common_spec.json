@@ -62,6 +62,34 @@
     "scenario",
     "unknown"
   ],
+  "judgement_register_policy": {
+    "required": true,
+    "scope": [
+      "subjective_weights_and_tradeoffs",
+      "model_thresholds_and_method_choices",
+      "estimated_costs_and_revenue",
+      "analogues_and_transfers",
+      "delivery_and_market_scenarios",
+      "material_missing_inputs"
+    ],
+    "files": [
+      "assumptions_register.csv",
+      "assumptions_register.json"
+    ],
+    "link_to_used_inputs_and_claims": "assumption_id",
+    "scenario_points_are_confidence_bounds": false,
+    "unsupported_plus_minus_percent_forbidden": true,
+    "confidence_percentage_without_basis_forbidden": true,
+    "preserve_versions_and_changes": true,
+    "approval": "record_who_selected_and_whether_user_approved; routine_choices_do_not_require_user_approval",
+    "handoff": [
+      "complete_used_register",
+      "material_decision_dependencies_and_thresholds",
+      "concrete_fields_user_or_expert_can_help_refine"
+    ],
+    "initial_inventory_status": "partial_seed_not_full_project_audit"
+  },
+  "reuse_policy": "Reuse existing evidence, UI and compatible calculation components. A rewrite requires a concrete unmet contract or defect; preserve original baselines and explain each change. No new product infrastructure is implied.",
   "international_and_fleet": {
     "thread_id": "07404c40-3687-4dc3-b815-b9a9e35d9775",
     "international_extensions_share_engine": true,
@@ -186,6 +214,12 @@
       "key": "airport_pair,period,service_regime",
       "unit": "Условия регулярной/чартерной программы",
       "purpose": "Допуски обеих сторон, доступные коридоры, слоты, приём типа, страхование/обслуживание/расчёты; источник и срок действия; unknown не запрет"
+    },
+    {
+      "name": "judgements",
+      "key": "assumption_id,subject_version",
+      "unit": "Один субъективный выбор, аналог, сценарий или неопределённый параметр",
+      "purpose": "Значения, обоснование диапазона, автор/выбор модели, согласование, затронутые результаты, чувствительность и способ уточнения; полный экспорт пользователю"
     }
   ],
   "scenario_axes": {

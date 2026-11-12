@@ -54,6 +54,17 @@ def main():
     assert all(k in by_id for m in methods for k in m['packages'].split(','))
     assert spec['accepted']['fixed_finalist_quota'] is None
     assert spec['accepted']['person_day_estimates'] is False
+    assert spec['judgement_register_policy']['required']
+    assert spec['judgement_register_policy']['scenario_points_are_confidence_bounds'] is False
+    ledger=json.loads((BASE/'assumptions_register.json').read_text())
+    assert ledger['coverage_status']=='PARTIAL_SEED_REQUIRES_P01_SCAN'
+    rows=ledger['records']
+    assert len({r['assumption_id'] for r in rows})==len(rows)
+    assert len([r for r in rows if r['assumption_id'].startswith('WEIGHT-')])==14
+    assert len([r for r in rows if r['assumption_id'].startswith('NET-')])==51
+    assert all(r['lower'] is None and r['upper'] is None for r in rows), 'do not invent confidence bounds from scenario points'
+    assert next(r for r in rows if r['assumption_id']=='OPEN-BASE_SETUP')['base_value'] is None
+    assert 'assumptions_final.csv' in by_id['P17']['outputs']
     assert len(spec['accepted']['sections']) == 4
     assert not any(spec['execution_boundary'].values())
     assert set(by_id['P09']['depends_on']) >= {'P02','P03','P04','P05','P06','P07','P08'}

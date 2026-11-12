@@ -54,6 +54,7 @@ REQUIREMENTS = [
     ('R25', 'Пользователь и прикреплённый тред', 'Международные рынки и доступ к ним', 'P02I', 'sec1,sec2,sec3', 'Двусторонние потоки, права и режим regular/charter, ограничения маршрута, слоты, обслуживание, расчёты и поддержка. Турпоток страны не заменяет спрос на рейс.'),
     ('R26', 'Пользователь и прикреплённый тред', 'Международная экономика и внутренний подвоз', 'P09', 'sec3,sec4', 'Оба аэропорта, навигация/пролёт, топливо по месту, валюта и кассовые условия; полный оборот и контрактная экономика; один тариф и общий ресурс на подвоз/международное плечо.'),
     ('R27', 'Последнее уточнение пользователя', 'Самостоятельное решение исходного кейса на суперджетах', 'P09', 'sec1,sec2,sec3', 'Обязательные хаб/прямые/смешанные программы на ресурсе суперджетов сохраняются и не требуют новых Ту-214. Расширения парка и международной сети подписаны отдельно; ветвь без новых Ту-214 в 2027–2028 обязательна.'),
+    ('R28', 'Пользователь', 'Реестр субъективных решений и неопределённых оценок', 'P17', 'all,delivery', 'Все используемые веса, пороги, аналоги, сценарии и приблизительные затраты имеют ID, значение, происхождение, основание, статус согласования и влияние. Пользователь получает полный реестр и список существенных условий; base/cautious не названы доверительным интервалом.'),
 ]
 
 PACKAGES = [
@@ -101,7 +102,66 @@ TABLES = [
     ('results_monthly','fleet_scope_id,programme_id,scenario_id,month','Поездки, сегменты, выручка, вклад, полный добавочный результат и cash','Сравнение с тем же будущим KEEP внутри ветви; совместимый знаменатель доли; причина каждого изменения'),
     ('claims','claim_id,subject_version','Один проверяемый вывод','Ссылка на исходные строки и расчёт, источник, область применимости, проверка и статус'),
     ('international_access','airport_pair,period,service_regime','Условия регулярной/чартерной программы','Допуски обеих сторон, доступные коридоры, слоты, приём типа, страхование/обслуживание/расчёты; источник и срок действия; unknown не запрет'),
+    ('judgements','assumption_id,subject_version','Один субъективный выбор, аналог, сценарий или неопределённый параметр','Значения, обоснование диапазона, автор/выбор модели, согласование, затронутые результаты, чувствительность и способ уточнения; полный экспорт пользователю'),
 ]
+
+def seed_registers():
+    """Inventory pinned inputs, preserving scenario points rather than inventing bounds."""
+    def read_csv(path):
+        raw=subprocess.check_output(['git','show',f'{AUTHOR}:{path}'],cwd=ROOT)
+        return list(csv.DictReader(io.StringIO(raw.decode('utf-8-sig'))))
+    records=[]
+    common={'lower':None,'upper':None,'range_basis':'Обоснованные границы пока не установлены; base/cautious — сценарные точки, не доверительный интервал.','selected_by':'Историческая авторская модель; индивидуальное авторство каждого параметра отдельно не установлено.','use_in_new_programme':'Не принят автоматически; требуется оценка применимости.','sensitivity_status':'Не пересчитана для новой программы.','effect_on_result':None,'switch_threshold':None,'user_review_status':'Не объявлено согласованным пользователем.','source_commit':AUTHOR,'initial_coverage':'Только две закреплённые таблицы и известные открытые поля; P01 должен проверить остальные таблицы и константы кода.'}
+    for i,r in enumerate(read_csv('data/assumptions/longlist_weights.csv'),2):
+        records.append(dict(common,assumption_id='WEIGHT-'+r['column'],kind='Субъективный вес',parameter=r['criterion'],base_value=r['weight'],cautious_value=None,unit='пунктов веса',source_path='data/assumptions/longlist_weights.csv',source_record=i,source_note=r['status'],rationale=r['why'],affects='Порядок городов при выбранных критериях и нормализации.',how_to_improve='Сопоставить профили предпочтений, показать смену лидеров; решение о предпочтениях не подменять точностью исходных данных.'))
+    cost_keys={'fuel_t_per_hour','fuel_t_per_cycle','fuel_rub_per_t','mro_rub_per_hour','crew_rub_per_hour','navigation_rub_per_hour','ground_rub_per_flight','deicing_rub_per_flight','pax_cost_rub'}
+    for i,r in enumerate(read_csv('data/assumptions/network.csv'),2):
+        key=r['parameter']
+        if key in cost_keys:
+            kind='Стоимость, физический аналог или перенос на другие условия'
+            affects='Расходы рейса, результат программы и потребность в финансировании.'
+            improve='Уточнить ставку/расход по типу, аэропорту, периоду и договору; разделить единичный наблюдаемый тариф и его перенос.'
+        elif key in {'fare_fixed_rub','fare_per_km_rub','transfer_fare_factor'}:
+            kind='Оценка получаемой выручки'
+            affects='Выручка, выбор пассажира и сравнительная экономика программ.'
+            improve='Сопоставимые продажи/цены и условия; проверить совместный отклик спроса и тарифа.'
+        elif key in {'min_routes','max_routes'}:
+            kind='Ограничение исходного кейса'
+            affects='Допустимый состав итоговой сети; это не субъективная цена.'
+            improve='Проверить определение маршрута и источник требования.'
+        elif key in {'market_pax_2025','rw_pax_2025'}:
+            kind='Историческое число с авторской ссылкой на источник'
+            affects='Историческая база масштаба; не будущий прогноз.'
+            improve='Проверить первоисточник, период и совместимость определения пассажира.'
+        else:
+            kind='Сценарий, ограничение модели или параметр с авторским основанием'
+            affects='Спрос, ресурс или результат согласно роли параметра; точное влияние ещё предстоит установить.'
+            improve='Проверить основание и переносимость; оценить чувствительность/порог смены решения.'
+        records.append(dict(common,assumption_id='NET-'+key,kind=kind,parameter=key,base_value=r['base'],cautious_value=r['cautious'],unit=r['unit'],source_path='data/assumptions/network.csv',source_record=i,source_note=r['source'],rationale='Сохранена исходная формулировка автора; её слово «факт» само по себе не является независимой проверкой.',affects=affects,how_to_improve=improve))
+    for ident,title,unit,affects,improve in [
+        ('BASE_SETUP','Открытие базы и ввод программы','рубли и календарь платежей','Полный добавочный результат, cash и условие запуска.','Смета/договор: запуск, инфраструктура, экипажи, ТО, депозиты, сроки и выход.'),
+        ('LEASE','Аренда/лизинг и альтернативное применение','руб./борт/месяц и cash','Сравнение использования ресурса и финансирование.','Условия фактической или сценарной сделки; платежи и потерянное прежнее задание без двойного счёта.'),
+        ('SJ100_TRANSFER','Перенос затрат SSJ на будущий SJ-100/ПД-8','по каждому драйверу затрат','Применимость всей экономики нового типа.','Отдельные параметры нового типа; до их появления — обозначенный аналог с обоснованной чувствительностью.'),
+        ('TU214_CALENDAR','Годовая разбивка и ввод новых Ту-214','борта и даты','Доступность дополнительных программ; обязательный кейс на SJ независим.','Поставщик/лизингодатель; при отсутствии разбивки — явные сценарии, включая отсутствие новых бортов.'),
+        ('DIGITAL_COST','Стоимость цифровых изменений и исполнения услуг','рубли, человеко-часы и кассовые даты','Чистый эффект цифровых предложений.','Состав работ/операций и смета; выручка и высвобожденное время не считаются прибылью автоматически.'),
+    ]:
+        records.append(dict(common,assumption_id='OPEN-'+ident,kind='Точный внутренний параметр ещё не установлен',parameter=title,base_value=None,cautious_value=None,unit=unit,source_commit=None,source_path='context/32_data_sources_audit_20261112/gaps.csv + current planning scope',source_record=None,source_note='Поле требуется для новой программы; ноль не подставлен.',rationale='Число и диапазон не назначены без основания.',affects=affects,how_to_improve=improve))
+    dump('assumptions_register.json',{'coverage_status':'PARTIAL_SEED_REQUIRES_P01_SCAN','sensitivity_execution':'NOT_RUN_FOR_NEW_PROGRAMME','records':records})
+    with (BASE/'assumptions_register.csv').open('w',newline='') as f:
+        w=csv.DictWriter(f,fieldnames=list(records[0]),lineterminator='\n');w.writeheader()
+        for r in records:w.writerow({k:('UNKNOWN' if v is None else v) for k,v in r.items()})
+    reuse=[
+        ('Источники и накопленные исследования','Сохраняем происхождение и снимки; обновляем изменившиеся периоды и поля.','Новые источники и адаптеры для отсутствующих входов.'),
+        ('Города, критерии и авторские результаты','Сохраняем лонглист, признаки и воспроизводимый baseline.','Проверяем фильтры, веса и причины отбора; новая версия результатов отдельно.'),
+        ('Функции спроса и экономики','Сохраняем подходящие функции и контрольное воспроизведение.','Перекалибровка при новых данных, общий выбор пассажира, новые типы/география.'),
+        ('Сетевая модель','Сохраняем существующие генераторы и проверки в применимой области.','Существенный новый слой: совместный спрос, кресла и парк нескольких программ, календарь и денежные потоки.'),
+        ('Календарные и совместные опыты','Переиспользуем применимые алгоритмы и проверочные примеры.','Повторная оценка на актуальных входах; старые деньги и approvals не переносятся.'),
+        ('Дашборд Насти','Сохраняем оформление, карты, таблицы и полезные взаимодействия.','Четыре раздела, общий контракт результатов и разделение исследования/рекомендации.'),
+        ('Стратегия и цифровые материалы','Сохраняем исследования и проверенные элементы карточек.','Связь с экономикой всего бизнеса, новые условные варианты и проверка актуальности.'),
+    ]
+    with (BASE/'reuse_map.csv').open('w',newline='') as f:
+        w=csv.writer(f,lineterminator='\n');w.writerow(['layer','reuse','change']);w.writerows(reuse)
+    return records,reuse
 
 def dump(name, obj):
     (BASE / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + '\n')
@@ -114,6 +174,7 @@ def section(key, title, body):
 
 def main():
     BASE.mkdir(exist_ok=True)
+    register,reuse=seed_registers()
     spec = {
         'version':'full-v1-20261112', 'state':'PREPARED_NOT_LAUNCHED',
         'accepted':{'scope':'full_case_and_user_requests','sections':['Хабы и базы','Прямые рейсы','Итоговая сеть 2027–2028','Стратегия роста и №2'],'number2_deadline':None,'stage1':'2027–2028','business':'all_passenger_Red_Wings_domestic_international_charter','finish_target':'today_without_scope_reduction','person_day_estimates':False,'fixed_finalist_quota':None},
@@ -121,6 +182,8 @@ def main():
         'metric_policy':{'primary_growth':'annual_carried_passengers_on_compatible_carrier_definition','also_report':['unique_OD_journeys','passenger_segments','net_new_Red_Wings_passengers','RPK_when_available','ASK_and_load_factor','revenue','variable_contribution','incremental_full_result','monthly_and_cumulative_cash','peak_funding'],'number2_unit':'individual_carrier_as_working_definition_groups_separate','number2_threshold':'scenario_of_competitor_growth_not_fixed_current_rank','budget_unknown':'report_nondominated_growth_funding_risk_frontier'},
         'data_record_required':['key','unit','period','geography_or_airport','source_id','retrieved_at','as_of','status','method_version','coverage','lower','upper'],
         'data_statuses':['observed','published_offer','estimated','scenario','unknown'],
+        'judgement_register_policy':{'required':True,'scope':['subjective_weights_and_tradeoffs','model_thresholds_and_method_choices','estimated_costs_and_revenue','analogues_and_transfers','delivery_and_market_scenarios','material_missing_inputs'],'files':['assumptions_register.csv','assumptions_register.json'],'link_to_used_inputs_and_claims':'assumption_id','scenario_points_are_confidence_bounds':False,'unsupported_plus_minus_percent_forbidden':True,'confidence_percentage_without_basis_forbidden':True,'preserve_versions_and_changes':True,'approval':'record_who_selected_and_whether_user_approved; routine_choices_do_not_require_user_approval','handoff':['complete_used_register','material_decision_dependencies_and_thresholds','concrete_fields_user_or_expert_can_help_refine'],'initial_inventory_status':'partial_seed_not_full_project_audit'},
+        'reuse_policy':'Reuse existing evidence, UI and compatible calculation components. A rewrite requires a concrete unmet contract or defect; preserve original baselines and explain each change. No new product infrastructure is implied.',
         'international_and_fleet':{'thread_id':'07404c40-3687-4dc3-b815-b9a9e35d9775','international_extensions_share_engine':True,'case_sj_remains_independent':True,'new_tu214_announced_batch':11,'new_tu214_start_announced':2027,'new_tu214_annual_schedule':None,'announced_batch_is_available_fleet':False,'sj100_h2_2027_rule_does_not_automatically_apply_to_tu214':True,'fleet_choice_joint_with_network':True,'separate_parameters_by_type_and_variant':True,'cost_currency_and_fx_required':True,'foreign_tourism_totals_are_not_route_OD':True,'support_is_scheme_specific_not_domestic_boolean':True},
         'fleet_scopes':{'CASE_SJ':{'role':'mandatory_standalone_original_case','project_growth_fleet':['existing_Superjet_resource_when_available','future_SJ100_scenario'],'new_tu214_required':False,'keep_other_existing_business':True},'EXT_NO_NEW_TU214':{'role':'additional_international_or_mixed_fleet_option','new_tu214_in_2027_2028':0,'existing_tu214_resource':'only_if_availability_and_lost_task_are_accounted'},'EXT_TU214_SCENARIO':{'role':'additional_conditional_deliveries','annual_calendar':'explicit_scenario_not_announced_batch_as_fleet'},'LONG_TERM_GROWTH':{'role':'whole_business_number2_strategy','deadline':None,'tu214':'conditional_growth_branch_not_required_for_case_solution'}},
         'result_release_gates':{'CASE_SJ':['P00R','P02','P03','P04','P05','P06','P07','P08'],'extended_results':['CASE_SJ','P02I','P08I'],'interpretation':'International research may inform Superjet products but must not block delivery of a valid original-case solution on its own accepted inputs.'},
@@ -146,6 +209,10 @@ def main():
     dump('common_spec.json',spec)
     pkgs=[]
     for ident,title,deps,outputs,owner,acceptance in PACKAGES:
+        outputs=list(outputs)
+        if ident=='P01':outputs.extend(['assumptions_inventory.csv','reuse_assessment.csv'])
+        if ident=='P04':outputs.append('cost_assumptions.csv')
+        if ident=='P17':outputs.extend(['assumptions_final.csv','decision_dependencies.csv'])
         scope=f'context/35_full_programme_execution_20261112/{ident}/'
         brief=(f'Задача {ident}: {title}. Работай самостоятельно, без детей. '
             f'Пиши только в {scope} своего подготовленного оркестратором worktree. '
@@ -159,6 +226,11 @@ def main():
             'Выводы подкрепляй первичными источниками, таблицами, расчётами и контрпримерами; '
             'новый сбор отличай от уже сохранённого. Обоснованные диапазоны и пороги используй '
             'для недоступных внутренних полей; неизвестное не ноль. '
+            'Каждый субъективный выбор, приближённую стоимость, аналог и сценарное условие '
+            'внеси в реестр с ID: значение/единица, кто выбрал, основание, согласование, '
+            'обоснованный диапазон или UNKNOWN, затронутые выводы, чувствительность и способ уточнения. '
+            'Base/cautious не доверительный интервал. Передай использованные ID и изменения реестра; '
+            'не требуй согласования пользователем каждого рутинного параметра. '
             'Search/fetch для фактов; browser текущего харнесса для нужного взаимодействия и визуальной проверки. '
             'Нет покупок данных, платежей, бронирований, внешних сообщений, перезапусков и публикации Site. '
             'Секреты не попадают в prompts, logs и evidence. '
@@ -204,6 +276,12 @@ def main():
         sample_fields=list(row)[:6]
     sample=io.StringIO();writer=csv.DictWriter(sample,fieldnames=sample_fields,extrasaction='ignore',lineterminator='\n');writer.writeheader();writer.writerow(row)
     chapters.append(section('reuse','Что уже существует','''<p>Основой интерфейса остаётся панель Насти/kiruha355. Её шаблон, сборщик, карты и таблицы закреплены на <code>'''+AUTHOR+'''</code>. Модельные результаты этой версии сохраняются как авторский baseline. Пять городов исследованы в отдельном пакете <code>'''+FIVE+'''</code>; их возврат в сравнение не является выбором нового хаба.</p><p>Используем аудит источников, конкурентные досье и датированные наблюдения, проверенные календарные механизмы, учёт общего рынка и прежние цифровые карточки. Для каждого компонента составляем реестр: версия, автор, период, область применимости, что сохраняем и что заменяем. Старые деньги не переносятся на новый календарь.</p><p>Реальная строка уже сохранённой таблицы конкуренции:</p><pre>'''+html.escape(sample.getvalue())+'''</pre><p>Эта строка описывает сохранённый срез и модельный контекст. Она не является полным наблюдением рынка 2027–2028 и не даёт права автоматически заменить частотную формулу одним найденным числом.</p>'''))
+    chapters.append(section('assumptions','Субъективные решения и неопределённые затраты',f'''<p>Каждый используемый субъективный вес, порог, выбор метода, приблизительная стоимость, перенос аналога и сценарное условие получает ID. Для строки сохраняются значение и единица, кто выбрал, источник и обоснование, применимость, статус согласования, обоснованные границы или UNKNOWN, затронутые выводы, чувствительность и способ уточнения.</p><p>Субъективное предпочтение и неполное знание стоимости различаются. Например, веса отражают предпочтения, а стоимость ТО может быть уточнена договором или наблюдением. Базовый и осторожный сценарии не являются доверительным интервалом. Диапазон ±20% и процент уверенности нельзя назначать без основания.</p><p>Начальный <a href="assumptions_register.csv">реестр CSV</a> и <a href="assumptions_register.json">JSON</a> содержит {len(register)} строк: все 14 весов и 51 параметр двух закреплённых авторских таблиц, а также пять известных открытых полей. Это первичный инвентарь, а не завершённая проверка всех допущений проекта; P01 должен охватить остальные данные и константы кода. Значения сохранены как исторические входы, новая программа их автоматически не принимает.</p>'''+table(['Пример','Сохранённые значения','Статус'],[
+        ('Вес критерия',html.escape(register[0]['parameter'])+': '+html.escape(register[0]['base_value']),'Предложение коллег; источник отдельно говорит, что командой не утверждено.'),
+        ('ТО самолёта','35 000 / 55 000 руб. за блок-час в исходных base/cautious','Допущение исходной модели, не подтверждённый диапазон будущих коммерческих расходов.'),
+        ('Открытие базы','UNKNOWN','Поле ещё нужно оценить; ноль и произвольные границы не подставлены.'),
+    ])+'''<p>В итоговой передаче пользователь получает полный реестр использованных решений и оценок и короткий список условий, которые меняют выбор или деньги. Важные строки связаны с показателями и выводами в UI. Указывается, какое конкретное уточнение или решение пользователя/эксперта может помочь. Рутинные решения агенты принимают в рамках задачи и фиксируют; согласование каждой строки не становится условием продолжения работы.</p>'''))
+    chapters.append(section('reuse-policy','Объём переработки существующей базы',table(['Слой','Что сохраняем','Что меняем'],reuse)+'''<p>Сохраняются данные, происхождение, авторский baseline, исследования и основа интерфейса. Существенный новый расчётный слой связывает несколько программ через общий спрос, кресла, календарь и деньги. Старые результаты остаются результатами старых версий; новый выбор может измениться.</p><p>Пригодный существующий компонент переиспользуется. Для переписывания нужны конкретное несовпадение с контрактом либо дефект. В P01 проверяется фактическая пригодность функций и таблиц; процент переиспользования заранее не придумывается. Новая платформа или продуктовая инфраструктура этим планом не требуется. <a href="reuse_map.csv">Карта переиспользования</a>.</p>'''))
     chapters.append(section('international','Международные рынки и Ту-214','''<p>Сохраняется самостоятельное обязательное решение исходного кейса на суперджетах: хаб, прямые рейсы и их сочетания. Оно не требует новых Ту-214. Международные программы и смешанный парк — дополнительные варианты с отдельными результатами. Среди них обязательна ветвь без новых Ту-214 в 2027–2028. Международные рейсы на суперджетах также рассматриваются при выполнимой дальности, спросе и доступе.</p><p>В расширенных вариантах тип самолёта, база, рынок и расписание выбираются совместно. Международный подвоз может менять выбор узла, частот и распределения ресурса. Его эффект рассчитывается целиком. Для стратегии №2 Ту-214 остаётся условной ветвью последующего роста, без выдуманного срока достижения цели.</p><p>Глава ОАК в июне 2026 назвал Red Wings первым заказчиком партии 11 новых Ту-214 с началом коммерческих поставок в 2027. Годовая разбивка и коммерческая готовность не установлены этим сообщением. На странице RW отдельно опубликованы три действующих Ту-214 по 194 места; это не свободный парк. Ограничение второго полугодия 2027, принятое для новых SJ-100, не переносится на Ту-214 автоматически. <a href="https://www.interfax.ru/business/1098088">Заявление о поставках</a>; <a href="https://flyredwings.com/about/park/">опубликованный парк RW</a>.</p>'''+table(['Блок','Что добавляем в расчёт'],[
         ('Парк по типам','Раздельные действующие SSJ100, будущие SJ-100/ПД-8, действующие/новые Ту-214 и другие реально доступные типы. Поставка, ввод, экипажи, ТО, резерв и прежняя работа. Не назначать всем одинаковые кресла, дальность или часы.'),
         ('Международные рынки','Конкретная российская база и зарубежный аэропорт, оба направления потока, сезон, туризм/родственники/работа/бизнес/группы. Национальная туристическая статистика служит контролем, а не готовой матрицей авиационного OD.'),
@@ -243,7 +321,7 @@ def main():
     script='''const secs=[...document.querySelectorAll('main section')];const links=[...document.querySelectorAll('nav a')];const obs=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){for(const a of links){if(a.hash==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')}}},{rootMargin:'-10% 0px -65% 0px'});secs.forEach(s=>obs.observe(s));'''
     document='<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>План полного анализа Red Wings и агентской работы</title><style>'+css+'</style><body><div class="layout"><nav id="toc" aria-label="Оглавление">'+nav+'</nav><main><h1>План полного анализа Red Wings и агентской работы</h1><p class="intro">12 ноября 2026 · спецификация для обсуждения · исследовательская система ещё не запущена</p><details class="mobile-nav"><summary>Содержание</summary><nav aria-label="Оглавление на узком экране">'+nav+'</nav></details>'+''.join(chapters)+'</main></div><script>'+script+'</script></body></html>'
     (BASE/'plan.html').write_text(document)
-    outputs=['common_spec.json','work_packages.json','requirements.csv','method_map.csv','source_lock.json','plan.html','build_plan.py','check_plan.py','capture_brief.py']
+    outputs=['common_spec.json','work_packages.json','requirements.csv','method_map.csv','source_lock.json','plan.html','build_plan.py','check_plan.py','capture_brief.py','assumptions_register.csv','assumptions_register.json','reuse_map.csv']
     outputs += [name for name in ['prepare_qa.py','system_flow.html'] if (BASE/name).exists()]
     outputs += [str(p.relative_to(BASE)) for p in sorted((BASE/'inputs').glob('*'))] if (BASE/'inputs').exists() else []
     dump('output_manifest.json',{'files':[{'path':n,'sha256':hashlib.sha256((BASE/n).read_bytes()).hexdigest()} for n in outputs]})
