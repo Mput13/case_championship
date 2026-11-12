@@ -1,0 +1,273 @@
+{
+  "as_of": "2026-11-12",
+  "input_model_sha": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+  "kind": "arithmetic on pinned scenarios, not observed demand or new optimization",
+  "inputs_sha256": {
+    "network_routes.csv": "eed74e3042dc14a4946894686121d4afc28c1be96daadd2ba1ed6195d49eec8f",
+    "network_summary.csv": "aaf6db6c86b05f7e9bcd4ee4dc4a1d71def18a10adc28b0332c3d5bde5bc9b05",
+    "longlist.csv": "d376d7b07c0379556845e86010aac31a36d5ea271a232e36e8ee47336e13a35b"
+  },
+  "base_tjm_routes": [
+    {
+      "to": "MOW",
+      "km": 1704,
+      "frequency_each_way_week": 3.0,
+      "local_segments": 23613.0,
+      "transfer_segments": 0.0,
+      "total_segments": 23613.0,
+      "transfer_share": 0.0,
+      "local_only_lf_at_author_frequency": 0.7568269230769231,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "LED",
+      "km": 2034,
+      "frequency_each_way_week": 7.0,
+      "local_segments": 47276.0,
+      "transfer_segments": 11657.0,
+      "total_segments": 58933.0,
+      "transfer_share": 0.19780089253898495,
+      "local_only_lf_at_author_frequency": 0.6493956043956044,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "MRV",
+      "km": 2110,
+      "frequency_each_way_week": 14.0,
+      "local_segments": 40060.0,
+      "transfer_segments": 83700.0,
+      "total_segments": 123760.0,
+      "transfer_share": 0.6763089851325146,
+      "local_only_lf_at_author_frequency": 0.27513736263736266,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "BTK",
+      "km": 2192,
+      "frequency_each_way_week": 4.0,
+      "local_segments": 2447.0,
+      "transfer_segments": 30325.0,
+      "total_segments": 32772.0,
+      "transfer_share": 0.9253326010008543,
+      "local_only_lf_at_author_frequency": 0.05882211538461538,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "KEJ",
+      "km": 1297,
+      "frequency_each_way_week": 6.0,
+      "local_segments": 5188.0,
+      "transfer_segments": 42764.0,
+      "total_segments": 47952.0,
+      "transfer_share": 0.8918084751418085,
+      "local_only_lf_at_author_frequency": 0.08314102564102564,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "TOF",
+      "km": 1210,
+      "frequency_each_way_week": 7.0,
+      "local_segments": 3031.0,
+      "transfer_segments": 51659.0,
+      "total_segments": 54690.0,
+      "transfer_share": 0.9445785335527519,
+      "local_only_lf_at_author_frequency": 0.04163461538461539,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "VOG",
+      "km": 1676,
+      "frequency_each_way_week": 3.0,
+      "local_segments": 9686.0,
+      "transfer_segments": 14571.0,
+      "total_segments": 24257.0,
+      "transfer_share": 0.60069258358412,
+      "local_only_lf_at_author_frequency": 0.3104487179487179,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    },
+    {
+      "to": "GOJ",
+      "km": 1314,
+      "frequency_each_way_week": 3.0,
+      "local_segments": 9139.0,
+      "transfer_segments": 14819.0,
+      "total_segments": 23958.0,
+      "transfer_share": 0.6185407796978045,
+      "local_only_lf_at_author_frequency": 0.29291666666666666,
+      "warning": "local demand remains the author's estimate; this is not a standalone forecast"
+    }
+  ],
+  "base_tjm_aggregation": {
+    "local_segments": 140440.0,
+    "transfer_segments": 249495.0,
+    "total_segments_route_sum": 389935.0,
+    "transfer_share_segments": 0.6398374087989024,
+    "flights_week_both_ways": 94.0,
+    "transfer_legs_divided_by_2": 124747.5,
+    "route_result_sum_mln_rounded": 386.2
+  },
+  "pinned_tjm_oms_comparison": [
+    {
+      "scenario": "base",
+      "iata": "OMS",
+      "aircraft": 7,
+      "routes": 12,
+      "segments": 577427,
+      "od_trips": 388610,
+      "transfer_od": 188817,
+      "result_mln": 503.0,
+      "result_per_aircraft_mln_diagnostic_only": 71.85714285714286,
+      "transfer_od_share": 0.48587787241707625,
+      "result_over_revenue": 0.0796516231195566
+    },
+    {
+      "scenario": "base",
+      "iata": "TJM",
+      "aircraft": 6,
+      "routes": 8,
+      "segments": 389936,
+      "od_trips": 265188,
+      "transfer_od": 124748,
+      "result_mln": 386.0,
+      "result_per_aircraft_mln_diagnostic_only": 64.33333333333333,
+      "transfer_od_share": 0.47041344253887807,
+      "result_over_revenue": 0.08472344161545214
+    },
+    {
+      "scenario": "base_sub",
+      "iata": "OMS",
+      "aircraft": 7,
+      "routes": 12,
+      "segments": 577427,
+      "od_trips": 388610,
+      "transfer_od": 188817,
+      "result_mln": 503.0,
+      "result_per_aircraft_mln_diagnostic_only": 71.85714285714286,
+      "transfer_od_share": 0.48587787241707625,
+      "result_over_revenue": 0.0796516231195566
+    },
+    {
+      "scenario": "base_sub",
+      "iata": "TJM",
+      "aircraft": 6,
+      "routes": 8,
+      "segments": 389936,
+      "od_trips": 265188,
+      "transfer_od": 124748,
+      "result_mln": 386.0,
+      "result_per_aircraft_mln_diagnostic_only": 64.33333333333333,
+      "transfer_od_share": 0.47041344253887807,
+      "result_over_revenue": 0.08472344161545214
+    },
+    {
+      "scenario": "cautious",
+      "iata": "OMS",
+      "aircraft": 3,
+      "routes": 8,
+      "segments": 78210,
+      "od_trips": 63843,
+      "transfer_od": 14368,
+      "result_mln": -2345.0,
+      "result_per_aircraft_mln_diagnostic_only": -781.6666666666666,
+      "transfer_od_share": 0.22505208088592327,
+      "result_over_revenue": -3.130841121495327
+    },
+    {
+      "scenario": "cautious",
+      "iata": "TJM",
+      "aircraft": 4,
+      "routes": 8,
+      "segments": 128031,
+      "od_trips": 95111,
+      "transfer_od": 32920,
+      "result_mln": -2460.0,
+      "result_per_aircraft_mln_diagnostic_only": -615.0,
+      "transfer_od_share": 0.3461218996751164,
+      "result_over_revenue": -2.1808510638297873
+    },
+    {
+      "scenario": "cautious_sub",
+      "iata": "OMS",
+      "aircraft": 3,
+      "routes": 8,
+      "segments": 78210,
+      "od_trips": 63843,
+      "transfer_od": 14368,
+      "result_mln": -2265.0,
+      "result_per_aircraft_mln_diagnostic_only": -755.0,
+      "transfer_od_share": 0.22505208088592327,
+      "result_over_revenue": -2.732207478890229
+    },
+    {
+      "scenario": "cautious_sub",
+      "iata": "TJM",
+      "aircraft": 3,
+      "routes": 8,
+      "segments": 112752,
+      "od_trips": 86550,
+      "transfer_od": 26203,
+      "result_mln": -2033.0,
+      "result_per_aircraft_mln_diagnostic_only": -677.6666666666666,
+      "transfer_od_share": 0.30274985557481227,
+      "result_over_revenue": -1.8184257602862255
+    }
+  ],
+  "capacity_scenarios_100_seats": [
+    {
+      "weeks": 52,
+      "frequency_each_way_week": 1,
+      "assumed_lf": 0.8,
+      "segments_both_ways": 8320.0,
+      "kind": "illustrative capacity requirement, not demand or a launch LF gate"
+    },
+    {
+      "weeks": 52,
+      "frequency_each_way_week": 2,
+      "assumed_lf": 0.8,
+      "segments_both_ways": 16640.0,
+      "kind": "illustrative capacity requirement, not demand or a launch LF gate"
+    },
+    {
+      "weeks": 52,
+      "frequency_each_way_week": 3,
+      "assumed_lf": 0.8,
+      "segments_both_ways": 24960.0,
+      "kind": "illustrative capacity requirement, not demand or a launch LF gate"
+    },
+    {
+      "weeks": 20,
+      "frequency_each_way_week": 2,
+      "assumed_lf": 0.8,
+      "segments_both_ways": 6400.0,
+      "kind": "illustrative capacity requirement, not demand or a launch LF gate"
+    }
+  ],
+  "ground_feed_example": {
+    "observed_schedule_service": "809Е 17:10–22:09, November 2026 listing, not every train",
+    "rail_minutes": 299,
+    "tjm_official_bus_minutes": 40,
+    "scenario_station_access_minutes": 30,
+    "scenario_svx_station_to_terminal_minutes": 60,
+    "scenario_both_airports_report_buffer_minutes": 120,
+    "scenario_minutes_until_flight_svx": 509,
+    "scenario_minutes_until_flight_tjm": 160,
+    "incremental_minutes": 349,
+    "time_value_rub_scenarios": {
+      "500": 2908.333333333333,
+      "1500": 8725.0
+    },
+    "warning": "No flight, wait for departure, fare or disruption risk difference included. Not a measured door-to-door trip."
+  },
+  "university_cohort_scenario": {
+    "intake_2025": 4996,
+    "published_nonlocal_share": 0.435,
+    "intake_times_nonlocal_share_approx": 2173.2599999999998,
+    "one_cohort_two_roundtrips_all_air_counterfactual_segments": 8693.039999999999,
+    "warning": "Share denominator not fully specified; not airport demand. Excludes other cohorts and universities; all-air is a counterfactual, not a forecast or market upper bound."
+  },
+  "tourism_summer_autumn_share_ratio": 1.380952380952381,
+  "pinned_manifest_check": {
+    "entries": 34,
+    "mismatches": 0
+  }
+}
