@@ -1,0 +1,105 @@
+{
+  "actual_calculation_rerun": true,
+  "actual_full_profit": null,
+  "actual_sales": null,
+  "checks": {
+    "actual_calculation_rerun_byte_deterministic": "PASS",
+    "burn_t_landed_once_MRO_navigation_ground_deice_fixedcrew_lease": "PASS",
+    "cannib_not_new_RW_demand_recapture_saved_once_no_joint_loss_repeat": "PASS",
+    "changed_net_changes_threshold_capacity_ceiling_net_BE_80_90_100": "PASS",
+    "directional_asymmetric_frontiers_strict_both_direction_caps": "PASS",
+    "four_rotations_eight_legs_not_double_fare_oneoff_F_once_month_pool": "PASS",
+    "protected_1418_all_P36_unchanged_only_allowed_outputs_no_bytecode": "PASS",
+    "pure_API_reproduction_same_KEEP_ADD_through_OFF_actual_NULL_window": "PASS",
+    "quotes_verified_only_gross_upper_bound_no_automatic_VAT_commission": "PASS",
+    "strict_integer_equality_floor_plus_one_and_extra_ticket_caps": "PASS"
+  },
+  "command": "context/37_svx_kja_keep_check_20261112/calculation/verify.py",
+  "evidence": {
+    "base_frontier": [
+      {
+        "back_min_strict": 87,
+        "out": 50
+      },
+      {
+        "back_min_strict": 77,
+        "out": 60
+      },
+      {
+        "back_min_strict": 67,
+        "out": 70
+      },
+      {
+        "back_min_strict": 57,
+        "out": 80
+      },
+      {
+        "back_min_strict": 47,
+        "out": 90
+      },
+      {
+        "back_min_strict": 37,
+        "out": 100
+      }
+    ],
+    "baseline_balanced": {
+      "base": {
+        "FEB4_POOLED_INTEGER_SALES": {
+          "feasible": true,
+          "n_each": 274,
+          "tickets_total_horizon": 548
+        },
+        "FEB4_REPEAT_SAME_INTEGER_SALES": {
+          "feasible": true,
+          "n_each": 69,
+          "tickets_total_horizon": 552
+        },
+        "ONE_ROTATION": {
+          "feasible": true,
+          "n_each": 69,
+          "tickets_total_horizon": 138
+        }
+      },
+      "cautious": {
+        "FEB4_POOLED_INTEGER_SALES": {
+          "feasible": false,
+          "n_each": 460,
+          "tickets_total_horizon": 920
+        },
+        "FEB4_REPEAT_SAME_INTEGER_SALES": {
+          "feasible": false,
+          "n_each": 115,
+          "tickets_total_horizon": 920
+        },
+        "ONE_ROTATION": {
+          "feasible": false,
+          "n_each": 115,
+          "tickets_total_horizon": 230
+        }
+      }
+    },
+    "cannib_count_fixture_loss_rub": "115000",
+    "frontier_integer_inventory_points_checked": 14472
+  },
+  "no_external_search": true,
+  "no_old_builder_verify": true,
+  "output_hashes": {
+    "README.md": "5af143b82a4caf795a4656ab03b684938cb5c98922a1df3ba2401a1b63a82ae8",
+    "actual_inputs_needed.csv": "02422ae09b4a5713433a1d6c0ddac55ff8461b8c5d8eb277c861d6d000828099",
+    "break_even.csv": "c8bfb5e2fdfbebc36dd574185bbddbd95fb1abf544cd79e13f6de9930967b77f",
+    "costs.csv": "2b1e7ef231029ac191831386bf80249285f070d5dfea710d7353f7d60fe465a3",
+    "directional_frontier.csv": "68911d6b57a3726f7c7b1f8eaae37ac75785937dc5be98f3697c00f083f81985",
+    "quote_template.csv": "c6ef9af3b6a1ca26bc67b4df7064df61dd629c3c674df6a2afd10eaa3f6dd9db",
+    "source_manifest.json": "074f5814b98c814c3a1145e08c362cbd537bf2da7d1d98f6a5f55b34692a0aed"
+  },
+  "protected_before_after": {
+    "completed_P36_count": 173,
+    "completed_P36_digest": "7cb8f3e5fb264df16f8fe7596634126d846873b80d166862deeefad5f1ee313f",
+    "protected_count": 1418,
+    "protected_digest": "d83f104975b1edcdc6e0d23276d134b82ed00070b016df4d9f2bd4fa77dcfc7c"
+  },
+  "python": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/28_end_to_end_audit_20261110/code/sandbox/venv/bin/python",
+  "scope": "inverse direct-ticket threshold vs same KEEP, not forecast or dispatch",
+  "source_manifest_sha256": "074f5814b98c814c3a1145e08c362cbd537bf2da7d1d98f6a5f55b34692a0aed",
+  "status": "PASS"
+}

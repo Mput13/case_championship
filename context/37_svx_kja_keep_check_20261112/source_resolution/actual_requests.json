@@ -1,0 +1,57 @@
+[
+  {
+    "type": "search",
+    "queries": [
+      "Екатеринбург Красноярск 1 февраля 2027 S7 6416 расписание багаж",
+      "site.flyredwings.com Красноярск Екатеринбург зима 2026 2027",
+      "site.s7.ru Екатеринбург Красноярск февраль 2027",
+      "site.aeroflot.ru Екатеринбург Красноярск расписание 2026"
+    ],
+    "result": "No qualified baggage-inclusive fare; most S7 matches describe IKT/connecting and excluded"
+  },
+  {
+    "type": "open",
+    "urls": [
+      "https://www.aeroflot.ru/routes/svx/kja",
+      "https://www.aeroflot.ru/routes/kja/svx",
+      "https://svx.aero/ru/passazhiram/raspisanie-reysov/"
+    ],
+    "result": "Aeroflot WAF3749707 both directions; svx inaccessible. IP/request IDs deliberately omitted."
+  },
+  {
+    "type": "open",
+    "urls": [
+      "https://ar-svx.ru/schedule/",
+      "https://ar-svx.ru/schedule/?type=arr",
+      "https://flyredwings.com/routes/ekaterinburg-krasnoyarsk/",
+      "https://flyredwings.com/routes/krasnoyarsk-ekaterinburg/"
+    ],
+    "result": "Both ar-svx primary pages returned tables; guessed RW URLs inaccessible, not evidence of missing service"
+  },
+  {
+    "type": "find",
+    "pairs": [
+      [
+        "https://ar-svx.ru/schedule/",
+        "Красноярск"
+      ],
+      [
+        "https://ar-svx.ru/schedule/?type=arr",
+        "Красноярск"
+      ]
+    ],
+    "result": "Official route blocks saved in primary_services.csv"
+  },
+  {
+    "type": "search_and_open",
+    "queries": [
+      "site:flyredwings.com Екатеринбург Красноярск 2026 рейсы",
+      "Екатеринбург Красноярск 1 февраля 2027 багаж"
+    ],
+    "urls": [
+      "https://rasp.yandex.ru/plane/yekaterinburg--krasnoyarsk?when=2027-02-01",
+      "https://rasp.yandex.ru/plane/krasnoyarsk--yekaterinburg?when=2027-02-01"
+    ],
+    "result": "Yandex target URLs inaccessible; secondary minimum prices/unverified bag/connecting rejected; no numeric fare update"
+  }
+]

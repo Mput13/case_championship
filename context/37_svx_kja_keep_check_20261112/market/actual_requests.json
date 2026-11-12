@@ -1,0 +1,34 @@
+{
+  "retrieved_at_utc": "2026-11-12T21:01:15Z",
+  "local_equivalent": "2026-11-13T00:01:15+03:00",
+  "note": "clock tool timestamp; web pages report crawled today but do not expose precise server retrieval timestamps",
+  "requests": [
+    {
+      "kind": "search_query",
+      "queries": [
+        "site:svx.aero расписание рейсов Красноярск FV 6791 6792 ноябрь 2026 февраль 2027",
+        "site:kja.aero расписание Екатеринбург FV 6791 6792 февраль 2027 ноябрь 2026",
+        "site:flyredwings.com Екатеринбург Красноярск расписание 2026 2027",
+        "site:flyredwings.com SVX KJA 01.02.2027 билет багаж 20 кг",
+        "site:aeroflot.ru Екатеринбург Красноярск 1 февраля 2027 билет багаж"
+      ],
+      "response": "Search returned official Red Wings fares/ baggage pages and Aeroflot Rossiya baggage page; no query result establishing dated SVX-KJA timetable or exact dated fare."
+    },
+    {
+      "kind": "open",
+      "urls": [
+        "https://svx.aero/flight/online/",
+        "https://www.kja.aero/",
+        "https://flyredwings.com/en/fares/",
+        "https://flyredwings.com/baggage/normy-i-pravila-provoza-bagazha/",
+        "https://www.aeroflot.ru/info/rossiya-airlines/",
+        "https://flyredwings.com/en/press/news/red-wings-pereshla-na-letnee-raspisanie-poletov/"
+      ],
+      "response": "SVX URL inaccessible via web tool; KJA 403 Forbidden; official fare rules pages opened. Red Wings seasonal release is summer schedule ending 24 Oct 2026, no evidence for target weeks."
+    },
+    {
+      "kind": "fare_attempt",
+      "result": "No official date-specific fare result for 2027-02-01 or 2026-11-16 obtained through search/open. No fare quoted; no cookie/key/private API used. Therefore comparable fare UNKNOWN."
+    }
+  ]
+}

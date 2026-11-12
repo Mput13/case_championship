@@ -1,0 +1,16 @@
+input,evidence_needed,actual_value,implication
+q_out_q_back,paid direct tickets each dated one-way; no segment/through proxies,NULL,actual demand and realized net; new-flight tickets differ from new-to-RW journeys
+retail_net,dated one-adult economy >=20kg baggage + hand baggage + mandatory fees; RW retained net/settlement,NULL,No eligible numeric quote in completed source gate; gross is only upper bound
+actual_own_inventory,"all RW nonstop/connecting/interline/contract products, bookings and transferred passengers",NULL,empty captured inventory is not absence of RW
+lost_RW_contribution,"transferred tickets*old net - recapture revenue - saved old pax-variable costs, no duplicated joint loss",NULL,includes verified own connecting displacement; additional lost contribution can be nonzero
+D,actual displaced other old-job contribution outside selected scenario inventory,NULL,no selected old job removed/retimed; full occupancy unconfirmed
+pax_variable,uncovered per-ticket costs reconciled to invoices and ground basket,NULL,P04 500/650 basket not repeated automatically; unknown obligatory expense not actual zero
+fuel,"burn, actual uplift quantity, SVX/KJA landed invoice, tankering, tax compatibility",NULL,scenario burned tonnes*landed once; no separate uplift duplication
+MRO_nav_ground_deice,dated local contracts and marginal avoidability incl minima and tax,NULL,historical/base scenario not actual airport quote
+F,one-off launch + recurrent station/crew swap/overnight/parking/reserve/other nonoverlapping costs,NULL,"one-off paid once per horizon, not multiplied by4"
+actual_tail_old_programme,"registration and complete old assignments/MRO/release, before/after February",NULL,B2 two conditional tails; turn feasibility alone does not release aircraft
+actualcrew,"night KUF roster, report/release, legal rest or replacement rested crew and incremental cost",NULL,03:10 arrival ->06:00 new departure is not automatic crew readiness
+reserve,released separate aircraft/crew reserve and cash cost,NULL,R1_UNRELEASED is not available reserve
+slot_gate,dated SVX06:00/KJA11:20/12:20/SVX13:40 slots and handling gates,NULL,competitor clocks do not approve our slots
+block200,"actual RW variant, route/wind/AFM/payload, block and turn acceptance",NULL,200min each leg retained scenario; competitor185min not transferred
+price_vs_formula,quote missing is an input gap; strict integer formula independently tested,NULL,inverse threshold is not demand forecast or full profit
