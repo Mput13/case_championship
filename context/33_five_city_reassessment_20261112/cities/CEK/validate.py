@@ -71,24 +71,25 @@ def main():
     dossier = (HERE/"dossier.md").read_text()
     cited = set(re.findall(r"CEK-[SCF]\d{2}", dossier))
     assert cited <= sources | claims | features, cited-(sources|claims|features)
-    # Check that tracked inputs remain at the prepared pinned base.
-    repo = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip())
-    status = subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=all"], text=True)
-    outside = [line for line in status.splitlines() if line[3:] and not line[3:].startswith(str(HERE.relative_to(repo))+"/")]
-    assert not outside, outside
+    # Pin the actual inputs; sibling research files can legitimately be dirty.
+    manifest = json.loads((PACKAGE / "input_manifest.json").read_text())
+    for entry in manifest:
+        raw = (PACKAGE / entry["path"]).read_bytes()
+        assert len(raw) == entry["bytes"], entry["path"]
+        assert hashlib.sha256(raw).hexdigest() == entry["sha256"], entry["path"]
     out = {
-        "status": "PASS", "scope": "schema_references_coverage_arithmetic_write_boundary_only",
+        "status": "PASS", "scope": "schema_references_coverage_arithmetic_pinned_inputs_only",
         "table_rows": {k:len(v) for k,v in tables.items()},
         "model_destinations_covered": sorted(targets), "model_CEK_rows_extracted": calc["CEK_model_rows"],
         "all_six_alternatives": True, "unknown_values_not_zero_filled": True,
-        "outside_scope_worktree_changes": outside,
+        "pinned_manifest_files_verified": len(manifest),
         "known_rounding": "104047 transfer OD from rounded leg sum vs104046 summary; not source modification",
         "not_proven": ["observed OD demand", "profit", "operable future fleet", "current MRO/base readiness", "subsidy award2027", "complete competitor census"],
         "sha256": {p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(HERE.iterdir())
                    if p.is_file() and p.name != "validation.json"},
     }
     (HERE/"validation.json").write_text(json.dumps(out, ensure_ascii=False, indent=2)+"\n")
-    print(json.dumps({k:out[k] for k in ("status", "table_rows", "model_CEK_rows_extracted", "outside_scope_worktree_changes")}, ensure_ascii=False, indent=2))
+    print(json.dumps({k:out[k] for k in ("status", "table_rows", "model_CEK_rows_extracted", "pinned_manifest_files_verified")}, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
