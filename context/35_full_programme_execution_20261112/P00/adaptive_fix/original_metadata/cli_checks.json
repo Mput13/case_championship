@@ -1,0 +1,28 @@
+{
+  "checks": [
+    {
+      "command": "python3 -m engine evaluate examples/evaluate_bundle.json --out examples/evaluate_result.json",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "command": "python3 -m engine compare examples/demo_bundle.json --out examples/compare_cli_result.json --tables examples/tables",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "command": "python3 -m engine scenario examples/scenario_bundle.json --out examples/scenario_cli_result.json",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "check": "invalid manifest CLI refusal",
+      "exit_code": 2,
+      "status": "PASS"
+    }
+  ],
+  "API_CLI_output_identity": "PASS",
+  "mechanical_check_source_hashes": "PASS",
+  "all_42_checks_same_source_fingerprint": true,
+  "invalid_input_exit2": "PASS"
+}

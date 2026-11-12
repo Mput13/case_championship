@@ -1,19 +1,22 @@
 {
   "checks": [
     {
-      "command": "python3 -m engine evaluate examples/evaluate_bundle.json --out examples/evaluate_result.json",
+      "command": "evaluate",
+      "fixture": "examples/evaluate_bundle.json",
       "exit_code": 0,
-      "stderr": ""
+      "API_CLI_output_identity": "PASS"
     },
     {
-      "command": "python3 -m engine compare examples/demo_bundle.json --out examples/compare_cli_result.json --tables examples/tables",
+      "command": "compare",
+      "fixture": "examples/demo_bundle.json",
       "exit_code": 0,
-      "stderr": ""
+      "API_CLI_output_identity": "PASS"
     },
     {
-      "command": "python3 -m engine scenario examples/scenario_bundle.json --out examples/scenario_cli_result.json",
+      "command": "scenario",
+      "fixture": "examples/scenario_bundle.json",
       "exit_code": 0,
-      "stderr": ""
+      "API_CLI_output_identity": "PASS"
     },
     {
       "check": "invalid manifest CLI refusal",
@@ -22,7 +25,8 @@
     }
   ],
   "API_CLI_output_identity": "PASS",
-  "mechanical_check_source_hashes": "PASS",
+  "source_fingerprint": "292abd14816696fa159355282ea78c55abfa2bffa19416c01dbb2b9cb418e850",
   "all_42_checks_same_source_fingerprint": true,
-  "invalid_input_exit2": "PASS"
+  "invalid_input_exit2": true,
+  "scope": "Coordinator rerun on P06-1.0.1-adaptive; synthetic mechanics, not independent acceptance"
 }

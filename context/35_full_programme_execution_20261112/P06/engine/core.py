@@ -1,6 +1,6 @@
 """Public evaluate / compare / scenario interfaces. Inputs are immutable copies."""
 import copy
-from .common import VERSION, ContractError, UnknownInput, digest, difference, fields, month, months, number, pool_key, require, total, unique, utc
+from .common import VERSION, ContractError, UnknownInput, dated, digest, difference, fields, month, months, number, pool_key, require, total, unique, utc
 from .operations import check_itineraries, check_operations
 from .choice import allocate, apply_response
 from .finance import finance, funding
@@ -227,6 +227,50 @@ def check_adaptation(bundle, parent):
     require(locked <= set(bundle["adaptation"]["preserved_commitment_ids"]), "incomplete commitment preservation declaration")
     actions = {(a["table"], a["record_id"]): a for a in bundle["adaptation"]["actions"]}
     require(len(actions) == len(bundle["adaptation"]["actions"]), "duplicate adaptive actions")
+    old_products = {p["product_id"]: p for p in parent["products"]}
+    new_products = {p["product_id"]: p for p in bundle["products"]}
+    new_contracts = {c["contract_id"]: c for c in bundle["contracts"]}
+    for contract in parent["contracts"]:
+        # This kernel has no cancellation/refund model. An existing allocation or
+        # unqualified commitment cannot disappear through a documented 'remove'.
+        if (contract.get("carried") != 0 or contract.get("reserved_seats") != 0
+                or contract.get("committed_at") is None
+                or contract["committed_at"] <= decision):
+            cid, pid = contract["contract_id"], contract["product_id"]
+            require(new_contracts.get(cid) == contract,
+                    "adaptation erases/changes prior contract; cancellation/refund model required")
+            require(new_products.get(pid) == old_products.get(pid),
+                    "adaptation changes product bound to prior contract")
+
+    def date_floor(value):
+        # A monthly date does not prove that a change is effective mid-month.
+        if len(value) == 7:
+            return month(value) + "-01"
+        return utc(value).date().isoformat() if "T" in value else dated(value)
+
+    def affected_dates(table, row, source):
+        if table == "flights":
+            return [date_floor(row["departure_utc"])]
+        if table == "cash_events":
+            return [date_floor(row["payment_date"])]
+        if table == "economic_events":
+            dates = [date_floor(row.get("accrual_date", row["accrual_month"]))]
+            return dates + [date_floor(p["date"]) for p in row.get("payments", [])]
+        if table == "assignments":
+            flight = next(f for f in source["flights"] if f["flight_instance_id"] == row["flight_instance_id"])
+            return [date_floor(flight["departure_utc"])]
+        if table == "contracts":
+            dates = [date_floor(row["committed_at"])] if row.get("committed_at") else []
+            product = next(p for p in source["products"] if p["product_id"] == row["product_id"])
+            return dates + affected_dates("products", product, source)
+        dates = [date_floor(row["departure_date"])] if row.get("departure_date") else []
+        flights = {f["flight_instance_id"]: f for f in source["flights"]}
+        if row["legs"]:
+            dates.append(date_floor(flights[row["legs"][0]]["departure_utc"]))
+        if not dates or any(month(d) != row["month"] for d in dates):
+            dates.append(row["month"] + "-01")
+        return dates + [date_floor(p["date"]) for p in (row.get("cash_profile") or [])]
+
     for table, key in (("products", "product_id"), ("flights", "flight_instance_id"), ("assignments", "flight_instance_id"), ("contracts", "contract_id"), ("economic_events", "economic_event_id"), ("cash_events", "cash_event_id")):
         old, new = {r[key]: r for r in parent[table]}, {r[key]: r for r in bundle[table]}
         for rid in set(old) | set(new):
@@ -234,6 +278,11 @@ def check_adaptation(bundle, parent):
                 require((table, rid) in actions, f"adaptive change lacks action and information provenance: {table}/{rid}")
                 action = "add" if rid not in old else "remove" if rid not in new else "replace"
                 require(actions[table, rid]["action"] == action, "adaptive action does not match actual change")
+                effective = actions[table, rid]["effective_date"]
+                for record, source in ((old.get(rid), parent), (new.get(rid), bundle)):
+                    if record is not None:
+                        require(all(d >= effective for d in affected_dates(table, record, source)),
+                                f"adaptive action rewrites a record before its effective date: {table}/{rid}")
         if table == "products":
             for rid, p in old.items():
                 if p["committed_sales"] > 0:
@@ -243,6 +292,25 @@ def check_adaptation(bundle, parent):
         for row in parent[table]:
             if row[datekey][:10] < decision:
                 require(later.get(row[key]) == row, f"adaptation rewrites historical {table}")
+
+    def historical_ledger(source):
+        # Recompute in fixed mode only to compare realised ledgers, without
+        # recursively entering adaptation. This also covers generated payments:
+        # changing a future competitor must not rewrite a past customer advance.
+        fixed = copy.deepcopy(source)
+        fixed["context"]["evaluation_mode"] = "fixed_programme"
+        result = evaluate(fixed)
+        money = result["finance"]
+        def rounded(value):
+            return round(value, 8) if isinstance(value, float) else value
+        accruals = {e["economic_event_id"]: (e["accrual_month"], e["owner"], e["category"], rounded(e["quantity"]), rounded(e["amount"]))
+                    for e in money["economic_events"] if e["accrual_month"] < decision[:7]}
+        cash = {e["cash_event_id"]: (e["payment_date"], e["economic_event_id"], e["category"], rounded(e["amount_signed"]))
+                for e in money["cash_events"] if date_floor(e["payment_date"]) < decision}
+        return accruals, cash
+
+    require(historical_ledger(bundle) == historical_ledger(parent),
+            "adaptation rewrites historical derived accruals or cash")
 
 
 def scenario(bundles, parents=None):

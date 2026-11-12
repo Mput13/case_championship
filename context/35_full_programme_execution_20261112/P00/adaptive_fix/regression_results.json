@@ -1,0 +1,25 @@
+{
+  "source_base": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+  "findings": [
+    "P13-F01",
+    "P13-F02"
+  ],
+  "results": [
+    {
+      "case": "F01_backdated_add.json",
+      "status": "PASS_REJECTED",
+      "error": "adaptive action rewrites a record before its effective date: cash_events/PAST_RECEIPT"
+    },
+    {
+      "case": "F01_historical_reprice.json",
+      "status": "PASS_REJECTED",
+      "error": "adaptive action rewrites a record before its effective date: products/BOOKED"
+    },
+    {
+      "case": "F02_contract_erasure.json",
+      "status": "PASS_REJECTED",
+      "error": "adaptation erases/changes prior contract; cancellation/refund model required"
+    }
+  ],
+  "independent_recheck": "NOT_RUN"
+}
