@@ -1,0 +1,73 @@
+{
+  "status": "P04_REFERENCE_DRIVERS_NOT_FULL_COST_OR_FUTURE_RW_RATES",
+  "price_year": 2026,
+  "period": "2027-01-01/2028-12-31",
+  "source_pin": "620a0ac4bb11763319c4227485f6a3996b91d367",
+  "source_id": "P04:cost_ranges;event_rate_map;airport_reference_examples",
+  "driver_rules": [
+    {
+      "driver": "KUF eligible_turns x MTOW_t",
+      "rate_reference_RUB_per_t": [
+        410.6,
+        360.4
+      ],
+      "item_ids": [
+        "KUF-takeoff_landing",
+        "KUF-security"
+      ],
+      "quantity_status": "точные billedmovements из принятого P03 календаря; не складывать chargeperarrival и turn дважды"
+    },
+    {
+      "driver": "фактически обслуженные отправляющиеся взрослые domestic passengers",
+      "rate_reference_RUB_per_pax": [
+        142,
+        436.8
+      ],
+      "item_ids": [
+        "KUF-terminal_domestic",
+        "KUF-pax_service_domestic"
+      ],
+      "quantity_status": "P06 allocations/segments, не все конечные OD и не nominalseats"
+    },
+    {
+      "driver": "extra services/tail/base-months/fuel/crew/MRO/start/exit",
+      "rate_reference_RUB": null,
+      "quantity_status": "P03/P04; обязательные UNKNOWN не 0"
+    }
+  ],
+  "published_reference_example": {
+    "mtow_t": 49.45,
+    "adult_departing_pax": 80,
+    "selected_four_items_rub": 84429.95,
+    "formula": "(410.6+360.4)*49.45+(142+436.8)*80",
+    "assumption_id": "P04-A-REF-MTOW",
+    "interpretation": "Проверка 4 ставок. Это не всеобслуживание, не futureRW цена, не assumedLF80% и неоценкаприбыли. НДС,топливо,ТО,crew,стоянкиитдотдельно."
+  },
+  "threshold_requests": [
+    {
+      "name": "максимальные дополнительные затраты базы",
+      "formula": "Bmax = FullResult_PROJECT_excluding_base_events - FullResult_KEEP_excluding_base_events",
+      "units": "RUB на тот же 24 месячный affectedscope",
+      "condition": "P05/P06 уже учитывает собственный переток, доноров/альтернативный ресурс и остальные P04events. Не вычитатьих второйраз."
+    },
+    {
+      "name": "максимальная стоимость защиты/ночевок W4",
+      "formula": "Zmax = FullResult_W4_excluding_protection_and_extra_northern_overnights - FullResult_R4_with_same_resource_and_residual_KEEP",
+      "units": "RUB на тот же календарь",
+      "condition": "Одинаковыеобщиересурсыиодна P05 модель; если Zmax<0, этот W4 составнепокрываетдажебесплатнуюзащиту, чтонеотклоняетвсе KUF хабы."
+    },
+    {
+      "name": "полная добавочная денежная потребность",
+      "formula": "min cumulative cash(P) compared with KEEP under declared P04 cash/interest/financing policy, including prelaunch and exit obligations",
+      "units": "RUB cash by month",
+      "condition": "Не приравнивать operating contribution к cash илиполнойприбыли."
+    }
+  ],
+  "discount_delta": "Принимать только admittedeligibleitem rate вкаждом P и KEEP. Не складывать 40% сдругимискидками и не применятьковсемзатратам; current/futureRW contractUNKNOWN.",
+  "assumption_ids": [
+    "A-KUF-COST",
+    "A-KUF-DISCOUNT",
+    "A-KUF-FIXED",
+    "A-KUF-KEEP"
+  ]
+}

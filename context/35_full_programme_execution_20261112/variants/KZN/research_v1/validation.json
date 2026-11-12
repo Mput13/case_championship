@@ -1,0 +1,108 @@
+{
+  "status": "PASS",
+  "validation_scope": "Самопроверка происхождения, ссылок и арифметики Stage A. Не независимое ревью, не P06 acceptance, не проверка реальной экономики.",
+  "checks": [
+    {
+      "check": "Обязательные выходы",
+      "status": "PASS",
+      "detail": [
+        "case.json",
+        "evidence.csv",
+        "market_deltas.csv",
+        "hypotheses.json",
+        "programme_candidates.json",
+        "comparison_requests.csv",
+        "assumptions.csv",
+        "readiness.json",
+        "handoff.json"
+      ]
+    },
+    {
+      "check": "JSON/CSV читаются",
+      "status": "PASS",
+      "detail": {
+        "json_count": 18,
+        "csv_count": 10
+      }
+    },
+    {
+      "check": "Закреплённые Git blobs",
+      "status": "PASS",
+      "detail": {
+        "files": 29,
+        "note": "git show exact SHA; Git не изменяется"
+      }
+    },
+    {
+      "check": "Строки KZN и их хеши",
+      "status": "PASS",
+      "detail": {
+        "rows": 315,
+        "method": "sha256 UTF-8 JSON ensure_ascii=False sort_keys=True separators comma colon; source_csv_record excludes header, starts at1"
+      }
+    },
+    {
+      "check": "Публичные загрузки и хеши",
+      "status": "PASS",
+      "detail": {
+        "receipts": 67,
+        "saved": 65,
+        "failed": [
+          "MRO-TULPAR",
+          "MRO-TULPAR-REAL"
+        ]
+      }
+    },
+    {
+      "check": "Опубликованные правила не инвентарь",
+      "status": "PASS",
+      "detail": "141 строка; IJK fallback исключён; цены/свободные кресла UNKNOWN; through-stop/codeshare сохранены."
+    },
+    {
+      "check": "NUX — отдельные даты",
+      "status": "PASS",
+      "detail": {
+        "WZ1507_rules": 10,
+        "qualification": "Не отмена иных продаж и не годовая частота."
+      }
+    },
+    {
+      "check": "Проектные плечи/частоты/позиции",
+      "status": "PASS",
+      "detail": {
+        "counts": {
+          "P-KZN-R1": 20,
+          "P-KZN-C1": 24,
+          "P-KZN-W2": 32,
+          "P-KZN-R2": 32
+        },
+        "note": "Только условные блоки и turn45; не реальные назначения/crew/ТО."
+      }
+    },
+    {
+      "check": "W2 и R2-clock: один физический ресурс",
+      "status": "PASS",
+      "detail": "32 одинаковых плеча; сквозная продажа меняется в Stage B, не дублируется инвентарь."
+    },
+    {
+      "check": "Интервал трансферного шаблона",
+      "status": "PASS",
+      "detail": "90 минут; реальный MCT/багаж/терминал/защита UNKNOWN. MCT120 отклоняет только этот шаблон."
+    },
+    {
+      "check": "Гипотезы/допущения/24 месяца",
+      "status": "PASS",
+      "detail": "8 исходов; 9 кандидатов; 18 assumption IDs; денежный результат NOT_RUN."
+    },
+    {
+      "check": "Источники таблиц зарегистрированы",
+      "status": "PASS",
+      "detail": "Поле source_id разрешается в sources.csv."
+    },
+    {
+      "check": "Ставки/страницы PDF",
+      "status": "PASS",
+      "detail": "8 PNG лично просмотрены; основной тарифp1–2, deice/приёмp1–2, parkingp1, жидкостиp1, скидкиp24–25. Не независимая правовая/ценовая приёмка."
+    }
+  ]
+}

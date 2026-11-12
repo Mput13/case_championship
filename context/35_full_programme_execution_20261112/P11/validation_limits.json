@@ -1,0 +1,104 @@
+{
+  "stage_a": "COMPLETE: заданные4области разобраны, доступные пути/правила и пороги зафиксированы",
+  "stage_b": "Не выполнен живой коммерческий/постбилетный эксперимент; не является экономическим отказом",
+  "known": [
+    "13публичных страниц текущего среза",
+    "Результат поиска и раскрытие тарифа",
+    "FAQ query и ответ",
+    "Публичная форма управления",
+    "3информационные находки; историческое трение D01"
+  ],
+  "not_run": [
+    "Создание заказа/PNR",
+    "Ввод личных/чужих данных",
+    "Оплата/билет/реальная квитанция",
+    "EMD purchase/fulfilment/refund",
+    "Реальный обмен/возврат",
+    "Заявка/сообщение поддержке",
+    "Онлайн-регистрация реального пассажира",
+    "A/B и измерение конверсии/маржи",
+    "Mobile/все маршруты/все сезоны"
+  ],
+  "unknown": [
+    "Реальная конверсия, трафик и объём обращений RW",
+    "Цены/сметы движка и ставки поддержки",
+    "Денежная устранимость времени",
+    "Возвратность на конкретном чартерном продукте",
+    "Фактические cutoff24ч и Москва3/6ч",
+    "Статус реального дела за идентификатором"
+  ],
+  "prohibitions": [
+    "Не считать функцию новой, если она уже существует",
+    "Не переносить old hypothetical profits в общий результат",
+    "Не суммировать4эффекта",
+    "Не обещать прирост пассажиров/№2 без joint network run",
+    "Не публиковать Site/менять продукт RW"
+  ],
+  "handoff_dependencies": [
+    {
+      "id": "B01",
+      "owner": "RW policy/operations",
+      "fields": [
+        "airport_iata",
+        "flight_instance_id",
+        "valid_from/to",
+        "timezone",
+        "cutoff_reference",
+        "exact comparator"
+      ],
+      "purpose": "Разрешить D02/D04 границы",
+      "blocks": "Автоматическое обещание точного срока; не source audit"
+    },
+    {
+      "id": "B02",
+      "owner": "RW booking engine",
+      "fields": [
+        "sandbox",
+        "stage creates PNR",
+        "optional skip behavior",
+        "price/EMD policy"
+      ],
+      "purpose": "Повторить D01 в разрешённом стенде",
+      "blocks": "Текущая неисправность/эффект D01"
+    },
+    {
+      "id": "B03",
+      "owner": "RW analytics/contactcentre",
+      "fields": [
+        "eligible cohorts",
+        "funnel events",
+        "case linkage",
+        "active time",
+        "all-channel fulfilled margin",
+        "mature refunds"
+      ],
+      "purpose": "Рассчитать baseline,power и causal эффект",
+      "blocks": "Вывод о приросте/экономии"
+    },
+    {
+      "id": "B04",
+      "owner": "RW procurement/P04",
+      "fields": [
+        "implementation quote",
+        "supplier support",
+        "avoidability plan",
+        "tax/FX",
+        "accrual and payment calendar"
+      ],
+      "purpose": "Получить бюджет и денежный мост",
+      "blocks": "Численная окупаемость/funding"
+    },
+    {
+      "id": "B05",
+      "owner": "P09/P05/P06",
+      "fields": [
+        "accepted P/KEEP dated24monthnetwork",
+        "common capacity/choice",
+        "scope/event IDs"
+      ],
+      "purpose": "Связать digital с общей сетью",
+      "blocks": "Добавочные пассажиры/доля рынка и полная экономика"
+    }
+  ],
+  "independent_review": "NOT_RUN; сохранены происхождение и границы прежнего независимого review; этот P11 авторский пакет, не APPROVE общего решения"
+}

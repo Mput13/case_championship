@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "tool": "web.open",
+      "target": "https://www.krasavia.ru/ru/news/otkryta-prodazha-biletov-na-rejsy-krasavia-v-osenne-zimnem-sezone",
+      "error": "Failed to fetch ...: (502) Bad Gateway",
+      "fallback": "публичнаятекстоваяHTTPзагрузкаurllibуспешна;KV-WINTER-DETAILвfetch_receipts",
+      "diagnosis_boundary": "сбойдоставкистраницы; детей/рестартовнетпоинструкцииисследовательскогозадания"
+    },
+    {
+      "tool": "urllib HTTPS",
+      "target": "https://www.krasaviaport.ru/raspisanie/",
+      "error": "URLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1006)'))",
+      "second_read": "web.open TimeoutError; CHMcurrentrowsNOTACQUIRED; TLSнеотключался"
+    },
+    {
+      "tool": "boundedHTTPfetch",
+      "target": "KJA-SCHEDULE",
+      "issue": "первыйлимит2.5MBобрезалHTML;предварительныестрокинепринятыкакcomplete",
+      "fix": "повтор16MBлимит,9,264,537bytes; fulltextsha903917bf746736be25c63a6427e74c84a180fcba4720171abf9ba41156032cca;825blocks;145selected",
+      "claim": "неубедитьсявполнотеHTTP≠полнотавсехпредложенийрынка"
+    }
+  ]
+}

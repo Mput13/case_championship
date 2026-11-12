@@ -1,0 +1,5 @@
+threshold_id,field,formula,unit,conditions,assumption_id,_source_row,_row_sha256
+TH-FIXED,max_affordable_incremental_fixed_monthly,(R+S-C_variable-C_aircraft_use-D&A-C_launch_exp-C_exit_exp)/active_base_months,RUB/base/month,active_base_months>0; all other terms fixed and defined,P04-A-THRESHOLD,2,6ed04d039447ee40c1201c44d0cf2f54f4ed0130ea209bb9c7cbee8aa7aff8ca
+TH-LAUNCH,max_affordable_one_time_launch_expense,sum(R+S-C_variable-C_fixed-C_aircraft_use-D&A-C_exit_exp),RUB/launch,Given horizon; not discounted investment threshold or finance capacity,P04-A-THRESHOLD,3,0f4386ea6e5d0764272e7241ca2f9af993290ec847fdbe28c7269b29d1728126
+TH-MRO,max_affordable_MRO_hourly,(R+S-C_excluding_MRO)/block_hours,RUB/block_h,MRO calendar/cycle fees separately counted; no joint claim all unknowns at separate maxima,P04-A-THRESHOLD,4,e649dea406b901811093f90ed486559529fadae883d011a0a604e66208199270
+TH-SUPPORT,required_recognisable_support,C_full_operating-R_net,RUB/period,Compare against eligibility/contract cap; legal cap does not imply award,P04-A-THRESHOLD,5,4cf4ba6d23199016dd6f7ad629430432aa80e787cb36ecb77581d8e0673d20b8

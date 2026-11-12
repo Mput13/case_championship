@@ -1,0 +1,1273 @@
+[
+  {
+    "assumption_id": "P06-M01",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "exp(intercept + beta_price*gross_fare + beta_time*duration + beta_frequency*log(frequency))",
+    "unit": "dimensionless utility; explicit RUB/minute coefficients",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "A simple executable scenario response satisfying SP03; no fitted RW coefficients",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "conditional logit",
+    "sensitivity": "CE07/08/10; B01/B10",
+    "refinement": "Fit/validate segment-specific coefficients on compatible observed choice data"
+  },
+  {
+    "assumption_id": "P06-M02",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "simultaneous proportional bottleneck rationing, then recapture remaining demand",
+    "unit": "expected fractional journeys",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "Deterministic common-pool conservation without hidden sales priority; not revenue optimum",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "capacity allocation",
+    "sensitivity": "CE05/07; B02/B09",
+    "refinement": "Compare to explicit reservation/recapture data or justified inventory policy"
+  },
+  {
+    "assumption_id": "P06-M03",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "month-end and dated-day-end minima; same-day cash netted",
+    "unit": "RUB",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "SP11 and CE18; no intraday ordering without timestamps",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "cash timing",
+    "sensitivity": "CE13/18; B06/B22",
+    "refinement": "Actual dated large invoices, settlements and liquidity floor"
+  },
+  {
+    "assumption_id": "P06-M04",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "products in one monthly pool compete unless producer partitions pool by travel-date needs",
+    "unit": "pool/month/segment",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "No demand for specific dates inferred from monthly total",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "date flexibility",
+    "sensitivity": "CE04/17; market_calendar",
+    "refinement": "P05 partition mutually exclusive date-sensitive pools and eligible products"
+  },
+  {
+    "assumption_id": "P06-M05",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "operating result excludes interest/tax; paid interest in operating cash; separate pre-interest diagnostic",
+    "unit": "RUB normalized declared price basis",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "P04-A-SP10-INTEREST analytical convention; actual RW policy unknown",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "accounting",
+    "sensitivity": "B11/B12/B20",
+    "refinement": "Contract/accounting mapping and actual interest terms"
+  },
+  {
+    "assumption_id": "P06-M06",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "known P-minus-KEEP subtotal minus net missing cost difference",
+    "unit": "RUB",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "Conditional algebraic threshold, no invented range",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "threshold",
+    "sensitivity": "CE15",
+    "refinement": "P04 accepted missing revenue/support/cost terms"
+  },
+  {
+    "assumption_id": "P06-M07",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "unique unordered physical airport pairs with project flights in December2028",
+    "unit": "pairs",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "End-stage schedule count diagnostic; smaller labelled branches allowed",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "network count",
+    "sensitivity": "SP13; no economic selection inferred",
+    "refinement": "P09 accepted end-2028 programme validity/season definition"
+  },
+  {
+    "assumption_id": "P06-M08",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "1e-8 allocation tolerance, 1e-6 conservation checks, floating expected flows",
+    "unit": "journeys/RUB as applicable",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "Avoid numerical residues; not a money-precision or inventory guarantee",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "numeric tolerance",
+    "sensitivity": "all mechanical checks",
+    "refinement": "Use integer ticket accounting if transaction-level application is required"
+  },
+  {
+    "assumption_id": "P06-M09",
+    "subject_version": "P06-1.0",
+    "kind": "implementation_method",
+    "value": "explicit candidate changes and exact parent/hash; no future facts or erased commitments",
+    "unit": "versioned events/actions",
+    "selected_by": "P06 implementation agent / gpt-6-astra xhigh",
+    "basis": "SP01/SP08 feasible_adaptation contract; no optimizer or perfect foresight",
+    "approval_status": "routine_implementation_choice_not_user_approval_of_RW_parameters",
+    "range_or_unknown": "UNKNOWN empirical applicability; algorithm stated exactly",
+    "affected_conclusions": "adaptive scope",
+    "sensitivity": "CE02; B08/B13/B21",
+    "refinement": "Candidate generation by programme owners; booking cancellation/refund model if needed"
+  },
+  {
+    "assumption_id": "P06-TOY",
+    "value": {
+      "fixture_files": [
+        "examples/demo_bundle.json",
+        "engine/fixtures.py",
+        "check_engine.py"
+      ],
+      "all_demo_values": {
+        "context": {
+          "evaluation_id": "P-toy",
+          "programme_id": "P",
+          "programme_version": "synthetic-v1",
+          "fleet_scope_id": "CASE_SJ",
+          "external_scenario_id": "toy-base",
+          "delivery_calendar_id": "toy-phased",
+          "market_version": "toy-potential-v1",
+          "choice_version": "toy-logit-v1",
+          "cost_version": "toy-events-v1",
+          "response_policy_id": "toy-no-response",
+          "evaluation_mode": "fixed_programme",
+          "decision_date": "2026-11-12",
+          "information_set_id": "toy-information",
+          "keep_evaluation_id": "KEEP-toy",
+          "input_manifest_sha256": "0c62020bd4227283444bd3b072c269d55240dd45a0fae13a14aac33724defc67",
+          "period_start": "2027-01",
+          "period_end": "2028-12",
+          "cash_start": "2026-12",
+          "price_year": 2027,
+          "affected_scope_id": "all-toy-affected"
+        },
+        "markets": [
+          {
+            "demand_pool_id": "AB",
+            "month": "2027-01",
+            "customer_segment": "all",
+            "potential_journeys": 200,
+            "market_basis": "potential_travel",
+            "mapping_to_potential": "synthetic mutually exclusive demand",
+            "source_id": "SYNTHETIC",
+            "source_period": "2027-01",
+            "as_of": "2026-11-12",
+            "coverage": "toy only",
+            "status": "scenario",
+            "assumption_id": "P06-TOY"
+          },
+          {
+            "demand_pool_id": "AC",
+            "month": "2027-01",
+            "customer_segment": "all",
+            "potential_journeys": 100,
+            "market_basis": "potential_travel",
+            "mapping_to_potential": "synthetic mutually exclusive demand",
+            "source_id": "SYNTHETIC",
+            "source_period": "2027-01",
+            "as_of": "2026-11-12",
+            "coverage": "toy only",
+            "status": "scenario",
+            "assumption_id": "P06-TOY"
+          }
+        ],
+        "market_calendar": [
+          {
+            "demand_pool_id": "AB",
+            "customer_segment": "all",
+            "zero_months": [
+              "2027-02",
+              "2027-03",
+              "2027-04",
+              "2027-05",
+              "2027-06",
+              "2027-07",
+              "2027-08",
+              "2027-09",
+              "2027-10",
+              "2027-11",
+              "2027-12",
+              "2028-01",
+              "2028-02",
+              "2028-03",
+              "2028-04",
+              "2028-05",
+              "2028-06",
+              "2028-07",
+              "2028-08",
+              "2028-09",
+              "2028-10",
+              "2028-11",
+              "2028-12"
+            ],
+            "unknown_months": [],
+            "assumption_id": "P06-TOY"
+          },
+          {
+            "demand_pool_id": "AC",
+            "customer_segment": "all",
+            "zero_months": [
+              "2027-02",
+              "2027-03",
+              "2027-04",
+              "2027-05",
+              "2027-06",
+              "2027-07",
+              "2027-08",
+              "2027-09",
+              "2027-10",
+              "2027-11",
+              "2027-12",
+              "2028-01",
+              "2028-02",
+              "2028-03",
+              "2028-04",
+              "2028-05",
+              "2028-06",
+              "2028-07",
+              "2028-08",
+              "2028-09",
+              "2028-10",
+              "2028-11",
+              "2028-12"
+            ],
+            "unknown_months": [],
+            "assumption_id": "P06-TOY"
+          }
+        ],
+        "products": [
+          {
+            "product_id": "outside:AB:2027-01",
+            "demand_pool_id": "AB",
+            "month": "2027-01",
+            "customer_segment": "all",
+            "kind": "outside",
+            "owner": "OTHER",
+            "gross_fare": 0,
+            "net_fare": 0,
+            "fare_unit": "RUB/journey",
+            "duration_minutes": 120,
+            "frequency": 1,
+            "availability": true,
+            "capacity": null,
+            "legs": [],
+            "departure_date": "2027-01-02",
+            "min_connection_minutes": 45,
+            "max_connection_minutes": 180,
+            "revenue_weights": [],
+            "committed_sales": 0,
+            "contract_only": false,
+            "cash_profile": [
+              {
+                "date": "2027-01-02",
+                "fraction": 1
+              }
+            ],
+            "assumption_id": "P06-TOY",
+            "intercept": 0.0,
+            "source_id": "SYNTHETIC"
+          },
+          {
+            "product_id": "outside:AC:2027-01",
+            "demand_pool_id": "AC",
+            "month": "2027-01",
+            "customer_segment": "all",
+            "kind": "outside",
+            "owner": "OTHER",
+            "gross_fare": 0,
+            "net_fare": 0,
+            "fare_unit": "RUB/journey",
+            "duration_minutes": 120,
+            "frequency": 1,
+            "availability": true,
+            "capacity": null,
+            "legs": [],
+            "departure_date": "2027-01-02",
+            "min_connection_minutes": 45,
+            "max_connection_minutes": 180,
+            "revenue_weights": [],
+            "committed_sales": 0,
+            "contract_only": false,
+            "cash_profile": [
+              {
+                "date": "2027-01-02",
+                "fraction": 1
+              }
+            ],
+            "assumption_id": "P06-TOY",
+            "intercept": 0.0,
+            "source_id": "SYNTHETIC"
+          },
+          {
+            "product_id": "RW",
+            "demand_pool_id": "AB",
+            "month": "2027-01",
+            "customer_segment": "all",
+            "kind": "air",
+            "owner": "RW",
+            "gross_fare": 4000,
+            "net_fare": 4000,
+            "fare_unit": "RUB/journey",
+            "duration_minutes": 120,
+            "frequency": 1,
+            "availability": true,
+            "capacity": null,
+            "legs": [
+              "AB1"
+            ],
+            "departure_date": "2027-01-02",
+            "min_connection_minutes": 45,
+            "max_connection_minutes": 180,
+            "revenue_weights": [
+              1.0
+            ],
+            "committed_sales": 0,
+            "contract_only": false,
+            "cash_profile": [
+              {
+                "date": "2027-01-02",
+                "fraction": 1
+              }
+            ],
+            "assumption_id": "P06-TOY",
+            "intercept": 1.3862943611198906,
+            "source_id": "SYNTHETIC"
+          },
+          {
+            "product_id": "THROUGH",
+            "demand_pool_id": "AC",
+            "month": "2027-01",
+            "customer_segment": "all",
+            "kind": "air",
+            "owner": "RW",
+            "gross_fare": 6500,
+            "net_fare": 6500,
+            "fare_unit": "RUB/journey",
+            "duration_minutes": 300,
+            "frequency": 1,
+            "availability": true,
+            "capacity": null,
+            "legs": [
+              "AB1",
+              "BC1"
+            ],
+            "departure_date": "2027-01-02",
+            "min_connection_minutes": 45,
+            "max_connection_minutes": 180,
+            "revenue_weights": [
+              0.5,
+              0.5
+            ],
+            "committed_sales": 0,
+            "contract_only": false,
+            "cash_profile": [
+              {
+                "date": "2027-01-02",
+                "fraction": 1
+              }
+            ],
+            "assumption_id": "P06-TOY",
+            "intercept": 1.3862943611198906,
+            "source_id": "SYNTHETIC"
+          }
+        ],
+        "flights": [
+          {
+            "flight_instance_id": "AB1",
+            "schedule_id": "toy",
+            "operator": "TEST",
+            "flight_number": "AB1",
+            "origin_airport": "AAA",
+            "destination_airport": "BBB",
+            "departure_utc": "2027-01-02T08:00:00Z",
+            "arrival_utc": "2027-01-02T10:00:00Z",
+            "aircraft_variant": "SSJ100_analogue_TEST_ONLY",
+            "seats": 100,
+            "technical_blocked_seats": 0,
+            "saleable_seats": 100,
+            "physical_adjacent_leg": true,
+            "scheduled_status": "proposed",
+            "source_status": "scenario",
+            "source_period": "2027-2028",
+            "assumption_id": "P06-TOY",
+            "distance_km": 1000,
+            "project_network": true
+          },
+          {
+            "flight_instance_id": "BC1",
+            "schedule_id": "toy",
+            "operator": "TEST",
+            "flight_number": "BC1",
+            "origin_airport": "BBB",
+            "destination_airport": "CCC",
+            "departure_utc": "2027-01-02T11:00:00Z",
+            "arrival_utc": "2027-01-02T13:00:00Z",
+            "aircraft_variant": "SSJ100_analogue_TEST_ONLY",
+            "seats": 100,
+            "technical_blocked_seats": 0,
+            "saleable_seats": 100,
+            "physical_adjacent_leg": true,
+            "scheduled_status": "proposed",
+            "source_status": "scenario",
+            "source_period": "2027-2028",
+            "assumption_id": "P06-TOY",
+            "distance_km": 1000,
+            "project_network": true
+          }
+        ],
+        "fleet_calendar": [
+          {
+            "aircraft_id": "T1",
+            "variant": "SSJ100_analogue_TEST_ONLY",
+            "transfer_date": "2026-12-01T00:00:00Z",
+            "service_entry_date": "2027-01-01T00:00:00Z",
+            "available_from": "2027-01-01T00:00:00Z",
+            "available_to": "2029-01-01T00:00:00Z",
+            "initial_location": "AAA",
+            "turn_minutes": 30,
+            "reserve_intervals": [],
+            "maintenance_intervals": [],
+            "crew_windows": [
+              {
+                "crew_id": "crew:T1",
+                "start": "2027-01-01T00:00:00Z",
+                "end": "2029-01-01T00:00:00Z"
+              }
+            ],
+            "max_daily_block_hours": 8,
+            "assumption_id": "P06-TOY"
+          }
+        ],
+        "assignments": [
+          {
+            "flight_instance_id": "AB1",
+            "aircraft_id": "T1",
+            "crew_id": "crew:T1",
+            "action": "add",
+            "assumption_id": "P06-TOY"
+          },
+          {
+            "flight_instance_id": "BC1",
+            "aircraft_id": "T1",
+            "crew_id": "crew:T1",
+            "action": "add",
+            "assumption_id": "P06-TOY"
+          }
+        ],
+        "contracts": [],
+        "economic_events": [
+          {
+            "economic_event_id": "T1-use-Jan",
+            "owner": "T1-use-Jan",
+            "category": "aircraft_use",
+            "scope": "affected_business",
+            "driver_unit": "explicit_event",
+            "quantity": 1,
+            "rate": 80000,
+            "amount": 80000,
+            "currency": "RUB",
+            "price_year": 2027,
+            "fx_policy": "RUB_input",
+            "accrual_month": "2027-01",
+            "noncash": false,
+            "avoidability": "explicit_scenario",
+            "shared_event_id": "T1-use-Jan",
+            "source_id": "SYNTHETIC",
+            "assumption_id": "P06-TOY",
+            "cash_plan_status": "explicit",
+            "payments": [
+              {
+                "date": "2027-01-01",
+                "fraction": 1
+              }
+            ],
+            "committed_at": "2026-11-01"
+          },
+          {
+            "economic_event_id": "flight-AB",
+            "owner": "flight-AB",
+            "category": "variable_cost",
+            "scope": "affected_business",
+            "driver_unit": "explicit_event",
+            "quantity": 1,
+            "rate": 100000,
+            "amount": 100000,
+            "currency": "RUB",
+            "price_year": 2027,
+            "fx_policy": "RUB_input",
+            "accrual_month": "2027-01",
+            "noncash": false,
+            "avoidability": "explicit_scenario",
+            "shared_event_id": "flight-AB",
+            "source_id": "SYNTHETIC",
+            "assumption_id": "P06-TOY",
+            "cash_plan_status": "explicit",
+            "payments": [
+              {
+                "date": "2027-01-02",
+                "fraction": 1
+              }
+            ]
+          },
+          {
+            "economic_event_id": "flight-BC",
+            "owner": "flight-BC",
+            "category": "variable_cost",
+            "scope": "affected_business",
+            "driver_unit": "explicit_event",
+            "quantity": 1,
+            "rate": 100000,
+            "amount": 100000,
+            "currency": "RUB",
+            "price_year": 2027,
+            "fx_policy": "RUB_input",
+            "accrual_month": "2027-01",
+            "noncash": false,
+            "avoidability": "explicit_scenario",
+            "shared_event_id": "flight-BC",
+            "source_id": "SYNTHETIC",
+            "assumption_id": "P06-TOY",
+            "cash_plan_status": "explicit",
+            "payments": [
+              {
+                "date": "2027-01-02",
+                "fraction": 1
+              }
+            ]
+          },
+          {
+            "economic_event_id": "startup",
+            "owner": "startup",
+            "category": "startup",
+            "scope": "affected_business",
+            "driver_unit": "explicit_event",
+            "quantity": 1,
+            "rate": 50000,
+            "amount": 50000,
+            "currency": "RUB",
+            "price_year": 2027,
+            "fx_policy": "RUB_input",
+            "accrual_month": "2026-12",
+            "noncash": false,
+            "avoidability": "explicit_scenario",
+            "shared_event_id": "startup",
+            "source_id": "SYNTHETIC",
+            "assumption_id": "P06-TOY",
+            "cash_plan_status": "explicit",
+            "payments": [
+              {
+                "date": "2026-12-15",
+                "fraction": 1
+              }
+            ]
+          }
+        ],
+        "cash_events": [
+          {
+            "cash_event_id": "deposit",
+            "economic_event_id": null,
+            "related_asset_or_contract_id": "launch-deposit",
+            "payment_date": "2026-12-15",
+            "amount_signed": -20000,
+            "category": "investing",
+            "currency": "RUB",
+            "fx_at_payment": 1,
+            "deposit_flag": true,
+            "source_id": "SYNTHETIC",
+            "status": "scenario",
+            "assumption_id": "P06-TOY"
+          },
+          {
+            "cash_event_id": "deposit-return",
+            "economic_event_id": null,
+            "related_asset_or_contract_id": "launch-deposit",
+            "payment_date": "2029-01-15",
+            "amount_signed": 20000,
+            "category": "investing",
+            "currency": "RUB",
+            "fx_at_payment": 1,
+            "deposit_flag": true,
+            "source_id": "SYNTHETIC",
+            "status": "scenario",
+            "assumption_id": "P06-TOY"
+          }
+        ],
+        "opening_balances": [],
+        "choice_model": {
+          "price_per_rub": -0.0001,
+          "time_per_minute": -0.001,
+          "log_frequency": 0.5,
+          "assumption_id": "P06-TOY",
+          "calibration_status": "SYNTHETIC_NOT_CALIBRATED"
+        },
+        "response_policy": {
+          "response_policy_id": "toy-no-response",
+          "rules": [],
+          "assumption_id": "P06-TOY"
+        },
+        "cost_coverage": {
+          "variable_cost": {
+            "status": "explicit",
+            "event_ids": [
+              "flight-AB",
+              "flight-BC"
+            ],
+            "rationale": "toy event",
+            "assumption_id": "P06-TOY"
+          },
+          "base": {
+            "status": "not_applicable",
+            "event_ids": [],
+            "rationale": "explicit zero ONLY in isolated synthetic test",
+            "assumption_id": "P06-TOY"
+          },
+          "aircraft_use": {
+            "status": "explicit",
+            "event_ids": [
+              "T1-use-Jan"
+            ],
+            "rationale": "toy event",
+            "assumption_id": "P06-TOY"
+          },
+          "reserve": {
+            "status": "not_applicable",
+            "event_ids": [],
+            "rationale": "explicit zero ONLY in isolated synthetic test",
+            "assumption_id": "P06-TOY"
+          },
+          "startup": {
+            "status": "explicit",
+            "event_ids": [
+              "startup"
+            ],
+            "rationale": "toy event",
+            "assumption_id": "P06-TOY"
+          },
+          "exit": {
+            "status": "not_applicable",
+            "event_ids": [],
+            "rationale": "explicit zero ONLY in isolated synthetic test",
+            "assumption_id": "P06-TOY"
+          },
+          "support": {
+            "status": "not_applicable",
+            "event_ids": [],
+            "rationale": "explicit zero ONLY in isolated synthetic test",
+            "assumption_id": "P06-TOY"
+          }
+        },
+        "cash_coverage": {
+          "operating": "explicit",
+          "investing": "explicit",
+          "tax": "explicit",
+          "financing": "explicit",
+          "finance_interest": "explicit"
+        },
+        "cash_policy": {
+          "opening_cash": 0,
+          "minimum_cash": 0,
+          "project_opening_cash": 0,
+          "project_minimum_cash": 0,
+          "assumption_id": "P06-TOY"
+        },
+        "resource_operators": [
+          "TEST"
+        ],
+        "accounting_policy": "operating_aircraft_use_excludes_interest",
+        "information_set": {
+          "information_set_id": "toy-information",
+          "facts": [
+            {
+              "fact_id": "toy-observation",
+              "available_at": "2026-11-01"
+            }
+          ]
+        },
+        "keep_policy": {
+          "keep_policy_id": "toy-future-KEEP",
+          "future_period": [
+            "2027-01",
+            "2028-12"
+          ],
+          "resource_policy": "same committed availability",
+          "existing_business": "explicit whole affected toy set",
+          "alternative_new_resource_use": "explicit KEEP products",
+          "excluded_unaffected_scope": "none in toy",
+          "avoidable_cost_rules": "events in each bundle",
+          "assumption_id": "P06-TOY"
+        },
+        "programme_target": {
+          "branch": "mechanical_test",
+          "rationale": "small fixture not candidate network",
+          "assumption_id": "P06-TOY"
+        },
+        "metric_adapter": null
+      },
+      "additional_boundary_cases": [
+        "B01_price_time_frequency_availability",
+        "B02_contract_block_and_release",
+        "B03_resource_entry_reserve_position_crew",
+        "B04_immutable_context",
+        "B05_unknown_money_and_company",
+        "B06_opening_minimum_financing",
+        "B07_terminal_and_prelaunch",
+        "B08_adaptation_no_future_or_erased_commitments",
+        "B09_joint_combine_recompute",
+        "B10_response_policy_is_executed",
+        "B11_interest_and_preinterest",
+        "B12_unknown_financing_does_not_erase_prefinancing_cash",
+        "B13_adaptive_direct_bypass_rejected",
+        "B14_revenue_by_leg_and_actual_service_month",
+        "B15_unknown_choice_not_zero",
+        "B16_committed_excess_and_malformed_inventory",
+        "B17_company_boundary",
+        "B18_pinned_adapters",
+        "B19_month_coverage_and_nan",
+        "B20_cash_bridge_and_duplicate_ticket",
+        "B21_adaptation_actual_action_binding",
+        "B22_dated_minimum_cash"
+      ]
+    },
+    "unit": "see each field",
+    "selected_by": "P06 implementation agent",
+    "basis": "P00R minimal counterexamples and independently constructed boundary checks; not market calibration",
+    "approval_status": "synthetic_test_not_user_approved_RW_parameter",
+    "range_or_unknown": "UNKNOWN for real RW",
+    "affected_conclusions": "software invariants only",
+    "sensitivity": "specific CE perturbations",
+    "refinement": "replace with pinned P02/P03/P04/P05 inputs and source-specific assumption IDs"
+  },
+  {
+    "assumption_id": "P00R-CE01",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "historical": 100,
+      "keep_future": 120,
+      "project_future": 130
+    },
+    "unit": "поездки/одинаковый будущий год",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,IATA",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE01; F02",
+    "sensitivity": "130 - 120 = 10",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE02",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "fixed": 100,
+      "adapted": 125,
+      "old_key": [
+        "CASE_SJ",
+        "P",
+        "base",
+        "2028-01"
+      ]
+    },
+    "unit": "строк",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE02; F01",
+    "sensitivity": "key includes evaluation_id -> 2 rows",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE03",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "available": 2,
+      "reserve": 1,
+      "block_limit": 8,
+      "flights": [
+        [
+          8,
+          10
+        ],
+        [
+          8.5,
+          10.5
+        ]
+      ]
+    },
+    "unit": "ВС; UTC-часы",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,MIT_SCHEDULE",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE03; F02",
+    "sensitivity": "4 <= 8, but 2 simultaneous assignments > 1 active tail",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE04",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "arrive": "2028-01-02T10:00:00+00:00",
+      "depart": "2028-01-03T11:00:00+00:00",
+      "min_connection_min": 45,
+      "max_connection_min": 180
+    },
+    "unit": "минуты",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,MIT_SCHEDULE",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE04; F01",
+    "sensitivity": "(dated departure - dated arrival) / minute",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE05",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "seats_ab": 100,
+      "seats_bc": 100,
+      "committed_local_ab": 70,
+      "through_requests": 50,
+      "local_fare": 4000,
+      "through_fare": 9000
+    },
+    "unit": "поездки; сегменты; RUB",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,MIT_NETWORK",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE05; F04",
+    "sensitivity": "through=min(50,100-70,100); R=70*4000+30*9000",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE06",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "journeys": 10,
+      "legs": 2,
+      "fare": 9000
+    },
+    "unit": "RUB; сегменты",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,MIT_SCHEDULE",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE06; F04",
+    "sensitivity": "R=10*9000; segments=10*2",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE07",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "market": 100,
+      "standalone_rw_weight": 6,
+      "competitor_weight": 4,
+      "joint_rw_weights": [
+        6,
+        6
+      ]
+    },
+    "unit": "поездки",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,MIT_NETWORK",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE07; F04",
+    "sensitivity": "standalone=100*6/(6+4); joint=100*(6+6)/(6+6+4)",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE08",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "market": 100,
+      "rw_weight": 4,
+      "competitor_before": 4,
+      "competitor_after": 8,
+      "outside_weight": 2
+    },
+    "unit": "поездки",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,BASELINE,MITRE",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE08; F03",
+    "sensitivity": "100*4/(4+4+2)=40; 100*4/(4+8+2)=200/7",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE09",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "same_rw_journeys": 50,
+      "old_legs": 1,
+      "new_legs": 2
+    },
+    "unit": "поездки; сегменты",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,REQ",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE09; F07",
+    "sensitivity": "delta journeys=50-50; delta segments=50*2-50*1",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE10",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "city_demand": 100,
+      "airport_a": 60,
+      "airport_b": 40
+    },
+    "unit": "поездки",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,MITRE",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE10; F03",
+    "sensitivity": "60+40=100",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE11",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "keep_revenue": 100,
+      "keep_cost": 60,
+      "project_old_revenue": 70,
+      "project_old_cost": 50,
+      "project_new_revenue": 80,
+      "project_new_cost": 40
+    },
+    "unit": "RUB условного масштаба",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,BASELINE,IATA",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE11; F05",
+    "sensitivity": "(70+80-50-40)-(100-60)=20; new contribution 40 minus donor contribution 20 = 20",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE12",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "revenue_a": 80,
+      "revenue_b": 70,
+      "flight_cost_a": 40,
+      "flight_cost_b": 40,
+      "shared_base_cost": 30
+    },
+    "unit": "RUB условного масштаба",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE12; F04",
+    "sensitivity": "joint=80+70-40-40-30; standalone sum=(80-40-30)+(70-40-30)",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE13",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "revenue": 100,
+      "support": 30,
+      "variable_cost": 60,
+      "fixed_cost": 20,
+      "startup_expense": 30,
+      "depreciation": 10,
+      "capex": 60,
+      "deposit": 50,
+      "ticket_cash_m1": 80,
+      "ticket_cash_m2": 20,
+      "support_cash_m3": 30,
+      "deposit_refund_m3": 50,
+      "opening_cash": 0,
+      "minimum_cash": 0,
+      "tax_cash": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "interest_cash": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "financing_cash": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "unit": "RUB условного масштаба; месяцы m0..m3",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: USER_MONEY,IAS7",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE13; F06",
+    "sensitivity": "op=100+30-60-20-30-10; cash=[-60-50,80-60-20-30,20,30+50]; F=max(0,-min(cumsum))",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE14",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "gross_fuel": 100,
+      "fuel_support": 20
+    },
+    "unit": "RUB условного масштаба",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,BASELINE,IAS7",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE14; F06",
+    "sensitivity": "economic=100-20; cash dates remain -100 then +20",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE15",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "known_delta_before_missing_cost": 20,
+      "missing_cost": null
+    },
+    "unit": "RUB условного масштаба",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE15; F05",
+    "sensitivity": "delta=20-X; sign positive iff X<20",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE16",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "keep_rw": 10,
+      "keep_market": 100,
+      "project_rw": 20,
+      "project_market": 110
+    },
+    "unit": "процентные пункты",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN,REQ",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE16; F07",
+    "sensitivity": "100*(20/110-10/100)",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE17",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "summer_weeks": 10,
+      "summer_pax_week": 100,
+      "other_weeks": 42,
+      "other_pax_week": 20
+    },
+    "unit": "поездки/условный год",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: USER_SEASON,BASELINE",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE17; F01",
+    "sensitivity": "10*100+42*20=1840",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE18",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "prelaunch_cash": -110,
+      "month1_payments_first": -110,
+      "month1_receipts_last": 80
+    },
+    "unit": "RUB условного масштаба",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: IAS7,USER_MONEY",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE18; I01",
+    "sensitivity": "month-end deficit=110+110-80; interim deficit=110+110",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE19",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "candidate_contribution": 100,
+      "new_committed_idle_lease": 20
+    },
+    "unit": "RUB условного масштаба",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: PLAN",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE19; I02",
+    "sensitivity": "100-20=80",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  },
+  {
+    "assumption_id": "P00R-CE20",
+    "subject_version": "P00R-v1",
+    "kind": "synthetic_fixture",
+    "value": {
+      "yield_rub_per_pax_km": 2,
+      "journeys": 10,
+      "distance_km": 1000
+    },
+    "unit": "RUB",
+    "selected_by": "P00R methods_review / gpt-6-astra xhigh",
+    "basis": "Числа выбраны проверяющим для минимального контрпримера, не оценка RW; источники принципа: REQ",
+    "approval_status": "REVIEWER_PROPOSED_NOT_USER_APPROVED",
+    "lower": "UNKNOWN",
+    "upper": "UNKNOWN",
+    "range_basis": "Не эмпирический диапазон; синтетические значения проверяют тождество.",
+    "affected_conclusions": "CE20; F07",
+    "sensitivity": "2*10*1000=20000",
+    "refinement_method": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать.",
+    "admissible_use": "method_check_only",
+    "range_or_unknown": "UNKNOWN real RW; synthetic fixture only",
+    "refinement": "В P06 повторить тот же механизм на закреплённых рабочих входах; toy rates/weights не импортировать."
+  }
+]

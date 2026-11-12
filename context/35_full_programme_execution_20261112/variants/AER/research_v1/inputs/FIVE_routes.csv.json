@@ -1,0 +1,75 @@
+{
+  "provenance": {
+    "commit": "c18f7640ea36647a05b39089e5293f22dd009f63",
+    "path": "context/33_five_city_reassessment_20261112/cities/PEE/routes.csv",
+    "git_blob_oid": "b5bf206f26124ffcc2a8b4ef43366115974bd152",
+    "sha256": "bb2199c3ecfa613423358cbcf82fc593434f7f247b3032af4e7c24137ec5a458",
+    "bytes": 38740,
+    "status": "READ_EXACT_BLOB",
+    "total_rows": 31,
+    "selected_rows": 3,
+    "selection": "AER endpoint/reference only; shared type/threshold schema retained"
+  },
+  "rows": [
+    {
+      "source_csv_line": 4,
+      "source_row_sha256": "723b62a2b63adc88cf01d878e336f28db301afff189a9c9bfb9ac2fc723a64e8",
+      "source_row_id": "line:4",
+      "data": {
+        "origin": "PEE",
+        "destination": "AER",
+        "product": "model/localdirect/existingbase",
+        "season": "модель 3/нед.base; 4base_sub; отпуска/праздники",
+        "competitors": "Победа; Россия",
+        "frequency_evidence": "аэропорт 03.11 безчастоты",
+        "demand_evidence": "pinned2025:317011 сегментов; base20662 лок.; +4.1 млн",
+        "ground_alternative": "Датированный сопоставимый наземный маршрут, полная цена и время до конечной точки не получены; неподтверждённые комбинации не приняты за проверенный продукт.",
+        "rw_overlap": "Опорный AER; нулевая модельная миграция не измеряет жителей Перми, ранее летавших через SVX. Реальная доля неизвестна.",
+        "operating_constraints": "SSJ100: проверить реальные block-time/маршрут/запас/полезную нагрузку; SJ-100/ПД-8 отдельно; локальные сборы неизвестны; южные обходы и ограничения воздушных трасс",
+        "assessment": "Условная сезонная добавка. Небольшой модельный запас +4,1 млн руб. может быть поглощён расходами станции и срывами.",
+        "source_ids": "PEE-S01;PEE-S06;PEE-S10",
+        "missing_fields": "summer_capacity; fare_basket; ground_timing; actual_RW_leakage"
+      }
+    },
+    {
+      "source_csv_line": 5,
+      "source_row_sha256": "ec08515eb3e1b1cd19f785870d919590b60dbae831d323cce7ecc202894c2a8c",
+      "source_row_id": "line:5",
+      "data": {
+        "origin": "PEE",
+        "destination": "KRR",
+        "product": "model/localdirect",
+        "season": "base3/нед.; проверить доступность аэропорта накаждыйсезон",
+        "competitors": "модель direct_now=True; текущий PEE–KRR не подтверждён",
+        "frequency_evidence": "модель 3/нед.; не наблюдение",
+        "demand_evidence": "base19343 лок.+6133 трансфер; +45.6 млн; оценкирасходятся 2.4 раза",
+        "ground_alternative": "Датированный сопоставимый наземный маршрут, полная цена и время до конечной точки не получены; неподтверждённые комбинации не приняты за проверенный продукт.",
+        "rw_overlap": "пересечения ссобственными продуктами AER/MCX и базовымипунктами неизвестны",
+        "operating_constraints": "SSJ100: проверить реальные block-time/маршрут/запас/полезную нагрузку; SJ-100/ПД-8 отдельно; локальные сборы неизвестны; актуальный NOTAM/операционныйрежим KRR",
+        "assessment": "Условно: статус из модели не принят за текущий рыночный факт. Пробел в данных не означает отказ маршруту.",
+        "source_ids": "PEE-S01;PEE-S06;PEE-S35",
+        "missing_fields": "airport_status; dated_competitors; OD; fare; ground_time"
+      }
+    },
+    {
+      "source_csv_line": 13,
+      "source_row_sha256": "bba2d55b36d8b34117f1ad7f32a1938cf6943fbd6d6e0daf46a187c209496bd5",
+      "source_row_id": "line:13",
+      "data": {
+        "origin": "PEE",
+        "destination": "MRV",
+        "product": "model/localdirect/existingbase",
+        "season": "cautious3/нед.; программа 2027 янв–март/ноя–дек",
+        "competitors": "Азимут A46017/18; рейсы 13.11 запланированы",
+        "frequency_evidence": "план 13.11; приказ 2/нед.всубсидируемыепериоды",
+        "demand_evidence": "pinned2025:22579 сегментов; cautious7903 лок.+7549 трансфер",
+        "ground_alternative": "Датированный сопоставимый наземный маршрут, полная цена и время до конечной точки не получены; неподтверждённые комбинации не приняты за проверенный продукт.",
+        "rw_overlap": "сравнивать AER/MCX опорныеротации; неподтвержденаодинаковаябазав MRV",
+        "operating_constraints": "SSJ100: проверить реальные block-time/маршрут/запас/полезную нагрузку; SJ-100/ПД-8 отдельно; локальные сборы неизвестны; MRV01:20–PEE06:55 и PEE15:50–MRV17:20 местное",
+        "assessment": "Условный курортный или медицинский продукт. Медицинский поток отдельно не измерен; уже существует конкурирующий продукт SSJ.",
+        "source_ids": "PEE-S01;PEE-S11;PEE-S24;PEE-S28;PEE-S42",
+        "missing_fields": "paid_OD_purpose; fare_basket; frequency; airport_cost; medical_contracts"
+      }
+    }
+  ]
+}

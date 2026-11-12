@@ -1,0 +1,1423 @@
+{
+  "version": "KUF-research-v1",
+  "stage": "A",
+  "authority": "исследовательские кандидаты, не решение команды",
+  "context": {
+    "period": "2027-01-01/2028-12-31",
+    "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+    "status": "STAGE_A_конструкция_для_общего_расчета",
+    "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+    "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+    "aircraft_branches": [
+      {
+        "type": "RRJ95LR_100",
+        "engine": "SaM146",
+        "reference_seats": 100,
+        "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+        "assumption_id": "A-KUF-CABIN"
+      },
+      {
+        "type": "RRJ95B",
+        "engine": "SaM146",
+        "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+      },
+      {
+        "type": "SJ100_PD8",
+        "engine": "PD8",
+        "seats": null,
+        "block_minutes": null,
+        "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+        "assumption_id": "A-KUF-SJ"
+      }
+    ],
+    "new_TU214_required": 0,
+    "activation": "A-KUF-ACTIVATION",
+    "delivery_branches": [
+      "phased",
+      "partial",
+      "delayed",
+      "no_new"
+    ],
+    "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+    "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+    "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+    "required_common_inputs": [
+      "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+      "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+      "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+      "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+    ]
+  },
+  "programmes": [
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-R2",
+      "title": "Малая радиальная ступень OMS/MRV",
+      "role": "местная радиальная программа, новый или выделенный ресурс",
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "OMS"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ]
+      ],
+      "target_frequency_each_way_per_week": {
+        "OMS": 2,
+        "MRV": 3
+      },
+      "requested_working_tails": 1,
+      "ancestorIDs": [
+        "C03",
+        "C16",
+        "E04"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-01"
+      ],
+      "rotation_templates": [
+        {
+          "tail": "KUF-A",
+          "weekdays_iso": [
+            1,
+            5
+          ],
+          "path": [
+            "KUF",
+            "OMS",
+            "KUF"
+          ],
+          "legs": [
+            {
+              "origin": "KUF",
+              "destination": "OMS",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "OMS",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            }
+          ]
+        },
+        {
+          "tail": "KUF-A",
+          "weekdays_iso": [
+            2,
+            4,
+            7
+          ],
+          "path": [
+            "KUF",
+            "MRV",
+            "KUF"
+          ],
+          "legs": [
+            {
+              "origin": "KUF",
+              "destination": "MRV",
+              "block_minutes_reference": 160
+            },
+            {
+              "origin": "MRV",
+              "destination": "KUF",
+              "block_minutes_reference": 170
+            }
+          ]
+        }
+      ],
+      "distinguishing_question": "Достаточно ли спроса двух разных локальных рынков для минимальной ступени; новый OMS против уже конкурентного MRV?",
+      "own_sales_changes": "Сохранить KEEP; проектные частоты — целевой общий RW уровень на паре, не автоматическое добавление поверх KEEP. В частности MCX уже собственный рынок. Расписание остальных своих пар не сдвигать неявно.",
+      "source_id": "KUF-SCHEDULE;KUF-SCHEDULE-ARR;P03;P04;PLAN:E04",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-TURN",
+        "A-KUF-RESOURCE",
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-ACTIVATION",
+        "A-KUF-FREQ-MINI",
+        "A-KUF-BLOCK-OMS",
+        "A-KUF-BLOCK-MRV"
+      ]
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-R4",
+      "title": "Радиальные прямые рейсы на четырех парах",
+      "role": "радиальная база/местная программа без гарантированных пересадок",
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "OMS"
+        ],
+        [
+          "KUF",
+          "NJC"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MCX"
+        ]
+      ],
+      "target_frequency_each_way_per_week": {
+        "OMS": 3,
+        "NJC": 3,
+        "MRV": 3,
+        "MCX": 3
+      },
+      "requested_working_tails": 1,
+      "ancestorIDs": [
+        "C03",
+        "C16",
+        "E04"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-01",
+        "H-KUF-03"
+      ],
+      "rotation_templates": [
+        {
+          "tail": "KUF-A",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "KUF",
+            "OMS",
+            "KUF",
+            "MCX",
+            "KUF"
+          ],
+          "legs": [
+            {
+              "origin": "KUF",
+              "destination": "OMS",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "OMS",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "KUF",
+              "destination": "MCX",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "MCX",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            }
+          ]
+        },
+        {
+          "tail": "KUF-A",
+          "weekdays_iso": [
+            2,
+            4,
+            6
+          ],
+          "path": [
+            "KUF",
+            "NJC",
+            "KUF",
+            "MRV",
+            "KUF"
+          ],
+          "legs": [
+            {
+              "origin": "KUF",
+              "destination": "NJC",
+              "block_minutes_reference": 200
+            },
+            {
+              "origin": "NJC",
+              "destination": "KUF",
+              "block_minutes_reference": 200
+            },
+            {
+              "origin": "KUF",
+              "destination": "MRV",
+              "block_minutes_reference": 160
+            },
+            {
+              "origin": "MRV",
+              "destination": "KUF",
+              "block_minutes_reference": 170
+            }
+          ]
+        }
+      ],
+      "distinguishing_question": "При двух хвостах в общей группе, сколько приносит радиальная программа и альтернативное применение второго хвоста относительно защищенной волны?",
+      "own_sales_changes": "Сохранить KEEP; проектные частоты — целевой общий RW уровень на паре, не автоматическое добавление поверх KEEP. В частности MCX уже собственный рынок. Расписание остальных своих пар не сдвигать неявно.",
+      "source_id": "KUF-SCHEDULE;KUF-SCHEDULE-ARR;P03;P04;PLAN:E04",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-TURN",
+        "A-KUF-RESOURCE",
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-ACTIVATION",
+        "A-KUF-BLOCK-OMS",
+        "A-KUF-BLOCK-NJC",
+        "A-KUF-BLOCK-MRV",
+        "A-KUF-BLOCK-MCX"
+      ],
+      "resource_qualification": "Диагностически 1 рабочий хвост,66.5block-hour/week. Нужны смены экипажей в KUF; фактическое выполнение UNKNOWN. В matched comparison ресурс группы 2: остаток второго хвоста не запирается и не списывается бесплатно, а остается KEEP/альтернативе."
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-W4",
+      "title": "Две защищенные волны с северными ночевками",
+      "role": "условный пересадочный узел на четырех тех же парах",
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "OMS"
+        ],
+        [
+          "KUF",
+          "NJC"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MCX"
+        ]
+      ],
+      "target_frequency_each_way_per_week": {
+        "OMS": 3,
+        "NJC": 3,
+        "MRV": 3,
+        "MCX": 3
+      },
+      "requested_working_tails": 2,
+      "ancestorIDs": [
+        "C03",
+        "E04"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-02"
+      ],
+      "rotation_templates": [
+        {
+          "tail": "WAVE-A",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "OMS",
+            "KUF",
+            "MRV",
+            "KUF",
+            "OMS"
+          ],
+          "legs": [
+            {
+              "origin": "OMS",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "KUF",
+              "destination": "MRV",
+              "block_minutes_reference": 160
+            },
+            {
+              "origin": "MRV",
+              "destination": "KUF",
+              "block_minutes_reference": 170
+            },
+            {
+              "origin": "KUF",
+              "destination": "OMS",
+              "block_minutes_reference": 150
+            }
+          ],
+          "first_departure_utc": "05:30",
+          "required_initial_location": "OMS",
+          "last_location": "OMS"
+        },
+        {
+          "tail": "WAVE-B",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "NJC",
+            "KUF",
+            "MCX",
+            "KUF",
+            "NJC"
+          ],
+          "legs": [
+            {
+              "origin": "NJC",
+              "destination": "KUF",
+              "block_minutes_reference": 200
+            },
+            {
+              "origin": "KUF",
+              "destination": "MCX",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "MCX",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "KUF",
+              "destination": "NJC",
+              "block_minutes_reference": 200
+            }
+          ],
+          "first_departure_utc": "04:40",
+          "required_initial_location": "NJC",
+          "last_location": "NJC"
+        }
+      ],
+      "distinguishing_question": "Покрывает ли дополнительный конечный OD север–юг через KUF потерю гибкости второго хвоста, северные стоянки/crew и защиту, при тех же 4 парах и 66.5block-hour/week?",
+      "own_sales_changes": "Сохранить KEEP; проектные частоты — целевой общий RW уровень на паре, не автоматическое добавление поверх KEEP. В частности MCX уже собственный рынок. Расписание остальных своих пар не сдвигать неявно.",
+      "source_id": "KUF-SCHEDULE;KUF-SCHEDULE-ARR;P03;P04;PLAN:E04",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-TURN",
+        "A-KUF-RESOURCE",
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-ACTIVATION",
+        "A-KUF-MCT",
+        "A-KUF-PARK",
+        "A-KUF-BLOCK-OMS",
+        "A-KUF-BLOCK-NJC",
+        "A-KUF-BLOCK-MRV",
+        "A-KUF-BLOCK-MCX"
+      ],
+      "connection_design": {
+        "arrivals_KUF_utc": "08:00",
+        "south_departures_utc": "09:00",
+        "MRV_return_KUF_utc": "15:15",
+        "MCX_return_KUF_utc": "14:45",
+        "north_departures_utc": "16:15",
+        "min_both_direction_connection_minutes": 60,
+        "protected_od_proposals": [
+          "OMS>KUF>MRV",
+          "OMS>KUF>MCX",
+          "NJC>KUF>MRV",
+          "NJC>KUF>MCX",
+          "MRV>KUF>OMS",
+          "MCX>KUF>OMS",
+          "MRV>KUF>NJC",
+          "MCX>KUF>NJC"
+        ],
+        "status": "геометрия/часовой шаблон; реальная продажа, MCT, baggage и recovery UNKNOWN",
+        "roundtrip_rule": "3 одинаковых дня/нед; возврат 7/14 ночей возможен календарно. Поздние прибытия NJC/OMS около 00:35/00:45(+1 local) требуют оценки ground/семейного продукта."
+      },
+      "resource_qualification": "На неоперационные дни хвосты остаются OMS/NJC. Это не свободный KUF ресурс и не работа местногоТОвК UF. Нужны начальное/конечное позиционирование, северные contracts/стоянки/crew; расходы и блок positioning неизвестны и не обнулены."
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-C4",
+      "title": "Цепочки из существующей базы SVX",
+      "role": "прямые продукты через KUF без новой постоянной базы",
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "OMS"
+        ],
+        [
+          "KUF",
+          "NJC"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MCX"
+        ]
+      ],
+      "target_frequency_each_way_per_week": {
+        "OMS": 3,
+        "NJC": 3,
+        "MRV": 3,
+        "MCX": 3
+      },
+      "requested_working_tails": 2,
+      "ancestorIDs": [
+        "C03",
+        "C09",
+        "E04"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-04"
+      ],
+      "rotation_templates": [
+        {
+          "tail": "SVX-A",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "SVX",
+            "KUF",
+            "OMS",
+            "KUF",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "KUF",
+              "block_minutes_reference": 105
+            },
+            {
+              "origin": "KUF",
+              "destination": "OMS",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "OMS",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "KUF",
+              "destination": "SVX",
+              "block_minutes_reference": 105
+            }
+          ]
+        },
+        {
+          "tail": "SVX-B",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "SVX",
+            "KUF",
+            "NJC",
+            "KUF",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "KUF",
+              "block_minutes_reference": 105
+            },
+            {
+              "origin": "KUF",
+              "destination": "NJC",
+              "block_minutes_reference": 200
+            },
+            {
+              "origin": "NJC",
+              "destination": "KUF",
+              "block_minutes_reference": 200
+            },
+            {
+              "origin": "KUF",
+              "destination": "SVX",
+              "block_minutes_reference": 105
+            }
+          ]
+        },
+        {
+          "tail": "SVX-A",
+          "weekdays_iso": [
+            2,
+            4,
+            6
+          ],
+          "path": [
+            "SVX",
+            "KUF",
+            "MRV",
+            "KUF",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "KUF",
+              "block_minutes_reference": 105
+            },
+            {
+              "origin": "KUF",
+              "destination": "MRV",
+              "block_minutes_reference": 160
+            },
+            {
+              "origin": "MRV",
+              "destination": "KUF",
+              "block_minutes_reference": 170
+            },
+            {
+              "origin": "KUF",
+              "destination": "SVX",
+              "block_minutes_reference": 105
+            }
+          ]
+        },
+        {
+          "tail": "SVX-B",
+          "weekdays_iso": [
+            2,
+            4,
+            6
+          ],
+          "path": [
+            "SVX",
+            "KUF",
+            "MCX",
+            "KUF",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "KUF",
+              "block_minutes_reference": 105
+            },
+            {
+              "origin": "KUF",
+              "destination": "MCX",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "MCX",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "KUF",
+              "destination": "SVX",
+              "block_minutes_reference": 105
+            }
+          ]
+        }
+      ],
+      "distinguishing_question": "Окупает ли отсутствие новой базы полный ресурс соединительных SVX–KUF плеч после разрешенного reuseKEEP и учета crew?",
+      "own_sales_changes": "Сохранить KEEP; проектные частоты — целевой общий RW уровень на паре, не автоматическое добавление поверх KEEP. В частности MCX уже собственный рынок. Расписание остальных своих пар не сдвигать неявно.",
+      "source_id": "KUF-SCHEDULE;KUF-SCHEDULE-ARR;P03;P04;PLAN:E04",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-TURN",
+        "A-KUF-RESOURCE",
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-ACTIVATION",
+        "A-KUF-BLOCK-OMS",
+        "A-KUF-BLOCK-NJC",
+        "A-KUF-BLOCK-MRV",
+        "A-KUF-BLOCK-MCX",
+        "A-KUF-BLOCK-SVX"
+      ],
+      "physical_unique_airport_pairs": 5,
+      "gross_flights_week": 48,
+      "gross_block_hours_week": 108.5,
+      "connector_frequency_each_way_per_week": 12,
+      "connector_reuse": "Только точное совпадение дат/часов/хвостов/продаж KEEP. Исторические 7RT SVX–KUF не вычитать автоматически.",
+      "crew_caveat": "При 45 мин turn каждый 4 секторный chain превышает 630 мин даже без report/postflight. Обычная одна минимальная смена экипажа непригодна для этого шаблона; нужны проверяемая смена/позиционирование или другой график."
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-ARH-SWAP",
+      "title": "ARH вместо северной пары в радиальной программе",
+      "role": "изменение состава радиальной программы",
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "OMS"
+        ],
+        [
+          "ARH",
+          "KUF"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MCX"
+        ]
+      ],
+      "target_frequency_each_way_per_week": {
+        "OMS": 3,
+        "ARH": 3,
+        "MRV": 3,
+        "MCX": 3
+      },
+      "requested_working_tails": null,
+      "ancestorIDs": [
+        "C03",
+        "E04"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-05"
+      ],
+      "rotation_templates": [
+        {
+          "tail": "KUF-A",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "KUF",
+            "OMS",
+            "KUF",
+            "MCX",
+            "KUF"
+          ],
+          "legs": [
+            {
+              "origin": "KUF",
+              "destination": "OMS",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "OMS",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "KUF",
+              "destination": "MCX",
+              "block_minutes_reference": 150
+            },
+            {
+              "origin": "MCX",
+              "destination": "KUF",
+              "block_minutes_reference": 150
+            }
+          ]
+        },
+        {
+          "tail": "KUF-A",
+          "weekdays_iso": [
+            2,
+            4,
+            6
+          ],
+          "path": [
+            "KUF",
+            "ARH",
+            "KUF",
+            "MRV",
+            "KUF"
+          ],
+          "legs": [
+            {
+              "origin": "KUF",
+              "destination": "ARH",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "ARH",
+              "destination": "KUF",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "KUF",
+              "destination": "MRV",
+              "block_minutes_reference": 160
+            },
+            {
+              "origin": "MRV",
+              "destination": "KUF",
+              "block_minutes_reference": 170
+            }
+          ]
+        }
+      ],
+      "distinguishing_question": "Лучше ли ARH, чем уже обслуживаемый A4 рынок NJC, после общего выбора, full flight resource и конкурентного предложения?",
+      "own_sales_changes": "Сохранить KEEP; проектные частоты — целевой общий RW уровень на паре, не автоматическое добавление поверх KEEP. В частности MCX уже собственный рынок. Расписание остальных своих пар не сдвигать неявно.",
+      "source_id": "KUF-SCHEDULE;KUF-SCHEDULE-ARR;P03;P04;PLAN:E04",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-TURN",
+        "A-KUF-RESOURCE",
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-ACTIVATION",
+        "A-KUF-BLOCK-OMS",
+        "A-KUF-BLOCK-MRV",
+        "A-KUF-BLOCK-MCX"
+      ],
+      "resource_qualification": "Все четыре пары заданы через замену NJC на ARH в R4. География/порядок полетов определены; blockARH, нужное число принятых рабочих хвостов и эксплуатационная готовность UNKNOWN.",
+      "comparison_control": "P-KUF-R4; тот же доступный пул 2 хвостов, альтернативный ресурс не обнулять",
+      "parent_programme_id": "P-KUF-R4",
+      "transformations": [
+        {
+          "action": "replace_airport",
+          "old": "NJC",
+          "new": "ARH",
+          "scope": "все проектные полеты и связанные OD; исходный KEEP не менять автоматически",
+          "new_block_minutes": null
+        }
+      ]
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-VOG",
+      "title": "Два направления треугольника SVX–KUF–VOG",
+      "role": "прямые продукты из SVX, треугольник",
+      "ancestorIDs": [
+        "C09",
+        "KIR_G4",
+        "E04"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-06"
+      ],
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "SVX"
+        ],
+        [
+          "KUF",
+          "VOG"
+        ],
+        [
+          "SVX",
+          "VOG"
+        ]
+      ],
+      "rotation_templates": [
+        {
+          "tail": "SVX-A",
+          "weekdays_iso": [
+            1,
+            5
+          ],
+          "path": [
+            "SVX",
+            "KUF",
+            "VOG",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "KUF",
+              "block_minutes_reference": 105
+            },
+            {
+              "origin": "KUF",
+              "destination": "VOG",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "VOG",
+              "destination": "SVX",
+              "block_minutes_reference": null
+            }
+          ]
+        },
+        {
+          "tail": "SVX-A",
+          "weekdays_iso": [
+            3,
+            7
+          ],
+          "path": [
+            "SVX",
+            "VOG",
+            "KUF",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "VOG",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "VOG",
+              "destination": "KUF",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "KUF",
+              "destination": "SVX",
+              "block_minutes_reference": 105
+            }
+          ]
+        }
+      ],
+      "target_frequency_each_way_per_week": {
+        "KUF-VOG": 2,
+        "SVX-KUF": 2,
+        "SVX-VOG": 2
+      },
+      "requested_working_tails": null,
+      "own_sales_changes": "Нельзя заменить все 7 исторических SVX–KUF RT двумя треугольными не посчитав потерянные продажи; этот кандидат — явно добавленный/замещающий subset, остаток KEEP сохраняется.",
+      "distinguishing_question": "Локальный KUF–VOG и два прямых рынка треугольника против SVX–KUF–VOG–KUF–SVX ирадиального VOG при одном ресурсе; не выдавать one-stopSVX–VOG за новый прямой спрос.",
+      "source_id": "PLAN:C09;BASE:destinations.csv;P02",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-RESOURCE",
+        "A-KUF-BLOCK-SVX"
+      ]
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-PARTNER",
+      "title": "Сохранение outstation и развитие существующего партнерского продукта",
+      "role": "прямые из действующих баз+partner+ground",
+      "ancestorIDs": [
+        "E04",
+        "C16"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-07"
+      ],
+      "target_airport_pairs": [
+        [
+          "KUF",
+          "MCX"
+        ],
+        [
+          "KUF",
+          "MSQ"
+        ],
+        [
+          "KUF",
+          "SVX"
+        ],
+        [
+          "GOJ",
+          "KUF"
+        ]
+      ],
+      "requested_working_tails": 0,
+      "requested_tails_qualification": "0 дополнительных местных базируемых хвостов; существующие KEEP плечи и ресурс партнеров не 0 и должны быть учтены.",
+      "rotation_templates": "сохранить будущие KEEP назначения; новых физических плеч без отдельного delta не создавать",
+      "protected_od_proposals": [
+        "KUF>MCX>MSQ"
+      ],
+      "own_sales_changes": "Прямой KUF–MSQ и existing one-ticket через MCX — один согласованный demand pool; партнерская доля тарифа, места MCX–MSQ и договорный доступ UNKNOWN.",
+      "distinguishing_question": "Достаточен ли уже продаваемый partner/KEEP продукт для части эффекта без новой базы; новые SJ100 использовать в ALT-SVX.",
+      "source_id": "RW-BELAVIA;KUF-BUS;P03",
+      "assumption_ids": [
+        "A-KUF-KEEP",
+        "A-KUF-DEMAND",
+        "A-KUF-GROUND"
+      ]
+    },
+    {
+      "period": "2027-01-01/2028-12-31",
+      "planning_grid": "24 месяца; зима/лето/межсезонье отдельно; будущий demand/calendar не заполнен нулем",
+      "status": "STAGE_A_конструкция_для_общего_расчета",
+      "units": "частота=RT/нед/уникальная airport pair; блок=мин; ресурс=physical tail",
+      "coverage": "фрагмент общей сети 8–12 пар; эта программа не обязана одна покрывать целевую сеть",
+      "aircraft_branches": [
+        {
+          "type": "RRJ95LR_100",
+          "engine": "SaM146",
+          "reference_seats": 100,
+          "status": "условный_SSJ_аналог; реальный_хвост_не_назначен",
+          "assumption_id": "A-KUF-CABIN"
+        },
+        {
+          "type": "RRJ95B",
+          "engine": "SaM146",
+          "status": "отдельный_вариант; нужна_AF М_payload_проверка"
+        },
+        {
+          "type": "SJ100_PD8",
+          "engine": "PD8",
+          "seats": null,
+          "block_minutes": null,
+          "status": "самостоятельная_ветвь_2027–28; перенос_аналога_не_принят",
+          "assumption_id": "A-KUF-SJ"
+        }
+      ],
+      "new_TU214_required": 0,
+      "activation": "A-KUF-ACTIVATION",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "reserve_policy": "совместимый named reserve и recovery по P03; величина UNKNOWN, не считать летающий хвост одновременно резервом",
+      "keep_policy": "будущий KEEP в том же внешнем сценарии и с теми же доступными хвостами; незатронутый бизнес общий; доноры/альтернативное применение отдельно",
+      "money_status": "NOT_RUN: нет P05 калибровки/полного KEEP/P04 договорных входов",
+      "required_common_inputs": [
+        "P03:готовность_named_tails,crew,ТО,слоты,KEEP",
+        "P05:monthly_demand_pool,choice,alternatives,net/gross_fare,own_migration,response",
+        "P04:cost/cash_events,base/startup/exit,rate_eligibility",
+        "P06:принятые полные P/KEEP bundles; независимая приемка ядра"
+      ],
+      "programme_id": "P-KUF-ALT-SVX",
+      "title": "Альтернативное использование той же группы в SVX",
+      "role": "контроль opportunity cost нового/освобожденного ресурса",
+      "ancestorIDs": [
+        "E04",
+        "P03:донор_и_альтернатива"
+      ],
+      "hypothesis_ids": [
+        "H-KUF-04",
+        "H-KUF-02"
+      ],
+      "target_airport_pairs": [
+        [
+          "OMS",
+          "SVX"
+        ],
+        [
+          "MCX",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "NJC",
+          "SVX"
+        ]
+      ],
+      "requested_working_tails": 2,
+      "rotation_templates": [
+        {
+          "tail": "SVX-A",
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "path": [
+            "SVX",
+            "OMS",
+            "SVX",
+            "MCX",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "OMS",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "OMS",
+              "destination": "SVX",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "SVX",
+              "destination": "MCX",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "MCX",
+              "destination": "SVX",
+              "block_minutes_reference": null
+            }
+          ]
+        },
+        {
+          "tail": "SVX-B",
+          "weekdays_iso": [
+            2,
+            4,
+            6
+          ],
+          "path": [
+            "SVX",
+            "NJC",
+            "SVX",
+            "MRV",
+            "SVX"
+          ],
+          "legs": [
+            {
+              "origin": "SVX",
+              "destination": "NJC",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "NJC",
+              "destination": "SVX",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "SVX",
+              "destination": "MRV",
+              "block_minutes_reference": null
+            },
+            {
+              "origin": "MRV",
+              "destination": "SVX",
+              "block_minutes_reference": null
+            }
+          ]
+        }
+      ],
+      "own_sales_changes": "Существующие SVX–OMS и SVX–MCX авторского baseline не обнулять; частота controls — итоговый RW уровень. Увеличение только net к будущему KEEP.",
+      "distinguishing_question": "Может ли тот же ресурс дать больший общий RW результат через действующий SVX без новых затрат KUF; спрос KUF остаетсяв KEEP/альтернативах.",
+      "source_id": "BASE:rw_routes_now.csv;P03;P05",
+      "assumption_ids": [
+        "A-KUF-FREQ",
+        "A-KUF-KEEP",
+        "A-KUF-RESOURCE",
+        "A-KUF-DEMAND",
+        "A-KUF-BLOCK-OMS",
+        "A-KUF-BLOCK-NJC",
+        "A-KUF-BLOCK-MRV",
+        "A-KUF-BLOCK-MCX",
+        "A-KUF-BLOCK-SVX"
+      ],
+      "target_frequency_each_way_per_week": {
+        "SVX-OMS": 3,
+        "SVX-NJC": 3,
+        "SVX-MRV": 3,
+        "SVX-MCX": 3
+      },
+      "resource_qualification": "Явный стартовый шаблон 3RT на каждойпаре. Полный block/crew календарь UNKNOWN: P03 может разнести пары между теми же 2 хвостами. P05/P06 также сравнивают 1/2/3RT, сохраняя ограничения того же ресурса и будущие собственные продажи."
+    }
+  ],
+  "common_resource_control": {
+    "offered_working_group": 2,
+    "reserve": "UNKNOWN; тот жесовместимый reserve обеим программам",
+    "rule": "P06 оптимизирует остаточный ресурс, втомчислевторойхвост R4; одинаковое число заявленныхбортов не означает одинаковые потерянные часы/стоимости",
+    "nested_comparisons": [
+      "R2 при 1 готовом; R4plusremainingKEEP против W4 при 2 готовых",
+      "R4/W4/C4plusremainingKEEP против ALT-SVX при томже named-tailcalendar",
+      "KEEP/PARTNER при no_new иотсутствииподтвержденногодонора"
+    ]
+  }
+}

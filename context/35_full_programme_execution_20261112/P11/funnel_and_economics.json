@@ -1,0 +1,336 @@
+{
+  "as_of": "2026-11-12",
+  "method": "Контракт измерения причинного эффекта и пороги; НЕ автономная модель спроса/денег",
+  "units": {
+    "visitor": "рандомизационная единица; не пассажир",
+    "session": "технический визит; повторные визиты нельзя считать разными покупателями",
+    "order": "может иметь несколько пассажиров/поездок и услуг",
+    "journey": "одна конечная поездка",
+    "segment": "занятое кресло физического датированного плеча",
+    "service": "EMD/исполненная услуга, с event_id; у багажа на пересадке правила по участкам",
+    "case": "исходное дело поддержки со всеми повторами"
+  },
+  "stages": [
+    {
+      "event": "eligible_visitor",
+      "unit": "посетитель"
+    },
+    {
+      "event": "search_submitted",
+      "unit": "поиск"
+    },
+    {
+      "event": "search_returned",
+      "unit": "поиск"
+    },
+    {
+      "event": "fare_view",
+      "unit": "предложение"
+    },
+    {
+      "event": "fare_confirmed",
+      "unit": "действие до потенциальной брони"
+    },
+    {
+      "event": "optional_service_offer",
+      "unit": "order/leg/service"
+    },
+    {
+      "event": "passenger_form",
+      "unit": "заказ"
+    },
+    {
+      "event": "booking_created",
+      "unit": "PNR/OMS заказ"
+    },
+    {
+      "event": "paid",
+      "unit": "оплата"
+    },
+    {
+      "event": "ticketed",
+      "unit": "билет"
+    },
+    {
+      "event": "flown",
+      "unit": "passenger segment"
+    },
+    {
+      "event": "service_fulfilled",
+      "unit": "EMD/услуга"
+    },
+    {
+      "event": "refund_settled",
+      "unit": "денежный event"
+    },
+    {
+      "event": "case_resolved",
+      "unit": "исходное дело"
+    }
+  ],
+  "unobserved": [
+    "booking_created",
+    "paid",
+    "ticketed",
+    "flown",
+    "service_fulfilled",
+    "refund_settled",
+    "case_resolved"
+  ],
+  "primary_estimator": "Разность среднего зрелого вклада по intent-to-treat посетителям/делам; не условно среди выживших оплативших.",
+  "calendar": [
+    {
+      "month": "2027-01",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-02",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-03",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-04",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-05",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-06",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-07",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-08",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-09",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-10",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-11",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2027-12",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-01",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-02",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-03",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-04",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-05",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-06",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-07",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-08",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-09",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-10",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-11",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    },
+    {
+      "month": "2028-12",
+      "eligible_exposures": null,
+      "launch_date": null,
+      "keep_contribution": null,
+      "project_contribution": null,
+      "cash_delta": null,
+      "status": "UNKNOWN"
+    }
+  ],
+  "identities": {
+    "variable_contribution": "net earned fare + net earned ancillary commission/revenue - incremental passenger/service/flight variable costs",
+    "full_incremental_result": "joint_project_contribution - same-resource_future_KEEP_contribution - unique incremental fixed/startup/depreciation events",
+    "cash": "dated receipts - settlements/refunds - operating/investment/tax/finance payments with opening/terminal obligations; not recognized profit",
+    "support_time": "N_cases * delta_contacts_per_case * active_minutes_per_contact /60; add change of active time once, not twice",
+    "support_cash": "Only contractually avoided outsourcing/overtime/payroll or documented avoided hire. Fixed payroll and freed minutes→no inferred cash saving."
+  },
+  "threshold_variable_definitions": {
+    "N": "Уникальная подходящая экспозиция выбранной когорты и горизонта; visitors/orders/cases не смешивать",
+    "delta": "Абсолютная разность вероятностей либо контактов/дело по указанной метрике; не относительный процент",
+    "m": "Net marginal contribution до явно отдельных L; в подтверждённом joint результате decomposition не добавляется вторично",
+    "I_E/O_E": "Признанные за горизонт экономические затраты; капитализация/амортизация по P04",
+    "I_cash/O_cash": "Датированные выплаты; для funding отдельны от I_E/O_E",
+    "t": "Активные минуты на устранённый контакт; изменение времени оставшихся контактов считается один раз",
+    "w": "Применимая marginal ставка на оплачиваемый час; не автоматически средняя зарплата",
+    "f": "Доля высвобождённых часов, которая реально исключается из оплаты; логические0..1, фактическое значениеUNKNOWN"
+  },
+  "capacity_constraint": "D01 additional paid orders do not create seats. P09 jointly reallocates P05 demand across dated physical legs in P06, preserves KEEP sold demand and displaced/alternative traffic.",
+  "channel_constraint": "Сайт↔агентство может менять distribution expense, но не общий спрос; агентские комиссии и веб-расходы учитываются по all-channel delta один раз.",
+  "cross_sell": "Внешний отель/трансфер/eSIM: валовой чек партнёра не выручка RW; нужна исполненная комиссия/договор. В этот пакет денежные эффекты не включены.",
+  "ancillary_retiming": "Ранняя покупка вместо поздней: считать полную delta net margin по всем каналам; не только incremental attach раннего окна.",
+  "connection_rule": "Одна поездка получает тариф один раз, каждый physical leg расходует кресло. Багаж: соблюсти опубликованную оплату по участкам и уникальный EMD event.",
+  "aircraft_rule": "Видимый SSJ100 в поиске не калибрует расходы будущего SJ100/ПД8; fulfilment costs получают aircraft_variant и источник P04.",
+  "double_count_controls": [
+    "Единый visitor/order/case ledger",
+    "Один event_id на доход/расход/возврат",
+    "D01,D02,D03,D04 не суммируются из независимых тестов",
+    "Время поддержки не добавлять к cash повторно"
+  ],
+  "assumption_ids": [
+    "P11-SCOPE",
+    "P11-N",
+    "P11-HORIZON",
+    "P11-NETWORK",
+    "P11-JOINT",
+    "P11-FISCAL"
+  ]
+}

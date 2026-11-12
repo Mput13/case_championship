@@ -38,6 +38,7 @@ def check_operations(bundle):
         fields(t, "variant transfer_date service_entry_date available_from available_to initial_location turn_minutes reserve_intervals maintenance_intervals crew_windows max_daily_block_hours assumption_id", tid)
         number(t["turn_minutes"], f"{tid}.turn_minutes", 0, nullable=True)
         number(t["max_daily_block_hours"], f"{tid}.max_daily_block_hours", 0, nullable=True)
+        require(t.get("count", 1) == 1, f"{tid}: expand cohort into explicit physical/scenario tails before assignment")
         fs = sorted((flights[fid] for fid, a in assignments.items() if a["aircraft_id"] == tid), key=lambda f: utc(f["departure_utc"]))
         location, last_end, daily = t["initial_location"], None, {}
         for f in fs:

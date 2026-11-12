@@ -1,0 +1,1195 @@
+{
+  "version": "GSV-StageA-v1",
+  "programmes": [
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-00",
+      "title": "Сквозной продукт SVX–GSV–TBS на опубликованном коридоре",
+      "hypothesis_ids": [
+        "H-GSV-01"
+      ],
+      "resource_request": {
+        "incremental_working_tails": 0,
+        "meaning": "Ноль дополнительных бортов только в изолированном опыте изменения продукта на тех же уже назначенных рейсах; существующие tail/crews не бесплатны и ещё не связаны.",
+        "physical_group": "Привязать реальную группу SVX/KEEP; при отсутствии назначения потребность UNKNOWN",
+        "reserve": "из общего KEEP, договор и доступность UNKNOWN"
+      },
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "GSV",
+          "roundtrips_week": 1,
+          "weekdays_iso": [
+            3
+          ],
+          "change": "KEEP_PUBLISHED_CORRIDOR",
+          "season": "winter_published_only",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "TBS",
+          "roundtrips_week": 1,
+          "weekdays_iso": [
+            3
+          ],
+          "change": "KEEP_PUBLISHED_CORRIDOR",
+          "season": "winter_published_only",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        [
+          "SVX",
+          "GSV",
+          "TBS",
+          "GSV",
+          "SVX"
+        ]
+      ],
+      "mechanism": "Отдельно проверить, продаётся ли уже единая поездка; затем сравнить защиту/багаж/тариф при тех же физически назначенных четырёх плечах. Не приписывать весь существующий поток новому проекту.",
+      "counterfactual_ids": [
+        "KEEP-same-published-flights",
+        "PG-GSV-06"
+      ],
+      "affected_OD": [
+        "SVX>TBS",
+        "TBS>SVX",
+        "SVX>GSV",
+        "GSV>SVX",
+        "GSV>TBS",
+        "TBS>GSV"
+      ],
+      "price_policy": "P05: один gross/net fare на конечную поездку, два кресла; локальные продажи на обоих плечах конкурируют за тот же inventory.",
+      "clock_evidence": "corridor_clock_check.json; только Dec23–Mar24. Реальные даты 2027/28 получить отдельно.",
+      "seasons": {
+        "winter": "первый продуктовый опыт на опубликованном коридоре, не продолжение в 2028 по умолчанию",
+        "summer": "BUS/TBS по подтверждённому KEEP и сезону",
+        "shoulder": "неизвестный OD; отдельный спрос, не среднее зимы и лета"
+      },
+      "assumption_ids": [
+        "A-GSV-CLOCK",
+        "A-GSV-SALE",
+        "A-GSV-CREW",
+        "A-GSV-KEEP"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-01",
+      "title": "Дополнительные прямые SVX–GSV из существующего опорного аэропорта",
+      "hypothesis_ids": [
+        "H-GSV-02"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 1,
+        "share_of_compatible_pool": "UNKNOWN;2RT/week не означает эксклюзивный tail",
+        "base": "SVX",
+        "sufficiency": "UNKNOWN; сохранить другие задания/ТО/резерв"
+      },
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "GSV",
+          "roundtrips_week": 2,
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        [
+          "SVX",
+          "GSV",
+          "SVX"
+        ]
+      ],
+      "mechanism": "Пн/Чт добавляют интервалы для поездок 2–4 ночи к опубликованной ср/пт; будущая итоговая частота только после join KEEP. Проверить пользу частоты и дневного окна без открытия базы GSV.",
+      "counterfactual_ids": [
+        "PG-GSV-02",
+        "KEEP-best-existing-base-use"
+      ],
+      "affected_OD": [
+        "SVX>GSV",
+        "GSV>SVX",
+        "SVX>TBS via GSV if sellable"
+      ],
+      "own_sales_changes": "Сохранять датированные WZ5047/5048 и TBS; эти 2RT дополнительные, не замена нынешним 2. Годовой план 145/52 не исходное расписание.",
+      "assumption_ids": [
+        "A-GSV-FREQ",
+        "A-GSV-RESOURCE",
+        "A-GSV-KEEP"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-02",
+      "title": "Один рабочий борт в радиальной базе GSV",
+      "hypothesis_ids": [
+        "H-GSV-02"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 1,
+        "base": "GSV",
+        "minimum_physical_tails_lower_bound": 1,
+        "sufficiency": "UNKNOWN; отдельно ввод/crew/ТО/резерв/ночная стоянка; это не свободный действующий RW tail"
+      },
+      "routes": [
+        {
+          "origin": "GSV",
+          "destination": "SVX",
+          "roundtrips_week": 3,
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "MRV",
+          "roundtrips_week": 2,
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "MCX",
+          "roundtrips_week": 2,
+          "weekdays_iso": [
+            4,
+            7
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        [
+          "GSV",
+          "SVX",
+          "GSV"
+        ],
+        [
+          "GSV",
+          "MRV",
+          "GSV"
+        ],
+        [
+          "GSV",
+          "MCX",
+          "GSV"
+        ]
+      ],
+      "mechanism": "Проверить локальные восточный и южные рынки на 3/2/2 частотах и затраты новой базы. Каждый день один RT; свободные часы не названы резервом/ТО автоматически.",
+      "counterfactual_ids": [
+        "PG-GSV-01",
+        "KEEP-best-one-tail-existing-base-use"
+      ],
+      "affected_OD": [
+        "GSV>SVX",
+        "GSV>MRV",
+        "GSV>MCX",
+        "обратные OD",
+        "существующие RW connecting OD с перетоком"
+      ],
+      "own_sales_changes": "SVX3/w — добавочная частота. KEEP сохраняется отдельным ресурсом; если P03 переносит действующие рейсы на этот tail, это отдельная версия с released donor и вычитаемыми обязательствами.",
+      "seasonal_alternative": "Летом проверить замену части MCX2/w на AER2/w против DP daily; это взаимоисключающий опыт на том же tail, не суммируемая выручка.",
+      "assumption_ids": [
+        "A-GSV-FREQ",
+        "A-GSV-RESOURCE",
+        "A-GSV-BASE",
+        "A-GSV-DEMAND"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-03",
+      "title": "Внутренний пересадочный банк GSV",
+      "hypothesis_ids": [
+        "H-GSV-03"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 2,
+        "base": "GSV",
+        "sufficiency": "UNKNOWN;2 одновременные ротации, резерв/смены/ТО отдельно"
+      },
+      "routes": [
+        {
+          "origin": "GSV",
+          "destination": "SVX",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "TJM",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "MRV",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "MCX",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        {
+          "tail_slot": "T1",
+          "days": [
+            1,
+            4
+          ],
+          "path": [
+            "GSV",
+            "SVX",
+            "GSV",
+            "MRV",
+            "GSV"
+          ]
+        },
+        {
+          "tail_slot": "T2",
+          "days": [
+            1,
+            4
+          ],
+          "path": [
+            "GSV",
+            "TJM",
+            "GSV",
+            "MCX",
+            "GSV"
+          ]
+        },
+        {
+          "tail_slot": "T1",
+          "days": [
+            2,
+            5
+          ],
+          "path": [
+            "GSV",
+            "MRV",
+            "GSV",
+            "SVX",
+            "GSV"
+          ]
+        },
+        {
+          "tail_slot": "T2",
+          "days": [
+            2,
+            5
+          ],
+          "path": [
+            "GSV",
+            "MCX",
+            "GSV",
+            "TJM",
+            "GSV"
+          ]
+        }
+      ],
+      "mechanism": "Проверить смесь местных и восток–юг OD; обратное направление банка на следующий день. Один и тот же рейс и кресло нельзя продавать независимо локально и транзитом.",
+      "counterfactual_ids": [
+        "PG-GSV-03U",
+        "PG-GSV-04"
+      ],
+      "affected_OD": [
+        "GSV<->SVX/TJM/MRV/MCX",
+        "SVX<->MRV/MCX",
+        "TJM<->MRV/MCX"
+      ],
+      "clock_design": {
+        "hub_arrival_bank_B": "переменная оптимизации по слотам",
+        "outbound_bank": "B+C",
+        "C": "max(подтверждённый MCT, принятыйбуфер);UNKNOWN",
+        "aircraft_edges": "Для каждого tail связать первый outbound, возврат к B, следующий вылет B+C, возврат и overnight. Реальные block/turn/P03 обязательны."
+      },
+      "stress": "Закрытие GSV срывает все 4 спицы; рассчитать коррелированные потери пересадок, возвраты, размещение, запасные аэропорты и cash. Kover publication days не часы простоя.",
+      "assumption_ids": [
+        "A-GSV-BANK",
+        "A-GSV-FREQ",
+        "A-GSV-RESOURCE",
+        "A-GSV-BASE",
+        "A-GSV-RESPONSE"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-03U",
+      "title": "Контроль банка: те же рейсы GSV без защищённых стыковок",
+      "hypothesis_ids": [
+        "H-GSV-03"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 2,
+        "base": "GSV",
+        "sufficiency": "Такое же ограничение, как PG-GSV-03; дополнительных бесплатных tail нет"
+      },
+      "routes": [
+        {
+          "origin": "GSV",
+          "destination": "SVX",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "TJM",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "MRV",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "MCX",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_and_transfer",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        {
+          "tail_slot": "T1",
+          "days": [
+            1,
+            4
+          ],
+          "path": [
+            "GSV",
+            "SVX",
+            "GSV",
+            "MRV",
+            "GSV"
+          ]
+        },
+        {
+          "tail_slot": "T2",
+          "days": [
+            1,
+            4
+          ],
+          "path": [
+            "GSV",
+            "TJM",
+            "GSV",
+            "MCX",
+            "GSV"
+          ]
+        },
+        {
+          "tail_slot": "T1",
+          "days": [
+            2,
+            5
+          ],
+          "path": [
+            "GSV",
+            "MRV",
+            "GSV",
+            "SVX",
+            "GSV"
+          ]
+        },
+        {
+          "tail_slot": "T2",
+          "days": [
+            2,
+            5
+          ],
+          "path": [
+            "GSV",
+            "MCX",
+            "GSV",
+            "TJM",
+            "GSV"
+          ]
+        }
+      ],
+      "mechanism": "С теми же flight IDs/capacity/costs сначала выключить только transfer products; затем отдельным опытом разрешить оптимизацию часов под местные OD. Это отделяет вклад защиты и расписания от эффекта количества рейсов.",
+      "counterfactual_ids": [
+        "PG-GSV-03"
+      ],
+      "affected_OD": [
+        "тот же universe, что PG-GSV-03"
+      ],
+      "control_rule": "Не назначать разные коэффициенты захвата. Capacity и demand pools общие, в каждом evaluation своя allocation.",
+      "assumption_ids": [
+        "A-GSV-BANK",
+        "A-GSV-SALE",
+        "A-GSV-DEMAND"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-04",
+      "title": "Два тех же борта в опорном SVX: прямые продукты",
+      "hypothesis_ids": [
+        "H-GSV-03"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 2,
+        "base": "SVX",
+        "sufficiency": "UNKNOWN; та же type/delivery/reserve availability, а не равенство искусственно выбранных block-hours"
+      },
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "GSV",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "SVX",
+          "destination": "MRV",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "SVX",
+          "destination": "MCX",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "SVX",
+          "destination": "NUX",
+          "roundtrips_week": 4,
+          "weekdays_iso": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        [
+          "SVX",
+          "GSV",
+          "SVX",
+          "MRV",
+          "SVX"
+        ],
+        [
+          "SVX",
+          "MCX",
+          "SVX",
+          "NUX",
+          "SVX"
+        ]
+      ],
+      "mechanism": "Альтернативное применение того же нового ресурса в существующем опорном аэропорту. Целевые OD и стоимость базы отличаются; сравнение на объединении рынков с одинаковым outside option и KEEP.",
+      "counterfactual_ids": [
+        "PG-GSV-03",
+        "KEEP-best-two-tail-existing-base-use"
+      ],
+      "affected_OD": [
+        "объединение PG-GSV-03 и SVX<->GSV/MRV/MCX/NUX; TJM сохраняется в universe даже если проект его не обслуживает"
+      ],
+      "own_sales_changes": "На MRV/MCX/NUX дополнение может перетечь из собственного KEEP: нужен разбор product IDs, не все продажи новые.",
+      "optimisation_rule": "Явный стартовый конкурент, не доказанная лучшая альтернатива: общий solver может улучшить часы/набор маршрутов в том же ресурсе и заранее заданном universe.",
+      "assumption_ids": [
+        "A-GSV-FREQ",
+        "A-GSV-RESOURCE",
+        "A-GSV-KEEP",
+        "A-GSV-DEMAND"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-05",
+      "title": "Северная ротация SVX–GSV–NUX с историей RW",
+      "hypothesis_ids": [
+        "H-GSV-04"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 1,
+        "base": "SVX_or_common_pool",
+        "sufficiency": "UNKNOWN;4 плеча/день требуют block, crew и проверки дальности/нагрузки; база GSV не обязательна"
+      },
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "GSV",
+          "roundtrips_week": 2,
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "change": "ADD",
+          "season": "spring_summer_probe",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "NUX",
+          "roundtrips_week": 2,
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "change": "ADD",
+          "season": "spring_summer_probe",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        [
+          "SVX",
+          "GSV",
+          "NUX",
+          "GSV",
+          "SVX"
+        ]
+      ],
+      "mechanism": "История запуска RW подтверждает предшествующий продукт. Проверить локальный GSV–NUX, частоту 2/w и дополнительные SVX–GSV кресла без придуманного корпоративного блока.",
+      "counterfactual_ids": [
+        "KEEP-north-current-products",
+        "SVX-NUX-direct-same-tail-time",
+        "PG-GSV-02"
+      ],
+      "affected_OD": [
+        "GSV<->NUX",
+        "SVX<->GSV",
+        "SVX<->NUX",
+        "GSV<->SGC и пересадки как конкурирующие альтернативы"
+      ],
+      "own_sales_changes": "Сначала установить, сохранился ли GSV–NUX в будущем KEEP. При сохранении это частота/retime, при отсутствии — восстановление; статус нельзя выбрать по пустому окну таблицы.",
+      "comparison_rule": "Сравнить и с остановкой в GSV, и с прямым SVX–NUX на том же tail/calendar; не приписать два тарифа одной сквозной поездке.",
+      "seasons": {
+        "spring_summer": "2/w как исторически наблюдавшийся дизайн",
+        "winter": "отдельная UNKNOWN-demand ветвь; не годовое продолжение",
+        "shoulder": "отдельная проверка целей/длительности поездки"
+      },
+      "assumption_ids": [
+        "A-GSV-FREQ",
+        "A-GSV-SEASON",
+        "A-GSV-DEMAND",
+        "A-GSV-RESOURCE",
+        "A-GSV-CREW"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-06",
+      "title": "Дополнительная международная частота с опорой на SVX",
+      "hypothesis_ids": [
+        "H-GSV-05"
+      ],
+      "resource_request": {
+        "working_tail_allocation_request": 1,
+        "base": "SVX",
+        "share_of_pool": "UNKNOWN;4leg international day",
+        "sufficiency": "UNKNOWN;extra crew shifts likely needed in candidate, quote/approval pending"
+      },
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "GSV",
+          "roundtrips_week": 1,
+          "weekdays_iso": [
+            6
+          ],
+          "change": "ADD",
+          "season": "core_12_months",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "TBS",
+          "roundtrips_week": 1,
+          "weekdays_iso": [
+            6
+          ],
+          "change": "ADD",
+          "season": "winter_probe",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        },
+        {
+          "origin": "GSV",
+          "destination": "BUS",
+          "roundtrips_week": 1,
+          "weekdays_iso": [
+            6
+          ],
+          "change": "ADD",
+          "season": "summer_ALTERNATIVE_to_TBS_not_additive",
+          "market_role": "local_OD",
+          "source_id": "evidence.csv; programme design",
+          "assumption_ids": [
+            "A-GSV-FREQ",
+            "A-GSV-SEASON",
+            "A-GSV-KEEP"
+          ]
+        }
+      ],
+      "rotation_templates": [
+        [
+          "SVX",
+          "GSV",
+          "TBS",
+          "GSV",
+          "SVX"
+        ],
+        [
+          "SVX",
+          "GSV",
+          "BUS",
+          "GSV",
+          "SVX"
+        ]
+      ],
+      "mechanism": "Вторая частота позволяет поездку 3–4 ночи вместо только 7 ночей. BUS и TBS — разные OD и сезонные альтернативы использования субботнего окна; будущую разрешённую сеть проверить.",
+      "counterfactual_ids": [
+        "PG-GSV-00",
+        "SVX-TBS_or_BUS-direct-same-resource",
+        "KEEP-best-one-tail-existing-base-use"
+      ],
+      "affected_OD": [
+        "GSV<->TBS/BUS",
+        "SVX<->TBS/BUS",
+        "SVX<->GSV",
+        "переток с собственных direct и через другие базы"
+      ],
+      "gates": [
+        "No-new-Tu214: во всех вариантах 0 новыхТу 214",
+        "Действующий RRJ95 или отдельно допущенный SJ100_PD8",
+        "international rights/handling/passport and baggage",
+        "Защита/retail P05 и полная P04 economics"
+      ],
+      "assumption_ids": [
+        "A-GSV-FREQ",
+        "A-GSV-SEASON",
+        "A-GSV-TYPES",
+        "A-GSV-CREW",
+        "A-GSV-KEEP"
+      ]
+    },
+    {
+      "period_start": "2027-01-01",
+      "period_end": "2028-12-31",
+      "status": "STAGE_A_CONSTRUCTED_STAGE_B_CONDITIONAL",
+      "new_Tu214_count": 0,
+      "units": "roundtrips/week per airport_pair; physical tails; journey OD separate from flown segments",
+      "aircraft_branches": [
+        "RRJ95B_SaM146",
+        "RRJ95LR_SaM146",
+        "SJ100_PD8_separate_ready_gate"
+      ],
+      "keep_policy": "Будущий KEEP + тот же ресурс/внешний сценарий. Не удалять собственную сеть, TBS/BUS/NUX проверять по сезону/дате. При переносе старого борта нужен donor с потерянными продажами; у нового — лучшая доступная альтернатива.",
+      "reserve_policy": "Совместимый резерв закрепляет P03; запрошенные 1/2 рабочих tail не содержат бесплатный резерв. Группа поддержки может потребовать дополнительные tail, crews и деньги.",
+      "delivery_branches": [
+        "phased",
+        "partial",
+        "delayed",
+        "no_new"
+      ],
+      "no_new_branch": "Новые SJ не выделяются. Варианты на действующем RRJ требуют доказанного высвобождения; оптимизация уже опубликованных продуктов/подвоза остаётся проверяемой без обещания лишнего tail.",
+      "operational_acceptance": "UNKNOWN: нет принятого полного датированного tail/crew/MRO/KEEP bundle",
+      "finance_acceptance": "NOT_RUN: нет общей P05 калибровки и принятого P04 полного будущего cost/cash binding",
+      "required_common_inputs": [
+        "P02 датированные продаваемые альтернативы и багаж",
+        "P03 fleet/crew/MRO/KEEP/датированные блоки",
+        "P05 единый OD/choice/response",
+        "P04 event_rate_map+cash и местные уточнения",
+        "P06 принятие полноты/сравнение с KEEP"
+      ],
+      "programme_id": "PG-GSV-07",
+      "title": "Подвоз к GSV и партнёрский продукт без новой авиабазы",
+      "hypothesis_ids": [
+        "H-GSV-06"
+      ],
+      "resource_request": {
+        "incremental_aircraft": 0,
+        "ground_capacity": "UNKNOWN;договор и автомобили не считаются бесплатными"
+      },
+      "routes": [],
+      "rotation_templates": [],
+      "mechanism": "Проверить согласованный автобус/электропоезд к выбранным рейсам и единый информационный/багажный процесс. Catchment и авиационный спрос P05 общие; не дублировать жителей Саратова/Энгельса и соседних аэропортов.",
+      "counterfactual_ids": [
+        "KEEP-current-ground",
+        "GSV-KUF_or_VOG-short-air-feeder-if-supported"
+      ],
+      "affected_OD": [
+        "ground origins Саратов/Энгельс/область -> GSV -> обслуживаемый airport OD",
+        "короткий авиаподвоз GSV–KUF/VOG как отдельный альтернативный опыт"
+      ],
+      "ground_example": "Опубликованный 101 Э от автовокзала 06:45 с 80min даёт 8:05 у GSV: к 11:40 есть 215min до вылета до регистрации/прочихпереходов. Это только clock arithmetic, не guaranteed protected connection.",
+      "commercial_rule": "Partner airline/ground block agreement UNKNOWN; не считать партнёрский сегмент собственной RW перевозкой и не начислять чужую выручку.",
+      "assumption_ids": [
+        "A-GSV-GROUND",
+        "A-GSV-SALE",
+        "A-GSV-DEMAND"
+      ]
+    }
+  ],
+  "combination_policy": "Кандидаты — альтернативные allocations/продуктовые опыты. Не складывать их пассажиров/деньги. Совместимость только после общего join tail, dated flight, demand_pool, shared_event и KEEP.",
+  "target_8_12": "GSV даёт части общей сети. Локальные 3/4 пары не объявлены готовым общим решением 8–12; стадийные дефицитные ветви могут иметь меньше.",
+  "value_of_existing_work": "Авторские OD и scenario scores сохранены с provenance в pinned_gsv_rows, но не подменяют новую общую калибровку."
+}

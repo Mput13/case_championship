@@ -19,7 +19,7 @@ def main():
         if args.command == "evaluate":
             result = evaluate(b)
         elif args.command == "compare":
-            result = compare(b["project"], b["keep"], b.get("company_keep_cash"))
+            result = compare(b["project"], b["keep"], b.get("company_keep_cash"), b.get("parents"))
         else:
             result = scenario(b["bundles"], b.get("parents"))
     except (ContractError, KeyError, ValueError) as exc:

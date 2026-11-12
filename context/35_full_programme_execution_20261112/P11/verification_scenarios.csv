@@ -1,0 +1,13 @@
+scenario_id,path,condition,expected_public_behavior,status,claim_ids,evidence_ids,actual_transaction
+Q01,FAQ чек,Найти чек без билета,"Поиск находит ответ, спам→контактный центр/форма",OBSERVED,C07,V10_faq_receipt,NOT_RUN
+Q02,Нет маршрутной квитанции,Есть идентификатор,Существующее Мои бронирования; выполнение NOT_RUN,PUBLIC_CONDITION_ONLY,C07,V09_manage_booking,NOT_RUN
+Q03,Лайт без возвратности,Добровольно; билет сайта,Общее правило невозвратности/обмен по условиям; исполнение NOT_RUN,PUBLIC_CONDITION_ONLY,C05,V15_refund_light,NOT_RUN
+Q04,Прямой международный билет,Есть приобретённая возвратность; до вылета>24ч,Показать условия возврата тарифа с исключениями; не обещать всю цену,PUBLIC_CONDITION_ONLY,C06,V08_returnability,NOT_RUN
+Q05,Внутренний рейс/чартер,Запросить возвратность как универсальную опцию,Внутренний не входит в опубликованную область; charter eligibility UNKNOWN,PUBLIC_CONDITION_ONLY,C06,V08_returnability,NOT_RUN
+Q06,Багаж,">24ч, внутренний регулярный,10–23кг",Опубликован минимум2700; live quote UNKNOWN,PUBLIC_CONDITION_ONLY,C02,V13_baggage_before24,NOT_RUN
+Q07,Багаж,"<24ч, внутренний регулярный,10–23кг",Опубликован минимум3500; last sale cutoff UNKNOWN,PUBLIC_CONDITION_ONLY,C03,V14_baggage_after24,NOT_RUN
+Q08,Багаж,Ровно24ч,"Правило границы UNKNOWN→проверить owner, не назначать цену",OWNER_RULE_REQUIRED,C02,V13_baggage_before24,NOT_RUN
+Q09,Багаж,Два плеча,Каждый участок оплачивается; реальное EMD/fulfilment NOT_RUN,PUBLIC_CONDITION_ONLY,C03,V14_baggage_after24,NOT_RUN
+Q10,Онлайн-регистрация,DME vs ZIA;3/6ч и границы,Единого подтверждённого airport-specific правила нет; запрос owner,OWNER_RULE_REQUIRED,"C08,C09","V11_checkin_rules,V12_checkin_faq",NOT_RUN
+Q11,Вынужденный возврат,Болезнь; билет сайта,Уведомление/документы/канал по опубликованным условиям; не имитировать заявку,PUBLIC_CONDITION_ONLY,C11,V07_refund,NOT_RUN
+Q12,Куплено у агента,Изменение/возврат,Маршрутизация по месту покупки; не выдавать сайт за универсальный процесс,PUBLIC_CONDITION_ONLY,"C05,C11",V07_refund,NOT_RUN

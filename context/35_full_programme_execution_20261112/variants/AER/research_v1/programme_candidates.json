@@ -1,0 +1,773 @@
+{
+  "stage": "A",
+  "economic_winner": null,
+  "p06_bundle_admission": "NOT_ADMITTED: нетP05,полногоKEEP,операционныхдоговоров и costcoverage",
+  "candidates": [
+    {
+      "programme_id": "AER-S1",
+      "version": "AER-research-v1",
+      "title": "Сезонная радиальная база AER: Пермь, Саратов, Волгоград",
+      "role": "сезонное размещение одногорабочегохвоста",
+      "units": "физические хвосты;датированные плечи;поездки OD",
+      "period": "2027-01..2028-12",
+      "coverage": "локальный фрагмент общей целевой сети8–12пар; не готоваягодоваясеть",
+      "status": "Сконструирован; StageBусловен",
+      "source_ids": [
+        "RW_WINTER",
+        "LOCAL_TLV2027",
+        "SCHEDULE_PEE",
+        "SCHEDULE_GSV",
+        "SCHEDULE_MCX",
+        "P03",
+        "P04",
+        "P06"
+      ],
+      "working_tails_required": 1,
+      "reserve_requirement": "AER-A08: тот же подтверждённый пул у обеих сторон; количество/доступность UNKNOWN",
+      "fleet_variants": [
+        {
+          "id": "CASE_SSJ100",
+          "aircraft": "RRJ95_SaM146",
+          "admission": "нужны хвост,донорKEEP,кресла,нагрузка,ТО"
+        },
+        {
+          "id": "CASE_SJ100",
+          "aircraft": "SJ100_PD8",
+          "admission": "не ранееH2_2027; после передачи/ввода/допуска; новые эксплуатационные параметры UNKNOWN"
+        }
+      ],
+      "new_tu214_required": 0,
+      "weekly_rotations": [
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "PEE",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 240,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "GSV",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 165,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "VOG",
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 120,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        }
+      ],
+      "markets": [
+        "PEE↔AER",
+        "GSV↔AER",
+        "VOG↔AER"
+      ],
+      "changes": "Добавить по2RT; уже существующие own-продажи не объявлять нулевыми; перенос старого хвоста только после определения донора",
+      "comparison_group": "ONE_TAIL_ALLOCATION",
+      "season": "май–сентябрь; для новыхSJ2027 не раньшеиюля и фактическоговвода",
+      "winter": "отдельный тест декабрь–март; исходныйзимнийспрос UNKNOWN, это не нулевойспрос",
+      "keep": "Все затронутые рейсы/продажи RW включая опубликованныйTLV2027 и собственныеSKX/MCX/BUS/TBS сохраняются либо явно меняются с донором; календарьKEEP UNKNOWN",
+      "required_common_inputs": [
+        "P03:передача/ввод/KEEP/хвост/резерв/crew/ТО/слоты",
+        "P05:единыеODпулы,сезоны,своипродажи,тарифныекорзины,реакция",
+        "P04:локальноетопливо,база,запуск,выход,договоры/налоги/денежныедаты",
+        "P06:полныепарныеbundle и независимыйacceptance"
+      ],
+      "assumption_ids": [
+        "AER-A01",
+        "AER-A02",
+        "AER-A03",
+        "AER-A04",
+        "AER-A05",
+        "AER-A06",
+        "AER-A08",
+        "AER-A09",
+        "AER-A10",
+        "AER-A11",
+        "AER-A14",
+        "AER-A15"
+      ]
+    },
+    {
+      "programme_id": "AER-E1",
+      "version": "AER-research-v1",
+      "title": "Прямые из существующей базы SVX при том же ресурсе",
+      "role": "развитие существующей базы",
+      "units": "физические хвосты;датированные плечи;поездки OD",
+      "period": "2027-01..2028-12",
+      "coverage": "локальный фрагмент общей целевой сети8–12пар; не готоваягодоваясеть",
+      "status": "Сконструирован; StageBусловен",
+      "source_ids": [
+        "RW_WINTER",
+        "LOCAL_TLV2027",
+        "SCHEDULE_PEE",
+        "SCHEDULE_GSV",
+        "SCHEDULE_MCX",
+        "P03",
+        "P04",
+        "P06"
+      ],
+      "working_tails_required": 1,
+      "reserve_requirement": "AER-A08: тот же подтверждённый пул у обеих сторон; количество/доступность UNKNOWN",
+      "fleet_variants": [
+        {
+          "id": "CASE_SSJ100",
+          "aircraft": "RRJ95_SaM146",
+          "admission": "нужны хвост,донорKEEP,кресла,нагрузка,ТО"
+        },
+        {
+          "id": "CASE_SJ100",
+          "aircraft": "SJ100_PD8",
+          "admission": "не ранееH2_2027; после передачи/ввода/допуска; новые эксплуатационные параметры UNKNOWN"
+        }
+      ],
+      "new_tu214_required": 0,
+      "weekly_rotations": [
+        {
+          "tail_role_id": "T1",
+          "base": "SVX",
+          "destination": "AER",
+          "weekdays_iso": [
+            1,
+            3,
+            6
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 225,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "SVX",
+          "destination": "GSV",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 150,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        }
+      ],
+      "markets": [
+        "SVX↔AER",
+        "SVX↔GSV"
+      ],
+      "changes": "SVX–AER3RT+SVX–GSV2RT как добавки кKEEP; точное own-пересечение/продажи UNKNOWN",
+      "comparison_group": "ONE_TAIL_ALLOCATION",
+      "season": "май–сентябрь; для новыхSJ2027 не раньшеиюля и фактическоговвода",
+      "winter": "отдельный тест декабрь–март; исходныйзимнийспрос UNKNOWN, это не нулевойспрос",
+      "keep": "Все затронутые рейсы/продажи RW включая опубликованныйTLV2027 и собственныеSKX/MCX/BUS/TBS сохраняются либо явно меняются с донором; календарьKEEP UNKNOWN",
+      "required_common_inputs": [
+        "P03:передача/ввод/KEEP/хвост/резерв/crew/ТО/слоты",
+        "P05:единыеODпулы,сезоны,своипродажи,тарифныекорзины,реакция",
+        "P04:локальноетопливо,база,запуск,выход,договоры/налоги/денежныедаты",
+        "P06:полныепарныеbundle и независимыйacceptance"
+      ],
+      "assumption_ids": [
+        "AER-A01",
+        "AER-A02",
+        "AER-A03",
+        "AER-A04",
+        "AER-A05",
+        "AER-A06",
+        "AER-A08",
+        "AER-A09",
+        "AER-A10",
+        "AER-A11",
+        "AER-A14",
+        "AER-A15"
+      ]
+    },
+    {
+      "programme_id": "AER-H2",
+      "version": "AER-research-v1",
+      "title": "Радиали AER и защищённая пересадка в MCX",
+      "role": "внутренний минихаб на существующих опорных аэропортах",
+      "units": "физические хвосты;датированные плечи;поездки OD",
+      "period": "2027-01..2028-12",
+      "coverage": "локальный фрагмент общей целевой сети8–12пар; не готоваягодоваясеть",
+      "status": "Сконструирован; StageBусловен",
+      "source_ids": [
+        "RW_WINTER",
+        "LOCAL_TLV2027",
+        "SCHEDULE_PEE",
+        "SCHEDULE_GSV",
+        "SCHEDULE_MCX",
+        "P03",
+        "P04",
+        "P06"
+      ],
+      "working_tails_required": 2,
+      "reserve_requirement": "AER-A08: тот же подтверждённый пул у обеих сторон; количество/доступность UNKNOWN",
+      "fleet_variants": [
+        {
+          "id": "CASE_SSJ100",
+          "aircraft": "RRJ95_SaM146",
+          "admission": "нужны хвост,донорKEEP,кресла,нагрузка,ТО"
+        },
+        {
+          "id": "CASE_SJ100",
+          "aircraft": "SJ100_PD8",
+          "admission": "не ранееH2_2027; после передачи/ввода/допуска; новые эксплуатационные параметры UNKNOWN"
+        }
+      ],
+      "new_tu214_required": 0,
+      "weekly_rotations": [
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "PEE",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 240,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "GSV",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 165,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "VOG",
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 120,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T2",
+          "base": "MCX",
+          "destination": "AER",
+          "weekdays_iso": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "departure_utc": "02:30",
+          "return_departure_utc": "16:15",
+          "block_each_direction_min": 105,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        }
+      ],
+      "markets": [
+        "PEE↔AER",
+        "GSV↔AER",
+        "VOG↔AER",
+        "MCX↔AER",
+        "PEE↔MCX черезAER",
+        "GSV↔MCX черезAER",
+        "VOG↔MCX черезAER"
+      ],
+      "changes": "Радиали какS1; второйхвостMCX–AER6RT/неделю с дневнойстоянкойAER. При пересечении ownMCX не складывать частоты без общейперестройкиKEEP",
+      "comparison_group": "TWO_TAIL_HUB_VS_DIRECT",
+      "season": "май–сентябрь; для новыхSJ2027 не раньшеиюля и фактическоговвода",
+      "winter": "отдельный тест декабрь–март; исходныйзимнийспрос UNKNOWN, это не нулевойспрос",
+      "keep": "Все затронутые рейсы/продажи RW включая опубликованныйTLV2027 и собственныеSKX/MCX/BUS/TBS сохраняются либо явно меняются с донором; календарьKEEP UNKNOWN",
+      "required_common_inputs": [
+        "P03:передача/ввод/KEEP/хвост/резерв/crew/ТО/слоты",
+        "P05:единыеODпулы,сезоны,своипродажи,тарифныекорзины,реакция",
+        "P04:локальноетопливо,база,запуск,выход,договоры/налоги/денежныедаты",
+        "P06:полныепарныеbundle и независимыйacceptance"
+      ],
+      "assumption_ids": [
+        "AER-A01",
+        "AER-A02",
+        "AER-A03",
+        "AER-A04",
+        "AER-A05",
+        "AER-A06",
+        "AER-A08",
+        "AER-A09",
+        "AER-A10",
+        "AER-A11",
+        "AER-A14",
+        "AER-A15"
+      ],
+      "protected_connections": {
+        "contract_status": "UNKNOWN: до договора продукты не защищённые",
+        "design_mct_min": 90,
+        "morning_available_min": 105,
+        "evening_available_min_by_feeder": {
+          "PEE": 90,
+          "GSV": 240,
+          "VOG": 330
+        },
+        "cost_driver": "Дневная стоянка второгохвоста AER около12ч; нужен выбор стоянки86/40/базирования по договору без суммирования альтернатив",
+        "assumption_id": "AER-A07"
+      }
+    },
+    {
+      "programme_id": "AER-D2",
+      "version": "AER-research-v1",
+      "title": "Та же радиальная программа и прямые MCX–PEE/GSV/VOG",
+      "role": "смешанная сеть без AER транзита этихOD",
+      "units": "физические хвосты;датированные плечи;поездки OD",
+      "period": "2027-01..2028-12",
+      "coverage": "локальный фрагмент общей целевой сети8–12пар; не готоваягодоваясеть",
+      "status": "Сконструирован; StageBусловен",
+      "source_ids": [
+        "RW_WINTER",
+        "LOCAL_TLV2027",
+        "SCHEDULE_PEE",
+        "SCHEDULE_GSV",
+        "SCHEDULE_MCX",
+        "P03",
+        "P04",
+        "P06"
+      ],
+      "working_tails_required": 2,
+      "reserve_requirement": "AER-A08: тот же подтверждённый пул у обеих сторон; количество/доступность UNKNOWN",
+      "fleet_variants": [
+        {
+          "id": "CASE_SSJ100",
+          "aircraft": "RRJ95_SaM146",
+          "admission": "нужны хвост,донорKEEP,кресла,нагрузка,ТО"
+        },
+        {
+          "id": "CASE_SJ100",
+          "aircraft": "SJ100_PD8",
+          "admission": "не ранееH2_2027; после передачи/ввода/допуска; новые эксплуатационные параметры UNKNOWN"
+        }
+      ],
+      "new_tu214_required": 0,
+      "weekly_rotations": [
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "PEE",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 240,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "GSV",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 165,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "VOG",
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 120,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T2",
+          "base": "MCX",
+          "destination": "PEE",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 195,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T2",
+          "base": "MCX",
+          "destination": "GSV",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 105,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T2",
+          "base": "MCX",
+          "destination": "VOG",
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 85,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        }
+      ],
+      "markets": [
+        "PEE↔AER",
+        "GSV↔AER",
+        "VOG↔AER",
+        "PEE↔MCX",
+        "GSV↔MCX",
+        "VOG↔MCX"
+      ],
+      "changes": "РадиалиS1 одинаковы сH2; второйхвост изMCX выполняет по2RT вPEE/GSV/VOG. Ресурс/ввод/резерв и остальныеownпрограммы общие",
+      "comparison_group": "TWO_TAIL_HUB_VS_DIRECT",
+      "season": "май–сентябрь; для новыхSJ2027 не раньшеиюля и фактическоговвода",
+      "winter": "отдельный тест декабрь–март; исходныйзимнийспрос UNKNOWN, это не нулевойспрос",
+      "keep": "Все затронутые рейсы/продажи RW включая опубликованныйTLV2027 и собственныеSKX/MCX/BUS/TBS сохраняются либо явно меняются с донором; календарьKEEP UNKNOWN",
+      "required_common_inputs": [
+        "P03:передача/ввод/KEEP/хвост/резерв/crew/ТО/слоты",
+        "P05:единыеODпулы,сезоны,своипродажи,тарифныекорзины,реакция",
+        "P04:локальноетопливо,база,запуск,выход,договоры/налоги/денежныедаты",
+        "P06:полныепарныеbundle и независимыйacceptance"
+      ],
+      "assumption_ids": [
+        "AER-A01",
+        "AER-A02",
+        "AER-A03",
+        "AER-A04",
+        "AER-A05",
+        "AER-A06",
+        "AER-A08",
+        "AER-A09",
+        "AER-A10",
+        "AER-A11",
+        "AER-A14",
+        "AER-A15"
+      ]
+    },
+    {
+      "programme_id": "AER-I1",
+      "version": "AER-research-v1",
+      "title": "Подвоз к существующим международным рейсам AER",
+      "role": "смешанная сеть: локальный спрос плюс международныйподвоз",
+      "units": "физические хвосты;датированные плечи;поездки OD",
+      "period": "2027-01..2028-12",
+      "coverage": "локальный фрагмент общей целевой сети8–12пар; не готоваягодоваясеть",
+      "status": "Сконструирован; StageBусловен",
+      "source_ids": [
+        "RW_WINTER",
+        "LOCAL_TLV2027",
+        "SCHEDULE_PEE",
+        "SCHEDULE_GSV",
+        "SCHEDULE_MCX",
+        "P03",
+        "P04",
+        "P06"
+      ],
+      "working_tails_required": 1,
+      "reserve_requirement": "AER-A08: тот же подтверждённый пул у обеих сторон; количество/доступность UNKNOWN",
+      "fleet_variants": [
+        {
+          "id": "CASE_SSJ100",
+          "aircraft": "RRJ95_SaM146",
+          "admission": "нужны хвост,донорKEEP,кресла,нагрузка,ТО"
+        },
+        {
+          "id": "CASE_SJ100",
+          "aircraft": "SJ100_PD8",
+          "admission": "не ранееH2_2027; после передачи/ввода/допуска; новые эксплуатационные параметры UNKNOWN"
+        }
+      ],
+      "new_tu214_required": 0,
+      "weekly_rotations": [
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "PEE",
+          "weekdays_iso": [
+            1,
+            4
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 240,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "GSV",
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 165,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        },
+        {
+          "tail_role_id": "T1",
+          "base": "AER",
+          "destination": "VOG",
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "departure_utc": "06:00",
+          "return_departure_utc": null,
+          "block_each_direction_min": 120,
+          "turn_min": 45,
+          "assumption_ids": [
+            "AER-A01",
+            "AER-A05",
+            "AER-A06",
+            "AER-A15"
+          ]
+        }
+      ],
+      "markets": [
+        "PEE/GSV/VOG↔AER",
+        "PEE/GSV/VOG↔TLV черезAER",
+        "PEE/GSV/VOG↔BUS/TBS черезAER"
+      ],
+      "changes": "Число новых внутреннихрейсов какS1; дополнительный internationaltail не назначен. Изменить времена радиалей под опубликованные рейсыKEEP после проверки багажа/MCT/through fare",
+      "comparison_group": "ONE_TAIL_S1_VS_I1",
+      "season": "май–сентябрь; для новыхSJ2027 не раньшеиюля и фактическоговвода",
+      "winter": "отдельный тест декабрь–март; исходныйзимнийспрос UNKNOWN, это не нулевойспрос",
+      "keep": "Все затронутые рейсы/продажи RW включая опубликованныйTLV2027 и собственныеSKX/MCX/BUS/TBS сохраняются либо явно меняются с донором; календарьKEEP UNKNOWN",
+      "required_common_inputs": [
+        "P03:передача/ввод/KEEP/хвост/резерв/crew/ТО/слоты",
+        "P05:единыеODпулы,сезоны,своипродажи,тарифныекорзины,реакция",
+        "P04:локальноетопливо,база,запуск,выход,договоры/налоги/денежныедаты",
+        "P06:полныепарныеbundle и независимыйacceptance"
+      ],
+      "assumption_ids": [
+        "AER-A01",
+        "AER-A02",
+        "AER-A03",
+        "AER-A04",
+        "AER-A05",
+        "AER-A06",
+        "AER-A08",
+        "AER-A09",
+        "AER-A10",
+        "AER-A11",
+        "AER-A14",
+        "AER-A15"
+      ],
+      "international_condition": "Сравнить с прямыми RW/конкурентов в Грузию из регионов и маршрутом черезSVX/MCX; дополнительный международный спрос не равен всем пассажирамAER; при снятииTLV переход кS1/D2;0новыхТу214"
+    },
+    {
+      "programme_id": "AER-G0",
+      "version": "AER-research-v1",
+      "title": "Наземный подвоз/партнёрский продукт к существующим рейсам",
+      "role": "распределение catchment и услуг",
+      "units": "физические хвосты;датированные плечи;поездки OD",
+      "period": "2027-01..2028-12",
+      "coverage": "локальный фрагмент общей целевой сети8–12пар; не готоваягодоваясеть",
+      "status": "Сконструирован; StageBусловен",
+      "source_ids": [
+        "RW_WINTER",
+        "LOCAL_TLV2027",
+        "SCHEDULE_PEE",
+        "SCHEDULE_GSV",
+        "SCHEDULE_MCX",
+        "P03",
+        "P04",
+        "P06"
+      ],
+      "working_tails_required": 0,
+      "reserve_requirement": "AER-A08: тот же подтверждённый пул у обеих сторон; количество/доступность UNKNOWN",
+      "fleet_variants": [
+        {
+          "id": "CASE_SSJ100",
+          "aircraft": "RRJ95_SaM146",
+          "admission": "нужны хвост,донорKEEP,кресла,нагрузка,ТО"
+        },
+        {
+          "id": "CASE_SJ100",
+          "aircraft": "SJ100_PD8",
+          "admission": "не ранееH2_2027; после передачи/ввода/допуска; новые эксплуатационные параметры UNKNOWN"
+        }
+      ],
+      "new_tu214_required": 0,
+      "weekly_rotations": [],
+      "markets": [
+        "районыСочи/Туапсе/Новороссийск↔существующиеAERрейсы"
+      ],
+      "changes": "Договориться о распределении/трансфере какгипотезе; подписанного allotment нет; самолёт сравнения остаётся вKEEP/другойлучшейпрограмме",
+      "comparison_group": "DISTRIBUTION_VS_AIR_CAPACITY",
+      "season": "май–сентябрь; для новыхSJ2027 не раньшеиюля и фактическоговвода",
+      "winter": "отдельный тест декабрь–март; исходныйзимнийспрос UNKNOWN, это не нулевойспрос",
+      "keep": "Все затронутые рейсы/продажи RW включая опубликованныйTLV2027 и собственныеSKX/MCX/BUS/TBS сохраняются либо явно меняются с донором; календарьKEEP UNKNOWN",
+      "required_common_inputs": [
+        "P03:передача/ввод/KEEP/хвост/резерв/crew/ТО/слоты",
+        "P05:единыеODпулы,сезоны,своипродажи,тарифныекорзины,реакция",
+        "P04:локальноетопливо,база,запуск,выход,договоры/налоги/денежныедаты",
+        "P06:полныепарныеbundle и независимыйacceptance"
+      ],
+      "assumption_ids": [
+        "AER-A01",
+        "AER-A02",
+        "AER-A03",
+        "AER-A04",
+        "AER-A05",
+        "AER-A06",
+        "AER-A08",
+        "AER-A09",
+        "AER-A10",
+        "AER-A11",
+        "AER-A14",
+        "AER-A15"
+      ],
+      "equal_resource_rule": "Нулевой новыйхвост уG0 не разрешает забыть альтернативныйрезультат высвободившегосяхвоста в общейсистеме."
+    }
+  ]
+}

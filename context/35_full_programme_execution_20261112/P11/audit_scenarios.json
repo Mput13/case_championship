@@ -1,0 +1,60 @@
+[
+  {
+    "path": "Поиск/предложение",
+    "date": "2026-11-12",
+    "status": "OBSERVED_TO_FARE_VIEW",
+    "scenario": "SVX→OMS20.11.2026,1adult,oneway",
+    "fact": "Результат и2тарифа доступны; кнопки выбора тарифа не нажаты",
+    "evidence": [
+      "V02_search",
+      "V03_fares"
+    ]
+  },
+  {
+    "path": "Покупка/место/багаж/пассажир/оплата",
+    "date": "2026-11-12",
+    "status": "NOT_RUN_AFTER_FARE_VIEW",
+    "scenario": "Граница без создания заказа/брони",
+    "fact": "Как купить билет предупреждает о брони до оплаты; повторение старого skip-modal не выполнялось",
+    "evidence": [
+      "V04_how",
+      "HIST_OBS"
+    ]
+  },
+  {
+    "path": "Допуслуги",
+    "date": "2026-11-12",
+    "status": "PUBLIC_RULES_OBSERVED_PURCHASE_NOT_RUN",
+    "scenario": "Багаж и возвратность",
+    "fact": "Работающий каталог/публичные правила; замечания D02/D03",
+    "evidence": [
+      "V06_baggage_faq",
+      "V08_returnability",
+      "V13_baggage_before24",
+      "V14_baggage_after24"
+    ]
+  },
+  {
+    "path": "Основные вопросы",
+    "date": "2026-11-12",
+    "status": "SEARCH_AND_ACCORDION_OBSERVED",
+    "scenario": "Поиск чек, раскрытие ответа; подготовка к полёту",
+    "fact": "Поиск работает; сроки check-in расходятся",
+    "evidence": [
+      "V10_faq_receipt",
+      "V11_checkin_rules",
+      "V12_checkin_faq"
+    ]
+  },
+  {
+    "path": "После покупки",
+    "date": "2026-11-12",
+    "status": "ENTRY_OBSERVED_TRANSACTION_NOT_RUN",
+    "scenario": "Вход Мои бронирования без данных",
+    "fact": "Пустая форма фамилия+билет/код; статусы и исполнения реального дела UNKNOWN",
+    "evidence": [
+      "V09_manage_booking",
+      "V15_refund_light"
+    ]
+  }
+]

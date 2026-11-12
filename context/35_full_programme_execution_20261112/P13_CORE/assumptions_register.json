@@ -1,0 +1,17 @@
+{
+  "assumptions": [
+    {
+      "assumption_id": "P13-A001",
+      "selected_by": "Независимый reviewer P13-CORE",
+      "value": "Все числа/даты/веса/пороги и explicit zero в reproduce.py — искусственные граничные примеры",
+      "unit": "RUB, journeys, passenger segments, seats, minutes, UTC, hours; frequency — единый toy-unit внутри каждого теста",
+      "basis": "Простая проверяемая арифметика; значения выбраны для изоляции инвариантов, а не для имитации RW",
+      "range_or_unknown": "UNKNOWN для настоящих параметров RW. Эти точки не доверительные интервалы",
+      "sensitivity": "I02 missing/unknown/zero; I03 held/released; I05 reversed order; I06 frequencies2/3 and other cells50; I08 resource one-field perturbations; I11 interest/principal coverage; I15 fare120/1200; I17 delete contract30",
+      "numerical_tolerance": "math.isclose abs_tol=1e-6 и стандартный rel_tol=1e-9, только арифметика тестов",
+      "affected_conclusions": "Верность реализации и два контрпримера adaptive; не спрос/экономика/сеть RW",
+      "refinement": "Не требуется калибровка для инвариантов; реальные расчёты требуют принятия producer inputs координатором"
+    }
+  ],
+  "real_RW_parameter_selection": false
+}

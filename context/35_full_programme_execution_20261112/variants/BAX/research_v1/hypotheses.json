@@ -1,0 +1,262 @@
+{
+  "status": "ALL_REGISTERED_LOCAL_HYPOTHESES_HAVE_EXPLAINED_OUTCOME",
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-BAX-01",
+      "title": "Развивать доступность через существующий узел SVX",
+      "signal": "Наблюдаются собственные BAX–SVX/UUD и объявленный партнёрский MSQ.",
+      "source": [
+        "RW-BOARD",
+        "RW-BELAVIA",
+        "PIN-P02"
+      ],
+      "mechanism": "Частота и согласованные пересадки могут улучшить полный путь без новой базы в BAX.",
+      "counterfactual": "KEEP и альтернативное применение того же дополнительного борта в ALT1.",
+      "distinguishing_test": "P05: новые поездки после собственного перетока. P03: реальные даты и обе стороны возврата.",
+      "ancestorIDs": [
+        "C22",
+        "KIR_PAIR_D",
+        "EC_H02"
+      ],
+      "outcome": "CONDITIONAL_STAGE_B_PROGRAMME_SPECIFIED",
+      "evidence_ids": [
+        "E-BAX-01",
+        "E-BAX-03",
+        "E-BAX-04",
+        "E-BAX-06"
+      ],
+      "condition_for_reconsideration": "Построенный продукт не проходит, если потеря KEEP и альтернативного результата превышает инкремент или оба направления не продаются.",
+      "programme_ids": [
+        "P-BAX-DI1",
+        "P-BAX-PARTNER0"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    },
+    {
+      "hypothesis_id": "H-BAX-02",
+      "title": "Новая радиальная база BAX",
+      "signal": "Есть первичное описание обслуживания SSJ100, новый терминал и авторские радиали KUF/IKT/KJA.",
+      "source": [
+        "BAX-PROC2024",
+        "BAX-TERMINAL",
+        "PIN-MODEL"
+      ],
+      "mechanism": "Прямой продукт сокращает крюк через SVX/OVB и использует местные OD. Дополнительные база, экипажи, ТО и резерв могут поглотить эффект.",
+      "counterfactual": "DI1 и ALT1 с тем же одним tail-month и тем же внешним сценарием.",
+      "distinguishing_test": "Общий OD, ценность частоты и максимальная допустимая местная фиксированная нагрузка по P04.",
+      "ancestorIDs": [
+        "AUTHOR:Хаб BAX@dceadc9"
+      ],
+      "outcome": "CONDITIONAL_STAGE_B_PROGRAMME_SPECIFIED",
+      "evidence_ids": [
+        "E-BAX-16",
+        "E-BAX-17",
+        "E-BAX-18",
+        "E-BAX-19",
+        "E-BAX-20",
+        "E-BAX-34",
+        "E-BAX-35"
+      ],
+      "condition_for_reconsideration": "Отказ от конкретной программы при недостатке экономического запаса или операционной приёмки не является отказом от всего города.",
+      "programme_ids": [
+        "P-BAX-RAD1"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    },
+    {
+      "hypothesis_id": "H-BAX-03",
+      "title": "Защищённая миниволна KUF–BAX–UUD",
+      "signal": "Запад–восток как географический механизм; UUD уже продаётся RW; в авторской модели есть BAX transfer hub.",
+      "source": [
+        "PIN-MODEL",
+        "RW-BOARD"
+      ],
+      "mechanism": "Сквозная поездка может повысить загрузку двух спиц, но расходует два физических кресла и конкурирует с собственными SVX и внешними OVB продуктами.",
+      "counterfactual": "Сначала одинаковые рейсы без защищённых пересадок, затем существующий SVX узел с теми же двумя tail-months.",
+      "distinguishing_test": "Договор MCT, багаж, надёжность, возврат, общий demand pool, единый тариф и полный добавочный результат.",
+      "ancestorIDs": [
+        "AUTHOR:Хаб BAX@dceadc9",
+        "C22"
+      ],
+      "outcome": "CONDITIONAL_NOT_ADMITTED",
+      "evidence_ids": [
+        "E-BAX-01",
+        "E-BAX-03",
+        "E-BAX-34"
+      ],
+      "condition_for_reconsideration": "Без принятого договора защиты это радиальная ablation. Плохой результат одной схемы пн/чт не опровергает любой возможный BAX хаб.",
+      "programme_ids": [
+        "P-BAX-HUB2",
+        "P-BAX-HUB2-LOCAL",
+        "P-BAX-EX2"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    },
+    {
+      "hypothesis_id": "H-BAX-04",
+      "title": "Подвоз через OVB и наземное партнёрство",
+      "signal": "Опубликованы исторические около 45 тыс. обслуживаний BAX–OVB, ежедневный S7 и автобус до аэропорта OVB.",
+      "source": [
+        "BAX-HISTORY",
+        "BAX-YANDEX",
+        "BAX-GROUND"
+      ],
+      "mechanism": "Партнёрская или наземная связка может экономить новый борт. Доступность OVB также ограничивает локальный захват BAX.",
+      "counterfactual": "PARTNER0 против нового RW подвозного плеча либо использования того же ресурса на длинной радиали.",
+      "distinguishing_test": "Полный путь, 20 кг, риск опоздания и последний обратный автобус; население не равно спросу.",
+      "ancestorIDs": [
+        "AUTHOR:catchment/BAX@dceadc9"
+      ],
+      "outcome": "CONDITIONAL_ZERO_NEW_TAIL_BRANCH_SPECIFIED",
+      "evidence_ids": [
+        "E-BAX-05",
+        "E-BAX-08",
+        "E-BAX-09",
+        "E-BAX-10",
+        "E-BAX-11",
+        "E-BAX-15",
+        "E-BAX-27",
+        "E-BAX-29",
+        "E-BAX-30"
+      ],
+      "condition_for_reconsideration": "Подтверждённые договоры или купонные OD могут обосновать новый авиаподвоз. Само наличие конкурента не является отказом.",
+      "programme_ids": [
+        "P-BAX-PARTNER0"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    },
+    {
+      "hypothesis_id": "H-BAX-05",
+      "title": "Короткие KJA/TOF плечи оценивать с полным продуктом",
+      "signal": "В авторской модели есть KJA около 653 км и TOF около 352 км; КрасАвиа действительно выполняет рейс в Красноярск.",
+      "source": [
+        "PIN-MODEL",
+        "BAX-KRASAVIA"
+      ],
+      "mechanism": "Сквозной спрос может загрузить короткое плечо; цикловые затраты, наземные альтернативы и действующий перевозчик ограничивают эффект.",
+      "counterfactual": "Замена KJA на TOF в RAD1 при том же ресурсе и общих outside options.",
+      "distinguishing_test": "Общий transfer pool P05, наземный choice, циклы P03 и драйверы P04; порог 500 км не является экономическим тестом.",
+      "ancestorIDs": [
+        "AUTHOR:BAX-KJA/BAX-TOF@dceadc9"
+      ],
+      "outcome": "CONDITIONAL_ALTERNATIVE_NOT_ECONOMIC_REJECTION",
+      "evidence_ids": [
+        "E-BAX-28",
+        "E-BAX-34"
+      ],
+      "condition_for_reconsideration": "При появлении OD и полного наземного сравнения достроить вариант. Неполные данные остаются UNKNOWN.",
+      "programme_ids": [
+        "P-BAX-RAD1"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    },
+    {
+      "hypothesis_id": "H-BAX-06",
+      "title": "Международный продукт через SVX без новых Ту-214",
+      "signal": "Объявлены BAX–SVX–MSQ и конкурентный трансфер через KZN в IST; CXR присутствует в истории.",
+      "source": [
+        "RW-BELAVIA",
+        "BAX-N4-TRANSFER",
+        "BAX-2025-FINAL"
+      ],
+      "mechanism": "Партнёрское плечо расширяет выбор без нового дальнемагистрального парка в Барнауле.",
+      "counterfactual": "Ветка с нулём новых Ту-214 и сохранением существующих международных продаж.",
+      "distinguishing_test": "Продажа на дату, сквозной багаж, расчёты с партнёром, права и собственный переток.",
+      "ancestorIDs": [
+        "C22",
+        "AUTHOR:international_context"
+      ],
+      "outcome": "MERGED_WITH_H01_PRESERVING_PROVENANCE",
+      "evidence_ids": [
+        "E-BAX-06",
+        "E-BAX-07",
+        "E-BAX-12",
+        "E-BAX-13"
+      ],
+      "condition_for_reconsideration": "Собственный международный маршрут из BAX исследовать при отдельном спросе, допусках и ресурсе. Он не объявлен экономически проигравшим.",
+      "programme_ids": [
+        "P-BAX-PARTNER0",
+        "P-BAX-DI1"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    },
+    {
+      "hypothesis_id": "H-BAX-07",
+      "title": "Считать BAX уже действующим хабом или свободной базой RW",
+      "signal": "Наблюдаются несколько прямых продуктов RW; договоры волны и свободные хвосты не доказаны.",
+      "source": [
+        "RW-BOARD",
+        "RW-WINTER",
+        "PIN-P03"
+      ],
+      "mechanism": "Несколько направлений сами по себе не устанавливают базирование или защищённые пересадки.",
+      "counterfactual": "Действующая точка с несколькими продуктами; доступный свободный ресурс UNKNOWN.",
+      "distinguishing_test": "Положительные договоры базы, crew/MRO и защищённых пересадок плюс назначения конкретных хвостов.",
+      "ancestorIDs": [
+        "C22"
+      ],
+      "outcome": "CLAIM_NOT_ESTABLISHED_CITY_NOT_REJECTED",
+      "evidence_ids": [
+        "E-BAX-01",
+        "E-BAX-02",
+        "E-BAX-03",
+        "E-BAX-26"
+      ],
+      "condition_for_reconsideration": "Такие данные меняют классификацию. Отсутствие BAX в списке опорных аэропортов недостаточно для доказательства отсутствия базы.",
+      "programme_ids": [
+        "P-BAX-KEEP"
+      ],
+      "period": "2027–2028",
+      "units": "journeys,seats,tailmonths,RUB/cash separately",
+      "coverage": "Stage A завершён; экономическая оценка требует Stage B.",
+      "assumption_ids": [
+        "BAX-A08",
+        "BAX-A17",
+        "BAX-A20"
+      ]
+    }
+  ],
+  "not_closed_by_stageA": "Ни одна локальная экономическая гипотеза не признана победителем или опровергнутой из-за неполного покрытия. Недоказанная классификация хаба не является отказом от города."
+}

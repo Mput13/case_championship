@@ -1,0 +1,36 @@
+{
+  "web_fetch_failures": [
+    {
+      "url": "https://new.aer.aero/",
+      "error": "Failed to fetch https://new.aer.aero/: (502) Bad Gateway"
+    },
+    {
+      "url": "https://aer.aero/partners/",
+      "error": "URL https://aer.aero/partners/ is not accessible via this tool."
+    },
+    {
+      "url": "https://atechnics.ru/",
+      "error": "Failed to fetch https://atechnics.ru/: TimeoutError"
+    }
+  ],
+  "fallback": "Публичные read-only HTTP GET через urllib к официальному aer.aero; успешные ответы и hashes в fetch_receipts.json. Открытие браузера не требовалось.",
+  "other_limits": [
+    {
+      "attempt": "BeautifulSoup import",
+      "error": "ModuleNotFoundError: No module named 'bs4'",
+      "resolution": "Использован стандартный html.parser; зависимостей не устанавливалось."
+    },
+    {
+      "source": "MRO_OPERATOR",
+      "error": "HTTP Error 503: Service Unavailable",
+      "consequence": "Текущий сертификат/правоRW UNKNOWN; исторический первичный релиз не повышен до текущего допуска"
+    },
+    {
+      "source": "PEE_AER_PRIMARY",
+      "result": "HTTP200 без извлечённого основного текста",
+      "consequence": "Не принято как независимое подтверждение численного потока PEE; сохранён точный pinned источник."
+    }
+  ],
+  "delegation": "Не запускалась: явное поручение работать самостоятельно без детей.",
+  "shared_checkout": "Только чтение exact blobs; скрипт проверки коллег, изменяющий общие журналы, не запускался по границе записи."
+}

@@ -1,0 +1,25 @@
+{
+  "status": "READ_ONLY_DIAGNOSIS_NO_SESSION_CHANGES",
+  "errors": [
+    {
+      "tool": "web find on https://www.krasavia.ru/online-tablo",
+      "exact_error": "Failed to fetch https://www.krasavia.ru/online-tablo: (400) Timeout fetching",
+      "reproduced": "Два find с Барнаул/БАРНАУЛ возвращают ту же ошибку.",
+      "fallback": "Публичное текстовое HTTP-чтение того же URL; сохранены raw HTML, текст и SHA256 в fetch_supplement.json.",
+      "result": "HTTP200; датированные KV103/KV104 извлечены."
+    },
+    {
+      "tool": "web screenshot of airport procurement PDF page7",
+      "exact_error": "Unable to resolve screenshot call because content type is not application/pdf and web screenshot is not enabled",
+      "fallback": "Визуальная сверка NOT_RUN. Сохранён native web текст PDF; ряд исключён из калибровки, причина расхождения не объявлена установленной."
+    },
+    {
+      "tool": "public HTTP airaltay root/contract/tariff",
+      "exact_error": "HTTP200 text/html, 13602 bytes, meta robots noindex,noarchive; gorizontal-vertikal spinner; нет содержания документа",
+      "fallback": "Сохранён индекс первичного документа через native search; статус INDEXED_EXCERPT_ONLY. Браузер, cookies и сессии не использовались."
+    }
+  ],
+  "why_no_diagnostic_child": "Текущее назначение пользователя явно требует работать самостоятельно без детей. Диагностика ограничена тем же исполнителем и не вмешивается в сессии.",
+  "time": "2026-11-12",
+  "scope": "Только источники BAX; рестарты, профили и процессы не менялись."
+}

@@ -1,0 +1,52 @@
+{
+  "package_id": "UFA-research-v1",
+  "stage": "A",
+  "status": "COMPLETE_LOCAL_PACKAGE_WITH_EXPLICIT_STAGE_B",
+  "directory": "/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/variants/UFA/research_v1",
+  "write_boundary": "Только этот каталог. Git checkout/commit/push/merge/rebase/fetch не выполнялись; общие файлы не менялись.",
+  "summary": "Уфа подтверждена как рынок опубликованных RW, но база/хаб/свободный ресурс UNKNOWN. Основные опыты: малая база против лучей SVX; цепочки без местной базы; защищённые банки; усиление своего NUX; партнёрский и дополнительный международный продукт.",
+  "early_findings": [
+    "Существующий вторичный WZ UFA–SVX–TOF требует сохранения собственных продаж и контроля ретайминга.",
+    "Utair публикует собственную технологию UFA 45 минут/12 часов; RW не наследует её автоматически.",
+    "Публичный ангарный доступ ограничен; контракты и свободная мощность не доказаны."
+  ],
+  "counts": {
+    "hypotheses": 10,
+    "programmes_including_KEEP_and_controls": 10,
+    "comparison_requests": 13,
+    "assumptions": 27,
+    "evidence_rows": 61,
+    "http_read": 13,
+    "http_error": 1,
+    "rotation_probes": 7
+  },
+  "use_now": [
+    "case.json — выводы, роль города, потоки, локальные ограничения и парные опыты.",
+    "programme_candidates.json + market_deltas.csv — варианты и действия относительно будущего KEEP.",
+    "schedule_observations.csv / competitor_seasonal_summary.csv / price_observations.csv — датированные источниковые наблюдения.",
+    "hypotheses.json — происхождение, условия и объяснимые исходы всех локальных гипотез."
+  ],
+  "integration_needed": [
+    "Сначала принять входы P02/P03/P04/P05, не импортировать toy P06.",
+    "Объединить UFA–OMS и другие пересечения с соседними программами по одним demand pools и физическим бортам.",
+    "Из C01 отдельно сохранить открытыми прежние NJC/ARH/MCX/OMS; C02/C04/C30/C34 связать с владельцами общих программ.",
+    "Построить все 24 месяца в базовом и осторожном сценариях с плановой/частичной/отложенной/нулевой поставкой; виды SSJ100 и SJ-100/ПД-8 разделить.",
+    "Получить variable/full/cash, funding gap, траекторию улучшения и условия остановки; только затем командный выбор."
+  ],
+  "acceptance_limits": [
+    "Ротационная геометрия не доказывает спрос, парк, crew/ТО, доступность слотов или прибыль.",
+    "В стрессах блока +25% часть графиков нарушает выбранные 8 часов; обрабатывать обе стороны каждого сравнения.",
+    "Стартовый убыток не исключает вариант; дата выхода на прибыль без общего расчёта UNKNOWN.",
+    "Никакого обновления публичного Site или дашборда Анастасии."
+  ],
+  "input_manifest": "input_pins.json",
+  "output_manifest": "output_manifest.json",
+  "reproduce_offline": [
+    "python3 /Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/variants/UFA/research_v1/build_package.py",
+    "python3 /Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/variants/UFA/research_v1/verify_package.py"
+  ],
+  "network_refresh": "acquire_local.py делает read-only HTTP и обновляет исходные снимки; не запускать для воспроизведения frozen-пакета.",
+  "remaining_owner": "Координатор P07/P08/P09 с владельцами P02/P03/P04/P05/P06.",
+  "P06_boundary": "Закреплён P06final982f13d9: implemented conditional engine; авторские 42 checks PASS, независимая приёмка pending по brief. Локальный пакет не выдаёт это за принятую экономику RW и не запускает toy как RW.",
+  "pinned_snapshot_policy": "Только городские строки, их канонические hashes и нужные схемы. Неиспользованные общие notes, пустые срезы и синтетический example удалены; полные источниковые hashes сохранены."
+}

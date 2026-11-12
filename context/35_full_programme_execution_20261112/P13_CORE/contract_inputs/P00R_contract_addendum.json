@@ -1,0 +1,41 @@
+{
+  "scope": "Предложение для принятия координатором; общие файлы не изменены. Можно использовать и как нормализованные CSV, и как эквивалентные структуры существующего engine.",
+  "evaluation_context": {
+    "programme_id": "required",
+    "programme_version": "required",
+    "fleet_scope_id": "required",
+    "external_scenario_id": "required",
+    "delivery_calendar_id": "required",
+    "market_version": "required",
+    "choice_version": "required",
+    "cost_version": "required",
+    "response_policy_id": "required",
+    "evaluation_mode": "required",
+    "decision_date": "required",
+    "information_set_id": "required",
+    "keep_evaluation_id": "required",
+    "input_manifest_sha256": "required"
+  },
+  "demand_conservation": "For each evaluation,pool,month,segment: sum(final product choices incl outside/unserved) = potential demand. If air-only observed demand is used, document mapping to potential demand; do not subtract no-travel twice.",
+  "capacity": "For each dated physical flight: sum(carried journeys using leg) + reserved unallocated contractual seats <= saleable seats. Contractual passengers included in carried are not added twice.",
+  "revenue": "sum_j carried_j * net_journey_fare_j + separately owned ancillary/contract revenue. One economic event per earned amount; weights to legs sum to 1.",
+  "own_migration": "old and new RW products participate in the same choice. Delta is total affected business P minus KEEP. Passenger origin transitions, if not identifiable, remain scenario assumptions; do not infer measured own migration from min(current passengers,new passengers).",
+  "resource": "Same availability/commitment scenario for P and KEEP, optional unused resources disclosed. Assignment intervals include turn/position/maintenance/crew restrictions. An aggregate-hours screen alone cannot pass operational feasibility.",
+  "operating_result": "net earned revenue + recognized support - variable operating expense - other operating expense (base, aircraft use, startup, exit under chosen policy). Report variable contribution separately. P−KEEP contains donor effects once.",
+  "cash_bridge": "cash_before_financing = operating_cash + investing_cash + tax_cash. Financing cash contains equity/debt flows separately. cash_close_t = cash_open_t + cash_before_financing_t + financing_cash_t.",
+  "funding_before_financing": "max over t including prelaunch of max(0, minimum_cash_t - opening_unrestricted_cash - sum_{u<=t} cash_before_financing_u). Report horizon, boundary and excluded unknowns. Month-end estimate is a lower bound without event timing/buffer.",
+  "two_funding_boundaries": "Incremental project cash = affected P cash - affected KEEP cash. Whole-business cash adds KEEP company cash. Unknown latter implies UNKNOWN whole-company funding, not zero.",
+  "terminal": "24 monthly operating outputs 2027–2028 plus prelaunch cash and explicit terminal receivables/payables/refundable deposits/exit commitments beyond horizon. Do not infer profitability or payback date after horizon.",
+  "season": "Historical months 2025 and available2026, published W26/27/S27 and projected 24 months remain separate versioned datasets. Every sampling/season extrapolation has coverage and assumption_id.",
+  "metric": "Journey, segment, compatible reported passenger are separate. Growth = P−KEEP within metric. Share change = share_P−share_KEEP, with compatible period/scope/denominator. No inferred №2 date.",
+  "optimization": "Compare nondominated growth/funding/risk options when budget unknown. Keep prior feasible candidates with unchanged feasibility. Global optimum only with appropriate proof; heuristic is best-found. Adaptive changes respect information available at decision_date and sunk commitments.",
+  "gate": "Research, source collection, UI skeleton, engine implementation proceed now. Before consequential integrated results, instantiate F01–F06 and run corresponding cases in actual P06. F07 gates share/ranking only. Conditional outputs with exact unknowns are allowed.",
+  "not_required": [
+    "Новый промышленный оптимизатор",
+    "Покупка OD базы",
+    "Полный ежедневный cash всей компании",
+    "Новый повтор всего исторического корпуса",
+    "Пользовательское согласование каждого рутинного коэффициента",
+    "Ожидание международных расширений для CASE_SJ"
+  ]
+}

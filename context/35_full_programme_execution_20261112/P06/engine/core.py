@@ -1,12 +1,12 @@
 """Public evaluate / compare / scenario interfaces. Inputs are immutable copies."""
 import copy
-from .common import VERSION, ContractError, digest, difference, fields, month, months, number, pool_key, require, total, unique, utc
+from .common import VERSION, ContractError, UnknownInput, digest, difference, fields, month, months, number, pool_key, require, total, unique, utc
 from .operations import check_itineraries, check_operations
 from .choice import allocate, apply_response
 from .finance import finance, funding
 
 CONTEXT = "evaluation_id programme_id programme_version fleet_scope_id external_scenario_id delivery_calendar_id market_version choice_version cost_version response_policy_id evaluation_mode decision_date information_set_id keep_evaluation_id input_manifest_sha256 period_start period_end cash_start price_year affected_scope_id"
-TABLES = "markets products flights fleet_calendar assignments contracts economic_events cash_events opening_balances assumptions input_manifest choice_model response_policy cost_coverage cash_coverage cash_policy resource_operators accounting_policy information_set keep_policy programme_target metric_adapter"
+TABLES = "markets market_calendar products flights fleet_calendar assignments contracts economic_events cash_events opening_balances assumptions input_manifest choice_model response_policy cost_coverage cash_coverage cash_policy resource_operators accounting_policy information_set keep_policy programme_target metric_adapter"
 COMMON = "fleet_scope_id external_scenario_id delivery_calendar_id market_version choice_version cost_version response_policy_id evaluation_mode decision_date information_set_id period_start period_end cash_start price_year affected_scope_id"
 
 
@@ -49,6 +49,16 @@ def validate(bundle):
     for m in bundle["markets"]:
         require(c["period_start"] <= m["month"] <= c["period_end"], "market outside forecast horizon")
         require(m["status"] in ("scenario", "estimated"), "historical/observed/published market cannot be future potential demand without adapter")
+    calendars = {(r["demand_pool_id"], r["customer_segment"]): r for r in bundle["market_calendar"]}
+    require(len(calendars) == len(bundle["market_calendar"]), "duplicate market calendar")
+    scope = {(r["demand_pool_id"], r["customer_segment"]) for r in bundle["markets"]}
+    require(scope <= set(calendars), "market calendar missing; absent months are not zero")
+    for key, cal in calendars.items():
+        fields(cal, "zero_months unknown_months assumption_id", "market_calendar")
+        present = [r["month"] for r in bundle["markets"] if (r["demand_pool_id"], r["customer_segment"]) == key]
+        declared = present + cal["zero_months"] + cal["unknown_months"]
+        require(len(declared) == len(set(declared)), "duplicate demand pool or overlapping month coverage")
+        require(set(declared) == set(months(c["period_start"], c["period_end"])), "market calendar must cover all 24 months explicitly")
     info = bundle["information_set"]
     require(info["information_set_id"] == c["information_set_id"], "information set identity")
     for fact in info["facts"]:
@@ -56,9 +66,10 @@ def validate(bundle):
     if c["evaluation_mode"] == "feasible_adaptation_with_existing_commitments":
         fields(bundle, "adaptation", "adaptive bundle")
         ad = bundle["adaptation"]
-        fields(ad, "parent_evaluation_id actions preserved_commitment_ids assumption_id", "adaptation")
+        fields(ad, "parent_evaluation_id parent_bundle_sha256 actions preserved_commitment_ids assumption_id", "adaptation")
         facts = {f["fact_id"] for f in info["facts"]}
         for a in ad["actions"]:
+            fields(a, "table record_id action effective_date decision_date based_on_fact_ids assumption_id", "adaptive action")
             require(a["decision_date"] == c["decision_date"], "adaptation action decision date")
             require(a["effective_date"] >= c["decision_date"], "adaptive action before decision")
             require(set(a["based_on_fact_ids"]) <= facts, "adaptive action uses unavailable information")
@@ -108,24 +119,28 @@ def annual_metrics(bundle, monthly):
     return out
 
 
-def evaluate(bundle):
+def evaluate(bundle, parent=None):
     b = copy.deepcopy(bundle)
     used = validate(b)
+    if b["context"]["evaluation_mode"] == "feasible_adaptation_with_existing_commitments":
+        parent = parent or b.get("adaptation", {}).get("parent_bundle")
+        require(parent is not None, "adaptive evaluate requires exact parent bundle")
+        check_adaptation(b, parent)
     ops = check_operations(b)
     itinerary_unknowns = check_itineraries(b)
-    products = apply_response(b)
+    itinerary_unknowns += [f"{r['demand_pool_id']}: forecast months UNKNOWN {r['unknown_months']}" for r in b["market_calendar"] if r["unknown_months"]]
+    try:
+        products = apply_response(b)
+    except UnknownInput as exc:
+        products = b["products"]
+        itinerary_unknowns.append(str(exc))
     allocation = None
     choice_errors = []
     if not ops["errors"] and not itinerary_unknowns:
         try:
             allocation = allocate(b, products)
-        except ContractError as exc:
-            # Only explicitly missing scenario values are conditional. Broken
-            # conservation/references are actual contract failures.
-            if "unknown" in str(exc).lower() or "null is UNKNOWN" in str(exc):
-                choice_errors.append(str(exc))
-            else:
-                raise
+        except UnknownInput as exc:
+            choice_errors.append(str(exc))
     fin = finance(b, None if allocation is None else allocation["allocations"], products)
     t = traffic(b, None if allocation is None else allocation["allocations"], products)
     rows = []
@@ -141,10 +156,10 @@ def evaluate(bundle):
         target_result["status"] = "LABELLED_STAGE_OR_RESOURCE_SHORTFALL"
     summary = {k: total(r[k] for r in rows) for k in ("journeys", "passenger_segments", "revenue_net", "variable_contribution", "operating_result", "cash_before_financing")}
     summary["operating_result_including_prelaunch"] = fin["operating_result_including_prelaunch"]
-    return {"engine_version": VERSION, "context": b["context"], "bundle_sha256": digest(b), "status": "INFEASIBLE" if ops["errors"] else "CONDITIONAL", "input_acceptance": "producer acceptance remains coordinator-owned", "operations": ops, "allocation": allocation, "effective_products": products, "results_monthly": rows, "results_annual": annual_metrics(b, rows), "summary": summary, "finance": fin, "network_target": target_result, "unknown_dependencies": unknowns, "used_assumption_ids": used, "choice_calibration": b["choice_model"]["calibration_status"], "global_optimality": False, "own_migration_transition_matrix": None, "own_migration_status": "NOT_IDENTIFIED; net P-KEEP journeys is not a measured passenger transition matrix"}
+    return {"engine_version": VERSION, "context": b["context"], "bundle_sha256": digest(b), "status": "INFEASIBLE" if ops["errors"] else "CONDITIONAL", "input_acceptance": "producer acceptance remains coordinator-owned", "operations": ops, "allocation": allocation, "effective_products": products, "results_monthly": rows, "results_annual": annual_metrics(b, rows), "summary": summary, "finance": fin, "network_target": target_result, "unknown_dependencies": unknowns, "used_assumption_ids": used, "choice_calibration": b["choice_model"]["calibration_status"], "global_optimality": False, "own_migration_transition_matrix": None, "own_migration_status": "NOT_IDENTIFIED; net P-KEEP journeys is not a measured passenger transition matrix", "cost_driver_exports": cost_driver_exports(b, allocation, products)}
 
 
-def compare(project, keep, company_keep_cash=None):
+def compare(project, keep, company_keep_cash=None, parents=None):
     """Compare complete bundles, not standalone headline money outputs."""
     for k in COMMON.split():
         require(project["context"][k] == keep["context"][k], f"P/KEEP mismatch: {k}")
@@ -153,9 +168,13 @@ def compare(project, keep, company_keep_cash=None):
     require(project["context"]["evaluation_id"] != keep["context"]["evaluation_id"], "P/KEEP evaluation id collision")
     # Both evaluations get independent allocations of the same external market and
     # resource envelope. Project-specific response comes from the same rule object.
-    for k in ("markets", "choice_model", "response_policy", "fleet_calendar", "keep_policy", "information_set"):
+    for k in ("markets", "market_calendar", "choice_model", "response_policy", "fleet_calendar", "keep_policy", "information_set"):
         require(digest(project[k]) == digest(keep[k]), f"P/KEEP common input mismatch: {k}")
-    p, k = evaluate(project), evaluate(keep)
+    if project["metric_adapter"] is not None and keep["metric_adapter"] is not None:
+        for field in ("metric_definition_id", "reporting_rule", "carrier_vs_group", "business_scope", "denominator_policy"):
+            require(project["metric_adapter"][field] == keep["metric_adapter"][field], "incompatible reported metric scope/policy")
+    parents = parents or {}
+    p, k = evaluate(project, parents.get(project.get("adaptation", {}).get("parent_evaluation_id"))), evaluate(keep, parents.get(keep.get("adaptation", {}).get("parent_evaluation_id")))
     delta = []
     keys = ("journeys", "passenger_segments", "revenue_net", "variable_contribution", "operating_result", "operating_cash", "investing_cash", "tax_cash", "financing_cash", "cash_before_financing")
     for a, b in zip(p["results_monthly"], k["results_monthly"]):
@@ -165,6 +184,9 @@ def compare(project, keep, company_keep_cash=None):
     c = project["context"]
     policy = project["cash_policy"]
     project_funding = funding(delta_cash, c["cash_start"], c["period_end"], policy["project_opening_cash"], policy["project_minimum_cash"])
+    project_pre_interest = funding([x for x in delta_cash if x.get("subcategory") != "finance_interest"], c["cash_start"], c["period_end"], policy["project_opening_cash"], policy["project_minimum_cash"])
+    if not p["finance"]["pre_interest_cash_complete"] or not k["finance"]["pre_interest_cash_complete"]:
+        project_pre_interest["peak_month_end"] = project_pre_interest["peak_dated_day_end"] = None
     if not p["finance"]["cash_complete"] or not k["finance"]["cash_complete"]:
         project_funding["peak_month_end"] = project_funding["peak_dated_day_end"] = None
         project_funding["status"] = "UNKNOWN_CASH_DEPENDENCIES"
@@ -183,7 +205,7 @@ def compare(project, keep, company_keep_cash=None):
     # Missing operating cost thresholds: only meaningful as a conditional aggregate
     # headroom, never silently imputing an unknown component to zero.
     headroom = difference(p["finance"]["known_operating_subtotal_including_prelaunch"], k["finance"]["known_operating_subtotal_including_prelaunch"])
-    return {"engine_version": VERSION, "project": p, "keep": k, "delta_monthly": delta, "delta_annual": annual, "delta_summary": {f: difference(p["summary"][f], k["summary"][f]) for f in p["summary"]}, "project_incremental_funding": project_funding, "whole_company_funding": company_funding, "whole_company_funding_status": "UNKNOWN_KEEP_COMPANY_CASH" if company_funding is None else "CONDITIONAL_ON_FULL_COMPANY_CASH", "thresholds": {"net_missing_operating_cost_break_even": headroom, "equation": "delta_full_including_prelaunch = known_P_minus_KEEP_subtotal - net_missing_cost_P_minus_KEEP", "condition": "all other unknown revenue/support/cost terms fixed or included in net_missing_cost; not an empirical bound"}, "donor_extra_deduction": False, "network_changes": network_changes(project, keep)}
+    return {"engine_version": VERSION, "project": p, "keep": k, "delta_monthly": delta, "delta_annual": annual, "delta_summary": {f: difference(p["summary"][f], k["summary"][f]) for f in p["summary"]}, "project_incremental_funding": project_funding, "project_pre_interest_funding_diagnostic": project_pre_interest, "whole_company_funding": company_funding, "whole_company_funding_status": "UNKNOWN_KEEP_COMPANY_CASH" if company_funding is None else "CONDITIONAL_ON_FULL_COMPANY_CASH", "thresholds": {"net_missing_operating_cost_break_even": headroom, "equation": "delta_full_including_prelaunch = known_P_minus_KEEP_subtotal - net_missing_cost_P_minus_KEEP", "condition": "all other unknown revenue/support/cost terms fixed or included in net_missing_cost; not an empirical bound"}, "donor_extra_deduction": False, "network_changes": network_changes(project, keep)}
 
 
 def network_changes(project, keep):
@@ -194,6 +216,7 @@ def network_changes(project, keep):
 
 def check_adaptation(bundle, parent):
     require(bundle["adaptation"]["parent_evaluation_id"] == parent["context"]["evaluation_id"], "adaptive parent binding")
+    require(bundle["adaptation"]["parent_bundle_sha256"] == digest(parent), "adaptive parent hash mismatch")
     decision = bundle["context"]["decision_date"]
     locked = set()
     new = {e["economic_event_id"]: e for e in bundle["economic_events"]}
@@ -202,6 +225,19 @@ def check_adaptation(bundle, parent):
             locked.add(e["economic_event_id"])
             require(e["economic_event_id"] in new and new[e["economic_event_id"]] == e, "adaptation erases/changes prior commitment")
     require(locked <= set(bundle["adaptation"]["preserved_commitment_ids"]), "incomplete commitment preservation declaration")
+    actions = {(a["table"], a["record_id"]): a for a in bundle["adaptation"]["actions"]}
+    require(len(actions) == len(bundle["adaptation"]["actions"]), "duplicate adaptive actions")
+    for table, key in (("products", "product_id"), ("flights", "flight_instance_id"), ("assignments", "flight_instance_id"), ("contracts", "contract_id"), ("economic_events", "economic_event_id"), ("cash_events", "cash_event_id")):
+        old, new = {r[key]: r for r in parent[table]}, {r[key]: r for r in bundle[table]}
+        for rid in set(old) | set(new):
+            if old.get(rid) != new.get(rid):
+                require((table, rid) in actions, f"adaptive change lacks action and information provenance: {table}/{rid}")
+                action = "add" if rid not in old else "remove" if rid not in new else "replace"
+                require(actions[table, rid]["action"] == action, "adaptive action does not match actual change")
+        if table == "products":
+            for rid, p in old.items():
+                if p["committed_sales"] > 0:
+                    require(rid in new and new[rid]["committed_sales"] >= p["committed_sales"], "adaptation erases booked journeys; explicit cancellation/refund model required")
     for table, key, datekey in (("flights", "flight_instance_id", "departure_utc"), ("cash_events", "cash_event_id", "payment_date")):
         later = {r[key]: r for r in bundle[table]}
         for row in parent[table]:
@@ -219,7 +255,7 @@ def scenario(bundles, parents=None):
             pid = b["adaptation"]["parent_evaluation_id"]
             require(pid in parents, "adaptive evaluation requires exact parent bundle")
             check_adaptation(b, parents[pid])
-        out.append(evaluate(b))
+        out.append(evaluate(b, parents.get(b.get("adaptation", {}).get("parent_evaluation_id"))))
     return {"evaluations": out, "search_scope": "explicit caller-provided candidates only", "global_optimality": False, "scenario_points_are_confidence_bounds": False}
 
 
@@ -244,3 +280,21 @@ def combine(base, components, context):
             b[name] = list(rows.values())
     b["context"] = copy.deepcopy(context)
     return seal(b)
+
+
+def cost_driver_exports(bundle, allocation, products):
+    """Physical service-month quantities for P04; no inferred charge or fuel burn."""
+    seat = {} if allocation is None else {r["flight_instance_id"]: r for r in allocation["seats"]}
+    ps = {p["product_id"]: p for p in products}
+    aa = {} if allocation is None else {a["product_id"]: a for a in allocation["allocations"]}
+    leg_revenue = {f["flight_instance_id"]: [] for f in bundle["flights"]}
+    for pid, p in ps.items():
+        if p["owner"] == "RW":
+            q = aa.get(pid, {}).get("carried")
+            for fid, w in zip(p["legs"], p["revenue_weights"]):
+                leg_revenue[fid].append(None if q is None or p["net_fare"] is None else q * p["net_fare"] * w)
+    fs = []
+    for f in bundle["flights"]:
+        fid = f["flight_instance_id"]
+        fs.append({"flight_instance_id": fid, "month": f["departure_utc"][:7], "origin_airport": f["origin_airport"], "destination_airport": f["destination_airport"], "aircraft_variant": f["aircraft_variant"], "operator": f["operator"], "block_hours": (utc(f["arrival_utc"]) - utc(f["departure_utc"])).total_seconds() / 3600, "cycles": 1, "occupied_segments": seat.get(fid, {}).get("carried_segments"), "saleable_seats": f["saleable_seats"], "allocated_journey_revenue": total(leg_revenue[fid]), "revenue_allocation_is_not_extra_revenue": True, "load_factor": None if allocation is None or not f["saleable_seats"] else seat[fid]["carried_segments"] / f["saleable_seats"]})
+    return {"physical_flights": fs, "journeys": [] if allocation is None else allocation["allocations"], "tail_resource_calendar": bundle["fleet_calendar"], "base_calendar": bundle.get("base_calendar"), "base_calendar_status": "UNKNOWN" if "base_calendar" not in bundle else "EXPLICIT_PRODUCER_INPUT", "invoice_cash_events": bundle["cash_events"], "quantity_policy": "fleet availability is not billed tail/base-month quantity; derive billing from identified contracts; no inferred fuel tonnes or MTOW"}

@@ -1,0 +1,1157 @@
+{
+  "schema": "PEE-candidate-spec-v1;NOT_P06_BUNDLE",
+  "programme_target": "Локальныекандидатывобщуюпроектнуюсеть8–12airportpairs;PEEнеобязанасодержатьвсе8–12",
+  "cross_programme_rule": "Программы являются альтернативами или фрагментами. Их рейсы, пассажиры, деньги и самолёты нельзя складывать. Число airport pairs относится к общей сети.",
+  "programmes": [
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-KEEP",
+      "role": "Работа без нового проекта в Перми",
+      "flights": [],
+      "ODs": [
+        "Всетекущие/будущиеобязательстваRWпоP03"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "Сопоставимыйобщийдоступныйресурс;Unusedлибоальтернативноезаданиепоказать",
+        "tails": "P03calendar"
+      },
+      "comparison_ids": [
+        "CR01",
+        "CR02",
+        "CR03",
+        "CR06"
+      ],
+      "notes": "Сохранить все будущие обязательства и продажи RW. Международные MSQ/BUS подтверждены как продукты 2026 года; их продолжение на 2027–2028 годы неизвестно. Одинаковый новый ресурс получает явное альтернативное задание либо остаётся неиспользованным с отражением расходов.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-D1",
+      "role": "Сезонный прямой PEE–VOG с ротацией из SVX",
+      "flights": [
+        {
+          "airport_pair": [
+            "PEE",
+            "VOG"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "01.05–30.09;2027/28приadmission",
+          "rotation": "SVX>PEE>VOG>PEE>SVX",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        }
+      ],
+      "ODs": [
+        "PEE–VOG;SVX–PEEтолькопослеотдельнойпродажииadmission"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-1TAIL",
+        "productive_tails": 1,
+        "local_overnight_tails": 0,
+        "roundtrips_per_week": 2,
+        "legs_per_week_including_position": 8,
+        "available_hours": "ТежечасыпоP03дляконтролей;неиспользованноеявно"
+      },
+      "comparison_ids": [
+        "CR01"
+      ],
+      "notes": "Два оборота в неделю в мае–сентябре. Каждый оборот требует цепочки SVX–PEE–VOG–PEE–SVX. Плечи SVX–PEE учитываются сначала как позиционирование с расходами; продажи на них допустимы только после отдельного подтверждения продукта и спроса. Сравнить с PEE–VOG из местной базы и прибавкой SVX–VOG при том же доступном борте.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL",
+        "A-PEE-DAILY_CAP"
+      ],
+      "programme_id": "PEE-R1",
+      "role": "Радиальная база на одном производительном борте",
+      "flights": [
+        {
+          "airport_pair": [
+            "PEE",
+            "LED"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>LED>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "VOG"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>VOG>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "NOZ"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "май–сентябрь",
+          "rotation": "PEE>NOZ>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "KJA"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "май–сентябрь",
+          "rotation": "PEE>KJA>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "LED"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "декабрь–февраль/март–апрель/октябрь–ноябрь",
+          "rotation": "PEE>LED>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "NOZ"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "декабрь–февраль/март–апрель/октябрь–ноябрь",
+          "rotation": "PEE>NOZ>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "KJA"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "декабрь–февраль/март–апрель/октябрь–ноябрь",
+          "rotation": "PEE>KJA>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        }
+      ],
+      "ODs": [
+        "PEE–LED",
+        "PEE–VOG",
+        "PEE–NOZ",
+        "PEE–KJA"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-1TAIL",
+        "productive_tails": 1,
+        "local_overnight_tails": 1,
+        "summer_roundtrips_per_week": 6,
+        "winter_roundtrips_per_week": 4,
+        "local_base_contract": "UNKNOWN",
+        "weekly_resource": "resource_screen.json;толькоblock/turnдиагностика",
+        "nominal_screen": "12 плеч, 6 оборотов, 35.1333 блок-часа за 08–14.05.2028. Нет crew/MRO/reserve/KEEP admission."
+      },
+      "comparison_ids": [
+        "CR02",
+        "CR03"
+      ],
+      "notes": "Летом LED и VOG по два оборота, NOZ и KJA по одному в неделю; зимой и в межсезонье LED два, NOZ и KJA по одному, VOG в этой конструкции не выполняется. Редкие восточные рейсы проверяют поездку на неделю; это не ежедневный деловой продукт. Расходы базы, экипажа, ТО, резерва и чужого прежнего задания неизвестны и требуют допуска P03/P04.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-S1",
+      "role": "Контроль: тот же ресурс в существующем SVX",
+      "flights": [
+        {
+          "airport_pair": [
+            "SVX",
+            "LED"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "SVX>LED>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "SVX",
+            "VOG"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "SVX>VOG>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "SVX",
+            "NOZ"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "май–сентябрь",
+          "rotation": "SVX>NOZ>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "SVX",
+            "KJA"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "май–сентябрь",
+          "rotation": "SVX>KJA>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "SVX",
+            "LED"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "зима и межсезонье",
+          "rotation": "SVX>LED>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED"
+        },
+        {
+          "airport_pair": [
+            "SVX",
+            "NOZ"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "зима и межсезонье",
+          "rotation": "SVX>NOZ>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED"
+        },
+        {
+          "airport_pair": [
+            "SVX",
+            "KJA"
+          ],
+          "roundtrips_per_week": 1,
+          "season": "зима и межсезонье",
+          "rotation": "SVX>KJA>SVX",
+          "action": "ADD_FREQUENCY_IF_KEEP_EXISTS_ELSE_NEW_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED"
+        }
+      ],
+      "ODs": [
+        "SVX–LED/VOG/NOZ/KJA;жителиPEEчерезназемныйдоступпослеобщегоchoice"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-1TAIL",
+        "productive_tails": 1,
+        "local_overnight_tails_at_PEE": 0,
+        "availability": "ИдентиченPEE-R1calendar,blockhour/unusedразличаютсяиотчётны",
+        "extra_SVX_costs": "UNKNOWN;действующаябазанебесплатна"
+      },
+      "comparison_ids": [
+        "CR01",
+        "CR02"
+      ],
+      "notes": "Доступный календарь одного борта совпадает с PEE-R1, летние частоты LED/VOG 2, NOZ/KJA 1 оборот в неделю. Если рейс уже присутствует в будущем KEEP, проверяется прибавка частоты. Запись SVX–NOZ в авторском файле опирается на перечень субсидий и деление на 52, поэтому не является принятой физической частотой KEEP. География пассажиров PEE/SVX задаётся общим P05.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-H2",
+      "role": "Защищённая волна на двух производительных бортах",
+      "flights": [
+        {
+          "airport_pair": [
+            "PEE",
+            "LED"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>LED>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "VOG"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>VOG>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "NOZ"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>NOZ>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "KJA"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>KJA>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        }
+      ],
+      "ODs": [
+        "LED–PEE–NOZ",
+        "VOG–PEE–KJA",
+        "ОбратныеODприпродаваемомкалендаре",
+        "Все4локальныхOD"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-2TAILS",
+        "productive_tails": 2,
+        "local_overnight_tails": 2,
+        "weekly_roundtrips": 8,
+        "rotation_groups": [
+          "TailA:PEE>LED>PEE>NOZ>PEE",
+          "TailB:PEE>KJA>PEE>VOG>PEE"
+        ],
+        "schedule_gate": "Часы/MCT/crewнепроверены;seedдляP03solver,непродаваемоерасписание",
+        "available_hours": "Идентичный двум альтернативам календарь P03; фактические блок-часы и неиспользованное время показываются отдельно."
+      },
+      "comparison_ids": [
+        "CR03"
+      ],
+      "notes": "По два оборота на LED/VOG/NOZ/KJA в неделю. Проверяются конечные OD LED–NOZ и VOG–KJA через PEE, затем обратные поездки при продаваемом календаре. Банк — начальная задача для P03, его часы пока не рассчитаны. Сравнение PEE-R2 сохраняет те же рейсы, кресла, парк и внешний сценарий; меняются времена, сквозная продажа и защита пересадки.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами.",
+      "calendar_scope": "Этот сравниваемый seed относится к маю–сентябрю. В остальные месяцы локальная добавка этой волны не назначена; общий ресурс получает явное альтернативное задание или простой, KEEP сохраняется."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-R2",
+      "role": "Контроль волны: та же сеть без обязательной синхронизации",
+      "flights": [
+        {
+          "airport_pair": [
+            "PEE",
+            "LED"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>LED>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "VOG"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>VOG>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "NOZ"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>NOZ>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "KJA"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "май–сентябрь",
+          "rotation": "PEE>KJA>PEE",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        }
+      ],
+      "ODs": [
+        "4локальныхOD;случайныестыковкиневыданызаобязательнуюпродажу"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-2TAILS",
+        "productive_tails": 2,
+        "local_overnight_tails": 2,
+        "weekly_roundtrips": 8,
+        "unused": "Еслинужен1tail,второйдолжениметьявныйunused/alternative-use,стоимостьненулеваяавтоматом",
+        "available_hours": "Идентичный двум альтернативам календарь P03; фактические блок-часы и неиспользованное время показываются отдельно."
+      },
+      "comparison_ids": [
+        "CR03"
+      ],
+      "notes": "Два доступных борта и те же четыре пары по два оборота в неделю. Общий solver выбирает расписание для местных поездок. Второй борт не объявляется бесплатным: нужно показать его фактическое задание, простой и альтернативное применение.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами.",
+      "calendar_scope": "Этот сравниваемый seed относится к маю–сентябрю. В остальные месяцы локальная добавка этой волны не назначена; общий ресурс получает явное альтернативное задание или простой, KEEP сохраняется."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-E1",
+      "role": "Прямой рейс из действующей базы MCX или LED",
+      "flights": [
+        {
+          "airport_pair": [
+            "MCX",
+            "PEE"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "сезонпроверяетсяотдельно",
+          "rotation": "MCX>PEE>MCX",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "LED",
+            "PEE"
+          ],
+          "roundtrips_per_week": 2,
+          "season": "сезонпроверяетсяотдельно",
+          "rotation": "LED>PEE>LED",
+          "action": "ADD_CONDITIONAL",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        }
+      ],
+      "ODs": [
+        "PEE–MCX",
+        "PEE–LED"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-1TAIL",
+        "productive_tails": 1,
+        "base": "MCXИЛИLED;необеодновременно",
+        "PEE_station": "да;новаяпостояннаябазанетребуется",
+        "turnaround": "Договор/crewUNKNOWN"
+      },
+      "comparison_ids": [
+        "CR04"
+      ],
+      "notes": "Две отдельные ветви: MCX–PEE–MCX либо LED–PEE–LED по два оборота в неделю. Они не складываются автоматически. Прямой продукт уже конкурирует с Азимутом или Победой; требуется ценовая, временная либо договорная ниша и свободный ресурс исходной базы.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-G0",
+      "role": "Подвоз или партнёрский продукт при нулевых поставках",
+      "flights": [],
+      "ODs": [
+        "КонечныеODжителейPEEчерезSVX;существующиеPEEавиапродукты"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-0NEW",
+        "new_tails": 0,
+        "existing_tail_redeployment": "непредполагается",
+        "contract_capacity": "UNKNOWN",
+        "reserve": "Неиспользуетвиртуальныекреслапоследующихрейсов"
+      },
+      "comparison_ids": [
+        "CR05"
+      ],
+      "notes": "Новых собственных кресел не создаёт. Обычный автобус до SVX является доступной альтернативой; защищённый продукт возникает только после отдельного договора, согласованных времён, наличия мест и правил восстановления. При нуле новых бортов нельзя незаметно забрать действующий самолёт у его прежнего задания.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-I1",
+      "role": "Дополнительная ветвь: международные MSQ и BUS",
+      "flights": [
+        {
+          "airport_pair": [
+            "PEE",
+            "MSQ"
+          ],
+          "roundtrips_per_week": "UNKNOWN",
+          "season": "2027/28подтвердитьпосезонам",
+          "rotation": "UNKNOWN",
+          "action": "KEEP_OR_RETIME",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        },
+        {
+          "airport_pair": [
+            "PEE",
+            "BUS"
+          ],
+          "roundtrips_per_week": "UNKNOWN",
+          "season": "лето2027/28припродлении",
+          "rotation": "UNKNOWN",
+          "action": "KEEP_OR_RETIME",
+          "source_status": "SCENARIO_DESIGN",
+          "capacity_status": "NOT_ADMITTED",
+          "booking_lead": "P05неизвестен",
+          "baggage": "P05корзинанеизвестна"
+        }
+      ],
+      "ODs": [
+        "PEE–MSQ",
+        "PEE–BUS"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "MATCH-1TAIL",
+        "new_Tu214": 0,
+        "tail_type": "SSJ100;SJ100PD8отдельныйadmission",
+        "tail_assignment": "P03"
+      },
+      "comparison_ids": [
+        "CR06"
+      ],
+      "notes": "Сначала восстановить будущий KEEP, затем сравнить сохранение или перенастройку MSQ/BUS с внутренними вариантами на том же ресурсе. Частота 2027–2028 неизвестна. Нулевые новые Ту-214 обязательны; присутствие международных рейсов не отменяет исходное сравнение на суперджетах.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    },
+    {
+      "status": "DESIGNED_CONDITIONAL_NOT_ADMITTED",
+      "period": "2027-01..2028-12",
+      "seats_analogue": 100,
+      "aircraft_branches": [
+        "SSJ100_RRJ95_current_analogue",
+        "SJ100_PD8_separate_new_type"
+      ],
+      "delivery_branches": [
+        "P03_планпоэтапно",
+        "P03_частичная",
+        "P03_задержка",
+        "P03_0новых"
+      ],
+      "keep_rule": "Сохранить весь будущий KEEP. Перенос действующего борта требует ID прежних заданий, сокращаемых рейсов и потерянных продаж. Для нового борта сравнивается лучшее альтернативное применение.",
+      "reserve": "Связанный календарь общего резерва, экипажей и ТО из P03 неизвестен. Бесплатный местный резерв не предполагается.",
+      "required_common_inputs": [
+        "P03: tail/ready/KEEP/crew/MRO/reserve по датам",
+        "P05: единые конечные OD, gross/net fare, сезонность, собственный переток",
+        "P02: принятые physical legs, продажа, кресла, багаж",
+        "P04: локальные ставки, drivers, условия поддержки и cash",
+        "P06: принятый producer bundle и независимая приёмка общего ядра"
+      ],
+      "money_result": "NOT_RUN",
+      "unit": "flight/airportpair/OD/season/resource",
+      "source_ids": [
+        "PIN-P03",
+        "PIN-P04",
+        "PIN-P06"
+      ],
+      "assumption_ids": [
+        "A-PEE-RESOURCE",
+        "A-PEE-RESERVE",
+        "A-PEE-TYPE",
+        "A-PEE-FREQ",
+        "A-PEE-BLOCK",
+        "A-PEE-TURN",
+        "A-PEE-MCT",
+        "A-PEE-FUTUREKEEP",
+        "A-PEE-OWN",
+        "A-PEE-FARE",
+        "A-PEE-SUPPORT",
+        "A-PEE-COST",
+        "A-PEE-CORP",
+        "A-PEE-RESPONSE",
+        "A-PEE-GROUND",
+        "A-PEE-SEASONS",
+        "A-PEE-DONOR",
+        "A-PEE-INTERNATIONAL"
+      ],
+      "programme_id": "PEE-CORP",
+      "role": "Корпоративная ниша: новый рейс или блок мест",
+      "flights": [],
+      "ODs": [
+        "PEE–SGC/NJC/USK/HMAпослеуточненияплательщика"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь подтверждённый будущий KEEP, включая международные обязательства.",
+        "change": "Только рейсы/частоты, явно описанные в flights и notes.",
+        "donor": "Для действующего борта прежнее задание и потери пока UNKNOWN; без их допуска перенос не разрешён.",
+        "own_migration": "Изменение продаж через другие собственные узлы рассчитывает общий P05/P06; ноль не предполагается."
+      },
+      "resource_group": {
+        "scope": "CONTRACT_DISCOVERY",
+        "tails": "UNKNOWN;0новыхприblock-seatнасуществующемрейсе",
+        "frequency": "UNKNOWN",
+        "reserved_capacity": "UNKNOWN"
+      },
+      "comparison_ids": [
+        "CR07"
+      ],
+      "notes": "Пункты поиска — SGC/NJC/USK/HMA. До появления конкретного платного OD и календаря поездок частота, число мест и борт неизвестны. Сравнить новый рейс с покупкой блока на существующем предложении; наличие промышленного предприятия само по себе не оплаченный спрос.",
+      "own_sales_changes_readable": "Действующие и будущие договорные продажи сохраняются. Добавки и сдвиги перечислены в flights. Если для проекта нужен действующий борт, сокращаемое прежнее задание и потери неизвестны до P03. Клиенты RW через SVX и другие узлы участвуют в общем P05 choice вместе с новыми продуктами."
+    }
+  ]
+}

@@ -1,0 +1,716 @@
+[
+  {
+    "source_row_number": 2,
+    "source_row_sha256": "56efa9d1f76968bf9b3954da550d7468fe90748e583cbc835d8556694af4729e",
+    "row": {
+      "claim_id": "UFA-C01",
+      "claim": "Исключение Уфы обусловлено 393 км по прямой до SVX",
+      "evidence_status": "pinned_calculation",
+      "source_ids": "UFA-S01;UFA-S02",
+      "period": "срез модели 11.11.2026",
+      "geography": "UFA–SVX",
+      "value": "393",
+      "unit": "км",
+      "mechanism": "Геометрия не учитывает доступ и выбор аэропорта",
+      "decision_impact": "Убрать автоматический запрет города; оставить проверку конкретных поездок",
+      "uncertainty": "Это исторический расчет; не дорожное расстояние"
+    }
+  },
+  {
+    "source_row_number": 3,
+    "source_row_sha256": "09b6075a88e25be895c21700493686de4ce75f0c624d0aca7c75f41cc1a196d1",
+    "row": {
+      "claim_id": "UFA-C02",
+      "claim": "Аэропорт обслужил 4929715 пассажиров",
+      "evidence_status": "observed_airport_aggregate",
+      "source_ids": "UFA-S04",
+      "period": "2025",
+      "geography": "аэропорт UFA",
+      "value": "4929715",
+      "unit": "аэропортовые пассажиры",
+      "mechanism": "Самостоятельная инфраструктура и покупки перевозок уже существуют",
+      "decision_impact": "Опровергает предположение о полной заменимости SVX",
+      "uncertainty": "Нет уникальных людей и OD; часть трансфера и внешнего catchment неизвестна"
+    }
+  },
+  {
+    "source_row_number": 4,
+    "source_row_sha256": "4e19e9320c702518de8efd4b210b6c75878712f46326df93ba8580aeef1aa9d9",
+    "row": {
+      "claim_id": "UFA-C03",
+      "claim": "За первое полугодие 2026 обслужено 2.2 млн; международный поток+7%",
+      "evidence_status": "observed_rounded",
+      "source_ids": "UFA-S05",
+      "period": "январь–июнь 2026",
+      "geography": "аэропорт UFA",
+      "value": "2200000",
+      "unit": "пассажиры округленно",
+      "mechanism": "Внутренний и международный спрос различаются",
+      "decision_impact": "Не переносить весь рост в новую внутреннюю сеть",
+      "uncertainty": "Не итог года; нет внутреннего темпа роста по парам"
+    }
+  },
+  {
+    "source_row_number": 5,
+    "source_row_sha256": "4fb83c19db619f09442812bdbbacb0b65d06927e48eea87e266b2d832aaa68c8",
+    "row": {
+      "claim_id": "UFA-C04",
+      "claim": "В зимнем плане 24 внутренних направления",
+      "evidence_status": "published_plan",
+      "source_ids": "UFA-S06",
+      "period": "ОЗП2026/27",
+      "geography": "UFA",
+      "value": "24",
+      "unit": "направления",
+      "mechanism": "Большой рынок одновременно означает действующих конкурентов",
+      "decision_impact": "Свободный рынок не равен всему аэропортовому потоку",
+      "uncertainty": "Исполнение и общедоступность каждой строки отдельно"
+    }
+  },
+  {
+    "source_row_number": 6,
+    "source_row_sha256": "e7b5af3cf2a106b9d81080e83fc60127b623f4708ebeaaf9420dc008c9fc4a23",
+    "row": {
+      "claim_id": "UFA-C05",
+      "claim": "В опубликованной программе RW UFA–SVX 4/нед на SSJ100",
+      "evidence_status": "published_schedule",
+      "source_ids": "UFA-S08;UFA-S30",
+      "period": "16–22.11 и 7–13.12.2026",
+      "geography": "UFA–SVX",
+      "value": "4",
+      "unit": "вылета в неделю в одну сторону",
+      "mechanism": "Это собственный канал к базе и местный OD на плече короче 500 км",
+      "decision_impact": "Должен быть учтен в перетоке и варианте existingbase",
+      "uncertainty": "Загрузка; проданные сквозные OD; исполнение неизвестны"
+    }
+  },
+  {
+    "source_row_number": 7,
+    "source_row_sha256": "3f4a623403ffdc139c01bbbbaf701b976c02eab89c6181d6caf442bb2ca4a357",
+    "row": {
+      "claim_id": "UFA-C06",
+      "claim": "RW UFA–NUX 2/нед уже опубликован и рекламируется в продаже",
+      "evidence_status": "published_schedule_and_offer",
+      "source_ids": "UFA-S16;UFA-S30",
+      "period": "те же недели",
+      "geography": "UFA–NUX",
+      "value": "2",
+      "unit": "вылета в неделю в одну сторону",
+      "mechanism": "Рынок северных поездок уже частично обслуживает сама RW",
+      "decision_impact": "Сначала сравнить добавочную частоту с действующей программой",
+      "uncertainty": "Нельзя приписать новые места всем новым пассажирам"
+    }
+  },
+  {
+    "source_row_number": 8,
+    "source_row_sha256": "b52325ef1f2ae05f8a587e1c0ac896ddf49fffa54a854061c1da1dc1d113480f",
+    "row": {
+      "claim_id": "UFA-C07",
+      "claim": "Utair UFA–SVX 14/нед в ноябре и декабре; 7/нед в январском окне",
+      "evidence_status": "calculated_published_supply",
+      "source_ids": "UFA-S08",
+      "period": "16–22.11; 7–13.12.2026; 4–10.01.2027",
+      "geography": "UFA–SVX",
+      "value": "14;14;7",
+      "unit": "вылеты/нед в одну сторону",
+      "mechanism": "Частый короткий авиапродукт лучше 8 ч наземного подвоза для части целей",
+      "decision_impact": "500 км не обнуляет короткий пассажирский рынок",
+      "uncertainty": "Фактические пассажиры и дальнейшие пересадки неизвестны"
+    }
+  },
+  {
+    "source_row_number": 9,
+    "source_row_sha256": "d20b53c8a86cc26e9da0fec24f3e8af88f16acfe2c07580b9743c60f464d4c5d",
+    "row": {
+      "claim_id": "UFA-C08",
+      "claim": "Автовокзалы публикуют ежедневный 5170 до остановки Кольцово: 8 ч",
+      "evidence_status": "published_ground_schedule",
+      "source_ids": "UFA-S21",
+      "period": "срез 12.11.2026",
+      "geography": "Уфа Южный АВ — Кольцово",
+      "value": "8",
+      "unit": "ч",
+      "mechanism": "Наземный доступ к базе физически возможен; дорог по времени",
+      "decision_impact": "Groundfeed оставить нишевым условным вариантом",
+      "uncertainty": "Нет гарантии стыковки; цены; надежности; терминального подвоза"
+    }
+  },
+  {
+    "source_row_number": 10,
+    "source_row_sha256": "2ab904b85c8092ecf2c8dfd3eb2129027c0c64eea4dfbba232f974300213f1f5",
+    "row": {
+      "claim_id": "UFA-C09",
+      "claim": "В модели UFA 9 лучей; 5 самолетов; 408337 сегментов; 252 млн переменного вклада",
+      "evidence_status": "pinned_scenario",
+      "source_ids": "UFA-S01",
+      "period": "модельbase",
+      "geography": "сеть UFA",
+      "value": "408337",
+      "unit": "сегменты/год",
+      "mechanism": "Модельный результат нужен как гипотеза",
+      "decision_impact": "Не подтверждает прибыль новой базы",
+      "uncertainty": "Нет полного бюджета; нового спроса и графика самолётов"
+    }
+  },
+  {
+    "source_row_number": 11,
+    "source_row_sha256": "3b29dee9bab58f15e7c8cd162c266902f86bb6a0f373d65f40d1a674455e1f9b",
+    "row": {
+      "claim_id": "UFA-C10",
+      "claim": "Пересадки дают 231432 сегмента или 56.68% загрузки сети",
+      "evidence_status": "calculation_on_pinned_scenario",
+      "source_ids": "UFA-S01",
+      "period": "base; расчет 12.11.2026",
+      "geography": "сеть UFA",
+      "value": "56.6769",
+      "unit": "% сегментов",
+      "mechanism": "115716 модельных пересадочных OD занимают по два плеча",
+      "decision_impact": "Проверять платящие сквозные OD до хаба",
+      "uncertainty": "Не наблюденный трансфер; несовпадение округлений допустимо"
+    }
+  },
+  {
+    "source_row_number": 12,
+    "source_row_sha256": "fcaa544d62f5a53c40d6302d08782084e6b9c30265c00d38979d8dd849a4aa52",
+    "row": {
+      "claim_id": "UFA-C11",
+      "claim": "Томск: 59378 из 69290 сегментов модельные пересадочные",
+      "evidence_status": "pinned_scenario",
+      "source_ids": "UFA-S01",
+      "period": "base",
+      "geography": "UFA–TOF",
+      "value": "59378",
+      "unit": "пересадочные сегменты/год",
+      "mechanism": "Большинство загрузки не местный рынок",
+      "decision_impact": "8/нед требует хабового спроса; малый прямой продукт оценивать отдельно",
+      "uncertainty": "Отсутствие TOF в индексе не доказывает отсутствие конкурента"
+    }
+  },
+  {
+    "source_row_number": 13,
+    "source_row_sha256": "e21ccc0fd6ee5174234e37969c45a15997ee754f4bf4bc91d561e16df9a60790",
+    "row": {
+      "claim_id": "UFA-C12",
+      "claim": "Кемерово: 49693 из 57905 сегментов модельные пересадочные",
+      "evidence_status": "pinned_scenario",
+      "source_ids": "UFA-S01",
+      "period": "base",
+      "geography": "UFA–KEJ",
+      "value": "49693",
+      "unit": "пересадочные сегменты/год",
+      "mechanism": "Ежедневный луч зависит от сквозной сети",
+      "decision_impact": "Не запускать 7/нед по одному признаку отсутствия direct",
+      "uncertainty": "Нужны фактические O&D и расписания конкурирующих узлов"
+    }
+  },
+  {
+    "source_row_number": 14,
+    "source_row_sha256": "18ead6cd8dd6151f2c4abeb04cd9195d9532237631ecb9375da76cf86a0ed28a",
+    "row": {
+      "claim_id": "UFA-C13",
+      "claim": "Оцененные местные 9912 и 8212 пассажиров на TOF/KEJ дают 47.65% и 39.48% LF при 2/нед",
+      "evidence_status": "scenario_calculation",
+      "source_ids": "UFA-S01",
+      "period": "52 нед; 100 кресел; 2/нед условно",
+      "geography": "UFA–TOF; UFA–KEJ",
+      "value": "47.65;39.48",
+      "unit": "% LF",
+      "mechanism": "Даже малая частота не автоматически заполняется модельной локальной оценкой",
+      "decision_impact": "Условие контрактного или платящего дополнительного спроса",
+      "uncertainty": "Модельная локальная оценка сама не измерена; фиксированное удержание спроса при смене частоты упрощение"
+    }
+  },
+  {
+    "source_row_number": 15,
+    "source_row_sha256": "7f00c53d227dd1c0c4b60cb06707878e3a2241d88b04778e96d3f3c55aff7784",
+    "row": {
+      "claim_id": "UFA-C14",
+      "claim": "Азимут объявлял субсидируемый KEJ 1/нед с 16.01.2024",
+      "evidence_status": "historical_published_plan",
+      "source_ids": "UFA-S31",
+      "period": "2024",
+      "geography": "UFA–KEJ",
+      "value": "1",
+      "unit": "вылет/нед",
+      "mechanism": "Рынок уже пробовали обслуживать малой программой",
+      "decision_impact": "История дает проверяемый аналог и причину выяснить прекращение",
+      "uncertainty": "Нет подтвержденного объема; результата; отмены и продолжения 2026"
+    }
+  },
+  {
+    "source_row_number": 16,
+    "source_row_sha256": "1343de7d0652b436fc8363a454cdf3f2260862ef60359c7f58a0e6a5bfc184d8",
+    "row": {
+      "claim_id": "UFA-C15",
+      "claim": "Казанские пересадки в TOF/KEJ заявлены еще в 2024",
+      "evidence_status": "historical_product",
+      "source_ids": "UFA-S32;UFA-S18",
+      "period": "2024; нынешний UFA–KZN подтвержден 2026",
+      "geography": "UFA–KZN–TOF/KEJ",
+      "value": "",
+      "unit": "",
+      "mechanism": "Есть конкуренция за сквозной продукт без прямого рейса",
+      "decision_impact": "Не считать весь непрямой спрос свободным",
+      "uncertainty": "Точная текущая стыковка и цена не проверены"
+    }
+  },
+  {
+    "source_row_number": 17,
+    "source_row_sha256": "1b3fca7e1aceddb4007940ea09b6769bc5b7ddbb7d3f2664ef2ab7e60907aa62",
+    "row": {
+      "claim_id": "UFA-C16",
+      "claim": "Москва: 81/75/80 вылетов в три окна; часть может быть корпоративной",
+      "evidence_status": "calculated_published_supply",
+      "source_ids": "UFA-S11",
+      "period": "три недели",
+      "geography": "UFA–MOW",
+      "value": "81;75;80",
+      "unit": "опубликованные вылеты/нед",
+      "mechanism": "Сильная частота и стыковочные сети ограничивают низкочастотного новичка",
+      "decision_impact": "Не выбирать MOW 3/нед только из плюса модели",
+      "uncertainty": "Открытые места и частота исключая чартеры не полностью подтверждены"
+    }
+  },
+  {
+    "source_row_number": 18,
+    "source_row_sha256": "6a226f03fe9131a79500bd659a4c21ef46b360bb74a7825d0a6a68005e6254ed",
+    "row": {
+      "claim_id": "UFA-C17",
+      "claim": "Петербург: 29/30/34 вылета; MRV 4/4/4; Краснодар 3/3/3",
+      "evidence_status": "calculated_published_supply",
+      "source_ids": "UFA-S10;UFA-S09;UFA-S12",
+      "period": "три недели",
+      "geography": "UFA–LED/MRV/KRR",
+      "value": "29;30;34 / 4;4;4 / 3;3;3",
+      "unit": "опубликованные вылеты/нед",
+      "mechanism": "Регулярный продукт существует; KRR и MRV не пустые рынки",
+      "decision_impact": "Перехват пассажиров оценивать по времени и цене",
+      "uncertainty": "Не фактические LF и не годовой спрос"
+    }
+  },
+  {
+    "source_row_number": 19,
+    "source_row_sha256": "358c89e1aa6d8db0f0f1a9536e665ee504d7fc2e1fb84118c751652c4b9fbba4",
+    "row": {
+      "claim_id": "UFA-C18",
+      "claim": "GOJ 0/0/2; OMS 0/0/1 строк в выбранных неделях",
+      "evidence_status": "calculated_published_supply",
+      "source_ids": "UFA-S14;UFA-S17",
+      "period": "три недели",
+      "geography": "UFA–GOJ/OMS",
+      "value": "0;0;2 / 0;0;1",
+      "unit": "вылеты именно в извлеченном расписании",
+      "mechanism": "Услуга сезонна либо неполно представлена; январский OMS единичный",
+      "decision_impact": "Модельный direct_now не заменяет сезонной проверки",
+      "uncertainty": "Нули описывают записи; не нулевой рынок или доказанное отсутствие рейсов"
+    }
+  },
+  {
+    "source_row_number": 20,
+    "source_row_sha256": "31f95aba8ec39d6748c7f1d309c5e29cb1a575e62b6c82715f724b5b514d6012",
+    "row": {
+      "claim_id": "UFA-C19",
+      "claim": "Сургут 18/14/12; Н.Уренгой 17/14/14 опубликованных вылетов",
+      "evidence_status": "calculated_published_supply",
+      "source_ids": "UFA-S15;UFA-S16",
+      "period": "три недели",
+      "geography": "UFA–SGC/NUX",
+      "value": "18;14;12 / 17;14;14",
+      "unit": "вылеты/нед",
+      "mechanism": "Северная потребность подтверждена продуктом но конкуренты сильны",
+      "decision_impact": "Дополнительные рейсы только с ценностью расписания или контрактом",
+      "uncertainty": "Корпоративные рейсы и продажа каждого рейса отдельно"
+    }
+  },
+  {
+    "source_row_number": 21,
+    "source_row_sha256": "ffbde6c195968f73db8fe9c307e6621d35398676d561a838eddcadc41ea25e17",
+    "row": {
+      "claim_id": "UFA-C20",
+      "claim": "Керосин 136300 руб/т; услуга заправки 1696 руб/т",
+      "evidence_status": "observed_tariff",
+      "source_ids": "UFA-S26;UFA-S27",
+      "period": "с 11.11.2026",
+      "geography": "UFA",
+      "value": "137996",
+      "unit": "руб/т без НДС с услугой заправки",
+      "mechanism": "На 3100 дороже закрепленного входа 134896",
+      "decision_impact": "Нужна новая датированная корзина затрат; цена не стабилизирована",
+      "uncertainty": "Хранение 1353 может начисляться отдельно; индивидуальные скидки неизвестны"
+    }
+  },
+  {
+    "source_row_number": 22,
+    "source_row_sha256": "0e613fc7a5b54117d6ce998da239c6676bedad05db4fbe985a7857fbda75f759",
+    "row": {
+      "claim_id": "UFA-C21",
+      "claim": "Фиксированная модельная сеть при +3100 руб/т теряет 70.8 млн в год",
+      "evidence_status": "diagnostic_scenario_calculation",
+      "source_ids": "UFA-S01;UFA-S27",
+      "period": "52 нед; постояннаясетьbase",
+      "geography": "сеть UFA",
+      "value": "70.8001",
+      "unit": "млн руб/год",
+      "mechanism": "22838.74 т модельного топлива × изменение цены",
+      "decision_impact": "Остаток около 180.8 млн до прочих новых затрат; не новая прибыль",
+      "uncertainty": "Все топливо условно оценено по Уфе; без переотбора сети; км округлены"
+    }
+  },
+  {
+    "source_row_number": 23,
+    "source_row_sha256": "12370f61368b7caedab13ae46d5c3cdc108113ae6e81f8a9431963cbc118b7ec",
+    "row": {
+      "claim_id": "UFA-C22",
+      "claim": "Отказ от модельной компенсации 32930 руб/т ухудшает вклад примерно на 752.1 млн",
+      "evidence_status": "diagnostic_scenario_calculation",
+      "source_ids": "UFA-S01",
+      "period": "base; фиксированная сеть",
+      "geography": "сеть UFA",
+      "value": "752.0796",
+      "unit": "млн руб/год",
+      "mechanism": "Сильное допущение влияет больше одной новой локальной льготы",
+      "decision_impact": "Проверить право и получение компенсации; отдельный кассовый сценарий",
+      "uncertainty": "Не утверждается что компенсации нет; фактические выплаты RW не проверены"
+    }
+  },
+  {
+    "source_row_number": 24,
+    "source_row_sha256": "7a6b65897a478df8973cc0b170dfbcb0fe958eec0899b2a6b00010b1910e71a1",
+    "row": {
+      "claim_id": "UFA-C23",
+      "claim": "Сценарная наземная корзина 75 пассажиров и МВМ 45.88 т дает 117721.26 руб",
+      "evidence_status": "illustrative_cost_calculation",
+      "source_ids": "UFA-S26",
+      "period": "тариф 11.11.2026",
+      "geography": "разворот SSJ100 в UFA",
+      "value": "117721.26",
+      "unit": "руб без НДС",
+      "mechanism": "Регулируемые сборы; пассажиры; прием/выпуск; трап; один автобус",
+      "decision_impact": "Не переносить единый 96089 руб на все развороты",
+      "uncertainty": "Иллюстрация состава; не all-in quote; не прибавлять повторно pax_cost=500"
+    }
+  },
+  {
+    "source_row_number": 25,
+    "source_row_sha256": "c9eee33cf99cb18a523e07acc0bb3c5715c2e920c77e89e0633d2cacbf86fdf7",
+    "row": {
+      "claim_id": "UFA-C24",
+      "claim": "Скидка 50% для 76–100 кресел связана с 70 рейсами/месяц",
+      "evidence_status": "published_contract_condition",
+      "source_ids": "UFA-S28",
+      "period": "редакция 14.10.2026",
+      "geography": "UFA",
+      "value": "70",
+      "unit": "рейсов/месяц",
+      "mechanism": "Объем программы может изменить локальные аэропортовые расходы",
+      "decision_impact": "Малая программа и сеть должны считать разные доступные условия",
+      "uncertainty": "Состав услуг и счетчик рейсов надо сверить в соглашении; скидки не получены"
+    }
+  },
+  {
+    "source_row_number": 26,
+    "source_row_sha256": "afe9e4af215f4f8d97d81da645c33703a38ac8ae8ca5a11c5d91b4c16ea21bb8",
+    "row": {
+      "claim_id": "UFA-C25",
+      "claim": "Скидка на трансфер до 50% опубликована но требует соглашения",
+      "evidence_status": "published_contract_condition",
+      "source_ids": "UFA-S28",
+      "period": "редакция 14.10.2026",
+      "geography": "UFA",
+      "value": "50",
+      "unit": "% предельной скидки",
+      "mechanism": "Может снизить отдельные аэропортовые затраты",
+      "decision_impact": "Условный плюс хаба без автоматического начисления",
+      "uncertainty": "Не 50% топлива; лизинга; MRO и всей себестоимости"
+    }
+  },
+  {
+    "source_row_number": 27,
+    "source_row_sha256": "b69f23650701f2b0b4bb89aa4450d17d04e050bfd65b0511b70f72d6932be57c",
+    "row": {
+      "claim_id": "UFA-C26",
+      "claim": "Две ВПП;2300чел/ч суммарно, из них1500ВВЛ и800МВЛ;9 контактных выходов",
+      "evidence_status": "published_infrastructure",
+      "source_ids": "UFA-S24;UFA-S60",
+      "period": "текущая страница 2026",
+      "geography": "UFA",
+      "value": "2300",
+      "unit": "чел/ч паспортно",
+      "mechanism": "Физическая пассажирская инфраструктура уже есть",
+      "decision_impact": "Первичный инфраструктурный запрет на SSJ не установлен",
+      "uncertainty": "2300 не свободная мощность внутреннего хаба; нужны слоты и загрузка конкретной волны."
+    }
+  },
+  {
+    "source_row_number": 28,
+    "source_row_sha256": "ff9a053ebdb2c9349c55f38a6f9802cf67a6323198aa15871d3de966d9049b1c",
+    "row": {
+      "claim_id": "UFA-C27",
+      "claim": "Условия стерильного трансфера есть; MCT RW не подтвержден",
+      "evidence_status": "published_condition_and_unknown",
+      "source_ids": "UFA-S25",
+      "period": "страница 12.11.2026",
+      "geography": "UFA",
+      "value": "",
+      "unit": "",
+      "mechanism": "1–4 ч на странице при сквозной регистрации; это условие технологии",
+      "decision_impact": "Хаб возможен технически но не принят в эксплуатацию",
+      "uncertainty": "Нет утвержденных стыковок RW; рейсов возврата; защиты и обработки багажа"
+    }
+  },
+  {
+    "source_row_number": 29,
+    "source_row_sha256": "5e5ee1aee1340dd7dc82ab8509bcb359aaaf86b28681c208a2bc99b520699fc0",
+    "row": {
+      "claim_id": "UFA-C28",
+      "claim": "Сертифицированное ТО SSJ100/SJ-100 для новой базы документально не подтверждено",
+      "evidence_status": "unknown",
+      "source_ids": "UFA-S45;UFA-S01;UFA-S60;UFA-S61;UFA-S62",
+      "period": "12.11.2026",
+      "geography": "UFA",
+      "value": "",
+      "unit": "",
+      "mechanism": "Наземное обслуживание и заводская промышленность не заменяют MRO",
+      "decision_impact": "Договор line station; персонал; запчасти; резерв входят в условие базирования",
+      "uncertainty": "Существующие ремонтные службы перечислены аэропортом; их актуальные допуски SSJ100/ПД8 и ресурс для RW не получены. Не отсутствие любых организаций ТО."
+    }
+  },
+  {
+    "source_row_number": 30,
+    "source_row_sha256": "b611629c4adfe0d40e9ff9f275e5c0212407e818a61317ffa7c8031aafc9b621",
+    "row": {
+      "claim_id": "UFA-C29",
+      "claim": "Промышленная отгрузка Уфы 1.3 трлн за 2025",
+      "evidence_status": "municipal_report",
+      "source_ids": "UFA-S34",
+      "period": "2025",
+      "geography": "Уфа",
+      "value": "1300000000000",
+      "unit": "руб номинально",
+      "mechanism": "Может давать оплаченные B2B-командировки к поставщикам и заказчикам",
+      "decision_impact": "Нужна география бюджета деловых поездок; не добавлять население и отгрузку в OD",
+      "uncertainty": "Число сделок; билетоплательщик и направления не раскрыты"
+    }
+  },
+  {
+    "source_row_number": 31,
+    "source_row_sha256": "ad96c7b2837268af6a58277d0bec682059841b0ddd669974fb1d2b2fa02aab48",
+    "row": {
+      "claim_id": "UFA-C30",
+      "claim": "УМПО имеет центр литья до 375 т/год для предприятий ОДК",
+      "evidence_status": "published_capacity",
+      "source_ids": "UFA-S33",
+      "period": "открытие 2025",
+      "geography": "Уфа",
+      "value": "375",
+      "unit": "т/год мощности",
+      "mechanism": "Есть внутрикорпоративные производственные связи",
+      "decision_impact": "Основание для корпоративного контракта; не для ежедневных TOF/KEJ",
+      "uncertainty": "Не пассажирский поток; не подтвержденное ТО двигателя в аэропорту"
+    }
+  },
+  {
+    "source_row_number": 32,
+    "source_row_sha256": "3398329cf9df4b1210ce70544588e86f52fe4a007b8d1c5c79aa9140adc6c000",
+    "row": {
+      "claim_id": "UFA-C31",
+      "claim": "Число вахтовиков>100 тыс найдено только в пересказе",
+      "evidence_status": "secondary_unverified_magnitude",
+      "source_ids": "UFA-S41",
+      "period": "сообщение 22.10.2026",
+      "geography": "вся РБ",
+      "value": "",
+      "unit": "",
+      "mechanism": "Ротации и семейные поездки могут создавать повторяемый рынок северных направлений",
+      "decision_impact": "Не умножать региональное число на готовую частоту полетов",
+      "uncertainty": "Первичный год; выборка; пункты; доля аэропортов; оплаченные контракты неизвестны"
+    }
+  },
+  {
+    "source_row_number": 33,
+    "source_row_sha256": "4b15b1242ed832bbe11e5d3ece6f77cd33d9cd28ed9bbd510bf6be69a616b0fc",
+    "row": {
+      "claim_id": "UFA-C32",
+      "claim": "Поток туристов 2.4 млн не равен авиационному въезду",
+      "evidence_status": "definition_warning",
+      "source_ids": "UFA-S39;UFA-S40;UFA-S38;UFA-S59",
+      "period": "2025 сообщение; 2024КСР",
+      "geography": "РБ",
+      "value": "",
+      "unit": "",
+      "mechanism": "В пересказе значимы соседние регионы и местные поездки",
+      "decision_impact": "Въездной авиационный продукт требует доли приезжих по конкретным OD",
+      "uncertainty": "Сопоставимый знаменатель и методика 2.4 млн не получены"
+    }
+  },
+  {
+    "source_row_number": 34,
+    "source_row_sha256": "c87e27009504c91490f059cae740213d1be6109e1eb9676647f3087c1a853007",
+    "row": {
+      "claim_id": "UFA-C33",
+      "claim": "УУНиТ сообщал 1858 иностранных студентов на 01.04.2025",
+      "evidence_status": "observed_stock",
+      "source_ids": "UFA-S35",
+      "period": "01.04.2025",
+      "geography": "университет с филиалами",
+      "value": "1858",
+      "unit": "человек",
+      "mechanism": "Каникулы могут давать пиковые поездки в страны происхождения",
+      "decision_impact": "Контекст сезонного спроса; не обоснование российских ежедневных лучей",
+      "uncertainty": "Не только город; не вся система вузов; не все летят"
+    }
+  },
+  {
+    "source_row_number": 35,
+    "source_row_sha256": "3350e5b67fbc734a7523dd7dd0f0da534a021dd6d3d883819909d860c529b0de",
+    "row": {
+      "claim_id": "UFA-C34",
+      "claim": "Модельные catchment 1144809 и 1653798 относятся к разным определениям",
+      "evidence_status": "pinned_definition_difference",
+      "source_ids": "UFA-S01",
+      "period": "2021; расчетная реконструкция 2025",
+      "geography": "зона UFA",
+      "value": "1144809;1653798",
+      "unit": "человек",
+      "mechanism": "Охват и год меняют признаки модели спроса",
+      "decision_impact": "Не заменять один показатель другим без общей перекалибровки",
+      "uncertainty": "Муниципальные границы; дороги и разделение соседних зон не валидированы"
+    }
+  },
+  {
+    "source_row_number": 36,
+    "source_row_sha256": "251a3e98042274d56af09092af512a8e37940212be0484c7808becc7c5d42dbe",
+    "row": {
+      "claim_id": "UFA-C35",
+      "claim": "Свежие полные демографические таблицы не получены",
+      "evidence_status": "not_fully_verified",
+      "source_ids": "UFA-S36;UFA-S37;UFA-S57",
+      "period": "2025–2026",
+      "geography": "РБ; Уфа",
+      "value": "",
+      "unit": "",
+      "mechanism": "Индекс подтверждает масштаб но не готовый аэропортовый catchment",
+      "decision_impact": "Ни 4.04 млн РБ ни 1.19 млн Уфа не готовые OD",
+      "uncertainty": "Город/ГО; молодежь; доходы и доля северных работников локально неизвестны"
+    }
+  },
+  {
+    "source_row_number": 37,
+    "source_row_sha256": "9f7eeff34e895072863f724e016ac88bd28ca13349daefc80b7fb6f0bfb3e16a",
+    "row": {
+      "claim_id": "UFA-C36",
+      "claim": "Миграционное сальдо 2024−4864 человека межрегионально",
+      "evidence_status": "indexed_official_table",
+      "source_ids": "UFA-S43",
+      "period": "2024",
+      "geography": "РБ",
+      "value": "-4864",
+      "unit": "человек",
+      "mechanism": "Есть выездные социальные связи но регистрация не поездки",
+      "decision_impact": "Не моделировать визиты как число переездов × произвольная частота",
+      "uncertainty": "Нет географии родственных поездок и транспортного выбора"
+    }
+  },
+  {
+    "source_row_number": 38,
+    "source_row_sha256": "5c29c381ce0742ab0071669d5b1e9b5ace1138bd16cf75db4c4e83a8bf6c838b",
+    "row": {
+      "claim_id": "UFA-C37",
+      "claim": "В base Омск 7 самолетов; Уфа 5; результат 503 и 252 млн",
+      "evidence_status": "pinned_scenario_comparison",
+      "source_ids": "UFA-S01",
+      "period": "base",
+      "geography": "сети OMS/UFA",
+      "value": "7;5 / 503;252",
+      "unit": "самолеты / млнруб",
+      "mechanism": "Разные ресурсы и неодинаковый переток",
+      "decision_impact": "Нельзя объявить лучшего города по абсолютному вкладу",
+      "uncertainty": "Сопоставление одинаковых свободных самолетов и полных денег не выполнено"
+    }
+  },
+  {
+    "source_row_number": 39,
+    "source_row_sha256": "de5518950c1fc8bafb3b5f1024c6cd92668e9ba8b22dd27345e10345c8e298fd",
+    "row": {
+      "claim_id": "UFA-C38",
+      "claim": "Новые SJ100 не приравнены к подтвержденным свободным самолетам",
+      "evidence_status": "condition",
+      "source_ids": "UFA-S03;UFA-S47",
+      "period": "планирование 2027–2028",
+      "geography": "RW",
+      "value": "",
+      "unit": "",
+      "mechanism": "Поставка; сертификат; ввод; экипаж и резерв разные состояния",
+      "decision_impact": "Малая программа допускает перераспределение; хаб должен иметь сценарий задержки",
+      "uncertainty": "Точный доступный парк и вводный график от авиакомпании не получены"
+    }
+  },
+  {
+    "source_row_number": 40,
+    "source_row_sha256": "4918a677dc65b3f1d98ad101c392d343c560e9f680c08971b83597b0e0863a45",
+    "row": {
+      "claim_id": "UFA-C39",
+      "claim": "Подтвержденной субсидии RW 2027–2028 для UFA нет в полученных материалах",
+      "evidence_status": "unknown",
+      "source_ids": "UFA-S44;UFA-S31;UFA-S01",
+      "period": "2027–2028",
+      "geography": "UFA",
+      "value": "",
+      "unit": "",
+      "mechanism": "Историческая программа другого перевозчика не создает право RW",
+      "decision_impact": "В базовых деньгах ставку поддержки оставлять неподтвержденной; считать отдельно договорный сценарий",
+      "uncertainty": "Нет прочитанного актуального перечня; соглашения; лимита и календаря выплат"
+    }
+  },
+  {
+    "source_row_number": 41,
+    "source_row_sha256": "7c3a8afc49dd94c80c6a00917809441134da67f7645fdde69c319c910be550ef",
+    "row": {
+      "claim_id": "UFA-C40",
+      "claim": "Короткий UFA–SVX имеет опубликованный коммерческий продукт",
+      "evidence_status": "counterexample_to_universal_gate",
+      "source_ids": "UFA-S08;UFA-S30;UFA-S21",
+      "period": "ноябрь 2026",
+      "geography": "UFA–SVX",
+      "value": "",
+      "unit": "",
+      "mechanism": "393 км; 8 ч автобус; рейсы RW и Utair; явное предложение продажи",
+      "decision_impact": "Городской и сегментный пороги 500 км требуют самостоятельной проверки",
+      "uncertainty": "Наличие предложения не доказывает положительный вклад конкретной частоты"
+    }
+  },
+  {
+    "source_row_number": 42,
+    "source_row_sha256": "6fe0b369efba6cd3f8da00ddb0be836377ba409d751256ec1c01cefcf3ac7632",
+    "row": {
+      "claim_id": "UFA-C41",
+      "claim": "Аэропорт публикует отсутствие ангарных мест для ВС неместного базирования",
+      "evidence_status": "published_access_constraint",
+      "source_ids": "UFA-S60",
+      "period": "страница на12.11.2026; обновление неизвестно",
+      "geography": "UFA",
+      "value": "",
+      "unit": "условие доступа",
+      "mechanism": "Два существующих ангара не означают доступную защиту нового outstation/резервного самолета.",
+      "decision_impact": "Для ротаций и новой базы нужны отдельные условия места, AOG, зимнего обслуживания и классификации местного базирования.",
+      "uncertainty": "Не индивидуальное предложение RW и не запрет местной новой базе. Состояние и коммерческая доступность требуют договора."
+    }
+  },
+  {
+    "source_row_number": 43,
+    "source_row_sha256": "67199f14bcb43041601bbc1ba8c0ff7ef4d0c1e414aa85a9a577c787014e5977",
+    "row": {
+      "claim_id": "UFA-C42",
+      "claim": "Текущая официальная техническая страница указывает H24 и существующие ремонтные службы",
+      "evidence_status": "published_technical_characteristics",
+      "source_ids": "UFA-S60",
+      "period": "страница на12.11.2026 без даты обновления",
+      "geography": "UFA",
+      "value": "",
+      "unit": "режим и состав служб",
+      "mechanism": "Ночной оборот физически допустим по опубликованному регламенту; инфраструктура ТО существует.",
+      "decision_impact": "Не требовать создания всей инфраструктуры с нуля; проверить доступ RW и допуски конкретного типа.",
+      "uncertainty": "H24 не отсутствие временных ограничений. Перечень служб не контракт SSJ100/ПД8 или гарантия свободного персонала."
+    }
+  }
+]

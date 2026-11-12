@@ -1,0 +1,436 @@
+{
+  "schema": "REN-StageA-programme-1",
+  "programmes": [
+    {
+      "programme_id": "CP-REN-00",
+      "title_ru": "Сохранение REN–SVX и улучшение существующих пересадок",
+      "role": "EXISTING_PRODUCT_PARTNER",
+      "resource_group_id": "G0",
+      "unique_project_airport_pairs": [
+        "REN-SVX"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "Рейсы не добавлять; сначала подобрать датированные REN-SVX-MSQ и дальние RW-продукты; retime только при учете потерянных связей.",
+      "rotation_template": "KEEP с отдельными разрешенными retime actions; никаких автоматических open seats",
+      "mechanism": "Проверить улучшение продукта с текущим узлом SVX до нового узла REN.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P02 dated sale/through legs",
+        "P03 future KEEP",
+        "P05 connected itinerary utilities"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно."
+    },
+    {
+      "programme_id": "CP-REN-R1",
+      "title_ru": "REN: дневные прямые GOJ и MRV с одной радиальной линией",
+      "role": "NEW_RADIAL_BASE",
+      "resource_group_id": "G1",
+      "unique_project_airport_pairs": [
+        "GOJ-REN",
+        "MRV-REN"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "Новые RW REN-GOJ3/нед и REN-MRV3/нед сверх сохраненного KEEP. UVTлетоGOJ2/нед и A4MRV2/нед сохраняются как конкуренты.",
+      "rotation_template": "Пн/ср/пт REN-GOJ-REN;вт/чт/сб REN-MRV-REN; один хвост ночуетREN; воскресенье не занято проектом, но не подтверждено ТО.",
+      "mechanism": "Прямые поездки без SVX; дневной MRV против опубликованного04:00, точные7/14ночей. Дополнительная база оправдана только общей дельтой после всех затрат.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P05 REN-GOJ/MRV/month/ground/own migration",
+        "P03 REN overnight/MRO/crew + reserve",
+        "P04 base/start/exit/fuel/handling"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20",
+        "A-REN-19"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно.",
+      "local_departure": "REN11:30 local; все местные часы туда/обратно R1/E1 совпадают; A-REN-19"
+    },
+    {
+      "programme_id": "CP-REN-E1",
+      "title_ru": "Та же местная программа REN из существующей базы SVX",
+      "role": "EXISTING_BASE_CHAIN",
+      "resource_group_id": "G1",
+      "unique_project_airport_pairs": [
+        "REN-SVX",
+        "GOJ-REN",
+        "MRV-REN"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "Те же6 onward roundtrips/нед; каждый полный оборот SVX-REN-X-REN-SVX. По умолчанию6 дополнительных парREN-SVX; замена существующих отдельно, после flight-ID mapping.",
+      "rotation_template": "Пн/ср/пт SVX-REN-GOJ-REN-SVX;вт/чт/сб SVX-REN-MRV-REN-SVX; один хвост возвращаетсяSVX.",
+      "mechanism": "Контроль против R1: экономит новую overnight-базуREN, добавляет19ч block/нед. Все добавленные собственные продажи SVX учитываются совместно.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P03 actual SVX crew/MRO capacity and turn windows",
+        "P05 own cannibalization REN-SVX + onward itinerary",
+        "P04 differential handling/cycles/opportunity costs"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20",
+        "A-REN-19"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно.",
+      "local_departure": "REN11:30 local; все местные часы туда/обратно R1/E1 совпадают; A-REN-19"
+    },
+    {
+      "programme_id": "CP-REN-D1",
+      "title_ru": "Новый ресурс на прямые SVX–GOJ и SVX–MRV",
+      "role": "EXISTING_BASE_DIRECT_CONTROL",
+      "resource_group_id": "G1",
+      "unique_project_airport_pairs": [
+        "GOJ-SVX",
+        "MRV-SVX"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "REN сохраняетKEEP; дополнительный ресурс даетSVX-GOJ3/нед иSVX-MRV3/нед. Конкуренты и существующие продажи RW в SVX не обнулены.",
+      "rotation_template": "Пн/ср/пт SVX-GOJ-SVX;вт/чт/сб SVX-MRV-SVX.",
+      "mechanism": "Альтернативное применение того же нового хвоста; результат по всему объединению затронутых OD, а не только местнымREN.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P03 actual dated SVX controls/block/donor",
+        "P05 full union of OD + incumbents",
+        "P04 accepted cost drivers"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно."
+    },
+    {
+      "programme_id": "CP-REN-R2",
+      "title_ru": "Расширение радиальной линии REN до OMS",
+      "role": "NEW_RADIAL_BASE_EXTENSION",
+      "resource_group_id": "G1",
+      "unique_project_airport_pairs": [
+        "GOJ-REN",
+        "MRV-REN",
+        "OMS-REN"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "R1 + REN-OMS3/нед на длинных дняхпн/ср/пт; не сложить независимо сR1. Текущий прямойREN-OMS не установлен; пересадки/иные периоды не ноль.",
+      "rotation_template": "REN-GOJ-REN-OMS-REN пн/ср/пт; REN-MRV-REN вт/чт/сб. Весь ресурс одного хвоста/нескольких экипажей подлежит P03.",
+      "mechanism": "Проверить порог потребности во втором хвосте/экипажах до автоматического расширения хаба.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P05 latent REN-OMS + viaSVX/OVB/MOW",
+        "P03 OMS route block/crew split",
+        "P04 incremental cycle + staff/time costs"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно."
+    },
+    {
+      "programme_id": "CP-REN-H1",
+      "title_ru": "Защищенная мини-волна REN между SVX/OMS и GOJ/MRV",
+      "role": "TRANSFER_HUB",
+      "resource_group_id": "G2",
+      "unique_project_airport_pairs": [
+        "REN-SVX",
+        "OMS-REN",
+        "GOJ-REN",
+        "MRV-REN"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "По3/нед в обе стороны каждого луча, сверхKEEP. ЧерезREN:SVX-GOJ,SVX-MRV,OMS-GOJ,OMS-MRV; местныеREN-OD используют те же кресла.",
+      "rotation_template": "T1 SVX-REN-MRV-REN-SVX;T2 OMS-REN-GOJ-REN-OMS пн/ср/пт. Восточные arrivalsREN09:00UTC→west departures10:30; reverse arrivals17:10→east departures18:40. Turn at endpoints60; REN bank90.",
+      "mechanism": "Календарь дает точный7/14ночный возврат и общие кресла; отличающий опыт retime same flights без банка сохраняет local supply. OMSночевка/база отдельныйUNKNOWN, RENнеобязательно overnight-база.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P05 four cross-OD + local shared inventory + existing direct/through RW",
+        "P03 OMS overnight, two long line-days, crews/MCT/TO/slots",
+        "P04 REN connection handling + OMS overnight + passenger protection"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно."
+    },
+    {
+      "programme_id": "CP-REN-X1",
+      "title_ru": "Сохранение или сезонная перенастройка собственного REN–EVN",
+      "role": "INTERNATIONAL_EXTENSION",
+      "resource_group_id": "G1_OPTION",
+      "unique_project_airport_pairs": [
+        "EVN-REN"
+      ],
+      "period": "2027-01/2028-12; активация по P03; шаблоны2028",
+      "seasons": "зима/лето/межсезонье раздельно; полный принятый календарь UNKNOWN",
+      "keep": {
+        "period": "2027-01/2028-12",
+        "status": "FUTURE_KEEP_REQUIRED",
+        "source_years": "наблюдения/объявления2026, не готовый KEEP2028",
+        "preserve": [
+          "REN-SVX опубликованные/проданные рейсы",
+          "летняя ветвь REN-EVN и ее контрактные обязательства",
+          "REN>SVX>MSQ и другие затронутые RW-соединения",
+          "SVX-GOJ/SVX-MRV и общие исходящие продажи существующей базы",
+          "весь остальной затронутый domestic/international/charter бизнес и платежи"
+        ],
+        "own_sales_quantities": null,
+        "donor_if_existing_aircraft": "Назвать хвост, прежние задания, продажи, расходы, обязательства; no-new не означает free",
+        "new_aircraft_alternative": "CP-REN-D1 или принятый лучший общий проект на том же физическом ресурсе",
+        "p02_admission": "source export, не открытые физические кресла",
+        "assumption_id": "A-REN-11"
+      },
+      "market_changes": "Не новая заявленная с нуля линия:1/нед лето2026RW. Сравнить KEEP summer1/нед, stop с потерей продаж и retime; на тех же хвостах вместо другого задания.",
+      "rotation_template": "Летний четверг REN-EVN-REN; для SVX-based полного оборота добавитьSVX-REN иREN-SVX; конфликт сR1/E1MRVчетверг требует явной замены, не суммы.",
+      "mechanism": "Реальное собственное международное происхождение и новый терминал; не доказательство роста всего рынка или допускаSJ100 вEVN.",
+      "fleet_variant": "RRJ95LR_100_analogue; SJ100_PD8 отдельный непроверенный вариант",
+      "new_tu214": 0,
+      "reserve": "Общий принятый reserve pool UNKNOWN; не свободный нулевой резерв",
+      "monetary_result": null,
+      "market_share_result": null,
+      "admission": "STAGE_A_DESIGN_ONLY",
+      "needs_shared_inputs": [
+        "P03 exact summer KEEP/permissions/variant/return rotation",
+        "P05 EVN demand/competitors/ground lead/baggage",
+        "P04 international rates/tax/FX/launch-exit"
+      ],
+      "assumption_ids": [
+        "A-REN-02",
+        "A-REN-03",
+        "A-REN-05",
+        "A-REN-06",
+        "A-REN-07",
+        "A-REN-08",
+        "A-REN-09",
+        "A-REN-10",
+        "A-REN-11",
+        "A-REN-13",
+        "A-REN-14",
+        "A-REN-20"
+      ],
+      "initial_transition": "Требуется единая начальная позиция G1/G2 и полный маршрут ввода/выхода. Ночёвки в REN или OMS не возникают бесплатно."
+    }
+  ],
+  "composition_rule": "R2 заменяетR1; R1/E1/D1 взаимоисключающие опытыG1; H1 заменяет местный набор при совместном расчете. X1 делит ресурс/кресла, не независимый денежный плюс.",
+  "global_target": "8–12 уникальных airport pairs к концу2028 относится к общей проектной сети. REN-кандидаты дают2–4 пары; новые и уже существующие уникальные пары считаются один раз.",
+  "engine_contract": {
+    "commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "path": "context/35_full_programme_execution_20261112/P06/producer_contract.json",
+    "status": "прочитан; complete bundle не собран; P06 evaluate NOT_RUN; independent acceptance pending"
+  },
+  "source_ids": [
+    "REN-SCHEDULE-OUT",
+    "REN-SCHEDULE-IN",
+    "REN-GOJ-RGK26",
+    "RW-REN-EVN26",
+    "RW-B2-PRIMARY"
+  ],
+  "mechanical_control": {
+    "programme_id": "CP-REN-H1-U",
+    "parent": "CP-REN-H1",
+    "action": "Сдвинуть T2 на180мин; сохранить физические рейсы и места. Это контроль по синхронизации, не восьмой самостоятельный бизнес-кандидат."
+  }
+}

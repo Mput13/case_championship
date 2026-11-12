@@ -13,6 +13,11 @@ class ContractError(ValueError):
     pass
 
 
+class UnknownInput(ContractError):
+    """An explicitly null material scenario input; not malformed data."""
+    pass
+
+
 def require(condition, message):
     if not condition:
         raise ContractError(message)

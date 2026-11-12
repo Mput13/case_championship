@@ -1,0 +1,33 @@
+{
+  "issues": [
+    {
+      "tool": "web.open",
+      "url": "https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf",
+      "exact_error": "URL https://khvaero.ru/partners/open-info-khabaero/law/fee/prices/tarif_2026_11.pdf is not accessible via this tool.",
+      "fallback": "Использованы уже закреплённые KHV-строки P04 по620a0ac4;новый тариф не принят.",
+      "status": "NOT_NEWLY_FETCHED"
+    },
+    {
+      "tool": "Python urllib",
+      "url": "https://khvaero.ru/passengers/schedule/",
+      "exact_error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1006)",
+      "fallback": "Тот же официальный оператор на https://khv.aero/passengers/schedule/ получен с обычной проверкойTLS;сертификатная проверка не отключалась.",
+      "status": "ALTERNATE_OFFICIAL_HOST_ACQUIRED"
+    },
+    {
+      "tool": "web.click",
+      "url": "https://khv.aero/partners/docs/Complex_dogovor_ob_okazanii_uslug_dlya_rossiiskih_potrebitelei.docx",
+      "exact_error": "(400) Unsupported content-type: application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "fallback": "Прямая текстовая HTTP-загрузка и чтение word/document.xml черезstdlibzip/xml;никакого browser use.",
+      "status": "ACQUIRED"
+    },
+    {
+      "tool": "HTTP",
+      "url": "https://khv.aero/passengers/transport/",
+      "exact_error": "HTTP200;Элемент не найден!",
+      "fallback": "Не принят как источник о наземном доступе;GROUND_VVO оставлен с собственными ограничениями.",
+      "status": "CONTENT_NOT_FOUND"
+    }
+  ],
+  "diagnostic_scope": "Без вмешательства в сессии;детей не запускали по прямому ограничению задания;сервисы не перезапускались."
+}

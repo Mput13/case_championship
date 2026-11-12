@@ -1,0 +1,6 @@
+266: def leg_cost(A, km, south, pax):
+267:     """Переменные расходы одного рейса и блок-время."""
+268:     k = A["route_factor_south"] if south else A["route_factor"]
+269:     bh = A["block_fixed_h"] + km * k / A["block_speed_kmh"]
+270:     # цена керосина за вычетом демпфера и обратного акциза, которые возвращают авиакомпаниям (network.csv)
+271:     fuel = (A["fuel_t_per_hour"] * bh + A["fuel_t_per_cycle"]) * (A["fuel_rub_per_t"] - A.get("fuel_compensation_rub_per_t", 0.0))

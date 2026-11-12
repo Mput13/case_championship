@@ -1,0 +1,37 @@
+{
+  "status": "REJECTED_NOMINAL_TEMPLATE_AS_BUILT",
+  "period": "08–14.05.2028;неосновагодовойсети",
+  "source_id": "PEE-S01",
+  "assumption_ids": [
+    "A-PEE-BLOCK",
+    "A-PEE-TURN",
+    "A-PEE-TYPE",
+    "A-PEE-RESERVE"
+  ],
+  "formula": "ceil(60*(0.5+great_circle_km*route_factor/750));VOGfactor1.2,остальные1.1;turn60min",
+  "block_minutes_by_route": {
+    "LED": 161,
+    "VOG": 153,
+    "NOZ": 203,
+    "KJA": 223
+  },
+  "productive_tails_tested": 1,
+  "legs": 16,
+  "roundtrips": 8,
+  "unique_airportpairs": 4,
+  "weekly_block_hours": 49.333333333333336,
+  "max_daily_block_hours": 10.466666666666667,
+  "max_daily_first_departure_to_last_arrival_hours": 13.466666666666667,
+  "weekly_seats_analogue": 1600,
+  "crew_duty_not_tested": true,
+  "spare_or_MRO_not_tested": true,
+  "stress": {
+    "block_plus_15_each_leg_weekly_hours": 53.333333333333336,
+    "block_plus_30_each_leg_weekly_hours": 57.333333333333336,
+    "stress_meaning": "Изменениеразмераблока,недоверительныйинтервал;фиксированноевремяследующихвылетовнеперепланировано"
+  },
+  "conclusion": "Одинtailнеимеетноминальныхпересеченийвэтойпоследовательности;этонеподтверждаетcrew/MRO/reserve/slots/AFM/KEEP. ОбщийP03долженпроверитьвсегодовыедаты.",
+  "reason": "Два дня содержат 10.4667 блок-часа и превышают авторское плановое ограничение 10 ч/день. Это отказ конкретному однобортному шаблону, не экономический отказ городу или хабу.",
+  "successor": "PEE-R1: LED/VOG 2 раза, NOZ/KJA 1 раз в неделю; 6 оборотов в 6 дней",
+  "rule_source": "dceadc98:data/assumptions/network.csv block_h_per_day=10; плановая гипотеза, не закон или duty limit"
+}

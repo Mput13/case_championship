@@ -1,0 +1,145 @@
+{
+  "provenance": {
+    "commit": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "path": "context/35_full_programme_execution_20261112/P04/thresholds.csv",
+    "git_blob_oid": "cbbca67ad7dd9a3a45c61df34f2a4b0e7f00e657",
+    "sha256": "63f818ae20df80a55141bd568392f1754d0a77f08fc1c6881eebb93955f68208",
+    "bytes": 2055,
+    "status": "READ_EXACT_BLOB",
+    "total_rows": 10,
+    "selected_rows": 10,
+    "selection": "AER endpoint/reference only; shared type/threshold schema retained"
+  },
+  "rows": [
+    {
+      "source_csv_line": 2,
+      "source_row_sha256": "3301d6cd5b05715d5caaa5c230e5afceb64ed2c0f3b0f62bf63a5af0d5d03e1d",
+      "source_row_id": "line:2",
+      "data": {
+        "threshold_id": "TH-FIXED",
+        "field": "max_affordable_incremental_fixed_monthly",
+        "formula": "(R+S-C_variable-C_aircraft_use-D&A-C_launch_exp-C_exit_exp)/active_base_months",
+        "unit": "RUB/base/month",
+        "conditions": "active_base_months>0; all other terms fixed and defined",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 3,
+      "source_row_sha256": "985776643fc6f320ae3ad942a389e0e2bced10a9f1c2db38ccc984912887d73e",
+      "source_row_id": "line:3",
+      "data": {
+        "threshold_id": "TH-LAUNCH",
+        "field": "max_affordable_one_time_launch_expense",
+        "formula": "sum(R+S-C_variable-C_fixed-C_aircraft_use-D&A-C_exit_exp)",
+        "unit": "RUB/launch",
+        "conditions": "Given horizon; not discounted investment threshold or finance capacity",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 4,
+      "source_row_sha256": "28d4bd43836b2b458650b3c3bb0c66055590d4d9b4a805d23784c8d51dd8d9ef",
+      "source_row_id": "line:4",
+      "data": {
+        "threshold_id": "TH-MRO",
+        "field": "max_affordable_MRO_hourly",
+        "formula": "(R+S-C_excluding_MRO)/block_hours",
+        "unit": "RUB/block_h",
+        "conditions": "MRO calendar/cycle fees separately counted; no joint claim all unknowns at separate maxima",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 5,
+      "source_row_sha256": "ede5270682d1cf896d4c6f94f4b26db985a4848791e7320061ab3cb78f0074f7",
+      "source_row_id": "line:5",
+      "data": {
+        "threshold_id": "TH-SUPPORT",
+        "field": "required_recognisable_support",
+        "formula": "C_full_operating-R_net",
+        "unit": "RUB/period",
+        "conditions": "Compare against eligibility/contract cap; legal cap does not imply award",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 6,
+      "source_row_sha256": "ddf7459926908b7fcc80d322745d63cb07da22befafd7ac87998c31d0ae72941",
+      "source_row_id": "line:6",
+      "data": {
+        "threshold_id": "TH-FUEL",
+        "field": "max_effective_net_fuel_price",
+        "formula": "(R+S_nonfuel-C_nonfuel_full)/eligible_consumed_t",
+        "unit": "RUB/t",
+        "conditions": "Separate nonqualifying fuel and future excise cash; fixed sales arithmetic only",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 7,
+      "source_row_sha256": "06ddb4cd7dc968c192f8e2d7d520f8cc216e62891517c93c4c4040b7ee26dcdd",
+      "source_row_id": "line:7",
+      "data": {
+        "threshold_id": "TH-FARE",
+        "field": "break_even_net_journey_yield",
+        "formula": "(C_full_operating-S)/unique_sold_journeys",
+        "unit": "RUB/journey",
+        "conditions": "Fare changes require demand reassignment in P06; no fixed-pax market forecast",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 8,
+      "source_row_sha256": "ee8726ca607a472e54bf02bdbed7e1d75e7ebbc3257e2bb26c4ea035fcab7691",
+      "source_row_id": "line:8",
+      "data": {
+        "threshold_id": "TH-COFINANCE",
+        "field": "minimum_incremental_regional_or_commercial_funding",
+        "formula": "max(0,required_support-confirmed_federal_support)",
+        "unit": "RUB/period",
+        "conditions": "Keep no-award baseline; regional cofinance must have its own signed terms",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 9,
+      "source_row_sha256": "878438295cc67164c5e2f9de48fc9e4a07fc60af2dd6b57c5e5c3416383ace26",
+      "source_row_id": "line:9",
+      "data": {
+        "threshold_id": "TH-FUNDING",
+        "field": "required_committed_liquidity",
+        "formula": "max(0,-min_event(cumsum(project_cash_before_financing)))",
+        "unit": "RUB",
+        "conditions": "Include prelaunch/exits and terminal liabilities; unknown dates imply unknown peak",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 10,
+      "source_row_sha256": "4065e9e7ed2fe01969043d3f8cde6aa73cc2a36f24c672b1f88b667de911fb95",
+      "source_row_id": "line:10",
+      "data": {
+        "threshold_id": "TH-DELAY",
+        "field": "support_delay_extra_bridge_constant_flow",
+        "formula": "eligible_monthly_support * extra_unpaid_months",
+        "unit": "RUB",
+        "conditions": "Steady monthly toy flow only; actual event cash path may differ",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    },
+    {
+      "source_csv_line": 11,
+      "source_row_sha256": "544058767a00810f5d5ff684dd7fd29cb8119a06b9c1bc1251d098dd546129e3",
+      "source_row_id": "line:11",
+      "data": {
+        "threshold_id": "TH-OPTION",
+        "field": "new_base_vs_existing_base_operating_headroom",
+        "formula": "result_before_new_base_costs_new - result_before_extra_costs_existing",
+        "unit": "RUB/period",
+        "conditions": "Common fleet/KEEP and common input versions; subtract only truly different uncounted costs",
+        "assumption_id": "P04-A-THRESHOLD"
+      }
+    }
+  ]
+}

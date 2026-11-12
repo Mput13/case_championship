@@ -1,0 +1,212 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-REN-ROLE",
+      "role": "Текущая роль RW",
+      "signal": "Действующая REN-SVX; летнийREN-EVN; продуктREN-SVX-MSQ",
+      "source": [
+        "E-REN-003",
+        "E-REN-006",
+        "E-REN-007"
+      ],
+      "mechanism": "Outstation и origin-market по источникам; существующая база/хабRW не доказаны.",
+      "counterfactual": "Нельзя присвоить новую базу с нулевой стоимостью или объявить чужую историюOrenair базойRW.",
+      "distinguishing_test": "Действующий договор базирования/overnight/MRO/crew и датированные хвостыRW вREN.",
+      "ancestorIDs": [
+        "PLAN:seed:REN",
+        "BASE:airport_tech:REN"
+      ],
+      "outcome": "оценена в указанной области: published_RW_market_outstation; base/hub UNKNOWN",
+      "blocking_unknown": "RW actual base/overnight contracts",
+      "reconsideration_condition": "ДокументRW о базировании/подтвержденные ротации меняют классификацию.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-01",
+      "role": "Радиальная дневная база",
+      "signal": "Действующие/летние рынки MRV и GOJ; ночью опубликованMRV; прямой продукт и короткие поездки.",
+      "source": [
+        "E-REN-008",
+        "E-REN-009",
+        "E-REN-024"
+      ],
+      "mechanism": "R1 сокращает технические плечи кSVX, но оплачивает новую базу. 3/нед выбран ради календаря, не от спроса.",
+      "counterfactual": "E1 те жеREN-OD и частоты; D1 тот же хвост наSVX; будущийKEEP сохраняет продажи.",
+      "distinguishing_test": "P06 joint compare R1/E1/D1 наG1 с полной базой, резервом и P05; порог TH-OPTION дляREN base.",
+      "ancestorIDs": [
+        "AUTHOR:Хаб REN:GOJ",
+        "AUTHOR:Хаб REN:MRV",
+        "PLAN:seed:REN"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "ПотенциальныеOD и differential base/crew/MRO contracts",
+      "reconsideration_condition": "Выигрыш общей дельты после новой базы/запуска и финансирования; иначе изменить частоты/отказаться отR1.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-02",
+      "role": "Прямые местные продукты изSVX",
+      "signal": "Реальная REN-SVX и опубликованный50мин turnaround; RENбаза не подтверждена.",
+      "source": [
+        "E-REN-003",
+        "E-REN-004"
+      ],
+      "mechanism": "E1 сохраняет ночевкуSVX; extra legs могут оказаться дороже новой базы.",
+      "counterfactual": "R1 те жеGOJ/MRV; D1 лучшее альтернативное использование, не zero task.",
+      "distinguishing_test": "Полные цепочки, две версии add и replace существующихREN-SVX, donor revenue и paid-cycle cost; crew legality.",
+      "ancestorIDs": [
+        "BASE:rw_routes_now:REN-SVX",
+        "PLAN:EXISTING_BASE_DIRECT"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "Дополнительный crew/MRO slotSVX и каннибализация текущихRW пассажиров",
+      "reconsideration_condition": "При невыгодных дополнительных плечах пробовать overnightREN/более редкий календарь; не считать весьREN опровергнутым.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-03",
+      "role": "Защищенная мини-волна",
+      "signal": "Авторская модель имеетREN transfer portfolio; на сайтахRW есть черезSVX продукт; терминал расширен.",
+      "source": [
+        "E-REN-007",
+        "E-REN-013",
+        "BASE_network_REN.subset.json"
+      ],
+      "mechanism": "H1 объединяет local и transfer pools на общих креслах четырех лучей; тариф конечной поездки начисляется один раз.",
+      "counterfactual": "Те жеH1flights с разнесенными банками + лучшие direct programs на двух тех же хвостах; будущийKEEP.",
+      "distinguishing_test": "Сперва H1vsunsync с одинаковой частотой/креслами; затем общий hub vs direct. MCT60/90/120, пропуски связей, roundtrip7/14ночей; не суммировать прежние captured flows.",
+      "ancestorIDs": [
+        "AUTHOR:Хаб REN",
+        "PLAN:TRANSFER_HUB"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "Истинные cross-OD, продажаprotected transfer, MCT и два длинных дня с crew/ТО",
+      "reconsideration_condition": "Если полной базой/защитой невыполним H1, пересчитать инойbank/ресурс/плечи; один плохой шаблон не отказ городу.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-04",
+      "role": "Подвоз и партнер черезSVX",
+      "signal": "Официальный единый билетREN-SVX-MSQ уже заявлен; дальниеRW продукты рекламируются.",
+      "source": [
+        "E-REN-007",
+        "E-REN-030"
+      ],
+      "mechanism": "Сначала проверить качество и дату существующих связей; возможен retime без нового борта.",
+      "counterfactual": "БудущийKEEP с текущими связями; новое расписание должно сохранить/оценить потерянные OD.",
+      "distinguishing_test": "Датированные outbound+return, единая тарификация/багаж, MCT и проданный inventory; вмешательствоretimevsKEEP.",
+      "ancestorIDs": [
+        "P02:P02-bf48e86a0f5ae978",
+        "PLAN:EXISTING_PRODUCT_CHANGE"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "Точныйдатированный basket и объем incremental journeys",
+      "reconsideration_condition": "При уже хороших связях отдельного эффекта retime может не быть; это не повод обнулить партнерский продукт.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-05",
+      "role": "Сезонный inbound-туризм",
+      "signal": "Курорт и туроператорский3дневный продукт с авиа/жд; сильная летняя сезонность.",
+      "source": [
+        "E-REN-031",
+        "E-REN-032",
+        "E-REN-033"
+      ],
+      "mechanism": "Наземный трансфер и accommodation могут сделать поездку удобной; выручка блока возникает только по договору.",
+      "counterfactual": "Retail на тех жеR1/R2 рейсах; поезд/автобус/автомобиль; независимые туристические гости не новый авиа-рынок.",
+      "distinguishing_test": "P05 residence/mode/month + matched tour basket; allotment/release/payment events и общие кресла; без договора только retail.",
+      "ancestorIDs": [
+        "PLAN:DATA_TO_HYPOTHESIS",
+        "PLAN:seed:REN"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "Уникальные air-OD и условия/наличие оплаченного блока",
+      "reconsideration_condition": "Отсутствие added air demand или проигрыш полного door-to-door basket снимает именнотуристическую надстройку.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-06",
+      "role": "Международное сезонное продолжение",
+      "signal": "СвойREN-EVN1/нед летом2026; зимойUVTALA иIOGYD; международная зона нового терминала.",
+      "source": [
+        "E-REN-006",
+        "E-REN-009",
+        "E-REN-013"
+      ],
+      "mechanism": "ВеткаX1 защищает/перенастраивает свои продажи; новые ALA/GYD конкурируют с реальными перевозчиками.",
+      "counterfactual": "EVNлетнийKEEP/изменение с потерей результата; domestic use того же хвоста; ноль новыхТу214.",
+      "distinguishing_test": "Датированные competitor baskets и permitted exact variant, полный оборот, FX/tax/права/пассажиры и ресурсные конфликты.",
+      "ancestorIDs": [
+        "RW:REN-EVN:2026-03-18",
+        "PLAN:EXTENDED"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "БудущиеEVN рейсы/обязательства/спрос и допускиSJ100",
+      "reconsideration_condition": "Восстановить/сохранить только при общей дельте и финансировании; не объявлять EVN полностью новымрынкомRW.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-07",
+      "role": "Короткий подвоз UFA/KUF/UUA",
+      "signal": "АвторскийREN-UUA363км; наземная Самара≈6ч44, Уфа search6ч40; сравнивать весьdoor-to-door.",
+      "source": [
+        "E-REN-034",
+        "E-REN-035",
+        "BASE_network_REN.subset.json"
+      ],
+      "mechanism": "Малое время полета может теряться на доступе/ожидании; подвоз также конкурирует за два кресла.",
+      "counterfactual": "Ground→существующаябаза или nonstop более длинного OD, плюс opportunity cost короткого SSJцикла.",
+      "distinguishing_test": "По месяцу/району residence сравнить total fare+access+calendar; не использовать500км как экономический порог.",
+      "ancestorIDs": [
+        "AUTHOR:Хаб REN:UUA",
+        "PLAN:seed:REN"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "Точные ground times/prices и доля catchment каждого аэропорта",
+      "reconsideration_condition": "Разделенные contract/connecting pools с доказанным временем/оплатой могут оправдать короткийspoke; сейчас самостоятельное число рейсов не выбрано.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    },
+    {
+      "hypothesis_id": "H-REN-08",
+      "role": "Дальние восточные лучи NOZ/KEJ/BAX/TOF и региональные OMS/TJM",
+      "signal": "АвторскиеREN-MRV transfer89464 segments иREN-NOZ54672 — модельные estimates; RW уже рекламирует distant connecting products.",
+      "source": [
+        "BASE_network_REN.subset.json",
+        "E-REN-030"
+      ],
+      "mechanism": "Проверить новые local+cross конечныеOD и дальнейшее расширениеR2/H1; модельные суммы не независимы.",
+      "counterfactual": "Прямые ичерезSVX/OVB/MOW; собственные действующиеRW products; разные недопущенные оценки не складываются.",
+      "distinguishing_test": "P05 восстановить residence/destination/месяц/путь; затем P03 runway/payload/block/reserve для дальних лучей.",
+      "ancestorIDs": [
+        "AUTHOR:Хаб REN:NOZ",
+        "AUTHOR:Хаб REN:MRV",
+        "BASE:longlist:REN"
+      ],
+      "outcome": "условна из-за конкретного неизвестного",
+      "blocking_unknown": "Наблюдаемый дальнийOD, diversion/payload и календарь/ресурс",
+      "reconsideration_condition": "Сильный подтвержденный OD/контракт меняет набор4лучей. Низкий старыйscore или отсутствиеотдельногорасчета не отказ.",
+      "period": "2027-2028",
+      "status": "StageA_concluded_StageB_pending",
+      "coverage": "REN и перечисленные затронутые рынки; не общероссийская рекомендация"
+    }
+  ],
+  "no_economic_city_rejection": true,
+  "history_policy": "Авторские frozen результаты сохранены отдельными строками; новый вывод не переписывает старые оценки."
+}

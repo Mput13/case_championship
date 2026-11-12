@@ -1,0 +1,118 @@
+{
+  "purpose": "Адресный календарный пример C07; не годовой ресурсный план.",
+  "source": {
+    "SVX_OMS": "Опубликованный зимний block 100 минут",
+    "OMS_SVX": "Опубликованный зимний block 105 минут",
+    "OMS_KJA": "У России out 125 / in 145. Перенос времени на RW — явный параметрический аналог, не измеренный RW block."
+  },
+  "assumption_ids": [
+    "A-OMS-01",
+    "A-OMS-02",
+    "A-OMS-03",
+    "A-OMS-18"
+  ],
+  "prototype_date": "2028-12-12..13 chosen diagnostic;not annualnetwork",
+  "prototype": [
+    {
+      "leg": "SVX-OMS",
+      "origin": "SVX",
+      "destination": "OMS",
+      "departure_utc": "2028-12-12T16:20:00Z",
+      "arrival_utc": "2028-12-12T18:00:00Z",
+      "block_min": 100
+    },
+    {
+      "leg": "OMS-KJA",
+      "origin": "OMS",
+      "destination": "KJA",
+      "departure_utc": "2028-12-12T18:45:00Z",
+      "arrival_utc": "2028-12-12T20:50:00Z",
+      "block_min": 125
+    },
+    {
+      "leg": "KJA-OMS",
+      "origin": "KJA",
+      "destination": "OMS",
+      "departure_utc": "2028-12-12T21:35:00Z",
+      "arrival_utc": "2028-12-13T00:00:00Z",
+      "block_min": 145
+    },
+    {
+      "leg": "OMS-SVX",
+      "origin": "OMS",
+      "destination": "SVX",
+      "departure_utc": "2028-12-13T00:45:00Z",
+      "arrival_utc": "2028-12-13T02:30:00Z",
+      "block_min": 105
+    }
+  ],
+  "sensitivity": [
+    {
+      "turn_minutes": 30,
+      "block_minutes": 475,
+      "old_rotation_block_minutes": 205,
+      "extra_block_minutes": 270,
+      "old_OMS_ground_minutes": 50,
+      "new_ground_minutes": 90,
+      "new_elapsed_minutes": 565,
+      "old_elapsed_minutes": 255,
+      "return_delay_minutes": 310,
+      "unit": "minutes;calendargeometryonly",
+      "status": "conditional_diagnostic_not_crew_dispatch_OR_demand_acceptance",
+      "source_id": "OMS-S07;A-OMS-03"
+    },
+    {
+      "turn_minutes": 45,
+      "block_minutes": 475,
+      "old_rotation_block_minutes": 205,
+      "extra_block_minutes": 270,
+      "old_OMS_ground_minutes": 50,
+      "new_ground_minutes": 135,
+      "new_elapsed_minutes": 610,
+      "old_elapsed_minutes": 255,
+      "return_delay_minutes": 355,
+      "unit": "minutes;calendargeometryonly",
+      "status": "conditional_diagnostic_not_crew_dispatch_OR_demand_acceptance",
+      "source_id": "OMS-S07;A-OMS-03"
+    },
+    {
+      "turn_minutes": 60,
+      "block_minutes": 475,
+      "old_rotation_block_minutes": 205,
+      "extra_block_minutes": 270,
+      "old_OMS_ground_minutes": 50,
+      "new_ground_minutes": 180,
+      "new_elapsed_minutes": 655,
+      "old_elapsed_minutes": 255,
+      "return_delay_minutes": 400,
+      "unit": "minutes;calendargeometryonly",
+      "status": "conditional_diagnostic_not_crew_dispatch_OR_demand_acceptance",
+      "source_id": "OMS-S07;A-OMS-03"
+    }
+  ],
+  "crew_status": "UNKNOWN: P03 должен проверить четыре плеча, report, pre/post, отдых и другие задания. 610 минут elapsed не отдельный crew PASS.",
+  "physical_tail_lower_bound": 1,
+  "reserve": "G2 — два сценарных борта, один резервный; фактическая доступность UNKNOWN.",
+  "P06_operations": "NOT_RUN: только арифметика геометрии, полного принятого bundle нет.",
+  "annualisation": "NOT_PERFORMED",
+  "inventories_created": false,
+  "money_computed": false,
+  "extra_assumption": "Прототип использует зимние времена 2026/27 как аналог для выбранной даты 12–13.12.2028; forecast или ежегодный календарь из них не выведены.",
+  "paired_bridge_comparison": {
+    "unit": "физические направленные плечи и block-minutes за полную проектную неделю",
+    "literal_control_extra_bridge_RT": 7,
+    "literal_control_extra_one_way_flights": 14,
+    "reference_block_minutes_per_RT": 205,
+    "literal_control_extra_block_minutes": 1435,
+    "literal_control_extra_block_hours": 23.916666666666668,
+    "source_id": "OMS-S07; A-OMS-18; A-OMS-04",
+    "scope": "Только разница мостов в буквальном контроле семи дополнительных RT против OMS базы. Местные лучи одинаковы и сокращаются в разности. Перегоны и денежные затраты здесь не оценены.",
+    "reuse_KEEP_sensitivity": {
+      "if_actual_keep_RT_reusable": 2,
+      "net_new_bridge_RT": 5,
+      "net_new_bridge_block_minutes": 1025,
+      "qualification": "Условная арифметика 5×205, не доказательство возможности объединения. Нужны конкретные даты, ретайминг и потерянные свои продажи."
+    },
+    "resource_acceptance": "Нет вывода о числе доступных бортов, законности crew, годовой экономии или инвестиционном победителе."
+  }
+}

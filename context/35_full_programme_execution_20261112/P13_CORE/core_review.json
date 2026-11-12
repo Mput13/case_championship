@@ -1,0 +1,125 @@
+{
+  "package": "P13_CORE",
+  "role": "Независимый review фактического ядра P06",
+  "reviewer": "fresh Sol6.1 xhigh",
+  "created_at": "2026-11-12T13:17:36Z",
+  "verdict": "CHANGES",
+  "subject_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+  "subject_manifest_sha256": "7d17d8db518669f0317bc9df4783a3bb035879b88edaf12d06c74870644bf057",
+  "manifest_match": true,
+  "severity_definition": "S2: существенная ошибка допустимости adaptive-кандидата с неверным численным результатом; локализована, не общий отказ fixed-арифметики",
+  "findings": [
+    {
+      "finding_id": "P13-F01",
+      "severity": "S2",
+      "status": "OPEN",
+      "commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+      "file": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+      "line_start": 241,
+      "line_end": 245,
+      "related_locations": [
+        "context/35_full_programme_execution_20261112/P06/engine/core.py:72",
+        "context/35_full_programme_execution_20261112/P06/engine/core.py:230",
+        "context/35_full_programme_execution_20261112/P06/engine/finance.py:44"
+      ],
+      "title": "Adaptive может пересчитать прошлые поездки и добавить прошлый платёж",
+      "trigger": "Решение 01.02.2027; action.effective_date=01.02.2027; изменение продукта уже выполненной поездки 10.01.2027 или добавление нового cash_event за январь.",
+      "cause": "Защита исторических записей обходит только parent flights/cash_events. Продукты и автоматически генерируемые cash/accrual не заморожены; новые записи отсутствуют в parent-цикле. effective_date проверена относительно decision_date, но не связана с датой затронутой записи.",
+      "expected": "ContractError/CLI INVALID: запрет изменения выполненного продукта/его заработанного тарифа и запрет backdated add в adaptive-действии.",
+      "actual": "evaluate принимает CONDITIONAL: 20 январских поездок × 120 RUB превращаются в 20 × 1200; revenue и январский operating cash 2400→24000 RUB. Второй пример создаёт +400 RUB cash 01.01 решением 01.02.",
+      "impact": "Недопустимое улучшение исторической выручки, cash и финансирования при сравнении adaptive-кандидатов. Fixed-режим этим примером не опровергнут.",
+      "smallest_fix": "В check_adaptation запретить add с фактической датой записи раньше decision_date; для changed/removed records связать effective_date с периодом действия. Заморозить выполненные products и их тариф/cash_profile, а также прошлые начисления и производные платежи. Корректировку фактов отделять от feasible adaptation, если она понадобится; для закрытия этой находки новый механизм корректировок не требуется.",
+      "checks": [
+        "I15_adaptive_historical_product_reprice",
+        "I16_adaptive_new_backdated_records"
+      ],
+      "input_files": [
+        "reproducer_inputs/F01_historical_reprice.json",
+        "reproducer_inputs/F01_backdated_add.json"
+      ],
+      "actual_result": "results/F01_historical_reprice_actual.json",
+      "acceptance": "Оба сохранённых примера отвергнуты; контроль I18 остаётся отвергнут, документированное изменение будущего продукта в авторском B21 остаётся допустимо."
+    },
+    {
+      "finding_id": "P13-F02",
+      "severity": "S2",
+      "status": "OPEN",
+      "commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+      "file": "context/35_full_programme_execution_20261112/P06/engine/core.py",
+      "line_start": 237,
+      "line_end": 240,
+      "related_locations": [
+        "context/35_full_programme_execution_20261112/P06/engine/choice.py:107",
+        "context/35_full_programme_execution_20261112/P06/engine/choice.py:112"
+      ],
+      "title": "Adaptive удаляет контрактных пассажиров и повторно продаёт их кресла",
+      "trigger": "В parent есть заключённый контракт SIGNED: 30 reserved/carried на будущем рейсе 10.03.2027. Решением 01.02.2027 передан action remove contracts/SIGNED без модели отмены, возврата или переноса.",
+      "cause": "Охраняются economic_events с committed_at и product.committed_sales. Контрактные carried/reserved не входят в эту проверку; наличие документированного action само по себе разрешает удалить обязательство.",
+      "expected": "ContractError/CLI INVALID: сохранение законтрактованных поездок/невысвобождённого блока либо явная поддержанная модель отмены; её реализация не нужна для запрета текущего обхода.",
+      "actual": "evaluate принимает CONDITIONAL: contract passengers 30→0, retail 20→50 на тех же 50 креслах, revenue 7000→10000 RUB, без refund/cancellation event.",
+      "impact": "Ранее закреплённый спрос и ресурс освобождаются без цены обязательства; adaptive-программа получает недопустимую выручку и инвентарь.",
+      "smallest_fix": "В check_adaptation переносить защиту booked journeys на parent contracts: запретить удаление/сокращение ранее закреплённых carried и невысвобождённого reserved inventory или изменение их привязки к продукту/legs. До появления модели отмены такие изменения отвергать. Если контрактный статус остаётся неизвестен, не принимать его стирание как feasible adaptation.",
+      "checks": [
+        "I17_adaptive_contract_passengers_disappear"
+      ],
+      "input_files": [
+        "reproducer_inputs/F02_contract_erasure.json"
+      ],
+      "actual_result": "results/F02_contract_erasure_actual.json",
+      "acceptance": "Сохранённое удаление SIGNED отвергнуто. Fixed allocation I03 с явно заданным release_unused продолжает сохранять спрос и кресла."
+    }
+  ],
+  "personal_checks": {
+    "actual_code_read": [
+      "engine/core.py",
+      "engine/choice.py",
+      "engine/operations.py",
+      "engine/finance.py",
+      "engine/common.py",
+      "engine/adapters.py",
+      "engine/fixtures.py",
+      "engine/__main__.py"
+    ],
+    "independent": {
+      "PASS": 15,
+      "FINDING": 3,
+      "ERROR": 0
+    },
+    "independent_total": 18,
+    "author_rerun_separate": {
+      "PASS": 41,
+      "FAIL": 0,
+      "NOT_RUN": 1
+    },
+    "source_verification": "source_verification.json",
+    "independent_fixture_origin": "reproduce.py; авторские fixtures используются только в отдельном rerun",
+    "no_subject_modification": true,
+    "no_children": true,
+    "no_git_mutations": true
+  },
+  "P05_early_signal": {
+    "status": "CLOSED_FOR_TESTED_CASE",
+    "check_id": "I06_response_month_segment_common_policy",
+    "code": [
+      "context/35_full_programme_execution_20261112/P06/engine/choice.py:16",
+      "context/35_full_programme_execution_20261112/P06/engine/core.py:171"
+    ],
+    "evidence": "Единый response_policy; разные активации P/KEEP без суммирования месяцев/сегментов. Коэффициенты синтетические; реальный P05 не admitted."
+  },
+  "scope": "Исполняемая корректность conditional engine на exact subject. Не прогноз RW, не проверка652 сетей, не UI, не глобальный optimum",
+  "not_claimed": [
+    "APPROVE всего ядра",
+    "Рабочая годовая RW сеть",
+    "Калибровка P05",
+    "Принятие реальных P02 кресел/P03 ресурса/P04 будущих ставок",
+    "Ранг№2 или дата окупаемости",
+    "Независимое воспроизведение42/42 авторских checks"
+  ],
+  "limits_file": "coverage_and_limits.md",
+  "next_owner": "Координатор",
+  "stage_B": [
+    "Автору P06 исправить только F01/F02 в новой версии; текущий subject не изменён",
+    "Координатору назначить fresh recheck изменённого exact SHA; этот вердикт frozen",
+    "Принятие real P05/physical contracts/калибровки и совместного P/KEEP остаётся интеграцией producer inputs, не новой обязанностью review ядра"
+  ]
+}

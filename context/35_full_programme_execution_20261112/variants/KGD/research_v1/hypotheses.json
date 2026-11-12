@@ -1,0 +1,312 @@
+{
+  "hypotheses": [
+    {
+      "hypothesis_id": "H-KGD-01",
+      "version": "1.0",
+      "title": "Сезонный endpoint из KUF",
+      "signal": "опубликованконкурентKUF–KGD;авторские4/неднеприняты",
+      "source_ids": [
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "mechanism": "3/нед peak/2вдругиесезоныулучшаютвыбордатбезновойбазы",
+      "counterfactual": "KEEP и альтернативноеиспользованиетогожеtail",
+      "distinguishing_test": "P05samebasket+частоты/ownmigration;P03рейсы;P04полнаядельта",
+      "ancestorIDs": [
+        "C25",
+        "KIR_PAIR_E",
+        "EC_H05",
+        "BASE:KUF–KGD"
+      ],
+      "programme_ids": [
+        "P-KGD-01"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "УСЛОВНА_КОНКРЕТНЫМИ_ОБЩИМИ_ВХОДАМИ",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "припринятомOD/payload/KEEP пересчитать;недостатокданныхнеотказ",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-02",
+      "version": "1.0",
+      "title": "Радиальная KGD база против мобильнойцепочки",
+      "signal": "3локальныхспицывместовоспроизведения8авторских",
+      "source_ids": [
+        "KGD_SUMMER2025",
+        "KGD_TECH",
+        "PIN-BASE-network_routes"
+      ],
+      "mechanism": "экономияночёвок/позиционированияиболееполезныечасывылетамогутпокрытьместнуюбазу",
+      "counterfactual": "одинtail;тежеpeak3пары/14legsуmobileизKUF",
+      "distinguishing_test": "P02часовыепродукты+P05jointallocation;P04TH-OPTION/TH-FIXED приполномP03календаре",
+      "ancestorIDs": [
+        "C25",
+        "BASE:Хаб KGD"
+      ],
+      "programme_ids": [
+        "P-KGD-02",
+        "P-KGD-03"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "СФОРМИРОВАН_ПАРНЫЙ_ОПЫТ;ЭКОНОМИКА_УСЛОВНА",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "новыйMRO/станцияилициклэкипажейменяетрезультат;порогбазывычислитьвP06",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-03",
+      "version": "1.0",
+      "title": "Подвоз к KUF вместо KGD-хаба",
+      "signal": "уNordwindужеестьпересадкичерезKZN;RWлетаетKUF–TJM/NUX/MCX",
+      "source_ids": [
+        "KGD_SUMMER2025",
+        "RW_BOARD"
+      ],
+      "mechanism": "новоеплечоKGD–KUFпродаётнесколькоконечныхODприобщихdatedseats",
+      "counterfactual": "тежеKGD–KUFрейсыбезсквозныхпродуктов;KZNконкурент;KEEP",
+      "distinguishing_test": "продаваемыйобщийбилет/MCT/багаж+OD/month;убрать/добавитьconnectionsнаоднихlegs",
+      "ancestorIDs": [
+        "C25",
+        "NEW:KGD evidence Nordwind KZN"
+      ],
+      "programme_ids": [
+        "P-KGD-04",
+        "P-KGD-01"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "УСЛОВНА_ДОГОВОРОМ_И_ИНВЕНТАРЁМ",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "доступныесмежныеlegs,защита и положительнаядельтапослевытеснения",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-04",
+      "version": "1.0",
+      "title": "Защищённый трансфер в KGD",
+      "signal": "багажнаяинфраструктураесть;подтвержденияtransferdemandRWнет",
+      "source_ids": [
+        "KGD_TECH",
+        "KGD_SUMMER2025"
+      ],
+      "mechanism": "защитаобщегобилетаможетиметьценность,ноdetour/displacedlocalспросмогутеёперекрыть",
+      "counterfactual": "тежеKGDlegsбезtransferпродукта;прямые/другиеузлы",
+      "distinguishing_test": "отдельноKUF–GOJ иGOJ–MMK:время/ценапоездки,обакресла,локальноевытеснение;недетурscore",
+      "ancestorIDs": [
+        "BASE:Хаб KGD"
+      ],
+      "programme_ids": [
+        "P-KGD-05"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "УСЛОВНА_КОНКРЕТНЫМИ_OD;ОБЩИЙ_ХАБ_НЕ_ДОКАЗАН",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "достаточныйODилиноваямеждународнаяветвьможетизменитьвыбор;плохойодинODнезакрываетхаб",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-05",
+      "version": "1.0",
+      "title": "Короткий leisure/calendar продукт вместо произвольнойчастоты",
+      "signal": "пляжныйсезонкороткий;естьэкскурсионныйотдых",
+      "source_ids": [
+        "KGD_TOUR_ATOR2025",
+        "KGD_TG_JUL2025"
+      ],
+      "mechanism": "2/недсоответствуют3/4или7ночам;частотанужнакаккалендарныйпродукт",
+      "counterfactual": "1/нед и3/неднаэтомжересурсе+альтернативапрочихдней",
+      "distinguishing_test": "одинаковыемесячныеpools;сегментысдопустимымидатами,праздникиотдельно",
+      "ancestorIDs": [
+        "C25"
+      ],
+      "programme_ids": [
+        "P-KGD-01",
+        "P-KGD-02",
+        "P-KGD-03"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "СЕЗОННЫЙ_СИГНАЛ_ЕСТЬ;ЧИСЛЕННАЯ_ПРОВЕРКА_STAGE_B",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "реальныемесячныебронирования/датапоездки;другойпрофильснимаетвыбранныепериоды",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-06",
+      "version": "1.0",
+      "title": "Партнёрский MSQ против собственного рейса",
+      "signal": "MSQопубликован;зарубежныеклиентытурфирмне airportOD",
+      "source_ids": [
+        "KGD_SUMMER2025",
+        "ROSSTAT_TOUR"
+      ],
+      "mechanism": "партнёрствосберегаетaircraftbudgetдлядругойпрограммы,ноимеетплату/лимиты",
+      "counterfactual": "собственный2/недSSJилиSJ;тотжеtailвальтернативномзаданииуpartner",
+      "distinguishing_test": "договорныеместа/throughfare/права/clearing;доходнеприсваиваетсяRWполностью",
+      "ancestorIDs": [
+        "NEW:KGD international evidence"
+      ],
+      "programme_ids": [
+        "P-KGD-06"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "УСЛОВНА_ДОГОВОРОМ/ПРАВАМИ;ДОПОЛНИТЕЛЬНАЯ_ВЕТВЬ",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "приacceptedMSQпродуктеиобщейденежнойдельте;0новыхТу214ветвьсохранена",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-07",
+      "version": "1.0",
+      "title": "Использовать готовую SSJ базу в Храброво",
+      "signal": "найденплан2021;не найдено подтвержденияввода/доступа",
+      "source_ids": [
+        "KGD_MRO_PLAN2021",
+        "PIN-P03-airport_constraints"
+      ],
+      "mechanism": "готоваямощностьмоглабыуменьшитьstartup/downtime",
+      "counterfactual": "строить/договариватьсяосвоенииснулялибоmobile",
+      "distinguishing_test": "сертификат/приложениесадресомKGD,типом,видамиТО;RWконтракт/SLA/мощность",
+      "ancestorIDs": [
+        "BASE:airport_tech KGD ssj_mro UNKNOWN"
+      ],
+      "programme_ids": [
+        "P-KGD-02"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "УСЛОВНА;ПРЕДПОСЫЛКА_ГОТОВОЙ_БАЗЫ_НЕ_ПРИНЯТА",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "источникфактическоговводаменяетзатраты;непринимать1.5млрд2021какценузапуска",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-08",
+      "version": "1.0",
+      "title": "Южный прямой продукт на Superjet",
+      "signal": "KGD–MRVестьвисториипредложения/авторскойсети",
+      "source_ids": [
+        "KGD_SUMMER2025",
+        "PIN-BASE-network_routes"
+      ],
+      "mechanism": "сезоннаяпрямаяпоездкаможетбытьполезнеепересадокбезновойбазы",
+      "counterfactual": "тотжеtailнаKUF–KGD/иномпринятомрынке;KEEP",
+      "distinguishing_test": "сначалаpayload/fuel/actualrouteдляобоихтипов,затемP05;нельзяотказатьиз-за2150кмцвета",
+      "ancestorIDs": [
+        "BASE:KGD–MRV",
+        "historical:Прямые MOW-AER-KGD"
+      ],
+      "programme_ids": [
+        "P-KGD-07"
+      ],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "УСЛОВНА_DISPATCH;НЕ_ЭКОНОМИЧЕСКИЙ_ОТКАЗ",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "подтверждённыйвариант/сезон/нагрузкаилидртипмогутснятьограничение",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    },
+    {
+      "hypothesis_id": "H-KGD-09",
+      "version": "1.0",
+      "title": "Отклонить KGD из-за старогоscore/конкурента",
+      "signal": "старыйrank6/0.506 иналичиеNordwindне критерийэкономики",
+      "source_ids": [
+        "PIN-BASE-longlist_scores_min500",
+        "KGD_SUMMER2025"
+      ],
+      "mechanism": "такойscreenнеизмеряетдобавочныесвоипродажи/полнуюдельту",
+      "counterfactual": "всеKGDвариантыпроходяттежеP05/P06условия",
+      "distinguishing_test": "сопоставимыйsame-resourceP−KEEP,не взвешенныйстарыйбалл",
+      "ancestorIDs": [
+        "BASE:longlist KGD"
+      ],
+      "programme_ids": [],
+      "period": "2027–2028",
+      "units": "поездки;сегменты;RUB;борта;см.тест",
+      "coverage": "локальнаяветвьKGD",
+      "status": "ОТКЛОНЁН_ИМЕННО_КРИТЕРИЙ_ОТСЕВА",
+      "result_scope": "StageA:исследование/конструкция;P06 численнаяоценкаNOT_RUN",
+      "revisit_condition": "новыйдоказанныйресурсный/экономическийкритерийможетдатьадресныйотказ;городнеотклонён",
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A04",
+        "KGD-A09",
+        "KGD-A10",
+        "KGD-A11"
+      ]
+    }
+  ],
+  "lineage_policy": "C25 переформулирован с сохранением происхождения; историческая8спицнепринятакакобязательнаясеть; UNRESOLVED не раннийотсев",
+  "unfinished_economics": "все явно указанныеStageBневыдаватьзазавершённуюэкономическуюоценку"
+}

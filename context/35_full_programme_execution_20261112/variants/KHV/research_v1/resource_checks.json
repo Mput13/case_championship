@@ -1,0 +1,108 @@
+{
+  "checks": [
+    {
+      "programme_id": "KHV-R1",
+      "frequency_conservation": true,
+      "weekly_leg_instances": 14,
+      "weekly_block_proxy_minutes": 1770,
+      "working_tail_placeholders": 1,
+      "reserve_admission": "UNKNOWN",
+      "location_continuity": "within_rotations;E1_nextdayreturn;D2external_access_unresolved",
+      "verdict": "CONSISTENT_FRAGMENT_NOT_OPERATIONALLY_ADMITTED"
+    },
+    {
+      "programme_id": "KHV-H2",
+      "frequency_conservation": true,
+      "weekly_leg_instances": 32,
+      "weekly_block_proxy_minutes": 4744,
+      "working_tail_placeholders": 2,
+      "reserve_admission": "UNKNOWN",
+      "location_continuity": "within_rotations;E1_nextdayreturn;D2external_access_unresolved",
+      "verdict": "CONSISTENT_FRAGMENT_NOT_OPERATIONALLY_ADMITTED"
+    },
+    {
+      "programme_id": "KHV-D2",
+      "frequency_conservation": true,
+      "weekly_leg_instances": 16,
+      "weekly_block_proxy_minutes": 3840,
+      "working_tail_placeholders": 2,
+      "reserve_admission": "UNKNOWN",
+      "location_continuity": "within_rotations;E1_nextdayreturn;D2external_access_unresolved",
+      "verdict": "CONSISTENT_FRAGMENT_NOT_OPERATIONALLY_ADMITTED"
+    },
+    {
+      "programme_id": "KHV-E1",
+      "frequency_conservation": true,
+      "weekly_leg_instances": 12,
+      "weekly_block_proxy_minutes": 2868,
+      "working_tail_placeholders": 1,
+      "reserve_admission": "UNKNOWN",
+      "location_continuity": "within_rotations;E1_nextdayreturn;D2external_access_unresolved",
+      "verdict": "CONSISTENT_FRAGMENT_NOT_OPERATIONALLY_ADMITTED"
+    }
+  ],
+  "naive_bank_time_counterexamples": [
+    {
+      "west": "UUD",
+      "east": "UUS",
+      "west_arrival_KHV_minutes_since_midnight": 810,
+      "east_arrival_KHV_minutes_since_midnight": 690,
+      "both_onward_departures_KHV_minutes": 885,
+      "west_to_east_connect_minutes": 75,
+      "east_to_west_connect_minutes": 195,
+      "window75_180_met": false,
+      "source_id": "GEOMETRY_airports",
+      "assumption_id": "A-KHV-05;A-KHV-06;A-KHV-11",
+      "status": "scenario_clock_construction_not_accepted_MCT"
+    },
+    {
+      "west": "HTA",
+      "east": "GDX",
+      "west_arrival_KHV_minutes_since_midnight": 742,
+      "east_arrival_KHV_minutes_since_midnight": 864,
+      "both_onward_departures_KHV_minutes": 939,
+      "west_to_east_connect_minutes": 197,
+      "east_to_west_connect_minutes": 75,
+      "window75_180_met": false,
+      "source_id": "GEOMETRY_airports",
+      "assumption_id": "A-KHV-05;A-KHV-06;A-KHV-11",
+      "status": "scenario_clock_construction_not_accepted_MCT"
+    }
+  ],
+  "corrected_bank_time_examples": [
+    {
+      "west": "UUD",
+      "east": "UUS",
+      "target_arrival_KHV_minutes": 810,
+      "west_departure_KHV_minutes": 360,
+      "east_departure_KHV_minutes": 600,
+      "both_onward_departures_KHV_minutes": 885,
+      "connection_minutes_each_direction": 75,
+      "window75_180_met": true,
+      "source_id": "GEOMETRY_airports",
+      "assumption_id": "A-KHV-05;A-KHV-06;A-KHV-11;A-KHV-28",
+      "status": "corrected_scenario_clock_construction_not_MCT_or_slot_admission"
+    },
+    {
+      "west": "HTA",
+      "east": "GDX",
+      "target_arrival_KHV_minutes": 810,
+      "west_departure_KHV_minutes": 428,
+      "east_departure_KHV_minutes": 426,
+      "both_onward_departures_KHV_minutes": 885,
+      "connection_minutes_each_direction": 75,
+      "window75_180_met": true,
+      "source_id": "GEOMETRY_airports",
+      "assumption_id": "A-KHV-05;A-KHV-06;A-KHV-11;A-KHV-28",
+      "status": "corrected_scenario_clock_construction_not_MCT_or_slot_admission"
+    }
+  ],
+  "limitations": [
+    "Формулы частот и цепочек согласованы;операционная приёмка NOT_RUN",
+    "600/700/800кмч и18/24/36мин—контрольная сетка геометрического аналога;не опубликованные характеристики типа и не вероятностный интервал",
+    "Начала банков06:00/08:00 KHV—сценарные часы для проверки пересечения;слотов/crew не подтверждают",
+    "Требуются точные UTC,flight IDs,crew relay,ТО,reserve,подводкаD2изопорнойсети",
+    "Никакой P06 toy не объявлен RW результатом"
+  ],
+  "status": "DIAGNOSTIC_ONLY"
+}

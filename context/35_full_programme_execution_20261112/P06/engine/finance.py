@@ -10,7 +10,7 @@ from .common import EPS, dated, difference, fields, month, months, number, requi
 
 SIGNS = {"revenue": 1, "support": 1, "variable_cost": -1, "operating_fixed": -1,
          "aircraft_use": -1, "startup": -1, "exit": -1, "depreciation": -1,
-         "investing": 0, "tax": 0, "financing": 0, "interest": 0}
+         "operating_credit": 1, "investing": 0, "tax": 0, "financing": 0, "interest": 0}
 VARIABLE = {"revenue", "support", "variable_cost"}
 COVERAGE = ("variable_cost", "base", "aircraft_use", "reserve", "startup", "exit", "support")
 
@@ -22,6 +22,8 @@ def materialize_events(bundle, allocations, products):
     products_by_id = {p["product_id"]: p for p in products}
     flights = {f["flight_instance_id"]: f for f in bundle["flights"]}
     for e in events:
+        if e["category"] == "revenue" and e["owner"] in products_by_id:
+            require(e.get("revenue_role") == "separate_ancillary", "manual ticket revenue duplicates generated journey fare")
         if "driver" in e:
             d = e["driver"]
             kind = d["kind"]
@@ -66,13 +68,18 @@ def materialize_events(bundle, allocations, products):
 
 def funding(cash, start, end, opening, minimum_cash):
     number(opening, "opening cash", 0, nullable=True)
-    number(minimum_cash, "minimum cash", 0, nullable=True)
-    rows, cumulative, peak, closing = [], 0.0, 0.0, opening
+    if isinstance(minimum_cash, dict):
+        require(set(minimum_cash) == set(months(start, end)), "dated minimum cash must cover each funding month")
+        floors = {m: number(v, "minimum cash " + m, 0, nullable=True) for m, v in minimum_cash.items()}
+    else:
+        number(minimum_cash, "minimum cash", 0, nullable=True)
+        floors = {m: minimum_cash for m in months(start, end)}
+    rows, cumulative, closing = [], 0.0, opening
     bymonth = defaultdict(list)
     for e in cash:
         if start <= month(e["payment_date"]) <= end:
             bymonth[month(e["payment_date"])].append(e)
-    complete = opening is not None and minimum_cash is not None
+    peak = max(0.0, floors[start] - opening) if opening is not None and floors[start] is not None else None
     for m in months(start, end):
         row = {"month": m}
         for c in ("operating", "investing", "tax", "financing"):
@@ -81,20 +88,23 @@ def funding(cash, start, end, opening, minimum_cash):
         row["cash_before_financing"] = before
         cumulative = total([cumulative, before])
         row["cumulative_cash_before_financing"] = cumulative
-        need = None if not complete or cumulative is None else max(0.0, minimum_cash - opening - cumulative)
+        need = None if opening is None or floors[m] is None or cumulative is None else max(0.0, floors[m] - opening - cumulative)
         peak = None if peak is None or need is None else max(peak, need)
         closing = total([closing, before, row["financing_cash"]])
-        row.update(funding_before_financing=need, peak_funding_to_date=peak, closing_cash=closing, minimum_cash=minimum_cash)
+        row.update(funding_before_financing=need, peak_funding_to_date=peak, closing_cash=closing, minimum_cash=floors[m])
         rows.append(row)
     # Daily balances. Equal-day receipts/payments are netted; intraday unknown.
     daycash = defaultdict(list)
+    for m in floors:
+        daycash[m + "-01"] = []
     for e in cash:
         if start <= month(e["payment_date"]) <= end and e["category"] != "financing":
             daycash[dated(e["payment_date"])].append(e["amount_signed"])
-    cum, daily_peak = 0.0, (max(0.0, minimum_cash - opening) if complete else None)
+    cum, daily_peak = 0.0, (max(0.0, floors[start] - opening) if opening is not None and floors[start] is not None else None)
     for d in sorted(daycash):
         cum = total([cum, total(daycash[d])])
-        daily_peak = None if daily_peak is None or cum is None else max(daily_peak, minimum_cash - opening - cum)
+        floor = floors[month(d)]
+        daily_peak = None if daily_peak is None or cum is None or floor is None else max(daily_peak, floor - opening - cum)
     return {"monthly": rows, "peak_month_end": peak, "peak_dated_day_end": daily_peak,
             "timing_status": "MONTH_END_LOWER_BOUND" if any(len(e["payment_date"]) == 7 for e in cash) else "DAY_END_LOWER_BOUND_INTRADAY_UNKNOWN",
             "opening_unrestricted_cash": opening, "minimum_cash": minimum_cash, "horizon": [start, end]}
@@ -132,6 +142,11 @@ def finance(bundle, allocations, products):
         if e["economic_event_id"] is not None:
             require(e["economic_event_id"] in es, "payment refers to missing economic event")
             require(not es[e["economic_event_id"]]["noncash"], "noncash event must not also settle in cash")
+            if es[e["economic_event_id"]]["category"] == "interest":
+                require(e["category"] == "operating", "chosen policy puts interest in operating cash, outside operating result")
+                e["subcategory"] = "finance_interest"
+        if e.get("subcategory") == "finance_interest":
+            require(e["category"] == "operating", "interest cash counted once inside operating cash")
     coverage = bundle["cost_coverage"]
     for k in COVERAGE:
         require(k in coverage, f"missing cost coverage: {k}")
@@ -157,18 +172,45 @@ def finance(bundle, allocations, products):
             require(not any(x.get("support_scheme_id") == e["net_of_support_scheme_id"] for x in events), "fuel/support double recognition")
     op_unknown = any(x.startswith("cost_coverage.") for x in unknowns)
     variable_unknown = any(coverage[k]["status"] == "unknown" for k in ("variable_cost", "support"))
-    cash_unknown = any(x.endswith(".cash_plan") for x in unknowns)
+    pre_interest_unknown = any(e["cash_plan_status"] == "unknown" and not e["noncash"] and e["category"] not in ("interest", "financing") for e in events)
+    interest_unknown = bundle["cash_coverage"].get("finance_interest", "unknown") == "unknown" or any(e["category"] == "interest" and e["cash_plan_status"] == "unknown" for e in events)
+    financing_unknown = bundle["cash_coverage"]["financing"] == "unknown"
     for k in ("operating", "investing", "tax", "financing"):
         require(k in bundle["cash_coverage"], "cash coverage must explicitly include all categories")
+        require(bundle["cash_coverage"][k] in ("explicit", "unknown"), "invalid cash coverage")
         if bundle["cash_coverage"][k] == "unknown":
-            cash_unknown = True
+            if k != "financing":
+                pre_interest_unknown = True
             unknowns.append("cash_coverage." + k)
+    if interest_unknown:
+        unknowns.append("cash_coverage.finance_interest")
+    cash_unknown = pre_interest_unknown or interest_unknown
     ledger = funding(cash, c["cash_start"], c["period_end"], bundle["cash_policy"]["opening_cash"], bundle["cash_policy"]["minimum_cash"])
+    pre_interest_cash = [x for x in cash if x.get("subcategory") != "finance_interest"]
+    pre_interest_ledger = funding(pre_interest_cash, c["cash_start"], c["period_end"], bundle["cash_policy"]["opening_cash"], bundle["cash_policy"]["minimum_cash"])
+    for row, pre in zip(ledger["monthly"], pre_interest_ledger["monthly"]):
+        interest = total(x["amount_signed"] for x in cash if month(x["payment_date"]) == row["month"] and x.get("subcategory") == "finance_interest")
+        row["finance_interest_cash"] = None if interest_unknown else interest
+        row["operating_cash_before_finance_interest"] = None if pre_interest_unknown else pre["operating_cash"]
+        row["pre_interest_cash_diagnostic"] = None if pre_interest_unknown else pre["cash_before_financing"]
+        if financing_unknown:
+            row["financing_cash"] = row["closing_cash"] = None
+    if pre_interest_unknown:
+        pre_interest_ledger["peak_month_end"] = pre_interest_ledger["peak_dated_day_end"] = None
     if cash_unknown:
         # Do not manufacture dates/amounts for omitted payments. Keep known subtotal.
         ledger["known_schedule_peak_month_end"] = ledger["peak_month_end"]
         ledger["peak_month_end"] = ledger["peak_dated_day_end"] = None
         for r in ledger["monthly"]:
+            unknown_categories = {k for k in ("operating", "investing", "tax") if bundle["cash_coverage"][k] == "unknown"}
+            for e in events:
+                if e["cash_plan_status"] == "unknown" and not e["noncash"] and e["category"] != "financing":
+                    unknown_categories.add(e["category"] if e["category"] in ("tax", "investing") else "operating")
+            if interest_unknown:
+                unknown_categories.add("operating")
+            for category in unknown_categories:
+                r["known_" + category + "_cash"] = r[category + "_cash"]
+                r[category + "_cash"] = None
             r["known_cash_before_financing"] = r["cash_before_financing"]
             r["cash_before_financing"] = r["cumulative_cash_before_financing"] = r["funding_before_financing"] = r["peak_funding_to_date"] = r["closing_cash"] = None
     results = []
@@ -178,6 +220,8 @@ def finance(bundle, allocations, products):
         r["revenue_net"] = total(e["amount"] for e in ee if e["category"] == "revenue")
         r["recognized_support"] = total(e["amount"] for e in ee if e["category"] == "support")
         r["variable_contribution"] = None if variable_unknown else total(None if e["amount"] is None else SIGNS[e["category"]] * e["amount"] for e in ee if e["category"] in VARIABLE)
+        r["variable_contribution_after_support"] = r["variable_contribution"]
+        r["variable_contribution_before_support"] = None if coverage["variable_cost"]["status"] == "unknown" else total(None if e["amount"] is None else SIGNS[e["category"]] * e["amount"] for e in ee if e["category"] in ("revenue", "variable_cost"))
         signed = [None if e["amount"] is None else SIGNS[e["category"]] * e["amount"] for e in ee if SIGNS[e["category"]]]
         r["known_operating_subtotal"] = sum(x for x in signed if x is not None)
         r["operating_result"] = None if op_unknown else total(signed)
@@ -199,9 +243,22 @@ def finance(bundle, allocations, products):
         if x["deposit_flag"] and month(x["payment_date"]) <= c["period_end"]:
             deposit_assets[x["related_asset_or_contract_id"]].append(None if x["amount_signed"] is None else -x["amount_signed"])
     full_signed = [None if e["amount"] is None else SIGNS[e["category"]] * e["amount"] for e in events if SIGNS[e["category"]] and e["accrual_month"] <= c["period_end"]]
+    noncash_signed = total(None if e["amount"] is None else SIGNS[e["category"]] * e["amount"] for e in events if e["noncash"] and SIGNS[e["category"]] and e["accrual_month"] <= c["period_end"])
+    balance_change = total(difference(r["signed_balance"], opening.get(r["economic_event_id"], {}).get("signed_balance", 0)) for r in balances)
+    extra_operating_cash = total(x["amount_signed"] for x in cash if x["category"] == "operating" and month(x["payment_date"]) <= c["period_end"] and (x["economic_event_id"] is None or SIGNS[es[x["economic_event_id"]]["category"]] == 0))
+    direct_operating = total(x["amount_signed"] for x in cash if x["category"] == "operating" and month(x["payment_date"]) <= c["period_end"])
+    # Cash linked to an operating accrual can settle via tax (e.g. offset). Keep
+    # that classification explicit instead of counting it as a bank receipt too.
+    nonoperating_settlement = total(x["amount_signed"] for x in cash if x["category"] != "operating" and x["economic_event_id"] is not None and SIGNS[es[x["economic_event_id"]]["category"]] != 0 and month(x["payment_date"]) <= c["period_end"])
+    from_accrual = total([total(full_signed), None if noncash_signed is None else -noncash_signed, None if balance_change is None else -balance_change, extra_operating_cash, None if nonoperating_settlement is None else -nonoperating_settlement])
+    bridge_residual = difference(from_accrual, direct_operating)
+    require(bridge_residual is None or abs(bridge_residual) < 1e-6 * max(1, abs(direct_operating)), "accrual to cash bridge failed")
     return {"economic_events": events, "cash_events": cash, "results_monthly": results, "funding": ledger,
             "operating_result_including_prelaunch": None if op_unknown else total(full_signed),
             "known_operating_subtotal_including_prelaunch": sum(x for x in full_signed if x is not None),
             "prelaunch_economic_events": [e for e in events if e["accrual_month"] < c["period_start"]],
             "terminal": {"balances": balances, "refundable_deposits": [{"asset_id": k, "signed_asset_balance": total(v)} for k, v in deposit_assets.items()], "future_economic_obligations": [e for e in events if e["accrual_month"] > c["period_end"]], "future_cash_events": [e for e in cash if month(e["payment_date"]) > c["period_end"]]},
-            "unknown_dependencies": sorted(set(unknowns)), "cash_complete": not cash_unknown}
+            "pre_interest_funding_diagnostic": pre_interest_ledger,
+            "accrual_cash_bridge": {"operating_result_known_events": total(full_signed), "noncash_signed": noncash_signed, "signed_receivable_payable_advance_change": balance_change, "extra_operating_cash_including_interest": extra_operating_cash, "nonoperating_settlement": nonoperating_settlement, "operating_cash_from_accrual": from_accrual, "operating_cash_direct": direct_operating, "residual": bridge_residual, "status": "KNOWN_EVENTS_ONLY" if cash_unknown or op_unknown else "RECONCILED_EXPLICIT_SCOPE"},
+            "interest_policy": "interest cash in operating cash; excluded operating result; before-financing funding depends on financing terms",
+            "unknown_dependencies": sorted(set(unknowns)), "cash_complete": not cash_unknown, "pre_interest_cash_complete": not pre_interest_unknown, "financing_complete": not financing_unknown}

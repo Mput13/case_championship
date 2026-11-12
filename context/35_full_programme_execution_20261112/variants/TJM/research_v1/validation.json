@@ -1,0 +1,113 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check_id": "evidence_source_refs",
+      "status": "PASS",
+      "detail": "Каждая доказательная строка ссылается на sources.csv; статус current/inherited раздельный."
+    },
+    {
+      "check_id": "programme_assumption_refs",
+      "status": "PASS",
+      "detail": "Все локальные параметры программ имеют зарегистрированные assumption_id."
+    },
+    {
+      "check_id": "programme_hypothesis_refs",
+      "status": "PASS",
+      "detail": "Программы связаны с локальными гипотезами."
+    },
+    {
+      "check_id": "paired01_same_dated_legs",
+      "status": "PASS",
+      "detail": "P01/P02 имеют одинаковые направления и дни: 16 legs/нед; разный порядок/время и база."
+    },
+    {
+      "check_id": "paired02_same_working_tail_resource",
+      "status": "PASS",
+      "detail": "Два одинаково доступных рабочих resource groups; reserve/crew не доказаны; налёт может различаться."
+    },
+    {
+      "check_id": "paired02_same_flight_count",
+      "status": "PASS",
+      "detail": "24 направленных legs/нед в каждом сценарии, разные маршруты; не требование равенства block-hours."
+    },
+    {
+      "check_id": "TJM-P01_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "TJM-P02_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "TJM-P03_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "TJM-P04_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "TJM-P05_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "TJM-P06_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "TJM-P07_station_continuity",
+      "status": "PASS",
+      "detail": "Порядок недельных цепочек не телепортирует самолёт. Первичное позиционирование/неделя boundary требуют P03."
+    },
+    {
+      "check_id": "24_months_each_programme",
+      "status": "PASS",
+      "detail": "24 явных календарных месяца; 2027 pilot Q4 сценарный, не установленный ввод."
+    },
+    {
+      "check_id": "TJM-P01_calendar_2028",
+      "status": "PASS",
+      "detail": "Фактический календарный счёт по дням недели: 836; не52-кратное годовое приближение."
+    },
+    {
+      "check_id": "TJM-P02_calendar_2028",
+      "status": "PASS",
+      "detail": "Фактический календарный счёт по дням недели: 836; не52-кратное годовое приближение."
+    },
+    {
+      "check_id": "TJM-P03_calendar_2028",
+      "status": "PASS",
+      "detail": "Фактический календарный счёт по дням недели: 1248; не52-кратное годовое приближение."
+    },
+    {
+      "check_id": "TJM-P04_calendar_2028",
+      "status": "PASS",
+      "detail": "Фактический календарный счёт по дням недели: 1248; не52-кратное годовое приближение."
+    },
+    {
+      "check_id": "no_financial_winner",
+      "status": "PASS",
+      "detail": "Без P05/P03/P04 принятой калибровки нет денежного победителя."
+    },
+    {
+      "check_id": "types_separate",
+      "status": "PASS",
+      "detail": "0 новых Ту214 — сценарная ветвь; SSJ/SJ100 разделены в каждом кандидате."
+    },
+    {
+      "check_id": "pinned_blob_hashes",
+      "status": "PASS",
+      "detail": "Все source pins повторно сверены по git show точного SHA; никаких движущихся веток."
+    }
+  ],
+  "meaning": "Только структура, происхождение, календарная арифметика и станционная непрерывность. Не independent acceptance экономики, crew/MRO, physical seats или годовой сети.",
+  "engine_run": "NOT_RUN",
+  "independent_reviewer": "NOT_RUN; самопроверка автора пакета"
+}

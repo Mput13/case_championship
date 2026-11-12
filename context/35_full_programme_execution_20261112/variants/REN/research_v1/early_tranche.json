@@ -1,0 +1,90 @@
+{
+  "package": "REN/research_v1",
+  "stage": "early_usable_tranche",
+  "findings": [
+    {
+      "id": "REN-F01",
+      "fact": "Найдены местные опубликованные ставки; P04 REN LOCAL_RATE_NOT_EXTRACTED можно заменить ссылками на reference, не будущим договором. Взлет-посадка 656 руб/т МВМ; транспортная безопасность 806 руб/т; внутренние терминал82 и обслуживание189 руб/пасс. без НДС; редакция01.11.2026. У шапки общего прейскуранта не заполнены реквизиты утверждения: проверить юридическую применимость.",
+      "source_id": "REN-TARIFF26"
+    },
+    {
+      "id": "REN-F02",
+      "fact": "Подписанный30.10.2026 местный авиаГСМ с01.11.2026:141405 руб/т керосина без НДС. Не добавлять автоматически хранение2990 и заправку2329: проверить состав поставки/инвойса; не ставка2027–2028.",
+      "source_id": "REN-FUEL26"
+    },
+    {
+      "id": "REN-F03",
+      "fact": "Скидка64% на новые транзитные рейсы для МВМ45–50т в приказе12.08.2026 закончилась31.10.2026; не включать в будущий хаб. 50% восстановленного MRV лишь до31.12.2026; доступ RW не подтвержден.",
+      "source_id": "REN-DISCOUNT26"
+    },
+    {
+      "id": "REN-F04",
+      "fact": "Официальная зимняя таблица REN: RW только SVX; подтверждено outstation/действующий рынок, база и свободный ресурс UNKNOWN. Вход21ноя WZ901 не совпадает с выход20ноя WZ5050 — не связывать по умолчанию в ротацию. Конкуренты MRV A4;OVB S7;KZN RT;SVO SU/FV/N4/5N;LED FV/N4/5N;ALA RT;GYD IO. AER/AYT названы в релизе, но нет строки в извлеченной таблице: coverage gap.",
+      "source_id": "REN-SCHEDULE-OUT;REN-SCHEDULE-IN"
+    },
+    {
+      "id": "REN-F05",
+      "fact": "RW опубликовала летний REN–EVN1/нед с04.06.2026 на SSJ100. Не терять эти свои продажи в будущем KEEP; зимний факт исполнения не установлен.",
+      "source_id": "RW-REN-EVN26"
+    }
+  ],
+  "source_receipts": [
+    {
+      "source_id": "REN-SCHEDULE-OUT",
+      "url": "https://ar-ren.ru/schedule/",
+      "final_url": "https://ar-ren.ru/schedule/",
+      "http_status": 200,
+      "retrieved_at": "2026-11-12T13:00:02.295148+00:00",
+      "sha256": "458f6f3392fad972e5eaa37d51026e6fcd12c1d6d2ce804de22ecf62fc45d492",
+      "bytes": 75192
+    },
+    {
+      "source_id": "REN-SCHEDULE-IN",
+      "url": "https://ar-ren.ru/schedule/?type=arr",
+      "final_url": "https://ar-ren.ru/schedule/?type=arr",
+      "http_status": 200,
+      "retrieved_at": "2026-11-12T13:00:02.367294+00:00",
+      "sha256": "7f3d5f7d404586ceb8fa0a019793fa9a198056277727d36fd4b30718b809646e",
+      "bytes": 74437
+    },
+    {
+      "source_id": "RW-REN-EVN26",
+      "url": "https://flyredwings.com/press/news/red-wings-nachnet-letat-v-erevan-iz-orenburga/",
+      "final_url": "https://flyredwings.com/press/news/red-wings-nachnet-letat-v-erevan-iz-orenburga/",
+      "http_status": 200,
+      "retrieved_at": "2026-11-12T13:00:02.700807+00:00",
+      "sha256": "3db49d109c142c54aa79d4c7fb1844b5bfe6423981d45551afa3542f6a2bf234",
+      "bytes": 73796
+    },
+    {
+      "source_id": "REN-DISCOUNT26",
+      "url": "https://ar-ren.ru/upload/iblock/6b9/m2g5zj67u3obgwm04555pq70yq9upgk9/Prikaz-o-predostavlenii-skidok-v-aeroportu-Orenburg-s-01.09.2026.pdf",
+      "final_url": "https://ar-ren.ru/upload/iblock/6b9/m2g5zj67u3obgwm04555pq70yq9upgk9/Prikaz-o-predostavlenii-skidok-v-aeroportu-Orenburg-s-01.09.2026.pdf",
+      "http_status": 200,
+      "retrieved_at": "2026-11-12T13:01:08.667658+00:00",
+      "sha256": "f8c572636d9dda370e7cb4158b8b12e27a62d3b828ad6a5debb09ae4c035a555",
+      "bytes": 190159,
+      "format": "pdf"
+    },
+    {
+      "source_id": "REN-TARIFF26",
+      "url": "https://ar-ren.ru/upload/iblock/bbd/ub97cy2mwfy225jib0gw5k3mx7n5sqxn/Preyskurant-AO-Aeroport-Orenburg-dlya-rossiyskikh-potrebiteley-s-21.12.25-_s-izmeneniyami-ot-01.11.26_.pdf",
+      "final_url": "https://ar-ren.ru/upload/iblock/bbd/ub97cy2mwfy225jib0gw5k3mx7n5sqxn/Preyskurant-AO-Aeroport-Orenburg-dlya-rossiyskikh-potrebiteley-s-21.12.25-_s-izmeneniyami-ot-01.11.26_.pdf",
+      "http_status": 200,
+      "retrieved_at": "2026-11-12T13:01:09.192830+00:00",
+      "sha256": "4cc0280781e36e758d98eb33666f1da2fe141ec8f8c3882b1a28faf7d606b5e9",
+      "bytes": 323140,
+      "format": "pdf"
+    },
+    {
+      "source_id": "REN-FUEL26",
+      "url": "https://ar-ren.ru/upload/iblock/22f/lo8y9fbw8e2n32zs032leul8p4sv6w1g/Preyskurant-na-aviaGSM-AO-Aeroport-Orenburg-_rossiyskie-potrebiteli_-s-01.11.2026.pdf",
+      "final_url": "https://ar-ren.ru/upload/iblock/22f/lo8y9fbw8e2n32zs032leul8p4sv6w1g/Preyskurant-na-aviaGSM-AO-Aeroport-Orenburg-_rossiyskie-potrebiteli_-s-01.11.2026.pdf",
+      "http_status": 200,
+      "retrieved_at": "2026-11-12T13:01:09.683799+00:00",
+      "sha256": "f87a7135f7343f734f1066dacd94ac3f5659b846caaee214fc4a5934cc99fd32",
+      "bytes": 143984,
+      "format": "pdf"
+    }
+  ]
+}

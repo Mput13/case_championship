@@ -1,0 +1,1379 @@
+{
+  "city": "GOJ",
+  "version": 1,
+  "definition": "ЭтоStageAпрограммныеспецификации;незаполненныеUTC/ресурс/ODнеподмененынулями,неполныйP06bundle.",
+  "programmes": [
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P01",
+      "name": "ПрямыеUFA/MMKизсуществующейбазыSVX",
+      "role": "EXISTING_BASE_EXTENSION",
+      "minimum_working_tails": 1,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [
+        {
+          "pattern_id": "P01UFA0",
+          "start": "2027-07-01",
+          "end": "2027-12-31",
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "tail_routes": {
+            "T1": [
+              "SVX",
+              "GOJ",
+              "UFA",
+              "GOJ",
+              "SVX"
+            ]
+          },
+          "season": "first_stage_UFA",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "reuseacceptedSVXbridgesifavailableelseexplicitadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P01UFA1",
+          "start": "2028-01-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "tail_routes": {
+            "T1": [
+              "SVX",
+              "GOJ",
+              "UFA",
+              "GOJ",
+              "SVX"
+            ]
+          },
+          "season": "UFA_all_year_test",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "reuseacceptedSVXbridgesifavailableelseexplicitadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P01MMK0",
+          "start": "2028-01-01",
+          "end": "2028-03-31",
+          "weekdays_iso": [
+            1,
+            5
+          ],
+          "tail_routes": {
+            "T1": [
+              "SVX",
+              "GOJ",
+              "MMK",
+              "GOJ",
+              "SVX"
+            ]
+          },
+          "season": "winter_diagnostic_not_demand_forecast",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addMMK;reuseSVXbridgesonlybyexplicitbinding",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P01MMK1",
+          "start": "2028-10-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            1,
+            5
+          ],
+          "tail_routes": {
+            "T1": [
+              "SVX",
+              "GOJ",
+              "MMK",
+              "GOJ",
+              "SVX"
+            ]
+          },
+          "season": "winter_diagnostic_not_demand_forecast",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addMMK;reuseSVXbridgesonlybyexplicitbinding",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        }
+      ],
+      "target_ODs": [
+        "GOJ-UFA",
+        "GOJ-MMK",
+        "GOJ-SVXexisting;transferSVX-Xonlyifproductsadmitted"
+      ],
+      "own_changes": "P01/P02:взимниенедели4RTSVXbridgeнаодинаковомресурсе;еслиfutureKEEP>=4можнопереставить4существующих,остатоксохранить.Еслименьше—недостающиеbridgeявноaddсполнымирасходами. KUF/EVNиостальныесвоиобязательствасохраненыотдельно;донорневзятмолчаливо.",
+      "paired_controls": [
+        "GOJ-P02",
+        "GOJ-P05",
+        "futureKEEP"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-01",
+        "H-GOJ-03",
+        "H-GOJ-04",
+        "H-GOJ-08",
+        "H-GOJ-11"
+      ],
+      "frequency_logic": "UFAвт/сб,MMKпн/птдают3/4ночи;сезонMMKпроверяетсяотдельно.2RTнеобеспечиваютsame-day;1/3RTи7/10/14ночейсчитатьStageB.",
+      "inactive_dates": "2027H1нетновыхрегулярныхGOJlegsвэтойспецификации;existingKEEPнеснят",
+      "replacement_branches": {
+        "MMK": [
+          "OMS",
+          "VOG",
+          "PEE",
+          "CEK",
+          "TJM"
+        ],
+        "summer_optional": [
+          "MRV",
+          "AER",
+          "KGD"
+        ],
+        "policy": "Одназаменавтомжересурсеиодиныхправилах;новыйdispatch/OD/rateпакетобязателен;неприбавлятьвсекслотамиспросы"
+      }
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P02",
+      "name": "ТажеairlegсетьсGOJночёвкой",
+      "role": "GOJ_RADIAL_BASE_OR_OVERNIGHT",
+      "minimum_working_tails": 1,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [
+        {
+          "pattern_id": "P02UFA0",
+          "start": "2027-07-01",
+          "end": "2027-12-31",
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "SVX",
+              "GOJ",
+              "UFA",
+              "GOJ"
+            ]
+          },
+          "season": "first_stage_UFA",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "reuseacceptedSVXbridgesifavailableelseexplicitadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P02UFA1",
+          "start": "2028-01-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "SVX",
+              "GOJ",
+              "UFA",
+              "GOJ"
+            ]
+          },
+          "season": "UFA_all_year_test",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "reuseacceptedSVXbridgesifavailableelseexplicitadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P02MMK0",
+          "start": "2028-01-01",
+          "end": "2028-03-31",
+          "weekdays_iso": [
+            1,
+            5
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "SVX",
+              "GOJ",
+              "MMK",
+              "GOJ"
+            ]
+          },
+          "season": "winter_diagnostic_not_demand_forecast",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addMMK;reuseSVXbridgesonlybyexplicitbinding",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P02MMK1",
+          "start": "2028-10-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            1,
+            5
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "SVX",
+              "GOJ",
+              "MMK",
+              "GOJ"
+            ]
+          },
+          "season": "winter_diagnostic_not_demand_forecast",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addMMK;reuseSVXbridgesonlybyexplicitbinding",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        }
+      ],
+      "target_ODs": [
+        "GOJ-UFA",
+        "GOJ-MMK",
+        "GOJ-SVXexisting"
+      ],
+      "own_changes": "P01/P02:взимниенедели4RTSVXbridgeнаодинаковомресурсе;еслиfutureKEEP>=4можнопереставить4существующих,остатоксохранить.Еслименьше—недостающиеbridgeявноaddсполнымирасходами. KUF/EVNиостальныесвоиобязательствасохраненыотдельно;донорневзятмолчаливо.",
+      "paired_controls": [
+        "GOJ-P01",
+        "GOJ-P05",
+        "futureKEEP"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-01",
+        "H-GOJ-03",
+        "H-GOJ-04"
+      ],
+      "basing_gate": "Basecrew/overnightstand/security/MROSLA/parts/deicingandexitcontractsUNKNOWN;сначалаограниченнаяночёвкаvsполнаяbaseкакразныеcostbranches",
+      "matched_resource_proof": "СP01совпадаетmultisetдатированныхнаправленныхlegs;порядокдругой.ВыигрышblockhoursизсменыбазыНЕзадан.Локальноеутро/вечерможетповлиятьнаchoice.",
+      "positioning": "Initial/finalpositionandoutsideGOJworkunknown;countferry,crewtransferanddonorlostoutput.P03mustclosebothcalendarboundaries."
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P03",
+      "name": "СогласованныйGOJbankизчетырёхспоков",
+      "role": "TWO_TAIL_PROTECTED_TRANSFER",
+      "minimum_working_tails": 2,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [
+        {
+          "pattern_id": "P03BANK1",
+          "start": "2028-01-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            1
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "OMS",
+              "GOJ",
+              "UFA",
+              "GOJ"
+            ],
+            "T2": [
+              "GOJ",
+              "MMK",
+              "GOJ",
+              "KUF",
+              "GOJ"
+            ]
+          },
+          "season": "all_year_bank_test",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addOMS/MMK/UFA;retimeKUFonlyifKEEPmatcheselseadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P03BANK5",
+          "start": "2028-01-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            5
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "UFA",
+              "GOJ",
+              "OMS",
+              "GOJ"
+            ],
+            "T2": [
+              "GOJ",
+              "KUF",
+              "GOJ",
+              "MMK",
+              "GOJ"
+            ]
+          },
+          "season": "all_year_bank_test",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addOMS/MMK/UFA;retimeKUFonlyifKEEPmatcheselseadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        }
+      ],
+      "target_ODs": [
+        "GOJ-OMS",
+        "GOJ-MMK",
+        "GOJ-UFA",
+        "GOJ-KUF",
+        "OMS-UFA",
+        "OMS-KUF",
+        "MMK-UFA",
+        "MMK-KUF"
+      ],
+      "own_changes": "KUF2RTусловноreuse+retime;existingSVX/EVNиKEEPполностьюсохраненыипотребляютотдельныйпринятыйресурс.Календарьнеутверждает2tailдостаточнодлявсегоRW.ОтдельноучестьканнибализациюGOJ–SVX.",
+      "paired_controls": [
+        "GOJ-P04",
+        "GOJ-P05",
+        "futureKEEP"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-02",
+        "H-GOJ-03",
+        "H-GOJ-04",
+        "H-GOJ-05"
+      ],
+      "connections": {
+        "monday": "InboundOMS/MMK→GOJ→outboundUFA/KUF",
+        "friday": "InboundUFA/KUF→GOJ→outboundOMS/MMK",
+        "returns": "Пн→пт4ночи;пт→пн3ночи;7ночейпотребуетприемлемойтогонаправлениястыковкинаследующейдате,непредполагать",
+        "not_offered_in_this_pattern": [
+          "OMS-MMK",
+          "UFA-KUF"
+        ],
+        "protection": "ДоMCT/сквозноготарифа/багажа/recoveryUTCadmission—transferNOTADMITTED;localпроверяетсяотдельно"
+      },
+      "network_unique_pairs": 4,
+      "capacity_guard": "Каждыйtransferзанимаеткреслонадвухфизическихплечахизодногоinventory;RT581неприбавляетнам50кресел;revenueодинраз/journey",
+      "variant_policy": "Круглыйгод—исследовательскаяверхняяспецификация,непрогнозсезонности.Еслиwinterнеподходит,сезонныеbranchсравниватьзановов24месяцах."
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P04",
+      "name": "Теже4спока/2tailсlocal-onlyпродажей",
+      "role": "MATCHED_LOCAL_ONLY_CONTROL",
+      "minimum_working_tails": 2,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [
+        {
+          "pattern_id": "P04BANK1",
+          "start": "2028-01-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            1
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "OMS",
+              "GOJ",
+              "UFA",
+              "GOJ"
+            ],
+            "T2": [
+              "GOJ",
+              "MMK",
+              "GOJ",
+              "KUF",
+              "GOJ"
+            ]
+          },
+          "season": "all_year_bank_test",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addOMS/MMK/UFA;retimeKUFonlyifKEEPmatcheselseadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P04BANK5",
+          "start": "2028-01-01",
+          "end": "2028-12-31",
+          "weekdays_iso": [
+            5
+          ],
+          "tail_routes": {
+            "T1": [
+              "GOJ",
+              "UFA",
+              "GOJ",
+              "OMS",
+              "GOJ"
+            ],
+            "T2": [
+              "GOJ",
+              "KUF",
+              "GOJ",
+              "MMK",
+              "GOJ"
+            ]
+          },
+          "season": "all_year_bank_test",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "addOMS/MMK/UFA;retimeKUFonlyifKEEPmatcheselseadd",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        }
+      ],
+      "target_ODs": [
+        "GOJ-OMS",
+        "GOJ-MMK",
+        "GOJ-UFA",
+        "GOJ-KUF"
+      ],
+      "own_changes": "ТажефизическаясеткачтоP03;собственныйKEEP/даты/затратыодинаковы,transferпродуктыотключеныявнымдиагностическимусловием",
+      "paired_controls": [
+        "GOJ-P03",
+        "GOJ-P05",
+        "futureKEEP"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-02",
+        "H-GOJ-04",
+        "H-GOJ-05"
+      ],
+      "transfer_policy": "Nothroughproductsinthiscontrol;outsidechoicesandownotherhubconnectionsretained",
+      "additional_control": "АсинхронныетежечастотыитипыspokesсдругимUTCclock,чтобыоценитьценусинхронизации;задачаP03/P05,результатNOT_RUN"
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P05",
+      "name": "Альтернативноеприменениетогожересурсаиздействующейбазы",
+      "role": "COMMON_ALLOCATION_COUNTERFACTUAL",
+      "minimum_working_tails": null,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [],
+      "target_ODs": [
+        "SVX-OMS",
+        "SVX-MMK",
+        "acceptedotherdomesticorinternationalRWOD"
+      ],
+      "own_changes": "GOJfutureKEEPсохранён;одинаковыекалендари1tail(P01/02)или2tails(P03/04)полностьюпредлагаютсяcommonallocator;текущиерейсынеобнулены",
+      "paired_controls": [
+        "GOJ-P01",
+        "GOJ-P02",
+        "GOJ-P03",
+        "GOJ-P04"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-01",
+        "H-GOJ-02",
+        "H-GOJ-05",
+        "H-GOJ-11"
+      ],
+      "programme_status": "STAGE_A_CONTROL_REQUEST_NOT_FULL_FLIGHT_SCHEDULE",
+      "P03_action": "Buildacceptedbestfeasibleusewithinexactmatchedfleet_scope,notunboundednewnetwork",
+      "quantity_policy": "Tailmonthsсопоставимы;необязательныодинаковыеblockhours,разницавыработкирезультатэффективности,аденежноучтена",
+      "why_no_local_schedule": "Выборвсейальтернативнойсети—общаязадача;локальныйагентнесоздаётконкурирующуюP05/P06модель."
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P06",
+      "name": "ЦИПР2027:дваточечныхоборота",
+      "role": "EXISTING_TAIL_EVENT_PRODUCT",
+      "minimum_working_tails": 1,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [
+        {
+          "pattern_id": "P06EVT2027-05-30",
+          "start": "2027-05-30",
+          "end": "2027-05-30",
+          "weekdays_iso": [
+            7
+          ],
+          "tail_routes": {
+            "T1": [
+              "SVX",
+              "GOJ",
+              "SVX"
+            ]
+          },
+          "season": "CIPR_event2027",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "firstretimeacceptedKEEPelseexplicitaddRTwithdonor",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        },
+        {
+          "pattern_id": "P06EVT2027-06-03",
+          "start": "2027-06-03",
+          "end": "2027-06-03",
+          "weekdays_iso": [
+            4
+          ],
+          "tail_routes": {
+            "T1": [
+              "SVX",
+              "GOJ",
+              "SVX"
+            ]
+          },
+          "season": "CIPR_event2027",
+          "status": "PROPOSED_NOT_SCHEDULE_APPROVED",
+          "source_id": "GOJdesign",
+          "assumption_id": [
+            "GOJ-A01",
+            "GOJ-A02",
+            "GOJ-A03",
+            "GOJ-A07"
+          ],
+          "change_action": "firstretimeacceptedKEEPelseexplicitaddRTwithdonor",
+          "utc_clock_status": "UNKNOWN_REQUIRES_P03",
+          "activation": "Onlyafteractualserviceentry,crew,MRO,slotsandKEEPbinding;skipinadmissibledatesnotinventresource"
+        }
+      ],
+      "target_ODs": [
+        "SVX-GOJin30.05;GOJ-SVXout03.06",
+        "retailoutsideeventnotautomaticallyzero"
+      ],
+      "own_changes": "РетаймингпринятыхexistingGOJ–SVXпредпочестькакпервыйопыт;альтернативадобавляетRTкаждойдатысучётомдонорскихрейсовиобратныхпустых/retailног;слотневыделен",
+      "paired_controls": [
+        "retimefutureKEEPonly",
+        "add2RTwithdonor",
+        "partnerseats",
+        "futureKEEP"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-06"
+      ],
+      "target_journey_dates": {
+        "arrive_before": "2027-05-31T00:00:00+03:00",
+        "depart_after": "2027-06-03conference_end_UNKNOWN",
+        "alternative_return": "2027-06-04"
+      },
+      "type_gate": "ExistingSSJ100onlyorpartner;newSJ100arrivalinH22027cannotserveMay/Juneevent;0newTu214branch",
+      "event_contract": null,
+      "revenue_policy": "Blockonlyagainstpaidcontract;noindependentblockandretaildoublecount;release/cancel/no-showcashtermsrequired",
+      "2028": "DateeventUNKNOWN;notrepeat2027datesbyanalogy"
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E04",
+        "GOJ-E31",
+        "GOJ-E32",
+        "GOJ-L13"
+      ],
+      "programme_id": "GOJ-P07",
+      "name": "Подвозкдействующимрейсам/партнёрскиеplaces",
+      "role": "GROUND_OR_PARTNER",
+      "minimum_working_tails": 0,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [],
+      "target_ODs": [
+        "Арзамас/Дивеево/Выкса/Саров→GOJ→acceptedfinalairport",
+        "CSY/SKX/IARzonescompete;notadditivecatchment"
+      ],
+      "own_changes": "СвоиSVX/KUF/EVNKEEPсохранены;авиаместапокупаются/реализуютсятолькопридоговореипринятомinventory;тотженовыйtailиспользуетсяP05/P06вальтернативе",
+      "paired_controls": [
+        "ownflightfromGOJ",
+        "competinglocalairport",
+        "groundtoMoscow",
+        "futureKEEP"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-07",
+        "H-GOJ-09"
+      ],
+      "ground_status": "Nocharterbus/partneragreementassumed;M12/buspageexistenceisnotprotectedgroundfeed",
+      "costs": "busminimum/cancellation/commission/seatguarantee/recoverycostUNKNOWN;notfree"
+    },
+    {
+      "status": "STAGE_A_CONDITIONAL_PROGRAMME_SPEC",
+      "period_start": "2027-01",
+      "period_end": "2028-12",
+      "unit": "datedphysicallegs;weeklyRTpatterns;resource_tailmonth",
+      "coverage": "GOJcomponentoftarget8–12uniqueairportpairs;smallerstagesallowed",
+      "aircraft": "SSJ100/RRJ95analogue;SJ100/PD8mustbeaseparateP03dispatchcostadmissionbranch",
+      "nominal_seats": null,
+      "open_seats": null,
+      "money_result": null,
+      "forecast_journeys": null,
+      "assumption_ids": [
+        "GOJ-A01",
+        "GOJ-A02",
+        "GOJ-A03",
+        "GOJ-A04",
+        "GOJ-A05",
+        "GOJ-A06",
+        "GOJ-A07",
+        "GOJ-A08",
+        "GOJ-A09",
+        "GOJ-A10",
+        "GOJ-A11",
+        "GOJ-A12",
+        "GOJ-A13",
+        "GOJ-A14",
+        "GOJ-A15",
+        "GOJ-A16",
+        "GOJ-A17",
+        "GOJ-A18",
+        "GOJ-A19",
+        "GOJ-A20",
+        "GOJ-A21",
+        "GOJ-A22",
+        "GOJ-A23",
+        "GOJ-A24",
+        "GOJ-A25"
+      ],
+      "preserve_own": {
+        "observed_anchor": {
+          "period": "16–22.11.2026",
+          "SVX_rt_week": 5,
+          "KUF_rt_week": 2,
+          "EVN_rt_week": 1
+        },
+        "future_KEEP": "UNKNOWN:bindP03datedflights,sales,crew,reserve",
+        "policy": "Сохранитьвсепринятыебудущиеобязательства;retimeявно,соттокомсобственныхпродаж;нельзяавтоматическипродлитьanchorнаянварь2027–декабрь2028",
+        "source_id": "GOJ-E02",
+        "assumption_id": [
+          "GOJ-A12",
+          "GOJ-A19"
+        ]
+      },
+      "resource_policy": "sameP03fleet_scope+external+deliveryscenario+KEEP;commonreservebyinterval;committedtailcostchargedonbothsides;unuseddaysallocatedonce",
+      "required_common_inputs": {
+        "P03": [
+          "datedphysicalflights/UTC",
+          "tailcalendarwithKEEP/crew/maintenance/reserve",
+          "dispatchconstraints/slots",
+          "typeconfig/range/payload"
+        ],
+        "P05": [
+          "sharedmonthlyOD2025/2026mappedto2027/2028",
+          "gross/net/bag/lead/calendar",
+          "onejourneyonefareandsharedinventory",
+          "competitorresponses/owncannibalization"
+        ],
+        "P04": [
+          "acceptedcosteventdrivers/base/start/exit/lease",
+          "supporteligibilitycash",
+          "monthlyfunding/avoidablecommitments"
+        ],
+        "P06": [
+          "jointrecomputeP+KEEP",
+          "physicalinventorydeduplication",
+          "risk/sensitivity/responsebranches"
+        ]
+      },
+      "source_ids": [
+        "GOJ-E01",
+        "GOJ-E02",
+        "GOJ-E03",
+        "GOJ-E14",
+        "GOJ-E34"
+      ],
+      "programme_id": "GOJ-P08",
+      "name": "EVN:сохранениеипроверкадополнительногоприменения",
+      "role": "INTERNATIONAL_AUXILIARY",
+      "minimum_working_tails": null,
+      "resource_availability": "UNKNOWN;minimumdoesnotadmitresource",
+      "patterns": [],
+      "target_ODs": [
+        "GOJ-EVNexisting",
+        "domestic→GOJ→EVNonlyadmittedthroughproduct"
+      ],
+      "own_changes": "СуществующийEVNKEEPнеисчезает;расширениеотдельнаяпроверкапоследопусков,безновыхТу214",
+      "paired_controls": [
+        "futureKEEP",
+        "sameacceptedSSJresourceuseddomestically"
+      ],
+      "hypothesis_ids": [
+        "H-GOJ-10"
+      ],
+      "new_tu214": 0,
+      "international_clearance": "UNKNOWN:trafficrights,dateoperator,PD8admission,baggage/MCT,bordercapacity;nofabricatedfrequency",
+      "scope": "Supplement;doesnotreplace8–12domesticnetworkcase"
+    }
+  ],
+  "resource_branches": [
+    "P03phased",
+    "P03partial",
+    "P03delay",
+    "P03zero_newSJ100",
+    "zero_newTu214"
+  ],
+  "programme_target": "8–12uniqueairportpairsвобщейmaincaseконец2028;GOJкомпонентP03имеет4пары,непретендуетнаполныйпроект",
+  "nobudgetclaim": true
+}

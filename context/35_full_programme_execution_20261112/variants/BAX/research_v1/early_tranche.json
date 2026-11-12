@@ -1,0 +1,46 @@
+{
+  "status": "USABLE_TRANCHE_STAGE_A_NOT_ECONOMICS",
+  "as_of": "2026-11-12",
+  "findings": [
+    {
+      "finding_id": "BAX-EARLY-01",
+      "fact": "В первичном табло RW на 13.11.2026 BAX-UUD 05:00-08:35, UUD-BAX 09:35-11:30, BAX-SVX 12:20-13:00. Сочетание похоже на цепочку через BAX, но tail continuity не доказана. P02 row1083 BAX-SVX Fri05:00 конфликтует с более свежим первичным временем12:20. Не создавать два физических рейса из двух источников.",
+      "source": "sources/RW-BOARD.html; sources/RW-BOARD.txt",
+      "source_url": "https://flyredwings.com/flight-board/WZ/",
+      "p02_product_id": "P02:input_row1083",
+      "impact": "KEEP BAX-UUD/HTA/SVX; timebinding repair before inventory or hub claims"
+    },
+    {
+      "finding_id": "BAX-EARLY-02",
+      "fact": "Первичный procurement PDF аэропорта2024 подтверждает H24, ВПП2850x50 и обслуживание SSJ100; не SJ100/ПД8 approval. В нём есть2023 помесячный ряд, но сумма706181 не равна напечатанному итогу723151: калибровка запрещена до сверки. 2024 таблица включает прогноз, не считать фактом2024.",
+      "source": "sources/native_web_receipts.json",
+      "source_url": "https://airaltay.ru/upload/docs/arenda/Коммерческая аренда 4-2024 Запрос предложений.pdf",
+      "impact": "airport suitability stronger than P03 UNKNOWN; seasonality data quality counterexample"
+    },
+    {
+      "finding_id": "BAX-EARLY-03",
+      "fact": "Индекс первичного тарифа01.01.2024: взлет/посадка980 RUB/t MTOW, security727 RUB/t, стоянка5% landing charge/extra hour. Это историческая reference, не действующий или будущий RW rate. Raw HTTP выдаёт bot challenge, индекс tool сохранён.",
+      "source": "sources/native_web_receipts.json",
+      "impact": "P04 local drivers and threshold surfaces; BAX base vs away turn cost differs"
+    }
+  ],
+  "files": [
+    {
+      "path": "sources/RW-BOARD.html",
+      "sha256": "298a88015ed343571cda15e3288c54634541b3ac36a7c27ac8c7f7ed00c593e2"
+    },
+    {
+      "path": "sources/RW-BOARD.txt",
+      "sha256": "090ede2b33c827544f233da52fbe740b0d70655fabfd1877e3b2462308cbc43d"
+    },
+    {
+      "path": "sources/native_web_receipts.json",
+      "sha256": "48fd843fdb293a80305d5804c91ca7312f71e247b69bec80d17e9e7a474751eb"
+    },
+    {
+      "path": "source_pins.json",
+      "sha256": "7f48c9c27a3704cc831c49028f374d0a5bf9092e889847c3db83d6a9834d1e8f"
+    }
+  ],
+  "manifest_note": "Ссылочные hashes обновлены при итоговой сборке; ранний usable tranche сообщён координатору до завершения пакета."
+}

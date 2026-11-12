@@ -1,0 +1,37 @@
+{
+  "status": "PARTIAL_NOMINAL_SCREEN_NOT_OPERATIONAL_ACCEPTANCE",
+  "period": "08–14.05.2028; не основа годовой сети",
+  "source_id": "PEE-S01",
+  "assumption_ids": [
+    "A-PEE-BLOCK",
+    "A-PEE-TURN",
+    "A-PEE-TYPE",
+    "A-PEE-RESERVE",
+    "A-PEE-DAILY_CAP"
+  ],
+  "formula": "ceil(60*(0.5+great_circle_km*route_factor/750));VOGfactor1.2,остальные1.1;turn60min",
+  "block_minutes_by_route": {
+    "LED": 161,
+    "VOG": 153,
+    "NOZ": 203,
+    "KJA": 223
+  },
+  "productive_tails_tested": 1,
+  "legs": 12,
+  "roundtrips": 6,
+  "unique_airportpairs": 4,
+  "weekly_block_hours": 35.13333333333333,
+  "max_daily_block_hours": 7.433333333333334,
+  "max_daily_first_departure_to_last_arrival_hours": 8.433333333333334,
+  "weekly_seats_analogue": 1200,
+  "crew_duty_not_tested": true,
+  "spare_or_MRO_not_tested": true,
+  "stress": {
+    "block_plus_15_each_leg_weekly_hours": 38.13333333333333,
+    "block_plus_30_each_leg_weekly_hours": 41.13333333333333,
+    "stress_meaning": "Добавка 15/30 минут к каждому плечу — размер испытания, не эмпирический интервал. Фиксированный календарь не перепланирован."
+  },
+  "conclusion": "Шесть оборотов на четырёх парах укладываются в один номинальный tail и плановый предел 10 блок-часов в день. На воскресенье не назначены проектные рейсы. Это окно не подтверждённый слот ТО и не резерв. Экипажи, KEEP, AFM, договоры и весь год не проверены.",
+  "daily_cap_hours": 10,
+  "daily_cap_pass_nominal": true
+}

@@ -1,0 +1,305 @@
+{
+  "status": "PASS_STRUCTURAL_AND_DIAGNOSTIC_ONLY",
+  "as_of": "2026-11-12",
+  "checks": [
+    {
+      "check": "required_artifacts",
+      "status": "PASS",
+      "detail": [
+        "case.json",
+        "evidence.csv",
+        "market_deltas.csv",
+        "hypotheses.json",
+        "programme_candidates.json",
+        "comparison_requests.csv",
+        "assumptions.csv",
+        "readiness.json",
+        "README.md",
+        "producer_fragment.json",
+        "resource_checks.json",
+        "rotation_templates.csv",
+        "matched_comparison_checks.json",
+        "sources.csv"
+      ]
+    },
+    {
+      "check": "valid_JSON_no_nonfinite",
+      "status": "PASS",
+      "detail": {
+        "json_files": 34
+      }
+    },
+    {
+      "check": "table_contract:evidence.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 35,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:market_deltas.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 16,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:comparison_requests.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 12,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:assumptions.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 20,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:competitor_offer_rows.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 109,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:resource_diagnostics.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 33,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:rotation_templates.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 458,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:connection_diagnostics.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 192,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:fare_observations.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 6,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:monthly_activation_rules.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 24,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:market_coverage_update.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 34,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:source_issues.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 9,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "table_contract:sources.csv",
+      "status": "PASS",
+      "detail": {
+        "rows": 24,
+        "required_columns": [
+          "coverage",
+          "period",
+          "source_id",
+          "status",
+          "unit"
+        ]
+      }
+    },
+    {
+      "check": "source_files_sha256",
+      "status": "PASS",
+      "detail": {
+        "sources": 24,
+        "scope": "saved raw public response, not freshness or operational admission"
+      }
+    },
+    {
+      "check": "evidence_source_foreign_keys",
+      "status": "PASS",
+      "detail": "All evidence facts link to a source registry row"
+    },
+    {
+      "check": "exact_git_input_hashes",
+      "status": "PASS",
+      "detail": {
+        "files": 34,
+        "reads": "git show, no branch checkout/fetch or mutations"
+      }
+    },
+    {
+      "check": "preserved_source_row_hashes",
+      "status": "PASS",
+      "detail": {
+        "rows": 395,
+        "hash_rule": "sorted compact UTF8 JSON of string-valued DictReader row"
+      }
+    },
+    {
+      "check": "hypothesis_dispositions",
+      "status": "PASS",
+      "detail": {
+        "hypotheses": 9
+      }
+    },
+    {
+      "check": "no_unconditional_money_or_share",
+      "status": "PASS",
+      "detail": "P05 and complete admitted P/KEEP unavailable"
+    },
+    {
+      "check": "no_MOW_in_flights",
+      "status": "PASS",
+      "detail": "Airport-level physical prototype flights"
+    },
+    {
+      "check": "no_overlap_only",
+      "status": "PASS",
+      "detail": {
+        "tail_weeks": 33,
+        "not_checked": "crew/MRO/slots/reserve/readiness"
+      }
+    },
+    {
+      "check": "same_local_products_R1_E1",
+      "status": "PASS",
+      "detail": "Same local clocks, weekdays and diagnostic nominal seats; base/crew/prices unknown"
+    },
+    {
+      "check": "H1_and_unsynchronised_counterexample",
+      "status": "PASS",
+      "detail": "Same physical flight count and nominal seats; H1-U shifted T2+180min loses some same-day links"
+    },
+    {
+      "check": "24_month_rules_not_annualised_week",
+      "status": "PASS",
+      "detail": "Rules include D0/partial/delay/phased; not actual accepted N(t) or annual flight inventory"
+    },
+    {
+      "check": "incomplete_fragment_not_evaluated",
+      "status": "PASS",
+      "detail": "No toy/dummy P05 calibration or financial zero bundle"
+    },
+    {
+      "check": "visual_PDF_evidence",
+      "status": "PASS",
+      "detail": "Local tariffp1/2, fuelp1 and discountp3 personally viewed; other pages not claimed visually accepted"
+    }
+  ],
+  "counts": {
+    "programmes": 7,
+    "hypotheses": 9,
+    "evidence_facts": 35,
+    "offer_rows": 109,
+    "prototype_flights": 458,
+    "comparison_requests": 12,
+    "assumptions": 20
+  },
+  "acceptance_limit": "No current free RW aircraft, executable future schedule, SJ100 dispatch approval, calibrated demand, profitability, funding or market-share claim.",
+  "external_effects": "No Git mutations, installs, paid services, bookings, public deployment or external correspondence; only authorized coordinator updates."
+}

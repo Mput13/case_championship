@@ -1,0 +1,219 @@
+{
+  "subject_commit": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+  "assumption_id": "P13-A001",
+  "synthetic_only": true,
+  "checks": [
+    {
+      "check_id": "I01_context_manifest_identifiers",
+      "status": "PASS",
+      "hash_error": "input manifest hash mismatch",
+      "keep_error": "wrong pinned KEEP evaluation_id"
+    },
+    {
+      "check_id": "I02_24_month_missing_unknown_zero",
+      "status": "PASS",
+      "missing": "market calendar must cover all 24 months explicitly",
+      "unknown_journeys": null,
+      "explicit_zero_other_months_journeys": 20
+    },
+    {
+      "check_id": "I03_shared_legs_one_fare_contract_hold",
+      "status": "PASS",
+      "summary": {
+        "journeys": 45.0,
+        "passenger_segments": 70.0,
+        "revenue_net": 9500.0,
+        "variable_contribution": 9500.0,
+        "operating_result": 9500.0,
+        "cash_before_financing": 7500.0,
+        "operating_result_including_prelaunch": 9500.0
+      },
+      "seats": [
+        {
+          "flight_instance_id": "L1",
+          "saleable_seats": 50,
+          "carried_segments": 45.0,
+          "unfilled_contract_seats": 5.0,
+          "unsold_seats": 0
+        },
+        {
+          "flight_instance_id": "L2",
+          "saleable_seats": 30,
+          "carried_segments": 25.0,
+          "unfilled_contract_seats": 0.0,
+          "unsold_seats": 5.0
+        }
+      ],
+      "released_journeys": 50,
+      "conserved_total_choices": 120
+    },
+    {
+      "check_id": "I04_through_connection_and_inventory_identity",
+      "status": "PASS",
+      "alias_rejected": "MARKETING_ALIAS: duplicate physical flight under another id/marketing code",
+      "unverified_physical_leg": "L1: unverified physical adjacency cannot create inventory"
+    },
+    {
+      "check_id": "I05_proportional_recapture_and_order",
+      "status": "PASS",
+      "A": 10,
+      "B": 60,
+      "outside": 30,
+      "recaptured_B": 20.0,
+      "order_invariant": true
+    },
+    {
+      "check_id": "I06_response_month_segment_common_policy",
+      "status": "PASS",
+      "same_policy_hash": "c775e447745d5d1fc015eca1c2a026a50b7823ace7697f31031d43ab7b6eac9a",
+      "KEEP_target_fare": 100,
+      "P_target_fare": 80,
+      "no_cross_month_or_segment_trigger": true,
+      "delta_rw_journeys_due_to_response": -0.9499482123270866,
+      "no_mutation": true
+    },
+    {
+      "check_id": "I07_unknown_choice_and_seats",
+      "status": "PASS",
+      "unknown_availability": [
+        "BOOKED: commercial availability UNKNOWN",
+        "journey_revenue:BOOKED.amount"
+      ],
+      "unknown_inventory": [
+        "L1: physical seat inventory UNKNOWN",
+        "L1: saleable seats UNKNOWN",
+        "journey_revenue:BOOKED.amount"
+      ]
+    },
+    {
+      "check_id": "I08_resource_entry_reserve_maintenance_move",
+      "status": "PASS",
+      "entry": [
+        "L1: before service entry"
+      ],
+      "reserve": [
+        "L1: overlaps reserve_intervals"
+      ],
+      "maintenance": [
+        "L1: overlaps maintenance_intervals"
+      ],
+      "position": [
+        "L1: tail at CCC, required AAA; include dated positioning leg"
+      ],
+      "crew_UNKNOWN_explicit_condition": [
+        "L1: crew availability UNKNOWN"
+      ]
+    },
+    {
+      "check_id": "I09_future_KEEP_donor_shared_cost",
+      "status": "PASS",
+      "KEEP_result": 360,
+      "P_result": 505,
+      "delta": 145,
+      "donor_counted_once": true,
+      "idle_lease_retained": true
+    },
+    {
+      "check_id": "I10_accrual_cash_prelaunch_terminal_opening",
+      "status": "PASS",
+      "including_prelaunch": 75,
+      "peak_month_end": 100,
+      "late_receivable": 70,
+      "deposit_asset": 25,
+      "future_cash_events": 2,
+      "cash_bridge": {
+        "operating_result_known_events": 75,
+        "noncash_signed": -5,
+        "signed_receivable_payable_advance_change": 85,
+        "extra_operating_cash_including_interest": 0,
+        "nonoperating_settlement": 0,
+        "operating_cash_from_accrual": -5,
+        "operating_cash_direct": -5,
+        "residual": 0,
+        "status": "RECONCILED_EXPLICIT_SCOPE"
+      }
+    },
+    {
+      "check_id": "I11_funding_interest_floor_financing_boundary",
+      "status": "PASS",
+      "including_interest_month_end": 12,
+      "day_end": 52,
+      "pre_interest": 5,
+      "unknown_interest_total_funding": null,
+      "unknown_principal_prefinancing_need": 12,
+      "rising_floor_without_payments": 65
+    },
+    {
+      "check_id": "I12_project_and_whole_company_funding",
+      "status": "PASS",
+      "project_need": 27,
+      "company_need_without_baseline": null,
+      "company_need_with_baseline": 115
+    },
+    {
+      "check_id": "I13_F07_metric_adapter",
+      "status": "PASS",
+      "delta_share_pp": 3.636363636363635,
+      "scope_mismatch": "incompatible reported metric scope/policy",
+      "missing_adapter_share": null
+    },
+    {
+      "check_id": "I14_adaptive_exact_parent_future_facts_lock",
+      "status": "PASS",
+      "no_parent": "adaptive evaluate requires exact parent bundle",
+      "hash": "adaptive parent hash mismatch",
+      "future_fact": "future information at decision date: P13-known",
+      "locked_event": "adaptation erases/changes prior commitment"
+    },
+    {
+      "check_id": "I15_adaptive_historical_product_reprice",
+      "status": "FINDING",
+      "finding_id": "P13-F01",
+      "expected": "INVALID: переписан тариф уже выполненной и оплаченной поездки 10.01 на решении 01.02",
+      "actual": {
+        "status": "CONDITIONAL",
+        "revenue_before": 2400,
+        "revenue_after": 24000,
+        "past_cash_before": 2400.0,
+        "past_cash_after": 24000.0
+      }
+    },
+    {
+      "check_id": "I16_adaptive_new_backdated_records",
+      "status": "FINDING",
+      "finding_id": "P13-F01",
+      "expected": "INVALID: новое действие после decision_date не может создать прошлый платёж",
+      "actual": {
+        "status": "CONDITIONAL",
+        "decision": "2027-02-01",
+        "payment_date": "2027-01-01",
+        "past_receipt": 400
+      }
+    },
+    {
+      "check_id": "I17_adaptive_contract_passengers_disappear",
+      "status": "FINDING",
+      "finding_id": "P13-F02",
+      "expected": "INVALID: 30 ранее законтрактованных поездок не удаляются без отмены/перебронирования",
+      "actual": {
+        "status": "CONDITIONAL",
+        "contract_passengers_before": 30,
+        "contract_passengers_after": 0,
+        "retail_before": 20,
+        "retail_after": 50,
+        "revenue_before": 7000,
+        "revenue_after": 10000
+      }
+    },
+    {
+      "check_id": "I18_adaptive_existing_history_is_locked_control",
+      "status": "PASS",
+      "historical_flight_replacement_rejected": "adaptation rewrites historical flights"
+    }
+  ],
+  "counts": {
+    "PASS": 15,
+    "FINDING": 3,
+    "ERROR": 0
+  }
+}

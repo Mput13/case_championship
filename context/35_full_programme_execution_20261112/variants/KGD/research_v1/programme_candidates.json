@@ -1,0 +1,1456 @@
+{
+  "schema": "KGD-StageA-design-v1;это НЕ готовый P06 bundle",
+  "programmes": [
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-00",
+      "title": "Будущий KEEP и альтернативное использование ресурса",
+      "role": "KEEP",
+      "markets": [
+        "KGD–LED",
+        "KGD–SVO",
+        "историческийKGD–DME:проверитьпродолжение",
+        "своиKUF/SVX продукты"
+      ],
+      "flight_rules": [],
+      "resource": {
+        "working_tails": "тот же принятый календарь P03",
+        "resource_not_used_by_KGD": "сохраняется на альтернативных заданиях/с обязательствами, не исчезает",
+        "reserve": "одинаковый ресурс в P/KEEP"
+      },
+      "paired_counterfactual": "каждый новый кандидат",
+      "design_basis": "История2025 не baseline2028; модель обязана сохранить актуальные собственные обязательства и использовать новые борта альтернативно",
+      "admission": "НЕ_ГОТОВ_БЕЗ_P03_KEEP"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-01",
+      "title": "Прямой сезонный KUF–KGD из существующей базы",
+      "role": "прямой продукт",
+      "markets": [
+        "KUF↔KGD"
+      ],
+      "flight_rules": [
+        {
+          "origin": "KUF",
+          "destination": "KGD",
+          "return": true,
+          "peak_each_way_per_week": 3,
+          "shoulder": 2,
+          "winter": 2,
+          "iso_days_peak": [
+            1,
+            4,
+            7
+          ],
+          "block_minutes": {
+            "outbound_reference": 225,
+            "return": null
+          },
+          "changed_service": "добавленный/перенесённый ресурс;не весь старыйKEEP",
+          "assumption_id": "KGD-A02"
+        }
+      ],
+      "resource": {
+        "working_tails": 1,
+        "initial_base": "KUF;подтвердитьP03",
+        "week_use": "6projectlegs peak;остальные часы/дни в общем alternative-use KEEP",
+        "reserve": "UNKNOWN"
+      },
+      "paired_counterfactual": "P-KGD-00 и сопоставимая новая радиальная база",
+      "design_basis": "Два/три вылета дают разные сроки поездки и используют существующую базу; наличие Nordwind требует доказать захват при цене/качестве",
+      "own_sales_action": "Сохранить LED/SVO и прочие собственные связки; перераспределение спроса совместно P05"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-02",
+      "title": "Радиальная база KGD на одном рабочем самолёте",
+      "role": "новая/временная радиальная база",
+      "markets": [
+        "KGD↔KUF",
+        "KGD↔GOJ",
+        "KGD↔MMK"
+      ],
+      "flight_rules": [
+        {
+          "template_leg_id": "L01",
+          "iso_day": 1,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L02",
+          "iso_day": 1,
+          "sequence_in_day": 2,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L03",
+          "iso_day": 2,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "GOJ",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 185,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L04",
+          "iso_day": 2,
+          "sequence_in_day": 2,
+          "origin_airport": "GOJ",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 190,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L05",
+          "iso_day": 3,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "MMK",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L06",
+          "iso_day": 3,
+          "sequence_in_day": 2,
+          "origin_airport": "MMK",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L07",
+          "iso_day": 4,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L08",
+          "iso_day": 4,
+          "sequence_in_day": 2,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L09",
+          "iso_day": 5,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "GOJ",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 185,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L10",
+          "iso_day": 5,
+          "sequence_in_day": 2,
+          "origin_airport": "GOJ",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 190,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L11",
+          "iso_day": 6,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L12",
+          "iso_day": 6,
+          "sequence_in_day": 2,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L13",
+          "iso_day": 7,
+          "sequence_in_day": 1,
+          "origin_airport": "KGD",
+          "destination_airport": "MMK",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L14",
+          "iso_day": 7,
+          "sequence_in_day": 2,
+          "origin_airport": "MMK",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        }
+      ],
+      "resource": {
+        "working_tails": 1,
+        "initial_location": "KGD после оплаченного/занимающего ресурс перегона из исходной позиции P03",
+        "overnights_peak": "KGD все7ночей",
+        "reserve": "общий с измеренным SLA либо дополнительный1tail;контрактUNKNOWN",
+        "calendar_admission": "плановый нижний count1 не доказательство выполнимости duty/slots/range"
+      },
+      "paired_counterfactual": "P-KGD-03 и P-KGD-00 при том же индивидуальном календаре",
+      "design_basis": "Проверка ценности локальной базы и лучшего расположения времени; никаких самостоятельных transfer-объёмов в radial",
+      "season_frequencies": {
+        "peak": {
+          "KUF": 3,
+          "GOJ": 2,
+          "MMK": 2
+        },
+        "shoulder": {
+          "KUF": 2,
+          "GOJ": 2,
+          "MMK": 1
+        },
+        "winter": {
+          "KUF": 2,
+          "GOJ": 1,
+          "MMK": 1
+        }
+      },
+      "season_iso_days": {
+        "peak": {
+          "KUF": [
+            1,
+            4,
+            6
+          ],
+          "GOJ": [
+            2,
+            5
+          ],
+          "MMK": [
+            3,
+            7
+          ]
+        },
+        "shoulder": {
+          "KUF": [
+            1,
+            5
+          ],
+          "GOJ": [
+            2,
+            6
+          ],
+          "MMK": [
+            4
+          ]
+        },
+        "winter": {
+          "KUF": [
+            1,
+            5
+          ],
+          "GOJ": [
+            3
+          ],
+          "MMK": [
+            7
+          ]
+        }
+      },
+      "own_sales_action": "Ни один свой рейс автоматически не сокращён; новые продажи берутся из общих pools после fixed/committed sales; при переносеtail прежнийдонор сохраняется в KEEP"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-03",
+      "title": "Мобильная цепочка из KUF с ночёвками GOJ/MMK",
+      "role": "прямые продукты из существующей базы",
+      "markets": [
+        "KGD↔KUF",
+        "KGD↔GOJ",
+        "KGD↔MMK"
+      ],
+      "flight_rules": [
+        {
+          "template_leg_id": "L01",
+          "iso_day": 1,
+          "sequence_in_day": 1,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L02",
+          "iso_day": 1,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "GOJ",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 185,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L03",
+          "iso_day": 2,
+          "sequence_in_day": 1,
+          "origin_airport": "GOJ",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 190,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L04",
+          "iso_day": 2,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "MMK",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L05",
+          "iso_day": 3,
+          "sequence_in_day": 1,
+          "origin_airport": "MMK",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L06",
+          "iso_day": 3,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L07",
+          "iso_day": 4,
+          "sequence_in_day": 1,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L08",
+          "iso_day": 4,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "GOJ",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 185,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L09",
+          "iso_day": 5,
+          "sequence_in_day": 1,
+          "origin_airport": "GOJ",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 190,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L10",
+          "iso_day": 5,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "MMK",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L11",
+          "iso_day": 6,
+          "sequence_in_day": 1,
+          "origin_airport": "MMK",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L12",
+          "iso_day": 6,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L13",
+          "iso_day": 7,
+          "sequence_in_day": 1,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L14",
+          "iso_day": 7,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        }
+      ],
+      "resource": {
+        "working_tails": 1,
+        "initial_location": "KUF",
+        "end_of_week_location": "KUF",
+        "overnights_peak": [
+          "GOJ",
+          "MMK",
+          "KUF",
+          "GOJ",
+          "MMK",
+          "KUF",
+          "KUF"
+        ],
+        "reserve": "тот же общий/выделенный резерв,что у P-KGD-02",
+        "crew": "смены/гостиницы/доставка экипажей UNKNOWN"
+      },
+      "paired_counterfactual": "P-KGD-02;тот же tail-budget;те же14legs/3пары peak",
+      "design_basis": "Выполняет те же направления и недельное количество каждого плеча, но не требует формальной ночной базы KGD. Меняются часы/дни и расходы outstation; это содержательная альтернатива базе",
+      "season_frequencies": {
+        "peak": {
+          "KUF": 3,
+          "GOJ": 2,
+          "MMK": 2
+        },
+        "shoulder": {
+          "KUF": 2,
+          "GOJ": 2,
+          "MMK": 1
+        },
+        "winter": {
+          "KUF": 2,
+          "GOJ": 1,
+          "MMK": 1
+        }
+      },
+      "nonpeak_rules": "Снять полные возвратные циклы по season_frequencies; заново построить непрерывную недельную ротациюP03,не просто удалитьпроизвольныеlegs",
+      "own_sales_action": "Те же demand pools и сохранённые своипродажи,что radial; один конец поездки не продаётся вторично как трансфер"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-04",
+      "title": "Подвоз из KGD в существующий узел KUF",
+      "role": "подвоз/смешанная программа",
+      "markets": [
+        "KGD↔KUF",
+        "KGD↔TJM черезKUF",
+        "KGD↔NUX черезKUF",
+        "KGD↔MCX черезKUF"
+      ],
+      "flight_rules": [
+        {
+          "origin": "KUF",
+          "destination": "KGD",
+          "return": true,
+          "peak_each_way_per_week": 3,
+          "shoulder": 2,
+          "winter": 2,
+          "iso_days_peak": [
+            1,
+            4,
+            7
+          ],
+          "block_minutes": {
+            "outbound_reference": 225,
+            "return": null
+          },
+          "changed_service": "добавленный/перенесённый ресурс;не весь старыйKEEP",
+          "assumption_id": "KGD-A02"
+        }
+      ],
+      "resource": {
+        "working_tails": 1,
+        "extra_connector_tails": "0 только если изменённые существующие рейсы KUF имеют принятые свободные dated seats;иначеUNKNOWN",
+        "capacity": "долямест наKUFspokes одна с local/другими программами",
+        "reserve": "общийпринятый"
+      },
+      "paired_counterfactual": "P-KGD-01:те же рейсыKGD–KUF беззащищённыхconnections;иKEEP",
+      "design_basis": "RW board показывает KUF–TJM/NUX/MCX в ближайшем календаре; тестируем ценность стыковки в существующей базе вместо нового KGD-хаба",
+      "connection_status": "MCT/багаж/общий билет/расписание/защитаUNKNOWN;не объявлен продаваемым",
+      "additional_source_ids": [
+        "RW_BOARD"
+      ],
+      "own_sales_action": "Перенос времени собственных KUFspokes требует всех старых клиентов и sold itineraries; нельзя добавить дешёвый подвоз, потеряв доходдругихрынков безучёта"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-05",
+      "title": "Ограниченный защищённый трансфер через KGD",
+      "role": "гипотеза хаба",
+      "markets": [
+        "KUF↔GOJ черезKGD",
+        "GOJ↔MMK черезKGD"
+      ],
+      "flight_rules": [
+        {
+          "template_leg_id": "L01",
+          "iso_day": 1,
+          "sequence_in_day": 1,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L02",
+          "iso_day": 1,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "GOJ",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 185,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L03",
+          "iso_day": 2,
+          "sequence_in_day": 1,
+          "origin_airport": "GOJ",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 190,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L04",
+          "iso_day": 2,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "MMK",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L05",
+          "iso_day": 3,
+          "sequence_in_day": 1,
+          "origin_airport": "MMK",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L06",
+          "iso_day": 3,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L07",
+          "iso_day": 4,
+          "sequence_in_day": 1,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L08",
+          "iso_day": 4,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "GOJ",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 185,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L09",
+          "iso_day": 5,
+          "sequence_in_day": 1,
+          "origin_airport": "GOJ",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 190,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L10",
+          "iso_day": 5,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "MMK",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L11",
+          "iso_day": 6,
+          "sequence_in_day": 1,
+          "origin_airport": "MMK",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L12",
+          "iso_day": 6,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L13",
+          "iso_day": 7,
+          "sequence_in_day": 1,
+          "origin_airport": "KUF",
+          "destination_airport": "KGD",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": 225,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "PIN-P02-competitor_products",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        },
+        {
+          "template_leg_id": "L14",
+          "iso_day": 7,
+          "sequence_in_day": 2,
+          "origin_airport": "KGD",
+          "destination_airport": "KUF",
+          "departure_utc": null,
+          "arrival_utc": null,
+          "block_time_reference_minutes": null,
+          "physical_adjacent_leg": true,
+          "seats": null,
+          "source_id": "KGD_SUMMER2025",
+          "status": "ПРОЕКТНЫЙ_ШАБЛОН_БЕЗ_ADMISSION",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A07",
+            "KGD-A08",
+            "KGD-A14"
+          ]
+        }
+      ],
+      "resource": {
+        "working_tails": 1,
+        "added_legs_vs_direct": "0 в первом paired test",
+        "banks": "стыкуемые последовательные legs шаблона;обратнаясторона/срокпоездки проверяетсяP03",
+        "extra_tails_for_bidirectional_banks": "UNKNOWN;если нужен2йtail,парасравнения тоже получает2"
+      },
+      "paired_counterfactual": "P-KGD-03:те же legs, local продажи,беззащищённыхthrough products",
+      "design_basis": "Изолировать пользу/ущерб защиты на тех же креслах; сравнить detour и displacedlocal sales с прямымKUF–GOJ/другимиузлами. Нет заявленного спроса наbacktracking",
+      "admission": "УСЛОВНО_ДО_P05_DURATIONS_AND_P03_MCT;не аргумент в пользу общегохаба",
+      "own_sales_action": "Сквозной тариф поездкеодинраз;двакресла списываются;местнаявыручкавытесненныхклиентов учитываетсяобщимвыбором"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-06",
+      "title": "KGD–MSQ: партнёрский продукт против собственного рейса",
+      "role": "partner/международная дополнительная ветвь",
+      "markets": [
+        "KGD↔MSQ",
+        "KGD↔страны черезMSQ приподтвержденииправ/договора"
+      ],
+      "flight_rules": [
+        {
+          "origin": "KGD",
+          "destination": "MSQ",
+          "return": true,
+          "own_flight_test_each_way_per_week": 2,
+          "partner_frequency": "UNKNOWN;не присвоено расписание2025",
+          "active_months": "поacceptedP03calendar;0новыхТу214",
+          "status": "предложенная проверка;не объявленный RW рейс",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A12"
+          ]
+        }
+      ],
+      "resource": {
+        "own_branch": "1условновыделенныйSJ/SSJ хвост;неиспользованныйресурсостаётсявобщемalternative-use",
+        "partner_branch": "тотжесамолётвKEEP/другомпродукте;неисчезаетстоимостьегообязательств",
+        "inventory": "договорныеместапартнёраUNKNOWN",
+        "reserve": "дляownветвитотжепринятый"
+      },
+      "paired_counterfactual": "ownKGD–MSQ vs partnerKGD–MSQ+тотжесамолётвальтернативнойпрограмме vsKEEP",
+      "design_basis": "MSQ опубликован влето2025;турфирмы дают слабый сигнал outboundinternational. Отделить собственныйвылет от продажи чужихмест; Egypt/Turkey неподтверждаютспросименночерезMSQ",
+      "admission": "условнодоговором/правами/продажей/коммерческимclearing;никакихновыхТу214",
+      "own_sales_action": "Выручка чужого рейса не RWоборот:учитыватьтолькоRWпризнанныйтариф/комиссиюпообщимправиламP04"
+    },
+    {
+      "period": [
+        "2027-01",
+        "2028-12"
+      ],
+      "status": "КАНДИДАТ_STAGE_A;ПОЛНЫЙ_P06_RUN_NOT_RUN",
+      "units": "рейсы/неделю в каждом направлении;физические борта;UTC после P03",
+      "coverage": "локальный модуль общей8–12пар;не самостоятельное доказательство№2",
+      "fleet_scope": "общий кейс Superjet;ветви SaM146 и ПД8 раздельно",
+      "resource_group": "KGD-G1:одинаковый индивидуальный tail-calendar в каждой паре P/KEEP",
+      "new_tu214": 0,
+      "existing_rw_sales": "KEEP сохранён на затронутых рынках;точные ID/квотыUNKNOWN,не0",
+      "money_result": null,
+      "needs": [
+        "P03:dated flights/aircraft/crew/ТО/резерв/KEEP/трасса",
+        "P05:monthly demand pools/choice/цена/переток/ответ",
+        "P04:cost events/cash/startup/exit/налоги/поддержка",
+        "P06:совместный полныйP−KEEP"
+      ],
+      "source_ids": [
+        "RW_BOARD",
+        "KGD_SUMMER2025",
+        "PIN-P02-competitor_products"
+      ],
+      "assumption_ids": [
+        "KGD-A01",
+        "KGD-A02",
+        "KGD-A03",
+        "KGD-A04",
+        "KGD-A05",
+        "KGD-A06",
+        "KGD-A10",
+        "KGD-A11",
+        "KGD-A13"
+      ],
+      "programme_id": "P-KGD-07",
+      "title": "Южный сезонный прямой продукт KGD–MRV",
+      "role": "дополнительный прямой продукт",
+      "markets": [
+        "KGD↔MRV"
+      ],
+      "flight_rules": [
+        {
+          "origin": "MRV",
+          "destination": "KGD",
+          "return": true,
+          "peak_each_way_per_week": 2,
+          "winter": 0,
+          "season": "май–сентябрь какпроверяемыйдизайн;прочиемесяцыресурсвKEEP",
+          "block_minutes": null,
+          "changed_service": "проектное дополнение;сохраняется собственныйKEEP",
+          "assumption_ids": [
+            "KGD-A02",
+            "KGD-A03",
+            "KGD-A14"
+          ]
+        }
+      ],
+      "resource": {
+        "working_tails": 1,
+        "operating_base": "существующаяP03базаилиmobileцепь;неустановленаавтоматическиMRVбазаRW",
+        "route": "фактическийоблёт/полезнаянагрузка/багажUNKNOWN",
+        "reserve": "UNKNOWN"
+      },
+      "paired_counterfactual": "тотжесамолётнаKGD–KUF либо инойпринятыйP03alternative;новаябазаKGDне обязательна",
+      "design_basis": "Сохранённаяавторскаяспица и опубликованныйлетнийрынок;югснужнойдальностьюможетотличатьсяотповолжского. Невыполнимыйодинтип/сезоннеотказгорода",
+      "admission": "сначалаP03dispatchдляSaM146иPD8раздельно,затемP05choice;нетбезусловногоприоритета",
+      "own_sales_action": "ВозможныйперетоксAER/другихтуристическихпрограммRWвP05;летний0внепрограммыэто0новыхрейсов,не0спроса"
+    }
+  ],
+  "calendar_policy": "24месяца2027–2028; активизация после конкретного service_entry,поставочныйсценарийвнешний;частичные/0поставкинеприравниваютсякцелевомуконцу2028",
+  "supply_branches": [
+    "плановаяпоэтапная",
+    "частичная",
+    "задержка",
+    "0новыхSJ",
+    "0новыхТу214 во всех основных сравнениях"
+  ],
+  "fixed_then_adaptive": "сначала фиксированный дизайн подветвью;затем выполнимый перенос/сокращение скомпенсациями и сохранённымиобязательствами,не заднимчислом",
+  "not_proved": [
+    "датированнаявыполнимость",
+    "свободныйпаркRW",
+    "спрос/выручка/прибыль/funding",
+    "достижение№2",
+    "глобальнаялучшаясеть"
+  ]
+}

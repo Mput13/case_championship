@@ -1,0 +1,1621 @@
+{
+  "version": "OMS-stageA-v1",
+  "status": "условныеспецификации;готовыкобщемусведению,неflightinventory",
+  "resource_groups": {
+    "G2": {
+      "physical_scenario_tail_count": 2,
+      "active_tail_count": 1,
+      "reserve_tail_count": 1,
+      "availability": "UNKNOWN",
+      "initial_release_location": "SVX — контролируемое условие. Реальная локация P03 UNKNOWN.",
+      "ferry": "Для OMS базы учесть первый перегон SVX–OMS и выход; совместимый резерв должен быть в доступном месте. Для обеих ветвей исходная группа одинакова.",
+      "maintenance_calendar": "UNKNOWN",
+      "crew_calendar": "UNKNOWN",
+      "assumption_id": "A-OMS-02"
+    },
+    "G3": {
+      "physical_scenario_tail_count": 3,
+      "active_tail_count": 2,
+      "reserve_tail_count": 1,
+      "availability": "UNKNOWN",
+      "initial_release_location": "SVX — контролируемое условие. Реальная локация P03 UNKNOWN.",
+      "maintenance_calendar": "UNKNOWN",
+      "crew_calendar": "UNKNOWN",
+      "assumption_id": "A-OMS-02"
+    }
+  },
+  "programmes": [
+    {
+      "programme_id": "P-OMS-RADIAL",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Компактная радиальная база: Самара, Красноярск, Уфа",
+      "role": "новая или восстановленная база",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "OMS",
+          "destination": "KUF",
+          "airport_pair": "KUF-OMS",
+          "roundtrips_per_week": 3,
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "KJA",
+          "airport_pair": "KJA-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "UFA",
+          "airport_pair": "OMS-UFA",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            4,
+            7
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        }
+      ],
+      "resource_group_id": "G2",
+      "ancestorIDs": [
+        "H-OMS-02",
+        "C04"
+      ],
+      "source_ids": [
+        "OMS-S07",
+        "OMS-S09",
+        "P02",
+        "REASSESS:UFA"
+      ],
+      "mechanism": "Убирает повторяющиеся мосты из SVX и оплачивает местную базу. Частоты — проверяемый календарь поездок, а не прогноз загрузки.",
+      "OD_changes": [
+        "OMS–KUF/KJA/UFA; альтернативы через SVX, OVB и аэропорты Москвы в общих пулах"
+      ],
+      "own_sales_changes": {
+        "preserve": "Текущие SVX–OMS и UUD сохраняются в будущем KEEP.",
+        "add": "Проектные KUF 3, KJA 2, UFA 2 RT в неделю. Не означает, что нынешний собственный объём равен нулю.",
+        "retime": "Точные часы должен определить P03.",
+        "reduce": "Нет сокращения без описанного донора.",
+        "cannibalisation": "Свои связи через SVX, UUD и международные продукты учитываются P05."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-01",
+        "CR-OMS-04",
+        "CR-OMS-05"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Проверяет компактную C04. KJA имеет наблюдаемое предложение, для KUF есть долгая наземная альтернатива, для UFA — объявленный конкурент.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-04"
+      ],
+      "unique_new_project_airport_pairs": [
+        "KJA-OMS",
+        "KUF-OMS",
+        "OMS-UFA"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-SVX-RADIAL-CONTROL",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Те же три пары цепочками из Екатеринбурга",
+      "role": "прямые продукты из существующей базы",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "OMS",
+          "destination": "KUF",
+          "airport_pair": "KUF-OMS",
+          "roundtrips_per_week": 3,
+          "weekdays_iso": [
+            1,
+            3,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "KJA",
+          "airport_pair": "KJA-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            6
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "UFA",
+          "airport_pair": "OMS-UFA",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            4,
+            7
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        },
+        {
+          "origin": "SVX",
+          "destination": "OMS",
+          "airport_pair": "OMS-SVX",
+          "roundtrips_per_week": 7,
+          "weekdays_iso": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "Уточняется полным описанием действия и собственных продаж в программе; физический KEEP binding обязателен.",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-04"
+          ]
+        }
+      ],
+      "resource_group_id": "G2",
+      "ancestorIDs": [
+        "H-OMS-02",
+        "C07"
+      ],
+      "source_ids": [
+        "OMS-S07",
+        "OMS-S08",
+        "PLAN:C07"
+      ],
+      "mechanism": "SVX–OMS–X–OMS–SVX, по одному радиальному обороту в день. Даты лучей совпадают с OMS ветвью, дополнительные мосты оплачиваются.",
+      "OD_changes": [
+        "Те же местные OMS OD; новые SVX–OMS и возможные SVX–X through продукты делят общий спрос"
+      ],
+      "own_sales_changes": {
+        "preserve": "Исходные два SVX–OMS RT остаются в KEEP; объединять с новыми можно только явным действием по датам.",
+        "add": "Семь новых мостов SVX–OMS и семь RT лучей в неделю.",
+        "retime": "KUF Mon/Wed/Fri, KJA Tue/Sat, UFA Thu/Sun. Конкретные часы и возвратные даты P03.",
+        "reduce": "Нет без указания донора.",
+        "cannibalisation": "Новые мосты конкурируют со своими рейсами; семь мостов не семь независимых новых рынков."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-01"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Измеряет экономию мостов против затрат базы. Остаток ресурса короткой OMS программы получает явное альтернативное применение.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-04"
+      ],
+      "date_equivalence_note": "Для обеих ветвей KUF Mon/Wed/Fri, KJA Tue/Sat, UFA Thu/Sun. В каждой ветви один местный радиальный оборот в день. Конкретные часы и обратные даты должен связать P03; различия доступного времени поездки входят в P05, а не исчезают из сравнения.",
+      "unique_new_project_airport_pairs": [
+        "KJA-OMS",
+        "KUF-OMS",
+        "OMS-SVX",
+        "OMS-UFA"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-EXT-KJA",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Продление двух оборотов SVX–OMS до Красноярска",
+      "role": "изменение существующей цепочки",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "OMS",
+          "destination": "KJA",
+          "airport_pair": "KJA-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-03",
+            "A-OMS-18",
+            "A-OMS-19"
+          ]
+        },
+        {
+          "origin": "SVX",
+          "destination": "OMS",
+          "airport_pair": "OMS-SVX",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "replace_dated_KEEP_rotation",
+          "comment": "Уточняется полным описанием действия и собственных продаж в программе; физический KEEP binding обязателен.",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-03",
+            "A-OMS-18",
+            "A-OMS-19"
+          ]
+        }
+      ],
+      "resource_group_id": "G2",
+      "ancestorIDs": [
+        "H-OMS-03",
+        "C07"
+      ],
+      "source_ids": [
+        "OMS-S07",
+        "PLAN:C07"
+      ],
+      "mechanism": "Вставляет KJA в будущие конкретные обороты KEEP; входящий рейс сохраняется, обратный заменяется более поздним.",
+      "OD_changes": [
+        "Местный OMS–KJA; сквозной SVX–KJA только при продаже; потеря старых связок после возврата в SVX"
+      ],
+      "own_sales_changes": {
+        "preserve": "Два входящих SVX–OMS по конкретному KEEP. Места и продажи неизвестны.",
+        "add": "Два OMS–KJA RT в неделю.",
+        "retime": "В прототипе при turn 45 обратный OMS–SVX 00:50→06:45.",
+        "reduce": "Старого обратного в 00:50 одновременно нет; второй борт для него отдельно требуется.",
+        "cannibalisation": "Потери стыковок и следующих заданий в SVX входят в общий расчёт."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-02"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Наблюдаются исходный OMS продукт и конкурентный KJA рынок; опыт способен дать конкретный отрицательный или положительный результат для этого шаблона.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-03",
+        "A-OMS-18",
+        "A-OMS-19"
+      ],
+      "unique_new_project_airport_pairs": [
+        "KJA-OMS"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-SVX-KJA-ALTERNATIVE",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Сохранение Омска и прямое применение ресурса SVX–KJA",
+      "role": "альтернативное применение того же ресурса",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "KJA",
+          "airport_pair": "KJA-SVX",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            3,
+            6
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-19"
+          ]
+        },
+        {
+          "origin": "SVX",
+          "destination": "OMS",
+          "airport_pair": "OMS-SVX",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "keep_original_times",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-19"
+          ]
+        }
+      ],
+      "resource_group_id": "G2",
+      "ancestorIDs": [
+        "H-OMS-03",
+        "C07"
+      ],
+      "source_ids": [
+        "OMS-S07",
+        "PLAN:C07"
+      ],
+      "mechanism": "Сохраняет старый возврат из OMS и направляет новые часы на конечную поездку из SVX.",
+      "OD_changes": [
+        "SVX–KJA; свои OMS–KJA пересадки, если они реально продаются"
+      ],
+      "own_sales_changes": {
+        "preserve": "Два исходных OMS RT в прежних часах и весь остальной KEEP.",
+        "add": "Два проектных SVX–KJA RT; текущая собственная программа этой пары UNKNOWN.",
+        "retime": "Нет до оптимизации P03.",
+        "reduce": "Нет без донорского описания.",
+        "cannibalisation": "Существующие свои SVX–KJA и альтернативные задания не обнуляются."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-02"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Прямой контроль C07. Сравниваются одинаковые доступные борта и дни, а не суммы прежних результатов.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-19"
+      ],
+      "unique_new_project_airport_pairs": [
+        "KJA-SVX"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-HUB4",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Четыре луча с защищённой волной",
+      "role": "условный новый хаб",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "OMS",
+          "destination": "KUF",
+          "airport_pair": "KUF-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05",
+            "A-OMS-06"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "GOJ",
+          "airport_pair": "GOJ-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05",
+            "A-OMS-06"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "IKT",
+          "airport_pair": "IKT-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05",
+            "A-OMS-06"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "NOZ",
+          "airport_pair": "NOZ-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05",
+            "A-OMS-06"
+          ]
+        }
+      ],
+      "resource_group_id": "G3",
+      "ancestorIDs": [
+        "H-OMS-04",
+        "C04",
+        "MODEL:ХабOMS"
+      ],
+      "source_ids": [
+        "OMS-S04",
+        "OMS-S07",
+        "P02",
+        "MODEL:network_routes"
+      ],
+      "mechanism": "Два рабочих борта связывают запад и восток. Доход начисляется конечной поездке один раз, кресло расходуется на каждом плече.",
+      "OD_changes": [
+        "Местные OMS–KUF/GOJ/IKT/NOZ; KUF/GOJ↔IKT/NOZ через OMS; существующие альтернативы SVX/OVB/Москва"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь KEEP. Доноры из SVX не назначены автоматически.",
+        "add": "Восемь RT лучей в неделю; G3 — два активных сценарных борта и резерв.",
+        "retime": "Нужна двусторонняя волна Tue/Fri. Часы и реальный MCT UNKNOWN.",
+        "reduce": "Нет до совместной интеграции.",
+        "cannibalisation": "Общие кресла для локальных и пересадочных поездок; прежние свои связи сохраняются в выборе."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-03"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Проверяет ценность пересадки на четырёх лучах, не воспроизводит сразу авторскую сеть из 12.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-05",
+        "A-OMS-06"
+      ],
+      "unique_new_project_airport_pairs": [
+        "GOJ-OMS",
+        "IKT-OMS",
+        "KUF-OMS",
+        "NOZ-OMS"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-RADIAL4-CONTROL",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Те же четыре пары как местные линии",
+      "role": "радиальный контроль хаба",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "OMS",
+          "destination": "KUF",
+          "airport_pair": "KUF-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "GOJ",
+          "airport_pair": "GOJ-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "IKT",
+          "airport_pair": "IKT-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "NOZ",
+          "airport_pair": "NOZ-OMS",
+          "roundtrips_per_week": 2,
+          "weekdays_iso": [
+            2,
+            5
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "winter",
+            "summer",
+            "shoulder"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-05"
+          ]
+        }
+      ],
+      "resource_group_id": "G3",
+      "ancestorIDs": [
+        "H-OMS-04"
+      ],
+      "source_ids": [
+        "OMS-S04",
+        "OMS-S07",
+        "MODEL:network_routes"
+      ],
+      "mechanism": "Те же G3, пары, даты и частоты. Часы могут учитывать местный рынок без требования волны. Дополнительный контроль сохраняет синхронизацию, убирая только защиту.",
+      "OD_changes": [
+        "Те же местные OD; самостоятельная пересадка только отдельным продуктом OTHER, если её принимает P05"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь будущий KEEP.",
+        "add": "Те же восемь RT местных линий.",
+        "retime": "Разрешены другие часы в тех же датах.",
+        "reduce": "Нет.",
+        "cannibalisation": "Каждый evaluation получает одинаковый общий рынок, а внутри сети OD не размножается."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-03"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Отделяет ценность защищённого трансфера от продаж самих лучей и от изменения часов.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-05"
+      ],
+      "unique_new_project_airport_pairs": [
+        "GOJ-OMS",
+        "IKT-OMS",
+        "KUF-OMS",
+        "NOZ-OMS"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-MRV-CHAIN",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Летний еженедельный рейс в Минводы через Омск из SVX",
+      "role": "прямой продукт из существующей базы",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "SVX",
+          "destination": "OMS",
+          "airport_pair": "OMS-SVX",
+          "roundtrips_per_week": 1,
+          "weekdays_iso": [
+            7
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "summer"
+          ],
+          "action": "add",
+          "comment": "Уточняется полным описанием действия и собственных продаж в программе; физический KEEP binding обязателен.",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-15"
+          ]
+        },
+        {
+          "origin": "OMS",
+          "destination": "MRV",
+          "airport_pair": "MRV-OMS",
+          "roundtrips_per_week": 1,
+          "weekdays_iso": [
+            7
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "summer"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-15"
+          ]
+        }
+      ],
+      "resource_group_id": "G2",
+      "ancestorIDs": [
+        "H-OMS-05",
+        "OMS-S08"
+      ],
+      "source_ids": [
+        "OMS-S08",
+        "OMS-S07"
+      ],
+      "mechanism": "Исторический прототип позволяет проверить 7/14 ночей. Длинная цепочка требует принятой смены экипажа или другого цикла.",
+      "OD_changes": [
+        "OMS–MRV; SVX–MRV через OMS при подтверждённой продаже; действующий Азимут и свои альтернативы"
+      ],
+      "own_sales_changes": {
+        "preserve": "Будущий SVX–OMS KEEP сохраняется отдельно; история MRV не текущая обязательная линия.",
+        "add": "Один летний мост и один MRV RT в неделю.",
+        "retime": "Четыре плеча длинные: экипажи, отдых и возможная ночёвка UNKNOWN.",
+        "reduce": "Нет.",
+        "cannibalisation": "Свои SVX–MRV и пакетные продукты P05; тариф сквозной поездки не удваивается."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-04"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Есть первичный опубликованный прототип. Это отдельный сезонный тест, не необходимость нового полного хаба.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-15"
+      ],
+      "unique_new_project_airport_pairs": [
+        "MRV-OMS",
+        "OMS-SVX"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-MRV-BASE",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Тот же сезонный рейс в Минводы из базы OMS",
+      "role": "сезонный радиальный контроль",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [
+        {
+          "origin": "OMS",
+          "destination": "MRV",
+          "airport_pair": "MRV-OMS",
+          "roundtrips_per_week": 1,
+          "weekdays_iso": [
+            7
+          ],
+          "unit": "RT/week; 2 dated physical legs per RT",
+          "season": [
+            "summer"
+          ],
+          "action": "add",
+          "comment": "",
+          "source_id": "Локальный дизайн Stage A; источники в programme",
+          "period": "2027-07-01..2028-12-31 — ранний шаблон, активация UNKNOWN",
+          "coverage": "Условная проектная сеть",
+          "status": "proposed_not_inventory",
+          "assumption_ids": [
+            "A-OMS-01",
+            "A-OMS-02",
+            "A-OMS-07",
+            "A-OMS-08",
+            "A-OMS-10",
+            "A-OMS-11",
+            "A-OMS-13",
+            "A-OMS-15"
+          ]
+        }
+      ],
+      "resource_group_id": "G2",
+      "ancestorIDs": [
+        "H-OMS-05"
+      ],
+      "source_ids": [
+        "OMS-S08",
+        "OMS-S07"
+      ],
+      "mechanism": "Убирает мосты и оплачивает базу. Прочие дни и сезоны того же борта не считаются бесплатными.",
+      "OD_changes": [
+        "Тот же OMS–MRV; новый SVX through продукт эта программа сама не создаёт"
+      ],
+      "own_sales_changes": {
+        "preserve": "Весь KEEP.",
+        "add": "Один летний MRV RT.",
+        "retime": "Только датированный сезонный шаблон.",
+        "reduce": "Нет.",
+        "cannibalisation": "Те же свои и конкурентные продукты, что в другом плече опыта."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-04"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Показывает цену базы для малой сезонной программы и ценность альтернативного использования всего G2.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-15"
+      ],
+      "unique_new_project_airport_pairs": [
+        "MRV-OMS"
+      ],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает."
+    },
+    {
+      "programme_id": "P-OMS-PARTNER-NQZ",
+      "version": "research_v1",
+      "city": "OMS",
+      "title": "Партнёрская Астана к местной программе",
+      "role": "условный партнёрский подвоз",
+      "scope": "CASE_SJ main;new_TU214=0",
+      "aircraft_branches": [
+        "SSJ100_RRJ95B_SaM146",
+        "SSJ100_RRJ95LR_SaM146",
+        "SJ100_PD8_independent_parameters"
+      ],
+      "routes": [],
+      "resource_group_id": "SAME_AS_PARENT_NO_EXTRA_RW_TAIL",
+      "ancestorIDs": [
+        "H-OMS-07"
+      ],
+      "source_ids": [
+        "OMS-S01",
+        "OMS-S07",
+        "OMS-S16"
+      ],
+      "mechanism": "Добавляет продукт SPA/interline после договора; чужое место не становится местом самолёта RW.",
+      "OD_changes": [
+        "NQZ–OMS–KUF/GOJ/IKT/NOZ только после технологии границы; местный OMS–NQZ отдельно"
+      ],
+      "own_sales_changes": {
+        "preserve": "Parent programme и весь KEEP. Новых Ту-214 ноль.",
+        "add": "Партнёрский продукт после договора; физический инвентарь партнёра UNKNOWN.",
+        "retime": "Часы IQ не меняются от имени RW; пересадки по реальным датам.",
+        "reduce": "Нет.",
+        "cannibalisation": "Поток партнёра не прибавляется целиком к перевозкам RW; собственные сегменты RW учитываются отдельно."
+      },
+      "keep": {
+        "rule": "Будущий KEEP сохраняет весь затронутый бизнес RW, его продажи, международные и чартерные задания. Парк и внешние условия одинаковы в P и KEEP. Исторические продажи MOW–OMS не обнуляются.",
+        "observed_context": [
+          {
+            "pair": "OMS-SVX",
+            "frequency_each_way": 2,
+            "period": "выборка 7–13.12.2026; зимнее опубликованное расписание 2026/27",
+            "source_id": "OMS-S07",
+            "future_keep": "UNKNOWN"
+          },
+          {
+            "pair": "OMS-UUD",
+            "frequency_each_way": null,
+            "period": "объявление 2025 и перечень поддержки 2026",
+            "source_id": "OMS-S15;OMS-S09",
+            "future_keep": "UNKNOWN"
+          }
+        ],
+        "retained_sales": "UNKNOWN по P05/P03, не ноль",
+        "new_tail_alternative": "Новый борт имеет явное альтернативное применение в тех же датах, а не вымышленный донор.",
+        "existing_tail_donor": "При переносе старого борта его датированные задания и продажи входят в KEEP; потери отражаются в P."
+      },
+      "comparison_tests": [
+        "CR-OMS-06"
+      ],
+      "required_common_inputs": [
+        "P03: датированный KEEP, коммерчески готовые борта, экипажи, ТО, резерв, перегоны и dispatch.",
+        "P05: общий конечный OD, календарь поездок, gross/net тариф, собственный переток и конкурентный ответ.",
+        "P04: полные драйверы, ставки, применимость, запуск, выход и платежи.",
+        "P06: совместный пересчёт полной пары P/KEEP."
+      ],
+      "activation_rule": "Позднейшая дата: коммерческая готовность типа; вся группа и совместимый резерв; экипажи; ТО; слоты и договоры аэропорта. Новый SJ100 не раньше H2 2027.",
+      "period": "24 месяца 2027–2028; шаблон после 2027-07-01 не прогноз активации",
+      "target_role": "Часть общей проектной сети 8–12 уникальных airport pairs к концу 2028; дефицитный этап может быть меньше",
+      "admission_status": "DESIGN_READY_FOR_STAGE_B;not_RW_resource_or_market_admitted",
+      "priority_rationale": "Международный модуль без нового RW международного рейса. TAS требует отдельного опыта и календаря.",
+      "results": {
+        "P05_allocation": "NOT_RUN: общей калибровки нет",
+        "P06_finance": "NOT_RUN",
+        "P03_operations": "UNKNOWN; адресная арифметика C07 отдельно"
+      },
+      "coverage": "Явные проектные действия плюс неполный будущий KEEP",
+      "assumption_ids": [
+        "A-OMS-01",
+        "A-OMS-02",
+        "A-OMS-07",
+        "A-OMS-08",
+        "A-OMS-10",
+        "A-OMS-11",
+        "A-OMS-13",
+        "A-OMS-06",
+        "A-OMS-16"
+      ],
+      "unique_new_project_airport_pairs": [],
+      "calendar_scope": "programme_calendar — шаблон ветви нового ресурса с ранней датой H2 2027. При переносе существующего SSJ возможная дата раньше отдельно UNKNOWN: нужен донорский календарь P03, этот шаблон её не исключает.",
+      "integration_contract": {
+        "attach_to_any_of": [
+          "P-OMS-HUB4",
+          "P-OMS-RADIAL4-CONTROL"
+        ],
+        "parent_required": true,
+        "parent_version_and_hash": "UNKNOWN до общего сведения",
+        "new_RW_physical_flights": 0,
+        "partner_dated_calendar_and_inventory": "UNKNOWN; зимняя публикация 2026/27 не календарь партнёра 2027–2028",
+        "availability": null,
+        "target_pair_count_policy": "Партнёрские пары показываются отдельно; автоматически в 8–12 собственных проектных пар не включены."
+      }
+    }
+  ],
+  "no_addition_rule": "Деньги взаимосвязанных кандидатов не складываются. Совмещённая сеть получает новый P06 evaluate с общими рынками, креслами и бортами.",
+  "calendar_note": "programme_calendar.csv считает возможные weekday-слоты шаблона после ранней даты. Это не обязательства, принятые физические рейсы или прогноз пассажиров.",
+  "paired_design_controls": [
+    {
+      "control_id": "OMS-CONTROL-REUSE-KEEP",
+      "parent_programme_id": "P-OMS-SVX-RADIAL-CONTROL",
+      "required": true,
+      "action": "Проверить объединение двух из семи мостов с реальными двумя оборотами SVX–OMS KEEP, если даты и часы позволяют. Удалить соответствующие новые мосты, привязать исходные physical flight IDs; обратные собственные рейсы могут сдвинуться.",
+      "own_sales": "Сохранить билеты исходных рейсов или посчитать защиту/потери. Нельзя создать два инвентаря на один борт.",
+      "resource": "Тот же полный затронутый парк и обязательства. Использование KEEP не бесплатный новый ресурс.",
+      "status": "Stage B: датированная привязка UNKNOWN",
+      "assumption_ids": [
+        "A-OMS-10",
+        "A-OMS-18",
+        "A-OMS-19"
+      ]
+    },
+    {
+      "control_id": "OMS-CONTROL-FREE-RESOURCE",
+      "parent_programme_id": "P-OMS-RADIAL",
+      "required": true,
+      "action": "Распределить сэкономленные дни/часы на доступные альтернативные задания после резерва и ТО. Обе ветви имеют одинаковый ресурсный потолок, а не искусственно одинаковый расход часов.",
+      "status": "Stage B: альтернативные задания и цены UNKNOWN",
+      "assumption_ids": [
+        "A-OMS-02",
+        "A-OMS-10",
+        "A-OMS-11"
+      ]
+    }
+  ]
+}

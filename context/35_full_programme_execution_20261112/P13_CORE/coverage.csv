@@ -1,0 +1,16 @@
+coverage_id,area,checks,status,subject_locations,limit
+C01,"Идентификаторы, manifest, immutable inputs",I01;I06,PASS_SCOPED,core.py:20;core.py:162,24 закреплённых blob; 21 материализованная запись subject сверена с output_manifest; полный upstream архив не хешировался
+C02,24 месяца и UNKNOWN/0,I02;I07,PASS_SCOPED,core.py:49;core.py:129,2027-01..2028-12; отсутствующий месяц INVALID; UNKNOWN сохраняет null
+C03,Общие датированные кресла и физические IDs,I03;I04,PASS_SCOPED,operations.py:6;choice.py:69,Два физических SSJ100 analogue legs; marketing alias не создаёт кресла; реальные P02 кресла не admitted
+C04,"Контракты, один тариф, through и recapture",I03;I05,PASS_FIXED_SCOPE,choice.py:87;finance.py:44,45 поездок/70 сегментов/9500 RUB при held5; release даёт50; отдельная находка adaptive F02
+C05,Реакция конкурента и ранний сигнал P05,I06,PASS_SCOPED_SIGNAL_CLOSED,choice.py:12;core.py:171,Одна политика P/KEEP; Jan leisure freq2→3 включает скидку100→80; Feb и business не активируют январскую leisure-ветку
+C06,"Ввод, резерв, ТО, позиция, crew UNKNOWN",I08;I09,PASS_SCOPED,operations.py:37,Невыполнимый ввод/позиция/ТО/резерв блокируют allocation; crew UNKNOWN явно conditional; полного dispatcher нет
+C07,"Будущий KEEP, донор, общие затраты, P−KEEP",I09,PASS_SCOPED,core.py:162;finance.py:113,"KEEP360/P505/дельта145 RUB, own migration учтён один раз; idle lease сохранён событием producer"
+C08,"Accrual/cash, предзапуск, лаг, terminal/deposit",I10,PASS_SCOPED,finance.py:113;finance.py:231,"Ненулевой opening payable; bridge residual0; receivable70, deposit25 и будущие payments сохранены"
+C09,"Opening cash, minimum cash, interest/preinterest",I11,PASS_SCOPED,finance.py:69;finance.py:175,"Opening25/floor10; month need12/day52/preinterest5; UNKNOWN interest скрывает полный need, UNKNOWN principal не стирает need"
+C10,Project/company funding boundary,I12,PASS_SCOPED,core.py:182,Project27 RUB; company UNKNOWN без baseline и115 RUB с явно полным synthetic KEEP cash
+C11,Adaptive parent/hash/information/commitments,I14;I15;I16;I17;I18,CHANGES_F01_F02,core.py:217,Parent/hash/future facts/locked econ/history flight controls PASS; past generated cash и contracts bypass подтверждены
+C12,F07 metric adapter,I13,PASS_SCOPED,core.py:101;core.py:173,Journey shares с явной endogenous denominator policy; несовместимый business_scope отвергнут; без адаптера share/rank null
+C13,Сценарии и совместный пересчёт,Авторские CE02;B09,AUTHOR_RERUN_PASS_CODE_READ,core.py:248;core.py:262,Ранее сохранённые standalone деньги не складываются; численная независимость по этому helper не заявлена
+C14,P02/P04 evidence adapters,Чтение adapters.py; B18 NOT_RUN,CODE_READ_BOUNDARY,adapters.py:22;adapters.py:30,Source export не physical admission; future rates null. Полные P02 таблицы и реальные контракты не проверялись
+C15,"Реальная сеть RW, калибровка, прогноз, UI",За пределами задания,NOT_ASSESSED,README.md,"Нет реального P05/полных contracts/company KEEP; это заявленные границы, а не дополнительные findings ядра"
