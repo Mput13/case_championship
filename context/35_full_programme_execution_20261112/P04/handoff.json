@@ -1382,7 +1382,8 @@
     "Q002 legal interpretation remains unresolved; no general year-round service prohibition; seasonal/no-support/exception-year-round branches preserved",
     "No assumption approval inferred from silence; no arbitrary±percent price bounds; base/cautious not confidence intervals",
     "Own mechanical/visualchecks only; independent reviewNOT_RUN; fixture is synthetic and not network acceptance",
-    "No purchases/payments/bookings/external messages/restarts/Sitepublication; no children; writes confined to P04; only own branch pushed"
+    "No purchases/payments/bookings/external messages/restarts/Sitepublication; no children; writes confined to P04; only own branch pushed",
+    "SP11generalopeningcash/minimumliquidityboundarysupersedesanyimplicitzero-boundaryinterpretationofpayloadformula;originalfilespreserved"
   ],
   "checks": {
     "status": "SELF_CHECK_PASS",
@@ -1399,7 +1400,8 @@
     "git_diff_check": "PASS before payload commit",
     "manifest_file_hashes": "PASS134 files checked immediately before handoff",
     "published_remote_payload": "dfda83ed8f3a17d57025a70c1a45ade544a96a1f",
-    "colleague_update": "qa/colleague_update/impact_review.json; remote baseline/fivecity heads match pinned input; no new dependency imported"
+    "colleague_update": "qa/colleague_update/impact_review.json; remote baseline/fivecity heads match pinned input; no new dependency imported",
+    "schema_adapter_targeted": "5PASS;schema_adapter_checks.json;nofullnetworkrerun"
   },
   "assumption_ids": [
     "P04-A-UFA-takeoff_landing",
@@ -1553,9 +1555,12 @@
     "P04-A-HISTORY-subsidy_max_prior_pax_fe",
     "P04-A-HISTORY-subsidy_max_km_sib",
     "P04-A-HISTORY-subsidy_max_km",
-    "P04-A-HISTORY-fuel_compensation_rub_per_t"
+    "P04-A-HISTORY-fuel_compensation_rub_per_t",
+    "P04-A-SP09-MAPPING",
+    "P04-A-SP10-INTEREST",
+    "P04-A-SP11-BOUNDARY"
   ],
-  "assumption_changes": "assumption_changes.csv; add versioned details to coordinator registry, preserving original IDs and decisions",
+  "assumption_changes": "Payloadassumption_changes.csv plus additiveassumption_changes_sp09_sp11.csv;nooverwriteofpinnedregister",
   "clarification_requests": [
     {
       "question_id": "P04-Q001",
@@ -1675,5 +1680,56 @@
     "python3 context/35_full_programme_execution_20261112/P04/check_package.py"
   ],
   "integration_rule": "Coordinator reads exact payload/handoff commit+manifest, checks applicability and propagates relevant deltas.Whole joint programme recomputed through common engine; do not add stand-alone money totals.",
-  "followup_policy": "New relevant input or concrete defect triggers only affected checks/rows; no waiting for other executors and no repeated whole-network approval loops"
+  "followup_policy": "New relevant input or concrete defect triggers only affected checks/rows; no waiting for other executors and no repeated whole-network approval loops",
+  "schema_adapter": {
+    "manifest_path": "schema_adapter_manifest.json",
+    "manifest_sha256": "56331701438fa3367489efddfb0f25f68df59d0d20f375ecedce2913d21d9f98",
+    "schema_commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "schema_patch_ids": [
+      "SP09",
+      "SP10",
+      "SP11"
+    ],
+    "files": [
+      {
+        "path": "adapt_schema.py",
+        "sha256": "193f240c0502b02173d07bedc9689ee2f7af5629b8bd4a64ba0846217a149a49",
+        "bytes": 17686
+      },
+      {
+        "path": "inputs/accepted_schema_patch.csv",
+        "sha256": "1f8cd7bcb7496f44ca3294d977bf370d81ff5040bb21e055c3feb428c53b59ea",
+        "bytes": 11025
+      },
+      {
+        "path": "event_rate_map.csv",
+        "sha256": "67700e36a4a39f4f4e07d94ea711c7d62cb22dbd45e2db14f795b211a42a0b9c",
+        "bytes": 107302
+      },
+      {
+        "path": "financial_cost_coverage.csv",
+        "sha256": "394a61e1732e037a317d398bb310cf5caed41a151934f26315a17b910361fd9c",
+        "bytes": 3388
+      },
+      {
+        "path": "assumption_changes_sp09_sp11.csv",
+        "sha256": "f93a1160856706c1b73180e0ff415745c905331d0280dad0fba04ca095ff001c",
+        "bytes": 1992
+      },
+      {
+        "path": "schema_adapter.json",
+        "sha256": "cb600e78c3b8e706470b7f26e37283dd5f7ae818e152ebb2603e06fd911fcd2b",
+        "bytes": 7234
+      },
+      {
+        "path": "schema_adapter_checks.json",
+        "sha256": "310ebe19fa918e59863c0e755b04a52d9b1668dd54362e0712c5206c43ec5d68",
+        "bytes": 774
+      }
+    ],
+    "checks": "schema_adapter_checks.json",
+    "rate_map": "event_rate_map.csv",
+    "full_cost_coverage": "financial_cost_coverage.csv",
+    "boundaries": "Actualopeningcash/minimumliquidity/KEEPcashUNKNOWN;generalSP11formula;noactualbudgetcreated"
+  }
 }

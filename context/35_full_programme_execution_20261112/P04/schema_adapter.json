@@ -1,0 +1,92 @@
+{
+  "status": "SCHEMA_ADAPTER_ONLY;NO_NEW_RW_EVENTS_OR_BUDGET",
+  "payload_commit": "dfda83ed8f3a17d57025a70c1a45ade544a96a1f",
+  "schema_source": {
+    "commit": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "path": "context/35_full_programme_execution_20261112/P00R/schema_patch.csv",
+    "local_path": "inputs/accepted_schema_patch.csv",
+    "sha256": "1f8cd7bcb7496f44ca3294d977bf370d81ff5040bb21e055c3feb428c53b59ea",
+    "admission": "Coordinator explicitly acceptedSP01-SP13 in current message; source CSVhistoricalstatusPROPOSED is preserved as bytes"
+  },
+  "patches": {
+    "SP09": {
+      "patch_id": "SP09",
+      "finding_id": "F05",
+      "target": "economic_events",
+      "primary_key": "evaluation_id,economic_event_id",
+      "required_fields": "owner_asset_or_flight_or_journey_or_base; category; scope; driver_unit; quantity; rate; amount; currency; price_year; fx_policy; accrual_month; noncash_flag; avoidability; shared_event_id; source_id; assumption_id",
+      "invariant": "Учитывать net journey revenue, variable operating expense, incremental operating fixed/base/aircraft-use/startup/exit expenses и support по одному выбранному правилу. Δoperating_result = operating_P − operating_KEEP. CAPEX, financing и taxes отдельны; стоимость использования капитала не исчезает. Нельзя одновременно полную аренду и те же lease depreciation/interest без выбранной конвенции.",
+      "acceptance_cases": "CE11;CE12;CE14;CE15",
+      "owner": "P04/P06",
+      "status": "PROPOSED_FOR_COORDINATOR_INTEGRATION"
+    },
+    "SP10": {
+      "patch_id": "SP10",
+      "finding_id": "F06",
+      "target": "cash_events",
+      "primary_key": "evaluation_id,cash_event_id",
+      "required_fields": "economic_event_id nullable; related_asset_or_contract_id; payment_date_or_month; amount_signed; category operating/investing/tax/financing; currency; fx_at_payment; receivable_or_payable_change; deposit_flag; source_id; status; assumption_id",
+      "invariant": "Один экономический event может иметь несколько платежей, а CAPEX/депозит не иметь текущего операционного расхода. Сверить открывающиеся/закрывающиеся receivables, advances, payables. Support отдельно начислен/получен, financing не revenue. Перед запуском включить реальные предоплаты; после 2028 сохранить обязательства/дебиторку/условия выхода.",
+      "acceptance_cases": "CE13;CE14;CE18",
+      "owner": "P04/P06",
+      "status": "PROPOSED_FOR_COORDINATOR_INTEGRATION"
+    },
+    "SP11": {
+      "patch_id": "SP11",
+      "finding_id": "F06",
+      "target": "results_monthly",
+      "primary_key": "evaluation_id,month",
+      "required_fields": "journeys; passenger_segments; compatible_carried_passengers; revenue_net; variable_contribution; operating_result; delta_operating_result; investing_cash; tax_cash; cash_before_financing; funding_before_financing; financing_cash; closing_cash; minimum_cash; metric_definition_id; denominator_id; unknown_dependencies",
+      "invariant": "cash_before_financing = operating cash + investing cash + tax cash; delta и абсолютный поток не смешивать. Funding = max_t(0, minimum_cash_t − opening_cash − cumulative_cash_before_financing_t). Отдельно project incremental funding и whole-business funding, если KEEP cash известен. При неизвестном KEEP cash полный бюджет компании UNKNOWN.",
+      "acceptance_cases": "CE13;CE16;CE18",
+      "owner": "P04/P06/P09",
+      "status": "PROPOSED_FOR_COORDINATOR_INTEGRATION"
+    }
+  },
+  "rate_map": "event_rate_map.csv",
+  "cost_coverage": "financial_cost_coverage.csv",
+  "assumption_delta": "assumption_changes_sp09_sp11.csv",
+  "economic_events": {
+    "key": [
+      "evaluation_id",
+      "economic_event_id"
+    ],
+    "construction": "Admitted rate*accepted quantity by owner,month and currency;net journey revenue once;shared_event_iddeduplicates only inside sameevaluation",
+    "negative_delta": "Compute complete P and completeKEEP then subtract;donor/opportunity memo not second expense",
+    "noncash": "Owned/capitalisedassetdepreciation true;PBHreserve cash status by actual contract;do not infer allMROhourlyreservesnoncash",
+    "unknown": "No economic event amount until rate/quantity/scope known or explicit scenario/threshold branch;publicationprice is historicalreference until futureapplication admitted"
+  },
+  "cash_events": {
+    "key": [
+      "evaluation_id",
+      "cash_event_id"
+    ],
+    "economic_event_id": "nullable;CAPEX/advance/deposit can have no current operatingexpense",
+    "owner": "related_asset_or_contract_id links advances,finalpayment,deposit,refund and terminalbalance",
+    "one_to_many": "One economic event may settle in several payments;cash event not created by merely copyingaccrual_month",
+    "categories": {
+      "operating": "Customer/chartercash;suppliers/rent/crew/MRO;supportreceipts/rebates;interestcash subcategoryfinance_interest",
+      "investing": "Ownedaircraft/basecapex and capitaladvances;refundablecontractdeposit assetflow separatelyflagged;assetdisposal",
+      "tax": "VAT/profittax/excise payments/refunds/offsetcashmapping;fuel supportalready mapped once",
+      "financing": "Debtprincipal/equity and financingonlyfees;notjourneyrevenue;interestnotdeductedagain"
+    },
+    "tax_support_guard": "Fuelcredit either separate supportoperatingreceipt or taxsettlementflow using explicitpostingpolicy;neverboth.Settlementbyoffsethasnobankreceipt.",
+    "balances": "Opening/closingAR,AP,inventory,advances,customeradvances,deposits,debt and posthorizonobligations reconcile"
+  },
+  "boundaries": {
+    "cash_before_financing": "operating_cash + investing_cash + tax_cash",
+    "funding_before_financing": "max_over_event_t(0,minimum_cash_t - opening_cash - cumulative_cash_before_financing_t)",
+    "payload_special_case": "payloadmax(-mincumcash) requiresopening_cash=0 andminimum_cash=0;onlyexplicitdiagnostic/fixture,notobservedRWliquidity",
+    "unknown_opening_or_floor": "FinalactualfundingUNKNOWN;publishconditionalincrementalflowandboundarythreshold,notassumedzero",
+    "project_incremental": "DerivedfromPminusKEEPcashbyeventonthesameboundary;positiveKEEPcashnotavailableunlessincludedwithprovenliquidity",
+    "whole_business": "FullRWfundingUNKNOWNifunaffected/KEEPcashunknown;selectedprojectbudgetdoesnotestablishwholecompanybudget",
+    "time": "Prelaunchthroughpost2028obligations;eventminimaandmonthlyreports;end2028receivables/depositsnotautomaticallycollected",
+    "minimum_cash": "Liquidityfloorbydate;separatefromminimumobservedclosingcashmetric;noarbitraryreservepercentage"
+  },
+  "assumption_ids": [
+    "P04-A-SP09-MAPPING",
+    "P04-A-SP10-INTEREST",
+    "P04-A-SP11-BOUNDARY"
+  ],
+  "existing_inputs_unmodified": "All134payloadfiles and output_manifest remainbyteidentical;newaddon has separate manifest"
+}
