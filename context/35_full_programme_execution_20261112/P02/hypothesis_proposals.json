@@ -1,0 +1,95 @@
+[
+  {
+    "hypothesis_id": "H-P02-01",
+    "version": "v1",
+    "parent_ids": [
+      "legacy_base_or_hub_UFA",
+      "existing_SVX_direct"
+    ],
+    "city_or_markets": [
+      "AIR:SVX:UFA"
+    ],
+    "observed_signal_and_source_ids": [
+      "NEW_RW_QUOTE",
+      "NEW_UT_QUOTE"
+    ],
+    "claim_and_mechanism": "НишаRWопределяется ценой20kg/временем/днями; SSJилиблизостькSVXсами по себе неотказ.",
+    "counterfactual": "KEEPexistingRW+UTsameperiod;newfrequencywithavailablefleet",
+    "competing_explanation": "ВечернийRWперетягиваетсвоипродажиилиprice-sensitiveOD;утреннийUTможетслужитьдругомусегменту",
+    "distinguishing_test": "SameODcalendar,20kgfeesverified,weekday/seasonmatchedlead,price-match5200andusefulreturncalendar",
+    "critical_unknowns_and_assumption_ids": [
+      "P02-A02",
+      "P02-A09",
+      "P02-A15",
+      "paidOD",
+      "ownmigration",
+      "aircraftresource"
+    ],
+    "status": "PROPOSED_TO_COORDINATOR_NOT_PROGRAMME_RESULT",
+    "result_scope": "OneNov12quoteas_of_forDec8;noannualinference"
+  },
+  {
+    "hypothesis_id": "H-P02-02",
+    "version": "v1",
+    "parent_ids": [
+      "legacy_KZN",
+      "legacy_OMS",
+      "legacy_GOJ",
+      "legacy_CEK"
+    ],
+    "city_or_markets": [
+      "AIR:KZN:OMS",
+      "AIR:GOJ:CEK"
+    ],
+    "observed_signal_and_source_ids": [
+      "NEW_UVT_SCHEDULE",
+      "NEW_GOJ_OUT"
+    ],
+    "claim_and_mechanism": "Shortdirectproductmaydifferfrompublishedthroughstopproduct;oneflightnumberwithintermediatestationssharesinventory.",
+    "counterfactual": "Sameendpointjourneyusingactualthroughortransferalternative",
+    "competing_explanation": "Smaller50seattype/frequency/contracts/subsidiesmakeexistingthroughproductviableandlimitnewdemand",
+    "distinguishing_test": "Orderedlegcalendar,aircraftcontinuityandlegsale;wholejourneyfareandtotaldoor-to-doortime;commonallocation",
+    "critical_unknowns_and_assumption_ids": [
+      "P02-A06",
+      "P02-A10",
+      "P02-A12",
+      "openinventory",
+      "paidOD",
+      "throughconditions"
+    ],
+    "status": "REGISTERED_BY_COORDINATOR_PER_USER_UPDATE;NO_ECONOMIC_VERDICT",
+    "result_scope": "Sourcepatternconfirmed;routingsnotalllegsalability"
+  },
+  {
+    "hypothesis_id": "H-P02-03",
+    "version": "v1",
+    "parent_ids": [
+      "legacy_new_hub",
+      "RW_Belavia_existing_partner"
+    ],
+    "city_or_markets": [
+      "AIR:BAX:MSQ",
+      "AIR:UFA:MSQ",
+      "AIR:REN:MSQ",
+      "AIR:KUF:MSQ"
+    ],
+    "observed_signal_and_source_ids": [
+      "NEW_RW_BELAVIA",
+      "NEW_N4_TRANSFER"
+    ],
+    "claim_and_mechanism": "ExistingpartnerconnectivitymayservepartoftargetODwithoutnewdomesticbaselaunch",
+    "counterfactual": "Newbase/hubvsretimeexistingfeeder+protectedpartnerproduct",
+    "competing_explanation": "Partnerinventory,fareproration/accessanddifferentODcannotreplaceCASE_SJdomesticrequirements",
+    "distinguishing_test": "P02Ipinsdates/accessandnetproration;commonresource/ownsalesmodel;notcountforeignrouteasdomesticgrowth",
+    "critical_unknowns_and_assumption_ids": [
+      "P02-A04",
+      "P02-A05",
+      "P02-A12",
+      "MCT",
+      "protectedinventory",
+      "proration"
+    ],
+    "status": "PROPOSED_EXTENSION_NOT_REPLACEMENT_FOR_CASE_SJ",
+    "result_scope": "Primarysalesannouncementnotdatedcommercialvalidation"
+  }
+]
