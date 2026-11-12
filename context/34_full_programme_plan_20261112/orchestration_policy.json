@@ -27,7 +27,7 @@
       "responsibility": "Collect and qualify inputs, construct candidate programmes using the common engine, and maintain assumptions and sources."
     },
     "calculation_engine": {
-      "model": "gpt-6.1-terra",
+      "model": "gpt-6-astra",
       "effort": "xhigh",
       "packages": ["P06", "P09"],
       "responsibility": "Implement the common engine, integrate accepted inputs, and compute compatible monthly programmes, scenarios and funding results."
@@ -50,7 +50,8 @@
       "model": "gpt-6-astra",
       "effort": "xhigh",
       "packages": ["P14"],
-      "must_not_be_author_of": ["P10", "P11", "P15"],
+      "fresh_agent": true,
+      "must_not_be_author_of": ["P06", "P09", "P10", "P11", "P15"],
       "responsibility": "Challenge causal claims, alternatives, uncertain assumptions, the whole-business bridge, digital effects and fidelity to the original case."
     },
     "final_case_and_ui_review": {
@@ -68,7 +69,7 @@
     {"slot": 3, "package": "P03", "model": "gpt-6.1-sol"},
     {"slot": 4, "package": "P04", "model": "gpt-6.1-sol"}
   ],
-  "initial_dispatch_note": "The coordinator handles the initial reuse/index tranche of P01 while these run. After the early methods review releases a slot, Terra starts P06. Later dispatch follows ready input versions and the current critical dependency, not fixed waves.",
+  "initial_dispatch_note": "The coordinator handles the initial reuse/index tranche of P01 while these run. After the early methods review releases a slot, a new Astra task starts P06. Later dispatch follows ready input versions and the current critical dependency, not fixed waves.",
   "dispatch": {
     "tool": "T3 delegate_task",
     "mode": "async",
@@ -129,5 +130,6 @@
   },
   "runtime_records_proposed": ["launch_state.json", "events.jsonl", "handoffs/", "findings.csv", "dependency_requests.csv", "requirements_acceptance.csv"],
   "runtime_records_note": "Small coordination files maintained through T3; no separate orchestration platform is required.",
-  "completion": "The coordinator checks all case and user requirements against integrated outputs, review findings and unresolved limitations. The standalone Superjet case is preserved; new Tu-214 scenarios do not block its release."
+  "completion": "The coordinator checks all case and user requirements against integrated outputs, review findings and unresolved limitations. The standalone Superjet case is preserved; new Tu-214 scenarios do not block its release.",
+  "user_model_override": "User explicitly replaced Terra with Astra for the calculation engine and joint programme comparison; effort remains xhigh."
 }

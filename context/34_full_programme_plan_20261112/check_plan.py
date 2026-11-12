@@ -71,12 +71,14 @@ def main():
     assert len(assigned)==len(set(assigned)), 'multiple role assignments'
     assert policy['capacity']['max_active_children']==4
     assert policy['dispatch']['mode']=='async'
-    assert by_id['P06']['target']['model']=='gpt-6.1-terra'
-    assert by_id['P09']['target']['model']=='gpt-6.1-terra'
+    assert by_id['P06']['target']['model']=='gpt-6-astra'
+    assert by_id['P09']['target']['model']=='gpt-6-astra'
     assert by_id['P00R']['target']['model']=='gpt-6-astra'
     assert by_id['P14']['target']['model']=='gpt-6-astra'
     assert by_id['P13']['target']['model']=='gpt-6.1-sol'
     assert by_id['P13']['independence']['fresh_agent']
+    assert by_id['P14']['independence']['fresh_agent']
+    assert set(by_id['P14']['independence']['must_not_be_author_of']) >= {'P06','P09','P10','P11','P15'}
     assert 'P09' in by_id['P13']['independence']['must_not_be_author_of']
     assert all(by_id[k]['target']['options']['reasoningEffort']=='xhigh' for k in assigned)
     assert len(spec['accepted']['sections']) == 4
