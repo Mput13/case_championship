@@ -1,0 +1,88 @@
+487: def direct_network(D, A, scen, nodes_all, fixed_selection=None):
+488:     if A["fleet_cap"] <= A["spare_aircraft"]:
+489:         raise ValueError("Нет самолётов для выполнения рейсов")
+490:     W = A["weeks_per_year"]
+491:     bases = rules.BASES
+492:     max_h = (A["fleet_cap"] - A["spare_aircraft"]) * A["block_h_per_day"] * 7
+493:     tri = []
+494:     open_nodes = [x for x in nodes_all if x not in CLOSED and x not in bases]
+495:     for i, X in enumerate(open_nodes):
+496:         for Y in open_nodes[i + 1:]:
+497:             dxy = D.km(X, Y)
+498:             if dxy < A["transfer_min_km"] or D.has_direct(X, Y):
+499:                 continue
+500:             if dxy > D.green(X, Y):
+501:                 continue
+502:             for B in bases:
+503:                 d1, d2 = D.km(B, X), D.km(Y, B)
+504:                 if d1 > D.green(B, X) or d2 > D.green(Y, B):
+505:                     continue
+506:                 if d1 + d2 > A["triangle_detour_factor"] * dxy + A["triangle_detour_add_km"]:
+507:                     continue
+508:                 legs = []
+509:                 for a, b, km in ((B, X, d1), (X, Y, dxy), (Y, B, d2)):
+510:                     legs.append({"a": a, "b": b, "km": km, "south": D.south(a, b),
+511:                                  "competitive": D.has_direct(a, b), "dem": D.get(a, b, scen) / (2 * W),
+512:                                  "seg": D.seg(a, b, scen) / (2 * W), "rw_now": rw_pax_week(a, b, A)})
+515:     def tri_eval(B, X, Y, legs):
+516:         # одна частота на весь треугольник по самому загруженному плечу; неподвижная точка,
+517:         # затем спрос плеч пересчитывается при итоговой частоте (тот же дефект, что был в хабе)
+518:         f = int(A["min_freq_week"])
+519:         for _ in range(100):
+520:             pax = [L["dem"] * leg_share(L, f, A) for L in legs]
+521:             nf = int(min(A["direct_max_freq_week"],
+522:                          max(A["min_freq_week"], math.ceil(max(pax) / (A["seats"] * A["lf_max"])))))
+523:             if nf == f:
+524:                 break
+525:             f = nf
+526:         pax = [L["dem"] * leg_share(L, f, A) for L in legs]
+527:         hours = cost = rev = seg = 0.0
+528:         out = []
+529:         for L, p in zip(legs, pax):
+530:             carried = min(p, f * A["seats"] * A["lf_max"])
+531:             bh, c = leg_cost(A, L["km"], L["south"], carried / f)
+532:             hours += 2 * f * bh
+533:             cost += 2 * f * c
+534:             rev += 2 * carried * fare(A, L["km"])
+535:             seg += 2 * carried
+536:             out.append(dict(L, freq=f, carried_dir_week=carried, block_h=bh, lf=carried / (f * A["seats"])))
+537:         return hours, cost, rev, seg, out
+538: 
+539:     # Общий спрос физической пары (аудит коллег, B3 в context/18_team_sync/step1_review): если пара
+540:     # Москва — Омск входит в несколько треугольников, доля рынка считается один раз от суммы их частот,
+541:     # а перевезённые делятся между треугольниками пропорционально частотам.
+542:     def joint(sel):
+543:         agg = {}
+544:         for t, (B, X, Y, f, legs) in enumerate(sel):
+545:             for n, L in enumerate(legs):
+546:                 g = agg.setdefault(frozenset((L["a"], L["b"])), {"L": L, "F": 0, "members": []})
+547:                 g["F"] += f
+548:                 g["members"].append((t, n, f))
+549:         carried, migrated = {}, {}
+550:         for g in agg.values():
+551:             L, F = g["L"], g["F"]
+552:             tot = min(L["dem"] * leg_share(L, F, A), F * A["seats"] * A["lf_max"])
+553:             mg = min(tot, L["rw_now"])                  # свои пассажиры Red Wings один раз на пару
+554:             for t, n, f in g["members"]:
+555:                 carried[(t, n)] = tot * f / F
+556:                 migrated[(t, n)] = mg * f / F
+557:         res = []
+558:         for t, (B, X, Y, f, legs) in enumerate(sel):
+559:             hours = cost = rev = seg = migr = forgone = subs = 0.0
+560:             out = []
+561:             for n, L in enumerate(legs):
+562:                 c_ = carried[(t, n)]
+563:                 mg = migrated[(t, n)]
+564:                 bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
+565:                 hours += 2 * f * bh
+566:                 cost += 2 * f * c
+567:                 lr, s_ = leg_with_subsidy(D, A, L["a"], L["b"], f, c_,
+568:                                          forgone_rev=2 * mg * fare(A, L["km"]))
+569:                 rev += lr
+570:                 seg += 2 * c_
+571:                 migr += 2 * mg
+572:                 forgone += 2 * mg * fare(A, L["km"])
+573:                 subs += s_
+574:                 out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"]), migrated=mg,
+575:                                 rev_week=lr, sub_week=s_, cost_week=2 * f * c))
+576:             res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out, migr, forgone, subs))

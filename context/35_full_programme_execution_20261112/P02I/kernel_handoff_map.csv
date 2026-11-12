@@ -1,0 +1,8 @@
+owner,target,binding,invariant,assumption_id
+P05,markets + market_calendar,IMC-* → demand_pool_id/month/customer_segment,Включить отдельно исходящую/входящую поездку и возврат; не суммировать визиты GNTA с аэропортовым потоком. UNKNOWN месяц не zero_month.,P02I-A02
+P05,products,direct/feed/charter/partner → product_id + ordered physical legs,"gross_fare для выбора, net_fare с документированным proration для выручки; одна поездка/один тариф; operating owner отдельно marketing.",P02I-A11
+P03,flights/fleet_calendar/assignments,тип из aircraft_profiles не готовый aircraft_id,Нужны датированные рейсы/обратное плечо/слоты/реальная трасса/payload/экипаж/MRO/KEEP/физические кресла. Источники P02 не становятся inventory.,P02I-A04
+P04,economic_events/cash_events,foreign_cost_inputs → rate catalog/event drivers,Валюту/налоги/единицу/дату accrual и payment установить до RUB event. P06 не foreign-FX/tax solver; внешний P04adapter даёт прослеживаемые RUB inputs.,P02I-A08
+P05/P04,contracts,charter_guarantee/block/prorate → contract_id,"P06 payment_mode=block + собственный economic_event; contract_only product не приносит вторую retail выручку. Аванс cash и обязательство до перевозки, default/loss не произвольная вероятность.",P02I-A07
+P06,context + exact manifest,programme_version/fleet_scope/external_scenario/delivery_calendar/market_version/cost_version,Не прямой импорт карт в evaluate; сначала accepted bindings. Exact producer_contract982f13d9. Toy не RW. Авторские 42checks не independent acceptance.,P02I-A14
+P07/P08/P09/P10,matched P/KEEP bundles,I01..I10 + SAME resource_calendar/external_scenario,P−KEEP включает своих доноров и продажи. Не складывать деньги независимых программ. Международные I07/I09 не закрывают 8–12 пар основного CASE_SJ.,P02I-A03

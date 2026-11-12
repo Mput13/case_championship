@@ -1,0 +1,43 @@
+{
+  "version": "P10-1.0-20261112",
+  "money_engine": "P06 only; no P10 monetary forecast",
+  "incremental_operating_result": "delta_net_revenue + delta_eligible_support - delta_variable_cost - delta_fixed_cost - delta_aircraft_use - delta_launch_expensed - delta_exit_expensed - delta_DA, all same futurePvsKEEP; obligations deduplicated",
+  "joint_cash_before_financing": "opening_unrestricted_cash + KEEP_cash_events + project_minus_KEEP_cash_events + digital_residual_cash_events - minimum_operating_cash_buffer; all event dated, samecontext",
+  "required_committed_financing": "max(0,-min_t(joint_cash_before_financing_t)); KEEPpeak+projectpeak is NOT this maximum in general",
+  "finance_capacity_gate": "signed_undrawn_facility_available_by_t + irrevocable_owner_funding_by_t >= cash_shortfall_by_t including exit/remaining commitments; otherwise adapt before commitment",
+  "full_cost_threshold": "maximum_affordable_unknown_cost = incremental_net_revenue + eligible_support - all_other_full_incremental_costs; never set every unknown independently at its own maximum",
+  "reference_gap_coefficient": {
+    "historical_gap_passengers_per_year": 11100000,
+    "annual_result_change_RUB_per_1_RUB_net_contribution_per_incremental_reported_pax": 11100000,
+    "qualification": "unit-normalisation only; margin UNKNOWN and fare change requires P05/P06 reallocation"
+  },
+  "calendar_sensitivity": "+1mRUB per post-handover aircraft-month changes accrued aircraft cost by funding_exposure_drivers coefficient; cash timing UNKNOWN; not a lease quote",
+  "delivery_delay_sensitivity": "avoidable future cost can be deferred; already-signed deposits/crew/launch and lostnetcontribution remain. No cash benefit sign assigned without event dates.",
+  "break_even_date": null,
+  "break_even_status": "UNKNOWN;not imposed by2028; financing and trajectory to improvement must be validated",
+  "finance_scenarios": [
+    {
+      "id": "F_COMMITTED",
+      "condition": "committed funds cover full dated joint deficit + signed exit/contingency obligations",
+      "action": "stage only resource/demand/operations admitted programmes",
+      "numeric_budget_RUB": null
+    },
+    {
+      "id": "F_LIMITED",
+      "condition": "committed available cash below next programme peak",
+      "action": "choose feasible nondominated reduced tranche under budget, preserve earlier viable candidates; if none do not sign new commitments",
+      "numeric_budget_RUB": null
+    },
+    {
+      "id": "F_NONE_NEW",
+      "condition": "no incremental financing authorised",
+      "action": "retain KEEP and evaluate no-new resource productivity/contract adaptation within proven funded cash; do not claim these have zero cost",
+      "numeric_budget_RUB": null
+    }
+  ],
+  "assumption_ids": [
+    "P10-CASH",
+    "P10-NORMALIZE",
+    "P10-CREW"
+  ]
+}

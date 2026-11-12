@@ -1,0 +1,2097 @@
+{
+  "version": "MRV-stage_a-v1",
+  "programmes": [
+    {
+      "programme_id": "MRV-R8",
+      "version": "stage_a_v1",
+      "title": "Новая радиальная база MRV: восемь внутренних пар",
+      "family": "RADIAL_BASE",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Местный курортный/VFR спрос без обязательной пересадки",
+      "paired_controls": [
+        "MRV-H8",
+        "MRV-E8",
+        "MRV-M8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KZN",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "UFA"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 80.5,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "KZN-MRV": 1.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-UFA": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "UFA",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "KZN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE"
+      ]
+    },
+    {
+      "programme_id": "MRV-H8",
+      "version": "stage_a_v1",
+      "title": "Та же сеть MRV с условными пересадочными окнами",
+      "family": "TRANSFER_HUB",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Чистый эффект времени и защиты стыковки при тех же рейсах; не обещание удобного возврата",
+      "paired_controls": [
+        "MRV-R8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KZN",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "UFA"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 80.5,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "KZN-MRV": 1.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-UFA": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "UFA",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "KZN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE",
+        "A-MRV-MCT"
+      ]
+    },
+    {
+      "programme_id": "MRV-H8A",
+      "version": "stage_a_v1",
+      "title": "Та же сеть MRV с чередованием окон через неделю",
+      "family": "TRANSFER_HUB_CALENDAR_REVISION",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Отдельный проектный ответ на возврат6/8 ночей в H8: проверить7 ночей без добавления кресел",
+      "paired_controls": [
+        "MRV-R8",
+        "MRV-H8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KZN",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "UFA"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 80.5,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "KZN-MRV": 1.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-UFA": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "UFA",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "KZN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 14,
+      "second_week_rule": "Обменять маршруты T1/T2 каждого дня, оставив T1 ранним, T2 поздним",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE",
+        "A-MRV-MCT",
+        "A-MRV-HUB-PERIOD"
+      ]
+    },
+    {
+      "programme_id": "MRV-E8",
+      "version": "stage_a_v1",
+      "title": "Цепочки KUF/SVX через MRV с ночёвкой на конечной станции",
+      "family": "EXISTING_BASE_DIRECT",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Сравнить затраты базы MRV с дополнительными позиционированием/ночёвками и неравными частотами",
+      "paired_controls": [
+        "MRV-R8",
+        "MRV-M8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KZN",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "UFA"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 79.8333,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 1.0,
+        "GOJ-MRV": 1.0,
+        "KUF-MRV": 3.0,
+        "KZN-MRV": 1.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 1.0,
+        "MRV-SVX": 3.0,
+        "MRV-UFA": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "KUF",
+            "MRV",
+            "GOJ"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "GOJ",
+            "MRV",
+            "KUF"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "KUF",
+            "MRV",
+            "UFA"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "UFA",
+            "MRV",
+            "KUF"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "KUF",
+            "MRV",
+            "KZN"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "KZN",
+            "MRV",
+            "KUF"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "SVX",
+            "MRV",
+            "PEE"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "PEE",
+            "MRV",
+            "SVX"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "SVX",
+            "MRV",
+            "CEK"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "CEK",
+            "MRV",
+            "SVX"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "SVX",
+            "MRV",
+            "OMS"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "OMS",
+            "MRV",
+            "SVX"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE"
+      ]
+    },
+    {
+      "programme_id": "MRV-M8",
+      "version": "stage_a_v1",
+      "title": "Один борт в MRV и один в цепочках SVX",
+      "family": "MIXED",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Частичное базирование при общей конкуренции за кресла/спрос",
+      "paired_controls": [
+        "MRV-R8",
+        "MRV-E8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KZN",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "UFA"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 81.1667,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 1.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "KZN-MRV": 1.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 1.0,
+        "MRV-SVX": 3.0,
+        "MRV-UFA": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "UFA",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "KZN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "SVX",
+            "MRV",
+            "PEE"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "PEE",
+            "MRV",
+            "SVX"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "SVX",
+            "MRV",
+            "CEK"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "CEK",
+            "MRV",
+            "SVX"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "SVX",
+            "MRV",
+            "OMS"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "OMS",
+            "MRV",
+            "SVX"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE"
+      ]
+    },
+    {
+      "programme_id": "MRV-R4",
+      "version": "stage_a_v1",
+      "title": "Малая радиальная ступень MRV: четыре пары",
+      "family": "RADIAL_BASE",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Частичная доступность одного борта; не выдавать за полную целевую сеть",
+      "paired_controls": [
+        "MRV-E4"
+      ],
+      "resource_budget_id": "BUDGET1",
+      "conditional_physical_tails": 1,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ]
+      ],
+      "unique_pair_count": 4,
+      "weekly_pattern_leg_count": 12,
+      "weekly_pattern_block_hours_analogue": 38.3333,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 1.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "MRV-PEE": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R1",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE"
+      ]
+    },
+    {
+      "programme_id": "MRV-E4",
+      "version": "stage_a_v1",
+      "title": "Малая ступень через KUF без базы MRV",
+      "family": "EXISTING_BASE_DIRECT",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Альтернатива новой базе на том же одном борту",
+      "paired_controls": [
+        "MRV-R4"
+      ],
+      "resource_budget_id": "BUDGET1",
+      "conditional_physical_tails": 1,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ]
+      ],
+      "unique_pair_count": 4,
+      "weekly_pattern_leg_count": 12,
+      "weekly_pattern_block_hours_analogue": 37.0,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 1.0,
+        "GOJ-MRV": 1.0,
+        "KUF-MRV": 3.0,
+        "MRV-PEE": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "KUF",
+            "MRV",
+            "GOJ"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "GOJ",
+            "MRV",
+            "KUF"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "KUF",
+            "MRV",
+            "PEE"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "PEE",
+            "MRV",
+            "KUF"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "KUF",
+            "MRV",
+            "CEK"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "CEK",
+            "MRV",
+            "KUF"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R1",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE"
+      ]
+    },
+    {
+      "programme_id": "MRV-P8",
+      "version": "stage_a_v1",
+      "title": "R8 с санаторным подвозом и отдельно условным партнёрским продуктом",
+      "family": "PARTNER_FEEDER",
+      "scope": "CASE_SJ_DOMESTIC",
+      "mechanism": "Тот же физический RW календарь; продаваемый пакет только с договором и квотой",
+      "paired_controls": [
+        "MRV-R8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "KZN",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "UFA"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 80.5,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "KZN-MRV": 1.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-UFA": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "UFA",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "KZN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE",
+        "A-MRV-MCT"
+      ]
+    },
+    {
+      "programme_id": "MRV-XR8",
+      "version": "stage_a_v1",
+      "title": "Восемь пар: шесть внутренних и TBS/EVN как конечные продукты",
+      "family": "EXTENDED_RADIAL",
+      "scope": "EXTENDED_INTERNATIONAL",
+      "mechanism": "Дополнительная международная ветвь без новых Ту-214",
+      "paired_controls": [
+        "MRV-XH8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "EVN",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "TBS"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 72.1667,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "EVN-MRV": 1.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-TBS": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "TBS",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "EVN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE"
+      ]
+    },
+    {
+      "programme_id": "MRV-XH8",
+      "version": "stage_a_v1",
+      "title": "Та же международная сеть с условной мини-волной",
+      "family": "EXTENDED_TRANSFER",
+      "scope": "EXTENDED_INTERNATIONAL",
+      "mechanism": "Сопоставить пересадки с собственными прямыми EVN/TBS и действующим Азимутом",
+      "paired_controls": [
+        "MRV-XR8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "EVN",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "TBS"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 72.1667,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "EVN-MRV": 1.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-TBS": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "TBS",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "EVN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 7,
+      "second_week_rule": "Повторить первую неделю",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE",
+        "A-MRV-MCT"
+      ]
+    },
+    {
+      "programme_id": "MRV-XH8A",
+      "version": "stage_a_v1",
+      "title": "Международная сеть с чередованием окон через неделю",
+      "family": "EXTENDED_TRANSFER_CALENDAR_REVISION",
+      "scope": "EXTENDED_INTERNATIONAL",
+      "mechanism": "Та же физическая сеть; отдельная проверка7-ночного возврата вместо признания любого окна продуктом",
+      "paired_controls": [
+        "MRV-XR8",
+        "MRV-XH8"
+      ],
+      "resource_budget_id": "BUDGET2",
+      "conditional_physical_tails": 2,
+      "new_tu214": 0,
+      "aircraft_variants_separate": [
+        "RRJ95B_or_RRJ95LR_100_exact_tail_REQUIRED",
+        "SJ100_PD8_SEPARATE_ANALOGUE_NOT_DISPATCH_ADMITTED"
+      ],
+      "unique_airport_pairs": [
+        [
+          "CEK",
+          "MRV"
+        ],
+        [
+          "EVN",
+          "MRV"
+        ],
+        [
+          "GOJ",
+          "MRV"
+        ],
+        [
+          "KUF",
+          "MRV"
+        ],
+        [
+          "MRV",
+          "OMS"
+        ],
+        [
+          "MRV",
+          "PEE"
+        ],
+        [
+          "MRV",
+          "SVX"
+        ],
+        [
+          "MRV",
+          "TBS"
+        ]
+      ],
+      "unique_pair_count": 8,
+      "weekly_pattern_leg_count": 24,
+      "weekly_pattern_block_hours_analogue": 72.1667,
+      "frequency_each_way_per_pattern_week": {
+        "CEK-MRV": 2.0,
+        "EVN-MRV": 1.0,
+        "GOJ-MRV": 2.0,
+        "KUF-MRV": 2.0,
+        "MRV-OMS": 1.0,
+        "MRV-PEE": 2.0,
+        "MRV-SVX": 1.0,
+        "MRV-TBS": 1.0
+      },
+      "pattern": [
+        {
+          "tail_role": "T1",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 1,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "GOJ",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 2,
+          "airports": [
+            "MRV",
+            "KUF",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 3,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "CEK",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 4,
+          "airports": [
+            "MRV",
+            "PEE",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "TBS",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 5,
+          "airports": [
+            "MRV",
+            "SVX",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T1",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "EVN",
+            "MRV"
+          ]
+        },
+        {
+          "tail_role": "T2",
+          "weekday_iso": 6,
+          "airports": [
+            "MRV",
+            "OMS",
+            "MRV"
+          ]
+        }
+      ],
+      "pattern_period_days": 14,
+      "second_week_rule": "Обменять маршруты T1/T2 каждого дня, оставив T1 ранним, T2 поздним",
+      "dated_templates": "dated_flight_templates.csv: programme_id",
+      "monthly_applicability": "monthly_stage_requests.csv: programme_id; not a full admitted flight calendar",
+      "keep": "MRV-KEEP; unchanged products retained; affected scope and exact flight IDs require P03/P05",
+      "before_after": "market_deltas.csv: programme_id; add vs replace cannot be decided from an incomplete timetable",
+      "base_and_crew": "MRV new base costs for R8/H8/H8A/R4/P8/XR8/XH8/XH8A; M8 mixed; E8/E4 KUF/SVX plus spoke overnights; actual contracts/crew UNKNOWN",
+      "counterevidence": "Хаб на редких частотах может не дать 7/10/14 ночей; MRV геометрически удлиняет часть северо-северных поездок. Действующие прямые продукты и свои продажи сохраняются.",
+      "cost_test": "P04 TH-OPTION and joint base/launch/MRO/turn/recovery cost boundary; no stand-alone money/choice calculation",
+      "status": "STAGE_A_SPECIFIED_STAGE_B_CONDITIONAL",
+      "economic_result": null,
+      "demand_allocation": null,
+      "dispatch_admission": null,
+      "assumption_ids": [
+        "A-MRV-R2",
+        "A-MRV-CABIN",
+        "A-MRV-TURN",
+        "A-MRV-FREQUENCY",
+        "A-MRV-SEASONS",
+        "A-MRV-KEEP",
+        "A-MRV-P05",
+        "A-MRV-RESERVE",
+        "A-MRV-MCT",
+        "A-MRV-HUB-PERIOD"
+      ]
+    },
+    {
+      "programme_id": "MRV-KEEP",
+      "version": "stage_a_v1",
+      "family": "KEEP",
+      "title": "Будущая затронутая сеть без проекта при том же ресурсе",
+      "status": "REQUIRED_UNBOUND_FUTURE_KEEP",
+      "dated_physical_flights": null,
+      "affected_existing_sales": null,
+      "new_tu214": 0,
+      "preserve_evidence_ids": [
+        "MRV-E06",
+        "MRV-E07",
+        "MRV-E08"
+      ],
+      "assumption_ids": [
+        "A-MRV-KEEP"
+      ],
+      "rule": "Не пустая сеть. При существующем SSJ указать donor; при новом SJ сравнить альтернативное применение без выдуманного донора."
+    },
+    {
+      "programme_id": "MRV-G0",
+      "version": "stage_a_v1",
+      "family": "PARTNER_OR_GROUND_ACCESS",
+      "title": "Доступ к КМВ через текущее предложение и договорный подвоз без новых рейсов RW",
+      "status": "CONTRACT_AND_INVENTORY_CONDITIONAL",
+      "incremental_rw_flights": 0,
+      "incremental_rw_physical_tails": 0,
+      "available_common_budget": "BUDGET0/1/2; неиспользуемые проектом борта сохраняют альтернативное применение KEEP",
+      "pair_with": "MRV-P8; общая доступность ресурса и полное альтернативное применение сохраняются",
+      "gross_journeys": null,
+      "rw_incremental_segments": null,
+      "contract_terms": null,
+      "new_tu214": 0,
+      "rule": "Партнёрские маркетинговые коды не добавляют физические кресла; защищённость/продажи/выручка RW требуют договора.",
+      "assumption_ids": [
+        "A-MRV-PARTNER",
+        "A-MRV-KEEP"
+      ]
+    }
+  ],
+  "comparison_key": [
+    "fleet_scope_id",
+    "delivery_calendar_id",
+    "external_scenario_id",
+    "period",
+    "input_version",
+    "affected_scope_id"
+  ],
+  "equal_resource_rule": "Одинаковые физические tail IDs, готовность, начальная локация, доступность, crew/ТО/reserve и капитал. Использование может различаться; ferry/ночёвка/прежние задания/свои продажи входят в P/KEEP. Не требуется равенство выдуманной прибыли или налёта.",
+  "selection_rule": "Нет общего балла/победителя. Stage B сравнивает пассажиров, доход, полный добавочный результат, финансирование и устойчивость; убыточная ступень допустима при расчётной траектории и условиях остановки."
+}

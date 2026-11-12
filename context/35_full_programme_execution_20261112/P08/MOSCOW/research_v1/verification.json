@@ -1,0 +1,156 @@
+{
+  "status": "PASS",
+  "scope": "локальная проверка происхождения и календарной арифметики Stage A; не независимый внешний review, не market/dispatch/economics acceptance",
+  "checks": [
+    {
+      "check": "exact_git_blobs_extracts_and_logical_row_hashes",
+      "status": "PASS",
+      "evidence": {
+        "inputs": 23,
+        "selected_csv_rows": 3995,
+        "errors": []
+      }
+    },
+    {
+      "check": "source_receipts_metadata_and_saved_text_hashes",
+      "status": "PASS",
+      "evidence": {
+        "records": 27,
+        "saved": 22,
+        "errors": []
+      }
+    },
+    {
+      "check": "ground_source_line_hashes_and_elapsed_times",
+      "status": "PASS",
+      "evidence": {
+        "ground_products": 7,
+        "errors": [],
+        "meaning": "Направленные строки2026; не сопоставимая RT корзина/открытые кресла."
+      }
+    },
+    {
+      "check": "unique_flight_and_programme_ids",
+      "status": "PASS",
+      "evidence": {
+        "flights": 10032,
+        "programmes": 57
+      }
+    },
+    {
+      "check": "only_physical_airports_in_flights",
+      "status": "PASS",
+      "evidence": "MOW отсутствует в физических плечах"
+    },
+    {
+      "check": "no_inventory_or_economic_acceptance_from_templates",
+      "status": "PASS",
+      "evidence": "Все неизвестные capacity/operator/financial outputs остаются null, статусы не admission."
+    },
+    {
+      "check": "same_resource_for_three_forms",
+      "status": "PASS",
+      "evidence": {
+        "groups": 19,
+        "meaning": "same conditional fleet/base/date envelope; equal BH не заявлены"
+      }
+    },
+    {
+      "check": "all_new_Tu214_maincase_zero",
+      "status": "PASS",
+      "evidence": "Действующий Tu бизнес не обнулён; запрет новых ресурсов относится только к maincase новой поставки."
+    },
+    {
+      "check": "rotations_close_adjacency_times_turns_and_unknowns",
+      "status": "PASS",
+      "evidence": {
+        "rotations": 2736,
+        "fully_timed": 2640,
+        "explicit_partial": 96,
+        "errors": []
+      }
+    },
+    {
+      "check": "active_tail_has_no_overlap_within_each_alternative",
+      "status": "PASS",
+      "evidence": {
+        "errors": [],
+        "scope": "KEEP/standby/crew реальных IDs отсутствуют, эта проверка их не подтверждает"
+      }
+    },
+    {
+      "check": "weekly_leg_counts_BH_and_directional_pair_frequencies",
+      "status": "PASS",
+      "evidence": {
+        "pairs": 133,
+        "errors": []
+      }
+    },
+    {
+      "check": "24_month_calendar_is_date_enumeration_not_52_weeks",
+      "status": "PASS",
+      "evidence": {
+        "rows": 1368,
+        "C19_T_proposed_service_days": {
+          "2027": 105,
+          "2028": 104
+        },
+        "errors": [],
+        "meaning": "105/104 только календарь предлагаемой формы, не годовая программа/пассажиры"
+      }
+    },
+    {
+      "check": "real_dated_outbound_and_return_paths_for_each_trip_test",
+      "status": "PASS",
+      "evidence": {
+        "trip_rows": 912,
+        "errors": [],
+        "limit": "Цена/кресла/MCT/door-to-door не подтверждаются календарной геометрией."
+      }
+    },
+    {
+      "check": "C19_weekend_counterexample_is_directional",
+      "status": "PASS",
+      "evidence": {
+        "MOW-C19-T:VOG": true,
+        "MOW-C19-T:MCX": false,
+        "MOW-C19-C:VOG": true,
+        "MOW-C19-C:MCX": true,
+        "MOW-C19-O:VOG": true,
+        "MOW-C19-O:MCX": false
+      }
+    },
+    {
+      "check": "C08_chain_budget_failure_not_general_economic_rejection",
+      "status": "PASS",
+      "evidence": "Конкретная C цепочка выходит за10h, T в данной точке нет; ни одна не имеет экономического admission."
+    },
+    {
+      "check": "all_14_author_geographies_and_C08_C19_C25_have_disposition",
+      "status": "PASS",
+      "evidence": {
+        "author_geographies": 14,
+        "dispositions": 20
+      }
+    },
+    {
+      "check": "all_programme_assumption_ids_registered",
+      "status": "PASS",
+      "evidence": {
+        "assumptions": 22,
+        "missing": []
+      }
+    },
+    {
+      "check": "no_undisclosed_actual_future_SJ_deliveries",
+      "status": "PASS",
+      "evidence": "Ready dates/count forecast UNKNOWN; H2 boundary не принят за коммерческий ввод."
+    }
+  ],
+  "checks_passed": 18,
+  "checks_total": 18,
+  "economic_evaluation": "NOT_RUN",
+  "operational_acceptance": "UNKNOWN",
+  "source_coverage": "PARTIAL",
+  "independent_acceptance": "NOT_PERFORMED_BY_THIS_SELF_CHECK"
+}

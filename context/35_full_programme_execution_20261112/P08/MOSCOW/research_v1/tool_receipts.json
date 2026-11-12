@@ -1,0 +1,32 @@
+{
+  "no_browser_used": true,
+  "no_paid_services": true,
+  "no_external_messages_except_authorized_coordinator": true,
+  "no_git_mutations": true,
+  "no_shared_files_written": true,
+  "text_fallbacks": [
+    {
+      "tool": "web.open",
+      "url": "https://ar-goj.ru/schedule/?type=arr",
+      "error": "URL https://ar-goj.ru/schedule/?type=arr is not accessible via this tool.",
+      "fallback": "публичный HTTP GET MOW-S21; P02 exact source rows остаются исходным сравнением",
+      "why": "Текстовое чтение конкретного известногоURL; браузер не нужен."
+    },
+    {
+      "tool": "web.open",
+      "url": "https://vokzal-avto.ru/tshmarshrut/",
+      "error": "Failed to fetch https://vokzal-avto.ru/tshmarshrut/: (403) Forbidden",
+      "fallback": "публичный HTTP GET MOW-S18 успешно сохранил текст; прочитан как ограниченный source export",
+      "why": "Различие ответа сайта текстовым клиентам; не доказательство доступного билета."
+    },
+    {
+      "tool": "web.open",
+      "url": "https://favt.gov.ru/dejatelnost-vozdushnye-perevozki-subsidirovanie-regiony/",
+      "error": "Failed to fetch https://favt.gov.ru/dejatelnost-vozdushnye-perevozki-subsidirovanie-regiony/: (400) Timeout fetching",
+      "fallback": "не использовать новый live claim; P04 exact thresholds/rules и source rows P02 сохраняются",
+      "why": "Не требуется менять браузер/сервисы ради нормативной страницы."
+    }
+  ],
+  "child_policy": "Дети не запускались: прямое указание текущего задания работать самостоятельно без детей.",
+  "runtime_recovery": "Не запускались процессы восстановления, не менялись сессии/профили/вкладки. HTTP ошибки сохранены в sources_registry, status не absence."
+}

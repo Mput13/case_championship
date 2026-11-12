@@ -1,0 +1,103 @@
+{
+  "package": "P08-MOW-A",
+  "version": "research_v1",
+  "status": "STAGE_A_RESEARCH_COMPLETE",
+  "completed_at_utc": "2026-11-12T13:51:32.527517+00:00",
+  "write_scope": "context/35_full_programme_execution_20261112/P08/MOSCOW/research_v1/",
+  "manifest_path": "context/35_full_programme_execution_20261112/P08/MOSCOW/research_v1/manifest.json",
+  "manifest_sha256": "931b6d28dc499164e1533b7101b5a4864a59b3c99ebf6dac0c9238f0c7c8643c",
+  "input_manifest_sha256": "d35338353ff8d9045e5aff10cbb6a7abe8f3e5c9805b1273155fb8d972bacb9b",
+  "programme_candidates_sha256": "bba9a519e120a81ef48abd3a047d8bc511d22156018f8a269e806562c6b427a2",
+  "handoff_document": "context/35_full_programme_execution_20261112/P08/MOSCOW/research_v1/handoff.md",
+  "sourcepins": {
+    "PLAN": "65cab12d2eae49dc91d1f77dd4860bc9bd7e20d2",
+    "AUTHOR": "dceadc98f9a293d7530cb7bc50ca4411a95aa4b6",
+    "FIVE": "c18f7640ea36647a05b39089e5293f22dd009f63",
+    "P00R": "b7d74e67dd6c603db049b1915b1afec987e3b458",
+    "P02": "d9486f113f074c185a94bcc5c0afeef12ea3574f",
+    "P03": "79dc698b99dfe866886d32376ed388e85bdd039c",
+    "P04": "620a0ac4bb11763319c4227485f6a3996b91d367",
+    "P06": "982f13d9b6c378ed9581125ecc5c40f17dade6a3"
+  },
+  "counts": {
+    "recipes": 19,
+    "programmes": 57,
+    "author_MOW_geographies": 14,
+    "named_archival_branches": [
+      "C08",
+      "C19",
+      "C25-GOJ",
+      "C25-KUF"
+    ],
+    "physical_base_control": "DME-CONTROL",
+    "dated_physical_leg_templates": 10032,
+    "source_records": 27,
+    "assumptions": 22
+  },
+  "verification": {
+    "status": "PASS",
+    "checks_passed": 18,
+    "checks_total": 18,
+    "scope": "локальная проверка происхождения и календарной арифметики Stage A; не независимый внешний review, не market/dispatch/economics acceptance",
+    "independent_acceptance": "NOT_PERFORMED_BY_THIS_SELF_CHECK"
+  },
+  "findings": [
+    "MOW не аэропорт. ZIA/DME имеют разное историческое/текущее доказательство; VKO/SVO не свободные SSJ базы.",
+    "C19 T иO имеют Fri→Mon только изVOG; C ZIA–VOG–MCX–VOG–ZIA даёт такой RT обоим origin в выбранном календаре.",
+    "Историческая продажаRW MCX–VOG2025 означает необходимость сохранять/пересчитывать существующий собственный бизнес вKEEP.",
+    "C25 имеет опубликованного N4 конкурента и несовпадающие дни направлений. T/O дают10/11ночей; фактическая трассаKGD/парк/спрос UNKNOWN.",
+    "C08 исторический A4 черезIAR не current nonstop; архивный reverse clock противоречив. Конкретный C out-and-back превышает u10, T/O в reference точке нет; это не экономический отказ.",
+    "Одна неделя не умножалась на52 для денежных/пассажирских выводов; полный24month календарь перечислен по датам."
+  ],
+  "strong_source_tranche_paths": [
+    "airport_status.csv",
+    "KEEP_evidence.csv",
+    "sources_registry.json",
+    "source_issues.csv",
+    "ground_products.csv",
+    "dated_templates/trip_windows.csv"
+  ],
+  "stage_B": {
+    "status": "OPEN_NOT_RUN",
+    "requests_file": "context/35_full_programme_execution_20261112/P08/MOSCOW/research_v1/dependency_requests.csv",
+    "request_ids": [
+      "MOW-D01",
+      "MOW-D02",
+      "MOW-D03",
+      "MOW-D04",
+      "MOW-D05",
+      "MOW-D06",
+      "MOW-D07",
+      "MOW-D08",
+      "MOW-D09",
+      "MOW-D10"
+    ],
+    "owners": [
+      "P03 actual resource/crew/MRO/dispatch/futureKEEP",
+      "P05 common monthly demand/choice/RT prices/ground/own diversion",
+      "P04 full cost/thresholds/recognised support/event cash/liquidity",
+      "P06 accepted P/KEEP bundles, independent acceptance pending",
+      "P09 joint mixed-programme comparison with no resource/OD double counting"
+    ]
+  },
+  "economic_outputs": "NOT_RUN; null, не0",
+  "operational_acceptance": "UNKNOWN; templates не physical_inventory admission",
+  "safety_scope": {
+    "git_mutations": false,
+    "shared_files_written": false,
+    "children_started": false,
+    "browser_used": false,
+    "paid_services": false,
+    "external_messages": "только явно разрешённые сообщения координатору",
+    "restarts": false,
+    "public_site": false
+  },
+  "limitations": [
+    "нет прогноза RW N(t); H2 boundary не service entry",
+    "future SJ100_PD8 отдельный отSSJ100_SaM146; нет переноса расходов как факта",
+    "14 tail-days/week — выбранный одинаковый экспериментальный модуль1+1, не свободный парк или рекомендация по размеру",
+    "57 альтернатив не суммировать,8–12pairs относится к итоговой сети конца2028",
+    "source coverage PARTIAL; отсутствие предложения не нулевой рынок"
+  ],
+  "envelope_hash_rule": "manifest.json/handoff.json исключены из собственного payload; handoff содержит hash manifest; координатор может закрепить оба Git blob IDs своим commit."
+}

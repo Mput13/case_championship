@@ -1,0 +1,2307 @@
+<!-- resources/views/public/show.blade.php -->
+ <!-- или ваш основной шаблон -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Государственный портал</title>
+    <link href="/assets/vendor-local/bootstrap-5.3.2/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/vendor-local/font-awesome-6.4.0/all.min.css">
+    <link href="/assets/vendor-local/manrope/manrope-600.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/bvi.min.css" type="text/css">
+    <link rel="icon" href="https://e-dag.ru/assets/img/gerb.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/vendor-local/bootstrap-icons-1.11.0/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F5;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand img {
+            height: 40px;
+        }
+        .card {
+            border: none; 
+            border-radius: 24px;
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .side-news-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .document-card {
+            height: 100%;
+        }
+        .useful-link-card {
+            height: 100%;
+        }
+        .useful-link-img {
+            height: 120px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .btn-ask {
+            background-color: #0D6EFD;
+            color: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+        h3 {
+            color: #333;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #F8F9FA;
+        }
+        .document-icon {
+            font-size: 24px;
+            color: #0D6EFD;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        } 
+        .btn-primary {
+            background-color: #0D6EFD;
+            border-color: #0D6EFD;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-nav .nav-link {
+            font-family: 'Manrope', sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: 0.02em;
+            color: #171A1C;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+        .dropdown-toggle::after {
+            vertical-align: 0.1em;
+        }
+        .btn-link {
+            color: #171A1C;
+        }
+        .btn-link:hover,
+        .btn-link:focus {
+            color: #0D6EFD;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background-color: #f8f9fa;
+            color: #0D6EFD;
+        }
+        .navbar {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .navbar-nav .nav-link {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #171A1C;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-nav .nav-item {
+            margin-right: 10px;
+        }
+        .btn-primary {
+            background-color: #0D6EFD;
+            border-color: #0D6EFD;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+        }
+        .btn-link {
+            color: #171A1C;
+        }
+        .btn-link:hover,
+        .btn-link:focus {
+            color: #0D6EFD;
+        }
+        .dropdown-toggle::after{
+            content: inherit;
+        }
+        .nav-link .fas {
+            margin-left: 5px;
+        }
+        @media (min-width: 992px) {
+            .dropdown-menu.show {
+                display: none;
+            }
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-menu .dropdown-item {
+                padding: 0.25rem 1rem; /* Уменьшение отступов */
+                font-size: 0.9rem; /* Уменьшение размера шрифта */
+                word-wrap: break-word; /* Перенос длинных слов на следующую строку */
+                overflow-wrap: break-word; /* Альтернативное свойство для переноса */
+            }
+
+            .dropdown-menu {
+                width: 300px; /* Ограничение высоты выпадающего меню */
+                overflow-y: auto; /* Добавление прокрутки, если содержимое превышает высоту */
+            }
+        }
+        .dropdown-item { 
+            white-space: inherit;  
+        }
+        .nav-link .fas {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        .dropdown:hover .nav-link .fas {
+            transform: rotate(180deg);
+        }
+        .custom-button {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 20px;
+            gap: 8px;
+            margin: 0 auto;
+            width: 165px;
+            height: 46px;
+            border: 1px solid #F6F7F8;
+            border-radius: 50px;
+            flex: none;
+            order: 2;
+            flex-grow: 0;
+            background-color: #F6F7F8; /* Добавлено для сответствия цвету Bootstrap primary */ 
+            color: #171A1C;
+            font-weight: 600;
+            font-size: 16px;    
+            letter-spacing: 0.02em;
+            font-family: 'Manrope', sans-serif;
+        } 
+        .custom-button {
+            background-color: #0b5ed7; /* Добавлено для эффекта при наведении */
+            color: white;
+        }
+        .carousel-caption h5 {
+            font-family: Manrope;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 19.12px;
+            letter-spacing: 0.02em;
+            text-align: left;
+            color: #FFFFFF80;
+
+        }
+        .carousel-caption {
+            text-align: left;
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            bottom: 20px;
+            max-width: 90%;
+            width: 90%;
+        }
+        .carousel-caption p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 49.18px;
+            letter-spacing: 0.02em;
+            text-align: left;
+            color: #FFFFFF;
+            margin-top: 8px;
+        }
+        .carousel-indicators button {
+            width: 6px!important;
+            height: 6px!important;
+            border-radius: 50%!important;
+        }
+        .carousel-indicators { 
+            right: inherit!important;
+            margin-left: 5%!important;
+        }
+        /* Добавьте эти стили */
+        @media (min-width: 768px) {
+            .news-row {
+                display: flex;
+            }
+            #newsCarousel, .news-container {
+                height: 100%;
+            }
+            .carousel-inner, .carousel-item, .carousel-img {
+                height: 100%;
+            }
+            .carousel-img {
+                object-fit: cover;
+            }
+            .news-container {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden; /* Добавлено для обрезки содержимого */
+                height: 615px;/* Фиксированная высота, соответствующая 4 новостям по 120px */
+            }
+            .news-container::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 50px; /* Высота градиента, можно настроить */
+                background: linear-gradient(180deg, rgba(246, 247, 248, 0) 0%, #F6F7F8 100%);
+                pointer-events: none;
+            }
+            .news-scroll {
+                overflow-y: auto;
+                height: 100%;
+                padding-right: 10px; /* Добавляем отступ справа для скроллбара */
+            }
+            .news-item {
+                flex: 0 0 auto;
+                display: flex;
+                align-items: flex-start;
+                padding: 10px 0;
+                border-bottom: 1px solid #e0e0e0;
+                height: 156px;
+            }
+            .news-item:last-child {
+                border-bottom: none;
+            }
+            .news-image {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                margin-right: 15px;
+            }
+            .news-content {
+                flex: 1;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+            .news-date {
+                font-size: 0.8em;
+                color: #666;
+                margin-bottom: 5px;
+            }
+            .news-text {
+                font-size: 0.9em;
+                line-height: 1.2;
+                overflow: hidden;
+            }
+        }
+        
+        /* Обновленне стили для caption */
+        .carousel-caption {
+            text-align: left;
+            left: 5%;
+            right: 5%;
+            bottom: 20px;
+            max-width: 90%;
+        }
+        /* Обновленные стили для карусели */
+        @media (min-width: 768px) {
+            #newsCarousel {
+                height: 100%;
+            }
+            .carousel-inner, .carousel-item {
+                height: 100%;
+            }
+            .carousel-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .carousel-caption {
+                text-align: left;
+                left: inherit;
+                right: 5%;
+                bottom: 20px;
+                max-width: 90%;
+                transform: inherit!important;
+            } 
+            .carousel-indicators {
+                justify-content: flex-start;
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+            .carousel-indicators button {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-right: 5px;
+                margin-left: 5px; 
+            }
+        }
+        .custom-next-button {
+            position: absolute;
+            right: 3%;
+            top: 7%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: 1px solid #ffffff1f;
+            z-index: 1000;
+        }
+
+        .custom-next-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .custom-next-button .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+            width: 20px;
+            height: 20px; 
+        }
+
+        .custom-next-button:hover .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+    .orders-decrees-section { 
+        margin-top: 40px;
+        padding-bottom: 32px;
+        border-radius: 56px;
+        background-color: #FFFFFF;
+    }
+
+    .orders-decrees-content {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    /* Стили для заголовка секции */
+    .orders-decrees-section h3 {
+        margin-bottom: 32px;
+    }
+
+    /* Стили для контейнера карточек */
+    .orders-decrees-cards {
+        display: flex; 
+    }
+
+    /* Стили для тдельной карточки */
+    .document-card {
+        flex: 1;
+    }
+
+    @media (max-width: 1440px) {
+        .orders-decrees-section {
+            width: 100%; 
+        }
+    }
+    .carousel-img {
+        max-height:654px;
+    } 
+    
+     /* Стили для карусели с видимым предыдущим слайдом слева */
+    .carousel-multi-item {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carousel-multi-item .carousel-inner {
+        width: calc(100% + 100px);
+    }
+
+    .carousel-multi-item .carousel-item {
+        width: calc(100% - 100px);
+        position: relative;
+        float: right;
+        transition: transform 0.6s ease-in-out;
+    }
+
+    .carousel-multi-item .carousel-item-next:not(.carousel-item-start),
+    .carousel-multi-item .active.carousel-item-end {
+        transform: translateX(100px);
+    }
+
+    .carousel-multi-item .carousel-item-prev:not(.carousel-item-end),
+    .carousel-multi-item .active.carousel-item-start {
+        transform: translateX(-100%);
+    }
+
+    /* Обновленные стили для изображений в карусли */
+    .carousel-multi-item .carousel-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* Обновленные стили для кнопок управления каруселью */
+    .carousel-control-prev {
+        left: 100px;
+    }
+ 
+
+    /* Обновленные стили для индикаторов и подписей */
+    .carousel-indicators {
+        left: 50%;
+        transform: translateX(-50px);
+    }
+
+    .carousel-caption {
+        right: 5%;
+        left: 5%;
+        bottom: 20px;
+    }
+     .custom-carousel {
+        position: relative;
+        overflow: hidden;
+        width: 90%; /* Уменьшаем ширину карусели */
+        margin: 0 auto; /* Центрируем карусель */
+    }
+
+    .custom-carousel .owl-stage-outer {
+        overflow: visible;
+    }
+
+    .custom-carousel .owl-item {
+        opacity: 0.3;
+        transition: opacity 0.3s ease, transform 0.5s ease;
+    }
+
+    .custom-carousel .owl-item.active {
+        opacity: 1;
+    }
+
+    .custom-carousel .owl-item.active.center {
+        transform: scale(1);
+    }
+
+    .custom-carousel .owl-item:not(.center) {
+        transform: scale(0.9);
+    }
+ 
+
+    .custom-carousel .carousel-indicators {
+        left: 55%;
+        transform: translateX(-50%);
+    } 
+
+    .custom-carousel .carousel-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .custom-carousel .owl-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 5%;
+        display: flex;
+        gap: 10px;
+    }
+
+    .custom-carousel .owl-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5) !important;
+        transition: all 0.3s ease;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .custom-carousel .owl-dot.active {
+        width: 24px;
+        height: 12px;
+        border-radius: 6px; 
+    }
+
+    .custom-carousel .owl-dot:hover {
+        background-color: rgba(255, 255, 255, 0.8) !important;
+    }
+    .dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%; /* Позиционируем подменю справа */
+    margin-top: -6px; /* Выравнивание по вертикали */
+    display: none!important; /* Скрываем подменю по умолчанию */
+}
+
+.dropdown-submenu:hover .dropdown-menu {
+    display: block!important /* Показываем подменю при наведении */
+}
+.search-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* Убедитесь, что всплывающее окно поверх других элементов */
+    }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .popup-content input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        width: 200px; /* Ширина поля поиска */
+        margin-right: 10px; /* Отступ между полем ввода и кнопкой */
+    }
+
+    .popup-content button {
+        padding: 10px 15px;
+        border: none;
+        background-color: #0D6EFD;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .popup-content button:hover {
+        background-color: #0b5ed7; /* Цвет кнопки при наведении */
+    }
+
+    .close-popup {
+        cursor: pointer;
+        font-size: 24px;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+    }
+     </style>
+         <style>
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(255, 255, 255); /* Полупрозрачный фон */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Убедитесь, что прелоадер поверх других элементов */
+    }
+
+    .loader {
+        border: 8px solid #f3f3f3; /* Светлый цвет */
+        border-top: 8px solid #3498db; /* Цвет верхней части */
+        border-radius: 50%;
+        width: 50px; /* Ширина прелоадера */
+        height: 50px; /* Высота прелоадера */
+        animation: spin 1s linear infinite; /* Анимация вращения */
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+    <style>
+@import url('/assets/vendor-local/manrope/manrope-variable.css');
+</style>
+    <link rel="stylesheet" href="/assets/styles.css"> 
+      <!-- Owl Carousel CSS -->
+      <link rel="stylesheet" href="/assets/vendor-local/owlcarousel-2.3.4/owl.carousel.min.css">
+      <link rel="stylesheet" href="/assets/vendor-local/owlcarousel-2.3.4/owl.theme.default.min.css">
+      
+      <!-- jQuery (необходим для Owl Carousel) -->
+      <script src="/assets/vendor-local/jquery-3.6.0/jquery.min.js"></script>
+      
+      <!-- Owl Carousel JS -->
+      <script src="/assets/vendor-local/owlcarousel-2.3.4/owl.carousel.min.js"></script>
+    <style>
+        .search-container {
+            padding: 20px;
+        }
+        
+        .search-box {
+            position: relative;
+            height: 40px;
+            width: 40px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .search-box.active {
+            width: 250px;
+        }
+        
+        .search-input {
+            position: absolute;
+            right: 0;
+            width: 0;
+            height: 100%;
+            padding: 0;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            border-radius: 50px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+        }
+        
+        .search-box.active .search-input {
+            width: 100%;
+            padding: 0 15px;
+            opacity: 1;
+            border: 1px solid #ddd;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: #007bff;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .search-btn:hover {
+            background: #0056b3;
+        }
+        
+        .search-box.active .search-btn {
+            background: #007bff;
+            border-radius: 50px;
+        }
+        @media(max-width:1200px){
+            .search-container {
+                width:100%;
+            }
+            .search-box, .search-box.active{
+                width:100%;
+            } 
+            .search-box .search-input {
+                width: 100%;
+                padding: 0 15px;
+                opacity: 1;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body> 
+    
+     
+    <style>
+        .useful-info-dropdown {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+        }
+        .useful-info-dropdown > .useful-info-link {
+            padding-inline-end: 0;
+        }
+        .useful-info-dropdown > .useful-info-toggle {
+            background: transparent;
+            border: 0;
+            padding-inline: 6px;
+            min-width: 32px;
+        }
+        .useful-info-toggle .fas {
+            margin-left: 0;
+        }
+        .useful-info-dropdown > .dropdown-menu {
+            grid-column: 1 / -1;
+        }
+        @media (max-width: 1199px) {
+            .useful-info-dropdown > .useful-info-toggle {
+                min-width: 44px;
+                min-height: 44px;
+            }
+        }
+        .useful-info-dropdown > .dropdown-menu:not(.show) {
+            display: none;
+        }
+        .useful-info-dropdown > .dropdown-menu.show {
+            display: block;
+        }
+        .useful-info-dropdown .dropdown-item {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            padding-block: 0.625rem;
+        }
+        @media (min-width: 1200px) {
+            .useful-info-dropdown > .dropdown-menu {
+                width: 360px;
+            }
+        }
+        @media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+            .useful-info-dropdown:hover > .dropdown-menu {
+                display: block;
+            }
+        }
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            header .navbar-expand-xl .navbar-nav .nav-link {
+                font-size: 14px;
+                padding-inline: 0.375rem;
+            }
+            header .navbar-nav .nav-item {
+                margin-right: 4px;
+            }
+            header .search-container {
+                padding-inline: 10px;
+            }
+        }
+    </style>
+    <header class="bg-white">
+        <nav class=" container navbar navbar-expand-xl navbar-light bg-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/logo.png" alt="Лого">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Правительство РД <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu"  style="min-width: 350px;width:inherit;overflow-y: inherit;"  aria-labelledby="navbarDropdown2">
+                                <li><a class="dropdown-item" href="https://e-dag.ru/ministry">Состав Правительства РД</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/departments">Органы исполнительной власти</a></li> 
+                                <li><a class="dropdown-item" href="https://e-dag.ru/pages/2">Задачи и полномочия Правительства РД</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/pages/3">Республиканские СМИ</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/income-information">Сведения о доходах</a></li> 
+                                <li><a class="dropdown-item" href="https://e-dag.ru/coordination">Координационные и совещательные органы</a></li> 
+                                  
+                            </ul>
+                        </li> 
+                        <li class="nav-item">
+                                <a class="nav-link" href="https://e-dag.ru/docs" role="button">
+                                    Документы 
+                                </a> 
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="https://e-dag.ru/news_main" id="navbarDropdown1" role="button">
+                                Пресс-центр <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" style="width:inherit;overflow-y: inherit;" aria-labelledby="navbarDropdown1">
+                                   
+                                
+                                <li><a class="dropdown-item" href="https://e-dag.ru/news_main">Новости</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/announcements">Анонсы</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/info-materials">Информационные материалы
+</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/feed">Обращения</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"  id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Проектный офис <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown3" style="min-width: 350px;width:inherit;overflow-y: inherit;" >
+                            <li><a class="dropdown-item" href="https://e-dag.ru/natioinproj">Национальные проекты</a></li> 
+                            <li><a class="dropdown-item" href="https://e-dag.ru/federal-projects-passports">Федеральные нормативные акты и методрекомендации</a></li> 
+                            <li><a class="dropdown-item" href="https://e-dag.ru/federal-npa">Региональные нормативные акты</a></li>  
+                            <li><a class="dropdown-item" href="https://e-dag.ru/project-progress">Ход реализации проектов</a></li>
+                        </ul>
+                        </li>
+                         
+                        <li class="nav-item dropdown useful-info-dropdown">
+                            <a class="nav-link useful-info-link" href="https://e-dag.ru/useful-information">Полезная информация</a>
+                            <button class="nav-link useful-info-toggle" type="button" id="usefulInformationMenu" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Раскрыть полезную информацию">
+                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usefulInformationMenu">
+                                <li><a class="dropdown-item" href="https://e-dag.ru/pages/17">Информация о федеральных государственных гражданских служащих Минюста России, ответственных за рассмотрение обращений граждан и организаций</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/military">Военный комиссариат</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/pages/18">Сервисы ФССП России</a></li>
+                                <li><a class="dropdown-item" href="https://e-dag.ru/pages/19">Регламент обращений граждан</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://e-dag.ru/contact">Контакты</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <div class="search-container">
+                            <div class="search-box">
+                                 <form action="https://e-dag.ru/search" method="GET">
+                <input type="text" name="query" class="search-input" placeholder="Поиск..." required="">
+                
+                                <button class="search-btn d-none d-xl-block" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="search-btn d-xl-none" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                </form>
+                            </div>
+                        </div>
+                        <button class="btn btn-link bvi-button" type="button">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <a href="/feedback" class="btn custom-button feedback" type="button">
+                            <i class="far fa-comment me-2"></i>Обратиться
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-3">
+    <div class="row">
+        <div class="col-md-7">
+                        
+            <img src="https://e-dag.ru/storage/images/news/1793025881_IMG_2811.JPG" class="main_image" alt="Дагестан восстановил туристический поток после весенних паводков">
+            
+            <h1 style="padding: 20px 0;font-size: 24px;border-bottom: 1px solid #dbdbdb;font-weight: bold;">Дагестан восстановил туристический поток после весенних паводков</h1>
+            <p class="text-muted" style="text-align: right;">Опубликовано в 
+                                    26.10.2026
+                </p>
+            <div class="news-content"> 
+                <!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+
+
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Normal</w:View>
+  <w:Zoom>0</w:Zoom>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>RU</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:EnableOpenTypeKerning/>
+   <w:DontFlipMirrorIndents/>
+   <w:OverrideTableStyleHps/>
+  </w:Compatibility>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="371">
+  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 9"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="header"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footer"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index heading"/>
+  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of figures"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope return"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="line number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="page number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of authorities"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="macro"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="toa heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 5"/>
+  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Closing"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Signature"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Message Header"/>
+  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Salutation"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Date"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Note Heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Block Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="FollowedHyperlink"/>
+  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Document Map"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Plain Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="E-mail Signature"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Top of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Bottom of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal (Web)"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Acronym"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Cite"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Code"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Definition"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Keyboard"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Preformatted"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Sample"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Typewriter"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Variable"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Table"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation subject"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="No List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Contemporary"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Elegant"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Professional"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Balloon Text"/>
+  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Theme"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 6"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Обычная таблица";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin-top:0cm;
+	mso-para-margin-right:0cm;
+	mso-para-margin-bottom:8.0pt;
+	mso-para-margin-left:0cm;
+	line-height:107%;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	mso-fareast-language:EN-US;}
+</style>
+<![endif]-->
+
+
+
+<!--StartFragment-->
+
+<p>На заседании
+Правительства Дагестана, прошедшее в понедельник, 26 октября, врио
+премьер-министра республики Магомед Рамазанов подвел итоги туристического
+сезона и обозначил перспективы развития отрасли.<o:p></o:p></p>
+
+<p>По его словам, сезон
+выдался непростым. Из-за паводков и введения режима ЧС в его начале наблюдалось
+снижение туристического потока.<o:p></o:p></p>
+
+<p>По данным туроператоров,
+с апреля по июнь доля отмененных туров доходила до 30%. К августу турпоток в
+регион восстановился до уровня прошлого года, а уже в сентябре незначительно
+превысил показатель 2025 года.  <o:p></o:p></p>
+
+<p>Несмотря на возникшие
+сложности, в республике продолжается развитие туристической инфраструктуры,
+увеличивается число объектов размещения и реализуются инвестиционные проекты.<o:p></o:p></p>
+
+<p>Особое внимание Магомед
+Рамазанов уделил развитию сельского туризма, прежде всего в горных районах.
+Ранее министр экономического развития России Максим Решетников также отметил
+перспективность этого направления для развития сельских территорий и сохранения
+культурного наследия.<o:p></o:p></p>
+
+<p>Как подчеркнул Рамазанов,
+развитие сельского туризма позволит привлечь инвестиции, создать дополнительные
+источники дохода для местных жителей и сохранить самобытность дагестанских сел.<o:p></o:p></p>
+
+<p>Среди других приоритетных
+задач – легализация гостиниц и гостевых домов, повышение качества туристических
+услуг и обеспечение безопасности отдыхающих.<o:p></o:p></p>
+
+<p>Также Магомед Рамазанов
+отметил необходимость решения проблем с очистными сооружениями, от которых зависят
+экологическое состояние Каспийского моря, безопасность пляжей и дальнейшее
+развитие прибрежного туризма.<o:p></o:p></p>
+
+<p>О предварительных итогах
+туристического сезона 2026 года и задачах на предстоящий год сообщил врио
+руководителя Минтуризма Дагестана Эмин Мерданов.<o:p></o:p></p>
+
+<p>Несмотря на сложности
+сезона, в республике продолжилось развитие туристической инфраструктуры. За 7
+месяцев объем услуг в туристической индустрии составил 12,5 млрд рублей, число
+занятых достигло почти 12 тысяч человек.<br>
+<!--[if !supportLineBreakNewLine]--><br>
+<!--[endif]--><o:p></o:p></p>
+
+<p>К 1 октября в Дагестане
+насчитывалось 1005 средств размещения, что на 113 больше, чем годом ранее. На
+семь проектов модульных гостиниц по нацпроекту «Туризм и гостеприимство»
+выделено 343 млн рублей: 180 номеров уже введены, еще 236 откроют до конца
+года. Число классифицированных объектов выросло с 259 до 478 – почти на 85%.<o:p></o:p></p>
+
+<p>«Еще один важный
+результат – увеличение поступлений туристического налога. За первое полугодие в
+местные бюджеты поступило 16,7 млн рублей, что более чем втрое превышает
+показатель аналогичного периода прошлого года», - заявил Мерданов<o:p></o:p></p>
+
+<p>Для продвижения Дагестана
+на международном уровне в конце октября планируется принять представителей 17
+туристических компаний Малайзии.<o:p></o:p></p>
+
+<p>Активно ведется работа и
+по обеспечению безналичной оплаты в гостиницах. <o:p></o:p></p>
+
+<p>«Если в начале года ее
+предоставляли около 64% классифицированных объектов, то к октябрю — уже почти
+89%»,- отметил Эмин Мерданов.<o:p></o:p></p>
+
+<p>В своем докладе он также
+напомнил, что в 2026 году муниципальным образованиям было выделено 60 млн
+рублей на реализацию 7 проектов. Работы планируется завершить до конца года.<o:p></o:p></p>
+
+<p>В их числе: г. Махачкала
+– набережная у «Лунного берега», г. Каспийск – туристический центр, г. Кизляр –
+сквер «Багратион», с. Ахты – историческая часть села, с. Гуниб – смотровая
+площадка, с. Кубачи – тропа к музею Камня, Самурский лес – благоустроенная
+парковая зона.<o:p></o:p></p>
+
+<p>Для продвижения
+туристического потенциала региона организовано взаимодействие с федеральными и
+зарубежными СМИ. Проведено 10 пресс-туров с участием более 70 журналистов и
+представителей съемочных групп. Выпуски Первого канала о Дагестане набрали в
+соцсетях более 17 млн просмотров.<o:p></o:p></p>
+
+<p>В Дагестане также проработают
+дополнительные меры по легализации туристических перевозчиков и
+предпринимателей, предоставляющих услуги активного отдыха. Такую задачу
+обозначил врио Председателя Правительства республики Магомед Рамазанов.<o:p></o:p></p>
+
+<p>Речь идет в том числе о
+катании на катерах, прыжках с тарзанки и других развлечениях, пользующихся
+спросом у туристов.<o:p></o:p></p>
+
+<p>Как отметил Магомед
+Рамазанов, ежегодно происходят аварии и несчастные случаи с участием отдыхающих.
+При этом проверки выявляют факты нелегального оказания услуг и использования
+оборудования, не соответствующего требованиям безопасности.<o:p></o:p></p>
+
+<p>Эмин Мерданов представил
+информацию о работе в этом направлении. Профильным ведомствам совместно с
+муниципалитетами предстоит проработать меры по легализации такой деятельности и
+усилению контроля за соблюдением требований безопасности.<o:p></o:p></p>
+
+<p>В числе приоритетных
+задач на предстоящий год – развитие туристической и коммунальной
+инфраструктуры, безопасность пляжного отдыха, повышение качества услуг и
+продвижение Дагестана как привлекательного туристического направления.<o:p></o:p></p>
+
+<!--EndFragment--> 
+            </div>
+
+                        <section class="news-gallery mt-4" aria-labelledby="news-gallery-title">
+                <h2 id="news-gallery-title" class="h5 mb-3">Фотогалерея</h2>
+                <div class="row row-cols-2 row-cols-lg-4 g-2">
+                                            <div class="col">
+                            <a href="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2811 (1).JPG" class="d-block news-gallery-link" aria-haspopup="dialog" aria-controls="news-photo-dialog" aria-label="Открыть фотографию 1 в полном размере">
+                                <img src="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2811 (1).JPG" class="img-fluid w-100" alt="Дагестан восстановил туристический поток после весенних паводков — фотография 1" style="aspect-ratio: 3 / 2; object-fit: cover;" loading="lazy">
+                            </a>
+                        </div>
+                                            <div class="col">
+                            <a href="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2817.JPG" class="d-block news-gallery-link" aria-haspopup="dialog" aria-controls="news-photo-dialog" aria-label="Открыть фотографию 2 в полном размере">
+                                <img src="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2817.JPG" class="img-fluid w-100" alt="Дагестан восстановил туристический поток после весенних паводков — фотография 2" style="aspect-ratio: 3 / 2; object-fit: cover;" loading="lazy">
+                            </a>
+                        </div>
+                                            <div class="col">
+                            <a href="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2820.JPG" class="d-block news-gallery-link" aria-haspopup="dialog" aria-controls="news-photo-dialog" aria-label="Открыть фотографию 3 в полном размере">
+                                <img src="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2820.JPG" class="img-fluid w-100" alt="Дагестан восстановил туристический поток после весенних паводков — фотография 3" style="aspect-ratio: 3 / 2; object-fit: cover;" loading="lazy">
+                            </a>
+                        </div>
+                                            <div class="col">
+                            <a href="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2821.JPG" class="d-block news-gallery-link" aria-haspopup="dialog" aria-controls="news-photo-dialog" aria-label="Открыть фотографию 4 в полном размере">
+                                <img src="https://e-dag.ru/storage/images/new/19883/1793025881_IMG_2821.JPG" class="img-fluid w-100" alt="Дагестан восстановил туристический поток после весенних паводков — фотография 4" style="aspect-ratio: 3 / 2; object-fit: cover;" loading="lazy">
+                            </a>
+                        </div>
+                                    </div>
+            </section>
+            <dialog id="news-photo-dialog" aria-label="Просмотр фотографии">
+                <div class="news-photo-viewer">
+                    <button type="button" class="news-photo-close" aria-label="Закрыть фотографию" autofocus>×</button>
+                    <img class="news-photo-full" alt="">
+                </div>
+            </dialog>
+            <style>
+                html.news-photo-open { overflow: hidden; }
+                #news-photo-dialog {
+                    padding: 0;
+                    border: 0;
+                    border-radius: 0;
+                    background: transparent;
+                    color: #222;
+                    width: fit-content;
+                    max-width: 94vw;
+                    max-height: 94vh;
+                    max-height: 94dvh;
+                    overflow: visible;
+                    box-shadow: none;
+                }
+                #news-photo-dialog::backdrop { background: rgba(0, 0, 0, .15); }
+                #news-photo-dialog .news-photo-viewer { position: relative; padding-top: 44px; }
+                #news-photo-dialog .news-photo-full {
+                    display: block;
+                    max-width: 94vw;
+                    max-height: calc(94vh - 44px);
+                    max-height: calc(94dvh - 44px);
+                    width: auto;
+                    height: auto;
+                    object-fit: contain;
+                }
+                #news-photo-dialog .news-photo-close {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 44px;
+                    height: 44px;
+                    padding: 0;
+                    border: 0;
+                    border-radius: 0;
+                    background: transparent;
+                    color: #222;
+                    font: 32px/1 Arial, sans-serif;
+                    cursor: pointer;
+                }
+                #news-photo-dialog .news-photo-close:focus-visible { outline: 2px solid #1263c7; outline-offset: -4px; }
+            </style>
+            <script>
+                (() => {
+                    const dialog = document.getElementById('news-photo-dialog');
+                    const photo = dialog.querySelector('.news-photo-full');
+                    document.querySelectorAll('.news-gallery-link').forEach(link => {
+                        link.addEventListener('click', event => {
+                            event.preventDefault();
+                            photo.src = link.href;
+                            photo.alt = link.querySelector('img').alt;
+                            dialog.showModal();
+                            document.documentElement.classList.add('news-photo-open');
+                        });
+                    });
+                    dialog.querySelector('.news-photo-close').addEventListener('click', () => dialog.close());
+                    dialog.addEventListener('click', event => {
+                        if (event.target === dialog) dialog.close();
+                    });
+                    dialog.addEventListener('close', () => {
+                        photo.removeAttribute('src');
+                        document.documentElement.classList.remove('news-photo-open');
+                    });
+                })();
+            </script>
+                    </div> 
+        <div class="col-md-5 bg-white" style="border-radius: 20px;">
+            <h3 style="padding: 20px 0;border-bottom: 1px solid #dbdbdb;">Последние новости</h3>
+            <ul class="related-posts">
+                                    <li>
+                        <a href="https://e-dag.ru/news_main/19906" style="text-decoration: none;color: black;display: flex;align-items: center;">
+                                                        <img src="https://e-dag.ru/storage/images/news/1794408058_IMG_4313.jpeg" class="related_image1" alt="Магомед Рамазанов принял участие в церемонии открытия первой Международной строительной недели БРИКС">
+                            <div style="width: calc(100% - 160px);display: flex;height: 100px;flex-direction: column;justify-content: space-between;">
+                                <p style="padding: 0 10px;font-weight: bold;margin:0;">Магомед Рамазанов принял участие в церемонии открытия первой Международной строительной недели БРИКС</p>    
+                                <p style="padding: 0 10px;margin:0;" class="text-muted">
+                                                                            11.11.2026
+                                                                    </p>
+                            </div>
+                        </a>
+                    </li>
+                                    <li>
+                        <a href="https://e-dag.ru/news_main/19905" style="text-decoration: none;color: black;display: flex;align-items: center;">
+                                                        <img src="https://e-dag.ru/storage/images/news/1794404218_IMG_4267.jpeg" class="related_image1" alt="Магомед Рамазанов встретился с премьер-министром Татарстана Алексеем Песошиным">
+                            <div style="width: calc(100% - 160px);display: flex;height: 100px;flex-direction: column;justify-content: space-between;">
+                                <p style="padding: 0 10px;font-weight: bold;margin:0;">Магомед Рамазанов встретился с премьер-министром Татарстана Алексеем Песошиным</p>    
+                                <p style="padding: 0 10px;margin:0;" class="text-muted">
+                                                                            11.11.2026
+                                                                    </p>
+                            </div>
+                        </a>
+                    </li>
+                                    <li>
+                        <a href="https://e-dag.ru/news_main/19904" style="text-decoration: none;color: black;display: flex;align-items: center;">
+                                                        <img src="https://e-dag.ru/storage/images/news/1794383602_1793858349_43797ab6-e1fa-4762-a0b6-9457b24e4157.jpg" class="related_image1" alt="Магомед Рамазанов поздравил экономистов Дагестана с профессиональным праздником">
+                            <div style="width: calc(100% - 160px);display: flex;height: 100px;flex-direction: column;justify-content: space-between;">
+                                <p style="padding: 0 10px;font-weight: bold;margin:0;">Магомед Рамазанов поздравил экономистов Дагестана с профессиональным праздником</p>    
+                                <p style="padding: 0 10px;margin:0;" class="text-muted">
+                                                                            11.11.2026
+                                                                    </p>
+                            </div>
+                        </a>
+                    </li>
+                                    <li>
+                        <a href="https://e-dag.ru/news_main/19903" style="text-decoration: none;color: black;display: flex;align-items: center;">
+                                                        <img src="https://e-dag.ru/storage/images/news/1794290880_IMG_4217.jpeg" class="related_image1" alt="Магомед Рамазанов поздравил сотрудников органов внутренних дел с профессиональным праздником">
+                            <div style="width: calc(100% - 160px);display: flex;height: 100px;flex-direction: column;justify-content: space-between;">
+                                <p style="padding: 0 10px;font-weight: bold;margin:0;">Магомед Рамазанов поздравил сотрудников органов внутренних дел с профессиональным праздником</p>    
+                                <p style="padding: 0 10px;margin:0;" class="text-muted">
+                                                                            10.11.2026
+                                                                    </p>
+                            </div>
+                        </a>
+                    </li>
+                                    <li>
+                        <a href="https://e-dag.ru/news_main/19902" style="text-decoration: none;color: black;display: flex;align-items: center;">
+                                                        <img src="https://e-dag.ru/storage/images/news/1794205194_IMG_4183.jpeg" class="related_image1" alt="Магомед Рамазанов почтил память погибших сотрудников органов внутренних дел у Мемориала Славы в Махачкале">
+                            <div style="width: calc(100% - 160px);display: flex;height: 100px;flex-direction: column;justify-content: space-between;">
+                                <p style="padding: 0 10px;font-weight: bold;margin:0;">Магомед Рамазанов почтил память погибших сотрудников органов внутренних дел у Мемориала Славы в Махачкале</p>    
+                                <p style="padding: 0 10px;margin:0;" class="text-muted">
+                                                                            09.11.2026
+                                                                    </p>
+                            </div>
+                        </a>
+                    </li>
+                            </ul>
+            <h3 style="padding: 20px 0;border-bottom: 1px solid #dbdbdb;">Последние документы</h3> 
+                 
+                <div class="col mb-3">
+                    <div class="card document-card">
+                        <div class="card-body" style="padding:15px;padding-right: 90px;"> 
+                            <p class="card-date">
+                                                            </p> 
+                            <p class="card-text">Постановление Правительства Республики Дагестан от 9 ноября 2026 г. №193 «Об установлении величины прожиточного минимума на душу населения по основным социально-демографическим группам населения в Республике Дагестан на 2027 год»</p> 
+                            <a class="circular-button" aria-label="Подробнее" href="https://e-dag.ru/docs/10281"> 
+                                <img src="/assets/img/circular_more.svg" alt="Подробнее"> 
+                            </a>
+                        </div>
+                    </div>
+                </div>  
+                 
+                <div class="col mb-3">
+                    <div class="card document-card">
+                        <div class="card-body" style="padding:15px;padding-right: 90px;"> 
+                            <p class="card-date">
+                                                            </p> 
+                            <p class="card-text">Постановление Правительства Республики Дагестан от 9 ноября 2026 г. №192 «О внесении изменений в постановление Правительства Республики Дагестан от 7 июля 2011 г. №227»</p> 
+                            <a class="circular-button" aria-label="Подробнее" href="https://e-dag.ru/docs/10280"> 
+                                <img src="/assets/img/circular_more.svg" alt="Подробнее"> 
+                            </a>
+                        </div>
+                    </div>
+                </div>  
+                 
+                <div class="col mb-3">
+                    <div class="card document-card">
+                        <div class="card-body" style="padding:15px;padding-right: 90px;"> 
+                            <p class="card-date">
+                                                            </p> 
+                            <p class="card-text">Постановление Правительства Республики Дагестан от 9 ноября 2026 г. №191 «О внесении изменений в приложение постановлению Правительства Республики Дагестан от 23 марта 2026 г. №55»</p> 
+                            <a class="circular-button" aria-label="Подробнее" href="https://e-dag.ru/docs/10279"> 
+                                <img src="/assets/img/circular_more.svg" alt="Подробнее"> 
+                            </a>
+                        </div>
+                    </div>
+                </div>  
+                 
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h1 style="text-align: center;margin-top: 3rem;margin-bottom: 3rem;">Последние новости</h1>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                             
+                <div class="col">
+                    <article class="card h-100 transition-all hover:-translate-y-1 hover:shadow-lg" style="transition: transform 0.3s ease;">
+                        <a href="https://e-dag.ru/news_main/19906" class="overflow-hidden">
+                            <img src="https://e-dag.ru/storage/images/news/1794408058_IMG_4313.jpeg" class="card-img-top transition-transform hover:scale-110" alt="Магомед Рамазанов принял участие в церемонии открытия первой Международной строительной недели БРИКС">
+                        </a>
+                        <div class="card-body d-flex flex-column bg-white" style="padding: 1rem;padding-right:32px;">
+                            <h3 class="card-title fs-5 mb-2">
+                                <a href="https://e-dag.ru/news_main/19906" class="text-decoration-none text-dark hover:text-primary">Магомед Рамазанов принял участие в церемонии открытия первой Международной строительной недели БРИКС</a>
+                            </h3>
+                            <div class="card-text flex-grow-1" style="display: flex;justify-content: space-between;">
+                                <div class="mt-auto d-flex justify-content-between align-items-end" style="width:100%;">
+                                    <p class="card-text text-muted mb-2" style="margin-bottom: 0!important;">
+                                        <small>
+                                                                                            11.11.2026
+                                                                                    </small>
+                                    </p>
+                                    <div class="text-muted small"></div>
+                                    <a href="https://e-dag.ru/news_main/19906" class="btn btn-outline-primary btn-sm">Читать далее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>  
+                                     
+                <div class="col">
+                    <article class="card h-100 transition-all hover:-translate-y-1 hover:shadow-lg" style="transition: transform 0.3s ease;">
+                        <a href="https://e-dag.ru/news_main/19905" class="overflow-hidden">
+                            <img src="https://e-dag.ru/storage/images/news/1794404218_IMG_4267.jpeg" class="card-img-top transition-transform hover:scale-110" alt="Магомед Рамазанов встретился с премьер-министром Татарстана Алексеем Песошиным">
+                        </a>
+                        <div class="card-body d-flex flex-column bg-white" style="padding: 1rem;padding-right:32px;">
+                            <h3 class="card-title fs-5 mb-2">
+                                <a href="https://e-dag.ru/news_main/19905" class="text-decoration-none text-dark hover:text-primary">Магомед Рамазанов встретился с премьер-министром Татарстана Алексеем Песошиным</a>
+                            </h3>
+                            <div class="card-text flex-grow-1" style="display: flex;justify-content: space-between;">
+                                <div class="mt-auto d-flex justify-content-between align-items-end" style="width:100%;">
+                                    <p class="card-text text-muted mb-2" style="margin-bottom: 0!important;">
+                                        <small>
+                                                                                            11.11.2026
+                                                                                    </small>
+                                    </p>
+                                    <div class="text-muted small"></div>
+                                    <a href="https://e-dag.ru/news_main/19905" class="btn btn-outline-primary btn-sm">Читать далее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>  
+                                     
+                <div class="col">
+                    <article class="card h-100 transition-all hover:-translate-y-1 hover:shadow-lg" style="transition: transform 0.3s ease;">
+                        <a href="https://e-dag.ru/news_main/19904" class="overflow-hidden">
+                            <img src="https://e-dag.ru/storage/images/news/1794383602_1793858349_43797ab6-e1fa-4762-a0b6-9457b24e4157.jpg" class="card-img-top transition-transform hover:scale-110" alt="Магомед Рамазанов поздравил экономистов Дагестана с профессиональным праздником">
+                        </a>
+                        <div class="card-body d-flex flex-column bg-white" style="padding: 1rem;padding-right:32px;">
+                            <h3 class="card-title fs-5 mb-2">
+                                <a href="https://e-dag.ru/news_main/19904" class="text-decoration-none text-dark hover:text-primary">Магомед Рамазанов поздравил экономистов Дагестана с профессиональным праздником</a>
+                            </h3>
+                            <div class="card-text flex-grow-1" style="display: flex;justify-content: space-between;">
+                                <div class="mt-auto d-flex justify-content-between align-items-end" style="width:100%;">
+                                    <p class="card-text text-muted mb-2" style="margin-bottom: 0!important;">
+                                        <small>
+                                                                                            11.11.2026
+                                                                                    </small>
+                                    </p>
+                                    <div class="text-muted small"></div>
+                                    <a href="https://e-dag.ru/news_main/19904" class="btn btn-outline-primary btn-sm">Читать далее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>  
+                                     
+                <div class="col">
+                    <article class="card h-100 transition-all hover:-translate-y-1 hover:shadow-lg" style="transition: transform 0.3s ease;">
+                        <a href="https://e-dag.ru/news_main/19903" class="overflow-hidden">
+                            <img src="https://e-dag.ru/storage/images/news/1794290880_IMG_4217.jpeg" class="card-img-top transition-transform hover:scale-110" alt="Магомед Рамазанов поздравил сотрудников органов внутренних дел с профессиональным праздником">
+                        </a>
+                        <div class="card-body d-flex flex-column bg-white" style="padding: 1rem;padding-right:32px;">
+                            <h3 class="card-title fs-5 mb-2">
+                                <a href="https://e-dag.ru/news_main/19903" class="text-decoration-none text-dark hover:text-primary">Магомед Рамазанов поздравил сотрудников органов внутренних дел с профессиональным праздником</a>
+                            </h3>
+                            <div class="card-text flex-grow-1" style="display: flex;justify-content: space-between;">
+                                <div class="mt-auto d-flex justify-content-between align-items-end" style="width:100%;">
+                                    <p class="card-text text-muted mb-2" style="margin-bottom: 0!important;">
+                                        <small>
+                                                                                            10.11.2026
+                                                                                    </small>
+                                    </p>
+                                    <div class="text-muted small"></div>
+                                    <a href="https://e-dag.ru/news_main/19903" class="btn btn-outline-primary btn-sm">Читать далее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>  
+                                                </div>
+</div>
+
+<style>
+    .row * {
+        font-family: 'Manrope', sans-serif;
+    }
+    .main_image {
+        width: 100%; 
+        border-radius: 20px;
+    }
+    .related_image1 {
+        height: 100px;
+        width: 160px;
+        border-radius: 10px;
+    }
+    .related-posts {
+        list-style: none;
+        padding: 0;
+    }
+    .related-posts li {
+        margin-bottom: 15px;
+    }
+    .carousel-control-prev {
+        left: 20px;
+    }
+    .carousel-control-next {
+        right: 20px;
+    }
+    .carousel-control-next, .carousel-control-prev {
+    background: rgba(0, 0, 0, 0.4) !important;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    background: 0 0;
+    border: 0;
+    opacity: 1;
+    transition: opacity .15s ease;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+</style>
+
+ 
+    <footer class="site-footer">
+      <div class="d-flex container" style="flex-wrap:wrap;">
+        <div class="footer-logo">
+          <img src="/assets/img/gerb_for_button.png" alt="Правительство Республики Дагестан">
+          <p>367005, Россия, Республика Дагестан, г. Махачкала, пл.Ленина, д. 1</p>
+            <p>Телефон: 8 (8722) 51-76-59</p>
+            <div class="social-icons" style="display:flex; align-items:center; gap:8px;">
+              <a href="https://vk.ru/pravitelstvo_dagestana" style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;"><svg width="28" height="28" viewBox="4.25 4.25 25.5 25.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.035 6.035C4.25 7.837 4.25 10.7185 4.25 16.49V17.51C4.25 23.273 4.25 26.1545 6.035 27.965C7.837 29.75 10.7185 29.75 16.49 29.75H17.51C23.273 29.75 26.1545 29.75 27.965 27.965C29.75 26.163 29.75 23.2815 29.75 17.51V16.49C29.75 10.727 29.75 7.8455 27.965 6.035C26.163 4.25 23.2815 4.25 17.51 4.25H16.49C10.727 4.25 7.8455 4.25 6.035 6.035ZM8.551 12.0105H11.475C11.5685 16.8725 13.7105 18.9295 15.4105 19.3545V12.0105H18.156V16.201C19.8305 16.0225 21.5985 14.11 22.1935 12.002H24.9305C24.7072 13.0931 24.2613 14.1265 23.6207 15.0377C22.9802 15.9488 22.1587 16.7181 21.2075 17.2975C22.2692 17.8257 23.2068 18.5731 23.9584 19.4903C24.7101 20.4075 25.2587 21.4737 25.568 22.6185H22.5505C21.9045 20.604 20.2895 19.04 18.156 18.8275V22.6185H17.816C12.002 22.6185 8.687 18.6405 8.551 12.0105Z" fill="#207FFF"/>
+                </svg>
+                </a>
+              <a href="https://t.me/pravitelstvord" style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;"><svg width="28" height="28" viewBox="2.833 2.833 28.334 28.334" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.9997 2.83325C9.17967 2.83325 2.83301 9.17992 2.83301 16.9999C2.83301 24.8199 9.17967 31.1666 16.9997 31.1666C24.8197 31.1666 31.1663 24.8199 31.1663 16.9999C31.1663 9.17992 24.8197 2.83325 16.9997 2.83325ZM23.573 12.4666C23.3605 14.7049 22.4397 20.1449 21.9722 22.6524C21.7738 23.7149 21.3772 24.0691 21.0088 24.1116C20.1872 24.1824 19.5638 23.5733 18.7705 23.0491C17.5238 22.2274 16.8155 21.7174 15.6113 20.9241C14.2088 20.0033 15.1155 19.4933 15.923 18.6716C16.1355 18.4591 19.7622 15.1583 19.833 14.8608C19.8428 14.8157 19.8415 14.7689 19.8292 14.7245C19.8169 14.68 19.7938 14.6393 19.7622 14.6058C19.6772 14.5349 19.5638 14.5633 19.4647 14.5774C19.3372 14.6058 17.3538 15.9233 13.4863 18.5299C12.9197 18.9124 12.4097 19.1108 11.9563 19.0966C11.4463 19.0824 10.483 18.8133 9.76051 18.5724C8.86801 18.2891 8.17384 18.1333 8.23051 17.6374C8.25884 17.3824 8.61301 17.1274 9.27884 16.8583C13.4155 15.0591 16.1638 13.8691 17.538 13.3024C21.4763 11.6591 22.2838 11.3758 22.8222 11.3758C22.9355 11.3758 23.2047 11.4041 23.3747 11.5458C23.5163 11.6591 23.5588 11.8149 23.573 11.9283C23.5588 12.0133 23.5872 12.2683 23.573 12.4666Z" fill="#26A4E6"/>
+                </svg>
+                </a>
+              <a href="https://max.ru/pravitelstvord" aria-label="MAX" style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;">
+                  <svg width="28" height="28" viewBox="0 0 195 195" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MAX">
+  <defs>
+    <linearGradient id="footer-max-gradient" x1="0" y1="195" x2="195" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#28C2F9"/>
+      <stop offset="0.5" stop-color="#4037F3"/>
+      <stop offset="1" stop-color="#A339DB"/>
+    </linearGradient>
+  </defs>
+  <rect width="195" height="195" rx="39.97" fill="url(#footer-max-gradient)"/>
+  <path d="M142,38 L141,38 L136,34 L133,33 L131,31 L129,31 L124,28 L122,28 L118,26 L115,26 L114,25 L110,25 L109,24 L88,24 L87,25 L82,25 L81,26 L78,26 L77,27 L75,27 L74,28 L69,29 L59,34 L57,36 L53,38 L50,41 L49,41 L40,50 L40,51 L37,54 L37,55 L33,60 L28,70 L28,72 L26,76 L26,79 L25,80 L25,84 L24,85 L24,93 L23,94 L23,101 L24,102 L24,113 L25,114 L25,120 L26,121 L26,125 L27,126 L27,129 L28,130 L28,133 L29,134 L29,137 L30,138 L30,141 L31,142 L31,145 L32,146 L32,149 L33,150 L33,155 L34,156 L34,166 L36,169 L38,170 L47,170 L48,169 L51,169 L59,165 L65,160 L67,160 L72,164 L78,167 L80,167 L84,169 L89,169 L90,170 L106,170 L107,169 L112,169 L113,168 L117,168 L118,167 L123,166 L126,164 L128,164 L134,161 L136,159 L137,159 L139,157 L143,155 L155,143 L155,142 L160,136 L166,124 L166,122 L168,118 L168,115 L169,114 L169,111 L170,110 L170,102 L171,101 L171,94 L170,93 L170,85 L169,84 L169,80 L168,79 L168,76 L167,75 L166,70 L160,58 L158,56 L156,52 L151,47 L151,46 Z M123,68 L130,76 L134,84 L134,86 L135,87 L135,90 L136,91 L136,102 L135,103 L135,107 L129,119 L120,128 L108,134 L105,134 L104,135 L91,135 L90,134 L87,134 L86,133 L84,133 L80,131 L78,129 L77,129 L70,135 L68,136 L65,135 L62,130 L62,128 L60,124 L60,119 L59,118 L59,110 L58,109 L58,101 L59,100 L59,93 L60,92 L60,88 L61,87 L61,85 L66,75 L69,72 L69,71 L77,64 L85,60 L87,60 L88,59 L93,59 L94,58 L100,58 L101,59 L106,59 L107,60 L112,61 L116,63 L118,65 L119,65 L122,68 Z" fill="white" fill-rule="evenodd"/>
+</svg>
+                </a>
+              <a href="https://ok.ru/group/62390220882132" aria-label="Одноклассники" title="Одноклассники" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; color:#ee8208; font-size:28px;">
+                  <svg width="28" height="28" viewBox="4.25 4.83203 25.5 25.5" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M6.035 6.61703C4.25 8.41903 4.25 11.3005 4.25 17.072V18.092C4.25 23.855 4.25 26.7365 6.035 28.547C7.837 30.332 10.7185 30.332 16.49 30.332H17.51C23.273 30.332 26.1545 30.332 27.965 28.547C29.75 26.745 29.75 23.8635 29.75 18.092V17.072C29.75 11.309 29.75 8.42753 27.965 6.61703C26.163 4.83203 23.2815 4.83203 17.51 4.83203H16.49C10.727 4.83203 7.8455 4.83203 6.035 6.61703Z" fill="#F57626"></path>
+                      <path d="M16.9884 17.8663C14.6342 17.8663 12.6775 15.9113 12.6775 13.5979C12.6775 11.2046 14.6342 9.24878 16.9892 9.24878C19.4242 9.24878 21.3 11.2038 21.3 13.5979C21.2982 14.1604 21.1855 14.7171 20.9686 15.236C20.7516 15.755 20.4345 16.2261 20.0355 16.6226C19.6364 17.019 19.1632 17.333 18.6428 17.5465C18.1224 17.76 17.565 17.869 17.0025 17.8671L16.9884 17.8663ZM16.9884 11.7629C15.9917 11.7629 15.2334 12.6004 15.2334 13.5988C15.2334 14.5954 15.9917 15.3538 16.9892 15.3538C18.0267 15.3538 18.745 14.5954 18.745 13.5988C18.7459 12.5996 18.0267 11.7629 16.9884 11.7629ZM18.705 21.4179L21.1409 23.7721C21.62 24.2896 21.62 25.0479 21.1409 25.5271C20.6225 26.0446 19.8234 26.0446 19.4242 25.5271L16.9892 23.1329L14.6342 25.5271C14.395 25.7663 14.075 25.8854 13.715 25.8854C13.4359 25.8854 13.1167 25.7654 12.8367 25.5271C12.3575 25.0479 12.3575 24.2896 12.8367 23.7713L15.3117 21.4171C14.4179 21.1524 13.5605 20.7775 12.7592 20.3013C12.16 19.9821 12.0409 19.1846 12.36 18.5854C12.7592 17.9871 13.4775 17.8279 14.1167 18.2271C14.9822 18.7553 15.9765 19.0347 16.9904 19.0347C18.0044 19.0347 18.9987 18.7553 19.8642 18.2271C20.5034 17.8279 21.2609 17.9871 21.62 18.5854C21.98 19.1846 21.8192 19.9813 21.26 20.3013C20.5025 20.7804 19.6242 21.1396 18.7059 21.4188L18.705 21.4179Z" fill="white"></path>
+                  </svg>
+              </a>
+            </div>
+          <p>©2026. Правительство Республики Дагестан. При перепечатке материалов ссылка обязательна.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h3>Правительство</h3>
+            <ul>
+              <li><a href="https://e-dag.ru/ministry" class="red-link">Структура правительства <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li><a href="https://e-dag.ru/departments">Органы исполнительной власти <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li><a href="https://e-dag.ru/pages/2">Задачи и полномочия правительства РД <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li><a href="https://e-dag.ru/pages/3">Республиканские СМИ <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li><a href="https://e-dag.ru/income-information">Сведения о доходах <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li style="display:none;"><a href="#">Комиссии при правительстве РД <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Пользователям</h3>
+            <ul>
+              <li><a href="/feedback">Обращения граждан <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li><a href="https://e-dag.ru/contact">Контакты <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li><a href="search?query=+">Поиск по сайту <img src="/assets/img/circular_more.svg" alt="Подробнее"></a></li>
+              <li class="bvi-button"><a href="#">Версия для слабовидящих <img src="/assets/img/circular_more.svg" alt="Подрбнее"></a></li>
+            </ul>
+          </div>
+           
+        </div>
+      </div>
+    </footer>
+    <!-- Всплывающее окно с формой поиска -->
+    <div id="searchPopup" class="search-popup d-none">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <form action="https://e-dag.ru/search" method="GET">
+                <input type="text" name="query" placeholder="Поиск..." required>
+                <button type="submit">Найти</button>
+            </form> 
+            
+        </div>
+    </div>
+    <script src="/assets/vendor-local/bootstrap-5.3.2/bootstrap.bundle.min.js"></script> 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 1,  // Показывать только один слайд за раз
+          spaceBetween: 30,
+          freeMode: true,
+          grabCursor: true,
+          mousewheel: true,
+          keyboard: {
+            enabled: true,
+          },
+        });
+      });
+    </script>
+    <script>
+         console.log(typeof jQuery);
+        $(document).ready(function(){
+            var $carousel = $("#newsCarousel");
+            
+            $carousel.owlCarousel({
+                items: 1.05, // Показываем чуть больше одного слайда
+                center: true,
+                loop: true,
+                autoplaySpeed:1000, 
+                autoplayTimeout:3000,
+                autoplay:true,
+                margin: 10,
+                nav: false,
+                dots: true,
+                dotClass: 'owl-dot',
+                smartSpeed: 500, 
+                onInitialized: adjustStage,
+                onTranslated: adjustStage
+            });
+
+            function adjustStage(event) { 
+                // 123
+            }
+
+            // Обработчик клика для кастомной кнопки "Следующий"
+            $('.custom-next-button').click(function() {
+                $carousel.trigger('next.owl.carousel');
+            });
+            jQuery('.owl-dot.active').attr('style', 'left:inherit;');
+            jQuery('.owl-dot.active').attr('style', 'left:0;');
+            jQuery('#newsCarousel').attr('style', 'width: calc(100%); left: 0px;');
+            
+        });
+    </script> 
+    <script src="/assets/vendor-local/popper-2.0.6/popper.min.js"></script>
+    <script src="/assets/vendor-local/bootstrap-4.5.2/bootstrap.min.js"></script> 
+    <script src="/assets/js/bvi.min.js"></script>
+        <script> 
+        new isvek.Bvi({
+                target: '.bvi-button', // Класс инициализации 
+        });
+        </script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-menu a').on('click', function(e) {
+                e.stopPropagation(); // Предотвращаем всплытие события
+            });
+            if($( window ).width() <= 1200){
+                $('.nav-item.dropdown').find('.nav-link').not('.useful-info-link, .useful-info-toggle').attr('href','#');
+                $('.nav-item.dropdown').find('.nav-link').not('.useful-info-link, .useful-info-toggle').attr('data-bs-toggle','dropdown');
+                $('.nav-item.dropdown').find('.nav-link').not('.useful-info-link, .useful-info-toggle').attr('aria-expanded','false'); 
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Обработчик клика для ссылок в выпадающем меню
+            $('.dropdown-menu a').on('click', function(e) {
+                e.stopPropagation(); // Предотвращаем всплытие события
+                window.location.href = $(this).attr('href'); // Переход по ссылке
+            });
+
+            // Обработчик клика для пунктов меню с выпадающим списком
+            $('.dropdown-toggle').on('click', function(e) {
+                if ($(this).next('.dropdown-menu').hasClass('show')) {
+                    e.preventDefault(); // Предотвращаем добавление класса show
+                }
+            });
+        });
+    </script>
+  
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Убираем прелоадер через 1 секунду
+            setTimeout(function() {
+                document.getElementById('preloader').style.display = 'none';
+            }, 1000); // 1000 миллисекунд = 1 секунда
+        });
+    </script>
+    <style>
+        .owl-item:not(.active) {
+    filter: blur(1px);
+}
+    </style>
+    <script>
+        jQuery('.hide_on_desk').click(function(){
+            if(jQuery('.filter_form').hasClass( "show" )){
+                jQuery('.filter_form').removeClass("show");
+            }
+            else{ 
+                jQuery('.filter_form').addClass("show");
+            }
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    function adjustPagination() {
+        const paginationItems = document.querySelectorAll('.pagination .page-item');
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth < 576) { // Если ширина экрана меньше 576px
+            const totalItems = paginationItems.length;
+            const activeIndex = Array.from(paginationItems).findIndex(item => item.classList.contains('active'));
+
+            // Скрыть все элементы
+            paginationItems.forEach(item => {
+                item.style.display = 'none';
+            });
+
+            // Показать 5 элементов: 2 до активного, 2 после активного и сам активный
+            let start = Math.max(activeIndex - 2, 0);
+            let end = Math.min(activeIndex + 3, totalItems);
+
+            // Если активный элемент находится в начале или конце, корректируем диапазон
+            if (activeIndex < 2) {
+                end = Math.min(5, totalItems);
+            } else if (activeIndex > totalItems - 3) {
+                start = Math.max(totalItems - 5, 0);
+            }
+
+            for (let i = start; i < end; i++) {
+                paginationItems[i].style.display = 'inline-block'; // Показать элементы в диапазоне
+            }
+        } else {
+            paginationItems.forEach(item => {
+                item.style.display = 'inline-block'; // Показать все элементы на больших экранах
+            });
+        }
+    }
+
+    adjustPagination(); // Вызов функции при загрузке страницы
+    window.addEventListener('resize', adjustPagination); // Вызов функции при изменении размера окна
+});
+    </script>
+    <script>
+    document.querySelector('.search-btn').addEventListener('click', function() {
+        const searchForm = document.querySelector('.search-input');
+        // Переключаем видимость поля поиска
+        if($( window ).width() >= 1200){ 
+            
+        if ($( ".search-box" ).hasClass( "active" )) {  
+            jQuery('.btn.btn-link.bvi-button').show();
+            jQuery('.feedback').show();
+        } else {  
+            jQuery('.btn.btn-link.bvi-button').hide();
+            jQuery('.feedback').hide();
+        }
+        }
+    });
+</script>
+<script>
+        const searchBox = document.querySelector('.search-box');
+        const searchBtn = document.querySelector('.search-btn');
+        const searchInput = document.querySelector('.search-input');
+        
+        searchBtn.addEventListener('click', () => {
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+</script>
+<style id="edag-max-widget-responsive">
+@media (max-width: 767px) {
+    #rm-greeting-widget { width: 100%; }
+    #rm-greeting-widget .rm-widget {
+        min-width: 0;
+        max-width: calc(100% - 24px);
+        height: auto;
+        min-height: 140px;
+        box-sizing: border-box;
+    }
+}
+</style>
+<script src="https://max.gosuslugi.ru/robot-max/iframe/boot/boot.js?saveState=false&position=bottom-right&initialState=expanded&region=82000000000&platform=default_iframe"></script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(99085256, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/99085256" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</body>
+</html>

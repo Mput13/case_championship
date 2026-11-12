@@ -1,0 +1,568 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8" /><meta content="IE=edge" http-equiv="X-UA-Compatible" /><meta content="telephone=no" name="format-detection" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><title>«Азимут» продлил акцию «Симфония полета» и добавил новые направления</title>
+<meta name="description" content="Дешевые авиабилеты из Москвы, Минеральных Вод, Краснодара и Сочи доступны до 15 ноября. Смотрите полный список маршрутов и минимальных цен на ноябрь и декабрь 2026.">
+<meta property="og:title" content="«Азимут» продлил акцию «Симфония полета» и добавил новые направления">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/uploads/news/photo/1431/thumb_Symphonia_poleta_11_11.webp"><meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="vzFySdUEtAl3PafTf78k+ZW3bWXclugbKSQ46IMYDzakE5PlT3ylot0ahZAyoNgXfoISZkiJ2VObI7vjGHjaQw==" /><link rel="stylesheet" media="all" href="/assets/application-98c87b1d7f064f8f170b0298ce092e24277b2c33d3b474a3ea31e0e9c0f310b8.css" data-turbolinks-track="reload" /><script src="/assets/application-8e4a0efd2fd118f3b91885a038cdaca8363336d419e02c34b810ab80d0c80ae3.js" data-turbolinks-track="reload"></script><link href="https://azimuth.ru/assets/favicon-b34577779973d353b70e5bb6a5fd1196a2245f06f06cca3732e23fe04bac3c41.png" rel="icon" /><script>window.current_locale = "ru";</script><script>// Невидимая капча Яндекса запускается только при отправке формы: сначала
+// проверка полей (обработчики ajax:before в самих формах), затем execute,
+// и по готовности токена форма отправляется ещё раз. Раньше execute шёл при
+// загрузке и на каждое изменение формы, а токен одноразовый и живёт недолго:
+// 22.10.2026 около 40% настоящих заявок приходили с «Invalid or expired
+// Token». Частые запуски к тому же чаще вызывали задание — со скринридером
+// перебор списка стрелками даёт изменение на каждом шаге
+function initSmartCaptcha() {
+  if (!window.smartCaptcha) return;
+  $('.smart-captcha').each(function(i, container) {
+    if (container.dataset.widgetId !== undefined) return;
+    var form = $(container).closest('form');
+    container.dataset.widgetId = window.smartCaptcha.render(container, {
+      sitekey: "ysc1_x5TLCuPmm54y2l0HiEj46zAfikwQqFww8xLbMeZD3e4ed191",
+      invisible: true,
+      hideShield: true,
+      callback: function() {
+        form.data('captchaPassed', true);
+        Rails.fire(form[0], 'submit');
+      }
+    });
+  });
+}
+
+// скрипт капчи грузится один раз, а формы приходят и Turbolinks-переходом
+function onloadCaptchaFunction() { initSmartCaptcha(); }
+$(document).on('turbolinks:load', initSmartCaptcha);
+// в снимке для кнопки «Назад» виджет уже мёртвый — пусть рисуется заново
+$(document).on('turbolinks:before-cache', function() {
+  $('.smart-captcha').removeAttr('data-widget-id').empty();
+});
+
+$(document).on('ajax:before', 'form', function(e) {
+  var container = this.querySelector('.smart-captcha');
+  if (!container || !window.smartCaptcha || container.dataset.widgetId === undefined) return;
+  if ($(this).data('captchaPassed')) return;
+  e.preventDefault();
+  window.smartCaptcha.execute(+container.dataset.widgetId);
+});
+
+// токен одноразовый: после ответа сервера следующая отправка получит новый
+$(document).on('ajax:complete', 'form', function() {
+  var container = this.querySelector('.smart-captcha');
+  if (!container || !window.smartCaptcha || container.dataset.widgetId === undefined) return;
+  $(this).removeData('captchaPassed');
+  window.smartCaptcha.reset(+container.dataset.widgetId);
+});</script><script>
+
+(function() {
+  window.consentQueue = window.consentQueue || [];
+  window.onConsent = window.onConsent || function(cb) {
+    if (typeof cb !== 'function') return;
+    if (window.__consentGiven) { try { cb(); } catch (e) {} }
+    else window.consentQueue.push(cb);
+  };
+})();
+
+function myScripts() {
+
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(45645816, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true,
+        ecommerce:"dataLayer"
+    });
+
+  if (!window.__consentGiven) {
+    window.__consentGiven = true;
+    var queued = window.consentQueue || [];
+    window.consentQueue = { push: function(cb) { try { cb(); } catch (e) {} } };
+    queued.forEach(function(cb) { try { cb(); } catch (e) {} });
+  }
+
+}
+</script>
+<script src="/ru/gdpr-code.js?callback=myScripts"></script>
+
+<script>
+
+  // Попап подписки как модальный диалог: без переноса фокуса скринридер после
+  // клика по «Подписаться» продолжал читать страницу под попапом («Все новости»)
+  // и о форме не сообщал. Держим фокус внутри, Esc и «×» возвращают его на кнопку.
+  var subscriptionOpener = null;
+
+  function subscriptionFocusable() {
+    return $('.subscription-popup').find('a[href], button, input, select, textarea')
+      .filter(':visible').filter(function() { return !this.disabled; });
+  }
+
+  function openSubscriptionPopup(opener) {
+    subscriptionOpener = opener || null;
+    var popup = $('.subscription-popup');
+    popup.show();
+    // на заголовок, а не на первое поле: диалог сначала должен назвать себя
+    popup.find('.subscription-popup__title').attr('tabindex', '-1').focus();
+  }
+
+  function closeSubscriptionPopup() {
+    $('.subscription-popup').hide();
+    if (subscriptionOpener && $(subscriptionOpener).is(':visible')) $(subscriptionOpener).focus();
+    subscriptionOpener = null;
+  }
+  window.closeSubscriptionPopup = closeSubscriptionPopup;
+
+  $(document).on('turbolinks:load', function() {
+    $('body').off('click.subscriptionPopup').on('click.subscriptionPopup', '.btn[data-subscribe-popup]', function() {
+      openSubscriptionPopup(this);
+    });
+    $('.subscription-popup').off('click.subscriptionClose').on('click.subscriptionClose', function(e) {
+      if ($(e.target).is('.subscription-popup') || ($(e.target).closest('.close').length)) {
+        closeSubscriptionPopup();
+      }
+    });
+    // Esc обрабатывается общим обработчиком в main.js — он шлёт это событие
+    $('.subscription-popup').off('a11y:close').on('a11y:close', function() {
+      closeSubscriptionPopup();
+    });
+    // ловушка фокуса: Tab с последнего элемента возвращает на первый и наоборот
+    $('.subscription-popup').off('keydown.subscriptionTrap').on('keydown.subscriptionTrap', function(e) {
+      if (e.key !== 'Tab') return;
+      var items = subscriptionFocusable();
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (!e.shiftKey && e.target === last) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && (e.target === first || $(e.target).is('.subscription-popup__title'))) { e.preventDefault(); last.focus(); }
+    });
+  });
+
+  $(document).on('submit', '#news-subscription-form-v2', function(e) {
+    e.preventDefault();
+    var $form = $(this);
+    var $msg = $form.find('.news-subscription-ajax-message');
+    var $submit = $form.find('input[type=submit]');
+    var sendingText = $form.data('sending') || '…';
+    var networkError = $form.data('networkError') || '';
+    var origVal = $submit.val();
+    $msg.removeClass('is-visible is-error').text('');
+    $submit.prop('disabled', true).val(sendingText);
+
+    $.ajax({
+      url: $form.attr('action'),
+      type: 'POST',
+      data: $form.serialize(),
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+    }).done(function(res) {
+      if (res && res.ok) {
+        closeSubscriptionPopup();
+        $form[0].reset();
+        var $toast = $('<div class="news-subscription-toast" role="status"/>').css({
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          padding: '12px 16px',
+          background: '#e8f5e9',
+          color: '#1a7f37',
+          textAlign: 'center',
+          zIndex: 10001,
+          fontSize: '15px'
+        });
+        $toast.text(res.message || '');
+        $('body').append($toast);
+        setTimeout(function() {
+          $toast.fadeOut(350, function() { $(this).remove(); });
+        }, 4500);
+      } else {
+        var m = (res && res.message) ? res.message : '';
+        $msg.addClass('is-visible is-error').text(m);
+      }
+    }).fail(function(xhr) {
+      var j = xhr.responseJSON;
+      var m = (j && j.message) ? j.message : networkError;
+      $msg.addClass('is-visible is-error').text(m);
+    }).always(function() {
+      $submit.prop('disabled', false).val(origVal);
+    });
+  });
+
+</script>
+<meta name="yandex-verification" content="2696e86985ceeb2a" />
+
+<style>
+
+.-main-gallery .main-gallery-description h2 {
+margin: 0px !important;
+text-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+.-main-gallery .main-gallery-description p {
+background: rgba(0, 55, 105, 0.3);
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+}
+
+.header-nav-drop .services-list a.booking-hotel {
+display:none;
+}
+
+.header-nav-drop .services-list a.car-rent {
+display:none;
+}
+
+.main-nav a.car-rent, .main-order-tab-set a.car-rent span {
+display:none;
+}
+
+.main-order-tab-set a.car-rent {
+display:none;
+}
+
+.main-nav a.booking-hotel, .main-order-tab-set a.booking-hotel {
+  display: none;
+}
+
+.main-order-form-wrap .main-order-tab-body .main-order-tab {
+    padding: 20px 30px !important;
+}
+
+.main-order-form iframe {width:100% !important}
+
+/*
+
+.header-info-list .link-scoreboard {
+display:none;
+}
+
+.header-info-list .link-online {
+display:none;
+}
+
+.main-nav a.booking-hotel, .main-order-tab-set a.booking-hotel span {
+display:none;
+}
+
+.main-order-tab-set a.booking-hotel {
+display:none;
+}
+*/
+
+/* 25.08.17 */ 
+.footer-network {
+    float: right;
+}
+
+.footer-network li:first-child {
+    display: none !important;
+}
+
+.main-nav a, .main-order-tab-set a {
+width:100% !important;
+}
+
+/* 11.09.17 */ 
+.offers-wrap .text {
+    padding: 10px 20px !important;
+    background: rgba(0, 55, 105, 0.5) !important;
+   white-space: normal !important;
+}
+
+.special-offers-block .offers-col-wrap .col66 .text {
+    padding: 24px 30px !important;
+    background: none !important;
+}
+
+/* 28.09.2017 */
+.rules ol {list-style: none;counter-reset: li h3;}
+.rules ol>li:before {counter-increment: li;content: counters(li,".",h3) ". ";}
+
+.tableborder {width: 100%;border: none; border-collapse: collapse;}
+.tableborder td {padding: 5px; border: 1px solid #ddd;}
+
+.tableborder td[colspan] {
+   /* background: #e5edf5 !important;
+    font-size: 17px;
+    line-height: 28px;
+    padding: 9px 6px 9px;
+    color: #202020 !important;
+    font-weight: 200 !important;
+    font-family: "robotolight";
+    text-align: left !important;
+    border-top: 30px solid white;*/
+}
+
+.tableborder tr:nth-child(2) td[colspan] {
+    border-top: 1px solid #ddd !important;
+}
+
+
+@media screen and (max-width: 767px) {
+.about-gallery .col25 {
+    width: inherit !important;
+}
+}
+</style>
+
+
+
+<!--custom-html-->
+<style>
+  body:not(.consent-given) jdiv,
+  body:not(.consent-given) #jivo-iframe-container,
+  body:not(.consent-given) .jivo-iframe-container,
+  body:not(.consent-given) jvi-i-frame {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+</style>
+
+<script>if (window.jivo_destroy) jivo_destroy();</script>
+<script src="//code-ya.jivosite.com/widget/CK5HuRMLnq?nocache=1" async data-turbolinks-track="reload"></script>
+
+<script>
+  window.onConsent(function() {
+    document.body.classList.add('consent-given');
+  });
+</script><script src="https://smartcaptcha.yandexcloud.net/captcha.js?render=onload&amp;onload=onloadCaptchaFunction"></script></head><body><a class="skip-link" href="#main-content">Перейти к содержимому</a><div id="wrapper"><script>window.a11y_texts = {
+  enter_count: "введите количество до",
+  file_none: "Файл не выбран",
+  file_one: "Выбран файл:",
+  file_many: "Выбраны файлы:",
+  date_format: "ДД.ММ.ГГГГ",
+  date_hint: "в формате ДД.ММ.ГГГГ",
+  select_chosen: "выбрано",
+  select_cancelled: "Выбор отменён",
+  footnote: "Сноска"
+}</script><div class="a11y-topbar mb-hidden"><div class="a11y-topbar-inner"><button class="js-a11y-open" type="button">Версия для слабовидящих</button></div></div><div aria-label="Настройки версии для слабовидящих" class="a11y-panel" role="region" tabindex="-1"><div class="a11y-panel-inner"><div aria-label="Размер шрифта" class="a11y-group" role="group"><span aria-hidden="true" class="a11y-group-label">Размер шрифта</span><button aria-label="Размер шрифта 100%" aria-pressed="false" class="a11y-font-100" data-a11y-set="font:100" type="button">А</button><button aria-label="Размер шрифта 150%" aria-pressed="false" class="a11y-font-150" data-a11y-set="font:150" type="button">А</button><button aria-label="Размер шрифта 200%" aria-pressed="false" class="a11y-font-200" data-a11y-set="font:200" type="button">А</button></div><div aria-label="Цветовая схема" class="a11y-group" role="group"><span aria-hidden="true" class="a11y-group-label">Цветовая схема</span><button aria-label="Чёрным по белому" aria-pressed="false" class="a11y-scheme-bw" data-a11y-set="theme:bw" title="Чёрным по белому" type="button">А</button><button aria-label="Белым по чёрному" aria-pressed="false" class="a11y-scheme-wb" data-a11y-set="theme:wb" title="Белым по чёрному" type="button">А</button><button aria-label="Тёмно-синим по голубому" aria-pressed="false" class="a11y-scheme-bl" data-a11y-set="theme:bl" title="Тёмно-синим по голубому" type="button">А</button></div><div class="a11y-group"><button class="a11y-reset js-a11y-off" type="button">Обычная версия</button></div><div class="a11y-group"><button aria-controls="a11y-panel-extra" aria-expanded="false" class="a11y-more js-a11y-more" type="button">Дополнительно</button></div></div><div class="a11y-panel-extra" hidden="" id="a11y-panel-extra"><div aria-label="Интервал" class="a11y-group" role="group"><span aria-hidden="true" class="a11y-group-label">Интервал</span><button aria-label="Интервал: Обычный" aria-pressed="false" data-a11y-set="spacing:0" type="button">Обычный</button><button aria-label="Интервал: Средний" aria-pressed="false" data-a11y-set="spacing:1" type="button">Средний</button><button aria-label="Интервал: Большой" aria-pressed="false" data-a11y-set="spacing:2" type="button">Большой</button></div><div aria-label="Изображения" class="a11y-group" role="group"><span aria-hidden="true" class="a11y-group-label">Изображения</span><button aria-label="Изображения: Цветные" aria-pressed="false" data-a11y-set="images:on" type="button">Цветные</button><button aria-label="Изображения: Чёрно-белые" aria-pressed="false" data-a11y-set="images:gray" type="button">Чёрно-белые</button><button aria-label="Изображения: Выключены" aria-pressed="false" data-a11y-set="images:off" type="button">Выключены</button></div></div></div><div class="a11y-contact-note" role="note"><p>Пассажир с ограничениями жизнедеятельности для безбарьерного оформления авиабилетов и дополнительных услуг может обратиться в контакт-центр авиакомпании по телефону <a href="tel:+78632260005">8 (863) 226-00-05</a>.</p></div><div class="header"><div class="mb-visible mb-header-panel"><div aria-expanded="false" aria-label="Меню" class="opener-nav" role="button" tabindex="0"><span></span></div><a class="logo ru" href="/ru">Авиакомпания<span class="a11y-logo-name"> «Азимут»</span></a><button aria-label="Версия для слабовидящих" class="a11y-open-mb js-a11y-open" type="button">Аа</button></div><div class="header-holder"><div class="center"><div class="header-top-panel"><div class="header-contact"><div class="tel">8 (863) 226-00-05</div></div><div class="header-user"><div class="header-lang"><a class="lang" href="/en/news/aviakompaniya-azimut-uvelichivaet-chislo-napravleniy-v-ramkah-akcii-simfoniya-poleta">Eng</a></div><a class="user" aria-label="Личный кабинет" href="https://booking.azimuth.ru/personal/?lang=ru"><div aria-hidden="true" class="ico" style="background-image: url(https://azimuth.ru/assets/bg-user-bf22ade1ffd8ca69ac496ced45f934d40dacb879791568de2eef0c77be0d8c0e.png)"></div></a><a class="enter" href="https://booking.azimuth.ru/personal/?lang=ru">Личный кабинет</a></div></div><div class="header-block"><div class="header-nav-wrap"><div aria-expanded="false" aria-label="Меню" class="opener-nav mb-hidden" role="button" tabindex="0"><span></span></div><div class="header-nav-drop"><form action="/ru/search" class="header-search" role="search"><input aria-label="Поиск по сайту" name="query" placeholder="Поиск по сайту" type="text" /><button aria-label="Найти" class="search-btn" type="submit"></button></form><div class="row"><div class="col col33 tb-col100 header-service-col mb-hidden"><div class="menu-title">Сервисы</div><ul class="services-list"><li><a class="ticket-search" href="https://booking.azimuth.ru">Поиск билетов</a></li><li><a class="booking-hotel" href="">Бронирование отеля</a></li><li><noindex><a class="car-rent" rel="nofollow noopener noreferrer" target="_blank" href="https://www.rentalcars.com/?affiliateCode=azimuthairlines&amp;preflang=ru&amp;adplat=header">Аренда автомобиля</a></noindex></li><li><a class="searchorder" href="https://booking.azimuth.ru/search/">Поиск заказов</a></li><li><a class="online" href="https://booking.azimuth.ru/checkin/">Онлайн-регистрация</a></li><li><a class="schedule" href="https://booking.azimuth.ru/timetable/">Расписание рейсов</a></li><li><a class="scoreboard" href="/ru/schedule">Онлайн-табло</a></li></ul></div><div class="col col66 tb-col100"><div class="row"><div class="col col25 tb-col33 mb-visible mb-col100 top-menu-item"><div class="menu-title"><a href="/ru">Главная</a></div></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>Спец&shy;предложения</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class='has_submenu'><a href='/ru/special/loyalty'>Программа лояльности</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/special/loyalty'>Условия программы А+</a></li><li><a href='/ru/special/loyalty/sberzdorovie'>Врач в дорогу</a></li></ul></li><li class=''><a href='/ru/special/our-veterans'>Наши ветераны</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/large-family'>Семейные авиаперевозки </a><ul class='menu-list'></ul></li></ul></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>Пассажирам</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class=''><a href='/ru/faq'>Часто задаваемые вопросы</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/passengers/refund-rules'>Бронирование авиабилетов</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/passengers/fares'>Тарифы</a></li><li><a href='/ru/passengers/procedure-of-booking'>Правила и условия онлайн бронирования</a></li><li><a href='/ru/passengers/payment-methods'>Способы оплаты</a></li><li><a href='/ru/passengers/exchange-rules'>Правила и условия обмена</a></li><li><a href='/ru/correction'>Изменение данных пассажира</a></li><li><a href='/ru/passengers/refund-rules'>Правила и условия возврата</a></li></ul></li><li class='has_submenu'><a href='/ru/passengers/baggage/baggage-registration'>Багаж</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/passengers/baggage'>Нормы багажа</a></li><li><a href='/ru/passengers/baggage/excess'>Сверхнормативный багаж</a></li><li><a href='/ru/passengers/baggage/flights-with-pets'>Перевозка животных</a></li><li><a href='/ru/passengers/baggage/li-ion'>Перевозка литий-ионных аккумуляторов</a></li><li><a href='/ru/passengers/baggage/baggage-registration'>Регистрация багажа</a></li></ul></li><li class=''><a href='/ru/passengers/id-documents'>Документы и требования для пассажиров</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/passengers/category/people-with-limited-possibility'>Категории пассажиров</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/passengers/category/people-with-limited-possibility'>Пассажиры с ограничениями жизнедеятельности</a></li><li><a href='/ru/passengers/category/pregnant-women-infants'>Беременные женщины и младенцы</a></li></ul></li><li class=''><a href='/ru/passengers/charter'>Чартерные рейсы</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/vpd'>Оформление авиабилетов по ВПД</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/comfort'>Класс Комфорт</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/extension-of-registration'>Продление регистрации</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/secret-passenger'>Тайный пассажир</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/rules-of-carriage'>Правила перевозок</a><ul class='menu-list'></ul></li></ul></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>Услуги</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class=''><a href='/ru/gift-card'>Подарочный сертификат</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/auto-checkin'>Автоматическая онлайн-регистрация</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/chartered-flight'>Заказ чартерного рейса</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/seat-selection'>Выбор места в самолете</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/additional-meals'>Дополнительное питание</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/insurance'>Добровольное страхование</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/unaccompanied-children'>Несопровождаемые дети</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/multimodal-routes'>Мультимодальные маршруты</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/cargo'>Перевозка грузов</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/information-about-the-flight'>Справки о перелете</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/business-lounge'>Бизнес-зал</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/correspondence'>Коммерческая корреспонденция</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/sms'>СМС-информирование</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/fix-price'>Гарантированная цена</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/pack-fly'>Упаковка багажа</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/onboard-entertainment-system'>Бортовая система развлечений</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/esim'>eSIM</a><ul class='menu-list'></ul></li></ul></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>О компании</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class=''><a href='/ru/about/azimuth'>Азимут</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/about/contacts'>Контакты</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/about/contacts'>Офис</a></li><li><a href='/ru/about/contacts/representative'>Контакты представительств</a></li><li><a href='/ru/about/contacts/agencies'>Контакты уполномоченных агентств</a></li></ul></li><li class=''><a href='/ru/news'>Новости</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/about/vacancies'>Вакансии</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/about/vacancies'>Карьера в Азимуте</a></li><li><a href='/ru/about/vacancies/pilots'>Летный экипаж</a></li><li><a href='/ru/about/vacancies/flight-attendants'>Бортпроводники</a></li><li><a href='/ru/about/vacancies/engineers'>Инженерно-техническая служба</a></li><li><a href='/ru/about/vacancies/techaviation'>Наземное обеспечение</a></li><li><a href='/ru/about/vacancies/office'>Работа в офисе</a></li></ul></li><li class=''><a href='/ru/about/for-agencies'>Агентам</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/flight-map'>Карта полетов</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/about/journal'>Бортовой журнал</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/about/fleet'>Флот</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/about/aviation-safety'>Транспортная и авиационная безопасность</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/about/aviation-safety'>На борту воздушного судна</a></li><li><a href='/ru/about/aviation-safety/airports'>В аэропортах</a></li><li><a href='/ru/about/aviation-safety/weapon'>Перевозка оружия</a></li><li><a href='/ru/about/aviation-safety/dangerous-substances'>Перечень основных опасных веществ</a></li></ul></li><li class=''><a href='/ru/about/confidentiality'>Политика в отношении персональных данных</a><ul class='menu-list'></ul></li></ul></div></div></div></div></div></div><a class="logo mb-hidden ru" href="/ru">Авиакомпания<span class="a11y-logo-name"> «Азимут»</span></a><div class="header-info-list mb-hidden"><a class="link-searchorder" href="https://booking.azimuth.ru/search/">Поиск заказов</a><a class="link-scoreboard" href="/ru/schedule">Онлайн-табло</a><a class="link-online" href="https://booking.azimuth.ru/checkin/">Онлайн-регистрация</a></div></div></div></div></div><main id="main-content" tabindex="-1"><div class="main"><div class="inner-bg" style="background-color: #00529c; background-image: url(/assets/bg-inner-56352b99fd62a182809aa60ccf2df939bbf8ceb793e384c13bc0dba5e71d7509.jpg);"></div><div class="center tab-center"><div class="main-order-form-wrap inner-order-form-wrap"><script>window.search_promos = [{"id":22,"from_id":null,"to_id":21,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1913\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"KRR"},{"id":32,"from_id":null,"to_id":41,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3450\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"TJM"},{"id":31,"from_id":null,"to_id":52,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=6049238\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"SVX"},{"id":30,"from_id":null,"to_id":45,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=804\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"CEK"},{"id":29,"from_id":null,"to_id":25,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3615\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"UFA"},{"id":27,"from_id":null,"to_id":26,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1993\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"KZN"},{"id":21,"from_id":null,"to_id":23,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://airpartner.tvil.ru/city/krasnodarskii-krai/?utm_content=azimuth-aero","from":null,"to":"AER"},{"id":25,"from_id":null,"to_id":30,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1361\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"GOJ"},{"id":24,"from_id":null,"to_id":57,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3048\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"GSV_RTW"},{"id":23,"from_id":null,"to_id":33,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1166\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"ESL"},{"id":40,"from_id":null,"to_id":47,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/astrahan/?utm_content=azimuth-aero","from":null,"to":"ASF"},{"id":26,"from_id":null,"to_id":48,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=180349\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"IAR"},{"id":13,"from_id":null,"to_id":32,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://airpartner.tvil.ru/city/otdyh-v-krymu/?utm_content=azimuth-aero","from":null,"to":"SIP"},{"id":19,"from_id":null,"to_id":28,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=7513\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"GRV"},{"id":18,"from_id":null,"to_id":22,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2242\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"MCX"},{"id":17,"from_id":null,"to_id":51,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=492\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"GYD"},{"id":16,"from_id":null,"to_id":39,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1178\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"EVN"},{"id":15,"from_id":null,"to_id":49,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3477\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"TLV"},{"id":14,"from_id":null,"to_id":58,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1639\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"IST"},{"id":20,"from_id":null,"to_id":27,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://airpartner.tvil.ru/city/mineralnye-vody/?utm_content=azimuth-aero","from":null,"to":"MRV"},{"id":12,"from_id":null,"to_id":56,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2365\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"MMK"},{"id":11,"from_id":null,"to_id":20,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2042\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"LED"},{"id":10,"from_id":null,"to_id":38,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=6025639\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"PKV"},{"id":9,"from_id":null,"to_id":18,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1948\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"KUF"},{"id":8,"from_id":null,"to_id":35,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=8304\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"KLF"},{"id":7,"from_id":null,"to_id":53,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3730\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"VOZ"},{"id":6,"from_id":null,"to_id":55,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1109\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"EGO"},{"id":5,"from_id":null,"to_id":43,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=6478\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"BZK"},{"id":4,"from_id":null,"to_id":59,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2427\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"MSQ"},{"id":3,"from_id":null,"to_id":44,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1798\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"KGD"},{"id":41,"from_id":null,"to_id":113,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1402\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"GUW"},{"id":42,"from_id":null,"to_id":98,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=726\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"BUS"},{"id":37,"from_id":null,"to_id":84,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=354\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"ALA"},{"id":38,"from_id":null,"to_id":67,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=481\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"AYT"},{"id":2,"from_id":null,"to_id":3,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2395\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"MOW"},{"id":35,"from_id":null,"to_id":17,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2721\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"OVB"},{"id":34,"from_id":null,"to_id":16,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2676\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"OMS"},{"id":33,"from_id":null,"to_id":42,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2761\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"PEE"},{"id":28,"from_id":null,"to_id":37,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=965821442\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"NBC"},{"id":1,"from_id":null,"to_id":40,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1254\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"FRU"},{"id":39,"from_id":null,"to_id":111,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/apatity/?utm_content=azimuth-aero","from":null,"to":"KVK"},{"id":43,"from_id":null,"to_id":83,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=6054836\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"BJV"},{"id":44,"from_id":null,"to_id":87,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=601574\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"BHK"},{"id":45,"from_id":null,"to_id":110,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/gorno-altaisk/?utm_content=azimuth-aero","from":null,"to":"RGK"},{"id":48,"from_id":null,"to_id":101,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/ivanovo/?utm_content=azimuth-aero","from":null,"to":"IWA"},{"id":46,"from_id":null,"to_id":114,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=1680\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"JED"},{"id":61,"from_id":null,"to_id":29,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/stavropol/?utm_content=azimuth-aero","from":null,"to":"STW"},{"id":63,"from_id":null,"to_id":92,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/syktyvkar/?utm_content=azimuth-aero","from":null,"to":"SCW"},{"id":66,"from_id":null,"to_id":79,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3616\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"UGC"},{"id":47,"from_id":null,"to_id":70,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=6053839\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"DWC_DXB"},{"id":49,"from_id":null,"to_id":115,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/izhevsk/?utm_content=azimuth-aero","from":null,"to":"IJK"},{"id":67,"from_id":null,"to_id":102,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/hanty-mansiiskii-hanty-mansiisk/?utm_content=azimuth-aero","from":null,"to":"HMA"},{"id":50,"from_id":null,"to_id":103,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/kirovskaya-kirov/?utm_content=azimuth-aero","from":null,"to":"KVX"},{"id":51,"from_id":null,"to_id":73,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/krasnoyarsk/?utm_content=azimuth-aero","from":null,"to":"KJA"},{"id":52,"from_id":null,"to_id":107,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=8357\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"KUT"},{"id":53,"from_id":null,"to_id":72,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/magnitogorsk/?utm_content=azimuth-aero","from":null,"to":"MQF"},{"id":62,"from_id":null,"to_id":91,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/hanty-mansiiskii-surgut/?utm_content=azimuth-aero","from":null,"to":"SGC"},{"id":36,"from_id":null,"to_id":93,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3381\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"TBS"},{"id":54,"from_id":null,"to_id":108,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/nalchik/?utm_content=azimuth-aero","from":null,"to":"NAL"},{"id":56,"from_id":null,"to_id":54,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=2974\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"REN"},{"id":60,"from_id":null,"to_id":60,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3197\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"SKX"},{"id":65,"from_id":null,"to_id":95,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=6085156\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"TMJ"},{"id":69,"from_id":null,"to_id":112,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3051\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"RUH"},{"id":55,"from_id":null,"to_id":63,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/hanty-mansiiskii-nizhnevartovsk/?utm_content=azimuth-aero","from":null,"to":"NJC"},{"id":59,"from_id":null,"to_id":88,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=601573\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"SKD"},{"id":64,"from_id":null,"to_id":80,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://hotelforflight.ostrovok.ru/hotels/?q=3368\u0026dates=[dates_period]\u0026guests=[total_persons]\u0026price=one","from":null,"to":"TAS"},{"id":57,"from_id":null,"to_id":68,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/penza/?utm_content=azimuth-aero","from":null,"to":"PEZ"},{"id":58,"from_id":null,"to_id":71,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/petrozavodsk/?utm_content=azimuth-aero","from":null,"to":"PES"},{"id":68,"from_id":null,"to_id":105,"for_adult":false,"for_child":false,"for_infant":false,"date_start":null,"date_end":null,"link":"https://tvil.ru/city/cheboksary/?utm_content=azimuth-aero","from":null,"to":"CSY"}]</script><script>window.error_messages = {
+  no_destination: "Вы не выбрали пункт назначения",
+  no_date: "Вы не выбрали дату",
+  too_much_passengers: "Общее число пассажиров не должно превышать 9 человек",
+  infants_more_than_adults: "Число младенцев не должно превышать число взрослых",
+  no_adult_for_children: "С детьми должен лететь хотя бы один взрослый"
+}</script><script>window.ShowAbroadFlightWarning = function(hide) {
+  $('.main-order-tab-body .notification').toggleClass('hidden', !hide)
+
+}</script><div class="main-order-tab-set"><a class="ticket-search" href=""><span class="ico"></span><span class="mb-hidden">Поиск билетов</span><span class="mb-visible">Билеты</span></a></div><div class="main-order-tab-body"><div class="main-order-tab"><form action="#" class="main-order-form has-tb-bottom-padding not-accompanied"><div class="row"><div class="col col33 tb-col50 mb-col100 from-select"><select aria-label="Откуда" class="select" name="from" placeholder="Откуда" style="width:100%"><optgroup label="А"><option data-flights="BUS KVX IJK AYT DWC_DXB IST EVN MOW MRV OVB OMS REN PEE SKD SKX UFA CEK" value="ALA">Алматы</option><option data-flights="MQF ASF IWA IJK KUT KRR MOW MRV MCX NJC OVB OMS REN PEZ PKV UGC JED SSH SKD KUF AER SKX SGC SCW TAS TJM UFA HMA CSY CEK IAR PEE TLV KVX TBS DWC_DXB BUS EVN" value="AYT">Анталья</option><option data-flights="" value="KVK">Апатиты</option><option data-flights="CEK SCW BUS KVX OMS PEZ PEE PKV SKD KUF TAS IAR IST AYT DWC_DXB TLV GYD EVN IWA KJA REN AER TBS UFA HMA MQF MOW MRV MCX OVB" value="ASF">Астрахань</option><option data-flights="" value="GUW">Атырау</option></optgroup><optgroup label="Б"><option data-flights="AER ASF" value="GYD">Баку</option><option data-flights="SSH KVX HMA CEK MCX OMS IWA AYT DWC_DXB IST EVN IJK MQF MOW MRV OVB PEZ PEE PKV KUF AER SGC SCW TMJ UGC UFA CSY JED" value="BUS">Батуми</option><option data-flights="" value="BJV">Бодрум</option></optgroup><optgroup label="Г"><option data-flights="" value="RGK">Горно-Алтайск</option></optgroup><optgroup label="Д"><option data-flights="CEK DWC_DXB PEE MQF ASF MRV OVB PEZ AER TBS TJM UFA IST SSH EVN MOW MCX NJC" value="JED">Джидда</option><option data-flights="REN PKV TAS HMA IST JED SSH TLV BUS IWA SGC EVN SCW TBS TJM UFA IJK KRR MOW MRV MCX NJC OVB ASF PEZ SKD KUF AER CSY CEK MQF AYT" value="DWC_DXB">Дубай</option></optgroup><optgroup label="Е"><option data-flights="MCX NJC OVB SGC TAS TBS TMJ TJM OMS UGC UFA HMA AYT DWC_DXB IST REN CSY JED SSH TLV PEZ PEE ALA ASF BUS IWA IJK PKV KVX SKD KRR MQF KUF MOW MRV AER SCW KJA SKX CEK" value="EVN">Ереван</option></optgroup><optgroup label="И"><option data-flights="IJK SCW TAS SGC CSY TBS TJM UFA HMA AYT DWC_DXB IST SSH TLV ASF BUS EVN KVX MQF MOW MRV MCX NJC OVB OMS KUF AER SKX ALA" value="IWA">Иваново</option><option data-flights="TLV AYT DWC_DXB JED EVN IWA MQF OVB REN PEZ AER SGC TAS TBS TJM UFA HMA CSY SCW CEK MOW MRV MCX NJC OMS KUF IST SSH ALA ASF SKX" value="IJK">Ижевск</option></optgroup><optgroup label="К"><option data-flights="MOW MRV PKV" value="KGD">Калининград</option><option data-flights="" value="KLF">Калуга</option><option data-flights="JED TBS SSH BUS IWA DWC_DXB IST EVN IJK MQF MOW MRV MCX NJC OVB PEZ PEE KUF AER SCW UFA AYT" value="KVX">Киров</option><option data-flights="DWC_DXB AYT IST SSH TLV EVN SKD TAS TBS" value="KRR">Краснодар</option><option data-flights="TBS MRV SKD UFA" value="KJA">Красноярск</option><option data-flights="AYT MQF EVN MOW PKV AER TMJ UGC MRV" value="KUT">Кутаиси</option></optgroup><optgroup label="М"><option data-flights="KUT TAS HMA UFA TLV OMS KUF TJM CEK IWA BUS AYT DWC_DXB IST SSH ASF EVN IJK KVX MOW MRV MCX NJC OVB REN PEZ PKV PEE SKD AER SKX SCW TBS" value="MQF">Магнитогорск</option><option data-flights="ASF SGC TBS TJM UFA HMA CSY AYT DWC_DXB IST CEK KUF AER SKX SCW TAS JED SSH PEZ PEE SKD REN TLV ALA BUS EVN IWA IJK KVX MQF MOW MRV NJC OVB OMS" value="MCX">Махачкала</option><option data-flights="DWC_DXB IST AYT JED SSH TLV ALA ASF GYD BUS SVX IWA IAR IJK KVX KUT KGD KEJ KJA MQF MOW MCX NJC OVB TBS TJM UFA HMA CSY CEK PEE OMS REN PEZ SGC SCW PKV SKD KUF AER LED SKX TAS GOJ EVN" selected="" value="MRV">Минеральные Воды</option><option data-flights="" value="MSQ">Минск</option><option data-flights="KUT KGD HMA CSY CEK IAR MQF SGC SCW TAS TBS AYT DWC_DXB IWA UGC IJK KVX TMJ TJM UFA IST SSH JED TLV ALA ASF BUS EVN MRV MCX NJC OVB OMS REN PEZ PEE PKV SKD KUF AER SKX" value="MOW">Москва (Внуково)</option></optgroup><optgroup label="Н"><option data-flights="" value="NVI">Навои</option><option data-flights="" value="NAL">Нальчик</option><option data-flights="IWA CEK ASF BUS EVN UFA MQF SSH TLV ALA MCX OVB OMS REN PKV SKD KUF TJM HMA CSY AYT IST MOW MRV SKX SGC TAS TBS AER" value="NJC">Нижневартовск</option><option data-flights="" value="NBC">Нижнекамск</option><option data-flights="PEZ PEE IST MQF MOW REN PKV MRV MCX NJC OMS SKD KUF AER SKX SGC SCW DWC_DXB TJM UFA HMA CSY CEK IAR SSH AYT JED TAS TBS TLV ALA ASF BUS EVN IWA IJK KVX" value="OVB">Новосибирск</option></optgroup><optgroup label="О"><option data-flights="IWA IJK KVX HMA KJA MQF NJC OVB REN PEZ MOW MRV MCX UFA CEK PEE KUF AER SGC SCW TBS TJM AYT DWC_DXB IST JED SSH ASF BUS EVN CSY PKV SKD SKX" value="OMS">Омск</option><option data-flights="BUS SSH MOW MRV MQF EVN IWA IJK KVX MCX PEE OVB OMS PEZ SKD KUF SCW AER TBS AYT DWC_DXB IST JED TLV SKX UFA CEK" value="REN">Оренбург</option></optgroup><optgroup label="П"><option data-flights="SSH BUS MQF MOW MRV MCX SKX TJM UFA HMA CSY CEK IAR REN PKV SKD KUF AER SGC TAS TBS OVB OMS NJC AYT DWC_DXB IST TLV ALA ASF EVN IWA" value="PEZ">Пенза</option><option data-flights="MOW ASF NJC DWC_DXB IST MRV MCX OVB AYT JED PEZ SGC CEK SCW TBS UFA CSY EVN AER KUF IWA IJK MQF" value="PEE">Пермь</option><option data-flights="" value="PES">Петрозаводск</option><option data-flights="AYT OMS TLV IST BUS EVN KVX KUT KGD MOW KUF MRV SKX MCX OVB PEE AER SCW TBS TMJ UFA" value="PKV">Псков</option></optgroup><optgroup label="Р"><option data-flights="" value="ROV">Ростов-на-Дону</option></optgroup><optgroup label="С"><option data-flights="BUS PKV KVX AER NJC OVB OMS REN PEZ PEE SKX SCW TAS MQF AYT DWC_DXB IST SSH TLV ALA EVN IWA IJK MOW MRV MCX TBS TJM HMA CEK UFA" value="KUF">Самара</option><option data-flights="SSH BUS KVX SKX OMS MRV AER SCW TBS IAR ASF EVN IWA KRR KJA MQF MOW MCX OVB PEZ PEE KUF UFA AYT DWC_DXB IST JED TLV IJK" value="SKD">Самарканд</option><option data-flights="MRV AER SKX" value="LED">Санкт-Петербург</option><option data-flights="JED SSH MCX TBS AYT DWC_DXB IST IJK BUS EVN MQF MOW MRV NJC OVB OMS PEZ PEE AER LED SCW IWA UFA CEK" value="SKX">Саранск</option><option data-flights="" value="GSV_RTW">Саратов</option><option data-flights="SSH KUT PEZ TBS TMJ TJM UGC UFA HMA CSY CEK IAR SCW PEE PKV SKD KUF LED SKX SGC TAS MQF AYT DWC_DXB IST JED TLV ALA ASF GYD BUS EVN IWA IJK KVX MOW MRV MMK MCX NJC OVB OMS REN" value="AER">Сочи</option><option data-flights="" value="STW">Ставрополь</option><option data-flights="NJC SKD DWC_DXB JED SSH TLV ALA ASF BUS EVN IWA IJK KVX KRR MQF MOW MRV MCX OVB OMS REN PEZ PEE PKV KUF AER SCW SKX SGC TAS TBS TJM UFA HMA CSY CEK IAR" value="IST">Стамбул</option><option data-flights="DWC_DXB BUS KVX PEZ CEK SSH MQF TJM AYT IST TLV EVN IWA MOW MRV OVB OMS REN PKV SKD AER SKX TAS TBS UFA HMA CSY" value="SGC">Сургут</option><option data-flights="DWC_DXB SSH IST ASF EVN IJK MQF MOW MRV MCX NJC OVB PEZ CSY CEK KUF AER SGC TBS TJM UFA" value="SCW">Сыктывкар</option></optgroup><optgroup label="Т"><option data-flights="JED SSH NJC TBS AYT DWC_DXB IST BUS EVN IWA IJK KRR MQF MOW MRV MCX OVB REN PEZ PEE AER SCW UFA CEK" value="TAS">Ташкент</option><option data-flights="JED ASF SGC IJK CSY AYT DWC_DXB IST SSH TLV ALA EVN IWA UGC KVX KRR MQF MOW MRV MCX NJC OVB OMS REN PEZ PEE PKV SKD KUF AER SKX SCW TAS TMJ TJM UFA HMA CEK" value="TBS">Тбилиси</option><option data-flights="KUF JED SSH AYT DWC_DXB IST IWA IJK REN EVN ASF BUS KRR MQF MOW MRV MCX OVB OMS PEZ PEE SKD AER SCW TBS UFA CEK" value="TLV">Тель-Авив</option><option data-flights="AYT BUS MOW PKV AER TBS" value="TMJ">Термез</option><option data-flights="ASF BUS KVX IJK REN PEE PKV SKX IST TLV EVN IWA MQF MOW MRV MCX OVB OMS DWC_DXB AYT SKD KUF AER TAS TBS UFA HMA CEK" value="TJM">Тюмень</option></optgroup><optgroup label="У"><option data-flights="" value="ULV">Ульяновск</option><option data-flights="BUS EVN KUT MOW PKV TBS" value="UGC">Ургенч</option><option data-flights="OMS CEK MQF KVX KJA CSY ASF BUS EVN IWA IJK AYT DWC_DXB IST JED SSH TLV MOW MRV MCX NJC OVB REN PEZ PEE PKV SKD KUF AER SKX SGC SCW TAS TBS TJM HMA" value="UFA">Уфа</option></optgroup><optgroup label="Х"><option data-flights="JED NJC SSH EVN AYT DWC_DXB IST BUS IJK KVX MQF MOW MRV MCX OVB OMS REN PEE SKD KUF AER SCW TBS UFA CEK" value="HMA">Ханты-Мансийск</option></optgroup><optgroup label="Ч"><option data-flights="BUS DWC_DXB KVX PEZ CEK TJM MQF SSH AER SKX TAS TBS UFA HMA MRV SGC AYT IST TLV EVN IWA MOW OVB OMS REN PKV SKD" value="CSY">Чебоксары</option><option data-flights="ASF BUS NJC SKD TLV PKV IST JED SSH ALA EVN IWA IJK MRV AYT DWC_DXB MQF MOW MCX OVB OMS REN PEZ KUF AER LED SKX SCW TAS TBS UFA HMA TJM" value="CEK">Челябинск</option></optgroup><optgroup label="Ш"><option data-flights="SKX SGC ALA TJM CSY ASF BUS KVX NJC REN PEZ UFA HMA CEK AYT DWC_DXB IST TLV EVN IWA KRR MOW MRV MCX OVB OMS PEE SKD AER TAS TBS" value="SSH">Шарм-Эль-Шейх</option></optgroup><optgroup label="Э"><option data-flights="" value="RUH">Эр-Рияд</option></optgroup><optgroup label="Я"><option data-flights="DWC_DXB AYT IST TLV ASF EVN MOW MRV MCX OVB AER" value="IAR">Ярославль</option></optgroup></select><a aria-label="Поменять города местами" class="swap-directions" href="#" title="Поменять города местами"></a></div><div class="col col33 tb-col50 mb-col100 to-select"><select aria-label="Куда" class="select" name="to" placeholder="Куда" style="width:100%"><option value=""></option><optgroup label="А"><option data-flights="SSH NJC EVN MRV IST IJK MOW KUF IWA MCX OVB CEK PEZ AER TBS" value="ALA">Алматы</option><option data-flights="TLV KUT SSH BUS IJK EVN IWA MRV MOW KRR ALA MQF MCX REN OMS PEE PKV NJC ASF TMJ DWC_DXB KVX OVB KUF SKX TAS HMA PEZ SGC SKD AER TBS TJM UFA CEK CSY IAR" value="AYT">Анталья</option><option data-flights="" value="KVK">Апатиты</option><option data-flights="AYT MCX SSH JED NJC TLV DWC_DXB IWA EVN MRV IST MQF PEE OMS TBS TJM CEK GYD IJK MOW SKD SCW OVB PEZ AER UFA IAR" value="ASF">Астрахань</option><option data-flights="" value="GUW">Атырау</option></optgroup><optgroup label="Б"><option data-flights="MRV ASF AER" value="GYD">Баку</option><option data-flights="ALA ASF DWC_DXB SSH KVX NJC REN TLV EVN IWA MQF MRV PEZ KUF IST OMS SKD SGC CSY CEK MOW AYT TJM PKV TAS MCX SKX OVB HMA AER TMJ UFA UGC" value="BUS">Батуми</option><option data-flights="" value="BJV">Бодрум</option></optgroup><optgroup label="Г"><option data-flights="" value="RGK">Горно-Алтайск</option></optgroup><optgroup label="Д"><option data-flights="TLV AYT KVX DWC_DXB IJK EVN IST MRV REN OMS PEE TAS SKX TBS MOW HMA BUS MCX OVB CEK SKD AER UFA" value="JED">Джидда</option><option data-flights="JED TLV SSH BUS IJK MRV EVN IWA KVX KRR MOW IST ALA MQF MCX REN PEE OMS SCW SGC OVB AYT ASF CSY IAR KUF SKX TAS HMA PEZ SKD AER TBS TJM UFA CEK" value="DWC_DXB">Дубай</option></optgroup><optgroup label="Е"><option data-flights="DWC_DXB NJC SSH TLV BUS IJK REN KVX KUT IWA KRR IST ALA MQF OMS ASF MOW AYT JED PKV KUF PEE SKD SCW HMA TAS MRV MCX SKX OVB CEK PEZ SGC AER TBS TJM UFA UGC CSY IAR" value="EVN">Ереван</option></optgroup><optgroup label="И"><option data-flights="AYT NJC DWC_DXB TLV SSH BUS OMS IJK KVX REN MOW EVN MQF MRV IST ASF KUF SKD TAS MCX PEE OVB CEK PEZ SKX SGC AER TBS TJM UFA CSY" value="IWA">Иваново</option><option data-flights="AYT IWA TLV DWC_DXB OMS ALA BUS REN KVX MOW EVN MQF MRV IST TBS KUF SKX SCW TJM TAS MCX PEE OVB HMA CEK SKD AER UFA" value="IJK">Ижевск</option></optgroup><optgroup label="К"><option data-flights="MOW MRV PKV" value="KGD">Калининград</option><option data-flights="" value="KLF">Калуга</option><option data-flights="ALA ASF BUS SSH AYT OMS REN MOW IWA EVN MQF MRV IST SKD KUF SGC CSY TJM PKV MCX OVB UFA HMA AER TBS" value="KVX">Киров</option><option data-flights="AYT SSH DWC_DXB TLV EVN IST SKD TAS TBS" value="KRR">Краснодар</option><option data-flights="OMS MRV ASF EVN SKD UFA" value="KJA">Красноярск</option><option data-flights="AYT MQF MOW MRV PKV AER UGC" value="KUT">Кутаиси</option></optgroup><optgroup label="М"><option data-flights="AYT KUT JED NJC OVB TLV OMS BUS IJK MOW REN KVX IWA DWC_DXB PEZ EVN MRV IST KUF ASF SKD SGC CSY SCW MCX PEE SKX UFA HMA AER TAS TJM TBS CEK" value="MQF">Магнитогорск</option><option data-flights="AYT BUS SSH DWC_DXB TLV EVN OVB REN IJK KVX OMS IWA NJC PEZ MQF MRV PEE SKX IST JED ASF KUF SKD MOW SCW PKV AER TAS TJM TBS UFA HMA CEK IAR" value="MCX">Махачкала</option><option data-flights="AYT JED SSH DWC_DXB TLV OVB REN BUS SVX IJK KVX OMS IWA KGD ALA KJA MQF PEZ PEE EVN IST NJC GOJ ASF SKD KUF KUT LED KEJ MOW SCW MCX PKV SKX CEK SGC AER TAS TJM TBS UFA HMA CSY IAR" value="MRV">Минеральные Воды</option><option data-flights="" value="MSQ">Минск</option><option data-flights="AYT SSH DWC_DXB OVB TLV REN BUS IJK KVX OMS KUT IWA KGD ALA PEZ MQF PEE MRV IST EVN JED NJC ASF PKV KUF SKD SCW MCX SKX SGC AER TAS TJM TBS TMJ UGC UFA HMA CSY CEK IAR" value="MOW">Москва (Внуково)</option></optgroup><optgroup label="Н"><option data-flights="" value="NVI">Навои</option><option data-flights="" value="NAL">Нальчик</option><option data-flights="AYT SSH IST DWC_DXB EVN OMS OVB IJK KVX IWA MQF MRV PEE TAS KUF HMA CEK JED PEZ MOW SCW MCX SKX AER TBS UFA" value="NJC">Нижневартовск</option><option data-flights="" value="NBC">Нижнекамск</option><option data-flights="AYT JED SSH DWC_DXB TLV EVN OMS IJK KVX REN BUS IWA ALA MQF MRV PEE NJC KUF IST PEZ ASF SKD MOW SCW MCX SKX PKV SGC AER TAS TJM TBS UFA HMA CSY CEK IAR" value="OVB">Новосибирск</option></optgroup><optgroup label="О"><option data-flights="AYT ASF BUS SSH TLV EVN IJK REN MQF OVB IWA ALA MRV PKV NJC SKD UFA KUF IST PEZ MOW MCX SKX SGC AER TJM TBS HMA CSY CEK" value="OMS">Омск</option><option data-flights="AYT DWC_DXB SSH TLV OVB OMS IJK EVN ALA MQF PEZ MRV NJC ASF IST KUF TJM MOW MCX SGC AER TAS TBS UFA HMA CSY CEK" value="REN">Оренбург</option></optgroup><optgroup label="П"><option data-flights="AYT ASF SSH OVB JED TLV OMS IJK DWC_DXB KVX REN EVN MQF MRV BUS SGC IST KUF MCX PEE CSY SKD AER MOW SCW SKX TAS TBS UFA CEK" value="PEZ">Пенза</option><option data-flights="JED ASF AYT OVB SSH TLV REN EVN KVX MRV ALA MQF OMS BUS IST KUF MCX SKD TJM MOW AER SKX PKV TAS TBS UFA HMA" value="PEE">Пермь</option><option data-flights="" value="PES">Петрозаводск</option><option data-flights="AYT DWC_DXB ASF OVB KUT EVN MQF PEZ MRV NJC KUF BUS IST CEK OMS TJM KGD MOW AER SGC TBS TMJ UGC UFA CSY" value="PKV">Псков</option></optgroup><optgroup label="Р"><option data-flights="" value="ROV">Ростов-на-Дону</option></optgroup><optgroup label="С"><option data-flights="TLV ASF AYT IJK DWC_DXB REN KVX MQF EVN IWA PEZ MCX OVB OMS MRV NJC BUS IST PEE PKV SKD MOW AER SCW TBS TJM UFA HMA CEK" value="KUF">Самара</option><option data-flights="ASF AYT IST SSH TLV DWC_DXB REN EVN KRR KJA ALA PEZ MQF OVB MRV NJC MCX CEK OMS MOW AER SGC TBS TJM UFA HMA CSY" value="SKD">Самарканд</option><option data-flights="MRV AER SKX CEK" value="LED">Санкт-Петербург</option><option data-flights="SSH AYT PEZ IWA MCX OVB MQF MRV SKD ALA EVN IST IJK NJC KUF LED TJM MOW OMS AER REN PKV SGC TBS UFA CSY CEK" value="SKX">Саранск</option><option data-flights="" value="GSV_RTW">Саратов</option><option data-flights="AYT JED SSH GYD TLV IJK KVX KUT DWC_DXB REN MMK IWA PEZ MQF MCX OVB OMS MRV ASF KUF BUS EVN IST SKD PEE LED MOW SCW NJC SKX PKV SGC TAS TBS TMJ TJM UFA CSY HMA CEK IAR" value="AER">Сочи</option><option data-flights="" value="STW">Ставрополь</option><option data-flights="TLV DWC_DXB SSH OVB BUS MRV EVN IWA KVX KRR MOW ALA MQF MCX REN PEE OMS ASF NJC IJK JED PKV KUF SCW SKX TAS CEK HMA PEZ SGC SKD AER TBS TJM UFA CSY IAR" value="IST">Стамбул</option><option data-flights="SSH AYT DWC_DXB IWA EVN IJK MOW MCX PEZ OVB OMS MRV BUS TBS PEE IST NJC AER SCW UFA CSY" value="SGC">Сургут</option><option data-flights="ASF AYT IWA DWC_DXB IJK TLV MOW KVX REN OVB OMS MRV MQF MCX BUS EVN IST KUF PEE SKD AER SKX PKV TAS TBS UFA HMA CEK" value="SCW">Сыктывкар</option></optgroup><optgroup label="Т"><option data-flights="DWC_DXB ASF AYT IWA SSH EVN IJK MOW MQF KRR PEZ MCX MRV IST NJC OVB KUF AER SGC TBS TJM UFA CSY CEK" value="TAS">Ташкент</option><option data-flights="KVX KJA DWC_DXB JED SSH EVN IWA IJK MCX MOW TLV REN KRR AYT MRV PEZ OMS MQF SKX TAS ASF IST NJC OVB PEE SKD KUF AER SCW PKV SGC TMJ TJM UGC UFA CSY HMA CEK" value="TBS">Тбилиси</option><option data-flights="IJK DWC_DXB SSH AYT EVN IWA MQF NJC KRR MRV IST REN ASF MOW CEK PKV KUF MCX OVB PEZ SGC SKD AER TBS TJM UFA CSY IAR" value="TLV">Тель-Авив</option><option data-flights="EVN KUT MOW BUS AER PKV TBS" value="TMJ">Термез</option><option data-flights="SSH AYT DWC_DXB JED EVN IWA IJK MCX MQF MOW PEZ MRV OMS NJC OVB IST KUF SGC CSY AER SCW TBS UFA CEK" value="TJM">Тюмень</option></optgroup><optgroup label="У"><option data-flights="" value="ULV">Ульяновск</option><option data-flights="AYT EVN KUT MOW BUS AER TBS" value="UGC">Ургенч</option><option data-flights="AYT SSH DWC_DXB NJC JED EVN IWA IJK MCX MQF KVX MOW TLV KJA PEZ MRV OMS OVB ALA BUS ASF IST PEE AER SCW KUF SKD REN PKV SGC SKX TAS TBS TJM CSY HMA CEK" value="UFA">Уфа</option></optgroup><optgroup label="Х"><option data-flights="DWC_DXB BUS AYT SSH OMS MOW EVN IWA IJK MQF MCX PEZ MRV NJC OVB ASF IST KUF AER SGC TBS TJM UFA CSY CEK" value="HMA">Ханты-Мансийск</option></optgroup><optgroup label="Ч"><option data-flights="SSH AYT IWA MOW IJK EVN DWC_DXB MCX PEZ MRV NJC OVB BUS IST OMS TBS PEE AER SCW UFA SGC" value="CSY">Чебоксары</option><option data-flights="JED ASF BUS AYT NJC SSH MOW IJK MQF DWC_DXB TLV MCX PEZ MRV OMS OVB ALA SGC EVN IST PEE CSY KUF AER SCW UFA REN SKX TAS TBS TJM HMA" value="CEK">Челябинск</option></optgroup><optgroup label="Ш"><option data-flights="TLV BUS AYT DWC_DXB KVX REN EVN IWA NJC IST KRR MOW MRV PEZ MQF OMS SKD SKX TAS IJK MCX OVB JED HMA KUF SCW SGC AER CSY CEK TBS UFA" value="SSH">Шарм-Эль-Шейх</option></optgroup><optgroup label="Э"><option data-flights="" value="RUH">Эр-Рияд</option></optgroup><optgroup label="Я"><option data-flights="ASF AYT MOW MRV PEZ OVB IST SKD AER" value="IAR">Ярославль</option></optgroup></select></div><div class="col col33 tb-col50 mb-col100 tb-col tb-col-left choice-daterange-wrapper"><input name="daterange" type="hidden" /><div class="daterange-wrap active-choice-daterange"><input _name="daterange_single" aria-label="Дата" class="daterange daterange-single" placeholder="Дата" type="text" /><span class="mb-clear"></span></div><div class="daterange-wrap"><input _name="daterange_range" aria-label="Дата" class="daterange" placeholder="Дата" type="text" /><span class="mb-clear"></span></div><div class="a11y-native-dates"><div class="a11y-native-date"><label class="a11y-native-label" for="a11y-date-there">Дата вылета</label><input aria-label="Дата вылета, формат день точка месяц точка год" autocomplete="off" class="js-a11y-date" id="a11y-date-there" inputmode="numeric" placeholder="ДД.ММ.ГГГГ" type="text" /></div><div class="a11y-native-date"><label class="a11y-native-label" for="a11y-date-back">Дата обратно</label><input aria-label="Дата обратно, необязательно, формат день точка месяц точка год" autocomplete="off" class="js-a11y-date" id="a11y-date-back" inputmode="numeric" placeholder="ДД.ММ.ГГГГ" type="text" /></div></div></div></div><div class="row"><div class="col col25 tb-col33 mb-col100"><div class="order-ticket-wrap order-ticket-wrap-adults"><div class="title"><div class="name">Взрослые</div><div class="age">от 12 лет</div></div><div class="quantity"><input aria-label="Взрослые" max="9" min="1" name="adults" type="text" value="1" /><div aria-hidden="true" class="quantity-btn"><span class="btn-quantity minus">−</span><span class="btn-quantity plus">+</span></div></div></div></div><div class="col col25 tb-col33 mb-col100"><div class="order-ticket-wrap order-ticket-wrap-children"><div class="title"><div class="name">Дети</div><div class="age not-accompanied">до 12 лет</div><div class="age accompanied">от 5 до 12 лет</div></div><div class="quantity"><input aria-label="Дети" max="8" min="0" name="children" type="text" value="0" /><div aria-hidden="true" class="quantity-btn"><span class="btn-quantity minus">−</span><span class="btn-quantity plus">+</span></div></div></div></div><div class="col col25 mb-col100 tb-col50 tb-col tb-col-right tb-col-second accompanied-child"><div class="disabled"><a aria-checked="false" aria-label="сопровождение ребенка в полете" class="toggle" role="checkbox" tabindex="0" title="Чтобы купить билеты без взрослых, потребуется услуга сопровождения ребенка в полете. Включить?"><input name="accompanied_child" type="hidden" value="" /><span>сопровождение ребенка в полете</span></a></div></div><div class="col col25 tb-col33 mb-col100"><div class="order-ticket-wrap order-ticket-wrap-infants"><div class="title"><div class="name">Младенцы</div><div class="age">до 2 лет</div></div><div class="quantity"><input aria-label="Младенцы" max="9" min="0" name="infants" type="text" value="0" /><div aria-hidden="true" class="quantity-btn"><span class="btn-quantity minus">−</span><span class="btn-quantity plus">+</span></div></div></div></div><div class="col col25 tb-col50 mb-col100 tb-col tb-col-right"><button class="btn btn-orange" type="submit">Найти билеты</button></div></div><div class="row"><div class="col col100"><div class="main-order-errors hidden" role="alert" tabindex="-1"></div></div></div><div class="row"><div class="col col100 accompanied-child-hint-slot"><div aria-live="polite" class="accompanied-child-hint hidden" role="status"><div class="accompanied-child-hint-text" id="accompanied-child-hint-text">Чтобы купить билеты без взрослых, потребуется услуга сопровождения ребенка в полете. Включить?</div><div class="accompanied-child-hint-actions"><button aria-describedby="accompanied-child-hint-text" class="btn btn-orange accompanied-child-hint-enable" type="button">Включить</button><button class="btn accompanied-child-hint-cancel" type="button">Отмена</button></div></div></div></div><div class="row"><div class="col col25 mb-hidden tb-visible"> </div><div class="col col25 mb-hidden tb-visible"> </div><div class="col col25 mb-hidden tb-col50"> </div><div class="col col25 mb-col100 tb-col50 tb-col tb-col-right tb-col-second"><div class="has-promo disabled"><input aria-label="укажите промо-код" name="promo" placeholder="укажите промо-код" type="text" /><br class="mb-hidden tb-hidden" /><a aria-checked="false" aria-label="у меня есть промо-код" class="toggle" role="checkbox" tabindex="0"><span>у меня есть промо-код</span></a></div></div></div></form></div><div class="main-order-tab"><form action="#" class="main-order-form"></form></div><div class="main-order-tab"><form action="#" class="main-order-form"><div id="rc-connect-container"></div></form></div></div></div></div><div class="center"><div class="row"><div class="col col75 tb-col100"><ul class='bread-crumbs'></ul><h1>Новости</h1><button aria-label="Подписаться на новости" class="mb-hidden btn btn-transparent btn-orange btn-small" data-subscribe-popup="1" style="margin-bottom: 20px;">Подписаться</button><div class="news-date">11 ноября 2026</div><h2>Авиакомпания АЗИМУТ увеличивает число направлений в рамках акции «Симфония полета»</h2><div class="description"><p>В акции участвуют еще больше рейсов из Краснодара, Уфы, Ижевска и других городов.</p>
+</div><div class="img-align-center news-photo"><img alt="Авиакомпания АЗИМУТ увеличивает число направлений в рамках акции «Симфония полета»" src="/uploads/news/photo/1431/Symphonia_poleta_11_11.webp" /></div><p>Авиакомпания АЗИМУТ продолжает акцию «Симфония полета»: с 11 до 15 ноября 2026 года доступны к приобретению авиабилеты по минимальным тарифам на рейсы, выполняемые с 11 ноября по 24 декабря 2026 года.</p>
+
+<p>В акции участвуют следующие направления:</p>
+
+<p><strong>В/из Минеральных Вод</strong></p>
+
+<ul>
+	<li>Минеральные Воды – Ханты-Мансийск / Ханты-Мансийск – Минеральные Воды от 4588 рублей</li>
+	<li>Минеральные Воды – Нижневартовск / Нижневартовск – Минеральные Воды от 4588 рублей</li>
+	<li>Минеральные Воды – Сочи / Сочи – Минеральные Воды от 2288 рублей</li>
+	<li>Минеральные Воды – Махачкала / Махачкала – Минеральные Воды от 1780 рублей</li>
+	<li>Минеральные Воды – Чебоксары / Чебоксары – Минеральные Воды от 4580 рублей</li>
+	<li>Минеральные Воды – Астрахань / Астрахань – Минеральные Воды от 2288 рублей</li>
+	<li>Минеральные Воды – Ижевск / Ижевск – Минеральные Воды от 2580 рублей</li>
+	<li>Минеральные Воды – Псков / Псков – Минеральные Воды от 3780 рублей</li>
+	<li>Минеральные Воды – Иваново / Иваново – Минеральные Воды от 2688 рублей</li>
+	<li>Минеральные Воды – Пенза / Пенза – Минеральные Воды от 3688 рублей</li>
+	<li>Минеральные Воды – Саранск / Саранск – Минеральные Воды от 3188 рублей</li>
+	<li>Минеральные Воды – Уфа / Уфа – Минеральные Воды от 4488 рублей</li>
+	<li>Минеральные Воды – Самара / Самара – Минеральные Воды от 3688 рублей</li>
+	<li>Минеральные Воды – Сыктывкар / Сыктывкар – Минеральные Воды от 4080 рублей</li>
+	<li>Минеральные Воды – Стамбул от 7300 рублей*, Стамбул – Минеральные Воды от 6460 рублей*</li>
+	<li>Минеральные Воды – Ереван от 4995 рублей*, Ереван – Минеральные Воды от 2210 рублей*</li>
+	<li>Минеральные Воды – Анталья от 9120 рублей*, Анталья – Минеральные Воды от 7735 рублей*</li>
+	<li>Минеральные Воды – Тбилиси от 3840 рублей*, Тбилиси – Минеральные Воды от 3840 рублей*</li>
+	<li>Минеральные Воды – Батуми от 3650 рублей*, Батуми – Минеральные Воды от 3650 рублей*</li>
+	<li>Минеральные Воды – Тель-Авив от 9315 рублей*, Тель-Авив – Минеральные Воды от 7565 рублей*</li>
+	<li>Минеральные Воды – Алматы от 11620 рублей*, Алматы – Минеральные Воды от 11560 рублей*</li>
+	<li>Минеральные Воды – Дубай от 6625 рублей*, Дубай – Минеральные Воды от 8170 рублей*</li>
+	<li>Минеральные Воды – Шарм-эль-Шейх от 8160 рублей*</li>
+	<li>Ташкент – Минеральные Воды от 11330 рублей*</li>
+	<li>Киров – Минеральные Воды от 2688 рублей</li>
+	<li>Самарканд – Минеральные Воды от 6340 рублей*</li>
+</ul>
+
+<p><strong>В/из Москвы (аэропорт Внуково)</strong></p>
+
+<ul>
+	<li>Москва – Псков / Псков – Москва от 1588 рублей</li>
+	<li>Москва – Тбилиси от 10370 рублей*, Тбилиси – Москва от 9700 рублей*</li>
+	<li>Москва – Ургенч от 6530 рублей*, Ургенч – Москва от 6530 рублей*</li>
+	<li>Москва – Кутаиси от 7395 рублей*, Кутаиси – Москва от 11425 рублей*</li>
+	<li>Москва – Батуми от 8450 рублей*, Батуми – Москва от 8450 рублей*</li>
+	<li>Термез – Москва от 7780 рублей*</li>
+</ul>
+
+<p><strong>В/из Краснодара</strong></p>
+
+<ul>
+	<li>Краснодар – Анталья от 7970 рублей, Анталья – Краснодар от 6545 рублей*</li>
+	<li>Краснодар – Тбилиси от 6145 рублей, Тбилиси – Краснодар от 6145 рублей*</li>
+	<li>Краснодар – Ереван от 4900 рублей, Ереван – Краснодар от 2785 рублей*</li>
+	<li>Краснодар – Тель-Авив от 8930 рублей, Тель-Авив – Краснодар от 7225 рублей*</li>
+	<li>Краснодар – Стамбул от 4995 рублей, Стамбул – Краснодар от 2805 рублей*</li>
+	<li>Самарканд – Краснодар от 8160 рублей*</li>
+	<li>Ташкент – Краснодар от 11040 рублей*</li>
+	<li>Краснодар – Шарм-эль-Шейх от 8160 рублей*</li>
+</ul>
+
+<p><strong>В/из Сочи</strong></p>
+
+<ul>
+	<li>Ереван – Сочи от 1155 рублей*</li>
+	<li>Сочи – Анталья от 4995 рублей, Анталья – Сочи от 2720 рублей*</li>
+	<li>Сочи – Тель-Авив от 8450 рублей, Тель-Авив – Сочи от 4505 рублей*</li>
+	<li>Сочи – Стамбул от 6720 рублей, Стамбул – Сочи от 5015 рублей*</li>
+	<li>Сочи – Пенза / Пенза – Сочи от 3080 рублей</li>
+	<li>Сочи – Махачкала / Махачкала – Сочи от 2700 рублей</li>
+	<li>Сочи – Ярославль / Ярославль – Сочи от 3088 рублей</li>
+	<li>Сочи – Астрахань / Астрахань – Сочи от 3280 рублей</li>
+	<li>Самарканд – Сочи от 6340 рублей*</li>
+	<li>Сочи – Дубай от 5090 рублей*, Дубай – Сочи от 4725 рублей*</li>
+</ul>
+
+<p><strong>Из других городов</strong></p>
+
+<ul>
+	<li>Махачкала – Пермь / Пермь – Махачкала от 3188 рублей</li>
+	<li>Баку – Астрахань от 4320 рублей*</li>
+	<li>Уфа – Ереван от 4900 рублей, Ереван – Уфа от 1920 рублей*</li>
+	<li>Чебоксары – Сургут / Сургут – Чебоксары от 5280 рублей</li>
+	<li>Уфа – Красноярск / Красноярск – Уфа от 3888 рублей</li>
+	<li>Санкт-Петербург – Саранск / Саранск – Санкт-Петербург от 2688 рублей</li>
+	<li>Самара – Нижневартовск / Нижневартовск – Самара от 3388 рублей</li>
+	<li>Уфа – Астрахань / Астрахань – Уфа от 2888 рублей</li>
+	<li>Самарканд – Уфа от 6915 рублей*</li>
+	<li>Псков – Калининград / Калининград – Псков от 2280 рублей.</li>
+</ul>
+
+<p>* сборы взимаются дополнительно к тарифу.</p>
+
+<p>Количество авиабилетов по минимальным тарифам ограничено.</p>
+
+<p>Ознакомиться с <a href="https://booking.azimuth.ru/new/#/timetable-search/" rel="noopener" target="_blank">расписанием</a>, <a href="https://booking.azimuth.ru/new/#/" rel="noopener" target="_blank">приобрести авиабилеты</a> и присоединиться к <a href="https://azimuth.ru/ru/special/loyalty" rel="noopener" target="_blank">Программе лояльности А+</a> вы можете на официальном сайте авиакомпании АЗИМУТ.</p>
+
+<p>Подпишитесь на <noindex><a href="https://max.ru/azimuthairlirnes" rel="noopener nofollow noreferrer" target="_blank">канал авиакомпании АЗИМУТ в мессенджере МАКС</a></noindex> и узнавайте первыми о новых направлениях и акциях.</p>
+
+<p style="font-size:12px;"><strong>Фото: Mikko | Pressfoto.ru</strong></p>
+<br class="mb-hidden" /><br class="mb-hidden" /><br class="mb-hidden" /><br class="mb-hidden" /><style type="text/css">.ya-share2__container_size_m .ya-share2__icon{height:32px;width:32px}</style><div class="ya-share2" data-counter="" data-services="vkontakte,odnoklassniki" data-title="Авиакомпания АЗИМУТ увеличивает число направлений в рамках акции «Симфония полета»"></div><br class="mb-hidden" /><hr /><br class="mb-hidden" /><div class="btn-wrap-article align-center"><a class="btn btn-orange btn-transparent btn-small" href="/ru/news">Все новости</a></div><br /><button aria-label="Подписаться на новости" class="desktop-hidden btn btn-transparent btn-orange btn-small" data-subscribe-popup="1" style="margin-top: 0px; width: 100%">Подписаться</button><br class="desktop-hidden" /><br class="desktop-hidden" /><br /></div><div class="col col25 aside tb-col100"><h3>Спецпредложения</h3><div class="offers-wrap"><a aria-label="Киров - Минеральные Воды, от 2688  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/KVX/MRV/16.11.2026/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/40/medium_Minvodi_Piatigorsk.webp);"></div><div class="text"><div class="name">Киров - Минеральные Воды</div><div class="date"></div></div><div class="price">от <span class="num">2688</span> ₽</div></div><div class="offers-wrap"><a aria-label="Москва - Ереван, от 6780  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/MOW/EVN/16.11.2026/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/39/medium_Erevan.webp);"></div><div class="text"><div class="name">Москва - Ереван</div><div class="date"></div></div><div class="price">от <span class="num">6780</span> ₽</div></div><ul class="offers-list"><li><a aria-label="Минеральные Воды - Махачкала, от 1780  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/MRV/MCX/16.11.2026/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/41/small_Mahachkala.webp);"></div><div class="holder"><div class="name">Минеральные Воды - Махачкала </div><div class="text">от <span class="num">1780</span> ₽</div></div></li><li><a aria-label="Тбилиси - Уфа, от 7521  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/TBS/UFA/12.03.2027/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/25/small_tbilisi_ufa.webp);"></div><div class="holder"><div class="name">Тбилиси - Уфа </div><div class="text">от <span class="num">7521</span> ₽</div></div></li><li><a aria-label="Ереван - Сочи, от 6047  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/EVN/AER/10.12.2026/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/37/small_erevan_sochi.webp);"></div><div class="holder"><div class="name">Ереван - Сочи</div><div class="text">от <span class="num">6047</span> ₽</div></div></li><li><a aria-label="Сочи - Ургенч, от 30321  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/AER/UGC/20.03.2027/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/4/small_%D0%A3%D1%80%D0%B3%D0%B5%D0%BD%D1%87.webp);"></div><div class="holder"><div class="name">Сочи - Ургенч</div><div class="text">от <span class="num">30321</span> ₽</div></div></li><li><a aria-label="Чебоксары-Сургут, от 3680  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/CSY/SGC/25.11.2026/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/32/small_Cheboksary_Surgut.webp);"></div><div class="holder"><div class="name">Чебоксары-Сургут </div><div class="text">от <span class="num">3680</span> ₽</div></div></li><li><a aria-label="Ташкент - Краснодар, от 13506  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/TAS/KRR/16.11.2026/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/42/small_Krasnodar.webp);"></div><div class="holder"><div class="name">Ташкент - Краснодар</div><div class="text">от <span class="num">13506</span> ₽</div></div></li><li><a aria-label="Минеральные Воды - Ташкент, от 12690  рублей" class="link" href="https://booking.azimuth.ru/new/#/!/MRV/TAS/14.01.2027/1-0-0/?lang=ru"></a><div class="visual" style="background-image: url(/uploads/promo/photo/43/small_Tashkent.webp);"></div><div class="holder"><div class="name">Минеральные Воды - Ташкент</div><div class="text">от <span class="num">12690</span> ₽</div></div></li></ul><br class="bt-visible" /></div></div></div><div class="center"><div class="row"><div class="col"><div class="footer-chat-intro"><div class="title">Персональная помощь в чате</div><div class="comment">Если информации на этой странице недостаточно для ответа на ваш вопрос</div><div class="btn-cnt"><button class="btn btn-transparent btn-orange btn-small">Задать вопрос</button></div></div></div></div></div></div></main><div aria-live="polite" class="cookie-denied-notice hidden" data-chat-text="Онлайн-чат не загрузился. Напишите на infoavia@azimuth.ru или позвоните: 8 (863) 226-00-05." data-chat-title="Чат сейчас недоступен." role="status"><div class="cookie-denied-notice-inner"><div class="cookie-denied-notice-text"><strong class="cookie-denied-notice-title">Файлы cookie отключены.</strong><span class="cookie-denied-notice-body">Часть возможностей сайта сейчас недоступна — например, онлайн-чат со службой поддержки.</span></div><div class="cookie-denied-notice-actions"><button class="btn btn-orange btn-small js-cookie-allow" type="button">Разрешить cookie</button><button aria-label="Скрыть уведомление" class="cookie-denied-notice-close js-cookie-notice-hide" title="Скрыть уведомление" type="button">×</button></div></div></div><style>
+  .subscription-popup {
+    position: fixed;
+    background: #00000033;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding: 50px;
+    /* форма выше экрана (крупный шрифт, невысокое окно) обрезалась вместе с
+       кнопкой отправки — прокручиваем сам слой (замечание от 25.08) */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .subscription-popup .container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    position: relative;
+  }
+  @media screen and (max-height: 800px), screen and (max-width: 640px) {
+    .subscription-popup {
+      padding: 20px 15px;
+    }
+    .subscription-popup .container {
+      margin: 0 auto;
+    }
+  }
+
+  .subscription-popup .container .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 25px;
+    background: none;
+    border: none;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .subscription-popup .container .close:hover {
+    color: silver;
+    cursor: pointer;
+  }
+
+  .subscription-popup .subscription-popup__title {
+    margin: 0 0 12px 0;
+    padding: 0;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: bold;
+  }
+
+  .subscription-popup form.formtastic.feedback.exchange {
+    margin: 0;
+  }
+  .subscription-popup form.formtastic.feedback.exchange fieldset input[type=email],
+  .subscription-popup form.formtastic.feedback.exchange fieldset input[type=text] {
+    width: 100%;
+  }
+  .news-subscription-ajax-message {
+    display: none;
+    margin: 0 0 12px 0;
+    padding: 8px 10px;
+    font-size: 14px;
+    line-height: 1.35;
+    border-radius: 4px;
+  }
+  .news-subscription-ajax-message.is-visible {
+    display: block;
+  }
+  .news-subscription-ajax-message.is-error {
+    color: #b00020;
+    background: #ffebee;
+  }
+</style>
+
+<div class="subscription-popup" style="display: none" role="dialog" aria-modal="true" aria-labelledby="subscription-popup-title">
+  <div class="container">
+    <div class="subscription-form-new-wrap">
+      <form id="news-subscription-form-v2" class="formtastic feedback exchange" data-sending="Отправка…" data-network-error="Не удалось отправить. Проверьте соединение." action="/ru/news-subscription" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="R3PN1lNNYpbvmdGAlu9TzvIdDsIZTv6xeggZ2s9+5PVHzaVJ+wq+nFifPb92qiwdQo6UMJv1Wvx4FdaiBx2mFA==" />
+        <h2 class="subscription-popup__title" id="subscription-popup-title">Подписаться на новости</h2>
+        <p>Открытие продаж, новые направления и другие новости авиакомпании «Азимут»</p>
+        <div class="news-subscription-ajax-message" aria-live="polite"></div>
+        <fieldset>
+          <ol>
+            <li>
+              <label for="news_sub_first_name">Имя</label>
+              <input type="text" name="first_name" id="news_sub_first_name" required="required" placeholder="Имя" />
+            </li>
+            <li>
+              <label for="news_sub_last_name">Фамилия</label>
+              <input type="text" name="last_name" id="news_sub_last_name" required="required" placeholder="Фамилия" />
+            </li>
+            <li>
+              <label for="news_sub_email">E-mail</label>
+              <input type="email" name="email" id="news_sub_email" required="required" placeholder="E-mail" />
+            </li>
+            <li>
+              <label style="float: none; width: 100%">
+                <input type="checkbox" name="personal_data_agree" id="personal_data_agree" value="1" required="required" />
+                Я подтверждаю согласие на обработку персональных данных в соответствии с <a href="https://azimuth.ru/ru/about/confidentiality">политикой в отношении персональных данных</a> и на получение рекламно-информационных сообщений и новостей авиакомпании.
+              </label>
+              <br>&nbsp;<br>
+            </li>
+          </ol>
+        </fieldset>
+        <div><input type="submit" name="commit" value="Подписаться" class="btn btn-orange" data-disable-with="Подписаться" /></div>
+</form>    </div>
+
+    <button type="button" class="close" aria-label="Закрыть">&times;</button>
+  </div>
+</div>
+<div class="footer"><div class="footer-menu-wrap mb-hidden"><div class="center"><div class="row"><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>Спец&shy;предложения</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class='has_submenu'><a href='/ru/special/loyalty'>Программа лояльности</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/special/loyalty'>Условия программы А+</a></li><li><a href='/ru/special/loyalty/sberzdorovie'>Врач в дорогу</a></li></ul></li><li class=''><a href='/ru/special/our-veterans'>Наши ветераны</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/large-family'>Семейные авиаперевозки </a><ul class='menu-list'></ul></li></ul></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>Пассажирам</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class=''><a href='/ru/faq'>Часто задаваемые вопросы</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/passengers/refund-rules'>Бронирование авиабилетов</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/passengers/fares'>Тарифы</a></li><li><a href='/ru/passengers/procedure-of-booking'>Правила и условия онлайн бронирования</a></li><li><a href='/ru/passengers/payment-methods'>Способы оплаты</a></li><li><a href='/ru/passengers/exchange-rules'>Правила и условия обмена</a></li><li><a href='/ru/correction'>Изменение данных пассажира</a></li><li><a href='/ru/passengers/refund-rules'>Правила и условия возврата</a></li></ul></li><li class='has_submenu'><a href='/ru/passengers/baggage/baggage-registration'>Багаж</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/passengers/baggage'>Нормы багажа</a></li><li><a href='/ru/passengers/baggage/excess'>Сверхнормативный багаж</a></li><li><a href='/ru/passengers/baggage/flights-with-pets'>Перевозка животных</a></li><li><a href='/ru/passengers/baggage/li-ion'>Перевозка литий-ионных аккумуляторов</a></li><li><a href='/ru/passengers/baggage/baggage-registration'>Регистрация багажа</a></li></ul></li><li class=''><a href='/ru/passengers/id-documents'>Документы и требования для пассажиров</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/passengers/category/people-with-limited-possibility'>Категории пассажиров</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/passengers/category/people-with-limited-possibility'>Пассажиры с ограничениями жизнедеятельности</a></li><li><a href='/ru/passengers/category/pregnant-women-infants'>Беременные женщины и младенцы</a></li></ul></li><li class=''><a href='/ru/passengers/charter'>Чартерные рейсы</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/vpd'>Оформление авиабилетов по ВПД</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/comfort'>Класс Комфорт</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/extension-of-registration'>Продление регистрации</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/secret-passenger'>Тайный пассажир</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/passengers/rules-of-carriage'>Правила перевозок</a><ul class='menu-list'></ul></li></ul></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>Услуги</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class=''><a href='/ru/gift-card'>Подарочный сертификат</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/auto-checkin'>Автоматическая онлайн-регистрация</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/chartered-flight'>Заказ чартерного рейса</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/seat-selection'>Выбор места в самолете</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/additional-meals'>Дополнительное питание</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/insurance'>Добровольное страхование</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/unaccompanied-children'>Несопровождаемые дети</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/multimodal-routes'>Мультимодальные маршруты</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/cargo'>Перевозка грузов</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/information-about-the-flight'>Справки о перелете</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/business-lounge'>Бизнес-зал</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/correspondence'>Коммерческая корреспонденция</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/sms'>СМС-информирование</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/fix-price'>Гарантированная цена</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/pack-fly'>Упаковка багажа</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/onboard-entertainment-system'>Бортовая система развлечений</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/service/esim'>eSIM</a><ul class='menu-list'></ul></li></ul></div><div class='col col25 mb-col100 top-menu-item'><div class='menu-title'><a>О компании</a><span class='opener-accordion mb-visible'></span></div><ul class='menu-list'><li class=''><a href='/ru/about/azimuth'>Азимут</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/about/contacts'>Контакты</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/about/contacts'>Офис</a></li><li><a href='/ru/about/contacts/representative'>Контакты представительств</a></li><li><a href='/ru/about/contacts/agencies'>Контакты уполномоченных агентств</a></li></ul></li><li class=''><a href='/ru/news'>Новости</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/about/vacancies'>Вакансии</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/about/vacancies'>Карьера в Азимуте</a></li><li><a href='/ru/about/vacancies/pilots'>Летный экипаж</a></li><li><a href='/ru/about/vacancies/flight-attendants'>Бортпроводники</a></li><li><a href='/ru/about/vacancies/engineers'>Инженерно-техническая служба</a></li><li><a href='/ru/about/vacancies/techaviation'>Наземное обеспечение</a></li><li><a href='/ru/about/vacancies/office'>Работа в офисе</a></li></ul></li><li class=''><a href='/ru/about/for-agencies'>Агентам</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/flight-map'>Карта полетов</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/about/journal'>Бортовой журнал</a><ul class='menu-list'></ul></li><li class=''><a href='/ru/about/fleet'>Флот</a><ul class='menu-list'></ul></li><li class='has_submenu'><a href='/ru/about/aviation-safety'>Транспортная и авиационная безопасность</a><span class='opener-accordion mb-visible'></span><ul class='menu-list'><li><a href='/ru/about/aviation-safety'>На борту воздушного судна</a></li><li><a href='/ru/about/aviation-safety/airports'>В аэропортах</a></li><li><a href='/ru/about/aviation-safety/weapon'>Перевозка оружия</a></li><li><a href='/ru/about/aviation-safety/dangerous-substances'>Перечень основных опасных веществ</a></li></ul></li><li class=''><a href='/ru/about/confidentiality'>Политика в отношении персональных данных</a><ul class='menu-list'></ul></li></ul></div><div class="col col25"><h3>  </h3><ul class="menu-list" itemscope="itemscope" itemtype="https://schema.org/Organization"><li><a href="tel:88632260005" itemprop="telephone"> 8 (863) 226-00-05</a></li><li><a href="mailto:infoavia@azimuth.ru" itemprop="email">infoavia@azimuth.ru</a></li><li><noindex><a rel="nofollow noopener noreferrer" target="_blank" href="https://max.ru/azimuthairlines">Канал в MAX</a></noindex></li></ul></div></div></div></div><div class="footer-network-wrap"><div class="center"><div class="row"><div class="col col50 mb-col100"><div class="copyright">2017 © Azimuth. Все права защищены</div></div><div class="col col50 mb-col100"><ul class="footer-network"><li><noindex><a rel="nofollow noopener noreferrer" target="_blank" href="https://www.facebook.com/AzimuthAirlines/">Facebook</a></noindex></li><li><noindex><a class="vk-icon" rel="nofollow noopener noreferrer" target="_blank" href="https://vk.com/azimuthairlines">ВКонтакте</a></noindex></li><li><noindex><a class="max-icon" rel="nofollow noopener noreferrer" target="_blank" href="https://max.ru/azimuthairlines">Канал в MAX</a></noindex></li></ul></div></div><div class="row"><div class="col col100 mb-col100 cards"><div class="footer-applications"><br /><noindex><a rel="nofollow noopener noreferrer" target="_blank" href="https://play.google.com/store/apps/details?id=ru.azimuth.tsh_app.twa"><img alt="Google Play" src="/assets/google-play-b2ab32fc8bf5ff00c225cb086ec388936733f7e43e74766bf6698c9483b11f70.png" /></a></noindex><noindex><a rel="nofollow noopener noreferrer" target="_blank" href="https://apps.apple.com/us/app/id6742141785"><img alt="App Store" src="/assets/app-store-05f51f97e9357f9fb8966d2d0a179ed2d0fff3e11945ede13e73e206d9e7113a.png" /></a></noindex></div></div></div><div class="row"><div class="col col100 mb-col100 cards"><br /><img height="22" alt="Visa" src="/assets/cards/visa-37c6f7dc8cd5f3340f676a9b30f2067bc908d2e48be452608f217e2535c1f025.png" /><img height="25" alt="Mastercard" src="/assets/cards/mastercard-4ac254a002f73f82c0c1263e946a0505875e95e25beb501a1200d99199cb7d08.png" /><img height="24" alt="Мир" src="/assets/cards/mir-f915050fe2cd1e881f62e008a36a9d0cb5661870b82a22e8b682cbb48c8187d3.png" /><img height="26" alt="JCB" src="/assets/cards/jcb-e74bad13bd8b8c152356f8786a9d047d90785a7f73a17ae0878a8d7b554dd6e0.png" /><noindex><a rel="nofollow noopener noreferrer" target="_blank" href="https://mapcard.pro"><img height="40" border="0" alt="Mapcard" src="/assets/cards/map-9b88437a54318146c42c86601c99b81b85eb2bb83dcd5ef02c9006966f401968.png" /></a></noindex></div></div></div></div></div></div></body></html>

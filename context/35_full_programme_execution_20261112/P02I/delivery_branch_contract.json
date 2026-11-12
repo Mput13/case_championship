@@ -1,0 +1,70 @@
+{
+  "period": "2027-01..2028-12",
+  "source": "TU214-PLAN; P03 exact79dc698; user scenario constraint",
+  "new_sj100": [
+    "Не ранее H22027 по условиюкейса",
+    "поэтапныйплан",
+    "частично",
+    "задержка",
+    "нольновых"
+  ],
+  "tu214_branches": [
+    {
+      "id": "ZERO_NEW_TU214",
+      "new_ready_count_by_month": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "meaning": "Заданный обязательный сценарий, не прогноз; существующий парк не обнулён",
+      "assumption_id": "P02I-A06"
+    },
+    {
+      "id": "PLANNED_NEW_TU214",
+      "new_ready_calendar": null,
+      "meaning": "Только датированный подтверждённый/явно сценарный N(t) от P03; передача≠ввод≠свободен",
+      "assumption_id": "P02I-A06"
+    },
+    {
+      "id": "PARTIAL_NEW_TU214",
+      "new_ready_calendar": null,
+      "meaning": "Подмножество готовых в planned; доля и даты UNKNOWN, не произвольные 50%",
+      "assumption_id": "P02I-A06"
+    },
+    {
+      "id": "DELAY_NEW_TU214",
+      "new_ready_calendar": null,
+      "meaning": "Датированныйсдвиг service entry и обязательств; лаг UNKNOWN, не произвольные 6 месяцев",
+      "assumption_id": "P02I-A06"
+    }
+  ],
+  "marginal_experiment": {
+    "ready_aircraft": 1,
+    "purpose": "Единица matched ресурсного опыта I07, не поставочный сценарий",
+    "configuration": "UNKNOWN пока нет поставочной спецификации",
+    "assumption_id": "P02I-A06"
+  },
+  "existing_tu214": "Публикуемые 3 шт только текущая структура. Календарь 2027/28, ремонты, экипажи и доноры UNKNOWN.",
+  "do_not_infer": "Не брать 11 самолётов как парк; заводские 4/8/20 не RWallocation; branchZERO не снимает CASE_SJ."
+}

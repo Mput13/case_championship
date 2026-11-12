@@ -1,0 +1,17 @@
+[
+  {
+    "source": "https://rosstat.gov.ru/statistics/transport",
+    "method": "web.open",
+    "status": "ACCESS_ERROR",
+    "error": "Failed to fetch https://rosstat.gov.ru/statistics/transport: (400) Timeout fetching",
+    "consequence": "Публичная недоступность не означает ложность источника; полноценный ряд не заявлен"
+  },
+  {
+    "source": "https://rosstat.gov.ru/statistics/transport",
+    "method": "/usr/bin/curl -L --connect-timeout 10 --max-time 35",
+    "status": "ACCESS_ERROR",
+    "exit_code": 60,
+    "error": "curl: (60) SSL certificate problem: self signed certificate in certificate chain",
+    "consequence": "TLS-проверка не отключалась; пользовательские браузеры/профили не менялись"
+  }
+]

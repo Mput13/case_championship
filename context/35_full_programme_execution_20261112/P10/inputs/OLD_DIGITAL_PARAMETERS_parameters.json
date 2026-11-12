@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "root_commit": "4a9971beeacbc40559943eae05b9004c90165917",
+  "period_historical": 2025,
+  "market_passengers": 108850000,
+  "red_wings_passengers": 2700000,
+  "number_two_landmark": 13800000,
+  "resource_targets": [
+    12000000,
+    13800000,
+    16000000,
+    20000000
+  ],
+  "resource_scenarios": [
+    {
+      "id": "regional_cautious",
+      "seats": 100,
+      "load_factor": 0.75,
+      "block_hours_per_leg": 2.5,
+      "productive_hours_per_active_day": 8,
+      "availability_including_reserve": 0.85,
+      "analogue": "SSJ100 seat count only; not SJ100 operating proof"
+    },
+    {
+      "id": "regional_base",
+      "seats": 100,
+      "load_factor": 0.85,
+      "block_hours_per_leg": 2,
+      "productive_hours_per_active_day": 10,
+      "availability_including_reserve": 0.9,
+      "analogue": "SSJ100 seat count only; not SJ100 operating proof"
+    },
+    {
+      "id": "medium_194",
+      "seats": 194,
+      "load_factor": 0.88,
+      "block_hours_per_leg": 3,
+      "productive_hours_per_active_day": 11,
+      "availability_including_reserve": 0.9,
+      "analogue": "Tu214 seat count only; no availability/delivery claim"
+    },
+    {
+      "id": "wide_412",
+      "seats": 412,
+      "load_factor": 0.9,
+      "block_hours_per_leg": 8,
+      "productive_hours_per_active_day": 13,
+      "availability_including_reserve": 0.85,
+      "analogue": "B777 seat count only; whole-business sensitivity"
+    }
+  ],
+  "digital_scenarios": [
+    {
+      "id": "D01",
+      "scenario": "base",
+      "eligible_events": 1000000,
+      "uplift_absolute": 0.001,
+      "unit_contribution_rub": 2500,
+      "cannibalized_contribution_rub": 150000,
+      "implementation_cash_rub": 1200000,
+      "annual_support_cash_rub": 300000,
+      "metric": "paid order conversion, not passenger growth"
+    },
+    {
+      "id": "D01",
+      "scenario": "cautious",
+      "eligible_events": 500000,
+      "uplift_absolute": 0.0005,
+      "unit_contribution_rub": 1500,
+      "cannibalized_contribution_rub": 400000,
+      "implementation_cash_rub": 2000000,
+      "annual_support_cash_rub": 600000,
+      "metric": "paid order conversion, not passenger growth"
+    },
+    {
+      "id": "D02",
+      "scenario": "base",
+      "eligible_events": 500000,
+      "uplift_absolute": 0.005,
+      "unit_contribution_rub": 1000,
+      "cannibalized_contribution_rub": 400000,
+      "implementation_cash_rub": 600000,
+      "annual_support_cash_rub": 200000,
+      "metric": "incremental paid baggage attach among eligible offers"
+    },
+    {
+      "id": "D02",
+      "scenario": "cautious",
+      "eligible_events": 250000,
+      "uplift_absolute": 0.0025,
+      "unit_contribution_rub": 600,
+      "cannibalized_contribution_rub": 400000,
+      "implementation_cash_rub": 1200000,
+      "annual_support_cash_rub": 400000,
+      "metric": "incremental paid baggage attach among eligible offers"
+    },
+    {
+      "id": "D03",
+      "scenario": "base",
+      "eligible_events": 60000,
+      "uplift_absolute": 0.1,
+      "unit_contribution_rub": 300,
+      "cannibalized_contribution_rub": 0,
+      "implementation_cash_rub": 700000,
+      "annual_support_cash_rub": 300000,
+      "metric": "absolute decrease in repeat-contact probability per eligible initial help case within7days"
+    },
+    {
+      "id": "D03",
+      "scenario": "cautious",
+      "eligible_events": 30000,
+      "uplift_absolute": 0.05,
+      "unit_contribution_rub": 150,
+      "cannibalized_contribution_rub": 0,
+      "implementation_cash_rub": 1500000,
+      "annual_support_cash_rub": 500000,
+      "metric": "absolute decrease in repeat-contact probability per eligible initial help case within7days"
+    }
+  ],
+  "assumption_status": "All digital traffic, uplift, unit margins, support volumes, productive time and availability are diagnostic assumptions, not measured RW inputs or forecasts. Implementation costs are planning caps, not supplier quotes. Cash effect of sales/contact savings NOT_ESTIMATED without settlement/refund/staffing data."
+}

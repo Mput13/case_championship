@@ -1,0 +1,157 @@
+{
+  "version": "P06-1.0",
+  "status": "EXECUTABLE_CONDITIONAL_ENGINE",
+  "validation_authority": [
+    "engine/core.py:validate",
+    "engine/operations.py:check_operations/check_itineraries",
+    "engine/choice.py:allocate",
+    "engine/finance.py:finance"
+  ],
+  "encoding": "UTF-8 JSON; null is UNKNOWN; monthly results 2027-01..2028-12; cash_start includes prelaunch",
+  "context_required": [
+    "evaluation_id",
+    "programme_id",
+    "programme_version",
+    "fleet_scope_id",
+    "external_scenario_id",
+    "delivery_calendar_id",
+    "market_version",
+    "choice_version",
+    "cost_version",
+    "response_policy_id",
+    "evaluation_mode",
+    "decision_date",
+    "information_set_id",
+    "keep_evaluation_id",
+    "input_manifest_sha256",
+    "period_start",
+    "period_end",
+    "cash_start",
+    "price_year",
+    "affected_scope_id"
+  ],
+  "bundle_required": [
+    "markets",
+    "market_calendar",
+    "products",
+    "flights",
+    "fleet_calendar",
+    "assignments",
+    "contracts",
+    "economic_events",
+    "cash_events",
+    "opening_balances",
+    "assumptions",
+    "input_manifest",
+    "choice_model",
+    "response_policy",
+    "cost_coverage",
+    "cash_coverage",
+    "cash_policy",
+    "resource_operators",
+    "accounting_policy",
+    "information_set",
+    "keep_policy",
+    "programme_target",
+    "metric_adapter"
+  ],
+  "canonical_manifest_hash": "SHA256 json.dumps(input_manifest,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode(); engine.seal returns a copy",
+  "owners": {
+    "P03": [
+      "flights",
+      "fleet_calendar",
+      "assignments",
+      "keep_policy"
+    ],
+    "P05": [
+      "markets",
+      "market_calendar",
+      "products",
+      "contracts",
+      "choice_model",
+      "response_policy"
+    ],
+    "P04": [
+      "economic_events",
+      "cash_events",
+      "opening_balances",
+      "cost_coverage",
+      "cash_coverage",
+      "cash_policy",
+      "accounting_policy"
+    ],
+    "P07/P08/P09": [
+      "versioned complete P/KEEP bundles",
+      "programmes/actions",
+      "joint recomputation",
+      "input acceptance and exact manifests"
+    ]
+  },
+  "adaptive_action_fields": [
+    "table",
+    "record_id",
+    "action:add/remove/replace",
+    "decision_date",
+    "effective_date",
+    "based_on_fact_ids",
+    "assumption_id"
+  ],
+  "money_categories": {
+    "operating": [
+      "revenue",
+      "support",
+      "variable_cost",
+      "operating_fixed",
+      "aircraft_use",
+      "startup",
+      "exit",
+      "depreciation",
+      "operating_credit"
+    ],
+    "excluded_operating_result": [
+      "interest",
+      "tax",
+      "investing",
+      "financing"
+    ],
+    "cash": [
+      "operating",
+      "investing",
+      "tax",
+      "financing"
+    ],
+    "cash_interest": "operating + subcategory finance_interest; mandatory explicit/unknown finance_interest coverage"
+  },
+  "cash_floor": "minimum_cash and project_minimum_cash: nonnegative number, null, or complete {YYYY-MM: value_or_null} across cash_start..2028-12",
+  "driver_kinds": [
+    "journeys/product_ids",
+    "segments/product_ids",
+    "flights/flight_ids",
+    "block_hours/flight_ids",
+    "explicit quantity for accepted tail/base months, fuel tonnes and other units"
+  ],
+  "outputs": [
+    "results_monthly",
+    "results_annual",
+    "allocation.allocations",
+    "allocation.seats",
+    "operations.rotations",
+    "economic_events",
+    "cash_events",
+    "terminal balances/obligations",
+    "accrual_cash_bridge",
+    "project incremental / whole company funding",
+    "pre_interest_funding_diagnostic",
+    "cost_driver_exports"
+  ],
+  "required_notes": [
+    "all examples are synthetic, including every coefficient/price/zero",
+    "each physical tail count=1; no cohort automatic expansion",
+    "market_calendar explicitly lists zero/unknown months; all 24 months covered",
+    "gross fare drives choice; net fare earned once; yield needs explicit distance basis",
+    "cash before financing includes interest under declared P04 presentation convention",
+    "unknown financing principal affects closing cash, not pre-financing need",
+    "parent hash/actions/information facts/commitments required for adaptive run",
+    "source export != accepted future market/capacity/rate"
+  ]
+}

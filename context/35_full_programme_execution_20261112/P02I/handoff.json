@@ -1,0 +1,120 @@
+{
+  "package_id": "P02I",
+  "version": "1.0",
+  "status": "STAGE_A_RESEARCH_READY_FOR_COORDINATOR",
+  "as_of": "2026-11-12",
+  "scope": "Международные дополнения к самостоятельному CASE_SJ; самостоятельного финансового/choice движка нет",
+  "write_boundary": "context/35_full_programme_execution_20261112/P02I/",
+  "counts": {
+    "as_of": "2026-11-12",
+    "sources": 45,
+    "market_cards": 87,
+    "airport_countries": 14,
+    "access_rows": 30,
+    "foreign_cost_rows": 39,
+    "hypotheses": 10,
+    "stage_a": "Пакет исследования готов; StageB и независимаяприёмка не выполнены",
+    "economic_evaluations_run": 0,
+    "new_paid_services": 0,
+    "messages_to_external_people": 0,
+    "browser_actions": 0
+  },
+  "required_deliverables": [
+    "international_market_cards.csv",
+    "international_access.csv",
+    "foreign_cost_inputs.csv",
+    "programme_hypotheses.json",
+    "cost_support_fx_unknowns.csv",
+    "assumptions.csv",
+    "manifest.json",
+    "handoff.md"
+  ],
+  "additional_deliverables": [
+    "aircraft_profiles.csv",
+    "sources.csv",
+    "demand_context.csv",
+    "city_domain_coverage.csv",
+    "unresolved_network_destinations.csv",
+    "delivery_branch_contract.json",
+    "kernel_handoff_map.csv",
+    "input_manifest.json",
+    "validation.json",
+    "source_issues.json",
+    "correction_lineage.json",
+    "tariff_visual_review.json"
+  ],
+  "exact_source_pins_file": "input_manifest.json",
+  "exact_source_blob_count": 18,
+  "row_provenance": {
+    "verified_source_records": 174,
+    "p02_products": 104,
+    "fields": [
+      "source_commit",
+      "source_git_path",
+      "source_file_sha256",
+      "source_csv_record_number",
+      "source_csv_line_start",
+      "source_csv_line_end",
+      "source_row_sha256",
+      "product_id если в оригинале"
+    ]
+  },
+  "assumptions": "P02I-A01..P02I-A14; численные диапазоны будущих неизвестных не выдуманы; сценарии не доверительные интервалы",
+  "zero_new_tu214": "Обязательный календарь24месяца нулевых новыхготовыхбортов; существующийKEEPсохраняется",
+  "priority_experiments": [
+    "I01: партнёрскийподвоз и собственныепрямые",
+    "I02: Кавказ direct/feed/domestic",
+    "I03: KUF–IST direct/feed/domestic"
+  ],
+  "new_finding": "НотаМИДРФ17695/2дснг20.11.2025: Волгоград–Минск2/нед по российскому назначению; иностранныйдопуск/слоты/продажи UNKNOWN",
+  "validation": {
+    "status": "PASS",
+    "checks": 261,
+    "failed": 0,
+    "scope": "Авторская проверка exact blobs/row hashes/связности и границ; не независимая приёмка и не подтверждение рынка/ресурса/права/экономики",
+    "independent_acceptance": "NOT_RUN"
+  },
+  "stage_b_remaining": [
+    {
+      "owner": "P03",
+      "fields": "24месяца dated KEEP/P; tail/crew/MRO/reserve; реальнаятрасса/payload/запасные; физическиекресла; слоты/обратныйрейс/MCT; ввод/донор"
+    },
+    {
+      "owner": "P05",
+      "fields": "ПомесячныйOD по двумсторонам/сегментам; общийchoice; ownmigration; прямые/трансфер/блоки; даты/asof/lead/gross/net/baggage; partnerprorate"
+    },
+    {
+      "owner": "P04",
+      "fields": "Полныйиностранныйоборот; futurecontractrates/currency/tax/FX/paymentdate; лизинг/поддержка/guarantees/advance/default; funding trajectory"
+    },
+    {
+      "owner": "P06/P07/P08/P09/P10",
+      "fields": "Accepted binding по producer_contract982f13d9; matched единыйпересчётP−KEEP; общийресурс/спрос без двойного счёта"
+    },
+    {
+      "owner": "Координатор/независимыйпроверяющий",
+      "fields": "Рынок/права/ресурс/экономика/полнота; авторскиеинварианты и implementedconditionalengine не финальнаяприёмка"
+    }
+  ],
+  "not_claimed": [
+    "выбраннаясеть",
+    "полныйюридическийдопуск",
+    "свободныйпарк",
+    "годоваяпрограмма",
+    "прибыль/лидерство/окупаемость",
+    "достижение№2",
+    "сопоставимыеживыетарифныепары",
+    "независимаяприёмкаP06"
+  ],
+  "authorization_actions": {
+    "git_mutations": false,
+    "shared_files_modified": false,
+    "public_site_changed": false,
+    "paid_services_started": false,
+    "messages_to_external_people": false,
+    "restarts": false,
+    "browser_interaction": false,
+    "coordinator_tranche_messages": true
+  },
+  "publication": "Только координатор может коммитить/пушить этот пакет; manifest.json — точныйсписокфайлов. Автоматическойпубликациинет."
+}

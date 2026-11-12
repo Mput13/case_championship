@@ -1,0 +1,136 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "required_outputs",
+      "passed": true,
+      "detail": [
+        "case.json",
+        "evidence.csv",
+        "market_deltas.csv",
+        "hypotheses.json",
+        "programme_candidates.json",
+        "comparison_requests.csv",
+        "assumptions.csv",
+        "readiness.json",
+        "handoff.json",
+        "input_manifest.json"
+      ]
+    },
+    {
+      "check": "python_syntax",
+      "passed": true,
+      "detail": "Все локальные скрипты разобраны через ast; сетевых запросов здесь нет."
+    },
+    {
+      "check": "json_parse",
+      "passed": true,
+      "detail": 120
+    },
+    {
+      "check": "captured_public_source_hashes",
+      "passed": true,
+      "detail": {
+        "verified": 65,
+        "filtered_coordinates": "Полный набор не сохранён; его исходныйhash находитсявreceipt,selectedrowsотдельно."
+      }
+    },
+    {
+      "check": "pinned_selected_row_hashes",
+      "passed": true,
+      "detail": 467
+    },
+    {
+      "check": "schedule_rows_and_provenance",
+      "passed": true,
+      "detail": 1178
+    },
+    {
+      "check": "unknown_inventory_preserved",
+      "passed": true,
+      "detail": "Ни один ярлык API не преобразован в продаваемые кресла."
+    },
+    {
+      "check": "WZ_sample_only",
+      "passed": true,
+      "detail": "Отрицательная выборка не выводит полное отсутствие RW."
+    },
+    {
+      "check": "evidence_source_resolution",
+      "passed": true,
+      "detail": 36
+    },
+    {
+      "check": "evidence_units_periods_coverage",
+      "passed": true,
+      "detail": 36
+    },
+    {
+      "check": "IO106_ordered_stoplist",
+      "passed": true,
+      "detail": "Объявленный station-pair IKT не трактуется nonstop."
+    },
+    {
+      "check": "direct_BQS_UUS_control",
+      "passed": true,
+      "detail": "FAVT2026строка14 — регуляторный тариф/маршрут,не livequote."
+    },
+    {
+      "check": "central_fragment_continuity",
+      "passed": true,
+      "detail": {
+        "legs": 138,
+        "conflicts": []
+      }
+    },
+    {
+      "check": "H2_R2_same_routes_days_resource",
+      "passed": true,
+      "detail": "Только время и условия защиты различаются;сравнениецен/продажнеисполнено."
+    },
+    {
+      "check": "six_120min_connections",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "check": "resource_stress_not_hidden",
+      "passed": true,
+      "detail": "Сдвигproxyblock/turnможетнарушатьфиксированноерасписание;таблицанеисправляетсярадиPASS."
+    },
+    {
+      "check": "all_hypotheses_explained",
+      "passed": true,
+      "detail": 7
+    },
+    {
+      "check": "all_programmes_use_shared_inputs",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "check": "24_month_scope_preserved",
+      "passed": true,
+      "detail": "Месячнаяспецификация;неизвестныеflightcounts/demandне0,не52x."
+    },
+    {
+      "check": "no_unconditional_money_claim",
+      "passed": true,
+      "detail": "P05/P06рыночная/денежнаяприёмкаNOT_RUN."
+    },
+    {
+      "check": "assumptions_described",
+      "passed": true,
+      "detail": 18
+    },
+    {
+      "check": "material_PDF_pages_preserved",
+      "passed": true,
+      "detail": "Страницыоткрытычерезview_image:ставки,примечания,условияскидок,55/70мин,прямойBQS–UUS."
+    }
+  ],
+  "check_count": 22,
+  "independent_acceptance": "NOT_RUN;проверкивыполненыавторомлокальногопакета",
+  "acceptance_boundary": "Целостность/схема/арифметика/условнаяпозиция.Не фактическийрынок/свободныйпарк/dispatch/финансы/готовностьпаспорта.",
+  "resource_sensitivity": "resource_sensitivity.csv:отрицательныеfixedscheduleстрокисохранены."
+}
