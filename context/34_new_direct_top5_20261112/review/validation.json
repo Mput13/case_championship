@@ -1,0 +1,90 @@
+{
+  "status": "CHECKS_COMPLETE",
+  "checks_passed": 16,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "check": "protected1190_before",
+      "status": "PASS",
+      "evidence": "1190 content hashes; no HEAD/tracked count assertion"
+    },
+    {
+      "check": "outputs_receipt_and_all_main_CSV_read",
+      "status": "PASS",
+      "evidence": "{'manifest_keys': ['inputs', 'no_HEAD_assertion', 'outputs', 'period', 'protection_count', 'qualified_new_routes', 'scope', 'version'], 'output_hashes_checked': 22, 'all_csv_rows': {'top5_conditional.csv': 5, 'AER_window_comparison.csv': 12, 'RW_data_request.csv': 9, 'assumption_changes.csv': 6, 'candidate_comparison.csv': 12, 'flights.csv': 840, 'break_even.csv': 352, 'assumptions.csv': 14, 'programme_ledger.csv': 272, 'author_triangle_reference.csv': 96, 'programme_comparison.csv': 64, 'delay_events.csv': 1568, 'admission.csv': 15, 'donor_rank_flip.csv': 63}}"
+    },
+    {
+      "check": "ledger_month_week_donor_retained",
+      "status": "PASS",
+      "evidence": "All numeric programme rows reconstruct from 272 ledger groups; donor net/cost exactly once; retained explicitly included"
+    },
+    {
+      "check": "unknowns_and_all12_admission",
+      "status": "PASS",
+      "evidence": "qualified0; 4 A unknown / 6 competitor RW unknown / 2 low evidence; unknown money and observations NULL"
+    },
+    {
+      "check": "physical_UTC_turns_resource",
+      "status": "PASS",
+      "evidence": "840 sectors UTC/local; equal 32 retained; E1 only; AER210/210; triangle six directions x4; hard failures not accepted"
+    },
+    {
+      "check": "independent_shock_replay",
+      "status": "PASS",
+      "evidence": "128 chains / 1568 events independently replayed with continuous readiness across midnight"
+    },
+    {
+      "check": "RAM_joint_seats_OD_net_and_ledger",
+      "status": "PASS",
+      "evidence": "36 RAM joint evaluations; independently summed revenue, leg inventory and city pools; net tax/distribution once; serialized deltas match"
+    },
+    {
+      "check": "frequency_actual_legacy_bug_workaround",
+      "status": "PASS",
+      "evidence": "P31 .25 reproduced; Feb4 1/week; monthly potential exactly4x; partial/month boundary rejected"
+    },
+    {
+      "check": "joint_price_override_and_sole8BH_gate",
+      "status": "PASS",
+      "evidence": "Actual products repriced; sole8BH bridge preserves all errors/flights; 21:00 hard errors unchanged and no economics"
+    },
+    {
+      "check": "migration_and_signed_fee_stress",
+      "status": "PASS",
+      "evidence": "Clean new+migrants share seats; oldnet-newnet once; 500/650 signed occupancy delta only"
+    },
+    {
+      "check": "canonical_sourceIDs_locators_flight_tokens_dates",
+      "status": "PASS",
+      "evidence": "{'source_recovery_new': 18, 'source_recovery_competitors': 16}"
+    },
+    {
+      "check": "full_author_reference",
+      "status": "PASS",
+      "evidence": "Exact96 source rows; original8/7 vs hours proxy9/8 distinct; no E1 attribution"
+    },
+    {
+      "check": "fairness_counterexample",
+      "status": "PASS",
+      "evidence": "Real BASE rank flip GOJ-KJA vs SVX-KJA; thresholds in counterexample.json, fixed-allocation interpolation, not demand prediction"
+    },
+    {
+      "check": "exact_AER_results_and_P32_B30",
+      "status": "PASS",
+      "evidence": "AER1/2 exact requested values and 4/8 failures; triangle8; IANA offsets all840; selected B30 exact original UTC"
+    },
+    {
+      "check": "protected1190_after",
+      "status": "PASS",
+      "evidence": "1190 content hashes; no HEAD/tracked count assertion"
+    },
+    {
+      "check": "calculation_unchanged",
+      "status": "PASS",
+      "evidence": "True"
+    }
+  ],
+  "author_verify_run": false,
+  "writes": "review only",
+  "network_calls": 0
+}
