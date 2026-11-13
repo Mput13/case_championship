@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  :root { font-family: var(--font-sans); }
+  body { margin: 0; color: var(--foreground); font-size: 13px; }
+  h3 { margin: 0 0 6px 0; font-size: 14px; font-weight: 600; color: var(--foreground); }
+  .sub { margin: 0 0 10px 0; font-size: 12px; color: var(--muted-foreground); }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 0 0 8px 0; font-size: 11.5px; color: var(--muted-foreground); }
+  .li { display: inline-flex; align-items: center; gap: 5px; }
+  .dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .c { width: 9px; height: 9px; border-radius: 50%; display: inline-block; border: 2px solid var(--foreground); background: var(--background); }
+  .sep { border-top: 1px solid var(--border); margin: 16px 0 14px 0; }
+  svg text { font-family: var(--font-sans); }
+</style>
+</head>
+<body>
+  <h3>1. Как меняется Топ-12 городов в виджете дашборда «Модель P09» (млн ₽, 2027–2028)</h3>
+  <p class="sub">Сортировка по базовому рынку; полосы — «Стало (живой рынок)» против «Было (старый P09)», контурный кружок — новый осторожный сценарий.</p>
+  <div class="legend">
+    <span class="li"><span class="dot" style="background:var(--chart-1)"></span>Было в дашборде (старый P09)</span>
+    <span class="li"><span class="dot" style="background:var(--chart-2)"></span>Стало (рынок, база)</span>
+    <span class="li"><span class="c"></span>Стало (осторожный спрос)</span>
+  </div>
+  <svg id="p09chart" viewBox="0 0 720 430" style="width:100%;height:430px;display:block" role="img" aria-label="Изменение Топ-12 городов P09 в дашборде"></svg>
+
+  <div class="sep"></div>
+
+  <h3>2. Как меняется рейтинг лонглиста городов (критерий «конкуренция» обновлён по данным 209 пар)</h3>
+  <p class="sub">Сверху вниз — новый порядок Топ-12 (50% база конкурента + 50% W_comp_2028, вес 7%). При фильтре ≥ 500 км Омск (OMS) остаётся №1.</p>
+  <svg id="llchart" viewBox="0 0 720 330" style="width:100%;height:330px;display:block" role="img" aria-label="Сдвиг позиций лонглиста городов"></svg>
+
+<script>
+const ns = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, text) => {
+  const n = document.createElementNS(ns, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (text !== undefined) n.textContent = text;
+  return n;
+};
+
+// Chart 1: P09 widget Top-13 (12 + KZN shown so user sees KZN dropping out and GSV entering Top-12)
+const p09 = [
+  { city: "MRV Минводы",    rOld: 2,  rNew: 1,  oldB: 1166.4, newB: 1015.6, newC: -22.3,  note: "+1 (№1)" },
+  { city: "AER Сочи",       rOld: 1,  rNew: 2,  oldB: 1227.1, newB: 776.9,  newC: -45.0,  note: "−1 (−450М)" },
+  { city: "KUF Самара",     rOld: 6,  rNew: 3,  oldB: 654.1,  newB: 606.1,  newC: 68.1,   note: "+3" },
+  { city: "VOG Волгоград",  rOld: 7,  rNew: 4,  oldB: 615.1,  newB: 545.2,  newC: 298.5,  note: "+3 (№1 в осторож.)" },
+  { city: "OMS Омск",       rOld: 4,  rNew: 5,  oldB: 723.5,  newB: 540.1,  newC: -192.2, note: "−1" },
+  { city: "GOJ Нижний",     rOld: 11, rNew: 6,  oldB: 525.1,  newB: 519.7,  newC: 190.9,  note: "+5" },
+  { city: "CEK Челябинск",  rOld: 3,  rNew: 7,  oldB: 766.5,  newB: 516.7,  newC: -42.4,  note: "−4" },
+  { city: "PEE Пермь",      rOld: 10, rNew: 8,  oldB: 572.0,  newB: 497.0,  newC: 7.1,    note: "+2" },
+  { city: "GSV Саратов",    rOld: 14, rNew: 9,  oldB: 451.2,  newB: 455.1,  newC: 105.1,  note: "+5 (вошёл в Топ-12)" },
+  { city: "UFA Уфа",        rOld: 9,  rNew: 10, oldB: 580.0,  newB: 453.8,  newC: 15.5,   note: "−1" },
+  { city: "TJM Тюмень",     rOld: 12, rNew: 11, oldB: 491.6,  newB: 404.3,  newC: -202.5, note: "+1" },
+  { city: "SVX Екатеринб.", rOld: 5,  rNew: 12, oldB: 681.7,  newB: 394.4,  newC: 38.5,   note: "−7 (−15М в 2028)" },
+  { city: "KZN Казань",     rOld: 8,  rNew: 13, oldB: 589.4,  newB: 351.9,  newC: 149.3,  note: "−5 (вылетел из Топ-12)" }
+];
+
+const s1 = document.getElementById("p09chart");
+const xMin1 = -250, xMax1 = 1300, lp1 = 158, rp1 = 128, tp1 = 22, rh1 = 30;
+const X1 = v => lp1 + ((v - xMin1) / (xMax1 - xMin1)) * (720 - lp1 - rp1);
+[-200, 0, 200, 400, 600, 800, 1000, 1200].forEach(t => {
+  const x = X1(t);
+  s1.appendChild(el("line", { x1: x, y1: tp1, x2: x, y2: tp1 + p09.length * rh1, stroke: t === 0 ? "var(--muted-foreground)" : "var(--border)", "stroke-width": t === 0 ? "1.2" : "1" }));
+  s1.appendChild(el("text", { x: x, y: tp1 - 6, "text-anchor": "middle", fill: "var(--muted-foreground)", "font-size": "10" }, t));
+});
+const x0_1 = X1(0);
+p09.forEach((d, i) => {
+  const y = tp1 + i * rh1 + 3;
+  const isOmsOrVog = d.city.startsWith("OMS") || d.city.startsWith("VOG") || d.city.startsWith("SVX");
+  s1.appendChild(el("text", { x: 4, y: y + 16, fill: d.rNew > 12 ? "var(--muted-foreground)" : "var(--foreground)", "font-size": "11.5", "font-weight": isOmsOrVog ? "600" : "400" }, `#${d.rNew} ${d.city}`));
+  // old bar
+  const r1 = el("rect", { x: x0_1, y: y + 1, width: (X1(d.oldB) - x0_1).toFixed(1), height: "8", rx: "2", fill: "var(--chart-1)", opacity: "0.75" });
+  r1.appendChild(el("title", {}, `${d.city} — было #${d.rOld}: +${d.oldB} млн ₽`));
+  s1.appendChild(r1);
+  // new bar
+  const r2 = el("rect", { x: x0_1, y: y + 11, width: (X1(d.newB) - x0_1).toFixed(1), height: "9", rx: "2", fill: d.city.startsWith("VOG") ? "var(--success)" : d.city.startsWith("OMS") ? "var(--primary)" : "var(--chart-2)" });
+  r2.appendChild(el("title", {}, `${d.city} — стало #${d.rNew}: +${d.newB} млн ₽ (осторожный: ${d.newC > 0 ? "+" : ""}${d.newC} млн ₽)`));
+  s1.appendChild(r2);
+  // cautious circle
+  const cx = X1(d.newC);
+  const c = el("circle", { cx: cx.toFixed(1), cy: (y + 15.5).toFixed(1), r: "4.2", fill: "var(--background)", stroke: d.newC > 0 ? "var(--foreground)" : "var(--destructive)", "stroke-width": "1.8" });
+  c.appendChild(el("title", {}, `${d.city} (новый осторожный): ${d.newC > 0 ? "+" : ""}${d.newC} млн ₽`));
+  s1.appendChild(c);
+  // shift badge
+  const up = d.rOld > d.rNew;
+  s1.appendChild(el("text", { x: 716, y: y + 16, "text-anchor": "end", fill: up ? "var(--success)" : (d.rNew - d.rOld >= 4 ? "var(--destructive)" : "var(--muted-foreground)"), "font-size": "10.5", "font-weight": Math.abs(d.rOld - d.rNew) >= 3 ? "600" : "400" }, d.note));
+});
+
+// Chart 2: 20-city longlist top-12 shift
+const ll = [
+  { iata: "CEK Челябинск",  rOld: 3,  rNew: 1,  sOld: 66.9, sNew: 69.2, f500: "— (<500 км)" },
+  { iata: "PEE Пермь",      rOld: 2,  rNew: 2,  sOld: 68.0, sNew: 67.7, f500: "— (<500 км)" },
+  { iata: "UFA Уфа",        rOld: 1,  rNew: 3,  sOld: 68.5, sNew: 67.5, f500: "— (<500 км)" },
+  { iata: "TJM Тюмень",     rOld: 5,  rNew: 4,  sOld: 62.3, sNew: 65.2, f500: "— (<500 км)" },
+  { iata: "OMS Омск",       rOld: 4,  rNew: 5,  sOld: 63.2, sNew: 63.8, f500: "≥500 км: #1 -> #1" },
+  { iata: "KUF Самара",     rOld: 6,  rNew: 6,  sOld: 60.9, sNew: 60.6, f500: "≥500 км: #2 -> #2" },
+  { iata: "GOJ Нижний",     rOld: 7,  rNew: 7,  sOld: 60.1, sNew: 60.1, f500: "— (<500 км)" },
+  { iata: "REN Оренбург",   rOld: 8,  rNew: 8,  sOld: 58.8, sNew: 59.6, f500: "≥500 км: #3 -> #3" },
+  { iata: "BAX Барнаул",    rOld: 9,  rNew: 9,  sOld: 55.3, sNew: 56.1, f500: "≥500 км: #4 -> #4" },
+  { iata: "VOG Волгоград",  rOld: 10, rNew: 10, sOld: 51.3, sNew: 52.2, f500: "≥500 км: #5 -> #5" },
+  { iata: "KJA Красноярск", rOld: 12, rNew: 11, sOld: 50.1, sNew: 51.6, f500: "≥500 км: #7 -> #6" },
+  { iata: "KZN Казань",     rOld: 13, rNew: 12, sOld: 49.6, sNew: 50.1, f500: "≥500 км: #8 -> #7" },
+  { iata: "KGD Калинингр.", rOld: 11, rNew: 13, sOld: 50.6, sNew: 49.6, f500: "≥500 км: #6 -> #8" }
+];
+
+const s2 = document.getElementById("llchart");
+const xMin2 = 40, xMax2 = 75, lp2 = 158, rp2 = 150, tp2 = 20, rh2 = 23;
+const X2 = v => lp2 + ((v - xMin2) / (xMax2 - xMin2)) * (720 - lp2 - rp2);
+[45, 50, 55, 60, 65, 70].forEach(t => {
+  const x = X2(t);
+  s2.appendChild(el("line", { x1: x, y1: tp2, x2: x, y2: tp2 + ll.length * rh2, stroke: "var(--border)" }));
+  s2.appendChild(el("text", { x: x, y: tp2 - 5, "text-anchor": "middle", fill: "var(--muted-foreground)", "font-size": "10" }, t));
+});
+ll.forEach((d, i) => {
+  const y = tp2 + i * rh2 + 2;
+  const shift = d.rOld - d.rNew;
+  const label = shift === 0 ? `=${d.rNew}` : (shift > 0 ? `#${d.rOld}→#${d.rNew} (+${shift})` : `#${d.rOld}→#${d.rNew} (${shift})`);
+  s2.appendChild(el("text", { x: 4, y: y + 14, fill: "var(--foreground)", "font-size": "11", "font-weight": d.iata.startsWith("OMS") || d.rNew <= 3 ? "600" : "400" }, `${d.rNew}. ${d.iata}`));
+  s2.appendChild(el("rect", { x: X2(xMin2), y: y + 3, width: (X2(d.sOld) - X2(xMin2)).toFixed(1), height: "6", rx: "1.5", fill: "var(--chart-1)", opacity: "0.7" }));
+  s2.appendChild(el("rect", { x: X2(xMin2), y: y + 10, width: (X2(d.sNew) - X2(xMin2)).toFixed(1), height: "7", rx: "1.5", fill: d.iata.startsWith("OMS") ? "var(--primary)" : "var(--chart-2)" }));
+  s2.appendChild(el("text", { x: 716, y: y + 14, "text-anchor": "end", fill: d.iata.startsWith("OMS") ? "var(--primary)" : (shift < 0 ? "var(--destructive)" : (shift > 0 ? "var(--success)" : "var(--muted-foreground)")), "font-size": "10.5", "font-weight": d.iata.startsWith("OMS") || Math.abs(shift) >= 2 ? "600" : "400" }, `${label} | ${d.f500}`));
+});
+</script>
+</body>
+</html>

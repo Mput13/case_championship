@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  :root { font-family: var(--font-sans); }
+  body { margin: 0; color: var(--foreground); font-size: 13px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 10px; font-size: 12px; color: var(--muted-foreground); }
+  .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .caption { margin-top: 8px; font-size: 12px; color: var(--muted-foreground); line-height: 1.4; }
+  svg text { font-family: var(--font-sans); }
+</style>
+</head>
+<body>
+  <div class="legend">
+    <span class="legend-item"><span class="dot" style="background:var(--chart-2)"></span>Рынок (База)</span>
+    <span class="legend-item"><span class="dot" style="background:var(--chart-3)"></span>Осторожный спрос</span>
+    <span class="legend-item"><span class="dot" style="background:var(--chart-4)"></span>Экспансия 2028 (SU/SVX, DP, N4)</span>
+  </div>
+  <svg id="chart" viewBox="0 0 720 470" style="width:100%;height:470px;display:block" role="img" aria-label="Сравнение узловых хабов консенсуса и лидеров P09 в трёх сценариях"></svg>
+  <p class="caption">Δ известного операционного subtotal к пересчитанному KEEP (млн ₽, 2027–2028, в ценах 2026 г., RW_SUPPORT_NEW = 0). Справа указан диагностический пик кассового разрыва в сценарии «Экспансия 2028».</p>
+<script>
+const data = [
+  { name: "MRV_SEASONAL (#1 База)", base: 1015.6, caut: -22.3, exp: -56.9, peak: "0.0" },
+  { name: "AER_SEASONAL (#6 База)", base: 776.9,  caut: -45.0, exp: -99.8, peak: "0.0" },
+  { name: "KUF_RADIAL (#11 База)",  base: 606.1,  caut: 68.1,  exp: 48.8,  peak: "0.0" },
+  { name: "VOG_RADIAL (#1 Стресс)", base: 545.2,  caut: 298.5, exp: 293.7, peak: "0.0" },
+  { name: "GOJ_RADIAL (#2 Стресс)", base: 519.7,  caut: 190.9, exp: 184.7, peak: "0.0" },
+  { name: "GSV_RADIAL (#4–5 Стресс)", base: 455.1, caut: 105.1, exp: 100.5, peak: "0.0" },
+  { name: "OMS_RADIAL (Консенсус)", base: 540.1,  caut: -192.2, exp: -195.5, peak: "140.0" },
+  { name: "SVX_RADIAL (Риск SU)",   base: 394.4,  caut: 38.5,  exp: -15.2, peak: "0.1" },
+  { name: "OMS_HYBRID (Консенсус)", base: 476.5,  caut: -433.2, exp: -452.5, peak: "336.5" }
+];
+
+const svg = document.getElementById("chart");
+const ns = "http://www.w3.org/2000/svg";
+const xMin = -500, xMax = 1100;
+const leftPad = 175, rightPad = 78, topPad = 24, rowH = 46;
+const plotW = 720 - leftPad - rightPad;
+const xPos = v => leftPad + ((v - xMin) / (xMax - xMin)) * plotW;
+
+const el = (tag, attrs, text) => {
+  const n = document.createElementNS(ns, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (text !== undefined) n.textContent = text;
+  return n;
+};
+
+[-400, -200, 0, 200, 400, 600, 800, 1000].forEach(t => {
+  const x = xPos(t);
+  svg.appendChild(el("line", {
+    x1: x, y1: topPad, x2: x, y2: topPad + data.length * rowH,
+    stroke: t === 0 ? "var(--muted-foreground)" : "var(--border)",
+    "stroke-width": t === 0 ? "1.2" : "1"
+  }));
+  svg.appendChild(el("text", {
+    x: x, y: topPad - 6, "text-anchor": "middle",
+    fill: "var(--muted-foreground)", "font-size": "10.5"
+  }, t));
+});
+
+svg.appendChild(el("text", {
+  x: 716, y: topPad - 6, "text-anchor": "end",
+  fill: "var(--muted-foreground)", "font-size": "10.5"
+}, "Пик разрыва"));
+
+const x0 = xPos(0);
+data.forEach((d, i) => {
+  const y0 = topPad + i * rowH + 6;
+  svg.appendChild(el("text", {
+    x: 4, y: y0 + 20, fill: "var(--foreground)", "font-size": "11.5", "font-weight": d.name.includes("VOG_RADIAL") || d.name.includes("OMS") ? "600" : "400"
+  }, d.name));
+
+  const bars = [
+    { val: d.base, dy: 0,  color: "var(--chart-2)", label: "База" },
+    { val: d.caut, dy: 11, color: "var(--chart-3)", label: "Осторожный" },
+    { val: d.exp,  dy: 22, color: "var(--chart-4)", label: "Экспансия 2028" }
+  ];
+  bars.forEach(b => {
+    const xv = xPos(b.val);
+    const rx = Math.min(x0, xv);
+    const w = Math.max(1.5, Math.abs(xv - x0));
+    const rect = el("rect", {
+      x: rx.toFixed(1), y: (y0 + b.dy).toFixed(1), width: w.toFixed(1), height: "9",
+      rx: "2", fill: b.color
+    });
+    rect.appendChild(el("title", {}, `${d.name} (${b.label}): ${b.val > 0 ? "+" : ""}${b.val.toFixed(1)} млн ₽`));
+    svg.appendChild(rect);
+  });
+
+  svg.appendChild(el("text", {
+    x: 716, y: y0 + 20, "text-anchor": "end",
+    fill: Number(d.peak) > 10 ? "var(--destructive)" : "var(--muted-foreground)",
+    "font-size": "11"
+  }, `${d.peak}М`));
+});
+</script>
+</body>
+</html>
