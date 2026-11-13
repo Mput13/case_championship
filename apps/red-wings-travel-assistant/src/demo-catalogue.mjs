@@ -9,13 +9,13 @@ import { datedTime, flightNumber } from './validation.mjs';
 const FILES = Object.freeze({
   'feeder-flight': 'to_flight',
   'arrival-train': 'after_flight',
-  'ground-alternative': 'ground_baseline',
+  'direct-flight': 'direct_flight',
   'scenario-transfer': 'scenario_partner',
 });
 const descriptions = {
   to_flight: 'Электрички до Кольцово и переход к рейсу Red Wings; часть переходов требует проверки.',
   after_flight: 'Рейс Red Wings, автобус из аэропорта и две электрички с разным запасом на пересадку.',
-  ground_baseline: 'Прямой поезд и электричка для сравнения с поездкой через аэропорт.',
+  direct_flight: 'Прямой рейс Red Wings между аэропортами, без лишних наземных участков.',
   scenario_partner: 'Сценарий сети 2027–2028: общественный транспорт и целевой шаттл на Ольхон.',
 };
 const record = v => v && typeof v === 'object' && !Array.isArray(v);
@@ -113,6 +113,7 @@ export function validateDemo(value, expectedId = value?.id) {
   if (value.result.missing_data !== undefined && (!Array.isArray(value.result.missing_data) || value.result.missing_data.some(s => !text(s)))) invalid('missing_data');
   const ids = new Set();
   for (const p of value.result.plans) {
+    if (!p.requires_red_wings || !p.legs?.some(l => l.mode === 'plane' && l.carrier_iata === 'WZ')) invalid('missing_rw');
     if (!record(p) || !Array.isArray(p.legs) || !text(p.title, 500) || ids.has(p.id)) invalid('plan');
     if (!Array.isArray(p.warnings) || p.warnings.some(s => !text(s))) invalid('warnings');
     sources(p.sources);

@@ -173,6 +173,7 @@ test('HTTP exposes manifest, controls, start and demo with same-origin and body 
   const base = await httpServer(t, service);
   const manifest = await (await fetch(base + '/api/demos')).json(); assert.equal(manifest.demos.length, 4);
   const versionedManifest = await (await fetch(base + '/api-v2/demos')).json(); assert.deepEqual(versionedManifest, manifest);
+  assert.deepEqual(await (await fetch(base + '/api-v3/demos')).json(), manifest);
   const places = await (await fetch(base + '/api/places?q=%D0%A1%D0%B0%D0%BC')).json(); assert.equal(places.places[0].id, 'c1');
   const flights = await (await fetch(base + '/api/flights?from=c1&date=2026-12-01')).json(); assert.equal(flights.flights[0].id, 'known-flight');
   const seeded = await (await post(base, '/api/chat/demo', { id: 'feeder-flight' })).json(); assert.equal(seeded.reply_origin, 'prepared');

@@ -6,6 +6,7 @@ import { createLocalTransfer } from './local-transfer.mjs';
 import { createChatService } from './chat-service.mjs';
 import { decorateJourneyResult, scenarioJourney } from './product-services.mjs';
 import { loadDemoCatalogue } from './demo-catalogue.mjs';
+import { redWingsResult } from './route-policy.mjs';
 
 export async function createLiveChat({ config, snapshot, schedules } = {}) {
   const source = new YandexTransportSource(config);
@@ -20,7 +21,7 @@ export async function createLiveChat({ config, snapshot, schedules } = {}) {
   const live = createJourneySearch({ source, places, transfer });
   const journeySearch = async (trip, { signal } = {}) => {
     const result = trip.network_mode === 'scenario_2027_2028' ? scenarioJourney(trip) : await live.search(trip, { signal });
-    return decorateJourneyResult(result, trip);
+    return decorateJourneyResult(redWingsResult(result), trip);
   };
   const resolvePlaces = async (query, { signal } = {}) => {
     const result = await places.resolve(query, { signal });

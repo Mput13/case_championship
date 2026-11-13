@@ -76,7 +76,7 @@ export async function createServer({ config = loadConfig(), snapshot = null, sch
       const url = new URL(req.url, 'http://localhost');
       // Versioned browser entry permits a new deployment to coexist with the
       // previous process while its existing conversations finish.
-      if (url.pathname.startsWith('/api-v2/')) url.pathname = '/api/' + url.pathname.slice('/api-v2/'.length);
+      if (/^\/api-v[23]\//.test(url.pathname)) url.pathname = url.pathname.replace(/^\/api-v[23]\//, '/api/');
       if (url.pathname === '/api/health' && req.method === 'GET') return json(res, 200, {
         status: config.scheduleMode === 'live' && !(config.yandexKey || config.yandexKeyFile) ? 'degraded' : 'ok',
         ...agent.health(), schedule_mode: schedules.mode, schedule_configured: config.scheduleMode === 'snapshot' || Boolean(config.yandexKey || config.yandexKeyFile), chat_configured: Boolean(chatService),

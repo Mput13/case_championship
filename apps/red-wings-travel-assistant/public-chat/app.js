@@ -125,7 +125,6 @@ function renderActions(value) {
   for (const action of actions) {
     const item = node("span", "leg-action");
     item.append(link(action.label, action.url));
-    if (action.note) item.append(node("span", "action-note", action.note));
     group.append(item);
   }
   return group;
@@ -291,7 +290,8 @@ function renderLeg(leg, networkMode) {
   const projectedFlight = networkMode === "scenario_2027_2028" && isRedWings(leg);
   const badge = node("span", "leg-evidence", projectedFlight ? "Проектируемый рейс" : evidenceLabels[evidence]);
   badge.dataset.evidence = evidence;
-  top.append(node("span", "leg-mode", label), badge);
+  top.append(node("span", "leg-mode", label));
+  if (projectedFlight) top.append(badge);
   content.append(top, node("p", "leg-route", `${leg.origin} → ${leg.destination}`));
   if (string(leg.departure) || string(leg.arrival)) {
     const times = node("dl", "leg-times");
@@ -303,19 +303,19 @@ function renderLeg(leg, networkMode) {
         // Invalid datetime attributes are avoided when a source returns prose.
         if (/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?$/.test(value)) time.dateTime = value;
         description.append(time);
-      } else description.textContent = "Не подтверждено";
+      } else description.textContent = "Уточняется";
       item.append(node("dt", "", title), description);
       times.append(item);
     }
     content.append(times);
-  } else content.append(node("p", "leg-meta", "Время не подтверждено"));
+  } else content.append(node("p", "leg-meta", "Время уточняется"));
 
   const metadata = node("div", "leg-meta");
   if (number(leg.duration_minutes)) metadata.append(node("span", "", durationLabel(leg.duration_minutes)));
   if (number(leg.price) && leg.currency === "RUB") {
     const basis = leg.price_basis === "person" ? " / чел." : leg.price_basis === "party" ? " за всех пассажиров" : " · единица тарифа не указана";
     metadata.append(node("span", "", `${rubles.format(leg.price)}${basis}`));
-  } else metadata.append(node("span", "", "Цена уточняется у перевозчика"));
+  }
   if (leg.overnight === true) metadata.append(node("span", "", "С ночёвкой"));
   if (metadata.childElementCount) content.append(metadata);
   if (string(leg.baggage_note)) content.append(node("p", "leg-note", leg.baggage_note));
@@ -323,7 +323,7 @@ function renderLeg(leg, networkMode) {
   if (actions) content.append(actions);
   else if (safeUrl(leg.source_url)) {
     content.append(renderActions([{label: "Сведения об участке", url: leg.source_url}]));
-  } else content.append(node("p", "leg-note", "Ссылка на расписание или покупку не предоставлена."));
+  }
   row.append(marker, content);
   return row;
 }
@@ -332,29 +332,25 @@ function renderConnection(connection, previous, next) {
   if (!object(connection)) return null;
   const note = node("div", "connection");
   const gap = number(connection.available_minutes) ? connection.available_minutes : null;
+  if (gap === null) return null;
   const minimum = number(connection.minimum_minutes) ? connection.minimum_minutes : null;
   const nextDay = /^\d{4}-\d{2}-\d{2}T/.test(string(previous.arrival)) && /^\d{4}-\d{2}-\d{2}T/.test(string(next.departure)) && previous.arrival.slice(0, 10) < next.departure.slice(0, 10);
   const longWait = gap !== null && gap > 300;
   const verified = connection.status === "verified" && gap !== null && minimum !== null && gap >= minimum;
   note.dataset.status = !verified ? "unknown" : longWait || nextDay ? "long" : "verified";
   const title = nextDay ? "Ожидание до следующего дня" : longWait ? "Долгое ожидание" : "Стыковка";
-  note.append(node("strong", "", `${title}${gap === null ? " · время не подтверждено" : ` · ${durationLabel(gap)}`}`));
-  if (minimum !== null) note.append(node("span", "", `Минимум на стыковку: ${durationLabel(minimum)}`));
-  if (!verified) note.append(node("span", "", "Стыковка не проверена"));
+  note.append(node("strong", "", `${title} · ${durationLabel(gap)}`));
   return note;
 }
 
 function renderConnectionChecks(checks) {
   if (!object(checks)) return null;
   const hasSlack = typeof checks.slack_minutes === "number" && Number.isFinite(checks.slack_minutes);
-  if (!hasSlack && !string(checks.ready_at) && !string(checks.departure_at) && !string(checks.explanation)) return null;
+  if (!hasSlack) return null;
   const section = node("section", "connection-checks");
   section.setAttribute("aria-label", "Расчёт запаса на пересадку");
-  const title = hasSlack
-    ? `${checks.slack_minutes < 0 ? "Дефицит времени" : "Запас на пересадку"}: ${durationLabel(Math.abs(checks.slack_minutes))}`
-    : "Запас на пересадку не подтверждён";
+  const title = `${checks.slack_minutes < 0 ? "Дефицит времени" : checks.method === "conservative_interval" ? "Расчётный запас" : "Запас на пересадку"}: ${durationLabel(Math.abs(checks.slack_minutes))}`;
   section.append(node("h4", "", title));
-  if (checks.method === "conservative_interval") section.append(node("p", "", "Расчёт по консервативному интервалу"));
   const times = node("dl", "leg-times");
   for (const [label, value] of [["Готовность к пересадке", checks.ready_at], ["Отправление", checks.departure_at]]) {
     if (!string(value)) continue;
@@ -363,7 +359,6 @@ function renderConnectionChecks(checks) {
     times.append(row);
   }
   if (times.childElementCount) section.append(times);
-  if (string(checks.explanation)) section.append(node("p", "", checks.explanation));
   return section;
 }
 
@@ -425,31 +420,26 @@ function renderPlan(plan, variant) {
   const labels = node("div", "plan-labels");
   const kind = plan.requires_red_wings === true ? `С Red Wings${variant ? ` · вариант ${variant}` : ""}` : plan.requires_red_wings === false ? "Наземный вариант" : "Участие Red Wings не уточнено";
   const scenario = plan.network_mode === "scenario_2027_2028";
-  const scenarioStatuses = {verified: "Сценарная цепочка", partial: "Сценарная цепочка · неполные данные", candidate: "Сценарный вариант"};
-  const statuses = scenario ? scenarioStatuses : planStatuses;
-  const status = node("span", "plan-status", Object.hasOwn(statuses, plan.status) ? statuses[plan.status] : "Статус не указан");
-  status.dataset.status = scenario ? "scenario" : Object.hasOwn(planStatuses, plan.status) ? plan.status : "unknown";
-  labels.append(node("span", "plan-kind", kind), status);
+  labels.append(node("span", "plan-kind", kind));
   const network = node("span", "network-badge", Object.hasOwn(networkLabels, plan.network_mode) ? networkLabels[plan.network_mode] : "Режим сети не указан");
   network.dataset.mode = Object.hasOwn(networkLabels, plan.network_mode) ? plan.network_mode : "unknown";
-  heading.append(labels, network, node("h3", "", string(plan.title) || "Маршрут"));
-  if (string(plan.summary)) heading.append(node("p", "plan-summary", plan.summary));
+  heading.append(labels);
+  if (scenario) heading.append(network);
+  heading.append(node("h3", "", string(plan.title) || "Маршрут"));
 
   const reason = plan.reasonableness;
-  if (object(reason) && (string(reason.explanation) || reason.status === "detour")) {
+  if (object(reason) && reason.status === "detour") {
     const note = node("div", "reasonableness");
     note.dataset.status = ["reasonable", "detour", "unknown"].includes(reason.status) ? reason.status : "unknown";
     if (reason.status === "detour") note.append(node("strong", "", "Маршрут с крюком"));
-    if (reason.status === "unknown") note.append(node("strong", "", "Разумность маршрута не подтверждена"));
-    if (string(reason.explanation)) note.append(node("p", "", reason.explanation));
     heading.append(note);
   }
   card.append(heading);
 
   const totals = node("dl", "plan-totals");
   for (const [title, value, format, unknown] of [
-    ["Вся поездка", plan.total_duration_minutes, durationLabel, "Время уточняется"],
-    ["Стоимость", plan.currency === "RUB" ? plan.total_price : null, (price) => rubles.format(price), "Цена уточняется у перевозчиков"],
+    ["Вся поездка", plan.total_duration_minutes, durationLabel, "—"],
+    ["Стоимость", plan.currency === "RUB" ? plan.total_price : null, (price) => rubles.format(price), "На сайте перевозчика"],
   ]) {
     const item = node("div");
     item.append(node("dt", "", title), node("dd", number(value) ? "" : "unknown", number(value) ? format(value) : unknown));
@@ -458,7 +448,6 @@ function renderPlan(plan, variant) {
   card.append(totals);
 
   const legs = node("ol", "legs");
-  let omitted = false;
   const planLegs = array(plan.legs);
   for (let index = 0; index < planLegs.length; index++) {
     const leg = planLegs[index];
@@ -472,21 +461,13 @@ function renderPlan(plan, variant) {
       if (notice) rendered.lastElementChild.append(notice);
       legs.append(rendered);
     }
-    else omitted = true;
   }
   if (legs.childElementCount) card.append(legs);
   const checks = renderConnectionChecks(plan.connection_checks);
   if (checks) card.append(checks);
-  const warnings = array(plan.warnings).filter((value) => string(value));
-  if (omitted || !legs.childElementCount) warnings.push("Данные об участках неполны. Полный маршрут пока нельзя проверить.");
-  if (warnings.length) {
-    const list = node("ul", "plan-warnings");
-    for (const warning of new Set(warnings)) list.append(node("li", "", warning));
-    card.append(list);
-  }
   const transfers = renderTransfers(plan);
   if (transfers) card.append(transfers);
-  const basket = renderBasket(plan.basket);
+  const basket = plan.basket?.status === "not_connected" ? null : renderBasket(plan.basket);
   if (basket) card.append(basket);
   const sources = sourcesDisclosure([
     ...planLegs.filter((leg) => object(leg) && (safeUrl(leg.source_url) || string(leg.source_name))).map((leg) => ({name: `${leg.origin || "Участок"} → ${leg.destination || "пункт назначения"} · ${string(leg.source_name) || "источник"}`, url: leg.source_url, checked_at: leg.checked_at})),
@@ -569,15 +550,17 @@ function updateTrip(trip) {
   elements.tripPreview.textContent = origin && destination ? `${origin.value} → ${destination.value}` : "";
 }
 
-function renderReply(data) {
+function renderReply(data, {concise = false} = {}) {
   const demo = object(data.demo) ? data.demo : null;
   const article = appendMessage("assistant", "", demo && data.reply_origin === "prepared" ? "Сохранённый пример" : undefined);
   if (demo) {
     article.append(node("h2", "demo-title", string(demo.label) || "Пример поездки"));
     article.append(demoMetadata(demo));
   }
-  if (string(data.reply)) article.append(node("p", "message-body", data.reply));
-  const plans = array(data.plans).filter(object).filter(plan => array(plan.legs).every(leg => leg.mode !== "plane" ||
+  const hasPlans = array(data.plans).length > 0;
+  const reply = concise && hasPlans ? string(data.reply).split(/\n\s*\n/)[0] : data.reply;
+  if (string(reply) && !(hasPlans && data.reply_origin === "prepared")) article.append(node("p", "message-body", reply));
+  const plans = array(data.plans).filter(object).filter(plan => plan.requires_red_wings === true && array(plan.legs).some(leg => leg.mode === "plane" && leg.carrier_iata === "WZ")).filter(plan => array(plan.legs).every(leg => leg.mode !== "plane" ||
     (leg.carrier_iata === "WZ" || Number(leg.carrier_code) === 617) && (leg.carrier_code == null || Number(leg.carrier_code) === 617) && (!leg.carrier_iata || leg.carrier_iata === "WZ")));
   if (plans.length) {
     const group = node("div", "plan-list");
@@ -664,7 +647,7 @@ function createPlacePicker(prefix, changed = () => {}) {
     status.textContent = "Ищу места…";
     list.setAttribute("aria-busy", "true");
     try {
-      const response = await fetch(`api-v2/places?q=${encodeURIComponent(query)}`, {headers: {Accept: "application/json"}, credentials: "same-origin", cache: "no-store", signal});
+      const response = await fetch(`api-v3/places?q=${encodeURIComponent(query)}`, {headers: {Accept: "application/json"}, credentials: "same-origin", cache: "no-store", signal});
       const data = await response.json();
       if (signal.aborted || version !== revision) return;
       if (!response.ok || !object(data) || data.status === "error" || !Array.isArray(data.places) || data.places.some(place => !object(place) || !string(place.id) || !string(place.title))) throw new Error("places");
@@ -760,7 +743,7 @@ async function loadFlights() {
   elements.flightsStatus.textContent = "Ищу рейсы Red Wings…";
   try {
     const airportArea = from.kind === "station" ? string(from.place_id) || from.id : from.id;
-    const response = await fetch(`api-v2/flights?from=${encodeURIComponent(airportArea)}&date=${encodeURIComponent(date)}`, {headers: {Accept: "application/json"}, credentials: "same-origin", cache: "no-store", signal});
+    const response = await fetch(`api-v3/flights?from=${encodeURIComponent(airportArea)}&date=${encodeURIComponent(date)}`, {headers: {Accept: "application/json"}, credentials: "same-origin", cache: "no-store", signal});
     const data = await response.json();
     if (signal.aborted) return;
     if (!response.ok || !object(data) || data.status === "error" || !Array.isArray(data.flights) || data.flights.some(flight => !object(flight) || !string(flight.id) || !string(flight.number))) throw new Error("flights");
@@ -894,14 +877,14 @@ async function startTrip(body) {
   let started = false;
   try {
     // The form starts a server-side search. Never replay an ambiguously accepted POST.
-    const response = await fetch("api-v2/chat/start", {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, credentials: "same-origin", cache: "no-store", body: JSON.stringify(body), signal: controller.signal});
+    const response = await fetch("api-v3/chat/start", {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, credentials: "same-origin", cache: "no-store", body: JSON.stringify(body), signal: controller.signal});
     let data;
     try { data = await response.json(); } catch { throw new Error("Ответ не удалось прочитать. Маршрут мог быть рассчитан; текущий диалог и параметры сохранены."); }
     if (!response.ok || data?.status === "error") throw new Error(string(data?.reply) || string(data?.message) || "Не удалось рассчитать маршрут. Параметры сохранены.");
     if (!object(data) || !["ok", "partial", "needs_input"].includes(data.status) || !string(data.session_id) || typeof data.reply !== "string" || !object(data.trip) || !Array.isArray(data.plans)) throw new Error("Ответ неполный. Маршрут мог быть рассчитан; текущий диалог и параметры сохранены.");
     if (data.reply_origin === "planner") {
       elements.tripFormStatus.textContent = "Агент разбирает найденные варианты…";
-      data = await analyzePrepared(data, controller.signal, "По уже найденным данным выбери подходящий вариант и назови главное условие стыковки. Если вариантов нет, назови недостающие данные. Без повторного поиска. Объясни выбор и ограничения без повторения всех карточек.");
+      data = await analyzePrepared(data, controller.signal, "Кратко предложи лучший из найденных вариантов: маршрут, время и запас на пересадку. Если вариантов нет, предложи следующий шаг. Не повторяй поиск. Без технических оговорок о прототипе, снимках, источниках, ценах и проверках. Не повторяй содержимое карточек.");
     }
     const newDraft = elements.input.value;
     clearConversation();
@@ -914,7 +897,7 @@ async function startTrip(body) {
     editorInitialized = true;
     editorSessionId = sessionId;
     if (body.wishes) appendMessage("user", body.wishes, "Ваши пожелания");
-    renderReply(data);
+    renderReply(data, {concise: true});
     started = true;
   } catch (error) {
     elements.tripFormError.textContent = error instanceof TypeError || error?.name === "AbortError"
@@ -978,10 +961,11 @@ async function sendMessage(event) {
       sessionId = seed.session_id;
       offlineSeedId = null;
     }
-    const body = {message};
+    const styledMessage = `${message}\n\nФормат ответа: результат поездки и полезное следующее действие. Без длинных технических оговорок о прототипе, сохранённых снимках и проверках источников. Не повторяй справочную информацию из карточек.`;
+    const body = {message: styledMessage.length <= 4000 ? styledMessage : message};
     if (sessionId) body.session_id = sessionId;
     // Never automatically replay a POST: a lost response may have been accepted.
-    const response = await fetch("api-v2/chat", {
+    const response = await fetch("api-v3/chat", {
       method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"},
       credentials: "same-origin", cache: "no-store", body: JSON.stringify(body), signal: controller.signal,
     });
@@ -1054,7 +1038,7 @@ function setOfflineDemo(enabled) {
 }
 
 async function seedDemo(id, signal) {
-  const response = await fetch("api-v2/chat/demo", {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, credentials: "same-origin", cache: "no-store", body: JSON.stringify({id}), signal});
+  const response = await fetch("api-v3/chat/demo", {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, credentials: "same-origin", cache: "no-store", body: JSON.stringify({id}), signal});
   const data = await response.json();
   if (!response.ok || data?.status === "error" || !string(data.session_id)) throw new Error(string(data?.reply) || "Не удалось открыть сессию примера.");
   return data;
@@ -1062,7 +1046,7 @@ async function seedDemo(id, signal) {
 
 async function analyzePrepared(seed, signal, message) {
   // One real Pi turn. Never retry an ambiguously accepted model POST.
-  const response = await fetch("api-v2/chat", {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, credentials: "same-origin", cache: "no-store", body: JSON.stringify({session_id: seed.session_id, message}), signal});
+  const response = await fetch("api-v3/chat", {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, credentials: "same-origin", cache: "no-store", body: JSON.stringify({session_id: seed.session_id, message}), signal});
   const data = await response.json();
   if (!response.ok || data?.status === "error" || data?.reply_origin !== "llm" || !string(data.session_id) || typeof data.reply !== "string") throw new Error(string(data?.reply) || "Ответ агента не получен. Запрос мог быть обработан; автоматического повтора нет.");
   return data;
@@ -1098,17 +1082,16 @@ async function loadDemos() {
   try {
     let data;
     try {
-      const response = await fetch("api-v2/demos", {headers: {Accept: "application/json"}, credentials: "same-origin", cache: "no-store"});
+      const response = await fetch("api-v3/demos", {headers: {Accept: "application/json"}, credentials: "same-origin", cache: "no-store"});
       if (!response.ok) throw new Error("demos");
       data = await response.json();
     } catch { data = await local; }
     if (!object(data) || !Array.isArray(data.demos) || data.demos.some((demo) => !object(demo) || !string(demo.id) || !string(demo.label))) throw new Error("demos");
-    const cards = data.demos.map((demo) => {
+    const cards = data.demos.filter(demo => demo.type !== "ground_baseline").map((demo) => {
       const button = node("button", "demo-card");
       button.type = "button";
       button.disabled = busy;
       button.append(node("span", "demo-label", demo.label), demoMetadata(demo));
-      if (string(demo.description)) button.append(node("span", "demo-description", demo.description));
       button.addEventListener("click", () => selectDemo(demo, button));
       return button;
     });
@@ -1159,7 +1142,7 @@ async function openDemo(demo, trigger) {
     else {
       data = await seedDemo(demo.id, controller.signal);
       progressTitle.textContent = "Агент разбирает маршрут…";
-      data = await analyzePrepared(data, controller.signal, "По сохранённому примеру выбери вариант и назови главное условие стыковки. Используй данные сессии без нового поиска. Снимок не является свежей проверкой; сценарий 2028 не является действующим рейсом. Объясни выбор и ограничения без повторения всех карточек.");
+      data = await analyzePrepared(data, controller.signal, "Кратко предложи вариант этой поездки: маршрут, время и запас на пересадку. Используй данные сессии без нового поиска. Без технических оговорок о прототипе, снимках, источниках, ценах и проверках. Не повторяй содержимое карточек. Для сети 2028 сохрани короткое обозначение сценария.");
     }
     if (!object(data) || !["ok", "partial", "needs_input"].includes(data.status) || (!offlineDemo && !string(data.session_id)) || typeof data.reply !== "string" || !object(data.trip) || !Array.isArray(data.plans) || !object(data.demo) || data.demo.id !== demo.id || !Object.hasOwn(dataModeLabels, data.demo.data_mode)) {
       throw new Error("Сервис вернул неполный пример. Сессия могла быть создана; текущий диалог сохранён.");
@@ -1173,7 +1156,7 @@ async function openDemo(demo, trigger) {
     elements.welcome.hidden = true;
     elements.demoGallery.open = false;
     updateTrip(data.trip);
-    renderReply(data);
+    renderReply(data, {concise: true});
     opened = true;
     scrollToEnd();
   } catch (error) {

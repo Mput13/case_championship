@@ -7,6 +7,7 @@ const read = async id => JSON.parse(await readFile(new URL(`../data/demos/${id}.
 const feeder = await read('feeder-flight');
 const arrival = await read('arrival-train');
 const ground = await read('ground-alternative');
+const direct = await read('direct-flight');
 const scenario = await read('scenario-transfer');
 const changed = (original, change) => { const copy = structuredClone(original); change(copy); return copy; };
 
@@ -22,8 +23,10 @@ test('four local prepared examples expose only manifest metadata, readable label
   }
   assert.equal(catalogue.get('feeder-flight').result.plans[0].status, 'partial');
   assert.equal(catalogue.get('arrival-train').result.plans[0].status, 'partial');
-  assert.equal(catalogue.get('ground-alternative').result.status, ground.result.status);
-  assert(catalogue.get('ground-alternative').result.plans.every(p => p.status === 'verified' && !p.requires_red_wings));
+  assert.equal(catalogue.get('ground-alternative'), null);
+  assert.throws(() => validateDemo(ground));
+  assert.equal(catalogue.get('direct-flight').result.plans[0].status, 'verified');
+  for (const item of catalogue.list().demos) assert(catalogue.get(item.id).result.plans.every(p => p.requires_red_wings && p.legs.some(l => l.mode === 'plane' && l.carrier_iata === 'WZ')));
   const future = catalogue.get('scenario-transfer');
   assert.equal(future.result.plans[0].status, 'candidate');
   assert.equal(future.result.plans[0].total_duration_minutes, null);
@@ -85,7 +88,7 @@ test('network mixing, promoted partials, forged references and trip constraint v
   ]) assert.throws(() => validateDemo(changed(feeder, mutate)));
   assert.throws(() => validateDemo(changed(scenario, d => { d.data_mode = 'snapshot'; })));
   assert.throws(() => validateDemo(changed(scenario, d => { d.result.plans[0].status = 'verified'; })));
-  const partial = changed(ground, d => { d.result.plans[0].status = 'partial'; d.result.status = 'ok'; });
+  const partial = changed(direct, d => { d.result.plans[0].status = 'partial'; d.result.status = 'ok'; });
   assert.equal(validateDemo(partial).result.plans[0].status, 'partial');
   assert.equal(validateDemo(partial).result.status, 'partial');
 });

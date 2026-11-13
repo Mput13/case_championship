@@ -1,0 +1,129 @@
+{
+  "id": "direct-flight",
+  "type": "direct_flight",
+  "label": "Кольцово → Курумоч · рейс WZ 1033",
+  "message": "Хочу перелететь из Кольцово в Курумоч 8 декабря 2026 года рейсом Red Wings. Покажи время и ссылку на покупку.",
+  "checked_at": "2026-11-13T14:02:35.993Z",
+  "data_mode": "snapshot",
+  "trip": {
+    "network_mode": "current",
+    "ground_preference": "public",
+    "origin": {
+      "city": "Екатеринбург",
+      "region": "Свердловская область",
+      "place_id": "c54",
+      "address": null,
+      "node_id": "s9600370"
+    },
+    "destination": {
+      "city": "Самара",
+      "region": "Самарская область",
+      "place_id": "c51",
+      "address": null,
+      "node_id": "s9600380"
+    },
+    "date_range": {
+      "from": "2026-12-08",
+      "to": "2026-12-08",
+      "meaning": "departure_window"
+    },
+    "passengers": null,
+    "baggage": null,
+    "requires_red_wings": true,
+    "selected_flight": {
+      "number": "WZ 1033",
+      "date": "2026-12-08",
+      "leg_id": "f92e88475ad61abc291f"
+    },
+    "constraints": {
+      "allow_taxi": false,
+      "allow_overnight": false,
+      "allow_night_travel": true,
+      "modes": [
+        "train",
+        "suburban",
+        "bus",
+        "plane",
+        "walk"
+      ],
+      "departure_after": null,
+      "arrive_by": null,
+      "max_budget": null
+    }
+  },
+  "result": {
+    "status": "ok",
+    "network_mode": "current",
+    "reply": "WZ 1033: 8 декабря, Кольцово 22:45 → Курумоч 23:30 по местному времени. В полёте 1 ч 45 мин.",
+    "plans": [
+      {
+        "id": "direct-wz1033-20261208",
+        "title": "Red Wings WZ 1033: Кольцово → Курумоч",
+        "status": "verified",
+        "network_mode": "current",
+        "requires_red_wings": true,
+        "variant": "direct_flight",
+        "summary": "Прямой перелёт Red Wings между аэропортами.",
+        "legs": [
+          {
+            "id": "f92e88475ad61abc291f",
+            "from": "s9600370",
+            "to": "s9600380",
+            "mode": "plane",
+            "origin": "Кольцово",
+            "destination": "Курумоч",
+            "carrier": "Red Wings",
+            "carrier_code": 617,
+            "carrier_iata": "WZ",
+            "number": "WZ 1033",
+            "departure": "2026-12-08T22:45:00+05:00",
+            "arrival": "2026-12-08T23:30:00+04:00",
+            "duration_minutes": 105,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08",
+            "checked_at": "2026-11-13T14:01:36.827Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08"
+              },
+              {
+                "label": "Покупка на сайте Red Wings",
+                "url": "https://flyredwings.com/booking/"
+              }
+            ],
+            "data_mode": "snapshot"
+          }
+        ],
+        "gaps": [],
+        "connections": [],
+        "warnings": [],
+        "sources": [
+          {
+            "name": "Яндекс Расписания",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08",
+            "checked_at": "2026-11-13T14:01:36.827Z"
+          }
+        ],
+        "total_duration_minutes": 105,
+        "total_price": null
+      }
+    ],
+    "sources": [
+      {
+        "name": "Яндекс Расписания",
+        "url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08",
+        "checked_at": "2026-11-13T14:01:36.827Z"
+      }
+    ],
+    "missing_data": []
+  },
+  "verification": {
+    "derived_from": "feeder-flight.json, dated WZ leg f92e88475ad61abc291f; same source observation, no new transport query",
+    "additional_ground_legs": false
+  }
+}
