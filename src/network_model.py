@@ -124,17 +124,21 @@ def special_fare(D, a, b):
     return v * (1.25 if fe else 1.0)
 
 
-def leg_with_subsidy(D, A, a, b, f, pax_paid, trans_rev=0.0, forgone_rev=0.0):
+def leg_with_subsidy(D, A, a, b, f, pax_paid, trans_rev=0.0, forgone_rev=0.0, season="year"):
     """Выручка плеча за неделю с учётом выбора: брать субсидию или нет.
     С субсидией в месяцы программы все места продаются по специальному тарифу (не выше приложения 2),
-    зато за каждый рейс платят субсидию. Берём вариант с большей выручкой. Возвращает (выручка, субсидия)."""
+    зато за каждый рейс платят субсидию. Берём вариант с большей выручкой. Возвращает (выручка, субсидия).
+    season — сезон расписания: субсидию платят с октября по апрель, поэтому зимой все месяцы с субсидией,
+    летом — только апрель и октябрь (SUB_SHARE)."""
     fr = fare(A, D.km(a, b))
     gross = 2 * pax_paid * fr + trans_rev
     plain = gross - forgone_rev
-    rate = sub(D, A, a, b)
+    rate = sub(D, A, a, b)                      # в среднем за год на рейс, уже × subsidy_months / 12
     if rate <= 0:
         return plain, 0.0
-    m = A["subsidy_months"] / 12
+    m_year = A["subsidy_months"] / 12
+    m = SUB_SHARE.get(season, m_year)
+    rate = rate * m / m_year
     k = min(1.0, special_fare(D, a, b) / fr)
     # Потерянный доход прежнего рейса не уменьшается вместе с новым тарифом.
     capped = gross * (1 - m + m * k) + 2 * f * rate - forgone_rev
@@ -277,6 +281,52 @@ def fare(A, km):
     return A["fare_fixed_rub"] + A["fare_per_km_rub"] * km
 
 
+# --- Сезонность (src/seasonality.py, docs/37_seasonality.md) ---
+# Два сезона расписания, как у авиакомпаний по правилам IATA: лето — апрель–октябрь (7 месяцев),
+# зима — ноябрь–март (5 месяцев). Частоты задаются на сезон по среднему спросу сезона,
+# месячный пик внутри сезона самолёт берёт загрузкой до lf_peak_max, остальное — потерянные пассажиры.
+_SEAS = pd.read_csv(P / "airport_seasonality.csv").set_index("iata")
+SEAS = {i: _SEAS.loc[i, [f"m{k}" for k in range(1, 13)]].values.astype(float) for i in _SEAS.index}
+SEASON_MONTHS = {"summer": [3, 4, 5, 6, 7, 8, 9], "winter": [10, 11, 0, 1, 2], "year": list(range(12))}
+# доля месяцев с субсидией: программа не платит с мая по сентябрь (решение № 22-64160-00191-Р, п. 5ж)
+SUB_SHARE = {"summer": 2 / 7, "winter": 1.0}
+
+
+def seasons(A):
+    """Сезоны расчёта и их вес в году. Без сезонности — один «год» с ровным спросом (как раньше)."""
+    if A.get("season_on", 0) >= 1:
+        return [("summer", 7 / 12), ("winter", 5 / 12)]
+    return [("year", 1.0)]
+
+
+def pair_profile(a, b, A):
+    """Помесячный профиль пары: среднее профилей двух концов (допущение), размах × season_amplitude."""
+    v = (SEAS[a] + SEAS[b]) / 2
+    v = 1 + A.get("season_amplitude", 1.0) * (v - 1)
+    return v / v.mean()
+
+
+def season_part(a, b, A, s):
+    """(множитель сезона к среднегодовому спросу, отношения месяцев сезона к среднему сезона)."""
+    if s == "year":
+        return 1.0, np.ones(1)
+    v = pair_profile(a, b, A)[SEASON_MONTHS[s]]
+    sf = float(v.mean())
+    return sf, v / sf
+
+
+def lf_cap(A):
+    """Загрузка, до которой самолёт берёт месячный пик. Без сезонности — плановая lf_max (как раньше)."""
+    return A["lf_peak_max"] if A.get("season_on", 0) >= 1 else A["lf_max"]
+
+
+def spill_carried(load, f, ratios, A):
+    """Сколько пассажиров в неделю перевезено в среднем за сезон при постоянной частоте f:
+    в каждом месяце не больше f × кресла × lf_cap, остальные теряются (спилл)."""
+    cap = f * A["seats"] * lf_cap(A)
+    return float(np.minimum(load * ratios, cap).mean())
+
+
 def capture(qmax, f, A):
     if not all(math.isfinite(v) for v in (qmax, f, A["capture_freq_scale"])) or not 0 <= qmax <= 1 or f < 0 or A["capture_freq_scale"] <= 0:
         raise ValueError("Некорректные параметры захвата спроса")
@@ -324,13 +374,39 @@ def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):
         spokes.append(X)
 
     def build(S):
+        """Сеть за год: каждый сезон считается отдельно со своими частотами, итоги — с весами сезонов.
+        Часы для лимита самолётов — по самому загруженному сезону (последний элемент результата)."""
+        parts = [(w, build_season(S, s)) for s, w in seasons(A)]
+        if len(parts) == 1:
+            r = parts[0][1]
+            return (*r, r[2])
+        legs = {}
+        for X in S:
+            L = dict(parts[0][1][0][X])
+            for k in ("local_carried", "transfer_carried", "carried_dir_week", "migrated", "rev_week", "sub_week",
+                      "cost_week", "local", "dem", "seg", "rw_now", "spill_dir_week"):
+                L[k] = sum(w * r[0][X][k] for w, r in parts)
+            fs = {s: r[0][X]["freq"] for (s, _), (_, r) in zip(seasons(A), parts)}
+            L.update(freq=fs["summer"], freq_winter=fs["winter"], freq_s=fs,
+                     lf=L["carried_dir_week"] / sum(w * r[0][X]["freq"] * A["seats"] for w, r in parts),
+                     subsidized=any(r[0][X]["subsidized"] for _, r in parts))
+            legs[X] = L
+        tr = {}
+        for w, r in parts:
+            for X, Y, dxy, t in r[1]:
+                tr[(X, Y, dxy)] = tr.get((X, Y, dxy), 0.0) + w * t
+        tot = [sum(w * r[i] for w, r in parts) for i in range(2, 11)]
+        return (legs, [(X, Y, d, t) for (X, Y, d), t in tr.items()], *tot, max(r[2] for _, r in parts))
+
+    def build_season(S, s):
         legs = {}
         for X in S:
             km = D.km(H, X)
-            loc = D.get(H, X, scen) / (2 * W)          # поездок в неделю в одну сторону, весь рынок пары
+            sf, ratios = season_part(H, X, A, s)
+            loc = D.get(H, X, scen) / (2 * W) * sf     # поездок в неделю в одну сторону, весь рынок пары, в среднем за сезон
             legs[X] = {"a": H, "b": X, "km": km, "south": D.south(H, X), "local": loc, "dem": loc,
-                       "seg": D.seg(H, X, scen) / (2 * W), "competitive": D.has_direct(H, X),
-                       "rw_now": rw_pax_week(H, X, A)}
+                       "seg": D.seg(H, X, scen) / (2 * W) * sf, "competitive": D.has_direct(H, X),
+                       "rw_now": rw_pax_week(H, X, A) * sf, "ratios": ratios}
         trans = []                                      # пересадочные пары X — H — Y
         for i, X in enumerate(S):
             for Y in S[i + 1:]:
@@ -339,7 +415,7 @@ def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):
                     continue
                 if (D.km(H, X) + D.km(H, Y)) / dxy > A["transfer_max_circuity"]:
                     continue
-                trans.append((X, Y, dxy, D.get(X, Y, scen) / (2 * W) * A["capture_transfer"]))
+                trans.append((X, Y, dxy, D.get(X, Y, scen) / (2 * W) * A["capture_transfer"] * season_part(X, Y, A, s)[0]))
 
         def flows(f):
             loc = {X: legs[X]["local"] * leg_share(legs[X], f[X], A) for X in S}
@@ -367,7 +443,8 @@ def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):
         for X, Y, _, t in tr:
             load[X] += t
             load[Y] += t
-        sc = {X: min(1.0, f[X] * A["seats"] * A["lf_max"] / load[X]) if load[X] > 0 else 1.0 for X in S}
+        # доля перевезённых с учётом месячного пика внутри сезона (без сезонности — прежнее min(1, места / спрос))
+        sc = {X: spill_carried(load[X], f[X], legs[X]["ratios"], A) / load[X] if load[X] > 0 else 1.0 for X in S}
         loc_c = {X: loc[X] * sc[X] for X in S}
         tr_c = [(X, Y, dxy, t * min(sc[X], sc[Y])) for X, Y, dxy, t in tr]
         carried = dict(loc_c)
@@ -387,10 +464,11 @@ def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):
             bh, c = leg_cost(A, L["km"], L["south"], carried[X] / f[X])
             mg = min(loc_c[X], L["rw_now"])             # свои пассажиры Red Wings со старого рейса
             lr, ls = leg_with_subsidy(D, A, H, X, f[X], loc_c[X], tpart[X],
-                                      forgone_rev=2 * mg * fare(A, L["km"]))
+                                      forgone_rev=2 * mg * fare(A, L["km"]), season=s)
             L.update(freq=f[X], local_carried=loc_c[X], transfer_carried=carried[X] - loc_c[X],
                      carried_dir_week=carried[X], block_h=bh, lf=carried[X] / (f[X] * A["seats"]), migrated=mg,
-                     rev_week=lr, sub_week=ls, cost_week=2 * f[X] * c, subsidized=ls > 0)
+                     rev_week=lr, sub_week=ls, cost_week=2 * f[X] * c, subsidized=ls > 0,
+                     spill_dir_week=load[X] - carried[X])
             hours += 2 * f[X] * bh
             cost += 2 * f[X] * c
             flights += 2 * f[X]
@@ -417,10 +495,10 @@ def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):
             if X in chosen:
                 continue
             r = build(chosen + [X])
-            if r[2] > max_h:
+            if r[11] > max_h:                          # самолётов хватает на самый загруженный сезон
                 continue
             gain = (r[4] - r[3]) - ((best[4] - best[3]) if best else 0)
-            dh = r[2] - (best[2] if best else 0)
+            dh = r[11] - (best[11] if best else 0)     # прирост часов самого загруженного сезона
             score = gain / dh if dh > 0 else -1e18
             if cand is None or score > cand[0]:
                 cand = (score, X, r)
@@ -455,6 +533,13 @@ def hub_best(H, D, A, scen, nodes_all, baseline=None):
         cap_a = dict(A, fleet_cap=float(cap))
         ch, r = hub_network(H, D, cap_a, scen, nodes_all)
         res.append((len(ch), (r[4] - r[3]), r[2], ch, r))
+        if A.get("season_on", 0) >= 1:
+            # жадный отбор зависит от пути: сеть, найденная при ровном спросе, пересчитывается с сезонами
+            # и тоже участвует в выборе (проверка 13.11.2026, docs/37_seasonality.md)
+            flat_ch, _ = hub_network(H, D, dict(cap_a, season_on=0.0), scen, nodes_all)
+            flat_ch, fr = hub_network(H, D, cap_a, scen, nodes_all, fixed_spokes=flat_ch)
+            if fr[11] <= (cap - A["spare_aircraft"]) * A["block_h_per_day"] * 7:
+                res.append((len(flat_ch), fr[4] - fr[3], fr[2], flat_ch, fr))
         if A["use_subsidy"]:
             old_ch, _ = hub_network(H, D, dict(cap_a, search_exclude_two_hubs=True), scen, nodes_all)
             old_ch, old_r = hub_network(H, D, cap_a, scen, nodes_all, fixed_spokes=old_ch)
@@ -474,6 +559,13 @@ def direct_best(D, A, scen, nodes_all, baseline=None):
         cap_a = dict(A, fleet_cap=float(cap))
         ch = direct_network(D, cap_a, scen, nodes_all)
         res.append((len(ch), sum(c[6] - c[5] for c in ch), sum(c[4] for c in ch), ch))
+        if A.get("season_on", 0) >= 1:
+            # то же для прямой сети: отбор при ровном спросе, пересчёт с сезонами
+            flat = direct_network(D, dict(cap_a, season_on=0.0), scen, nodes_all)
+            fl = direct_network(D, cap_a, scen, nodes_all, fixed_selection=flat)
+            peak = max(sum(c[12][s] for c in fl) for s, _ in seasons(A))
+            if peak <= (cap - A["spare_aircraft"]) * A["block_h_per_day"] * 7:
+                res.append((len(fl), sum(c[6] - c[5] for c in fl), sum(c[4] for c in fl), fl))
         if A["use_subsidy"]:
             old_ch = direct_network(D, dict(cap_a, search_exclude_two_hubs=True), scen, nodes_all)
             old_ch = direct_network(D, cap_a, scen, nodes_all, fixed_selection=old_ch)
@@ -512,81 +604,120 @@ def direct_network(D, A, scen, nodes_all, fixed_selection=None):
                                  "seg": D.seg(a, b, scen) / (2 * W), "rw_now": rw_pax_week(a, b, A)})
                 tri.append((B, X, Y, legs))
 
-    def tri_eval(B, X, Y, legs):
-        # одна частота на весь треугольник по самому загруженному плечу; неподвижная точка,
-        # затем спрос плеч пересчитывается при итоговой частоте (тот же дефект, что был в хабе)
-        f = int(A["min_freq_week"])
-        for _ in range(100):
-            pax = [L["dem"] * leg_share(L, f, A) for L in legs]
-            nf = int(min(A["direct_max_freq_week"],
-                         max(A["min_freq_week"], math.ceil(max(pax) / (A["seats"] * A["lf_max"])))))
-            if nf == f:
-                break
-            f = nf
-        pax = [L["dem"] * leg_share(L, f, A) for L in legs]
-        hours = cost = rev = seg = 0.0
+    def season_legs(legs, s):
+        """Плечи треугольника со спросом сезона (множитель сезона к среднегодовому)."""
         out = []
-        for L, p in zip(legs, pax):
-            carried = min(p, f * A["seats"] * A["lf_max"])
-            bh, c = leg_cost(A, L["km"], L["south"], carried / f)
-            hours += 2 * f * bh
-            cost += 2 * f * c
-            rev += 2 * carried * fare(A, L["km"])
-            seg += 2 * carried
-            out.append(dict(L, freq=f, carried_dir_week=carried, block_h=bh, lf=carried / (f * A["seats"])))
-        return hours, cost, rev, seg, out
+        for L in legs:
+            sf, ratios = season_part(L["a"], L["b"], A, s)
+            out.append(dict(L, dem=L["dem"] * sf, seg=L["seg"] * sf, rw_now=L["rw_now"] * sf, ratios=ratios))
+        return out
+
+    def tri_eval(B, X, Y, legs):
+        """Частота треугольника на каждый сезон: одна на все плечи, по самому загруженному;
+        неподвижная точка, затем спрос плеч пересчитывается при итоговой частоте."""
+        fs = {}
+        for s, _ in seasons(A):
+            sl = season_legs(legs, s)
+            f = int(A["min_freq_week"])
+            for _ in range(100):
+                pax = [L["dem"] * leg_share(L, f, A) for L in sl]
+                nf = int(min(A["direct_max_freq_week"],
+                             max(A["min_freq_week"], math.ceil(max(pax) / (A["seats"] * A["lf_max"])))))
+                if nf == f:
+                    break
+                f = nf
+            fs[s] = f
+        return fs
 
     # Общий спрос физической пары (аудит коллег, B3 в context/18_team_sync/step1_review): если пара
     # Москва — Омск входит в несколько треугольников, доля рынка считается один раз от суммы их частот,
-    # а перевезённые делятся между треугольниками пропорционально частотам.
+    # а перевезённые делятся между треугольниками пропорционально частотам. Каждый сезон отдельно.
     def joint(sel):
-        agg = {}
-        for t, (B, X, Y, f, legs) in enumerate(sel):
-            for n, L in enumerate(legs):
-                g = agg.setdefault(frozenset((L["a"], L["b"])), {"L": L, "F": 0, "members": []})
-                g["F"] += f
-                g["members"].append((t, n, f))
-        carried, migrated = {}, {}
-        for g in agg.values():
-            L, F = g["L"], g["F"]
-            tot = min(L["dem"] * leg_share(L, F, A), F * A["seats"] * A["lf_max"])
-            mg = min(tot, L["rw_now"])                  # свои пассажиры Red Wings один раз на пару
-            for t, n, f in g["members"]:
-                carried[(t, n)] = tot * f / F
-                migrated[(t, n)] = mg * f / F
+        acc = [dict(hours=0.0, cost=0.0, rev=0.0, seg=0.0, migr=0.0, forgone=0.0, subs=0.0, hs={}, legs=[{} for _ in t[4]])
+               for t in sel]
+        for s, w in seasons(A):
+            agg = {}
+            for t, (B, X, Y, fs, legs) in enumerate(sel):
+                for n, L in enumerate(season_legs(legs, s)):
+                    g = agg.setdefault(frozenset((L["a"], L["b"])), {"L": L, "F": 0, "members": []})
+                    g["F"] += fs[s]
+                    g["members"].append((t, n, fs[s]))
+            carried, migrated, spill = {}, {}, {}
+            for g in agg.values():
+                L, F = g["L"], g["F"]
+                want = L["dem"] * leg_share(L, F, A)
+                tot = spill_carried(want, F, L["ratios"], A)
+                mg = min(tot, L["rw_now"])              # свои пассажиры Red Wings один раз на пару
+                for t, n, f in g["members"]:
+                    carried[(t, n)] = tot * f / F
+                    migrated[(t, n)] = mg * f / F
+                    spill[(t, n)] = (want - tot) * f / F
+            for t, (B, X, Y, fs, legs) in enumerate(sel):
+                f = fs[s]
+                a = acc[t]
+                hs = 0.0
+                for n, L in enumerate(legs):
+                    c_ = carried[(t, n)]
+                    mg = migrated[(t, n)]
+                    bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
+                    lr, s_ = leg_with_subsidy(D, A, L["a"], L["b"], f, c_,
+                                             forgone_rev=2 * mg * fare(A, L["km"]), season=s)
+                    hs += 2 * f * bh
+                    a["cost"] += w * 2 * f * c
+                    a["rev"] += w * lr
+                    a["seg"] += w * 2 * c_
+                    a["migr"] += w * 2 * mg
+                    a["forgone"] += w * 2 * mg * fare(A, L["km"])
+                    a["subs"] += w * s_
+                    o = a["legs"][n]
+                    if not o:
+                        o.update(dict(L, freq_s={}, carried_dir_week=0.0, migrated=0.0, rev_week=0.0, sub_week=0.0,
+                                      cost_week=0.0, cap_week=0.0, spill_dir_week=0.0, block_h=bh))
+                    o["freq_s"][s] = f
+                    o["carried_dir_week"] += w * c_
+                    o["migrated"] += w * mg
+                    o["rev_week"] += w * lr
+                    o["sub_week"] += w * s_
+                    o["cost_week"] += w * 2 * f * c
+                    o["cap_week"] += w * f * A["seats"]
+                    o["spill_dir_week"] += w * spill[(t, n)]
+                a["hours"] += w * hs
+                a["hs"][s] = hs
         res = []
-        for t, (B, X, Y, f, legs) in enumerate(sel):
-            hours = cost = rev = seg = migr = forgone = subs = 0.0
+        for t, (B, X, Y, fs, legs) in enumerate(sel):
+            a = acc[t]
             out = []
-            for n, L in enumerate(legs):
-                c_ = carried[(t, n)]
-                mg = migrated[(t, n)]
-                bh, c = leg_cost(A, L["km"], L["south"], c_ / f)
-                hours += 2 * f * bh
-                cost += 2 * f * c
-                lr, s_ = leg_with_subsidy(D, A, L["a"], L["b"], f, c_,
-                                         forgone_rev=2 * mg * fare(A, L["km"]))
-                rev += lr
-                seg += 2 * c_
-                migr += 2 * mg
-                forgone += 2 * mg * fare(A, L["km"])
-                subs += s_
-                out.append(dict(L, freq=f, carried_dir_week=c_, block_h=bh, lf=c_ / (f * A["seats"]), migrated=mg,
-                                rev_week=lr, sub_week=s_, cost_week=2 * f * c))
-            res.append(((rev - cost) / hours if hours else 0, B, X, Y, hours, cost, rev, seg, out, migr, forgone, subs))
+            for o in a["legs"]:
+                fsd = o.pop("freq_s")
+                o.update(freq=fsd.get("summer", fsd.get("year")), freq_winter=fsd.get("winter", fsd.get("year")), freq_s=fsd,
+                         lf=o["carried_dir_week"] / o.pop("cap_week"))
+                out.append(o)
+            h = a["hours"]
+            res.append(((a["rev"] - a["cost"]) / h if h else 0, B, X, Y, h, a["cost"], a["rev"], a["seg"], out,
+                        a["migr"], a["forgone"], a["subs"], a["hs"]))
         return res
 
     def totals(res):
-        return sum(r[6] - r[5] for r in res), sum(r[4] for r in res)
+        """Итог сети и часы самого загруженного сезона (для лимита самолётов)."""
+        peak = max(sum(r[12][s] for r in res) for s, _ in seasons(A)) if res else 0.0
+        return sum(r[6] - r[5] for r in res), peak
+
+    def base_leg(L):
+        return {k: L[k] for k in ("a", "b", "km", "south", "competitive", "dem", "seg", "rw_now")}
+
+    def fixed_freq(c):
+        """Частоты выбранного треугольника; если он найден при другой разбивке на сезоны — считаем заново."""
+        fs = c[8][0]["freq_s"]
+        legs = [base_leg(L) for L in c[8]]
+        return (fs if set(fs) == {s for s, _ in seasons(A)} else tri_eval(c[1], c[2], c[3], legs)), legs
 
     if fixed_selection is not None:
-        return joint([(c[1], c[2], c[3], c[8][0]["freq"], c[8]) for c in fixed_selection])
+        return joint([(c[1], c[2], c[3], *fixed_freq(c)) for c in fixed_selection])
 
     # кандидаты: лучшие треугольники по отдельной оценке; дальше жадный отбор по приросту всей сети
     pre = []
     for B, X, Y, legs in tri:
-        h, c, r, s_, out = tri_eval(B, X, Y, legs)
-        f = out[0]["freq"]
+        f = tri_eval(B, X, Y, legs)               # частоты по сезонам
         single = joint([(B, X, Y, f, legs)])[0]
         pre.append((single[0], B, X, Y, f, legs))
     pre.sort(key=lambda x: -x[0])
@@ -676,9 +807,11 @@ def main():
     K = kover_map()
     ll = pd.read_csv(P / "longlist.csv")
     nodes_all = [x for x in D.n.index]
-    scores = pd.read_csv(P / "longlist_scores_min500.csv")
+    scores = pd.read_csv(rules.scores_file())
     extra = pd.read_csv(ROOT / "data/assumptions/hub_candidates_extra.csv").iata.tolist()
-    main_hubs = list(dict.fromkeys(list(scores.sort_values("rank").iata.head(3)) + extra))  # топ-3 + варианты команды
+    chosen_hub = str(pd.read_csv(ROOT / "data/assumptions/choice.csv").set_index("parameter").value["chosen_hub"])
+    # основные варианты: выбранный хаб, топ-3 рейтинга городов и варианты команды
+    main_hubs = list(dict.fromkeys([chosen_hub] + list(scores.sort_values("rank").iata.head(3)) + extra))
     # сеть хаба считается для каждого города лонглиста: на панели её видно для города, выбранного на табло
     hubs = list(dict.fromkeys(main_hubs + [x for x in ll.iata if x in D.n.index and x not in CLOSED]))
     routes, summary = [], []
@@ -692,8 +825,8 @@ def main():
             if not A["use_subsidy"]:
                 baselines[(scen, H)] = (chosen, r)
             print(f"{scen} {H}: {time.time() - t0:.1f} с", file=sys.stderr, flush=True)
-            legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs = r
-            ac = math.ceil(hours / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
+            legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs, hours_peak = r
+            ac = math.ceil(hours_peak / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
             seg = sum(2 * L["carried_dir_week"] for L in legs.values())
             kv, kcov = kover_avg([(L["a"], L["b"], L["freq"]) for L in legs.values()], K)
             summary.append({"scenario": scen, "variant": f"Хаб {ll.set_index('iata').city.get(H, H)}", "hub": H, "main": H in main_hubs,
@@ -705,9 +838,11 @@ def main():
             for L in legs.values():
                 routes.append({"scenario": scen, "variant": f"Хаб {H}", "from": H, "to": L["b"],
                                "to_city": NAME.get(L["b"], D.n.loc[L["b"], "main_city"]), "km": round(L["km"]),
-                               "freq_week_each_way": L["freq"], "pax_year_local": round(2 * L["local_carried"] * W),
+                               "freq_week_each_way": L["freq"], "freq_week_winter": L.get("freq_winter", L["freq"]),
+                               "pax_year_local": round(2 * L["local_carried"] * W),
                                "pax_year_transfer_seg": round(2 * L["transfer_carried"] * W),
                                "pax_year_segments": round(2 * L["carried_dir_week"] * W), "load_factor": round(L["lf"], 2),
+                               "pax_year_spilled": round(2 * L.get("spill_dir_week", 0.0) * W),
                                "pax_year_rw_migrated": round(2 * L["migrated"] * W),
                                "demand_source": D.method(H, L["b"]), "direct_now": D.has_direct(H, L["b"]),
                                "subsidy_rule": sub_rule(D, A, H, L["b"])[1] or "подходит",
@@ -724,8 +859,9 @@ def main():
         migr = sum(c[9] for c in chosen)
         forgone = sum(c[10] for c in chosen)
         subs = sum(c[11] for c in chosen)
-        ac = math.ceil(hours / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
-        flights = sum(2 * L["freq"] for c in chosen for L in c[8])
+        hours_peak = max(sum(c[12][s] for c in chosen) for s, _ in seasons(A))
+        ac = math.ceil(hours_peak / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]
+        flights = sum(w * 2 * L["freq_s"][s] for s, w in seasons(A) for c in chosen for L in c[8])
         kv, kcov = kover_avg([(L["a"], L["b"], L["freq"]) for c in chosen for L in c[8]], K)
         summary.append({"scenario": scen, "variant": "Прямые рейсы из Москвы и Екатеринбурга", "hub": "", "main": True,
                         "routes": len(chosen), "aircraft": int(ac), "flights_week": int(flights),
@@ -736,8 +872,10 @@ def main():
             for L in c[8]:
                 routes.append({"scenario": scen, "variant": f"Прямые {c[1]}-{c[2]}-{c[3]}", "from": L["a"], "to": L["b"],
                                "to_city": f"{NAME.get(L['a'], D.n.loc[L['a'], 'main_city'])} — {NAME.get(L['b'], D.n.loc[L['b'], 'main_city'])}",
-                               "km": round(L["km"]), "freq_week_each_way": L["freq"], "pax_year_local": round(2 * L["carried_dir_week"] * W),
+                               "km": round(L["km"]), "freq_week_each_way": L["freq"], "freq_week_winter": L.get("freq_winter", L["freq"]),
+                               "pax_year_local": round(2 * L["carried_dir_week"] * W),
                                "pax_year_segments": round(2 * L["carried_dir_week"] * W), "load_factor": round(L["lf"], 2),
+                               "pax_year_spilled": round(2 * L.get("spill_dir_week", 0.0) * W),
                                "pax_year_rw_migrated": round(2 * L["migrated"] * W),
                                "demand_source": D.method(L["a"], L["b"]), "direct_now": D.has_direct(L["a"], L["b"]),
                                "subsidy_rule": sub_rule(D, A, L["a"], L["b"])[1] or "подходит",
@@ -775,11 +913,11 @@ def main():
         for cap in [int(x) for x in str(ch["ramp_fleet"]).split(";")]:
             A = dict(A0, fleet_cap=float(cap))
             chosen, r = hub_best(H, D, A, A["demand_scen"], nodes_all)
-            legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs = r
+            legs, trans, hours, cost, rev, od_l, od_t, flights, migr, forgone, subs, hours_peak = r
             W = A["weeks_per_year"]
             seg = sum(2 * L["carried_dir_week"] for L in legs.values())
             ramp.append({"scenario": scen, "hub": H, "fleet_cap": cap,
-                         "aircraft": int(math.ceil(hours / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]),
+                         "aircraft": int(math.ceil(hours_peak / (A["block_h_per_day"] * 7)) + A["spare_aircraft"]),
                          "routes": len(chosen), "segments_year": round(seg * W), "transfer_od_year": round(od_t * W),
                          "result_mln_year": round((rev - cost) * W / 1e6), "subsidy_mln_year": round(subs * W / 1e6),
                          "share_pp": round((seg - migr) * W / A["market_pax_2025"] * 100, 2),

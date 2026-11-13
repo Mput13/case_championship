@@ -75,11 +75,11 @@ feeds = ["карта"]
 [airports_pax]
 name = "Пассажиропоток аэропортов 2025"
 owner = "аэропорты (пресс-релизы), сверка команды"
-url = "context/07_verification/terra_cities_review/corrected_cities.csv"
+url = "data/manual/longlist_cities.csv"
 kind = "manual"
 role = "data"
 cmd = ""
-output = "context/07_verification/terra_cities_review/corrected_cities.csv"
+output = "data/manual/longlist_cities.csv"
 every_days = 365
 stale_days = 400
 min_rows = 20
@@ -339,3 +339,31 @@ stale_days = 60
 min_rows = 20
 license = "ссылки на источники в файле"
 feeds = ["Нет чужой «крепости»"]
+
+[aeroflot_ir]
+name = "Группа «Аэрофлот»: операционная статистика по месяцам с 2014 года и годовой отчёт 2025"
+owner = "ПАО «Аэрофлот»"
+url = "https://ir.aeroflot.ru/ru/reporting/traffic-statistics/"
+kind = "http_file"
+role = "data"
+cmd = "src/fetch_aeroflot.py"
+output = "data/processed/aeroflot_traffic_monthly.csv"
+every_days = 30
+stale_days = 45
+min_rows = 10000
+license = "публичная отчётность эмитента, цитирование с указанием источника"
+feeds = ["сезонность внутренних перевозок", "рынок 2026 года", "груз"]
+
+[aeroflot_facts]
+name = "Ручные факты из годового отчёта «Аэрофлота» 2025 и пресс-релиза за октябрь 2026"
+owner = "команда (страницы и ссылки в файле)"
+url = "data/manual/aeroflot_report_facts.csv"
+kind = "manual"
+role = "data"
+cmd = ""
+output = "data/manual/aeroflot_report_facts.csv"
+every_days = 90
+stale_days = 180
+min_rows = 10
+license = "цитирование с указанием источника"
+feeds = ["пример регионального хаба (Красноярск)", "ответ конкурентов в Поволжье и на Урале"]

@@ -12,7 +12,7 @@ import network_model as nm
 
 
 def test_optional_subsidy_keeps_baseline_candidate(monkeypatch):
-    a = dict(nm.load_assumptions()["cautious_sub"], fleet_cap=4)
+    a = dict(nm.load_assumptions()["cautious_sub"], fleet_cap=4, season_on=0.0)   # подставная сеть без сезонов
     def fake_hub(h, d, assumptions, scen, nodes, fixed_spokes=None):
         # Жадный отбор с поддержкой ошибочно находит худшую сеть.
         chosen = list(fixed_spokes) if fixed_spokes else ["old" if not assumptions["use_subsidy"] else "new"] * 8
@@ -70,7 +70,7 @@ def test_federal_subsidy_can_connect_two_hubs(monkeypatch):
 
 
 def test_hub_search_retains_previous_candidate_when_expanding_subsidy(monkeypatch):
-    a = dict(nm.load_assumptions()["cautious_sub"], fleet_cap=2)
+    a = dict(nm.load_assumptions()["cautious_sub"], fleet_cap=2, season_on=0.0)
     def fake_hub(h, d, assumptions, scen, nodes, fixed_spokes=None):
         chosen = list(fixed_spokes) if fixed_spokes else ["old" if assumptions.get("search_exclude_two_hubs") else "new"] * 8
         result = 10 if chosen[0] == "old" else 2
@@ -82,7 +82,7 @@ def test_hub_search_retains_previous_candidate_when_expanding_subsidy(monkeypatc
 
 
 def test_direct_search_retains_previous_candidate_when_expanding_subsidy(monkeypatch):
-    a = dict(nm.load_assumptions()["cautious_sub"], fleet_cap=2)
+    a = dict(nm.load_assumptions()["cautious_sub"], fleet_cap=2, season_on=0.0)
     def candidate(name, result):
         return (0, name, "X", "Y", 10, 100, 100 + result)
     def fake_direct(d, assumptions, scen, nodes, fixed_selection=None):
@@ -132,10 +132,16 @@ def test_all_exported_networks_reconcile():
         for detail, total in [("result_mln_year", "result_mln_year"), ("revenue_mln_year", "revenue_mln_year"),
                               ("cost_mln_year", "var_cost_mln_year"), ("subsidy_mln_year", "subsidy_mln_year")]:
             assert abs(legs[detail].sum() - getattr(row, total)) <= len(legs) * .05 + .5 + 1e-8
-        assert 2 * legs.freq_week_each_way.sum() == row.flights_week
         a = nm.load_assumptions()[row.scenario]
-        assert (legs.load_factor <= a["lf_max"] + .005).all()
-        assert (legs.pax_year_segments <= 2 * legs.freq_week_each_way * a["weeks_per_year"] * a["seats"] * a["lf_max"] + .5).all()
+        # рейсов в неделю — в среднем за год по двум сезонам расписания (лето 7 месяцев, зима 5)
+        w = dict(nm.seasons(a))
+        freq_year = (legs.freq_week_each_way * w.get("summer", 1.0) + legs.freq_week_winter * w.get("winter", 0.0)
+                     if "summer" in w else legs.freq_week_each_way)
+        assert abs(2 * freq_year.sum() - row.flights_week) < 1
+        # загрузка: плановая lf_max на сезон, месячный пик — до lf_peak_max
+        assert (legs.load_factor <= nm.lf_cap(a) + .005).all()
+        assert (legs.pax_year_segments <= 2 * freq_year * a["weeks_per_year"] * a["seats"] * nm.lf_cap(a) + .5).all()
+        assert (legs.pax_year_spilled >= 0).all()
         assert row.aircraft <= a["fleet_cap"]
         assert a["min_routes"] <= row.routes <= a["max_routes"]
         assert abs(row.share_pp - row.net_new_segments_year / a["market_pax_2025"] * 100) < .0051
@@ -176,4 +182,8 @@ def test_fleet_ramp_matches_main_and_optional_support():
     for scenario in ("base", "cautious"):
         plain = ramp[ramp.scenario.eq(scenario)].set_index("fleet_cap")
         supported = ramp[ramp.scenario.eq(scenario + "_sub")].set_index("fleet_cap")
-        assert supported.result_mln_year.ge(plain.result_mln_year).all()
+        m = nm.load_assumptions()[scenario]["min_routes"]
+        # с субсидией итог не ниже, кроме случая, когда сеть без субсидии не набирает min_routes маршрутов,
+        # а с субсидией набирает: требование кейса «8–12 маршрутов» важнее (best_of)
+        short = plain.routes.lt(m) & supported.routes.ge(m)
+        assert (supported.result_mln_year.ge(plain.result_mln_year) | short).all()

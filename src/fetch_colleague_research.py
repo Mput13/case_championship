@@ -25,6 +25,13 @@ SRC = {
     # прямые рейсы из Екатеринбурга, февраль 2027 (ветка research/direct-growth-delay-cargo-20261112)
     "p34_controls": ("4b8dc86", "context/34_new_direct_top5_20261112/final/CONTROLS.csv"),
     "p36_results": ("4b8dc86", "context/36_overnight_chain_search_20261112/RESULTS.md"),
+    # стратегия прямых рейсов P38, 13.11 (та же ветка): пятёрка пар, пилот Красноярск, все программы по месяцам
+    "p38_top5": ("56400c5", "context/38_direct_strategy_20261113/final/top5.csv"),
+    "p38_pilots": ("56400c5", "context/38_direct_strategy_20261113/economics/pilots.csv"),
+    "p38_monthly": ("56400c5", "context/38_direct_strategy_20261113/economics/programmes_monthly.csv"),
+    # недостающие расходы P39, 13.11: исторические ставки аренды SSJ100 и прайс аэропорта Омск 2026
+    "p39_lease": ("423fd3f", "context/39_cost_completion_20261113/fleet_price_recovery/prices.csv"),
+    "p39_omsk": ("423fd3f", "context/39_cost_completion_20261113/omsk_price_recovery/prices.csv"),
 }
 
 # коды контрольных программ P34 → подписи для панели
@@ -87,7 +94,10 @@ def main():
     ct = pd.read_csv(io.StringIO(show(*SRC["p34_controls"])))
     ct = ct[ct.adjacent_case == "P05_ADJACENT_PRIOR"]
     ct = pd.DataFrame({"programme": ct.programme, "label": ct.programme.map(P34_LABEL), "scenario": ct.scenario,
-                       "delta_vs_keep_mln_month": (ct.known_P_minus_KEEP_month / 1e6).round(3)})
+                       # итог против расписания KEEP: новые рейсы плюс снятие старых
+                       "delta_vs_keep_mln_month": (ct.known_P_minus_KEEP_month / 1e6).round(3),
+                       # только новые рейсы: итог минус тот же план со снятыми старыми рейсами без замены (R−W)
+                       "new_flights_mln_month": (ct.new_flights_contribution_delta_month / 1e6).round(3)})
     ct.to_csv(OUT / "p34_triangle_shuttle_controls.csv", index=False, encoding="utf-8")
     md = show(*SRC["p36_results"])
     pairs = [{"rank": int(r[0]), "pair": r[1], "path": r[2], "base_mln_month": num(r[3]), "cautious_mln_month": num(r[4]), "competitor": r[5]}
@@ -96,6 +106,29 @@ def main():
     prog = [{"programme": r[0], "scenario": "base" if r[1] == "Базовый" else "cautious", "keep": num(r[2]), "same_without_new": num(r[3]),
              "replace": num(r[4]), "new_flights_only": num(r[5])} for r in md_table(md, "Программа") if len(r) == 6]
     pd.DataFrame(prog).to_csv(OUT / "p36_programmes.csv", index=False, encoding="utf-8")
+    t5 = pd.read_csv(io.StringIO(show(*SRC["p38_top5"])))
+    pd.DataFrame({"rank": t5["rank"], "pair": t5.cities, "chain": t5.closed_chain, "competitor": t5.competitor,
+                  "base_new_mln_feb": (t5.base_new_minus_same_W / 1e6).round(3),
+                  "cautious_new_mln_feb": (t5.cautious_new_minus_same_W / 1e6).round(3)}
+                 ).to_csv(OUT / "p38_top5_pairs.csv", index=False, encoding="utf-8")
+    pl = pd.read_csv(io.StringIO(show(*SRC["p38_pilots"])))
+    pl = pl[pl.stress == "MAIN"]
+    pl[["candidate", "closed_chain", "scenario", "new_service_departures", "seat_capacity", "R_minus_W",
+        "integer_equal_tickets_vs_KEEP_same_W", "required_common_new_net_full100_vs_KEEP_same_W"]
+       ].to_csv(OUT / "p38_pilots.csv", index=False, encoding="utf-8")
+    pm = pd.read_csv(io.StringIO(show(*SRC["p38_monthly"])), low_memory=False)
+    pm = pm[pm.state == "REPLACE"]
+    pm.groupby("scenario").agg(programmes=("candidate", "nunique"), months=("month", "nunique"), rows=("candidate", "size"),
+                               new_negative=("new_R_minus_W", lambda v: int((v < 0).sum())),
+                               new_positive=("new_R_minus_W", lambda v: int((v > 0).sum()))
+                               ).reset_index().to_csv(OUT / "p38_programme_months.csv", index=False, encoding="utf-8")
+    ls = pd.read_csv(io.StringIO(show(*SRC["p39_lease"])))
+    ls = ls[ls.status == "HISTORICAL_BENCHMARK_ONLY"]
+    ls[["id", "article", "status", "exact_amount", "currency", "unit", "effective_date", "tax", "source", "locator"]
+       ].to_csv(OUT / "p39_lease_benchmarks.csv", index=False, encoding="utf-8")
+    om = pd.read_csv(io.StringIO(show(*SRC["p39_omsk"])))
+    om[["id", "article", "unit", "min", "max", "currency", "tax", "effective", "source", "page", "overlap"]
+       ].to_csv(OUT / "p39_omsk_prices.csv", index=False, encoding="utf-8")
     for k, (sha, path) in SRC.items():
         man[k] = {"commit": sha, "path": path}
     (OUT / "research_manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")

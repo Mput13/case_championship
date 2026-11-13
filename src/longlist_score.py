@@ -2,7 +2,8 @@
 
 Вход: data/processed/criteria.json (src/build_criteria.py) — критерии и значения со ссылками;
       data/processed/longlist.csv — названия городов и расстояния для фильтра;
-      data/assumptions/longlist_params.csv (min_dist_bases_km — решение команды 10.11.2026: 500 км),
+      data/assumptions/longlist_params.csv (min_dist_bases_km — основной вариант, с 13.11.2026 без фильтра;
+      filter_option_km — включаемый фильтр 500 км),
       data/assumptions/weight_profiles.csv — наборы весов (основной — предложение коллег, сумма 100).
 Метод (тот же, что в панели; правки по аудиту коллег context/22_stage1_audit учтены):
   1. Шкала критерия — фиксированная lo–hi или минимум–максимум по всем 20 городам лонглиста.
@@ -167,7 +168,7 @@ def main():
     profiles = pd.read_csv(ROOT / "data/assumptions/weight_profiles.csv")
     sc = scales(crit, vals)
     main_d = float(PAR["min_dist_bases_km"])
-    dists = [a.min_dist] if a.min_dist is not None else [main_d, 0.0]
+    dists = [a.min_dist] if a.min_dist is not None else list(dict.fromkeys([main_d, float(PAR["filter_option_km"]), 0.0]))
     for d in dists:
         run(d, crit, vals, ll, profiles, sc)
     run(main_d, crit, vals, ll, profiles, sc, strict=True)

@@ -38,6 +38,69 @@ def txt(v):
     return None if v is None or (isinstance(v, float) and v != v) else str(v)
 
 
+def season_window(a):
+    """Окно «Сезонность»: помесячный спрос и кресла сети каждого хаба (docs/37_seasonality.md).
+    Спрос месяца = (перевезённые + потерянные за год) / 12 × профиль пары; кресла — по частоте сезона."""
+    import network_model as nm
+    sp = P / "airport_seasonality.csv"
+    if not sp.exists() or "season_on" not in a.index:
+        return {}
+    rt = pd.read_csv(P / "network_routes.csv")
+    if "freq_week_winter" not in rt.columns:
+        return {}
+    summer = set(nm.SEASON_MONTHS["summer"])
+    nets = {}
+    for (sc, v), g in rt[rt.scenario.isin(["base", "cautious"]) & rt.variant.str.startswith("Хаб ")].groupby(["scenario", "variant"]):
+        j = 0 if sc == "base" else 1
+        A = {"season_amplitude": float(a.loc["season_amplitude"].iloc[j])}
+        W, seats, lfp = float(a.loc["weeks_per_year"].iloc[j]), float(a.loc["seats"].iloc[j]), float(a.loc["lf_peak_max"].iloc[j])
+        dem, cap, car = [0.0] * 12, [0.0] * 12, [0.0] * 12
+        for r in g.itertuples():
+            prof = nm.pair_profile(getattr(r, "_3"), r.to, A)
+            want = r.pax_year_segments + r.pax_year_spilled
+            for m in range(12):
+                f = r.freq_week_each_way if m in summer else r.freq_week_winter
+                d_, c_ = want / 12 * prof[m], 2 * f * seats * W / 12
+                dem[m] += d_
+                cap[m] += c_
+                car[m] += min(d_, c_ * lfp)
+        nets.setdefault(v.replace("Хаб ", ""), {})[sc] = {
+            "dem": [round(x) for x in dem], "seats": [round(x) for x in cap], "carried": [round(x) for x in car],
+            "spilled": int(g.pax_year_spilled.sum()), "segments": int(g.pax_year_segments.sum()),
+            "f_summer": int(2 * g.freq_week_each_way.sum()), "f_winter": int(2 * g.freq_week_winter.sum())}
+    s = pd.read_csv(sp).set_index("iata")
+    M = [f"m{i}" for i in range(1, 13)]
+    prof = {k: [round(float(x), 3) for x in s.loc[k, M]] for k in ("OMS", "SVX", "AER", "MOW", "KUF", "CEK", "TJM") if k in s.index}
+    cal = json.loads((P / "seasonality_calibration.json").read_text(encoding="utf-8"))
+    prof["AFL"] = [round(float(x), 3) for x in cal["fallback_profile_aeroflot_domestic_2023_2025"]]
+    return {"nets": nets, "prof": prof, "k": cal["k_domestic"]}
+
+
+def lease_window(C):
+    """Окно «Сколько аренды выдерживает сеть» (P39 коллег, 13.11): итог сети до аренды / (12 × самолёты).
+    Считаем из нашего network_summary.csv, ориентир аренды — исторический договор SSJ100 из P39."""
+    sm = pd.read_csv(P / "network_summary.csv")
+    sm = sm[sm.scenario == "base"]
+    rows = [{"name": r.variant.replace("Хаб ", ""), "hub": r.hub if isinstance(r.hub, str) else "DIRECT",
+             "aircraft": int(r.aircraft), "result": float(r.result_mln_year),
+             "per_ac_month": round(float(r.result_mln_year) / (12 * r.aircraft), 3)} for r in sm.itertuples()]
+    out = {"rows": rows}
+    lb = C / "p39_lease_benchmarks.csv"
+    if lb.exists():
+        h = pd.read_csv(lb).set_index("id")
+        if "LEASE-HIST-RUB" in h.index:
+            v = float(h.loc["LEASE-HIST-RUB", "exact_amount"])
+            out["hist_rub"] = round(v / 1e6, 3)                      # с НДС 18% по договору 2015 года
+            out["hist_rub_ex_vat"] = round(v / 1.18 / 1e6, 3)
+            out["hist_src"] = h.loc["LEASE-HIST-RUB", "source"]
+    op = C / "p39_omsk_prices.csv"
+    if op.exists():
+        o = pd.read_csv(op).set_index("id")
+        if "OMS-BASE-30–74.999 т" in o.index:
+            out["oms_basing"] = float(o.loc["OMS-BASE-30–74.999 т", "min"])
+    return out
+
+
 def research(nodes):
     """Окна второй версии панели: топливо сетей, неделя оборотов, пересчёты коллег, заметки эксперта.
 
@@ -55,7 +118,10 @@ def research(nodes):
             south = any(x in nodes.index and rules.is_south(nodes.loc[x, "region"]) for x in (fa, ta))
             k = a.loc["route_factor_south"].iloc[j] if south else a.loc["route_factor"].iloc[j]
             bh = a.loc["block_fixed_h"].iloc[j] + r.km * k / a.loc["block_speed_kmh"].iloc[j]
-            t += (a.loc["fuel_t_per_hour"].iloc[j] * bh + a.loc["fuel_t_per_cycle"].iloc[j]) * r.freq_week_each_way * 2 * a.loc["weeks_per_year"].iloc[j]
+            # рейсов в неделю в среднем за год: лето (7 месяцев) и зима (5 месяцев) — см. docs/37_seasonality.md
+            fw = getattr(r, "freq_week_winter", r.freq_week_each_way)
+            f_year = (7 * r.freq_week_each_way + 5 * fw) / 12 if pd.notna(fw) else r.freq_week_each_way
+            t += (a.loc["fuel_t_per_hour"].iloc[j] * bh + a.loc["fuel_t_per_cycle"].iloc[j]) * f_year * 2 * a.loc["weeks_per_year"].iloc[j]
         return t
     fuel = {}
     for (sc, v), g in rt.groupby(["scenario", "variant"]):
@@ -90,13 +156,25 @@ def research(nodes):
                        "carrier": r.threshold_carrier_under_condition, "growth": float(r.market_annual_growth_condition)}
                       for r in th.itertuples()]
     if (C / "p34_triangle_shuttle_controls.csv").exists():
-        out["tri_ctl"] = [{"id": r.programme, "label": r.label, "scen": r.scenario, "v": float(r.delta_vs_keep_mln_month)}
+        # v — итог против KEEP (новые рейсы и снятие старых), n — только новые рейсы (R−W)
+        out["tri_ctl"] = [{"id": r.programme, "label": r.label, "scen": r.scenario, "v": float(r.delta_vs_keep_mln_month),
+                           "n": float(r.new_flights_mln_month)}
                           for r in pd.read_csv(C / "p34_triangle_shuttle_controls.csv").itertuples()]
     if (C / "p36_new_pairs.csv").exists():
         out["new_pairs"] = [{"pair": r.pair, "path": r.path, "base": float(r.base_mln_month), "cau": float(r.cautious_mln_month),
                              "comp": r.competitor} for r in pd.read_csv(C / "p36_new_pairs.csv").itertuples()]
         out["p36_prog"] = [{"name": r.programme, "scen": r.scenario, "new": float(r.new_flights_only)}
                            for r in pd.read_csv(C / "p36_programmes.csv").itertuples()]
+    if (C / "p38_top5_pairs.csv").exists():
+        out["p38_top5"] = [{"rank": int(r.rank), "pair": r.pair, "path": r.chain, "comp": r.competitor, "base": float(r.base_new_mln_feb),
+                            "cau": float(r.cautious_new_mln_feb)} for r in pd.read_csv(C / "p38_top5_pairs.csv").itertuples()]
+        out["p38_pilots"] = [{"id": r.candidate, "scen": r.scenario, "tickets": int(r.integer_equal_tickets_vs_KEEP_same_W),
+                              "seats": int(r.seat_capacity)} for r in pd.read_csv(C / "p38_pilots.csv").itertuples()]
+        out["p38_months"] = [{"scen": r.scenario, "progs": int(r.programmes), "months": int(r.months), "rows": int(r.rows),
+                              "neg": int(r.new_negative), "pos": int(r.new_positive)}
+                             for r in pd.read_csv(C / "p38_programme_months.csv").itertuples()]
+    out["season"] = season_window(a)
+    out["lease"] = lease_window(C)
     ex = ROOT / "data/manual/expert_notes.json"
     if ex.exists():
         out["expert"] = json.loads(ex.read_text(encoding="utf-8"))
@@ -141,7 +219,7 @@ def load_network():
     ends = set(rt["from"]) | set(rt["to"])
     nodes = {i: [round(float(n.loc[i, "latitude_deg"]), 3), round(float(n.loc[i, "longitude_deg"]), 3),
                  NAME.get(i, n.loc[i, "main_city"])] for i in ends if i in n.index}
-    cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "pax_year_segments",
+    cols = ["scenario", "vkey", "variant", "from", "to", "km", "freq_week_each_way", "freq_week_winter", "pax_year_spilled", "pax_year_segments",
             "pax_year_local", "pax_year_rw_migrated", "load_factor", "direct_now", "range_light", "demand_source", "subsidy_rule", "subsidy_mln_year", "revenue_mln_year", "cost_mln_year", "result_mln_year"]
     if "triangle_result_mln_year" in rt.columns:
         cols.append("triangle_result_mln_year")
@@ -151,7 +229,7 @@ def load_network():
            ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_flight", "subsidy_months", "subsidy_max_prior_pax", "fuel_rub_per_t", "fuel_compensation_rub_per_t", "min_freq_week", "max_freq_week", "capture_open",
             "capture_competitive", "capture_transfer", "transfer_fare_factor", "weeks_per_year", "fleet_cap",
             "spare_aircraft", "max_routes", "rw_existing_lf", "rw_pax_2025", "market_pax_2025",
-            "min_routes", "direct_max_freq_week", "thin_route_pax_day",
+            "min_routes", "direct_max_freq_week", "thin_route_pax_day", "season_on", "season_amplitude", "lf_peak_max",
             # для окна «один рейс» (формулы leg_cost и fare в network_model)
             "block_fixed_h", "route_factor", "route_factor_south", "block_speed_kmh", "fuel_t_per_hour", "fuel_t_per_cycle",
             "mro_rub_per_hour", "crew_rub_per_hour", "navigation_rub_per_hour", "ground_rub_per_flight", "deicing_rub_per_flight", "pax_cost_rub")}
@@ -456,7 +534,7 @@ def main():
         "cities": cities, "ref": ref, "meduza": meduza,
         "bases": {b: [float(ap.loc[x, "latitude_deg"]), float(ap.loc[x, "longitude_deg"])] for b, x in (("MOW", "SVO"), ("SVX", "SVX"))},
         "dests": dests, "geo": geo, "manifest": manifest,
-        "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214, "rail_hr": rules.RAIL_OK_HR, "min_dist": rules.MIN_DIST_KM},
+        "range": {"ssj": rules.GREEN, "ssj_south": rules.GREEN_SOUTH, "tu204": rules.TU204, "tu214": rules.TU214, "rail_hr": rules.RAIL_OK_HR, "min_dist": rules.MIN_DIST_KM, "filter_km": rules.FILTER_OPTION_KM},
         "criteria": crit["criteria"], "values": crit["values"], "net": net, "spokes": spokes, "demand": demand, "profiles": profiles, "names": names, "steps": steps,
         "weights": [{"key": x.column, "label": x.criterion, "dir": x.direction,
                      "w": float(x.weight), "why": x.why} for x in w.itertuples()],
