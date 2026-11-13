@@ -1,0 +1,738 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-13",
+  "artifact_language": "ru",
+  "scope": {
+    "writes": [
+      "context/43_travel_assistant_20261113/research/runtime_hosting.md",
+      "context/43_travel_assistant_20261113/research/runtime_sources.json"
+    ],
+    "api_methods_used": [
+      "GET"
+    ],
+    "authorization_used": false,
+    "llm_generation_requests": 0,
+    "secrets_searched": false,
+    "dependencies_installed": false,
+    "git_operations": false,
+    "children_started": false,
+    "deployments": false,
+    "system_trust_modified": false
+  },
+  "recommendation": {
+    "runtime": "Node.js 24 with @earendil-works/pi-agent-core and @earendil-works/pi-ai; app-owned HTTP/tool boundary",
+    "hosting": "isolated container on Russian VPS",
+    "alternative": "direct OpenAI-compatible client for smallest bounded flow",
+    "codex": "not selected for MVP; MAI documents Responses, model qualification NOT_RUN",
+    "sites": "Worker server route supported; hosted MAI TLS, bundle and shared limiter NOT_RUN",
+    "status": "RESEARCH_COMPLETE_LIVE_NOT_RUN"
+  },
+  "user_model_labels": [
+    {
+      "label": "DeepSeek-V4-Flash",
+      "exact_model_id": null,
+      "availability_basis": "user_statement",
+      "live_verified": false
+    },
+    {
+      "label": "deepseek-v4.1-flash",
+      "exact_model_id": null,
+      "availability_basis": "user_statement",
+      "live_verified": false
+    }
+  ],
+  "pi_snapshot": {
+    "repository": "https://github.com/earendil-works/pi",
+    "previous_url": "https://github.com/badlogic/pi-mono",
+    "commit": "35019ae989fc6e45eb18d0c757ef81dd18cb30e3",
+    "commit_time_utc": "2026-11-13T12:07:12Z",
+    "package_version_in_source": "1.5.2",
+    "minimum_node_in_source": ">=22.19.0",
+    "installed_or_executed": false,
+    "sha256_sources": {
+      "README.md": "e5a75074d9a53e6d00d616a42fbe138200b46022e8e392ace1c4c08a40af6cd5",
+      "packages/agent/README.md": "3712499846ca83ed25fc317ad2b3fb099812c6e43b3ccbc5c287b1a6bc7da06d",
+      "packages/ai/README.md": "43f10e65155825c32fb39dc6a625dc617e5549db88326e5e761a794632f128b8"
+    }
+  },
+  "mai_openapi": {
+    "source_url": "https://api-ai.mai.ru/openapi.json",
+    "observed_utc": "2026-11-13T12:32:03.644066+00:00",
+    "status": 200,
+    "tls_validated": true,
+    "ca_mode": "default_plus_official_root_in_process_memory_only",
+    "ca_url": "https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt",
+    "ca_file_sha256": "936a43fea6e8e525bcc0f81acd9c3d21b4fc4b9b68acea7906d698005afc6504",
+    "bytes": 2052095,
+    "sha256": "5fe6995e9ee80e0f844c316b8a70bb1633417b7f6c25a76ac5ebd19becc12505",
+    "openapi": "3.1.0",
+    "info": {
+      "title": "LiteLLM API",
+      "version": "1.106.4"
+    },
+    "servers": null,
+    "global_security": null,
+    "security_schemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "description": "Bearer token",
+        "in": "header",
+        "name": "x-litellm-api-key"
+      },
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "selected_paths": {
+      "/chat/completions": {
+        "documented": true,
+        "methods": {
+          "post": {
+            "summary": "Chat Completion",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "chat_completion_chat_completions_post",
+            "request_schema_ref": null,
+            "required": [
+              "model",
+              "messages"
+            ],
+            "request_fields": [
+              "model",
+              "messages",
+              "max_tokens",
+              "stream_options",
+              "tools",
+              "tool_choice",
+              "parallel_tool_calls",
+              "stream"
+            ],
+            "description_excerpt": "Follows the exact same API spec as `OpenAI's Chat API https://platform.openai.com/docs/api-reference/chat`\n\n```bash\ncurl -X POST http://localhost:4000/v1/chat/completions \n-H \"Content-Type: application/json\" \n-H \"Authorization: Bearer $LITELLM_MASTER_KEY\" \n-d '{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"Hello!\"\n        }\n    ]\n}'\n```",
+            "response_codes": [
+              "200",
+              "422"
+            ]
+          }
+        }
+      },
+      "/v1/chat/completions": {
+        "documented": true,
+        "methods": {
+          "post": {
+            "summary": "Chat Completion",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "chat_completion_v1_chat_completions_post",
+            "request_schema_ref": null,
+            "required": [
+              "model",
+              "messages"
+            ],
+            "request_fields": [
+              "model",
+              "messages",
+              "max_tokens",
+              "stream_options",
+              "tools",
+              "tool_choice",
+              "parallel_tool_calls",
+              "stream"
+            ],
+            "description_excerpt": "Follows the exact same API spec as `OpenAI's Chat API https://platform.openai.com/docs/api-reference/chat`\n\n```bash\ncurl -X POST http://localhost:4000/v1/chat/completions \n-H \"Content-Type: application/json\" \n-H \"Authorization: Bearer $LITELLM_MASTER_KEY\" \n-d '{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"Hello!\"\n        }\n    ]\n}'\n```",
+            "response_codes": [
+              "200",
+              "422"
+            ]
+          }
+        }
+      },
+      "/responses": {
+        "documented": true,
+        "methods": {
+          "post": {
+            "summary": "Responses Api",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "responses_api_responses_post",
+            "request_schema_ref": null,
+            "required": [
+              "input",
+              "model"
+            ],
+            "request_fields": [
+              "parallel_tool_calls",
+              "previous_response_id",
+              "stream",
+              "tool_choice",
+              "tools",
+              "stream_options",
+              "input",
+              "model"
+            ],
+            "description_excerpt": "Follows the OpenAI Responses API spec: https://platform.openai.com/docs/api-reference/responses\n\nSupports background mode with polling_via_cache for partial response retrieval.\nWhen background=true and polling_via_cache is enabled, returns a polling_id immediately\nand streams the response in the background, updating Redis cache.\n\n```bash\n# Normal request\ncurl -X POST http://localhost:4000/v1/responses     -H \"Content-Type: application/json\"     -H \"Authorization: Bearer $LITELLM_MASTER_KEY\"     -d '{\n    \"model\": \"gpt-4o\",\n    \"input\": \"Tell me about AI\"\n}'\n\n# Background request with polling\ncurl -X POST http://localhost:4000/v1/responses     -H \"Content-Type: application/json\"     -H \"Authorization: Bearer $LITELLM_MASTER_KEY\"     -d '{\n    \"model\": \"gpt-4o\",\n    \"input\": \"Tell me about AI\",\n    \"background\": true\n}'\n```",
+            "response_codes": [
+              "200"
+            ]
+          },
+          "get": {
+            "summary": "WebSocket: responses_websocket_endpoint",
+            "security": null,
+            "operationId": "websocket_responses_websocket_endpoint_get",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "WebSocket connection endpoint",
+            "response_codes": [
+              "101"
+            ]
+          }
+        }
+      },
+      "/v1/responses": {
+        "documented": true,
+        "methods": {
+          "post": {
+            "summary": "Responses Api",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "responses_api_v1_responses_post",
+            "request_schema_ref": null,
+            "required": [
+              "input",
+              "model"
+            ],
+            "request_fields": [
+              "parallel_tool_calls",
+              "previous_response_id",
+              "stream",
+              "tool_choice",
+              "tools",
+              "stream_options",
+              "input",
+              "model"
+            ],
+            "description_excerpt": "Follows the OpenAI Responses API spec: https://platform.openai.com/docs/api-reference/responses\n\nSupports background mode with polling_via_cache for partial response retrieval.\nWhen background=true and polling_via_cache is enabled, returns a polling_id immediately\nand streams the response in the background, updating Redis cache.\n\n```bash\n# Normal request\ncurl -X POST http://localhost:4000/v1/responses     -H \"Content-Type: application/json\"     -H \"Authorization: Bearer $LITELLM_MASTER_KEY\"     -d '{\n    \"model\": \"gpt-4o\",\n    \"input\": \"Tell me about AI\"\n}'\n\n# Background request with polling\ncurl -X POST http://localhost:4000/v1/responses     -H \"Content-Type: application/json\"     -H \"Authorization: Bearer $LITELLM_MASTER_KEY\"     -d '{\n    \"model\": \"gpt-4o\",\n    \"input\": \"Tell me about AI\",\n    \"background\": true\n}'\n```",
+            "response_codes": [
+              "200"
+            ]
+          },
+          "get": {
+            "summary": "WebSocket: responses_websocket_endpoint",
+            "security": null,
+            "operationId": "websocket_responses_websocket_endpoint_get_2",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "WebSocket connection endpoint",
+            "response_codes": [
+              "101"
+            ]
+          }
+        }
+      },
+      "/models": {
+        "documented": true,
+        "methods": {
+          "get": {
+            "summary": "Model List",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "model_list_models_get",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "Use `/model/info` - to get detailed model information, example - pricing, mode, etc.\n\nThis is just for compatibility with openai projects like aider.\n\nQuery Parameters:\n- client_version: Sent by Codex CLI (`?client_version=0.159.3`) when it fetches a\n                provider's model catalog. When present, the response is Codex's own\n                catalog shape (`{\"models\": [...]}`) built from the same listing, with\n                each model's `model_info.service_tiers` as its service tiers; absent,\n                the OpenAI shape below is returned\n- include_metadata: Include additional metadata in the response with fallback information\n- fallback_type: Type of fallbacks to include (\"general\", \"context_window\", \"content_policy\")\n                Defaults to \"general\" when include_metadata=true\n- scope: Optional scope parameter. Currentl",
+            "response_codes": [
+              "200",
+              "422"
+            ]
+          }
+        }
+      },
+      "/v1/models": {
+        "documented": true,
+        "methods": {
+          "get": {
+            "summary": "Model List",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "model_list_v1_models_get",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "Use `/model/info` - to get detailed model information, example - pricing, mode, etc.\n\nThis is just for compatibility with openai projects like aider.\n\nQuery Parameters:\n- client_version: Sent by Codex CLI (`?client_version=0.159.3`) when it fetches a\n                provider's model catalog. When present, the response is Codex's own\n                catalog shape (`{\"models\": [...]}`) built from the same listing, with\n                each model's `model_info.service_tiers` as its service tiers; absent,\n                the OpenAI shape below is returned\n- include_metadata: Include additional metadata in the response with fallback information\n- fallback_type: Type of fallbacks to include (\"general\", \"context_window\", \"content_policy\")\n                Defaults to \"general\" when include_metadata=true\n- scope: Optional scope parameter. Currentl",
+            "response_codes": [
+              "200",
+              "422"
+            ]
+          }
+        }
+      },
+      "/health": {
+        "documented": true,
+        "methods": {
+          "get": {
+            "summary": "Health Endpoint",
+            "security": [
+              {
+                "APIKeyHeader": []
+              }
+            ],
+            "operationId": "health_endpoint_health_get",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "🚨 USE `/health/liveliness` to health check the proxy 🚨\n\nSee more 👉 https://docs.litellm.ai/docs/proxy/health\n\n\nCheck the health of all the endpoints in config.yaml\n\nTo run health checks in the background, add this to config.yaml:\n```\ngeneral_settings:\n    # ... other settings\n    background_health_checks: True\n```\nelse, the health checks will be run on models when /health is called.\n\nTo skip deployments that set ``model_info.disable_background_health_check: true``\non ``GET /health`` as well as in the background loop, set\n``general_settings.health_check_skip_disabled_background_models: true``.",
+            "response_codes": [
+              "200",
+              "422"
+            ]
+          }
+        }
+      },
+      "/health/liveliness": {
+        "documented": true,
+        "methods": {
+          "get": {
+            "summary": "Health Liveliness",
+            "security": null,
+            "operationId": "health_liveliness_health_liveliness_get",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "Unprotected endpoint for checking if worker is alive.\n\nReturns 503 once graceful shutdown has begun so Kubernetes stops counting\nthe draining pod as live and terminates it on schedule.",
+            "response_codes": [
+              "200"
+            ]
+          }
+        }
+      },
+      "/health/readiness": {
+        "documented": true,
+        "methods": {
+          "get": {
+            "summary": "Health Readiness",
+            "security": null,
+            "operationId": "health_readiness_health_readiness_get",
+            "request_schema_ref": null,
+            "required": null,
+            "request_fields": [],
+            "description_excerpt": "Public readiness probe. Returns a low-detail payload safe to expose to\nunauthenticated load balancers — `status` plus `db` so orchestrators and\nexternal probes can distinguish \"healthy\" from \"DB unreachable\" without a\ncredential. Admins can opt into the legacy detailed payload with\ngeneral_settings.allow_public_health_readiness_details.",
+            "response_codes": [
+              "200"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mai_public_http_probes": [
+    {
+      "url": "https://api-ai.mai.ru/docs",
+      "status": 404,
+      "method": "GET",
+      "authorization": false,
+      "observed_utc": "2026-11-13T12:31:15Z",
+      "body_excerpt": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "url": "https://api-ai.mai.ru/health",
+      "status": 401,
+      "method": "GET",
+      "authorization": false,
+      "observed_utc": "2026-11-13T12:31:15Z",
+      "body_excerpt": "{\"error\":{\"message\":\"Authentication Error, No api key passed in.\",\"type\":\"auth_error\",\"param\":\"None\",\"code\":\"401\"}}"
+    },
+    {
+      "url": "https://api-ai.mai.ru/models",
+      "status": 401,
+      "method": "GET",
+      "authorization": false,
+      "observed_utc": "2026-11-13T12:31:15Z",
+      "body_excerpt": "{\"error\":{\"message\":\"Authentication Error, No api key passed in.\",\"type\":\"auth_error\",\"param\":\"None\",\"code\":\"401\"}}"
+    },
+    {
+      "url": "https://api-ai.mai.ru/v1/models",
+      "status": 401,
+      "method": "GET",
+      "authorization": false,
+      "observed_utc": "2026-11-13T12:31:15Z",
+      "body_excerpt": "{\"error\":{\"message\":\"Authentication Error, No api key passed in.\",\"type\":\"auth_error\",\"param\":\"None\",\"code\":\"401\"}}"
+    }
+  ],
+  "tls_evidence": {
+    "initial_python_error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)>",
+    "initial_curl_exit_code": 60,
+    "initial_curl_error": "curl: (60) SSL certificate problem: unable to get local issuer certificate",
+    "curl": "8.7.1 macOS SecureTransport/LibreSSL",
+    "observed_issuer": "Russian Trusted Sub CA",
+    "openssl_verify_return_code": 20,
+    "after_ca": "hostname and chain verification succeeded for public OpenAPI GET",
+    "ca_scope": "in-memory SSLContext only; no global/system modification",
+    "root_pem_file_sha256": "936a43fea6e8e525bcc0f81acd9c3d21b4fc4b9b68acea7906d698005afc6504",
+    "sub_pem_file_sha256": "f0ae589f36774f29ef3648f7984b08d42fcce6f1ffeeb6236d773daeb2744ea6",
+    "insecure_tls_used": false,
+    "native_web_tool_error": "URL https://api-ai.mai.ru/openapi.json is not accessible via this tool.",
+    "fallback_reason": "Read-only text HTTP retrieval of public OpenAPI with official public CA scoped to process; default trust could not validate issuer.",
+    "diagnostic_tls_handshake_sent_http": false
+  },
+  "yandex_pi_claim": {
+    "verdict": "NOT_CONFIRMED_BY_FOUND_PRIMARY_SOURCES",
+    "not_a_disproof": true,
+    "search_queries": [
+      "site.yandex.ru \"pi-mono\"",
+      "site.yandex.com \"pi-mono\"",
+      "site.yandex.cloud \"Pi\" \"agent\"",
+      "\"Yandex\" \"pi-mono\"",
+      "\"Яндекс\" \"Pi\" \"badlogic\"",
+      "site.yandex.cloud \"Pi\" \"agent harness\""
+    ],
+    "verified_yandex_documentation": "YANDEX-AGENTS",
+    "integration_catalog_record": "PI-YANDEX-CATALOG",
+    "confirmed_other_platform": "CLOUDFLARE-PI"
+  },
+  "sites_tools_discovery": {
+    "tool": "mcp__codex_apps__sites_update_environment_variables",
+    "mode": "metadata inspection only; tool not executed",
+    "supports_is_secret_flag": true,
+    "redeploy_required_to_apply": true,
+    "ca_configuration_confirmed": false,
+    "durable_objects_binding_confirmed": false,
+    "hosted_reachability_tested": false
+  },
+  "sources": [
+    {
+      "id": "OAI-SDK",
+      "url": "https://learn.chatgpt.com/docs/codex-sdk",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Server-side SDK controls Codex coding runtime.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "OAI-GATEWAY",
+      "url": "https://learn.chatgpt.com/docs/enterprise/gateway-compatibility",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Responses API, incremental SSE, continuation and complete tool cycle required; health/models do not qualify.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "OAI-PROVIDERS",
+      "url": "https://learn.chatgpt.com/docs/config-file/config-advanced#custom-model-providers",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Custom provider base_url, environment credential and wire_api responses.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "OAI-EXEC",
+      "url": "https://github.com/openai/codex/blob/main/sdk/typescript/src/exec.ts",
+      "kind": "maintainer_source_code",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "TypeScript SDK spawns native Codex executable.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "OAI-LICENSE",
+      "url": "https://github.com/openai/codex/blob/main/LICENSE",
+      "kind": "maintainer_license",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Apache-2.0.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-REDIRECT",
+      "url": "https://github.com/badlogic/pi-mono",
+      "kind": "maintainer_repository",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Redirects to https://github.com/earendil-works/pi; GitHub API confirmed full_name.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-REPOSITORY",
+      "url": "https://github.com/earendil-works/pi",
+      "kind": "maintainer_repository",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Canonical Pi repository reached by redirect and confirmed by GitHub API.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-README",
+      "url": "https://github.com/earendil-works/pi/blob/35019ae989fc6e45eb18d0c757ef81dd18cb30e3/README.md",
+      "kind": "maintainer_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Distinct ai/core/coding-agent packages; no built-in OS permission system.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-CORE",
+      "url": "https://github.com/earendil-works/pi/blob/35019ae989fc6e45eb18d0c757ef81dd18cb30e3/packages/agent/README.md",
+      "kind": "maintainer_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Tool loop, hooks, events and cancellation.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-AI",
+      "url": "https://github.com/earendil-works/pi/blob/35019ae989fc6e45eb18d0c757ef81dd18cb30e3/packages/ai/README.md",
+      "kind": "maintainer_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "createProvider/baseUrl with Chat Completions/Responses API implementations and compat flags.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-PACKAGE",
+      "url": "https://github.com/earendil-works/pi/blob/35019ae989fc6e45eb18d0c757ef81dd18cb30e3/packages/agent/package.json",
+      "kind": "maintainer_package_metadata",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "@earendil-works/pi-agent-core 1.5.2; node >=22.19.0; MIT.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-LICENSE",
+      "url": "https://github.com/earendil-works/pi/blob/35019ae989fc6e45eb18d0c757ef81dd18cb30e3/LICENSE",
+      "kind": "maintainer_license",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "MIT.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "API-SDK",
+      "url": "https://github.com/openai/openai-node",
+      "kind": "maintainer_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "baseURL, Workers support, retries/timeout/cancellation; retries 2 by default.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "API-SDK-LICENSE",
+      "url": "https://github.com/openai/openai-node/blob/master/LICENSE",
+      "kind": "maintainer_license",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Apache-2.0.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PYDANTIC",
+      "url": "https://pydantic.dev/docs/ai/models/compatible-apis/",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "OpenAICompatibleProvider base_url with explicit Chat/Responses model choice.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PYDANTIC-LICENSE",
+      "url": "https://github.com/pydantic/pydantic-ai/blob/main/LICENSE",
+      "kind": "maintainer_license",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "MIT.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "LANGGRAPH",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Stateful graph orchestration.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "LANGCHAIN-OPENAI",
+      "url": "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Custom baseURL configuration and tool binding.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "LANGGRAPH-LICENSE",
+      "url": "https://github.com/langchain-ai/langgraph/blob/main/LICENSE",
+      "kind": "maintainer_license",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "MIT core; managed hosting conditions separate.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "YANDEX-AGENTS",
+      "url": "https://yandex.cloud/en/docs/tutorials/serverless/streaming-openai-agent",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Yandex tutorial uses OpenAI Agents SDK; does not establish Pi usage.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "YANDEX-CONTAINER",
+      "url": "https://yandex.cloud/en/docs/serverless-containers/concepts/container",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Docker image execution; suspension/termination affects state and connections.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "YANDEX-COMPARISON",
+      "url": "https://yandex.cloud/en/docs/serverless-containers/service-comparison",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Continuous container versus request-based container hosting.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "PI-YANDEX-CATALOG",
+      "url": "https://pi.dev/packages/pi-yandex-bridge",
+      "kind": "package_catalog",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Author unitdhda; integration package is not a Yandex internal-adoption claim. Linked GitHub URL returned 404 via web fetch.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "CLOUDFLARE-PI",
+      "url": "https://developers.cloudflare.com/agents/harnesses/",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Pi Durable harness supported by Cloudflare Agents SDK; no inference of Sites bindings.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "CLOUDFLARE-FETCH",
+      "url": "https://developers.cloudflare.com/workers/runtime-apis/fetch/",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Worker HTTP fetch available; Sites-to-MAI trust not established.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "CLOUDFLARE-TLS",
+      "url": "https://developers.cloudflare.com/workers/runtime-apis/nodejs/tls/",
+      "kind": "official_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Partial Node TLS support; not proof of custom fetch CA in Sites.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "MAI-OPENAPI",
+      "url": "https://api-ai.mai.ru/openapi.json",
+      "kind": "deployed_public_openapi",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "LiteLLM 1.106.4: chat/responses/models routes documented; no inference qualification.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "CA-ROOT",
+      "url": "https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt",
+      "kind": "official_public_artifact",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Official root loaded into in-memory SSLContext; hostname and chain checks remained enabled.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "CA-SUB",
+      "url": "https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt",
+      "kind": "official_public_artifact",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Read for first scoped context; subsequent root-only OpenAPI request succeeded.",
+      "live_inference_evidence": false
+    },
+    {
+      "id": "CA-DEVELOPER-GUIDE",
+      "url": "https://developers.tochka.com/docs/tochka-api/certificate",
+      "kind": "api_operator_documentation",
+      "accessed_on": "2026-11-13",
+      "read": true,
+      "supports": "Documents official Gosuslugi CA distribution and direct gu-st.ru certificate URLs.",
+      "live_inference_evidence": false
+    }
+  ],
+  "local_sources": [
+    {
+      "id": "SITES-SKILL",
+      "path": "/Users/a/.codex/plugins/cache/openai-curated-remote/sites/1.1.6/skills/sites/SKILL.md",
+      "kind": "installed_plugin_documentation",
+      "read": true,
+      "accessed_on": "2026-11-13",
+      "supports": "Worker ESM deployment shape, 128MB/isolate, HTTP-only external connections in Sites."
+    },
+    {
+      "id": "SITES-SECRETS",
+      "path": "/Users/a/.codex/plugins/cache/openai-curated-remote/sites/1.1.6/skills/sites/references/identity-and-secrets.md",
+      "kind": "installed_plugin_documentation",
+      "read": true,
+      "accessed_on": "2026-11-13",
+      "supports": "Runtime secrets and platform identity boundaries."
+    },
+    {
+      "id": "SITES-WORKER-STARTER",
+      "path": "/Users/a/.codex/plugins/cache/openai-curated-remote/sites/1.1.6/skills/sites/templates/worker-esm-starter/README.md",
+      "kind": "installed_plugin_documentation",
+      "read": true,
+      "accessed_on": "2026-11-13",
+      "supports": "Default fetch(request, env, ctx) ESM export."
+    }
+  ],
+  "unknowns": [
+    "Exact account-authorized IDs of both user-named DeepSeek variants",
+    "MAI credential header acceptance, tariff, quota, cache/reasoning usage accounting",
+    "Model context/output limits and tool/streaming/Responses support",
+    "MAI upstream routing, retention and public-app usage conditions",
+    "Node adapter retries and deployed TLS behavior with official CA",
+    "Sites hosted fetch trust, specific Pi bundle, shared atomic limiter/budget and infrastructure log redaction",
+    "Actual latency, capacity, session cost and travel answer quality"
+  ],
+  "not_run": [
+    "Authenticated API request",
+    "Any LLM POST/generation",
+    "Codex/Pi/PydanticAI/LangGraph runtime install or execution",
+    "Worker build, VPS/container deployment, browser/E2E test",
+    "Authenticated health model probes",
+    "Booking, payment or messages to third parties"
+  ],
+  "engineering_proposals_are_not_measurements": true
+}

@@ -1,0 +1,903 @@
+{
+  "schema_version": "1.0",
+  "title": "Транспортные коннекторы Red Wings Travel Assistant",
+  "language": "ru",
+  "checked_on": "2026-11-13",
+  "timezone": "Europe/Moscow",
+  "scope": {
+    "write_paths": [
+      "context/43_travel_assistant_20261113/research/connectors.md",
+      "context/43_travel_assistant_20261113/research/connectors_sources.json"
+    ],
+    "existing_secrets_used": false,
+    "browser_used": false,
+    "orders_created": 0,
+    "payments_attempted": 0,
+    "internal_airline_api_called": false,
+    "unauthenticated_routing_post_count": 1
+  },
+  "recommendation": {
+    "intercity": "yandex_rasp",
+    "last_mile_links": "2gis_https_deeplinks",
+    "last_mile_computation": "2gis_geocoder_and_routing",
+    "flight_purchase": "flyredwings_booking_entry_until_partner_contract",
+    "minimum_new_credentials_for_computed_address_prototype": [
+      "RASP_API_KEY",
+      "DGIS_API_KEY"
+    ],
+    "keyless_mode": "bounded_current_examples_and_navigation_links_only",
+    "production_processing_rights": "must_match_agreed_provider_terms"
+  },
+  "acceptance": {
+    "research": "complete",
+    "primary_docs": "checked",
+    "keyless_access_probes": "complete",
+    "dated_flight_examples": 2,
+    "authenticated_api_queries": "NOT_RUN",
+    "address_to_address_multimodal_route": "NOT_RUN",
+    "purchase_entry_http": "checked",
+    "navigation_ui": "NOT_RUN",
+    "prefilled_flight_purchase": "unknown",
+    "live_inventory": "NOT_RUN",
+    "ticket_sale": "NOT_RUN"
+  },
+  "sources": [
+    {
+      "id": "YR01",
+      "title": "Яндекс Расписания: введение",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Междугородний транспорт; городской транспорт направляется в API Карт; обязательна атрибуция."
+    },
+    {
+      "id": "YR02",
+      "title": "Яндекс Расписания: доступ к API",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/concepts/access",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_and_direct_https",
+      "support": "Ключ в каждом запросе: apikey либо Authorization; не подтверждает числовую суточную квоту."
+    },
+    {
+      "id": "YR03",
+      "title": "Расписание рейсов между станциями",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/schedule-point-point",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "GET search; одна date, transfers, станции/города, pagination, tickets_info; не контракт инвентаря/продажи."
+    },
+    {
+      "id": "YR04",
+      "title": "Расписание рейсов по станции",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/schedule-on-station",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_and_direct_https",
+      "support": "GET schedule; station/system/date/event/transport_types."
+    },
+    {
+      "id": "YR05",
+      "title": "Список станций следования",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/list-stations-route",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_search_primary_document",
+      "support": "GET thread, нестабильный uid; рекомендован api.rasp.yandex-net.ru."
+    },
+    {
+      "id": "YR06",
+      "title": "Информация о перевозчике",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/query-carrier",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_search_primary_document",
+      "support": "GET carrier code/system; IATA может вернуть carriers с несколькими элементами."
+    },
+    {
+      "id": "YR07",
+      "title": "Список всех доступных станций",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/stations-list",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_and_direct_https",
+      "support": "GET stations_list; географическая иерархия; JSON около 40 МБ по документации."
+    },
+    {
+      "id": "YR08",
+      "title": "Список ближайших станций",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/query-nearest-station",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "GET nearest_stations, lat/lng/distance в км, до 50 станций в описании метода."
+    },
+    {
+      "id": "YR09",
+      "title": "Копирайт Яндекс Расписаний",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/reference/query-copyright",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https_after_web_timeout",
+      "support": "GET copyright возвращает баннер/уведомление/URL; порядок и место атрибуции."
+    },
+    {
+      "id": "YR10",
+      "title": "Условия использования API Яндекс.Расписания",
+      "url": "https://yandex.ru/legal/rasp_api/ru/",
+      "provider": "yandex_rasp",
+      "type": "official_terms",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Пункты 2.3.2, 2.3.3, 2.3.5, 3.2.4: открытый бесплатный ресурс, атрибуция, ограничения обработки/хранения."
+    },
+    {
+      "id": "YR11",
+      "title": "Сообщения об ошибках",
+      "url": "https://yandex.ru/dev/rasp/doc/ru/concepts/error-codes",
+      "provider": "yandex_rasp",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Ошибки не равны отсутствию транспорта."
+    },
+    {
+      "id": "YM01",
+      "title": "HTTP Router: формат запроса",
+      "url": "https://yandex.ru/maps-api/docs/router-api/request.html",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "v2/route, mode=transit и другие режимы; waypoints lat,lon; ключ; departure_time."
+    },
+    {
+      "id": "YM02",
+      "title": "HTTP Router: формат ответа",
+      "url": "https://yandex.ru/maps-api/docs/router-api/response.html",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Маршрут, legs/steps, время/геометрия; не цена билета."
+    },
+    {
+      "id": "YM03",
+      "title": "HTTP Router: быстрый старт",
+      "url": "https://yandex.ru/maps-api/docs/router-api/quickstart.html",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Ключ отдельного пакета Получение деталей маршрута."
+    },
+    {
+      "id": "YM04",
+      "title": "HTTP Router: тарифы",
+      "url": "https://yandex.ru/dev/tariffs/doc/ru/router/prices/",
+      "provider": "yandex_maps",
+      "type": "official_tariff",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Тест 7 суток/100 ответов в сутки; стандартный месячный тариф 20800 RUB/1000 ответов в сутки."
+    },
+    {
+      "id": "YM05",
+      "title": "HTTP Router: условия",
+      "url": "https://yandex.ru/dev/tariffs/doc/ru/router/terms/",
+      "provider": "yandex_maps",
+      "type": "official_terms",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Оплата ответов; разные права хранения; ограничения изменения и сортировки данных."
+    },
+    {
+      "id": "YM06",
+      "title": "JS API: параметры мультимаршрута",
+      "url": "https://yandex.ru/dev/jsapi-v2-1/doc/ru/v2-1/ref/reference/IMultiRouteParams",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "routingMode auto/masstransit/pedestrian/bicycle; results."
+    },
+    {
+      "id": "YM07",
+      "title": "JS API: подключение",
+      "url": "https://yandex.ru/dev/jsapi-v2-1/doc/en/v2-1/dg/concepts/load",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_search_primary_document",
+      "support": "Браузерная JS-библиотека с ключом."
+    },
+    {
+      "id": "YM08",
+      "title": "Условия отдельных сервисов Яндекс Карт",
+      "url": "https://yandex.ru/legal/maps_api/ru/",
+      "provider": "yandex_maps",
+      "type": "official_terms",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Открытый режим, права на данные/копирайты; Геокодер связан с JS-картой, 1000 запросов/сутки."
+    },
+    {
+      "id": "YM09",
+      "title": "Геокодер: формат запроса",
+      "url": "https://yandex.ru/maps-api/docs/geocoder-api/request.html",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Актуальный документированный endpoint /v1, apikey, geocode, lang."
+    },
+    {
+      "id": "YM10",
+      "title": "Запуск веб-версии Яндекс Карт",
+      "url": "https://yandex.ru/dev/yandex-apps-launch-maps/doc/ru/concepts/yandexmaps-web",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https_after_web_unavailable",
+      "support": "Web rtext lat,lon~lat,lon, rtt mt/auto/pd/bc."
+    },
+    {
+      "id": "YM11",
+      "title": "Ограничения запуска мобильных Яндекс Карт",
+      "url": "https://yandex.ru/dev/yandex-apps-launch-maps/doc/ru/concepts/yandexmaps-commercial-use",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "После пяти неподписанных переходов за 24 часа на устройстве действуют ограничения."
+    },
+    {
+      "id": "YM12",
+      "title": "Подпись URL-схемы Яндекс Карт",
+      "url": "https://yandex.ru/dev/yandex-apps-launch-maps/doc/ru/concepts/yandexmaps-commercial-use-signature",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https_after_web_unavailable",
+      "support": "Отдельные client id и RSA-ключ подписи запуска."
+    },
+    {
+      "id": "YM13",
+      "title": "Общее описание Получения деталей маршрута",
+      "url": "https://yandex.ru/maps-api/docs/common/routing/router-api.html",
+      "provider": "yandex_maps",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https",
+      "support": "Общий продукт HTTP/JS/MapKit; число автомобильных точек отличается от подробной спецификации."
+    },
+    {
+      "id": "DG01",
+      "title": "2ГИС Routing: обзор",
+      "url": "https://docs.2gis.com/api/navigation/routing/overview",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Общественный/прочий транспорт, endpoint-ы, расписания и альтернативы."
+    },
+    {
+      "id": "DG02",
+      "title": "2ГИС Routing: начало работы",
+      "url": "https://docs.2gis.com/api/navigation/routing/start",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "API key; демо-маршрут до 50 км; примеры запросов."
+    },
+    {
+      "id": "DG03",
+      "title": "2ГИС Public Transport: спецификация",
+      "url": "https://docs.2gis.com/api/navigation/routing/reference/public_transport",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "POST public_transport/2.0, start_time, enable_schedule, transport, варианты/пересадки, pedestrian."
+    },
+    {
+      "id": "DG04",
+      "title": "2ГИС Routing global: спецификация",
+      "url": "https://docs.2gis.com/api/navigation/routing/reference/routing",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "POST /routing/7.0.0/global для других способов движения."
+    },
+    {
+      "id": "DG05",
+      "title": "2ГИС Geocoder: обзор",
+      "url": "https://docs.2gis.com/api/search/geocoder/overview",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "GET catalog.api.2gis.com/3.0/items/geocode, q, fields, key; координаты в point."
+    },
+    {
+      "id": "DG06",
+      "title": "2ГИС: создание демо-ключа",
+      "url": "https://docs.2gis.com/platform-manager/demo-key",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Однократный демо-ключ на один месяц."
+    },
+    {
+      "id": "DG07",
+      "title": "2ГИС: тарифы и лимиты",
+      "url": "https://docs.2gis.com/platform-manager/subscription/pricing",
+      "provider": "2gis",
+      "type": "official_tariff",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Демо Routing 1000, Geocoder 1000; подписка 600 единиц/минуту, месячный пакет отдельно."
+    },
+    {
+      "id": "DG08",
+      "title": "2ГИС: deeplinks",
+      "url": "https://help.2gis.ru/question/razrabotchikam-zapusk-ideystviya-vmobilnom-prilozhenii-cherez-deeplink",
+      "provider": "2gis",
+      "type": "official_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_search_primary_document",
+      "support": "Актуальный directions/tab/.../points/lon,lat|lon,lat, HTTPS fallback; без ограничения запусков."
+    },
+    {
+      "id": "DG09",
+      "title": "2ГИС: оферта по справочному API",
+      "url": "https://law.2gis.ru/webapi-offer",
+      "provider": "2gis",
+      "type": "official_terms",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Ссылка на 2ГИС; п.3.1 не предусматривает кэширование. Условия конкретной подписки уточняются."
+    },
+    {
+      "id": "DG10",
+      "title": "2ГИС: оферта по картографическому API",
+      "url": "https://law.2gis.ru/offer-cartographic-webapi",
+      "provider": "2gis",
+      "type": "official_terms",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Атрибуция; п.3.1 не предусматривает кэширование; не выводить произвольное право обработки."
+    },
+    {
+      "id": "RW01",
+      "title": "Red Wings: онлайн-табло",
+      "url": "https://flyredwings.com/flight-board/",
+      "provider": "red_wings",
+      "type": "official_live_page",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https",
+      "support": "Датированные вкладки вчера/сегодня/завтра, опубликованные WZ1122 и WZ1067."
+    },
+    {
+      "id": "RW02",
+      "title": "Red Wings: вход в бронирование",
+      "url": "https://flyredwings.com/booking/",
+      "provider": "red_wings",
+      "type": "official_transaction_entry",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https",
+      "support": "HTTP 200 оболочки; prefilled search и offer не проверены."
+    },
+    {
+      "id": "RW03",
+      "title": "Red Wings: главная страница",
+      "url": "https://flyredwings.com/",
+      "provider": "red_wings",
+      "type": "official_page",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https",
+      "support": "HTML содержит engineURL и внутренний GraphQL URL; это не публичная спецификация."
+    },
+    {
+      "id": "RW04",
+      "title": "Red Wings: агентам и туроператорам",
+      "url": "https://flyredwings.com/agents/",
+      "provider": "red_wings",
+      "type": "official_partner_page",
+      "checked_on": "2026-11-13",
+      "verification": "direct_https",
+      "support": "Договорное сотрудничество и агентские инструкции; открытый API инвентаря не найден."
+    },
+    {
+      "id": "RW05",
+      "title": "Red Wings: правила воздушных перевозок",
+      "url": "https://flyredwings.com/upload/PDF/pravila_perevozki_2025_10_01.pdf",
+      "provider": "red_wings",
+      "type": "official_rules_pdf",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_pdf",
+      "support": "Опубликованный PDF с датой изменения 24.09.2025; п.6.4.5, стр.33: регистрация/багаж в РФ до 40 минут."
+    },
+    {
+      "id": "RW06",
+      "title": "Red Wings: регистрация",
+      "url": "https://flyredwings.com/check-in-rules/",
+      "provider": "red_wings",
+      "type": "official_rules_page",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_and_direct_https",
+      "support": "Онлайн-регистрация до 3 часов; посадка до 30 минут перед вылетом."
+    },
+    {
+      "id": "AP01",
+      "title": "Кольцово: сезонное расписание",
+      "url": "https://ar-svx.ru/schedule/",
+      "provider": "koltsovo_airport",
+      "type": "official_schedule_page",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_and_direct_https",
+      "support": "Независимая сверка WZ1067 SVX-KZN, расписание и период."
+    },
+    {
+      "id": "AP02",
+      "title": "Кольцово: общественный транспорт",
+      "url": "https://ar-svx.ru/how-to-get/to/bus/",
+      "provider": "koltsovo_airport",
+      "type": "official_ground_transport_page",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_and_direct_https",
+      "support": "Поезд 6038 07:12-07:53, автобус65; дата действия опубликованных тарифов не установлена."
+    },
+    {
+      "id": "RZ01",
+      "title": "Инновационная мобильность: подключение",
+      "url": "https://www.platform.smarttravel.ru/",
+      "provider": "rzd_digital_passenger_solutions",
+      "type": "official_partner_page",
+      "checked_on": "2026-11-13",
+      "verification": "web_search_primary_page",
+      "support": "Договор/NDA, тестовый доступ и API; билетный контент не открытый без credentials."
+    },
+    {
+      "id": "RZ02",
+      "title": "РЖД-ЦПР: каналы для агентов",
+      "url": "https://platform.smarttravel.ru/blog/legalnye-sposoby-prodazhi-biletov",
+      "provider": "rzd_digital_passenger_solutions",
+      "type": "official_partner_guidance",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Пассажирские endpoint-ы не предназначены для автоматизации агентами; договорный API/WL."
+    },
+    {
+      "id": "TT01",
+      "title": "Travelpayouts: API от Tutu.ru",
+      "url": "https://support.travelpayouts.com/hc/ru/articles/360020147791-API-%D0%BE%D1%82-Tutu-ru",
+      "provider": "travelpayouts",
+      "type": "official_adapter_documentation",
+      "checked_on": "2026-11-13",
+      "verification": "web_open",
+      "support": "Поставщик адаптера документирует кэшированные данные виджета, не realtime-поиск."
+    },
+    {
+      "id": "TT02",
+      "title": "Партнёрская программа Туту",
+      "url": "https://partner.tutu.ru/",
+      "provider": "tutu_partner_program",
+      "type": "official_partner_redirect",
+      "checked_on": "2026-11-13",
+      "verification": "web_open_redirect",
+      "support": "Перенаправляет на advcake.ru/lp/tutu; это партнёрская программа, не спецификация realtime API."
+    }
+  ],
+  "probes": [
+    {
+      "id": "rasp_no_key_carrier",
+      "checked_at": "2026-11-13T12:32:33.738215+00:00",
+      "method": "GET",
+      "url": "https://api.rasp.yandex-net.ru/v3.0/carrier/?code=WZ&system=iata&format=json",
+      "auth": "none",
+      "cookies_sent": false,
+      "status": 400,
+      "final_url": "https://api.rasp.yandex-net.ru/v3.0/carrier/?code=WZ&system=iata&format=json",
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 242,
+      "sha256": "09d23229ad89a54956043ca30cb72244784d2ac7ee3786c21e9a1c43760c0d3f",
+      "response_excerpt": "{\"error\":{\"text\":\"Не указан ключ\",\"http_code\":400,\"error_code\":\"v3.0_38-ad77f928af2c70ceb75c1de247ed38e19407ef041ea82575a69fdd166ca126da_72\",\"request\":\"http://api.rasp.yandex-net.ru/v3.0/carrier/?code=WZ&system=iata&format=json\"}}"
+    },
+    {
+      "id": "rasp_no_key_svx_kzn",
+      "checked_at": "2026-11-13T12:32:33.738810+00:00",
+      "method": "GET",
+      "url": "https://api.rasp.yandex-net.ru/v3.0/search/?from=SVX&to=KZN&system=iata&date=2026-11-14&transport_types=plane&transfers=false&format=json",
+      "auth": "none",
+      "cookies_sent": false,
+      "status": 400,
+      "final_url": "https://api.rasp.yandex-net.ru/v3.0/search/?from=SVX&to=KZN&system=iata&date=2026-11-14&transport_types=plane&transfers=false&format=json",
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 303,
+      "sha256": "917a20361f12cc7b9a6e76d4cf071c5f23ebb1686bfabe2c8a7e76ad305243aa",
+      "response_excerpt": "{\"error\":{\"text\":\"Не указан ключ\",\"http_code\":400,\"error_code\":\"v3.0_38-ad77f928af2c70ceb75c1de247ed38e19407ef041ea82575a69fdd166ca126da_72\",\"request\":\"http://api.rasp.yandex-net.ru/v3.0/search/?from=SVX&to=KZN&system=iata&date=2026-11-14&transport_types=plane&transfers=false&format=json\"}}"
+    },
+    {
+      "id": "yandex_router_no_key",
+      "checked_at": "2026-11-13T12:32:33.738998+00:00",
+      "method": "GET",
+      "url": "https://api.routing.yandex.net/v2/route?waypoints=56.838011%2C60.597474%7C56.743108%2C60.802728&mode=transit",
+      "auth": "none",
+      "cookies_sent": false,
+      "status": 401,
+      "final_url": "https://api.routing.yandex.net/v2/route?waypoints=56.838011%2C60.597474%7C56.743108%2C60.802728&mode=transit",
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 45,
+      "sha256": "434533465ca1bb4295e9be116ee470730c075b11847bbd8e63404cc356660744",
+      "response_excerpt": "{\"errors\":[\"Parameter 'apikey' is missing.\"]}"
+    },
+    {
+      "id": "2gis_transit_no_key",
+      "checked_at": "2026-11-13T12:32:33.739177+00:00",
+      "method": "POST",
+      "url": "https://routing.api.2gis.com/public_transport/2.0",
+      "auth": "none",
+      "cookies_sent": false,
+      "request_body": {
+        "source": {
+          "point": {
+            "lat": 56.838011,
+            "lon": 60.597474
+          }
+        },
+        "target": {
+          "point": {
+            "lat": 56.743108,
+            "lon": 60.802728
+          }
+        },
+        "transport": [
+          "bus",
+          "pedestrian"
+        ],
+        "locale": "ru",
+        "enable_schedule": true,
+        "max_result_count": 3
+      },
+      "status": 403,
+      "final_url": "https://routing.api.2gis.com/public_transport/2.0",
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 42,
+      "sha256": "cafff840b1eaf1c6ac47865c71087bcac6b94c65b1ef4482db4b1045aaadb664",
+      "response_excerpt": "{\"type\":\"forbidden\",\"message\":\"empty_key\"}"
+    },
+    {
+      "id": "travelpayouts_tutu_public",
+      "checked_at": "2026-11-13T12:32:33.739382+00:00",
+      "method": "GET",
+      "url": "https://suggest.travelpayouts.com/search?service=tutu_trains&term=2000000&term2=2064130&callback=n",
+      "auth": "none",
+      "cookies_sent": false,
+      "status": 200,
+      "final_url": "https://suggest.travelpayouts.com/search?service=tutu_trains&term=2000000&term2=2064130&callback=n",
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 6714,
+      "sha256": "3e5d1b31de080d11ead76500f9bdc9b8bd8fdf00049f4d8936ea76cb93c23e1a",
+      "response_excerpt": "n({\"trips\":[{\"arrivalStation\":\"2064130\",\"arrivalTime\":\"11:50:00\",\"categories\":[{\"price\":3377,\"type\":\"plazcard\"},{\"price\":2463,\"type\":\"coupe\"},{\"price\":13459,\"type\":\"lux\"}],\"departureStation\":\"2000007\",\"departureTime\":\"19:45:00\",\"firm\":false,\"name\":\"\",\"numberForUrl\":\"MDgz0Jw=\",\"runArrivalStation\":\"2064150\",\"runDepartureStation\":\"2000007\",\"trainNumber\":\"083М\",\"travelTimeInSeconds\":\"144300\"},{\"arrivalStation\":\"2064130\",\"arrivalTime\":\"14:39:00\",\"cate… [сокращено]",
+      "observed_fields": [
+        "trips[]",
+        "arrivalStation",
+        "departureStation",
+        "arrivalTime",
+        "departureTime",
+        "categories[].price",
+        "categories[].type",
+        "trainNumber",
+        "travelTimeInSeconds"
+      ],
+      "observed_absences": [
+        "Нет date в запросе; дата конкретной поездки не подтверждена",
+        "Места на выбранный день не подтверждены"
+      ],
+      "result_classification": "cached_widget_data_not_live_offer"
+    },
+    {
+      "id": "rw_booking_entry",
+      "checked_at": "2026-11-13T12:32:35.268030+00:00",
+      "method": "GET",
+      "url": "https://flyredwings.com/booking/",
+      "auth": "none",
+      "cookies_sent": false,
+      "status": 200,
+      "final_url": "https://flyredwings.com/booking/",
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 67382,
+      "sha256": "cda2fa392f30ff005299a0fc11fc70e275953c1169d8c2eae074af948fb7ab51",
+      "body_markers": {
+        "booking_root": true,
+        "pulkovo": false
+      }
+    },
+    {
+      "id": "pulkovo_bus",
+      "checked_at": "2026-11-13T12:32:35.271117+00:00",
+      "method": "GET",
+      "url": "https://pulkovoairport.ru/transport/bus/",
+      "auth": "none",
+      "cookies_sent": false,
+      "network_error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)>"
+    }
+  ],
+  "snapshots": [
+    {
+      "url": "https://flyredwings.com/flight-board/",
+      "checked_at": "2026-11-13T12:40:30.970733+00:00",
+      "http_status": 200,
+      "sha256": "4f7d3d4cc5cb5721e1445e560532112e37f734309774e83d629f32253092d131",
+      "cookies_sent": false,
+      "auth": "none",
+      "date_tabs": [
+        {
+          "label": "yesterday",
+          "date": "2026-11-12"
+        },
+        {
+          "label": "today",
+          "date": "2026-11-13"
+        },
+        {
+          "label": "tomorrow",
+          "date": "2026-11-14"
+        }
+      ],
+      "rows": [
+        {
+          "tab_index": 1,
+          "departure_date": "2026-11-13",
+          "cells": [
+            "WZ 1122",
+            "Санкт-Петербург Пулково 22:40",
+            "Москва Внуково 14 ноя 00:00",
+            ""
+          ]
+        },
+        {
+          "tab_index": 2,
+          "departure_date": "2026-11-14",
+          "cells": [
+            "WZ 1067",
+            "Екатеринбург Кольцово 08:30",
+            "Казань 08:10",
+            ""
+          ]
+        }
+      ],
+      "board_updated_label": "15:40"
+    },
+    {
+      "url": "https://ar-svx.ru/schedule/",
+      "checked_at": "2026-11-13T12:41:13.491119+00:00",
+      "http_status": 200,
+      "sha256": "faae2d26754bc899c599fe495cf392819c0daab7dcb0a2844280db723ed5fb95",
+      "rows": [
+        [
+          "08:30",
+          "08:10",
+          "чт, сб",
+          "29 окт / 28 ноя",
+          "RED WINGS",
+          "WZ-1067",
+          "RRJ-95B",
+          "KZN"
+        ]
+      ]
+    },
+    {
+      "url": "https://ar-svx.ru/how-to-get/to/bus/",
+      "checked_at": "2026-11-13T12:40:32.817408+00:00",
+      "http_status": 200,
+      "sha256": "4610627b2f53d3fe8052e44881f8ec7fe7f587aa9cccd30731c59aa5bb2441e5",
+      "cookies_sent": false,
+      "auth": "none",
+      "observed": {
+        "train_number": "6038",
+        "departure_local": "07:12",
+        "arrival_airport_local": "07:53",
+        "published_frequency": "ежедневно",
+        "bus_number": "65",
+        "tariff_currentness": "unknown_effective_date"
+      }
+    },
+    {
+      "local_path": "context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json",
+      "sha256": "a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4",
+      "classification": "historical_input_not_current_schedule",
+      "top_level_entries": 118,
+      "date_keys_sample": [
+        "ABA:2026-12-08",
+        "ABA:2026-12-11",
+        "AER:2026-12-08"
+      ],
+      "red_wings_carrier_seed": {
+        "code": 617,
+        "iata": "WZ",
+        "sirena": "ИН",
+        "icao": "RWZ",
+        "status": "historical_only_revalidate_with_carrier_endpoint"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "SVX-KZN-20261114",
+      "origin": "Екатеринбург / Кольцово",
+      "destination": "Казань",
+      "flight_number": "WZ 1067",
+      "carrier": "Red Wings",
+      "departure": "2026-11-14T08:30:00+05:00",
+      "arrival": "2026-11-14T08:10:00+03:00",
+      "duration_seconds": 6000,
+      "evidence_source_ids": [
+        "RW01",
+        "AP01"
+      ],
+      "schedule_status": "published",
+      "operated_status": "not_yet_observed",
+      "price": null,
+      "availability": "unknown",
+      "end_to_end_status": "NOT_RUN",
+      "ground_candidates": [
+        {
+          "mode": "suburban_train",
+          "number": "6038",
+          "arrival_local": "2026-11-14T07:53:00+05:00",
+          "minutes_before_flight": 37,
+          "checkin_deadline": "2026-11-14T07:50:00+05:00",
+          "verdict": "reject_for_airport_checkin_or_bag_drop",
+          "evidence_source_ids": [
+            "AP02",
+            "RW05"
+          ]
+        },
+        {
+          "mode": "bus",
+          "number": "65",
+          "verdict": "candidate_needs_dated_connection_and_terminal_walk_validation"
+        },
+        {
+          "mode": "taxi_or_car",
+          "verdict": "candidate_needs_route_time_and_independent_fare"
+        }
+      ],
+      "navigation_url": "https://2gis.ru/directions/tab/bus/points/60.597474,56.838011%7C60.802728,56.743108",
+      "navigation_coordinate_precision": "request_seeds_terminal_entrance_not_verified",
+      "purchase_url": "https://flyredwings.com/booking/",
+      "purchase_target": "entry",
+      "purchase_prefill_verified": false
+    },
+    {
+      "id": "LED-VKO-20261113",
+      "origin": "Санкт-Петербург / Пулково",
+      "destination": "Москва / Внуково",
+      "flight_number": "WZ 1122",
+      "carrier": "Red Wings",
+      "departure": "2026-11-13T22:40:00+03:00",
+      "arrival": "2026-11-14T00:00:00+03:00",
+      "duration_seconds": 4800,
+      "evidence_source_ids": [
+        "RW01"
+      ],
+      "schedule_status": "published",
+      "operated_status": "not_yet_observed",
+      "price": null,
+      "availability": "unknown",
+      "end_to_end_status": "NOT_RUN",
+      "ground_connection_status": "night_service_not_verified",
+      "window_departure_date": "2026-11-13",
+      "window_arrival_date": "2026-11-14",
+      "purchase_url": "https://flyredwings.com/booking/",
+      "purchase_target": "entry",
+      "purchase_prefill_verified": false
+    }
+  ],
+  "unknowns": [
+    {
+      "id": "rasp_daily_quota",
+      "value": null,
+      "reason": "Актуальная числовая суточная квота не установлена по открытым проверенным страницам; 500/сутки не подтверждено.",
+      "next_action": "Проверить новый кабинет/получить ответ поддержки."
+    },
+    {
+      "id": "rasp_current_redwings_carrier_id",
+      "value": null,
+      "historical_seed": 617,
+      "reason": "Без ключа carrier вернул 400; 617 взят только из исторического локального входа."
+    },
+    {
+      "id": "rasp_transfers_response_schema",
+      "value": null,
+      "reason": "Параметр документирован, успешный реальный ответ не проверен; поле details не предполагается."
+    },
+    {
+      "id": "joint_processing_rights",
+      "value": null,
+      "reason": "Стандартные условия ограничивают обработку, сортировку и/или хранение; допустимость конкретного планировщика согласуется с поставщиками."
+    },
+    {
+      "id": "2gis_routing_contract_applicability",
+      "value": null,
+      "reason": "Публичные оферты не предусматривают кэширование; права для выбранной подписки Routing нужно подтвердить."
+    },
+    {
+      "id": "2gis_project_subscription_price",
+      "value": null,
+      "reason": "Конкретная подписка не выбрана и не оплачена."
+    },
+    {
+      "id": "rw_prefilled_purchase_deeplink",
+      "value": null,
+      "reason": "Подтверждена только оболочка booking; публичный стабильный контракт сериализации поиска не найден."
+    },
+    {
+      "id": "rw_public_inventory_api",
+      "value": null,
+      "reason": "Публичная self-service спецификация не найдена; наличие внутреннего GraphQL URL не устанавливает право доступа."
+    },
+    {
+      "id": "tutu_realtime_self_service_api",
+      "value": null,
+      "reason": "Найден кэшированный адаптер Travelpayouts и партнёрская программа; открытый realtime контракт Туту не установлен."
+    },
+    {
+      "id": "rzd_partner_wz_inventory",
+      "value": null,
+      "reason": "Общая реклама авиаконтента не подтверждает конкретный доступ к WZ."
+    },
+    {
+      "id": "airport_ground_fare_effective_date",
+      "value": null,
+      "reason": "На странице Кольцово дата действия справочных тарифов не установлена."
+    },
+    {
+      "id": "maps_airport_coverage",
+      "value": null,
+      "reason": "Без новых ключей успешная маршрутизация для этих аэропортов не выполнена."
+    }
+  ],
+  "retrieval_limitations": [
+    {
+      "url": "https://pulkovoairport.ru/transport/bus/",
+      "web_error": "502 Bad Gateway",
+      "direct_https_error": "SSL: CERTIFICATE_VERIFY_FAILED: unable to get local issuer certificate",
+      "tls_verification_disabled": false,
+      "browser_fallback_used": false
+    },
+    {
+      "url": "https://kazan.aero/",
+      "http_status": 200,
+      "result": "Нет извлечённого видимого текста; содержание не подтверждено."
+    },
+    {
+      "url": "https://www.vnukovo.ru/",
+      "http_status": 200,
+      "result": "Нет извлечённого видимого текста; содержание не подтверждено."
+    },
+    {
+      "url": "https://svx.aero/",
+      "result": "Штатный редирект на https://ar-svx.ru/, текст доступен."
+    },
+    {
+      "result": "Некоторые относительные ссылки в web-reader Яндекса ошибочно удваивали /ru/; корректные канонические URL прочитаны напрямую HTTPS без браузера."
+    }
+  ]
+}

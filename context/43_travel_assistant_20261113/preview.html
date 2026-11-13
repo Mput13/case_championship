@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d52236">
+  <title>Red Wings — план поездки</title>
+  <style>:root{--red:#d52236;--red-dark:#ad1729;--ink:#24272d;--muted:#62666e;--line:#dfded9;--milk:#f7f6f2;--paper:#fff;--rose:#fbecee;--amber:#775012;--amber-bg:#faf3e5;--green:#27634e;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--milk);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:wait;opacity:.65}a{color:var(--red-dark);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}svg{display:block}button svg{width:20px;height:20px;flex-shrink:0}[hidden]{display:none!important}:focus-visible{outline:3px solid #376eb5;outline-offset:4px}input:focus-visible,select:focus-visible,textarea:focus-visible{outline-offset:1px}h1,h2,h3,h4,p{margin:0}h1,h2,h3,h4{text-wrap:balance}p{max-width:75ch}fieldset{border:0;padding:0;margin:0;min-width:0}legend{padding:0}.sr-only,.mode-switch input{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip-link{position:fixed;top:8px;left:12px;padding:10px 16px;background:white;z-index:10;transform:translateY(-160%)}.skip-link:focus{transform:none}
+.site-header{max-width:1280px;margin:0 auto;padding:23px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:9px;align-items:center;text-decoration:none;color:var(--red)}.brand-mark{width:44px;height:36px}.brand-name{font-size:23px;font-weight:800;line-height:1;letter-spacing:-.7px}.brand-name span{display:block;margin-top:6px;font-size:11px;letter-spacing:.3px;font-weight:500;color:var(--muted)}.service-state{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.service-state::before{content:"";width:7px;height:7px;border-radius:50%;background:#898c91;flex-shrink:0}.service-state[data-mode="live"]::before{background:var(--green)}.service-state[data-mode="snapshot"]::before{background:#a6762c}.service-state[data-mode="unavailable"]::before{background:var(--red)}
+.page{max-width:1280px;margin:0 auto;padding:38px 36px 56px}.page-heading{margin-bottom:30px}.page-heading h1{font-size:clamp(30px,3.1vw,42px);font-weight:650;line-height:1.15;letter-spacing:-1.3px}.page-heading p{margin-top:11px;color:var(--muted);font-size:16px}.workspace{display:grid;grid-template-columns:380px minmax(0,1fr);gap:36px;align-items:start}.planner-panel{background:var(--paper);padding:23px;border:1px solid var(--line);border-radius:16px}.mode-switch{display:grid;grid-template-columns:1.25fr 1fr;gap:3px;background:var(--milk);padding:4px;border-radius:9px;margin-bottom:24px}.mode-switch label{position:relative;cursor:pointer}.mode-switch span{display:flex;justify-content:center;align-items:center;padding:10px 6px;min-height:42px;font-size:12px;font-weight:600;border-radius:6px;white-space:nowrap;color:var(--muted)}.mode-switch input:checked+span{background:var(--paper);color:var(--ink);box-shadow:0 1px 4px #24272d16}.mode-switch input:focus-visible+span{outline:3px solid #376eb5;outline-offset:1px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field>span,legend{font-size:13px;font-weight:600}.field input,.field select,.field textarea{width:100%;min-width:0;color:var(--ink);background:var(--paper);border:1px solid #cfcfca;border-radius:7px;padding:11px 12px;min-height:46px;transition:border-color .15s}.field input:hover,.field select:hover,.field textarea:hover{border-color:#92949a}.field input::placeholder,.field textarea::placeholder{color:#7d8086;opacity:1}.field textarea{resize:vertical;min-height:88px;font-size:14px;line-height:1.45}.city-fields{position:relative;display:grid;gap:16px;margin-bottom:21px}.swap-button{position:absolute;right:12px;top:72px;width:30px;height:30px;padding:5px;background:white;border:1px solid var(--line);border-radius:50%;z-index:1;color:var(--muted)}.swap-button:hover{color:var(--red);border-color:var(--red)}.field-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.period-fields legend,.flight-fields legend{margin-bottom:8px}.period-fields .field>span{font-size:12px;color:var(--muted);font-weight:400}.field input[type="date"]{padding:10px 8px;font-size:13px;min-height:46px}.flight-fields{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}.preference{margin-top:21px}.field select{font-size:13px;padding-right:20px}.wishes{margin-top:19px}.optional{font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}.primary-button{display:flex;justify-content:space-between;align-items:center;gap:16px;width:100%;min-height:48px;margin-top:20px;padding:12px 16px;color:white;background:var(--red);border:1px solid var(--red);border-radius:7px;font-weight:600}.primary-button:hover:not(:disabled){background:var(--red-dark);border-color:var(--red-dark)}.examples-section{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}.examples-section h2{font-size:13px;font-weight:600;margin-bottom:10px}.example-list{display:flex;flex-wrap:wrap;gap:7px}.example-button,.text-button{background:none;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:7px 10px;text-align:left;font-size:12px}.example-button:hover{border-color:var(--red);color:var(--red-dark)}.example-button span{display:block;font-size:11px;color:var(--muted);margin-top:2px}.text-button{border:0;padding:0;color:var(--red-dark);text-decoration:underline;text-underline-offset:3px}.muted{color:var(--muted)}.small{font-size:12px}
+.results{min-width:0;padding-top:5px}.results-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:36px;margin-bottom:20px}.results-heading h2{font-size:21px;font-weight:650;letter-spacing:-.3px}.query-summary{font-size:13px;color:var(--muted);margin-top:4px}.result-count{font-size:12px;color:var(--muted);white-space:nowrap}.empty-state{min-height:420px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:35px 16px 70px;border:1px dashed var(--line);border-radius:16px}.journey-illustration{width:min(100%,390px);height:auto;margin-bottom:17px}.empty-state h3{font-size:20px;font-weight:600;letter-spacing:-.3px}.empty-state p{margin-top:10px;font-size:14px;line-height:1.7;color:var(--muted)}.request-status{font-size:14px;padding:12px 0 18px;color:var(--muted)}.request-status[data-kind="loading"]{display:flex;align-items:center;gap:9px}.request-status[data-kind="loading"]::before{content:"";width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--red);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}.request-status[data-kind="error"]{color:var(--red-dark)}.request-status .text-button{margin-left:8px;font-size:inherit}.data-notice{border-left:3px solid #a6762c;background:var(--amber-bg);padding:12px 15px;margin-bottom:20px;border-radius:0 6px 6px 0}.data-notice[data-mode="live"]{border-color:var(--green);background:#eef5f1}.data-notice[data-mode="unavailable"]{border-color:#96989d;background:#eeefed}.data-notice strong{font-size:13px;font-weight:650}.data-notice p{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.6}.variant-list{display:grid;gap:20px}.variant{border:1px solid var(--line);border-radius:13px;background:var(--paper);overflow:hidden}.variant-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:21px 23px 17px}.variant-header h3{font-size:19px;font-weight:650;line-height:1.35;letter-spacing:-.3px}.variant-summary{font-size:13px;color:var(--muted);margin-top:5px}.variant-metrics{display:flex;gap:20px;padding:0 23px 17px;flex-wrap:wrap}.metric{min-width:125px}.metric span{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}.metric strong{font-size:16px;font-weight:600}.metric .unknown{font-size:13px;font-weight:500;color:var(--muted)}.price-note{font-size:12px;color:var(--muted);padding:0 23px 15px}.transport-chain{display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:0 23px 18px;font-size:12px;color:var(--muted)}.chain-item{display:flex;align-items:center;gap:5px}.chain-item svg{width:16px;height:16px}.chain-item.rw{color:var(--red-dark);font-weight:650}.chain-arrow{color:#a4a4a4;font-size:14px}.legs{list-style:none;margin:0;padding:0 23px;border-top:1px solid #eeede9}.leg{position:relative;padding:20px 0 19px 30px;border-bottom:1px solid #eeede9;overflow-wrap:anywhere}.leg:last-child{border-bottom:0}.leg::before{content:"";position:absolute;left:8px;top:37px;bottom:-19px;width:1px;background:var(--line)}.leg:last-child::before{display:none}.leg-marker{position:absolute;top:22px;left:0;width:18px;height:18px;border-radius:50%;background:var(--milk);border:1px solid #bfc0bf;display:flex;align-items:center;justify-content:center}.leg-marker svg{width:12px;height:12px}.leg.rw .leg-marker{color:var(--red);border-color:var(--red);background:var(--rose)}.leg-topline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px}.leg-kind{font-size:12px;font-weight:600}.leg.rw .leg-kind{color:var(--red-dark)}.leg-status{font-size:11px;color:var(--muted);padding:2px 6px;border:1px solid var(--line);border-radius:4px}.leg-status.suggestion{color:var(--amber);background:var(--amber-bg);border-color:#eddfc3}.leg-route{font-weight:600;font-size:14px;line-height:1.5}.leg-details{display:flex;gap:5px 16px;flex-wrap:wrap;margin-top:7px;font-size:12px;color:var(--muted)}.leg-times{display:grid;gap:3px;margin-top:7px;font-size:12px;color:var(--muted)}.leg-links{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:10px;font-size:12px}.warnings{margin:0;padding:13px 23px;background:#faf8f3;font-size:12px;line-height:1.65;color:#6d542a;list-style:none}.warnings li+li{margin-top:4px}.assistant-note{font-size:14px;line-height:1.7;white-space:pre-wrap;margin-top:24px;padding-left:16px;border-left:2px solid var(--line);overflow-wrap:anywhere}.sources-section{margin-top:25px}.sources-section h3{font-size:13px;font-weight:600}.sources-section ul{padding-left:17px;margin:9px 0 0;font-size:12px;color:var(--muted)}.sources-section li+li{margin-top:6px}.sources-section a{overflow-wrap:anywhere}.site-footer{max-width:1280px;margin:0 auto;padding:20px 36px 28px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.noscript{padding:20px;text-align:center;color:var(--red-dark)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:1100px){.planner-panel{position:sticky;top:24px}}
+@media(max-width:960px){.workspace{grid-template-columns:340px minmax(0,1fr);gap:24px}.planner-panel{padding:18px}.variant-header,.variant-metrics,.transport-chain{padding-left:18px;padding-right:18px}.legs{padding-left:18px;padding-right:18px}.variant-header h3{font-size:17px}.mode-switch span{font-size:11px}}
+@media(max-width:760px){.site-header{padding:19px 20px}.page{padding:27px 20px 38px}.workspace{grid-template-columns:1fr;gap:28px}.planner-panel{padding:22px}.mode-switch span{font-size:13px}.page-heading{margin-bottom:23px}.page-heading h1{letter-spacing:-.8px}.page-heading p{font-size:14px}.empty-state{min-height:280px;padding:16px 12px 32px}.journey-illustration{max-width:300px;margin-bottom:5px}.site-footer{padding:19px 20px 25px}.service-state{max-width:155px;font-size:11px}.results-heading{margin-bottom:16px}}
+@media(max-width:390px){.site-header{padding:16px}.brand-name{font-size:20px}.brand-mark{width:34px}.brand{gap:5px}.service-state{max-width:125px}.page{padding-left:14px;padding-right:14px}.planner-panel{padding:16px}.mode-switch span{font-size:11px}.field-pair{gap:9px}.field input[type="date"]{font-size:12px;padding:10px 5px}.variant-metrics{gap:14px}.metric{min-width:110px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.address-options{margin-top:20px;font-size:13px}.address-options summary{cursor:pointer;color:var(--muted);padding:6px 0}.address-options .field{margin-top:12px}.address-options .field>span{font-size:12px}
+.data-notice{border:1px solid var(--line);border-radius:7px;background:var(--paper);padding:11px 14px}.data-details{margin-top:6px;font-size:12px;color:var(--muted)}.data-details summary{cursor:pointer}.data-details p{margin-top:7px}
+
+html,body{background:transparent!important;color:var(--foreground)!important} :root{--ink:var(--foreground);--muted:var(--muted-foreground);--line:var(--border);--milk:var(--secondary);--paper:var(--card);--rose:var(--destructive-surface);--amber-bg:var(--warning-surface);--amber:var(--warning);--font:var(--font-sans);--red:var(--destructive);--red-dark:var(--destructive)} .site-header,.page-heading,.site-footer{display:none}.page{padding:0!important}.planner-panel{position:static!important}.page,.workspace{max-width:100%}.preview-label{margin:0 0 14px;font-size:12px;color:var(--muted-foreground)} .warnings{background:var(--secondary);color:var(--muted-foreground)}</style>
+
+</head>
+<body>
+  <a class="skip-link" href="#planner">Перейти к планированию</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Red Wings Travel Assistant, главная">
+      <svg class="brand-mark" viewBox="0 0 44 36" fill="none" aria-hidden="true"><path d="M2 6h35L23 15H8L2 6Zm9 12h25L22 27h-5l-6-9Z" fill="currentColor"/></svg>
+      <span class="brand-name">Red Wings<span>Travel Assistant</span></span>
+    </a>
+    <span id="health" class="service-state" role="status" hidden></span>
+  </header>
+
+  <p class="preview-label">Встроенный просмотр сохранённых примеров · Полный прототип: localhost:3080</p><main id="planner" class="page">
+    <div class="page-heading">
+      <h1>Маршрут по России</h1>
+      <p>Перелёт Red Wings и наземный транспорт в одной поездке.</p>
+    </div>
+    <div class="workspace">
+      <aside class="planner-panel" aria-label="Параметры поездки">
+        <form id="plan-form">
+          <fieldset class="mode-switch">
+            <legend class="sr-only">Сценарий поездки</legend>
+            <label><input type="radio" name="mode" value="trip" checked><span>Спланировать поездку</span></label>
+            <label><input type="radio" name="mode" value="flight"><span>Уже есть рейс</span></label>
+          </fieldset>
+
+          <div class="city-fields">
+            <label class="field"><span>Откуда</span><input id="origin" name="origin" type="text" placeholder="Город отправления" autocomplete="off" required maxlength="100" list="supported-cities"></label>
+            <button id="swap-cities" class="swap-button" type="button" aria-label="Поменять города местами" title="Поменять города местами"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 4v15m-4-4 4 4 4-4M17 20V5m-4 4 4-4 4 4"/></svg></button>
+            <label class="field"><span>Куда</span><input id="destination" name="destination" type="text" placeholder="Город назначения" autocomplete="off" required maxlength="100" list="supported-cities"></label>
+          </div>
+
+          <fieldset class="period-fields">
+            <legend>Период вылета</legend>
+            <div class="field-pair">
+              <label class="field"><span>С</span><input id="date-from" name="date_from" type="date" required></label>
+              <label class="field"><span>По</span><input id="date-to" name="date_to" type="date" required></label>
+            </div>
+          </fieldset>
+
+          <fieldset id="flight-fields" class="flight-fields" hidden disabled>
+            <legend>Выбранный рейс Red Wings</legend>
+            <div class="field-pair">
+              <label class="field"><span>Номер рейса</span><input id="flight-number" name="flight_number" type="text" placeholder="WZ …" autocomplete="off" maxlength="24"></label>
+              <label class="field"><span>Дата рейса</span><input id="flight-date" name="flight_date" type="date"></label>
+            </div>
+          </fieldset>
+
+          <input name="preference" type="hidden" value="balanced">
+          <details class="address-options"><summary>Уточнить адреса</summary>
+            <label class="field"><span>Адрес в городе отправления</span><input name="origin_address" type="text" maxlength="240" placeholder="Улица и дом"></label>
+            <label class="field"><span>Адрес после прилёта</span><input name="destination_address" type="text" maxlength="240" placeholder="Улица и дом"></label>
+          </details>
+          <datalist id="supported-cities"></datalist>
+          <button id="submit-button" class="primary-button" type="submit"><span>Найти варианты</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+        </form>
+        <section class="examples-section" aria-labelledby="examples-title">
+          <h2 id="examples-title">Доступные примеры</h2>
+          <div id="examples" class="example-list" aria-live="polite"><p class="muted small">Загружаем…</p></div>
+        </section>
+      </aside>
+
+      <section id="results" class="results" aria-labelledby="results-title" aria-busy="false">
+        <div class="results-heading"><div><h2 id="results-title" tabindex="-1">Варианты поездки</h2><p id="query-summary" class="query-summary" hidden></p></div><span id="result-count" class="result-count" hidden></span></div>
+        <p id="request-status" class="request-status" role="status" aria-live="polite" hidden></p>
+        <div id="data-notice" class="data-notice" hidden></div>
+        <div id="empty-state" class="empty-state">
+          <svg class="journey-illustration" viewBox="0 0 440 180" fill="none" aria-hidden="true">
+            <path d="M52 132h72c46 0 32-77 89-77h47c57 0 43 77 89 77h39" stroke="#dedbd5" stroke-width="2" stroke-dasharray="5 7"/>
+            <circle cx="52" cy="132" r="7" fill="#fff" stroke="#8a8b8d" stroke-width="2"/><circle cx="388" cy="132" r="7" fill="#fff" stroke="#8a8b8d" stroke-width="2"/>
+            <rect x="193" y="21" width="72" height="68" rx="20" fill="#fbe9eb"/>
+            <path d="m208 59 17-4 3-17 5-2 2 18 12-2c4 0 6 4 1 6l-13 4-7 16-4 1 2-16-13 1-5-5Z" fill="#d52236"/>
+            <path d="M43 123v-14h18v14m-15 0v4m12-4v4m-15-10h18" stroke="#8a8b8d" stroke-width="1.8"/>
+            <path d="M381 115v-12l7-6 7 6v12m-10 0v-7h6v7" stroke="#8a8b8d" stroke-width="1.8"/>
+          </svg>
+          <h3>Задайте направление и период</h3>
+          <p>Выберите рейс Red Wings и проверьте дорогу<br>до аэропорта и после прилёта.</p>
+        </div>
+        <div id="variant-list" class="variant-list"></div>
+        <div id="assistant-note" class="assistant-note" hidden></div>
+        <section id="sources-section" class="sources-section" hidden><h3>Источники</h3><ul id="sources-list"></ul></section>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">Билеты оформляются у перевозчиков. Наличие мест и итоговую цену проверяйте перед покупкой.</footer>
+  <noscript><p class="noscript">Для планирования поездки включите JavaScript.</p></noscript>
+<script>
+const PREVIEW_DATA = {"examples":{"examples":[{"id":"trip-1","label":"Самара → Екатеринбург","request":{"mode":"trip","origin":"Самара","destination":"Екатеринбург","date_from":"2026-12-08","date_to":"2026-12-08","preference":"balanced"}},{"id":"flight-samara","label":"Уже есть WZ 1034","request":{"mode":"flight","origin":"Самара","destination":"Екатеринбург","date_from":"2026-12-08","date_to":"2026-12-08","preference":"balanced","flight_number":"WZ 1034","flight_date":"2026-12-08"}},{"id":"trip-3","label":"Казань → Екатеринбург","request":{"mode":"trip","origin":"Казань","destination":"Екатеринбург","date_from":"2026-12-08","date_to":"2026-12-08","preference":"balanced"}},{"id":"trip-4","label":"Екатеринбург → Уфа","request":{"mode":"trip","origin":"Екатеринбург","destination":"Уфа","date_from":"2026-12-08","date_to":"2026-12-08","preference":"balanced"}},{"id":"trip-5","label":"Екатеринбург → Казань","request":{"mode":"trip","origin":"Екатеринбург","destination":"Казань","date_from":"2026-12-11","date_to":"2026-12-11","preference":"balanced"}}],"data_mode":"snapshot","coverage_note":"Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка.","cities":[{"city":"Самара","airport":"Курумоч","iata":"KUF"},{"city":"Казань","airport":"Казань","iata":"KZN"},{"city":"Екатеринбург","airport":"Кольцово","iata":"SVX"},{"city":"Уфа","airport":"Уфа","iata":"UFA"},{"city":"Барнаул","airport":"Барнаул","iata":"BAX"},{"city":"Нижний Новгород","airport":"Стригино","iata":"GOJ"},{"city":"Саратов","airport":"Гагарин (Саратов)","iata":"GSV"},{"city":"Томск","airport":"Богашёво","iata":"TOF"},{"city":"Чита","airport":"Кадала","iata":"HTA"},{"city":"Ярославль","airport":"Туношна","iata":"IAR"},{"city":"Санкт-Петербург","airport":"Пулково","iata":"LED"},{"city":"Кемерово","airport":"Кемерово","iata":"KEJ"},{"city":"Омск","airport":"Омск","iata":"OMS"},{"city":"Новокузнецк","airport":"Спиченково","iata":"NOZ"},{"city":"Улан-Удэ","airport":"Байкал","iata":"UUD"},{"city":"Сургут","airport":"Сургут","iata":"SGC"},{"city":"Тюмень","airport":"Рощино","iata":"TJM"},{"city":"Оренбург","airport":"имени Ю. А. Гагарина","iata":"REN"},{"city":"Махачкала","airport":"Уйташ","iata":"MCX"},{"city":"Нижневартовск","airport":"Нижневартовск","iata":"NJC"}],"dates":["2026-12-08","2026-12-11"],"max_date_days":7},"responses":[{"status":"ok","data_mode":"snapshot","checked_at":null,"variants":[{"id":"ef22b6ad1ad7ea7c","title":"Самара → Екатеринбург · WZ 1034","departure":null,"arrival":null,"duration_minutes":null,"total_price":null,"currency":"RUB","price_note":"Стоимость билета и наземных участков неизвестна. Наличие мест не проверено.","warnings":["Наземные участки и запас до регистрации ещё не рассчитаны. Ссылки на карты не передают дату поездки."],"legs":[{"mode":"ground","origin":"Самара","destination":"Самара, аэропорт Курумоч (KUF)","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%7E%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D1%83%D1%80%D1%83%D0%BC%D0%BE%D1%87+%28KUF%29&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%7E%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D1%83%D1%80%D1%83%D0%BC%D0%BE%D1%87+%28KUF%29&rtt=auto"}]},{"mode":"plane","origin":"Самара, аэропорт Курумоч (KUF)","destination":"Екатеринбург, аэропорт Кольцово (SVX)","departure":"2026-12-08T08:00:00+04:00","arrival":"2026-12-08T10:40:00+05:00","duration_minutes":100,"carrier":"Red Wings","carrier_code":617,"carrier_iata":"WZ","flight_number":"WZ 1034","price":null,"status":"scheduled","source_name":"Яндекс Расписания","source_url":"https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08","links":[{"label":"Проверить расписание","url":"https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08"},{"label":"Выбрать билет у Red Wings","url":"https://flyredwings.com/booking/"}],"provenance":[{"source_id":"hub","source_key":"KUF:2026-12-08","pointer":"/schedule/4"},{"source_id":"search","source_key":"KUF-SVX:2026-12-08","pointer":"/segments/0"}]},{"mode":"ground","origin":"Екатеринбург, аэропорт Кольцово (SVX)","destination":"Екатеринбург","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=auto"}]}]}],"sources":[{"id":"hub","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json","sha256":"a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.908Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"},{"id":"search","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_spotlight_search.json","sha256":"bb87754ffff2334a45cf90df6da25438c4e626cc10c9cceb94d2e7273f0863b9","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.922Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"}],"coverage_note":"Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка.","assistant":{"status":"ok","text":"Для сравнения бюджета проверьте цену билета у Red Wings и добавьте стоимость наземной дороги. Перед выбором билета проверьте рейс на нужную дату: сейчас используется сохранённое расписание.","model_calls":2,"http_requests":2,"tool_calls":["get_trip_facts","compose_summary"],"usage":[{"input":462,"output":67,"cacheRead":0,"totalTokens":529},{"input":671,"output":96,"cacheRead":0,"totalTokens":767}],"retries":0,"cost_status":"unknown"}},{"status":"ok","data_mode":"snapshot","checked_at":null,"variants":[{"id":"ef22b6ad1ad7ea7c","title":"Самара → Екатеринбург · WZ 1034","departure":null,"arrival":null,"duration_minutes":null,"total_price":null,"currency":"RUB","price_note":"Стоимость билета и наземных участков неизвестна. Наличие мест не проверено.","warnings":["Наземные участки и запас до регистрации ещё не рассчитаны. Ссылки на карты не передают дату поездки."],"legs":[{"mode":"ground","origin":"Самара","destination":"Самара, аэропорт Курумоч (KUF)","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%7E%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D1%83%D1%80%D1%83%D0%BC%D0%BE%D1%87+%28KUF%29&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%7E%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D1%83%D1%80%D1%83%D0%BC%D0%BE%D1%87+%28KUF%29&rtt=auto"}]},{"mode":"plane","origin":"Самара, аэропорт Курумоч (KUF)","destination":"Екатеринбург, аэропорт Кольцово (SVX)","departure":"2026-12-08T08:00:00+04:00","arrival":"2026-12-08T10:40:00+05:00","duration_minutes":100,"carrier":"Red Wings","carrier_code":617,"carrier_iata":"WZ","flight_number":"WZ 1034","price":null,"status":"scheduled","source_name":"Яндекс Расписания","source_url":"https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08","links":[{"label":"Проверить расписание","url":"https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08"},{"label":"Выбрать билет у Red Wings","url":"https://flyredwings.com/booking/"}],"provenance":[{"source_id":"hub","source_key":"KUF:2026-12-08","pointer":"/schedule/4"},{"source_id":"search","source_key":"KUF-SVX:2026-12-08","pointer":"/segments/0"}]},{"mode":"ground","origin":"Екатеринбург, аэропорт Кольцово (SVX)","destination":"Екатеринбург","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=auto"}]}]}],"sources":[{"id":"hub","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json","sha256":"a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.908Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"},{"id":"search","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_spotlight_search.json","sha256":"bb87754ffff2334a45cf90df6da25438c4e626cc10c9cceb94d2e7273f0863b9","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.922Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"}],"coverage_note":"Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка."},{"status":"ok","data_mode":"snapshot","checked_at":null,"variants":[{"id":"2d61b187486e29f3","title":"Казань → Екатеринбург · WZ 1068","departure":null,"arrival":null,"duration_minutes":null,"total_price":null,"currency":"RUB","price_note":"Стоимость билета и наземных участков неизвестна. Наличие мест не проверено.","warnings":["Наземные участки и запас до регистрации ещё не рассчитаны. Ссылки на карты не передают дату поездки."],"legs":[{"mode":"ground","origin":"Казань","destination":"Казань, аэропорт Казань (KZN)","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C%7E%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C+%28KZN%29&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C%7E%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C+%28KZN%29&rtt=auto"}]},{"mode":"plane","origin":"Казань, аэропорт Казань (KZN)","destination":"Екатеринбург, аэропорт Кольцово (SVX)","departure":"2026-12-08T07:25:00+03:00","arrival":"2026-12-08T11:00:00+05:00","duration_minutes":95,"carrier":"Red Wings","carrier_code":617,"carrier_iata":"WZ","flight_number":"WZ 1068","price":null,"status":"scheduled","source_name":"Яндекс Расписания","source_url":"https://rasp.yandex.ru/search/?fromId=s9600379&toId=s9600370&when=2026-12-08","links":[{"label":"Проверить расписание","url":"https://rasp.yandex.ru/search/?fromId=s9600379&toId=s9600370&when=2026-12-08"},{"label":"Выбрать билет у Red Wings","url":"https://flyredwings.com/booking/"}],"provenance":[{"source_id":"hub","source_key":"KZN:2026-12-08","pointer":"/schedule/7"},{"source_id":"search","source_key":"KZN-SVX:2026-12-08","pointer":"/segments/0"}]},{"mode":"ground","origin":"Екатеринбург, аэропорт Кольцово (SVX)","destination":"Екатеринбург","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=auto"}]}]}],"sources":[{"id":"hub","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json","sha256":"a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.908Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"},{"id":"search","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_spotlight_search.json","sha256":"bb87754ffff2334a45cf90df6da25438c4e626cc10c9cceb94d2e7273f0863b9","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.922Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"}],"coverage_note":"Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка."},{"status":"ok","data_mode":"snapshot","checked_at":null,"variants":[{"id":"5c555ae52a975a19","title":"Екатеринбург → Уфа · WZ 1025","departure":null,"arrival":null,"duration_minutes":null,"total_price":null,"currency":"RUB","price_note":"Стоимость билета и наземных участков неизвестна. Наличие мест не проверено.","warnings":["Наземные участки и запас до регистрации ещё не рассчитаны. Ссылки на карты не передают дату поездки."],"legs":[{"mode":"ground","origin":"Екатеринбург","destination":"Екатеринбург, аэропорт Кольцово (SVX)","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29&rtt=auto"}]},{"mode":"plane","origin":"Екатеринбург, аэропорт Кольцово (SVX)","destination":"Уфа, аэропорт Уфа (UFA)","departure":"2026-12-08T22:30:00+05:00","arrival":"2026-12-08T23:45:00+05:00","duration_minutes":75,"carrier":"Red Wings","carrier_code":617,"carrier_iata":"WZ","flight_number":"WZ 1025","price":null,"status":"scheduled","source_name":"Яндекс Расписания","source_url":"https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600393&when=2026-12-08","links":[{"label":"Проверить расписание","url":"https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600393&when=2026-12-08"},{"label":"Выбрать билет у Red Wings","url":"https://flyredwings.com/booking/"}],"provenance":[{"source_id":"hub","source_key":"SVX:2026-12-08","pointer":"/schedule/60"},{"source_id":"search","source_key":"SVX-UFA:2026-12-08","pointer":"/segments/2"}]},{"mode":"ground","origin":"Уфа, аэропорт Уфа (UFA)","destination":"Уфа","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%A3%D1%84%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%A3%D1%84%D0%B0+%28UFA%29%7E%D0%A3%D1%84%D0%B0&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%A3%D1%84%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%A3%D1%84%D0%B0+%28UFA%29%7E%D0%A3%D1%84%D0%B0&rtt=auto"}]}]}],"sources":[{"id":"hub","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json","sha256":"a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.908Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"},{"id":"search","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_spotlight_search.json","sha256":"bb87754ffff2334a45cf90df6da25438c4e626cc10c9cceb94d2e7273f0863b9","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.922Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"}],"coverage_note":"Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка."},{"status":"ok","data_mode":"snapshot","checked_at":null,"variants":[{"id":"42f7107f140f6e6e","title":"Екатеринбург → Казань · WZ 1067","departure":null,"arrival":null,"duration_minutes":null,"total_price":null,"currency":"RUB","price_note":"Стоимость билета и наземных участков неизвестна. Наличие мест не проверено.","warnings":["Наземные участки и запас до регистрации ещё не рассчитаны. Ссылки на карты не передают дату поездки.","Источник не содержит подтверждённого времени прилёта."],"legs":[{"mode":"ground","origin":"Екатеринбург","destination":"Екатеринбург, аэропорт Кольцово (SVX)","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29&rtt=auto"}]},{"mode":"plane","origin":"Екатеринбург, аэропорт Кольцово (SVX)","destination":"Казань, аэропорт Казань (KZN)","departure":"2026-12-11T22:25:00+05:00","arrival":null,"duration_minutes":null,"carrier":"Red Wings","carrier_code":617,"carrier_iata":"WZ","flight_number":"WZ 1067","price":null,"status":"scheduled","source_name":"Яндекс Расписания","source_url":"https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600379&when=2026-12-11","links":[{"label":"Проверить расписание","url":"https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600379&when=2026-12-11"},{"label":"Выбрать билет у Red Wings","url":"https://flyredwings.com/booking/"}],"provenance":[{"source_id":"hub","source_key":"SVX:2026-12-11","pointer":"/schedule/76"}]},{"mode":"ground","origin":"Казань, аэропорт Казань (KZN)","destination":"Казань","departure":null,"arrival":null,"carrier":null,"price":null,"status":"suggestion","source_name":"Навигационная рекомендация","source_url":null,"links":[{"label":"Общественным транспортом","url":"https://yandex.ru/maps/?rtext=%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C+%28KZN%29%7E%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C&rtt=mt"},{"label":"Автомобилем","url":"https://yandex.ru/maps/?rtext=%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C+%28KZN%29%7E%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C&rtt=auto"}]}]}],"sources":[{"id":"hub","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json","sha256":"a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.908Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"},{"id":"search","name":"Яндекс Расписания","path":"context/40_swarm_pricing_research_20261113/yandex_spotlight_search.json","sha256":"bb87754ffff2334a45cf90df6da25438c4e626cc10c9cceb94d2e7273f0863b9","fetched_at":null,"file_modified_at":"2026-11-13T09:07:04.922Z","timestamp_note":"Время изменения локального файла; точное время HTTP-получения не сохранено.","url":"https://rasp.yandex.ru/"}],"coverage_note":"Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка."}]};
+const previewKey = r => JSON.stringify([r.mode,r.origin,r.destination,r.date_from,r.date_to,r.flight_number||'',r.flight_date||'']);
+window.fetch = async (path, options={}) => {
+ if(path==='/api/health')return new Response(JSON.stringify({schedule_mode:'snapshot',schedule_configured:true}));
+ if(path==='/api/examples')return new Response(JSON.stringify(PREVIEW_DATA.examples));
+ if(path==='/api/plan'){
+  const r=JSON.parse(options.body);const i=PREVIEW_DATA.examples.examples.findIndex(e=>previewKey(e.request)===previewKey(r));
+  const data=i>=0&&!r.origin_address&&!r.destination_address?PREVIEW_DATA.responses[i]:{status:'needs_data',data_mode:'snapshot',variants:[],sources:[],message:'Во встроенном просмотре доступны примеры. Для других запросов откройте локальный прототип.'};
+  return new Response(JSON.stringify(data));
+ }
+ throw new Error('Only saved preview data is available');
+};
+"use strict";
+
+const $ = (selector) => document.querySelector(selector);
+const form = $("#plan-form");
+const results = $("#results");
+const submit = $("#submit-button");
+const field = (name) => form.elements.namedItem(name);
+const list = (value) => Array.isArray(value) ? value : [];
+const nonnegative = (value) => typeof value === "number" && Number.isFinite(value) && value >= 0;
+const text = (tag, className, value) => {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  element.textContent = value ?? "";
+  return element;
+};
+const dateFormatter = new Intl.DateTimeFormat("ru-RU", {day:"numeric", month:"long", year:"numeric"});
+const timeFormatter = new Intl.DateTimeFormat("ru-RU", {day:"numeric", month:"short", hour:"2-digit", minute:"2-digit", timeZone:"UTC"});
+const rubles = new Intl.NumberFormat("ru-RU", {style:"currency", currency:"RUB", maximumFractionDigits:0});
+const names = {plane:"Самолёт", train:"Поезд", suburban:"Электричка", bus:"Автобус", taxi:"Такси", walk:"Пешком", ground:"Наземный транспорт"};
+const paths = {
+  plane:'<path d="m3 13 7-2 2-8 2-1 1 8 5-1c3 0 3 2 0 3l-5 2-3 7-2 1 1-7-5 1-3-3Z"/>',
+  train:'<rect x="6" y="3" width="12" height="15" rx="3"/><path d="M6 11h12M9 18l-2 3m8-3 2 3M9 7h6M9 14h.01M15 14h.01"/>',
+  bus:'<rect x="4" y="5" width="16" height="13" rx="2"/><path d="M4 12h16M8 5v7m8-7v7M7 18v3m10-3v3M7 15h.01M17 15h.01"/>',
+  taxi:'<path d="m4 11 2-6h12l2 6v7H4v-7Zm0 0h16M7 18v3m10-3v3M7 14h.01M17 14h.01"/>',
+  walk:'<circle cx="14" cy="4" r="2"/><path d="m10 21 2-7-3-3 3-4 3 4 4 1M5 14l4-3m3 3 5 7"/>',
+  ground:'<path d="M4 18h16M7 18l3-14m7 14L14 4M12 7v3m0 3v2"/>'
+};
+function icon(mode) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "1.5");
+  svg.setAttribute("aria-hidden", "true");
+  svg.innerHTML = paths[mode === "suburban" ? "train" : mode] || paths.ground;
+  return svg;
+}
+function dateLabel(value) {
+  if (typeof value !== "string" || !value) return "Дата не указана";
+  const parsed = new Date(`${value.slice(0,10)}T12:00:00`);
+  return Number.isNaN(parsed.getTime()) ? value : dateFormatter.format(parsed);
+}
+function timeLabel(value) {
+  if (typeof value !== "string" || !value.trim()) return "время уточняется";
+  // Keep the source's wall-clock time and offset; the viewer's timezone is irrelevant.
+  const match = value.match(/^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/);
+  if (!match) return value;
+  const parsed = new Date(`${match[1]}T${match[2]}:00Z`);
+  if (Number.isNaN(parsed.getTime())) return value;
+  const offset = match[3] === "Z" ? "UTC" : match[3] ? `UTC${match[3]}` : "часовой пояс не указан";
+  return `${timeFormatter.format(parsed)} (${offset})`;
+}
+function durationLabel(minutes) {
+  const rounded = Math.round(minutes);
+  const hours = Math.floor(rounded / 60);
+  return [hours ? `${hours} ч` : "", rounded % 60 || !hours ? `${rounded % 60} мин` : ""].filter(Boolean).join(" ");
+}
+function safeUrl(value) {
+  if (typeof value !== "string" || !value.trim()) return null;
+  try {
+    const url = new URL(value);
+    return ["https:", "http:"].includes(url.protocol) ? url.href : null;
+  } catch { return null; }
+}
+function externalLink(label, url) {
+  const href = safeUrl(url);
+  if (!href) return null;
+  const link = text("a", "", label || "Открыть источник");
+  link.href = href;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  return link;
+}
+function isRW(leg) {
+  return leg.mode === "plane" && (/red\s*wings|ред\s*вингс|рэд\s*вингс|^(?:WZ|RW|RWZ)$/i.test(leg.carrier || "") || /^(?:WZ|RW|RWZ)\s*\d/i.test(leg.flight_number || ""));
+}
+function setStatus(message, kind = "") {
+  const status = $("#request-status");
+  status.replaceChildren(text("span", "", message));
+  status.dataset.kind = kind;
+  status.hidden = !message;
+}
+function retryButton(container, label, handler) {
+  const button = text("button", "text-button", label);
+  button.type = "button";
+  button.addEventListener("click", handler);
+  container.append(button);
+}
+async function api(path, options = {}) {
+  const response = await fetch(path, {...options, headers:{Accept:"application/json", ...options.headers}});
+  let data;
+  try { data = await response.json(); }
+  catch { throw new Error("Сервис вернул некорректный ответ. Повторите поиск позже."); }
+  if (!response.ok && !(path === "/api/plan" && ["needs_data", "no_routes", "error"].includes(data?.status))) {
+    throw new Error(typeof data?.message === "string" ? data.message : "Сервис временно недоступен. Повторите попытку.");
+  }
+  return data;
+}
+function setMode(mode) {
+  const flight = mode === "flight";
+  const fields = $("#flight-fields");
+  fields.hidden = !flight;
+  fields.disabled = !flight;
+  field("flight_number").required = flight;
+  field("flight_date").required = flight;
+  field("mode").value = flight ? "flight" : "trip";
+}
+function syncDates() {
+  const from = field("date_from").value;
+  const to = field("date_to").value;
+  field("date_to").min = from;
+  field("date_to").setCustomValidity(from && to && to < from ? "Дата окончания должна быть не раньше даты начала." : "");
+  const selected = field("flight_date").value;
+  field("flight_date").setCustomValidity(field("mode").value === "flight" && selected && ((from && selected < from) || (to && selected > to)) ? "Дата рейса должна входить в период поездки." : "");
+}
+function validateCities() {
+  const origin = field("origin").value.trim();
+  const destination = field("destination").value.trim();
+  field("origin").setCustomValidity(origin ? "" : "Укажите город отправления.");
+  field("destination").setCustomValidity(!destination ? "Укажите город назначения." : origin.toLocaleLowerCase("ru") === destination.toLocaleLowerCase("ru") ? "Выберите другой город назначения." : "");
+  field("flight_number").setCustomValidity(field("mode").value === "flight" && !field("flight_number").value.trim() ? "Укажите номер рейса Red Wings." : "");
+}
+function requestBody() {
+  const data = new FormData(form);
+  const request = Object.fromEntries(["mode","origin","destination","date_from","date_to","preference"].map(key => [key, String(data.get(key) || "").trim()]));
+  for (const name of ["origin_address", "destination_address"]) if (data.get(name)?.trim()) request[name] = data.get(name).trim();
+  if (request.mode === "flight") {
+    request.flight_number = String(data.get("flight_number") || "").trim();
+    request.flight_date = data.get("flight_date");
+  }
+  return request;
+}
+function clearResults() {
+  $("#variant-list").replaceChildren();
+  $("#sources-list").replaceChildren();
+  ["#data-notice", "#assistant-note", "#sources-section", "#result-count"].forEach(selector => { $(selector).hidden = true; });
+}
+function dataNotice(data) {
+  const box = $("#data-notice");
+  box.replaceChildren();
+  const mode = ["live", "snapshot"].includes(data.data_mode) ? data.data_mode : "unavailable";
+  box.dataset.mode = mode;
+  const labels = {live:"Данные расписания", snapshot:"Сохранённое расписание", unavailable:"Расписание недоступно"};
+  box.append(text("strong", "", labels[mode]));
+  box.append(text("p", "", mode === "snapshot" ? "Перед покупкой проверьте расписание, места и цену." : mode === "live" ? "Места и цены не проверены." : "Без подтверждённого рейса Red Wings варианты не предлагаются."));
+  if (data.checked_at || data.coverage_note || mode === "snapshot") {
+    const details = text("details", "data-details", "");
+    details.append(text("summary", "", "Покрытие и дата"));
+    details.append(text("p", "", data.checked_at ? `Проверено: ${timeLabel(data.checked_at)}` : "Точное время получения снимка не сохранено."));
+    if (data.coverage_note) details.append(text("p", "", data.coverage_note));
+    box.append(details);
+  }
+  box.hidden = false;
+}
+function renderLeg(leg) {
+  const rw = isRW(leg);
+  const row = text("li", `leg${rw ? " rw" : ""}`, "");
+  const marker = text("span", "leg-marker", "");
+  marker.append(icon(leg.mode));
+  row.append(marker);
+  const top = text("div", "leg-topline", "");
+  top.append(text("span", "leg-kind", rw ? `Red Wings${leg.flight_number ? ` · ${leg.flight_number}` : ""}` : names[leg.mode] || names.ground));
+  const status = {scheduled:"По расписанию", suggestion:"Требует подбора", unknown:"Данные уточняются"}[leg.status] || "Данные уточняются";
+  top.append(text("span", `leg-status ${leg.status === "suggestion" ? "suggestion" : ""}`, status));
+  row.append(top, text("p", "leg-route", `${leg.origin || "Пункт уточняется"} → ${leg.destination || "Пункт уточняется"}`));
+  if (leg.mode === "plane" || leg.departure || leg.arrival) {
+    const times = text("div", "leg-times", "");
+    times.append(text("span", "", `Отправление: ${timeLabel(leg.departure)}`), text("span", "", `Прибытие: ${timeLabel(leg.arrival)}`));
+    row.append(times);
+  }
+  const details = text("div", "leg-details", "");
+  if (leg.carrier && !rw) details.append(text("span", "", leg.carrier));
+  if (nonnegative(leg.price)) details.append(text("span", "", rubles.format(leg.price)));
+  row.append(details);
+  const links = text("div", "leg-links", "");
+  const seen = new Set();
+  const addLink = (label, url) => {
+    const link = externalLink(label, url);
+    if (link && !seen.has(link.href)) { seen.add(link.href); links.append(link); }
+  };
+  addLink(leg.source_name ? `Источник: ${leg.source_name}` : "Источник расписания", leg.source_url);
+  list(leg.links).forEach(link => { if (link && typeof link === "object") addLink(link.label, link.url); });
+  row.append(links);
+  return row;
+}
+function renderVariant(variant, index) {
+  const legs = list(variant.legs);
+  const allTimes = legs.length > 0 && legs.every(leg => leg.departure && leg.arrival);
+  const completeDuration = nonnegative(variant.duration_minutes) && allTimes;
+  const knownPrice = nonnegative(variant.total_price);
+  const completePrice = knownPrice && legs.length > 0 && legs.every(leg => nonnegative(leg.price));
+  let title = typeof variant.title === "string" ? variant.title : `Вариант ${index + 1}`;
+  if ((!completeDuration && /самый быстрый|быстрее всех/i.test(title)) || (!completePrice && /самый деш[её]вый|дешевле всех/i.test(title))) title = `Вариант ${index + 1}`;
+  const card = text("article", "variant", "");
+  const header = text("header", "variant-header", "");
+  const intro = text("div", "", "");
+  intro.append(text("h3", "", title));
+  if (variant.summary) intro.append(text("p", "variant-summary", variant.summary));
+  header.append(intro);
+  card.append(header);
+  const metrics = text("div", "variant-metrics", "");
+  for (const [label, value, known] of [["Всё время в пути", completeDuration ? durationLabel(variant.duration_minutes) : "Уточняется", completeDuration], ["Стоимость поездки", knownPrice ? rubles.format(variant.total_price) : "Уточняется", knownPrice]]) {
+    const metric = text("div", "metric", "");
+    metric.append(text("span", "", label), text("strong", known ? "" : "unknown", value));
+    metrics.append(metric);
+  }
+  if (completeDuration || knownPrice) card.append(metrics);
+  else card.append(text("p", "price-note", "Время всей поездки и стоимость пока не рассчитаны."));
+  const chain = text("div", "transport-chain", "");
+  chain.setAttribute("aria-label", "Последовательность транспорта");
+  legs.forEach((leg, i) => {
+    if (i) { const arrow = text("span", "chain-arrow", "›"); arrow.setAttribute("aria-hidden", "true"); chain.append(arrow); }
+    const item = text("span", `chain-item${isRW(leg) ? " rw" : ""}`, "");
+    item.append(icon(leg.mode), text("span", "", isRW(leg) ? "Red Wings" : names[leg.mode] || names.ground));
+    chain.append(item);
+  });
+  const ordered = text("ol", "legs", "");
+  legs.forEach(leg => ordered.append(renderLeg(leg)));
+  card.append(chain, ordered);
+  const warnings = [...new Set(list(variant.warnings).filter(item => typeof item === "string" && item.trim()))];
+  if (legs.filter(leg => leg.status === "scheduled").length > 1) warnings.push("Билеты на участки оформляются отдельно; стыковка не защищена единым билетом.");
+  if (warnings.length) {
+    const warningList = text("ul", "warnings", "");
+    warnings.forEach(warning => warningList.append(text("li", "", warning)));
+    card.append(warningList);
+  }
+  return card;
+}
+function renderSources(sources) {
+  const target = $("#sources-list");
+  const seen = new Set();
+  list(sources).forEach(source => {
+    const url = typeof source === "string" ? source : source?.url || source?.source_url;
+    const label = typeof source === "string" ? source : source?.name || source?.label || source?.title || source?.source_name || "Источник";
+    const link = externalLink(label, url);
+    if (link && !seen.has(link.href)) { seen.add(link.href); const row = text("li", "", ""); row.append(link); target.append(row); }
+  });
+  $("#sources-section").hidden = !target.children.length;
+}
+function renderResponse(data) {
+  if (!data || !["ok", "no_routes", "needs_data", "error"].includes(data.status)) throw new Error("Не удалось прочитать варианты. Повторите поиск позже.");
+  dataNotice(data);
+  const variants = data.status === "ok" && data.data_mode !== "unavailable" ? list(data.variants).filter(variant => variant && list(variant.legs).some(leg => leg && isRW(leg) && leg.status === "scheduled")).map(variant => ({...variant, legs:list(variant.legs).filter(leg => leg && typeof leg === "object")})) : [];
+  if (variants.length) {
+    variants.forEach((variant, index) => $("#variant-list").append(renderVariant(variant, index)));
+    const count = $("#result-count");
+    count.textContent = `Вариантов: ${variants.length}`;
+    count.hidden = false;
+    setStatus("");
+  } else {
+    const defaults = {ok:"Подтверждённых вариантов для этого запроса пока нет. Попробуйте другой период или доступный пример.", no_routes:"В покрытых источниках не найдено подходящих вариантов. Измените даты или направление.", needs_data:"Для этого запроса недостаточно данных. Уточните направление, даты или выбранный рейс.", error:"Не удалось построить маршрут. Повторите поиск позже."};
+    setStatus(data.message || defaults[data.status], data.status === "error" ? "error" : "");
+    if (data.status === "error") retryButton($("#request-status"), "Повторить", () => form.requestSubmit());
+  }
+  if (variants.length && data.message) setStatus(data.message);
+  if (data.assistant?.text && ["ok", "completed", "success"].includes(data.assistant.status)) {
+    $("#assistant-note").textContent = data.assistant.text;
+    $("#assistant-note").hidden = false;
+  }
+  renderSources(data.sources);
+}
+async function loadHealth() {
+  const indicator = $("#health");
+  try {
+    const health = await api("/api/health");
+    const mode = health?.schedule_configured === false ? "unavailable" : ["live", "snapshot"].includes(health?.schedule_mode) ? health.schedule_mode : "unavailable";
+    indicator.dataset.mode = mode;
+    indicator.textContent = {live:"Актуальное расписание", snapshot:"Снимок расписания", unavailable:"Расписание недоступно"}[mode];
+  } catch {
+    indicator.dataset.mode = "unavailable";
+    indicator.replaceChildren(text("span", "", "Сервис недоступен"));
+    retryButton(indicator, "Проверить", loadHealth);
+  }
+  indicator.hidden = false;
+}
+async function loadExamples() {
+  const container = $("#examples");
+  container.replaceChildren(text("p", "muted small", "Загружаем…"));
+  try {
+    const data = await api("/api/examples");
+    if (!Array.isArray(data?.examples)) throw new Error("Invalid examples response");
+    const cities = $("#supported-cities");
+    cities.replaceChildren();
+    list(data.cities).forEach(item => { if (item?.city) { const option = document.createElement("option"); option.value = item.city; cities.append(option); } });
+    container.replaceChildren();
+    const examples = data.examples.filter(example => example && typeof example.request === "object" && example.request && typeof example.label === "string");
+    examples.forEach(example => {
+      const button = text("button", "example-button", example.label);
+      button.type = "button";
+      if (example.request.date_from) button.append(text("span", "", `${dateLabel(example.request.date_from)}${example.request.date_to && example.request.date_to !== example.request.date_from ? ` — ${dateLabel(example.request.date_to)}` : ""}`));
+      button.addEventListener("click", () => {
+        cancelPending();
+        form.reset();
+        setMode(example.request.mode);
+        ["origin","destination","date_from","date_to","preference","origin_address","destination_address","flight_number","flight_date"].forEach(name => {
+          if (typeof example.request[name] === "string") field(name).value = example.request[name];
+        });
+        syncDates();
+        validateCities();
+        clearResults();
+        setStatus("");
+        $("#query-summary").hidden = true;
+        $("#empty-state").hidden = false;
+        submit.focus();
+      });
+      container.append(button);
+    });
+    if (!examples.length) container.append(text("p", "muted small", "Поддержанные примеры пока недоступны."));
+  } catch {
+    container.replaceChildren(text("p", "muted small", "Не удалось загрузить примеры."));
+    retryButton(container, "Повторить", loadExamples);
+  }
+}
+let controller;
+let requestId = 0;
+function cancelPending() {
+  requestId += 1;
+  controller?.abort();
+  submit.disabled = false;
+  submit.querySelector("span").textContent = "Найти варианты";
+  results.setAttribute("aria-busy", "false");
+}
+form.addEventListener("input", () => { syncDates(); validateCities(); });
+form.addEventListener("change", event => {
+  if (event.target.name === "mode") { setMode(event.target.value); syncDates(); validateCities(); }
+});
+$("#swap-cities").addEventListener("click", () => {
+  const origin = field("origin").value;
+  field("origin").value = field("destination").value;
+  field("destination").value = origin;
+  validateCities();
+});
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  syncDates();
+  validateCities();
+  if (!form.reportValidity()) return;
+  cancelPending();
+  const currentId = requestId;
+  controller = new AbortController();
+  const activeController = controller;
+  const request = requestBody();
+  clearResults();
+  $("#empty-state").hidden = true;
+  const query = $("#query-summary");
+  query.textContent = `${request.origin} → ${request.destination} · ${dateLabel(request.date_from)}${request.date_from !== request.date_to ? ` — ${dateLabel(request.date_to)}` : ""}${request.mode === "flight" ? ` · ${request.flight_number}, ${dateLabel(request.flight_date)}` : ""}`;
+  query.hidden = false;
+  submit.disabled = true;
+  submit.querySelector("span").textContent = "Ищем варианты…";
+  results.setAttribute("aria-busy", "true");
+  setStatus("Проверяем рейсы…", "loading");
+  const timeout = setTimeout(() => activeController.abort(), 90000);
+  try {
+    const data = await api("/api/plan", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(request), signal:activeController.signal});
+    if (currentId !== requestId) return;
+    renderResponse(data);
+    $("#results-title").focus({preventScroll:true});
+    if (window.matchMedia("(max-width: 760px)").matches) results.scrollIntoView({behavior:"auto", block:"start"});
+  } catch (error) {
+    if (currentId !== requestId) return;
+    setStatus(error.name === "AbortError" ? "Поиск занял слишком много времени. Повторите попытку." : error.message === "Failed to fetch" ? "Нет связи с сервисом. Проверьте подключение и повторите поиск." : error.message, "error");
+    retryButton($("#request-status"), "Повторить", () => form.requestSubmit());
+  } finally {
+    clearTimeout(timeout);
+    if (currentId === requestId) {
+      submit.disabled = false;
+      submit.querySelector("span").textContent = "Найти варианты";
+      results.setAttribute("aria-busy", "false");
+    }
+  }
+});
+loadHealth();
+loadExamples();
+
+
+const initialExample=PREVIEW_DATA.examples.examples[0];
+setMode(initialExample.request.mode);
+for(const [name,value] of Object.entries(initialExample.request)){const f=field(name);if(f)f.value=value;}
+syncDates();clearResults();document.querySelector('#empty-state').hidden=true;
+renderResponse(PREVIEW_DATA.responses[0]);
+</script></body>
+</html>

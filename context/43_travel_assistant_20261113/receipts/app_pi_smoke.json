@@ -1,0 +1,183 @@
+{
+  "checked_at": "2026-11-13T12:56:43.119Z",
+  "scope": "Local HTTP API + live MAI Pi; saved schedules; not multimodal live E2E",
+  "model": "deepseek-v4.1-flash",
+  "retries": 0,
+  "health": {
+    "status": "ok",
+    "model_configured": true,
+    "generation_enabled": true,
+    "model": "deepseek-v4.1-flash",
+    "agent_engine": "pi",
+    "schedule_mode": "snapshot",
+    "schedule_configured": true
+  },
+  "request": {
+    "mode": "trip",
+    "origin": "Самара",
+    "destination": "Екатеринбург",
+    "date_from": "2026-12-08",
+    "date_to": "2026-12-08",
+    "preference": "balanced"
+  },
+  "http_status": 200,
+  "elapsed_ms": 4389,
+  "response": {
+    "status": "ok",
+    "data_mode": "snapshot",
+    "checked_at": null,
+    "variants": [
+      {
+        "id": "ef22b6ad1ad7ea7c",
+        "title": "Самара → Екатеринбург · WZ 1034",
+        "summary": "Прямой рейс Red Wings 2026-12-08 и дорога до/после аэропортов.",
+        "departure": null,
+        "arrival": null,
+        "duration_minutes": null,
+        "total_price": null,
+        "currency": "RUB",
+        "price_note": "Стоимость билета и наземных участков неизвестна. Наличие мест не проверено.",
+        "warnings": [
+          "Наземные участки и запас до регистрации ещё не рассчитаны. Ссылки на карты не передают дату поездки."
+        ],
+        "legs": [
+          {
+            "mode": "ground",
+            "origin": "Самара",
+            "destination": "Самара, аэропорт Курумоч (KUF)",
+            "departure": null,
+            "arrival": null,
+            "carrier": null,
+            "price": null,
+            "status": "suggestion",
+            "source_name": "Навигационная рекомендация",
+            "source_url": null,
+            "links": [
+              {
+                "label": "Общественным транспортом",
+                "url": "https://yandex.ru/maps/?rtext=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%7E%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D1%83%D1%80%D1%83%D0%BC%D0%BE%D1%87+%28KUF%29&rtt=mt"
+              },
+              {
+                "label": "Автомобилем",
+                "url": "https://yandex.ru/maps/?rtext=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%7E%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D1%83%D1%80%D1%83%D0%BC%D0%BE%D1%87+%28KUF%29&rtt=auto"
+              }
+            ]
+          },
+          {
+            "mode": "plane",
+            "origin": "Самара, аэропорт Курумоч (KUF)",
+            "destination": "Екатеринбург, аэропорт Кольцово (SVX)",
+            "departure": "2026-12-08T08:00:00+04:00",
+            "arrival": "2026-12-08T10:40:00+05:00",
+            "duration_minutes": 100,
+            "carrier": "Red Wings",
+            "carrier_code": 617,
+            "carrier_iata": "WZ",
+            "flight_number": "WZ 1034",
+            "price": null,
+            "status": "scheduled",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08"
+              },
+              {
+                "label": "Выбрать билет у Red Wings",
+                "url": "https://flyredwings.com/booking/"
+              }
+            ],
+            "provenance": [
+              {
+                "source_id": "hub",
+                "source_key": "KUF:2026-12-08",
+                "pointer": "/schedule/4"
+              },
+              {
+                "source_id": "search",
+                "source_key": "KUF-SVX:2026-12-08",
+                "pointer": "/segments/0"
+              }
+            ]
+          },
+          {
+            "mode": "ground",
+            "origin": "Екатеринбург, аэропорт Кольцово (SVX)",
+            "destination": "Екатеринбург",
+            "departure": null,
+            "arrival": null,
+            "carrier": null,
+            "price": null,
+            "status": "suggestion",
+            "source_name": "Навигационная рекомендация",
+            "source_url": null,
+            "links": [
+              {
+                "label": "Общественным транспортом",
+                "url": "https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=mt"
+              },
+              {
+                "label": "Автомобилем",
+                "url": "https://yandex.ru/maps/?rtext=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82+%D0%9A%D0%BE%D0%BB%D1%8C%D1%86%D0%BE%D0%B2%D0%BE+%28SVX%29%7E%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3&rtt=auto"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "hub",
+        "name": "Яндекс Расписания",
+        "path": "context/40_swarm_pricing_research_20261113/yandex_hub_schedules.json",
+        "sha256": "a61f27d366b82904c9269e62bf2fbbcf5c233f9054721b587c42dd3ae3158da4",
+        "fetched_at": null,
+        "file_modified_at": "2026-11-13T09:07:04.908Z",
+        "timestamp_note": "Время изменения локального файла; точное время HTTP-получения не сохранено.",
+        "url": "https://rasp.yandex.ru/"
+      },
+      {
+        "id": "search",
+        "name": "Яндекс Расписания",
+        "path": "context/40_swarm_pricing_research_20261113/yandex_spotlight_search.json",
+        "sha256": "bb87754ffff2334a45cf90df6da25438c4e626cc10c9cceb94d2e7273f0863b9",
+        "fetched_at": null,
+        "file_modified_at": "2026-11-13T09:07:04.922Z",
+        "timestamp_note": "Время изменения локального файла; точное время HTTP-получения не сохранено.",
+        "url": "https://rasp.yandex.ru/"
+      }
+    ],
+    "coverage_note": "Сохранённые ответы для 8 и 11 декабря 2026 года; только прямые рейсы между перечисленными аэропортами. Снимок не подтверждает актуальность, места или цену. Точное время получения ответов неизвестно; время файла — только происхождение снимка.",
+    "message": "Найдены прямые рейсы Red Wings. Наземную дорогу необходимо уточнить отдельно.",
+    "assistant": {
+      "status": "ok",
+      "text": "Для сравнения бюджета проверьте цену билета у Red Wings и добавьте стоимость наземной дороги. Перед выбором билета проверьте рейс на нужную дату: сейчас используется сохранённое расписание.",
+      "model_calls": 2,
+      "http_requests": 2,
+      "tool_calls": [
+        "get_trip_facts",
+        "compose_summary"
+      ],
+      "usage": [
+        {
+          "input": 462,
+          "output": 67,
+          "cacheRead": 0,
+          "totalTokens": 529
+        },
+        {
+          "input": 671,
+          "output": 96,
+          "cacheRead": 0,
+          "totalTokens": 767
+        }
+      ],
+      "retries": 0,
+      "cost_status": "unknown"
+    }
+  },
+  "status": "completed",
+  "ui_served": true,
+  "secret_not_served": true
+}

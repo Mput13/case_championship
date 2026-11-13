@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-11-13T12:29:36.123852+00:00",
+  "host": "api-ai.mai.ru",
+  "checks": [
+    {
+      "path": "/v1/models",
+      "error_class": "SSLCertVerificationError"
+    },
+    {
+      "path": "/models",
+      "error_class": "SSLCertVerificationError"
+    },
+    {
+      "path": "/api/v1/models",
+      "error_class": "SSLCertVerificationError"
+    }
+  ],
+  "curl_public_probe": {
+    "command": "curl -sS -I --connect-timeout 10 --max-time 20 https://api-ai.mai.ru/v1/models",
+    "exit_code": 60,
+    "error": "SSL certificate problem: unable to get local issuer certificate",
+    "credentials_sent": false
+  },
+  "authenticated_probe_credentials_sent": false
+}

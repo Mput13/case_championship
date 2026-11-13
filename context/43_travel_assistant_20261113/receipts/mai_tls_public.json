@@ -1,0 +1,698 @@
+{
+  "schema_version": 1,
+  "target": "https://api-ai.mai.ru",
+  "environment_id": "d463a92a-a497-4213-aeb8-69f0a1470b87",
+  "parent_thread_id": "4e4ac1ba-0f15-4776-b7db-f79fda61fa0b",
+  "observed_start_utc": "2026-11-13T12:30:37.028929+00:00",
+  "observed_end_utc": "2026-11-13T12:39:52.848760+00:00",
+  "supplied_incident": {
+    "observed_at_utc": "2026-11-13T12:29:36Z",
+    "python": "SSLCertVerificationError using ssl.create_default_context on /v1/models, /models, /api/v1/models",
+    "curl": "exit 60, unable to get local issuer certificate",
+    "source": "Coordinator brief; not an authenticated probe in this run"
+  },
+  "restrictions": {
+    "authenticated_requests": 0,
+    "api_inference_requests": 0,
+    "secret_access": false,
+    "global_trust_changes": false,
+    "proxy_or_route_changes": false,
+    "process_restarts": false,
+    "child_agents": false,
+    "persistent_CA_installation": false
+  },
+  "verdict": {
+    "cause": "Russian Trusted Root CA is absent from inspected local trust stores.",
+    "server_intermediate_present": true,
+    "incomplete_intermediate_chain": false,
+    "leaf_expired": false,
+    "hostname_verified": true,
+    "sni_vs_no_sni_same_certificate_pems": true,
+    "proxy_explanation": "No proxy environment variables; macOS HTTP/HTTPS/SOCKS/PAC enabled flags all 0; curl -q ignores curlrc. Peer certificate verifies to the separately HTTPS-fetched official root. No evidence of a replacement interception certificate. This does not prove absence of every transparent network component.",
+    "production_change_status": "NOT_APPLIED; scoped trust context used only for unauthenticated diagnostics",
+    "api_auth_and_model_availability": "NOT_TESTED"
+  },
+  "inventory": {
+    "observed_at_utc": "2026-11-13T12:30:37.028929+00:00",
+    "python": {
+      "executable": "/Library/Frameworks/Python.framework/Versions/3.11/bin/python3",
+      "version": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+      "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+      "verify_paths": {
+        "cafile": "/Library/Frameworks/Python.framework/Versions/3.11/etc/openssl/cert.pem",
+        "capath": null,
+        "openssl_cafile_env": "SSL_CERT_FILE",
+        "openssl_cafile": "/Library/Frameworks/Python.framework/Versions/3.11/etc/openssl/cert.pem",
+        "openssl_capath_env": "SSL_CERT_DIR",
+        "openssl_capath": "/Library/Frameworks/Python.framework/Versions/3.11/etc/openssl/certs"
+      }
+    },
+    "dns": [
+      "194.54.177.229"
+    ],
+    "proxy_env": {},
+    "system_proxy": {
+      "argv": [
+        "/usr/sbin/scutil",
+        "--proxy"
+      ],
+      "exit": 0,
+      "stdout": "  HTTPEnable : 0\n  HTTPSEnable : 0\n  ProxyAutoConfigEnable : 0\n  SOCKSEnable : 0",
+      "stderr": ""
+    },
+    "curl_versions": [
+      {
+        "argv": [
+          "/usr/bin/curl",
+          "-q",
+          "--version"
+        ],
+        "exit": 0,
+        "stdout": "curl 8.7.1 (x86_64-apple-darwin25.0) libcurl/8.7.1 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.68.0\nRelease-Date: 2024-03-27\nProtocols: dict file ftp ftps gopher gophers http https imap imaps ipfs ipns ldap ldaps mqtt pop3 pop3s rtsp smb smbs smtp smtps telnet tftp\nFeatures: alt-svc AsynchDNS GSS-API HSTS HTTP2 HTTPS-proxy IPv6 Kerberos Largefile libz MultiSSL NTLM SPNEGO SSL threadsafe UnixSockets\n",
+        "stderr": ""
+      }
+    ],
+    "openssl_versions": [
+      {
+        "argv": [
+          "/usr/bin/openssl",
+          "version",
+          "-a"
+        ],
+        "exit": 0,
+        "stdout": "LibreSSL 3.3.6\nbuilt on: date not available\nplatform: information not available\noptions:  bn(64,64) rc4(ptr,int) des(idx,cisc,16,int) blowfish(idx) \ncompiler: information not available\nOPENSSLDIR: \"/private/etc/ssl\"\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "version",
+          "-a"
+        ],
+        "exit": 0,
+        "stdout": "OpenSSL 3.6.3 9 Jun 2026 (Library: OpenSSL 3.6.3 9 Jun 2026)\nbuilt on: Tue Jun  9 11:46:57 2026 UTC\nplatform: darwin64-arm64-cc\noptions:  bn(64,64)\ncompiler: clang -fPIC -arch arm64 -O3 -Wall -DL_ENDIAN -DOPENSSL_PIC -D_REENTRANT -DOPENSSL_BUILDING_OPENSSL -DNDEBUG\nOPENSSLDIR: \"/opt/homebrew/etc/openssl@3\"\nENGINESDIR: \"/opt/homebrew/Cellar/openssl@3/3.6.3/lib/engines-3\"\nMODULESDIR: \"/opt/homebrew/Cellar/openssl@3/3.6.3/lib/ossl-modules\"\nSeeding source: os-specific\nCPUINFO: OPENSSL_armcap=0x987d\n",
+        "stderr": ""
+      }
+    ],
+    "trust_override_presence": {
+      "SSL_CERT_FILE": false,
+      "SSL_CERT_DIR": false,
+      "CURL_CA_BUNDLE": false,
+      "REQUESTS_CA_BUNDLE": false
+    },
+    "instruction_files": {
+      "argv": [
+        "/usr/bin/find",
+        "context/43_travel_assistant_20261113",
+        "-name",
+        "AGENTS.md"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "local_trust_inspection": {
+    "python_ca_count": 137,
+    "python_russian_trusted_matches": [],
+    "keychains": [
+      {
+        "argv": [
+          "/usr/bin/security",
+          "find-certificate",
+          "-a",
+          "-c",
+          "Russian Trusted",
+          "-p",
+          "/System/Library/Keychains/SystemRootCertificates.keychain"
+        ],
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "/usr/bin/security",
+          "find-certificate",
+          "-a",
+          "-c",
+          "Russian Trusted",
+          "-p",
+          "/Library/Keychains/System.keychain"
+        ],
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "bundles": [
+      {
+        "path": "/etc/ssl/cert.pem",
+        "realpath": "/private/etc/ssl/cert.pem",
+        "file_sha256": "9dae8d76e55cb08991f2b672d58999ea15560d910759c16b544f843bdffbb994",
+        "ca_count": 128,
+        "russian_trusted_matches": []
+      },
+      {
+        "path": "/Library/Frameworks/Python.framework/Versions/3.11/etc/openssl/cert.pem",
+        "realpath": "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/certifi/cacert.pem",
+        "file_sha256": "fc9165a12403263e7ebfbdad7be7a3eac0fa5d325d3c70465f28d3690072ca28",
+        "ca_count": 137,
+        "russian_trusted_matches": []
+      },
+      {
+        "path": "/opt/homebrew/etc/openssl@3/cert.pem",
+        "realpath": "/opt/homebrew/etc/ca-certificates/cert.pem",
+        "file_sha256": "669c402a4b1b6a29b5b07cc3e7c4d30ecdf38b64c2811307a87c89c50b870e35",
+        "ca_count": 191,
+        "russian_trusted_matches": []
+      }
+    ],
+    "homebrew_curl": {
+      "status": "NOT_INSTALLED_AT_CHECKED_STANDARD_PATHS",
+      "checked_paths": [
+        "/opt/homebrew/opt/curl/bin/curl",
+        "/usr/local/opt/curl/bin/curl",
+        "/opt/homebrew/Cellar/curl/*/bin/curl",
+        "/usr/local/Cellar/curl/*/bin/curl"
+      ],
+      "found": [],
+      "comparison": "Unavailable; did not install. Homebrew OpenSSL 3.6.3 was tested instead."
+    }
+  },
+  "baseline_probes": {
+    "python_default_TLS": {
+      "verified": false,
+      "exception_type": "SSLCertVerificationError",
+      "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)",
+      "verify_code": 20,
+      "verify_message": "unable to get local issuer certificate"
+    },
+    "system_curl_verified_root_HEAD": {
+      "argv": [
+        "/usr/bin/curl",
+        "-q",
+        "-sS",
+        "-I",
+        "--connect-timeout",
+        "8",
+        "--max-time",
+        "18",
+        "--proto",
+        "=https",
+        "--write-out",
+        "\nhttp_code=%{http_code} ssl_verify_result=%{ssl_verify_result} remote_ip=%{remote_ip}\n",
+        "https://api-ai.mai.ru/"
+      ],
+      "exit": 60,
+      "stdout": "\nhttp_code=000 ssl_verify_result=20 remote_ip=194.54.177.229\n",
+      "stderr": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above.\n",
+      "observed_at_utc": "2026-11-13T12:30:51.155987+00:00"
+    },
+    "openssl_SNI": {
+      "argv": [
+        "/opt/homebrew/opt/openssl@3/bin/openssl",
+        "s_client",
+        "-connect",
+        "api-ai.mai.ru:443",
+        "-servername",
+        "api-ai.mai.ru",
+        "-showcerts",
+        "-verify_hostname",
+        "api-ai.mai.ru",
+        "-verify_return_error"
+      ],
+      "exit": 1,
+      "stderr": "Connecting to 194.54.177.229\ndepth=1 C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Sub CA\nverify error:num=20:unable to get local issuer certificate\n0031050A02000000:error:0A000086:SSL routines:tls_post_process_server_certificate:certificate verify failed:ssl/statem/statem_clnt.c:2126:\n0031050A02000000:error:0A000197:SSL routines:SSL_shutdown:shutdown while in init:ssl/ssl_lib.c:2804:\n",
+      "verify_return_code": 20,
+      "observed_at_utc": "2026-11-13T12:30:51.125428+00:00",
+      "certificate_count": 2
+    },
+    "openssl_no_SNI": {
+      "argv": [
+        "/opt/homebrew/opt/openssl@3/bin/openssl",
+        "s_client",
+        "-connect",
+        "194.54.177.229:443",
+        "-noservername",
+        "-showcerts",
+        "-verify_hostname",
+        "api-ai.mai.ru",
+        "-verify_return_error"
+      ],
+      "exit": 1,
+      "stderr": "Connecting to 194.54.177.229\ndepth=1 C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Sub CA\nverify error:num=20:unable to get local issuer certificate\n0031050A02000000:error:0A000086:SSL routines:tls_post_process_server_certificate:certificate verify failed:ssl/statem/statem_clnt.c:2126:\n0031050A02000000:error:0A000197:SSL routines:SSL_shutdown:shutdown while in init:ssl/ssl_lib.c:2804:\n",
+      "verify_return_code": 20,
+      "observed_at_utc": "2026-11-13T12:30:51.125286+00:00",
+      "certificate_count": 2
+    },
+    "system_openssl_SNI": {
+      "argv": [
+        "/usr/bin/openssl",
+        "s_client",
+        "-connect",
+        "api-ai.mai.ru:443",
+        "-servername",
+        "api-ai.mai.ru",
+        "-showcerts",
+        "-verify_return_error"
+      ],
+      "exit": 0,
+      "stderr": "depth=1 C = RU, O = The Ministry of Digital Development and Communications, CN = Russian Trusted Sub CA\nverify error:num=20:unable to get local issuer certificate\nverify return:0\nDONE\n",
+      "verify_return_code": 20,
+      "warning": "LibreSSL s_client returned exit 0 despite Verify return code 20; exit status alone is insufficient.",
+      "observed_at_utc": "2026-11-13T12:30:51.158122+00:00"
+    }
+  },
+  "server_certificate_chain": [
+    {
+      "index": 0,
+      "pem": "-----BEGIN CERTIFICATE-----\nMIIIczCCBlugAwIBAgIQODKV2fKBTLurUWBQ/bjSrzANBgkqhkiG9w0BAQsFADBv\nMQswCQYDVQQGEwJSVTE/MD0GA1UECgw2VGhlIE1pbmlzdHJ5IG9mIERpZ2l0YWwg\nRGV2ZWxvcG1lbnQgYW5kIENvbW11bmljYXRpb25zMR8wHQYDVQQDDBZSdXNzaWFu\nIFRydXN0ZWQgU3ViIENBMB4XDTI2MDgyNTA5MTQxM1oXDTI3MDgyNTA5MTQxM1ow\nggEFMQ8wDQYDVQQDDAZtYWkucnUxRTBDBgNVBAoMPNCc0L7RgdC60L7QstGB0LrQ\nuNC5INCw0LLQuNCw0YbQuNC+0L3QvdGL0Lkg0LjQvdGB0YLQuNGC0YPRgjELMAkG\nA1UEBhMCUlUxGzAZBgNVBAgMEjc3INCzLtCc0L7RgdC60LLQsDEZMBcGA1UEBwwQ\n0LMuINCc0L7RgdC60LLQsDE1MDMGA1UECQws0JLQvtC70L7QutC+0LvQsNC80YHQ\nutC+0LUg0YjQvtGB0YHQtSwg0LQuIDQxFTATBgUqhQNkBBIKNzcxMjAzODQ1NTEY\nMBYGBSqFA2QBEg0xMDM3NzM5MTgwODIwMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A\nMIIBCgKCAQEA0IcfGCgy+Slt1nS9yfpQYyJvasDPBlE8AizeCGMU+PozNa7ZzeM8\nQVIpatAH1eK09UWLw3jCgv6RIOs3boZPd93k5FjEUPfBJO1BntNaWAiPUK5DhCE5\nY4MOEQeh/fn2G3L0rjVfkg6zFvlGkzhgaZp6YzFWbgLR8Bj5tU2MIst/AayCTWqI\nXDwQd2FynFfdtz3aQAx6ZDsVrCrC+MiE1XBhNy4e5+Z03hq80sKvUnqr8qHOJ/gU\nfkI6bXI9/HGGgw7/tCoH8u9ap/h/fPjCH4PG8MpawQusTz8FYk3bkur0A2NTGfMn\nS1l9KKldRlKjOeKIasgQI+bMp1MpAiCkmwIDAQABo4IDcTCCA20wHQYDVR0OBBYE\nFLFiskhyOIg/oqiyJNZtAIFHfbRPMB8GA1UdIwQYMBaAFHc92TmvQr3cW8p26u79\nzj5hKTBfMAsGA1UdDwQEAwIDqDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUH\nAwIwGwYDVR0RBBQwEoIGbWFpLnJ1gggqLm1haS5ydTCBiwYDVR0fBIGDMIGAMDyg\nOqA4hjZodHRwOi8vbnVjLWNkcC52b3NraG9kLnJ1L2NkcC9zdWJjYV9zc2xfcnNh\nMjAyNF9vdi5jcmwwQKA+oDyGOmh0dHA6Ly9udWMtY2RwLmRpZ2l0YWwuZ292LnJ1\nL2NkcC9zdWJjYV9zc2xfcnNhMjAyNF9vdi5jcmwwgb4GCCsGAQUFBwEBBIGxMIGu\nMD8GCCsGAQUFBzAChjNodHRwOi8vbnVjLWNkcC52b3NraG9kLnJ1L2NkcC9zdWJj\nYV9zc2xfcnNhMjAyNC5jcnQwQwYIKwYBBQUHMAKGN2h0dHA6Ly9udWMtY2RwLmRp\nZ2l0YWwuZ292LnJ1L2NkcC9zdWJjYV9zc2xfcnNhMjAyNC5jcnQwJgYIKwYBBQUH\nMAGGGmh0dHA6Ly9udWMtb2NzcC52b3NraG9kLnJ1MBMGA1UdIAQMMAowCAYGZ4EM\nAQICMIIBfAYKKwYBBAHWeQIEAgSCAWwEggFoAWYAdQDUs3/yc08m8eVQdeWFW3BP\n3nG7fQXHV9Pc6xN/YkOtJAAAAaA4MuG7AAAEAwBGMEQCIHuegm92Dhys4N0NHxBT\ngrVwqfPXoU6ASIEPb6tyx7B0AiA7qX0Z0SreVcMziWohMtJTjqd7ayHDtH0q2bsJ\nbvqvqQB2ABrpFodm1/eKnLCG+MScPF3OuMmTAKmvS/+wmwdPgSwXAAABoDgy4dQA\nAAQDAEcwRQIhAIGeNzwo1VULfeO4HfP1HoGxNJrlwFNwnLSuyw7IgtnhAiB2OsB6\ntLNstSrobnj/DmS4+8etHPMvdJ8OqRKnBXXOVgB1AEyYoN279HWTZgw26GYmhxQJ\n+X54eE6Rnqlq+BxTJ1zWAAABoDgy4bQAAAQDAEYwRAIgK9qsHJPnvJWCBq3ehMHi\n4fS7vA2Cu34SQ3Q9zOHqh3ECIDawC2oOR26xiIRNE92a340wbLCob07FTNM6DPa3\naly9MA0GCSqGSIb3DQEBCwUAA4ICAQBlhzT6lg77fKieJMlpqoEJs+YvOfrrceEs\nLIA0kVoeG+fQ+xVIcxWgAIzBbHgKIK/tCGMqGFr855zI7t4kwxez+6vaesmDoIZ9\ndGgGIHvS+j5gUa3XVrZlMbgRRYwa0O2aNgeTdbLr5v204/rDbiNq2Ha8YuV5zuv6\nT2SqbTeS3gangsM/vvXSOhLww9/N07Ztp10/gzm8tKQpVaS0N8Ju4tgX3smABQHm\nyleJewYYDzS/hcKwg4BtKaW+kD190TV7OTep9gcU8TFfBjiaAVbcWLsAmIkKFJN8\nM/XvFbsc7RgRvLi7sJvnHe1oSzjNnL04R7qCZ+k2WimyIGPsuXF9RuMl29MjFl3M\nfs/uZxOIfNN/Vg09xudHucxCKMfoSTw5NEashFCgFmeZkU7UnpMQP8Gyj9D8mbHf\nxSuzs8wfnDGExZ4aPe3Vkxl/BNBI/ymmpsPglcVJmji7vQodqGNmllKDSzr2QODy\nNr6jNc93gMHZuHRQxIfNnDb3I6VbELCVxudn0YwrCrvSggodFKE5uouYoRoUDQkh\nh7HfAlqUjwDUPvN9jRHIGhb7uShSKlUUw4cwptEDanQSEBGEqtPx6P8c83Uzddl8\n28IZcx0uZd0lemZdwIBZXhy+QL52FWbbTFg5rpCOQ9vO6RoeCSBZwrYzoPZKsej8\no29ypuLYrw==\n-----END CERTIFICATE-----\n",
+      "metadata": {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "x509",
+          "-noout",
+          "-subject",
+          "-issuer",
+          "-serial",
+          "-dates",
+          "-fingerprint",
+          "-sha256",
+          "-ext",
+          "subjectAltName,authorityInfoAccess,basicConstraints,keyUsage,extendedKeyUsage"
+        ],
+        "exit": 0,
+        "stdout": "subject=CN=mai.ru, O=Московский авиационный институт, C=RU, ST=77 г.Москва, L=г. Москва, street=Волоколамское шоссе, д. 4, 1.2.643.100.4=7712038455, OGRN=1037739180820\nissuer=C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Sub CA\nserial=383295D9F2814CBBAB516050FDB8D2AF\nnotBefore=Aug 25 09:14:13 2026 GMT\nnotAfter=Aug 25 09:14:13 2027 GMT\nsha256 Fingerprint=48:A5:03:E3:F0:C5:47:E0:50:5D:51:0D:15:95:A2:1E:AD:7A:6E:41:BA:DD:2C:D7:1E:79:42:3E:C7:7F:F4:A7\nX509v3 Key Usage: \n    Digital Signature, Key Encipherment, Key Agreement\nX509v3 Extended Key Usage: \n    TLS Web Server Authentication, TLS Web Client Authentication\nX509v3 Subject Alternative Name: \n    DNS:mai.ru, DNS:*.mai.ru\nAuthority Information Access: \n    CA Issuers - URI:http://nuc-cdp.voskhod.ru/cdp/subca_ssl_rsa2024.crt\n    CA Issuers - URI:http://nuc-cdp.digital.gov.ru/cdp/subca_ssl_rsa2024.crt\n    OCSP - URI:http://nuc-ocsp.voskhod.ru\n",
+        "stderr": ""
+      }
+    },
+    {
+      "index": 1,
+      "pem": "-----BEGIN CERTIFICATE-----\nMIIG6DCCBNCgAwIBAgICEAUwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UEBhMCUlUx\nPzA9BgNVBAoMNlRoZSBNaW5pc3RyeSBvZiBEaWdpdGFsIERldmVsb3BtZW50IGFu\nZCBDb21tdW5pY2F0aW9uczEgMB4GA1UEAwwXUnVzc2lhbiBUcnVzdGVkIFJvb3Qg\nQ0EwHhcNMjQwNzE1MTI1MDQxWhcNMjkwNzE5MTI1MDQxWjBvMQswCQYDVQQGEwJS\nVTE/MD0GA1UECgw2VGhlIE1pbmlzdHJ5IG9mIERpZ2l0YWwgRGV2ZWxvcG1lbnQg\nYW5kIENvbW11bmljYXRpb25zMR8wHQYDVQQDDBZSdXNzaWFuIFRydXN0ZWQgU3Vi\nIENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA1j0rkZECOt1S8o7I\nJY+4YKAxuEa5xaHKHXT2EpkuC/0krqMOjUy2oPIRNgR5g8X0Jl6jamxeGLc4Q1tf\nju6or9oSRYThIUhRsFDQNBiBBEXoBgWxTfiKB2eyT97+pz5TBtBiRCPaLGRHYLRb\n9Jz2HkJlxbtNPjtDrF5DPHym+mZ1M1z3hIQYAqJwLpsEBnsw/VxWMlxqHoeewd0h\nuJMd71KQ5vOKlz7KrIZ6EobNNa6wItuvsfj3kYCK7O78uLHGXXFxdr8Hae9lMUmC\n8F7AFwa+bO1LRlTlqW7rE3rLf+jj70N01N8T3o22v14YBaFBWQWncAVYD2JuL3tH\n252+kdNOERf1fLbLRigJAbd+hOhWYlNf963TFDgnNPliHNIW72SygVBnI2V3JwO1\ndp1hVKpK/zt8ziGdHW4gmOLTsH50YKdR4jNqUgQv4wASlKn9OpN6zHYc5G8h86fY\nBM+zxE5ikGI+I/vIqBuI0eaDU92AWN/YjFLpu8tMu9kLRSCf1vug6FIfDPWVo7iP\nac/SI2v8jnnpaW7ph/Pz3WkzaG7ZZJsfFs+8dploWc6LOoDtbFBhMdGMxu024msC\n0PSjZb5ODXPIaO2NsA7fMiAtZcoK6anTUJh4zOP/stA9qsJGNxdrEmiPXSmBZY/N\nY0wkZgZ6JTDhw7038bPvctkblJkCAwEAAaOCAYswggGHMB0GA1UdDgQWBBR3Pdk5\nr0K93FvKduru/c4+YSkwXzAfBgNVHSMEGDAWgBTh0YHlzlpfBKrS6badZrHF+qws\nhzAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBADCBmAYIKwYBBQUH\nAQEEgYswgYgwQAYIKwYBBQUHMAKGNGh0dHA6Ly9udWMtY2RwLnZvc2tob2QucnUv\nY2RwL3Jvb3RjYV9zc2xfcnNhMjAyMi5jcnQwRAYIKwYBBQUHMAKGOGh0dHA6Ly9u\ndWMtY2RwLmRpZ2l0YWwuZ292LnJ1L2NkcC9yb290Y2Ffc3NsX3JzYTIwMjIuY3J0\nMIGFBgNVHR8EfjB8MDqgOKA2hjRodHRwOi8vbnVjLWNkcC52b3NraG9kLnJ1L2Nk\ncC9yb290Y2Ffc3NsX3JzYTIwMjIuY3JsMD6gPKA6hjhodHRwOi8vbnVjLWNkcC5k\naWdpdGFsLmdvdi5ydS9jZHAvcm9vdGNhX3NzbF9yc2EyMDIyLmNybDANBgkqhkiG\n9w0BAQsFAAOCAgEAmsINXtQ7wwUWvIeOr80MdJS/5G4xhyZOVEmeUorThquT672y\ncCg3XCxc4fwbiZqSSbBqntQ7RtiTAKMYMvBageKoVHbzz+R4jX01tKcTx8cDePrz\ndJ73bLNUorE7RU9QsW4KyiUeRmjMDV23AUlEvuQFTwgkHXvbac1BBdPn9CrssQuF\n5EGohZKcQPFiAAc4SHbRNhlr7uAwgpc/erzI9EAcvA6BVAXcVKoeGpV01uexUgZ6\nSt5RP9UmDWNA7T4yVXWJ233N0Q8bl+6AswINQ3PosPu6yQQHQjr65YS06epK+AeI\n6j+oGR4xI7EhTQhQvaobnGmX/8QQ7XDRYCP2HXYxiffnn/CfZ/BVyKLYeY1ZipjE\nnzqdQIC2+Q3WtY8jsVRQMP38WFRmtsIt5snehnPTs5bKGVIcYzj3o3Ex/K7agEz0\nzAJ0JR5ivXZOvNkT0g9x1v+S1IkU3e/nX1a+tpRquMtnHX0L2lXArNHUbaOO9EJt\nd57WaIpofV5cVhhwShOgAuBc9UMJF3/n4t4RKiPxtsK8P67gcmphMhslj7AMYrYM\nej2NvQZY4m3ub3CPC/PrTjDONvb+8g5xrKtxBjYqC74HSB4dg9G3WimSDUuP2Su6\nG2y2TUeyJuCvCLz289VoO0vg7cNdMobE3KCqAiiNhN2VBFxHAUKmUoRcRdw=\n-----END CERTIFICATE-----\n",
+      "metadata": {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "x509",
+          "-noout",
+          "-subject",
+          "-issuer",
+          "-serial",
+          "-dates",
+          "-fingerprint",
+          "-sha256",
+          "-ext",
+          "subjectAltName,authorityInfoAccess,basicConstraints,keyUsage,extendedKeyUsage"
+        ],
+        "exit": 0,
+        "stdout": "subject=C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Sub CA\nissuer=C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Root CA\nserial=1005\nnotBefore=Jul 15 12:50:41 2024 GMT\nnotAfter=Jul 19 12:50:41 2029 GMT\nsha256 Fingerprint=21:55:78:50:36:C9:00:DB:B5:F1:BB:2A:15:69:C8:0C:55:59:5B:D6:BF:94:86:7A:29:BB:DD:BC:7D:88:A3:F2\nX509v3 Key Usage: critical\n    Digital Signature, Certificate Sign, CRL Sign\nX509v3 Basic Constraints: critical\n    CA:TRUE, pathlen:0\nAuthority Information Access: \n    CA Issuers - URI:http://nuc-cdp.voskhod.ru/cdp/rootca_ssl_rsa2022.crt\n    CA Issuers - URI:http://nuc-cdp.digital.gov.ru/cdp/rootca_ssl_rsa2022.crt\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "scoped_trust": {
+    "type": "One CA, in-memory SSLContext / process-scoped --cacert, dedicated to api-ai.mai.ru",
+    "root_source_url": "https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt",
+    "root_source_transport": "System /usr/bin/curl -q with default verification, HTTPS, exit 0, no redirect followed.",
+    "root_source_response": {
+      "url": "https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt",
+      "exit": 0,
+      "stderr": "HTTP/2 200 \r\nserver: nginx\r\ndate: Fri, 13 Nov 2026 12:31:40 GMT\r\ncontent-type: application/x-x509-ca-cert\r\ncontent-length: 2088\r\nlast-modified: Thu, 21 Aug 2025 19:02:19 GMT\r\netag: \"68a76d3b-828\"\r\nexpires: Thu, 31 Dec 2037 23:55:55 GMT\r\ncache-control: max-age=315360000\r\nstrict-transport-security: max-age=157680000\r\nx-ngenix-cache: HIT\r\nx-ngenix-cache: HIT\r\naccess-control-allow-origin: *\r\naccept-ranges: bytes\r\n\r\n",
+      "body_size": 2088,
+      "observed_at_utc": "2026-11-13T12:31:40.099135+00:00",
+      "pem": "-----BEGIN CERTIFICATE-----\r\nMIIFwjCCA6qgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UEBhMCUlUx\r\nPzA9BgNVBAoMNlRoZSBNaW5pc3RyeSBvZiBEaWdpdGFsIERldmVsb3BtZW50IGFu\r\nZCBDb21tdW5pY2F0aW9uczEgMB4GA1UEAwwXUnVzc2lhbiBUcnVzdGVkIFJvb3Qg\r\nQ0EwHhcNMjIwMzAxMjEwNDE1WhcNMzIwMjI3MjEwNDE1WjBwMQswCQYDVQQGEwJS\r\nVTE/MD0GA1UECgw2VGhlIE1pbmlzdHJ5IG9mIERpZ2l0YWwgRGV2ZWxvcG1lbnQg\r\nYW5kIENvbW11bmljYXRpb25zMSAwHgYDVQQDDBdSdXNzaWFuIFRydXN0ZWQgUm9v\r\ndCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMfFOZ8pUAL3+r2n\r\nqqE0Zp52selXsKGFYoG0GM5bwz1bSFtCt+AZQMhkWQheI3poZAToYJu69pHLKS6Q\r\nXBiwBC1cvzYmUYKMYZC7jE5YhEU2bSL0mX7NaMxMDmH2/NwuOVRj8OImVa5s1F4U\r\nzn4Kv3PFlDBjjSjXKVY9kmjUBsXQrIHeaqmUIsPIlNWUnimXS0I0abExqkbdrXbX\r\nYwCOXhOO2pDUx3ckmJlCMUGacUTnylyQW2VsJIyIGA8V0xzdaeUXg0VZ6ZmNUr5Y\r\nBer/EAOLPb8NYpsAhJe2mXjMB/J9HNsoFMBFJ0lLOT/+dQvjbdRZoOT8eqJpWnVD\r\nU+QL/qEZnz57N88OWM3rabJkRNdU/Z7x5SFIM9FrqtN8xewsiBWBI0K6XFuOBOTD\r\n4V08o4TzJ8+Ccq5XlCUW2L48pZNCYuBDfBh7FxkB7qDgGDiaftEkZZfApRg2E+M9\r\nG8wkNKTPLDc4wH0FDTijhgxR3Y4PiS1HL2Zhw7bD3CbslmEGgfnnZojNkJtcLeBH\r\nBLa52/dSwNU4WWLubaYSiAmA9IUMX1/RpfpxOxd4Ykmhz97oFbUaDJFipIggx5sX\r\nePAlkTdWnv+RWBxlJwMQ25oEHmRguNYf4Zr/Rxr9cS93Y+mdXIZaBEE0KS2iLRqa\r\nOiWBki9IMQU4phqPOBAaG7A+eP8PAgMBAAGjZjBkMB0GA1UdDgQWBBTh0YHlzlpf\r\nBKrS6badZrHF+qwshzAfBgNVHSMEGDAWgBTh0YHlzlpfBKrS6badZrHF+qwshzAS\r\nBgNVHRMBAf8ECDAGAQH/AgEEMA4GA1UdDwEB/wQEAwIBhjANBgkqhkiG9w0BAQsF\r\nAAOCAgEAALIY1wkilt/urfEVM5vKzr6utOeDWCUczmWX/RX4ljpRdgF+5fAIS4vH\r\ntmXkqpSCOVeWUrJV9QvZn6L227ZwuE15cWi8DCDal3Ue90WgAJJZMfTshN4OI8cq\r\nW9E4EG9wglbEtMnObHlms8F3CHmrw3k6KmUkWGoa+/ENmcVl68u/cMRl1JbW2bM+\r\n/3A+SAg2c6iPDlehczKx2oa95QW0SkPPWGuNA/CE8CpyANIhu9XFrj3RQ3EqeRcS\r\nAQQod1RNuHpfETLU/A2gMmvn/w/sx7TB3W5BPs6rprOA37tutPq9u6FTZOcG1Oqj\r\nC/B7yTqgI7rbyvox7DEXoX7rIiEqyNNUguTk/u3SZ4VXE2kmxdmSh3TQvybfbnXV\r\n4JbCZVaqiZraqc7oZMnRoWrXRG3ztbnbes/9qhRGI7PqXqeKJBztxRTEVj8ONs1d\r\nWN5szTwaPIvhkhO3CO5ErU2rVdUr89wKpNXbBODFKRtgxUT70YpmJ46VVaqdAhOZ\r\nD9EUUn4YaeLaS8AjSF/h7UkjOibNc4qVDiPP+rkehFWM66PVnP1Msh93tc+taIfC\r\nEYVMxjh8zNbFuoc7fzvvrFILLe7ifvEIUqSVIC/AzplM/Jxw7buXFeGP1qVCBEHq\r\n391d/9RAfaZ12zkwFsl+IKwE/OZxW8AHa9i1p4GO0YSNuczzEm4=\r\n-----END CERTIFICATE-----"
+    },
+    "root_der_sha256": "d26d2d0231b7c39f92cc738512ba54103519e4405d68b5bd703e9788ca8ecf31",
+    "root_pem": "-----BEGIN CERTIFICATE-----\nMIIFwjCCA6qgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UEBhMCUlUx\nPzA9BgNVBAoMNlRoZSBNaW5pc3RyeSBvZiBEaWdpdGFsIERldmVsb3BtZW50IGFu\nZCBDb21tdW5pY2F0aW9uczEgMB4GA1UEAwwXUnVzc2lhbiBUcnVzdGVkIFJvb3Qg\nQ0EwHhcNMjIwMzAxMjEwNDE1WhcNMzIwMjI3MjEwNDE1WjBwMQswCQYDVQQGEwJS\nVTE/MD0GA1UECgw2VGhlIE1pbmlzdHJ5IG9mIERpZ2l0YWwgRGV2ZWxvcG1lbnQg\nYW5kIENvbW11bmljYXRpb25zMSAwHgYDVQQDDBdSdXNzaWFuIFRydXN0ZWQgUm9v\ndCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMfFOZ8pUAL3+r2n\nqqE0Zp52selXsKGFYoG0GM5bwz1bSFtCt+AZQMhkWQheI3poZAToYJu69pHLKS6Q\nXBiwBC1cvzYmUYKMYZC7jE5YhEU2bSL0mX7NaMxMDmH2/NwuOVRj8OImVa5s1F4U\nzn4Kv3PFlDBjjSjXKVY9kmjUBsXQrIHeaqmUIsPIlNWUnimXS0I0abExqkbdrXbX\nYwCOXhOO2pDUx3ckmJlCMUGacUTnylyQW2VsJIyIGA8V0xzdaeUXg0VZ6ZmNUr5Y\nBer/EAOLPb8NYpsAhJe2mXjMB/J9HNsoFMBFJ0lLOT/+dQvjbdRZoOT8eqJpWnVD\nU+QL/qEZnz57N88OWM3rabJkRNdU/Z7x5SFIM9FrqtN8xewsiBWBI0K6XFuOBOTD\n4V08o4TzJ8+Ccq5XlCUW2L48pZNCYuBDfBh7FxkB7qDgGDiaftEkZZfApRg2E+M9\nG8wkNKTPLDc4wH0FDTijhgxR3Y4PiS1HL2Zhw7bD3CbslmEGgfnnZojNkJtcLeBH\nBLa52/dSwNU4WWLubaYSiAmA9IUMX1/RpfpxOxd4Ykmhz97oFbUaDJFipIggx5sX\nePAlkTdWnv+RWBxlJwMQ25oEHmRguNYf4Zr/Rxr9cS93Y+mdXIZaBEE0KS2iLRqa\nOiWBki9IMQU4phqPOBAaG7A+eP8PAgMBAAGjZjBkMB0GA1UdDgQWBBTh0YHlzlpf\nBKrS6badZrHF+qwshzAfBgNVHSMEGDAWgBTh0YHlzlpfBKrS6badZrHF+qwshzAS\nBgNVHRMBAf8ECDAGAQH/AgEEMA4GA1UdDwEB/wQEAwIBhjANBgkqhkiG9w0BAQsF\nAAOCAgEAALIY1wkilt/urfEVM5vKzr6utOeDWCUczmWX/RX4ljpRdgF+5fAIS4vH\ntmXkqpSCOVeWUrJV9QvZn6L227ZwuE15cWi8DCDal3Ue90WgAJJZMfTshN4OI8cq\nW9E4EG9wglbEtMnObHlms8F3CHmrw3k6KmUkWGoa+/ENmcVl68u/cMRl1JbW2bM+\n/3A+SAg2c6iPDlehczKx2oa95QW0SkPPWGuNA/CE8CpyANIhu9XFrj3RQ3EqeRcS\nAQQod1RNuHpfETLU/A2gMmvn/w/sx7TB3W5BPs6rprOA37tutPq9u6FTZOcG1Oqj\nC/B7yTqgI7rbyvox7DEXoX7rIiEqyNNUguTk/u3SZ4VXE2kmxdmSh3TQvybfbnXV\n4JbCZVaqiZraqc7oZMnRoWrXRG3ztbnbes/9qhRGI7PqXqeKJBztxRTEVj8ONs1d\nWN5szTwaPIvhkhO3CO5ErU2rVdUr89wKpNXbBODFKRtgxUT70YpmJ46VVaqdAhOZ\nD9EUUn4YaeLaS8AjSF/h7UkjOibNc4qVDiPP+rkehFWM66PVnP1Msh93tc+taIfC\nEYVMxjh8zNbFuoc7fzvvrFILLe7ifvEIUqSVIC/AzplM/Jxw7buXFeGP1qVCBEHq\n391d/9RAfaZ12zkwFsl+IKwE/OZxW8AHa9i1p4GO0YSNuczzEm4=\n-----END CERTIFICATE-----\n",
+    "check_hostname": true,
+    "verify_mode": "CERT_REQUIRED",
+    "anchor_count": 1,
+    "deployment_decision": "Coordinator decision required before persistent bundle or production client change; none made."
+  },
+  "scoped_verification": {
+    "observed_at_utc": "2026-11-13T12:32:21.897503+00:00",
+    "root_der_sha256": "d26d2d0231b7c39f92cc738512ba54103519e4405d68b5bd703e9788ca8ecf31",
+    "checks": {
+      "root_metadata": {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "x509",
+          "-noout",
+          "-subject",
+          "-issuer",
+          "-serial",
+          "-dates",
+          "-fingerprint",
+          "-sha256",
+          "-ext",
+          "basicConstraints,keyUsage"
+        ],
+        "exit": 0,
+        "stdout": "subject=C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Root CA\nissuer=C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Root CA\nserial=1000\nnotBefore=Mar  1 21:04:15 2022 GMT\nnotAfter=Feb 27 21:04:15 2032 GMT\nsha256 Fingerprint=D2:6D:2D:02:31:B7:C3:9F:92:CC:73:85:12:BA:54:10:35:19:E4:40:5D:68:B5:BD:70:3E:97:88:CA:8E:CF:31\nX509v3 Basic Constraints: critical\n    CA:TRUE, pathlen:4\nX509v3 Key Usage: critical\n    Digital Signature, Certificate Sign, CRL Sign\n",
+        "stderr": ""
+      },
+      "root_self_signature": {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "verify",
+          "-check_ss_sig",
+          "-CAfile",
+          "/dev/fd/3",
+          "-no-CApath",
+          "-no-CAstore"
+        ],
+        "exit": 0,
+        "stdout": "stdin: OK\n",
+        "stderr": ""
+      },
+      "leaf_and_intermediate_offline_verify": {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "verify",
+          "-show_chain",
+          "-purpose",
+          "sslserver",
+          "-verify_hostname",
+          "api-ai.mai.ru",
+          "-CAfile",
+          "/dev/fd/3",
+          "-no-CApath",
+          "-no-CAstore",
+          "-untrusted",
+          "/dev/fd/4"
+        ],
+        "exit": 0,
+        "stdout": "stdin: OK\nChain:\ndepth=0: CN=mai.ru, O=Московский авиационный институт, C=RU, ST=77 г.Москва, L=г. Москва, street=Волоколамское шоссе, д. 4, 1.2.643.100.4=7712038455, OGRN=1037739180820 (untrusted)\ndepth=1: C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Sub CA (untrusted)\ndepth=2: C=RU, O=The Ministry of Digital Development and Communications, CN=Russian Trusted Root CA\n",
+        "stderr": ""
+      },
+      "openssl_scoped_root_TLS": {
+        "argv": [
+          "/opt/homebrew/opt/openssl@3/bin/openssl",
+          "s_client",
+          "-connect",
+          "api-ai.mai.ru:443",
+          "-servername",
+          "api-ai.mai.ru",
+          "-verify_hostname",
+          "api-ai.mai.ru",
+          "-verify_return_error",
+          "-CAfile",
+          "/dev/fd/3",
+          "-no-CApath",
+          "-no-CAstore",
+          "-brief",
+          "-no_ticket"
+        ],
+        "exit": 0,
+        "stdout": "",
+        "stderr": "Connecting to 194.54.177.229\nCONNECTION ESTABLISHED\nProtocol version: TLSv1.3\nCiphersuite: TLS_AES_256_GCM_SHA384\nPeer certificate: CN=mai.ru, O=Московский авиационный институт, C=RU, ST=77 г.Москва, L=г. Москва, street=Волоколамское шоссе, д. 4, 1.2.643.100.4=7712038455, OGRN=1037739180820\nHash used: SHA256\nSignature type: rsa_pss_rsae_sha256\nVerification: OK\nVerified peername: *.mai.ru\nPeer Temp Key: X25519, 253 bits\nDONE\n"
+      },
+      "python_scoped_root_TLS": {
+        "verified": true,
+        "check_hostname": true,
+        "verify_mode": 2,
+        "trust_anchor_count": 1,
+        "version": "TLSv1.3",
+        "cipher": [
+          "TLS_AES_256_GCM_SHA384",
+          "TLSv1.3",
+          256
+        ],
+        "peer_der_sha256": "48a503e3f0c547e0505d510d1595a21ead7a6e41badd2cd71e79423ec77ff4a7",
+        "peer_cert": {
+          "subject": [
+            [
+              [
+                "commonName",
+                "mai.ru"
+              ]
+            ],
+            [
+              [
+                "organizationName",
+                "Московский авиационный институт"
+              ]
+            ],
+            [
+              [
+                "countryName",
+                "RU"
+              ]
+            ],
+            [
+              [
+                "stateOrProvinceName",
+                "77 г.Москва"
+              ]
+            ],
+            [
+              [
+                "localityName",
+                "г. Москва"
+              ]
+            ],
+            [
+              [
+                "streetAddress",
+                "Волоколамское шоссе, д. 4"
+              ]
+            ],
+            [
+              [
+                "1.2.643.100.4",
+                "7712038455"
+              ]
+            ],
+            [
+              [
+                "OGRN",
+                "1037739180820"
+              ]
+            ]
+          ],
+          "issuer": [
+            [
+              [
+                "countryName",
+                "RU"
+              ]
+            ],
+            [
+              [
+                "organizationName",
+                "The Ministry of Digital Development and Communications"
+              ]
+            ],
+            [
+              [
+                "commonName",
+                "Russian Trusted Sub CA"
+              ]
+            ]
+          ],
+          "version": 3,
+          "serialNumber": "383295D9F2814CBBAB516050FDB8D2AF",
+          "notBefore": "Aug 25 09:14:13 2026 GMT",
+          "notAfter": "Aug 25 09:14:13 2027 GMT",
+          "subjectAltName": [
+            [
+              "DNS",
+              "mai.ru"
+            ],
+            [
+              "DNS",
+              "*.mai.ru"
+            ]
+          ],
+          "OCSP": [
+            "http://nuc-ocsp.voskhod.ru"
+          ],
+          "caIssuers": [
+            "http://nuc-cdp.voskhod.ru/cdp/subca_ssl_rsa2024.crt",
+            "http://nuc-cdp.digital.gov.ru/cdp/subca_ssl_rsa2024.crt"
+          ],
+          "crlDistributionPoints": [
+            "http://nuc-cdp.voskhod.ru/cdp/subca_ssl_rsa2024_ov.crl",
+            "http://nuc-cdp.digital.gov.ru/cdp/subca_ssl_rsa2024_ov.crl"
+          ]
+        }
+      },
+      "system_curl_scoped_root_HEAD": {
+        "argv": [
+          "/usr/bin/curl",
+          "-q",
+          "-sS",
+          "-I",
+          "--cacert",
+          "/dev/fd/5",
+          "--connect-timeout",
+          "7",
+          "--max-time",
+          "14",
+          "--proto",
+          "=https",
+          "--write-out",
+          "\\nhttp_code=%{http_code} ssl_verify_result=%{ssl_verify_result} remote_ip=%{remote_ip}\\n",
+          "https://api-ai.mai.ru/"
+        ],
+        "exit": 0,
+        "stdout": "HTTP/1.1 200 OK\nServer: nginx\nDate: Fri, 13 Nov 2026 12:32:21 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 3052\nConnection: keep-alive\nVary: Accept-Encoding\nx-frame-options: DENY\ncontent-security-policy: frame-ancestors 'none'\nx-content-type-options: nosniff\nvary: Accept-Encoding\nX-Frame-Options: SAMEORIGIN\nX-Content-Type-Options: nosniff\n\n\nhttp_code=200 ssl_verify_result=0 remote_ip=194.54.177.229\n",
+        "stderr": ""
+      }
+    }
+  },
+  "public_http_after_verified_tls": [
+    {
+      "host": "api-ai.mai.ru",
+      "path": "/",
+      "observed_at_utc": "2026-11-13T12:32:50.840596+00:00",
+      "tls": {
+        "verified": true,
+        "version": "TLSv1.3",
+        "peer_sha256": "48a503e3f0c547e0505d510d1595a21ead7a6e41badd2cd71e79423ec77ff4a7"
+      },
+      "http_status": 200,
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "3052"
+      },
+      "body_sha256": "20b306050c2bba8ab9d9e3d5f8c802741d93639f975427b85db401e8b61f20d4",
+      "body_complete": true,
+      "body_bytes_read": 3052,
+      "body_excerpt": "\n    <!DOCTYPE html>\n    <html>\n    <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link type=\"text/css\" rel=\"stylesheet\" href=\"/swagger/swagger-ui.css\">\n    <link rel=\"shortcut icon\" href=\"/swagger/favicon.png\">\n    <title>LiteLLM API - Swagger UI</title>\n    </head>\n    <body>\n    <div id=\"swagger-ui\">\n    </div>\n    <script src=\"/swagger/swagger-ui-bundle.js\"></script>\n    <!-- `SwaggerUIBundle` is now available on the page -->\n    <script>\n    const TAG_TO_PREFIX = {};const warmedTags = new Set();const LAZY_TAGS = new Set(Object.keys(TAG_TO_PREFIX));const hideStubRows = () => {document.querySelectorAll('.opblock').forEach(op => {const d = op.querySelector('.opblock-summary-description');if (d && LAZY_TAGS.has(d.textContent.trim())) op.style.display = 'none';});};const annotateLazyHeaders = () => {document.querySelectorAll('.opblock-tag').forEach(tagEl => {const m = (tagEl.id || '').match(/^operations-tag-(.+)$/);if (!m || !LAZY_TAGS.has(m[1])) return;const existing = tagEl.querySelector('.lazy-load-hint');if (warmedTags.has(m[1])) { if (existing) existing.remove(); return; }if (existing) return;const hint = document.createElement('small');hint.className = 'lazy-load-hint';hint.textContent = ' (expand to load routes)';hint.style.opacity = '0.6';hint.style.marginLeft = '6px';const target = tagEl.querySelector('a span') || tagEl.querySelector('span') || tagEl;target.appendChild(hint);});};setInterval(() => { hideStubRows(); annotateLazyHeaders(); }, 200);const LazyLoadPlugin = () => ({afterLoad:function(system){setTimeout(()=>{for(const tag of LAZY_TAGS)system.layoutActions.show(['operations-tag',tag],false);},200);},statePlugins:{layout:{wrapActions:{show:(ori,sys)=>(...args)=>{const thing=args[0];const shown=args[1];let tag=null;if(Array.isArray(thing)){for(const t of thing)if(TAG_TO_PREFIX[t])tag=t;}if(shown!==false&&tag&&!warmedTags.has(tag)){warmedTags.add(tag);fetch('/lazy/warm/'+tag,{method:'POST',credentials:'include'}).then(r=>r.json()).then(d=>{if(!d.paths||Object.keys(d.paths).length===0)return;const cur=sys.specSelectors.specJson().toJS();const merged={};let inserted=false;for(const k in (cur.paths||{})){if(k===d.stub_path){for(const nk in d.paths)merged[nk]=d.paths[nk];inserted=true;}else{merged[k]=cur.paths[k];}}if(!inserted)Object.assign(merged,d.paths);cur.paths=merged;cur.components=cur.components||{};cur.components.schemas=Object.assign(cur.components.schemas||{},(d.components||{}).schemas||{});sys.specActions.updateSpec(JSON.stringify(cur));}).catch(()=>{});}return ori(...args);}}}}});const ui = SwaggerUIBundle({plugins:[LazyLoadPlugin],tagsSorter:\"alpha\",\n        url: '/openapi.json',\n    \"dom_id\": \"#swagger-ui\",\n\"layout\": \"BaseLayout\",\n\"deepLinking\": true,\n\"showExtensions\": true,\n\"showCommonExtensions\": true,\noauth2RedirectUrl: window.location.origin + '/docs/oauth2-redirect',\n    presets: [\n        SwaggerUIBundle.presets.apis,\n        SwaggerUIBundle.SwaggerUIStandalonePreset\n        ],\n    })\n    </script>\n    </body>\n    </html>\n    ",
+      "hrefs": [
+        "/swagger/swagger-ui.css",
+        "/swagger/favicon.png",
+        "/swagger/swagger-ui-bundle.js"
+      ]
+    },
+    {
+      "host": "api-ai.mai.ru",
+      "path": "/docs",
+      "observed_at_utc": "2026-11-13T12:32:50.840987+00:00",
+      "tls": {
+        "verified": true,
+        "version": "TLSv1.3",
+        "peer_sha256": "48a503e3f0c547e0505d510d1595a21ead7a6e41badd2cd71e79423ec77ff4a7"
+      },
+      "http_status": 404,
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Content-Length": "22"
+      },
+      "body_sha256": "37ec4665a8102d115ffd1ac20dae94c98b4dac64b0c1a68228aa2a531caeb35d",
+      "body_complete": true,
+      "body_bytes_read": 22,
+      "body_excerpt": "{\"detail\":\"Not Found\"}",
+      "json_top_level_keys": [
+        "detail"
+      ],
+      "hrefs": []
+    },
+    {
+      "host": "api-ai.mai.ru",
+      "path": "/openapi.json",
+      "observed_at_utc": "2026-11-13T12:32:54.879020+00:00",
+      "tls": {
+        "verified": true,
+        "version": "TLSv1.3",
+        "peer_sha256": "48a503e3f0c547e0505d510d1595a21ead7a6e41badd2cd71e79423ec77ff4a7"
+      },
+      "http_status": 200,
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Content-Length": "2052095"
+      },
+      "body_sha256": "4f0c915c323570d2a820b4c716b1c39c6c1159268274e7b4924265fde980b27a",
+      "body_complete": false,
+      "body_bytes_read": 262145,
+      "body_excerpt": "{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"LiteLLM API\",\"description\":\"Proxy Server to call 100+ LLMs in the OpenAI format. [**Customize Swagger Docs**](https://docs.litellm.ai/docs/proxy/enterprise#swagger-docs---custom-routes--branding)\\n\\n👉 [```LiteLLM Admin Panel on /ui```](/ui). Create, Edit Keys with SSO. Having issues? Try [```Fallback Login```](/fallback/login)\\n\\n💸 [```LiteLLM Model Cost Map```](https://models.litellm.ai/).\\n\\n🔎 [```LiteLLM Model Hub```](/ui/model_hub_table). See available models on the proxy. [**Docs**](https://docs.litellm.ai/docs/proxy/ai_hub)\",\"version\":\"1.106.4\"},\"paths\":{\"/chat/completions\":{\"post\":{\"tags\":[\"chat/completions\"],\"summary\":\"Chat Completion\",\"description\":\"Follows the exact same API spec as `OpenAI's Chat API https://platform.openai.com/docs/api-reference/chat`\\n\\n```bash\\ncurl -X POST http://localhost:4000/v1/chat/completions \\n-H \\\"Content-Type: application/json\\\" \\n-H \\\"Authorization: Bearer $LITELLM_MASTER_KEY\\\" \\n-d '{\\n    \\\"model\\\": \\\"gpt-4o\\\",\\n    \\\"messages\\\": [\\n        {\\n            \\\"role\\\": \\\"user\\\",\\n            \\\"content\\\": \\\"Hello!\\\"\\n        }\\n    ]\\n}'\\n```\",\"operationId\":\"chat_completion_chat_completions_post\",\"security\":[{\"APIKeyHeader\":[]}],\"parameters\":[],\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}},\"422\":{\"description\":\"Validation Error\",\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/HTTPValidationError\"}}}}},\"requestBody\":{\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"required\":[\"model\",\"messages\"],\"properties\":{\"model\":{\"title\":\"Model\",\"type\":\"string\"},\"messages\":{\"items\":{\"anyOf\":[{\"$ref\":\"#/components/schemas/ChatCompletionUserMessage\"},{\"$ref\":\"#/components/schemas/ChatCompletionAssistantMessage\"},{\"$ref\":\"#/components/schemas/ChatCompletionToolMessage\"},{\"$ref\":\"#/components/schemas/ChatCompletionSystemMessage\"},{\"$ref\":\"#/components/schemas/ChatCompletionFunctionMessage\"},{\"$ref\":\"#/components/schemas/ChatCompletionDeveloperMessage\"}]},\"title\":\"Messages\",\"type\":\"array\",\"example\":[{\"role\":\"user\",\"content\":\"Hello, how are you?\"}]},\"frequency_penalty\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Frequency Penalty\"},\"logit_bias\":{\"anyOf\":[{\"additionalProperties\":{\"type\":\"number\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Logit Bias\"},\"logprobs\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Logprobs\"},\"top_logprobs\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Top Logprobs\"},\"max_tokens\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Max Tokens\"},\"n\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"N\"},\"presence_penalty\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Presence Penalty\"},\"response_format\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Response Format\"},\"seed\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Seed\"},\"service_tier\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Service Tier\"},\"stop\":{\"anyOf\":[{\"type\":\"string\"},{\"items\":{\"type\":\"string\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Stop\"},\"stream_options\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Stream Options\"},\"temperature\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Temperature\"},\"top_p\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Top P\"},\"tools\":{\"anyOf\":[{\"items\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Tools\"},\"tool_choice\":{\"anyOf\":[{\"type\":\"string\"},{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Tool Choice\"},\"parallel_tool_calls\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Parallel Tool Calls\"},\"function_call\":{\"anyOf\":[{\"type\":\"string\"},{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Function Call\"},\"functions\":{\"anyOf\":[{\"items\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Functions\"},\"user\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"User\"},\"stream\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Stream\"},\"metadata\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Metadata\"},\"guardrails\":{\"anyOf\":[{\"items\":{\"type\":\"string\"},\"type\":\"array\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Guardrails\"},\"caching\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Caching\"},\"num_retries\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"Num Retries\"},\"context_window_fallback_dict\":{\"anyOf\":[{\"additionalProperties\":{\"type\":\"string\"},\"type\":\"object\"}",
+      "hrefs": []
+    },
+    {
+      "host": "www.gosuslugi.ru",
+      "path": "/tls",
+      "exception": "SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1006)"
+    }
+  ],
+  "auxiliary_official_source_probes": [
+    {
+      "url": "https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt",
+      "exit": 0,
+      "stderr": "HTTP/2 200 \r\nserver: nginx\r\ndate: Fri, 13 Nov 2026 12:31:40 GMT\r\ncontent-type: application/x-x509-ca-cert\r\ncontent-length: 2616\r\nlast-modified: Thu, 21 Aug 2025 19:14:53 GMT\r\netag: \"68a7702d-a38\"\r\nexpires: Thu, 31 Dec 2037 23:55:55 GMT\r\ncache-control: max-age=315360000\r\nstrict-transport-security: max-age=157680000\r\nx-ngenix-cache: HIT\r\nx-ngenix-cache: HIT\r\naccess-control-allow-origin: *\r\naccept-ranges: bytes\r\n\r\n",
+      "body_size": 2616,
+      "observed_at_utc": "2026-11-13T12:31:40.099735+00:00"
+    },
+    {
+      "url": "https://www.gosuslugi.ru/tls",
+      "exit": 60,
+      "stderr": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above.\n",
+      "body_size": 0,
+      "observed_at_utc": "2026-11-13T12:31:42.753982+00:00",
+      "body_excerpt": "",
+      "certificate_links": []
+    },
+    {
+      "url": "https://nuc-cdp.digital.gov.ru/cdp/rootca_ssl_rsa2022.crt",
+      "exit": 35,
+      "stderr": "curl: (35) LibreSSL/3.3.6: error:1404B458:SSL routines:ST_CONNECT:tlsv1 unrecognized name\n",
+      "body_size": 0,
+      "observed_at_utc": "2026-11-13T12:31:41.298944+00:00",
+      "body_excerpt": "",
+      "certificate_links": []
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt",
+      "role": "Root certificate publication, fetched over normally verified HTTPS"
+    },
+    {
+      "url": "https://www.gosuslugi.ru/tls",
+      "role": "Official landing page; local default verification failed, root-only scoped context also failed; web tool saw waiting page; not treated as locally verified documentation"
+    },
+    {
+      "url": "https://www.rustore.ru/help/developers/monetization/payment-callback/Preparing-the-server-for-RuStore%20API",
+      "role": "Primary RuStore developer documentation identifies gu-st.ru root/sub CA links as portal Gosuslugi downloads; system installation steps were not applied"
+    },
+    {
+      "url": "https://api-ai.mai.ru/",
+      "role": "Verified TLS, public Swagger UI, HTTP 200"
+    },
+    {
+      "url": "https://api-ai.mai.ru/openapi.json",
+      "role": "Verified TLS, HTTP 200, first 262145 bytes of 2052095-byte response read; not a complete schema snapshot"
+    }
+  ],
+  "saved_commands_verification": [
+    {
+      "block": 1,
+      "exit": 0,
+      "stdout": "VERIFIED TLSv1.3 (('DNS', 'mai.ru'), ('DNS', '*.mai.ru'))\n",
+      "stderr": "",
+      "observed_at_utc": "2026-11-13T12:39:52.263419+00:00"
+    },
+    {
+      "block": 2,
+      "exit": 0,
+      "stdout": "HTTP/1.1 200 OK\nServer: nginx\nDate: Fri, 13 Nov 2026 12:39:52 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 3052\nConnection: keep-alive\nVary: Accept-Encoding\nx-frame-options: DENY\ncontent-security-policy: frame-ancestors 'none'\nx-content-type-options: nosniff\nvary: Accept-Encoding\nX-Frame-Options: SAMEORIGIN\nX-Content-Type-Options: nosniff\n\n\nhttp_code=200 ssl_verify_result=0\n",
+      "stderr": "",
+      "observed_at_utc": "2026-11-13T12:39:52.848760+00:00"
+    }
+  ],
+  "artifact_checks": {
+    "receipt_json_valid": true,
+    "report_shell_blocks": 2,
+    "root_sha256": "d26d2d0231b7c39f92cc738512ba54103519e4405d68b5bd703e9788ca8ecf31"
+  },
+  "limits": [
+    "No CRL/OCSP revocation query or stapling policy validation; checks cover chain signatures, validity periods and hostname.",
+    "No assertion about authorization, available models, quotas, paid execution or API completion.",
+    "No Homebrew curl binary was available for comparison.",
+    "The JSON contains a public CA certificate as evidence; this is not an installed trust store.",
+    "Root self-signature is a consistency check; provenance comes from the verified HTTPS download, not from self-signature alone."
+  ]
+}

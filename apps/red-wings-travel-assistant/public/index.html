@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d52236">
+  <title>Red Wings — план поездки</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#planner">Перейти к планированию</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Red Wings Travel Assistant, главная">
+      <svg class="brand-mark" viewBox="0 0 44 36" fill="none" aria-hidden="true"><path d="M2 6h35L23 15H8L2 6Zm9 12h25L22 27h-5l-6-9Z" fill="currentColor"/></svg>
+      <span class="brand-name">Red Wings<span>Travel Assistant</span></span>
+    </a>
+    <span id="health" class="service-state" role="status" hidden></span>
+  </header>
+
+  <main id="planner" class="page">
+    <div class="page-heading">
+      <h1>Маршрут по России</h1>
+      <p>Перелёт Red Wings и наземный транспорт в одной поездке.</p>
+    </div>
+    <div class="workspace">
+      <aside class="planner-panel" aria-label="Параметры поездки">
+        <form id="plan-form">
+          <fieldset class="mode-switch">
+            <legend class="sr-only">Сценарий поездки</legend>
+            <label><input type="radio" name="mode" value="trip" checked><span>Спланировать поездку</span></label>
+            <label><input type="radio" name="mode" value="flight"><span>Уже есть рейс</span></label>
+          </fieldset>
+
+          <div class="city-fields">
+            <label class="field"><span>Откуда</span><input id="origin" name="origin" type="text" placeholder="Город отправления" autocomplete="off" required maxlength="100" list="supported-cities"></label>
+            <button id="swap-cities" class="swap-button" type="button" aria-label="Поменять города местами" title="Поменять города местами"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 4v15m-4-4 4 4 4-4M17 20V5m-4 4 4-4 4 4"/></svg></button>
+            <label class="field"><span>Куда</span><input id="destination" name="destination" type="text" placeholder="Город назначения" autocomplete="off" required maxlength="100" list="supported-cities"></label>
+          </div>
+
+          <fieldset class="period-fields">
+            <legend>Период вылета</legend>
+            <div class="field-pair">
+              <label class="field"><span>С</span><input id="date-from" name="date_from" type="date" required></label>
+              <label class="field"><span>По</span><input id="date-to" name="date_to" type="date" required></label>
+            </div>
+          </fieldset>
+
+          <fieldset id="flight-fields" class="flight-fields" hidden disabled>
+            <legend>Выбранный рейс Red Wings</legend>
+            <div class="field-pair">
+              <label class="field"><span>Номер рейса</span><input id="flight-number" name="flight_number" type="text" placeholder="WZ …" autocomplete="off" maxlength="24"></label>
+              <label class="field"><span>Дата рейса</span><input id="flight-date" name="flight_date" type="date"></label>
+            </div>
+          </fieldset>
+
+          <input name="preference" type="hidden" value="balanced">
+          <details class="address-options"><summary>Уточнить адреса</summary>
+            <label class="field"><span>Адрес в городе отправления</span><input name="origin_address" type="text" maxlength="240" placeholder="Улица и дом"></label>
+            <label class="field"><span>Адрес после прилёта</span><input name="destination_address" type="text" maxlength="240" placeholder="Улица и дом"></label>
+          </details>
+          <datalist id="supported-cities"></datalist>
+          <button id="submit-button" class="primary-button" type="submit"><span>Найти варианты</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+        </form>
+        <section class="examples-section" aria-labelledby="examples-title">
+          <h2 id="examples-title">Доступные примеры</h2>
+          <div id="examples" class="example-list" aria-live="polite"><p class="muted small">Загружаем…</p></div>
+        </section>
+      </aside>
+
+      <section id="results" class="results" aria-labelledby="results-title" aria-busy="false">
+        <div class="results-heading"><div><h2 id="results-title" tabindex="-1">Варианты поездки</h2><p id="query-summary" class="query-summary" hidden></p></div><span id="result-count" class="result-count" hidden></span></div>
+        <p id="request-status" class="request-status" role="status" aria-live="polite" hidden></p>
+        <div id="data-notice" class="data-notice" hidden></div>
+        <div id="empty-state" class="empty-state">
+          <svg class="journey-illustration" viewBox="0 0 440 180" fill="none" aria-hidden="true">
+            <path d="M52 132h72c46 0 32-77 89-77h47c57 0 43 77 89 77h39" stroke="#dedbd5" stroke-width="2" stroke-dasharray="5 7"/>
+            <circle cx="52" cy="132" r="7" fill="#fff" stroke="#8a8b8d" stroke-width="2"/><circle cx="388" cy="132" r="7" fill="#fff" stroke="#8a8b8d" stroke-width="2"/>
+            <rect x="193" y="21" width="72" height="68" rx="20" fill="#fbe9eb"/>
+            <path d="m208 59 17-4 3-17 5-2 2 18 12-2c4 0 6 4 1 6l-13 4-7 16-4 1 2-16-13 1-5-5Z" fill="#d52236"/>
+            <path d="M43 123v-14h18v14m-15 0v4m12-4v4m-15-10h18" stroke="#8a8b8d" stroke-width="1.8"/>
+            <path d="M381 115v-12l7-6 7 6v12m-10 0v-7h6v7" stroke="#8a8b8d" stroke-width="1.8"/>
+          </svg>
+          <h3>Задайте направление и период</h3>
+          <p>Выберите рейс Red Wings и проверьте дорогу<br>до аэропорта и после прилёта.</p>
+        </div>
+        <div id="variant-list" class="variant-list"></div>
+        <div id="assistant-note" class="assistant-note" hidden></div>
+        <section id="sources-section" class="sources-section" hidden><h3>Источники</h3><ul id="sources-list"></ul></section>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">Билеты оформляются у перевозчиков. Наличие мест и итоговую цену проверяйте перед покупкой.</footer>
+  <noscript><p class="noscript">Для планирования поездки включите JavaScript.</p></noscript>
+</body>
+</html>
