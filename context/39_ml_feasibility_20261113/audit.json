@@ -1,0 +1,224 @@
+{
+  "date": "2026-11-13",
+  "scope": "ML feasibility audit; no training, forecast backtest, network replay or demonstrated accuracy gain",
+  "pins": {
+    "research": "cd04921fe5dd14dbf5c469b7f15a5efc203abc7b",
+    "author": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+    "direct_followup": "56400c5f111222d7c660d4345d3d43b92d4716d5",
+    "late_cost_followup": "423fd3f33425ae3c307568cdc295efe7cfa61c9c"
+  },
+  "author_segment_regression": {
+    "known_rows": 37,
+    "fit_rows": 31,
+    "fit_origin_counts": {
+      "AER": 5,
+      "BAX": 2,
+      "CEK": 1,
+      "KUF": 1,
+      "OMS": 8,
+      "OVB": 4,
+      "PEE": 10
+    },
+    "fit_annual_factor_counts": {
+      "1": 27,
+      "2": 4
+    },
+    "features": [
+      "lnPP",
+      "lnRail",
+      "mow",
+      "resort"
+    ],
+    "reported_loo_median_absolute_percentage_error_of_fact": 49.8,
+    "reported_loo_share_within_factor_two": 0.65,
+    "reported_od_reconstruction_loo_median_absolute_percentage_error_of_fact": 55.0,
+    "metrics_status": "Read existing author metrics, not independently rerun; no observed endpoint OD accuracy claim"
+  },
+  "p05_monthly_scenarios": {
+    "rows": 39840,
+    "directional_markets": 830,
+    "unordered_city_pairs": 415,
+    "months": 24,
+    "status": {
+      "scenario": 39840
+    },
+    "scenarios": {
+      "base": 19920,
+      "cautious": 19920
+    },
+    "observed_endpoint_labels_in_this_table": 0
+  },
+  "fare_quotes": {
+    "rows": 34,
+    "markets": {
+      "AIR:SVX:UFA": 34
+    },
+    "as_of": {
+      "2026-11-12": 34
+    },
+    "departure_dates": {
+      "2026-12-08": 10,
+      "2026-12-11": 6,
+      "2027-01-12": 6,
+      "2027-05-11": 6,
+      "2027-07-13": 6
+    },
+    "lead_days": {
+      "180": 6,
+      "243": 6,
+      "26": 10,
+      "29": 6,
+      "61": 6
+    },
+    "basket_comparability": {
+      "conditional_fees": 19,
+      "false": 11,
+      "true": 4
+    },
+    "target": "published offers, not realized net fares, choices or elasticity labels"
+  },
+  "recent_aggregate_aviation_history": {
+    "rows": 264,
+    "unique_months": 22,
+    "start": "2025-01",
+    "end": "2026-10",
+    "entity_metric_series": 12,
+    "definition": "carrier aggregates; metrics and parent group overlap; not independent OD observations"
+  },
+  "historical_airport_panel": {
+    "bytes": 306324,
+    "csv_rows": 3980,
+    "year_rows": 3977,
+    "airport_name_strings": 319,
+    "years": {
+      "2007": 292,
+      "2008": 292,
+      "2009": 292,
+      "2010": 292,
+      "2011": 292,
+      "2012": 292,
+      "2013": 292,
+      "2014": 292,
+      "2015": 292,
+      "2016": 292,
+      "2017": 292,
+      "2018": 248,
+      "2019": 251,
+      "2020": 266
+    },
+    "monthly_cells_total": 47724,
+    "numeric_monthly_cells": 12670,
+    "zero_monthly_cells": 346,
+    "missing_monthly_cells": 35054,
+    "complete_12month_rows": 1043,
+    "names_with_numeric_months": 117,
+    "names_with_at_least_120_contiguous_numeric_months_before_2020": 70,
+    "names_with_complete_2007_2019_numeric_history": 59,
+    "annual_sum_conflicts_in_complete_rows": [
+      {
+        "name": "Челябинск(Баландино)",
+        "year": "2019",
+        "monthly_sum": 1718555.0,
+        "published_annual": 1840533.0
+      }
+    ],
+    "measurement_direction_and_transit_definition": "UNKNOWN in raw CSV; inspect official metadata before application",
+    "duplicate_exact_name_year_keys": 0,
+    "caveats": [
+      "Name strings are not harmonized airport identifiers",
+      "Missing markers are not zero",
+      "Annual totals are not extra monthly labels",
+      "Airport traffic is not endpoint OD",
+      "Historical backtests do not validate post-2020 transfer or 2027-2028 forecasts"
+    ]
+  },
+  "recent_segment_context": {
+    "rows": 133,
+    "comparability": {
+      "РАЗНАЯ_СОВОКУПНОСТЬ; НЕ_CALIBRATION_PASS_OR_FAIL": 133
+    }
+  },
+  "latest_direct_followup": {
+    "monthly_evidence_rows": 603,
+    "status": {
+      "ANALOGUE_SECONDHAND_PRIMARY_CLAIM": 1,
+      "PRIOR": 1,
+      "SUPPLY_FACT_NOT_DEMAND": 1,
+      "UNKNOWN_NO_UPDATE": 600
+    },
+    "qualified_fare_rows": 0,
+    "scope": "Latest published additions inspected separately; no merge; not a full re-audit of that research"
+  },
+  "late_cost_followup": {
+    "scope": "Read published README and closure; changes add a cost research package and do not change the inspected demand/price inputs",
+    "effect_on_ml_recommendation": "Unit prices, coverage and unknown contract terms support direct cost accounting; no new ML training labels established by this scoped read"
+  },
+  "files": {
+    "author:data/manual/known_flows.csv": {
+      "commit": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+      "path": "data/manual/known_flows.csv",
+      "sha256": "15a771f0607e06be0d2e807af34459bceaf287388c18d7632e25851dc0a64814",
+      "bytes": 7317
+    },
+    "author:data/processed/demand_fit.json": {
+      "commit": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+      "path": "data/processed/demand_fit.json",
+      "sha256": "368f90bab3015e084073b385e6abfb77b392d0a9d006ad2bf0d4184347c071ab",
+      "bytes": 862
+    },
+    "author:data/processed/od_fit.json": {
+      "commit": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+      "path": "data/processed/od_fit.json",
+      "sha256": "c4aed87ca732a5b96b6adc42c5f5927a6ef2d6e06b00a0f1051238c67ec03a91",
+      "bytes": 3906
+    },
+    "research:context/35_full_programme_execution_20261112/P09/subject/P05/od_monthly.csv": {
+      "commit": "cd04921fe5dd14dbf5c469b7f15a5efc203abc7b",
+      "path": "context/35_full_programme_execution_20261112/P09/subject/P05/od_monthly.csv",
+      "sha256": "037939f646f2907928ec827e100481153908c475dba5f0b1c8cf0350cc537cde",
+      "bytes": 25768377
+    },
+    "research:context/35_full_programme_execution_20261112/P09/subject/P05/aviation_monthly_history.csv": {
+      "commit": "cd04921fe5dd14dbf5c469b7f15a5efc203abc7b",
+      "path": "context/35_full_programme_execution_20261112/P09/subject/P05/aviation_monthly_history.csv",
+      "sha256": "43c0b8489bc3616ab711a7073da1f33a71ed99385bd438a836102b8ab818412c",
+      "bytes": 83667
+    },
+    "research:context/35_full_programme_execution_20261112/P09/competition/fare_panel.csv": {
+      "commit": "cd04921fe5dd14dbf5c469b7f15a5efc203abc7b",
+      "path": "context/35_full_programme_execution_20261112/P09/competition/fare_panel.csv",
+      "sha256": "14fd50f963f9f163d9145e1cffdb550804351389cd2bf17077b262fd4ee39b20",
+      "bytes": 18034
+    },
+    "author:data/raw/favt_airports_2007_2020.csv": {
+      "commit": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+      "path": "data/raw/favt_airports_2007_2020.csv",
+      "sha256": "5a56bbf0277a39a01fdc414485dc4674badf0bfa5b5e916497a1604bd6cc245c",
+      "bytes": 306324
+    },
+    "research:context/35_full_programme_execution_20261112/P09/historical_validation_context.csv": {
+      "commit": "cd04921fe5dd14dbf5c469b7f15a5efc203abc7b",
+      "path": "context/35_full_programme_execution_20261112/P09/historical_validation_context.csv",
+      "sha256": "0438f50316fc2412e8f8e5aa7536617dcbabeb32b423ea3f2a3b4ee004a00be6",
+      "bytes": 88984
+    },
+    "direct_followup:context/38_direct_strategy_20261113/market_admission/monthly_evidence.csv": {
+      "commit": "56400c5f111222d7c660d4345d3d43b92d4716d5",
+      "path": "context/38_direct_strategy_20261113/market_admission/monthly_evidence.csv",
+      "sha256": "2e20d466bc92f1c945b99f7460d8043f7f07ca23346cb462e25150e9dd4aa962",
+      "bytes": 220864
+    },
+    "direct_followup:context/38_direct_strategy_20261113/market_admission/canonical_fares.csv": {
+      "commit": "56400c5f111222d7c660d4345d3d43b92d4716d5",
+      "path": "context/38_direct_strategy_20261113/market_admission/canonical_fares.csv",
+      "sha256": "e752258d0e735fca60c4d7e0f1f91a46751e92b0c06d417d41f271571aba15d3",
+      "bytes": 217
+    },
+    "late_cost_followup:context/39_cost_completion_20261113/README.md": {
+      "commit": "423fd3f33425ae3c307568cdc295efe7cfa61c9c",
+      "path": "context/39_cost_completion_20261113/README.md",
+      "sha256": "54b2bd5a993733b5a540a970145afe43d8fca0880e27c013e034b96a17df7e11",
+      "bytes": 16100
+    }
+  }
+}

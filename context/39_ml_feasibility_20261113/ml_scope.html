@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Применимость ML к модели Red Wings</title>
+<style>
+*{box-sizing:border-box}body{margin:0;color:var(--foreground);font-family:var(--font-sans,system-ui);font-size:14px;line-height:1.5}h2,h3,p{margin:0}h2{font-size:18px;font-weight:650;margin-bottom:14px}h3{font-size:15px;font-weight:650}small{display:block;color:var(--muted-foreground);font-size:12px}.flow{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;align-items:stretch;margin-bottom:22px}.node{padding:16px;background:var(--secondary);border-radius:var(--radius,10px)}.node p{margin-top:6px}.arrow{align-self:center;text-align:center;color:var(--muted-foreground)}.rows{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius,10px);overflow:hidden}.row{display:grid;grid-template-columns:145px 1fr;gap:16px;background:var(--card);padding:16px}.phase{font-weight:600;color:var(--primary)}.detail p{margin-top:4px;color:var(--muted-foreground)}.note{font-size:12px;color:var(--muted-foreground);margin-top:12px}@media(max-width:520px){.flow{grid-template-columns:1fr;gap:6px}.arrow{transform:rotate(90deg)}.row{grid-template-columns:1fr;gap:6px}.node{padding:12px}}
+</style>
+<h2>Место ML в расчёте</h2>
+<div class="flow" aria-label="Прогнозные компоненты передают входы расчётному ядру, которое сравнивает программы">
+ <div class="node"><h3>Прогнозы</h3><p>Спрос, сезонность,<br>цена и выбор рейса</p><small>Кандидаты для обучения</small></div>
+ <div class="arrow" aria-hidden="true">→</div>
+ <div class="node"><h3>Расчётное ядро</h3><p>Общие поездки,<br>кресла, парк и расходы</p><small>Физические ограничения</small></div>
+ <div class="arrow" aria-hidden="true">→</div>
+ <div class="node"><h3>Сравнение с KEEP</h3><p>Сеть, частоты,<br>результат и финансирование</p><small>При одинаковых условиях</small></div>
+</div>
+<div class="rows" aria-label="Очередность проверки ML по готовности данных">
+ <div class="row"><div class="phase">Первый опыт</div><div class="detail"><h3>Сезонность аэропортового потока</h3><p>12 670 числовых месяцев за 2007–2020. Сравнить простой сезонный прогноз, общую регрессию и небольшой бустинг.</p><small>Исторический тест; перенос на маршрутный OD и 2027–2028 проверяется отдельно.</small></div></div>
+ <div class="row"><div class="phase">После сверки целей</div><div class="detail"><h3>Поток между городами</h3><p>В текущем fit 31 сегментное наблюдение. Сначала согласовать периоды и охват, затем проверить регуляризацию.</p><small>39 840 будущих сценарных строк не добавляют наблюдаемых меток.</small></div></div>
+ <div class="row"><div class="phase">Новые наблюдения</div><div class="detail"><h3>Тарифы, загрузка и переток</h3><p>Нужны история цен, продажи, остатки мест и доступные альтернативы. Сейчас ценовой срез охватывает один SVX–UFA.</p><small>Прогноз предложения цены, фактического net и причинной эластичности — разные задачи.</small></div></div>
+</div>
+<p class="note">Аудит данных на 13.11.2026. Обучение и backtest новых моделей не выполнялись; прирост точности не измерен.</p>
+</html>
