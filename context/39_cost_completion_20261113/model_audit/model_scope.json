@@ -1,0 +1,49 @@
+{
+  "owner_commit": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+  "p38_commit": "56400c5f111222d7c660d4345d3d43b92d4716d5",
+  "owner_networks": [
+    "OMS",
+    "DIRECT"
+  ],
+  "owner_scenarios": [
+    "base",
+    "base_sub",
+    "cautious",
+    "cautious_sub"
+  ],
+  "p38_finalists": [
+    "C0121723",
+    "W7324a9b711d148bebb00/V0",
+    "Wa17798465f19ba7addfb/V0"
+  ],
+  "p38_state": "REPLACE; KEEP/WITHOUT_NEW saved annual delta identities also checked",
+  "comparability": "Owner BASE OMS 6+1, DIRECT 7+1 or8+1 subsidy; P38 K2 2+R1. Different missions/fleet/accounting/period; no strategy ranking.",
+  "periods": {
+    "owner_base": "52 operational model weeks; calendar year unspecified",
+    "owner_cautious": "48 operational model weeks; same annual demand divided by 48 before capture. NOT 48/52 realised-pax scaling, not dated lost weeks.",
+    "p38": "365 actual days Jan-Dec2027, ISO recurrence, UTC departure attribution; also separate UTC arrivals/calendar-split BH"
+  },
+  "units": {
+    "journeys": "model carried one-way endpoint trips, not demand or unique persons",
+    "segments": "boardings; local+2*transfer",
+    "transfers": "two-leg journeys/connection events at hub",
+    "bags": "UNKNOWN; transfers do not determine bags",
+    "nights": "away aircraft local midnights; not crew room nights",
+    "owner_airports": "MOW city pool represented by SVO coordinates; airport billing UNKNOWN",
+    "fuel": "model burn tonnes; not purchased/uplift/eligible tax volume"
+  },
+  "reproduced": [
+    "Pinned owner hub fixed-spoke flow/cost/revenue, all route and summary columns at export precision, 8 networks; no selection search",
+    "Pinned owner direct joint valuation of fixed selected programmes/frequencies; shared pair flow once; empty search universe",
+    "P38 all848 completed representative ledger rows: independent flight costs, direct_q*net revenue, ferry0, excluded crew",
+    "P38 three fixed K2 finalist annual calendars independently recurred, all432 published monthly physical rows, 72 REPLACE month costs, six annual costs and saved revenue/journey sums, three-state annual delta identities"
+  ],
+  "not_reproduced": [
+    "Owner greedy selection/optimizer/main or other hubs/ramp",
+    "P38 choice allocation/annual OD calibration/full optimisation or all436 programmes",
+    "Actual costs, invoices, realised demand, tax eligibility, dispatch, cash or2028 PD8 economics"
+  ],
+  "unknown_not_zero": true,
+  "external_price_search": false,
+  "write_boundary": "/home/mputi/.t3/scratch/red-wings-team-update-20261109-b45f8804/context/39_cost_completion_20261113/model_audit"
+}

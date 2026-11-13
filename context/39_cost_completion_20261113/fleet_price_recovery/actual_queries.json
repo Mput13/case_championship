@@ -1,0 +1,264 @@
+{
+  "access_date": "2026-11-13",
+  "budget": {
+    "targeted_queries_max": 8,
+    "opens_max": 10
+  },
+  "actual": {
+    "targeted_queries": 8,
+    "opens_including_errors_retries_click_and_python_fetch": 10
+  },
+  "stop": "FINITE_PASS_COMPLETE; no further search",
+  "calls": [
+    {
+      "sequence": 1,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "SSJ100 лизинговые платежи \"в месяц\" ГТЛК договор суд"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "RESULTS: court lead; news rates rejected as non-primary"
+    },
+    {
+      "sequence": 2,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "SSJ100 \"лизинговых платежей\" \"руб.\" \"месяц\" суд"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "ERROR: Found no tool response. This likely means the arguments you provided were not valid."
+    },
+    {
+      "sequence": 3,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "\"Суперджет\" \"страховая премия\" закупка"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "RESULTS: irrelevant publications; no admissible insurance price"
+    },
+    {
+      "sequence": 4,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "\"RRJ\" \"страхование\" \"начальная\" \"цена\""
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "RESULTS: RW tender124463 aggregator lead"
+    },
+    {
+      "sequence": 5,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://base.garant.ru/64184103/"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "ERROR: 403 Forbidden"
+    },
+    {
+      "sequence": 6,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://sudact.ru/arbitral/doc/P6tWcgW0i6Jj/"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "OK: judicial text via SudAct legal mirror"
+    },
+    {
+      "sequence": 7,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://synapsenet.ru/zakupki/etprf/124463%230--moskva-g-tender-v-elektronnoj-forme-bez-kvalifikacionnogo-otbora"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "ERROR: TimeoutError"
+    },
+    {
+      "sequence": 8,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "\"124463\" \"страхованию\" \"etprf\""
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "EMPTY: No results were found for the provided queries"
+    },
+    {
+      "sequence": 9,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "\"765.2020\" \"РЕД ВИНГС\" страхование"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "EMPTY: No results were found for the provided queries"
+    },
+    {
+      "sequence": 10,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "site:gtlk.ru \"SSJ\" \"млн\" \"месяц\""
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "RESULTS: issuer transport overview; no SSJ rent unit"
+    },
+    {
+      "sequence": 11,
+      "tool": "web.run",
+      "type": "search",
+      "args": {
+        "search_query": [
+          {
+            "q": "site:zakupki.gov.ru \"RRJ\" \"страхование\""
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "EMPTY: No results were found for the provided queries"
+    },
+    {
+      "sequence": 12,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://sudact.ru/arbitral/doc/P6tWcgW0i6Jj/",
+            "lineno": 225
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "OK: same judicial text; remand and arithmetic caveats checked"
+    },
+    {
+      "sequence": 13,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://synapsenet.ru/zakupki/etprf/124463%230--moskva-g-tender-v-elektronnoj-forme-bez-kvalifikacionnogo-otbora"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "OK: aggregator redirect, tender initial price and incomplete aircraft row"
+    },
+    {
+      "sequence": 14,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://etprf.ru/"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "ERROR: TimeoutError"
+    },
+    {
+      "sequence": 15,
+      "tool": "python3 requests.get",
+      "type": "fetch",
+      "args": {
+        "url": "https://synapsenet.ru/zakupki/etprf/124463%230--moskva-tender-v-elektronnoj-forme-bez-kvalifikacionnogo-otbora",
+        "timeout_seconds": 25
+      },
+      "outcome": "ERROR: SSLError HTTPSConnectionPool(host='synapsenet.ru', port=443): Max retries exceeded; SSLEOFError [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081). No bypass/retry."
+    },
+    {
+      "sequence": 16,
+      "tool": "web.run",
+      "type": "open_click",
+      "args": {
+        "click": [
+          {
+            "ref_id": "turn12view0",
+            "id": 8
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "OK but NOT primary: link8 led to Synapse platform search, no tender documents"
+    },
+    {
+      "sequence": 17,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "http://etprf.ru/"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "ERROR: redirected to https://etprf.ru/; (400) Timeout fetching"
+    },
+    {
+      "sequence": 18,
+      "tool": "web.run",
+      "type": "open",
+      "args": {
+        "open": [
+          {
+            "ref_id": "https://flyredwings.com/press/news/rt-vzaimnoe-straxovanie-nachalo-sotrudnichat-s-red-wings-po-aviariskam/"
+          }
+        ],
+        "response_length": "long"
+      },
+      "outcome": "OK: RW issuer confirms insured value and one-year scope, no premium"
+    }
+  ]
+}

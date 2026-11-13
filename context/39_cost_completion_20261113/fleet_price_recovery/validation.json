@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "access_date": "2026-11-13",
+  "checks": {
+    "five_unique_rows": true,
+    "all_fields_nonempty": true,
+    "eight_queries_including_error": true,
+    "ten_opens_including_fetch_click_errors_retries": true,
+    "sequence_contiguous": true,
+    "historical_rent_units": true,
+    "no_target_price_admitted": true,
+    "no_model_exposures_or_annual_totals": true,
+    "insurance_tender_not_premium": true,
+    "rw_prices_unknown": true,
+    "all_read_inputs_unchanged": true,
+    "finite_pass_stopped": true
+  },
+  "row_count": 5,
+  "query_count": 8,
+  "open_count": 10,
+  "errors": [
+    {
+      "sequence": 2,
+      "outcome": "ERROR: Found no tool response. This likely means the arguments you provided were not valid."
+    },
+    {
+      "sequence": 5,
+      "outcome": "ERROR: 403 Forbidden"
+    },
+    {
+      "sequence": 7,
+      "outcome": "ERROR: TimeoutError"
+    },
+    {
+      "sequence": 14,
+      "outcome": "ERROR: TimeoutError"
+    },
+    {
+      "sequence": 15,
+      "outcome": "ERROR: SSLError HTTPSConnectionPool(host='synapsenet.ru', port=443): Max retries exceeded; SSLEOFError [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081). No bypass/retry."
+    },
+    {
+      "sequence": 17,
+      "outcome": "ERROR: redirected to https://etprf.ru/; (400) Timeout fetching"
+    }
+  ],
+  "limitations": [
+    "Read-input hashes taken at artifact creation, not a whole-repository before/after guard. All write destinations in this run explicitly restricted to fleet_price_recovery.",
+    "Judicial primary text through legal mirror; underlying lease not downloaded; remand caveat preserved.",
+    "No issuer insurance tender recovered; no executable 2027 quote or annual budget produced."
+  ]
+}
