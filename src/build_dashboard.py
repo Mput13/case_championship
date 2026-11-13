@@ -76,6 +76,31 @@ def season_window(a):
     return {"nets": nets, "prof": prof, "k": cal["k_domestic"]}
 
 
+def market_window():
+    """Окно «Рынок»: факты о рынке (data/manual/market_facts.csv) и внутренние перевозки группы «Аэрофлот»
+    по месяцам 2025 и 2026 годов (data/processed/aeroflot_traffic_monthly.csv)."""
+    out = {}
+    mf = ROOT / "data/manual/market_facts.csv"
+    if mf.exists():
+        f = pd.read_csv(mf)
+        out["facts"] = [{"metric": r.metric, "text": r.text, "source_name": r.source_name, "source": r.source} for r in f.itertuples()]
+        a = f.set_index("id")
+        if "afl_dom_10m_2026" in a.index:
+            out["afl_dom_10m"] = float(a.loc["afl_dom_10m_2026", "value"]) / 100
+    tp = P / "aeroflot_traffic_monthly.csv"
+    if tp.exists():
+        t = pd.read_csv(tp)
+        t = t[(t.entity == "group") & (t.metric == "passengers") & (t.scope == "domestic")].set_index("month").value / 1000
+        rows = []
+        for m in range(1, 13):
+            a5, a6 = t.get(f"2025-{m:02d}"), t.get(f"2026-{m:02d}")
+            rows.append({"y2025": round(float(a5), 3) if a5 is not None else None,
+                         "y2026": round(float(a6), 3) if a6 is not None else None,
+                         "chg": round(float(a6 / a5 - 1), 4) if a5 is not None and a6 is not None else None})
+        out["months"] = rows
+    return out
+
+
 def lease_window(C):
     """Окно «Сколько аренды выдерживает сеть» (P39 коллег, 13.11): итог сети до аренды / (12 × самолёты).
     Считаем из нашего network_summary.csv, ориентир аренды — исторический договор SSJ100 из P39."""
@@ -175,6 +200,7 @@ def research(nodes):
                              for r in pd.read_csv(C / "p38_programme_months.csv").itertuples()]
     out["season"] = season_window(a)
     out["lease"] = lease_window(C)
+    out["market"] = market_window()
     ex = ROOT / "data/manual/expert_notes.json"
     if ex.exists():
         out["expert"] = json.loads(ex.read_text(encoding="utf-8"))
@@ -229,7 +255,7 @@ def load_network():
            ("seats", "lf_max", "fare_fixed_rub", "fare_per_km_rub", "subsidy_rub_per_flight", "subsidy_months", "subsidy_max_prior_pax", "fuel_rub_per_t", "fuel_compensation_rub_per_t", "min_freq_week", "max_freq_week", "capture_open",
             "capture_competitive", "capture_transfer", "transfer_fare_factor", "weeks_per_year", "fleet_cap",
             "spare_aircraft", "max_routes", "rw_existing_lf", "rw_pax_2025", "market_pax_2025",
-            "min_routes", "direct_max_freq_week", "thin_route_pax_day", "season_on", "season_amplitude", "lf_peak_max",
+            "min_routes", "direct_max_freq_week", "thin_route_pax_day", "season_on", "season_amplitude", "lf_peak_max", "market_pax_domestic_2025",
             # для окна «один рейс» (формулы leg_cost и fare в network_model)
             "block_fixed_h", "route_factor", "route_factor_south", "block_speed_kmh", "fuel_t_per_hour", "fuel_t_per_cycle",
             "mro_rub_per_hour", "crew_rub_per_hour", "navigation_rub_per_hour", "ground_rub_per_flight", "deicing_rub_per_flight", "pax_cost_rub")}
@@ -251,6 +277,9 @@ def load_network():
     cost1000 = [nmod.leg_cost(AS[k], 1000, False, 80)[1] for k in ("base", "cautious")]
     cmp_ = {"demand": float(est.od_cautious.sum() / est.od_base.sum()), "fare": fare1000[1] / fare1000[0], "cost": cost1000[1] / cost1000[0],
             "fare1000": fare1000, "cost1000": cost1000}
+    # доля внутреннего рынка: те же новые пассажиры, делённые на внутренние перевозки 2025 года (market_facts.csv)
+    dom = float(pd.read_csv(ROOT / "data/assumptions/network.csv").set_index("parameter").loc["market_pax_domestic_2025", "base"])
+    sm = sm.assign(share_pp_dom=(sm.net_new_segments_year / dom * 100).round(2))
     return {"summary": json.loads(sm.drop(columns=["hub"]).to_json(orient="records", force_ascii=False)),
             "routes": json.loads(rt[cols].to_json(orient="records", force_ascii=False)), "nodes": nodes,
             "asm": asm, "check": check, "cmp": cmp_, "now": route_now(rt)}
