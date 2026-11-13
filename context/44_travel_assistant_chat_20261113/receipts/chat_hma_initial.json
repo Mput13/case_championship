@@ -1,0 +1,86 @@
+{
+  "checked_at": "2026-11-13T13:48:16.357Z",
+  "request": {
+    "message": "Хочу из Ханты-Мансийска, Ленина 109, в Миасс. Период с 1 декабря 2026 по 15 января 2027."
+  },
+  "automatic_retries": 0,
+  "http_status": 200,
+  "result": {
+    "status": "needs_input",
+    "session_id": "07095433-54a7-4eec-a407-fa00652436dc",
+    "reply": "Записал: Ханты-Мансийск, Ленина 109 → Миасс, окно 1 декабря 2026 — 15 января 2027.\n\nОдин момент нужно уточнить, прежде чем искать: этот период — это окно, в которое вы готовы выехать (одна поездка туда), или это две даты «туда и обратно» (1 декабря туда, 15 января назад)? От этого зависит, что именно строить.\n\nПока по локальным источникам для этой пары городов нет ни узлов, ни зарегистрированных коридоров — это не значит, что рейсов нет, просто локальный набор данных пуст. Общий поиск по графу я запущу сразу, как определимся со смыслом дат; он сам подберёт аэропорты и наземные связки (в том числе через Сургут, Екатеринбург, Челябинск).\n\nЗаодно, если знаете: сколько пассажиров, есть ли багаж, и допустимы ли ночёвка/такси в пересадке — это повлияет на выбор варианта.",
+    "trip": {
+      "network_mode": "current",
+      "ground_preference": null,
+      "origin": {
+        "city": "Ханты-Мансийск",
+        "address": "Ленина 109",
+        "region": null,
+        "place_id": null,
+        "node_id": null
+      },
+      "destination": {
+        "city": "Миасс",
+        "region": null,
+        "place_id": null,
+        "address": null,
+        "node_id": null
+      },
+      "date_range": {
+        "from": "2026-12-01",
+        "to": "2027-01-15",
+        "meaning": "unknown"
+      },
+      "passengers": null,
+      "baggage": null,
+      "requires_red_wings": true,
+      "selected_flight": null,
+      "constraints": {
+        "allow_taxi": null,
+        "allow_overnight": null,
+        "allow_night_travel": null,
+        "modes": null,
+        "departure_after": null,
+        "arrive_by": null,
+        "max_budget": null
+      }
+    },
+    "plans": [],
+    "sources": [],
+    "tool_events": [
+      {
+        "name": "update_trip",
+        "status": "ok"
+      },
+      {
+        "name": "inspect_corridors",
+        "status": "ok"
+      }
+    ],
+    "usage": {
+      "model_calls": 2,
+      "process_model_calls": 2,
+      "receipts": [
+        {
+          "input": 3673,
+          "output": 614,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 4287
+        },
+        {
+          "input": 4607,
+          "output": 363,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 4970
+        }
+      ],
+      "status": "recorded",
+      "cost_status": "unknown",
+      "schedule_pair_days": 0
+    },
+    "retry_performed": false
+  },
+  "elapsed_ms": 34509
+}

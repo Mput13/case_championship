@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ae2538">
+  <title>Red Wings — помощник в поездке</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#message">Перейти к сообщению</a>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 44 36" fill="none" aria-hidden="true"><path d="M2 6h35L23 15H8L2 6Zm9 12h25L22 27h-5l-6-9Z" fill="currentColor"/></svg>
+        <div><span class="brand-name">Red Wings</span><h1>Помощник в поездке</h1></div>
+      </div>
+      <button id="open-trip" class="parameters-button" type="button">Параметры поездки</button>
+      <button id="new-dialog" class="new-dialog" type="button" aria-label="Новый диалог" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Новый диалог</span>
+      </button>
+    </header>
+
+    <aside id="trip-region" class="trip-region" aria-label="Условия поездки" hidden>
+      <details id="trip-details" class="trip-details">
+        <summary><span class="trip-heading">Условия поездки</span><span id="trip-preview" class="trip-preview"></span><span class="disclosure-arrow" aria-hidden="true"></span></summary>
+        <dl id="trip-fields" class="trip-fields"></dl>
+      </details>
+    </aside>
+
+    <main id="conversation" class="conversation" aria-label="Обсуждение поездки" tabindex="-1">
+      <div class="conversation-inner">
+        <section id="welcome" class="welcome" aria-labelledby="welcome-title">
+          <h2 id="welcome-title">Куда нужно добраться?</h2>
+          <p class="welcome-copy">Поездка с рейсом Red Wings и наземным транспортом. Выберите точки и даты в параметрах или опишите поездку в чате.</p>
+        </section>
+        <div class="demo-access">
+          <button id="offline-demo" class="secondary-button" type="button" aria-pressed="false">Офлайн-демо</button>
+          <span id="offline-status" class="offline-status" hidden>Сохранённые маршруты. Для чата включите агента.</span>
+        </div>
+        <details id="demo-gallery" class="demo-gallery" open>
+          <summary>Быстрые примеры</summary>
+          <p id="demo-explanation" class="demo-explanation">Агент разберёт заранее проверенный маршрут. Затем можно уточнить поездку в чате.</p>
+          <p id="demos-status" class="demos-status" role="status">Загружаю примеры…</p>
+          <div id="demos" class="demo-grid" role="group" aria-label="Примеры поездок"></div>
+          <div id="demos-error" class="demos-error" hidden>
+            <p role="alert">Не удалось загрузить примеры. Можно описать свою поездку в сообщении.</p>
+            <button id="reload-demos" class="text-button" type="button">Загрузить примеры</button>
+          </div>
+        </details>
+        <div id="messages" class="messages" role="log" aria-label="Переписка" aria-live="polite" aria-relevant="additions" aria-atomic="false"></div>
+        <div id="error" class="error" role="alert" hidden>
+          <p id="error-message"></p>
+          <button id="error-action" class="text-button" type="button"></button>
+        </div>
+      </div>
+    </main>
+
+    <div class="composer-dock">
+      <form id="chat-form" class="composer" aria-label="Сообщение помощнику">
+        <label class="sr-only" for="message">Сообщение о поездке</label>
+        <textarea id="message" name="message" rows="2" placeholder="Откуда едете, куда и когда?" aria-describedby="keyboard-hint" enterkeyhint="send"></textarea>
+        <button id="send" class="send-button" type="submit" aria-label="Отправить сообщение" title="Отправить сообщение" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+        </button>
+      </form>
+      <p id="keyboard-hint" class="keyboard-hint">Enter — отправить, Shift + Enter — новая строка</p>
+    </div>
+  </div>
+
+  <dialog id="trip-dialog" class="trip-dialog" aria-labelledby="trip-dialog-title">
+    <form id="trip-form" class="trip-editor-form">
+      <div class="trip-editor-header">
+        <h2 id="trip-dialog-title">Параметры поездки</h2>
+        <button id="close-trip" class="secondary-button" type="button" aria-label="Закрыть параметры поездки">Закрыть</button>
+      </div>
+      <div class="trip-editor-scroll">
+        <fieldset id="trip-inputs" class="trip-inputs">
+          <legend class="sr-only">Маршрут и даты</legend>
+          <div class="place-picker">
+            <label for="origin-place">Откуда</label>
+            <input id="origin-place" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="origin-options" aria-describedby="origin-status" autocomplete="off" placeholder="Город, станция или аэропорт" required>
+            <ul id="origin-options" class="place-options" role="listbox" aria-label="Точка отправления" hidden></ul>
+            <p id="origin-status" class="field-status" role="status"></p>
+          </div>
+          <div class="place-picker">
+            <label for="destination-place">Куда</label>
+            <input id="destination-place" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="destination-options" aria-describedby="destination-status" autocomplete="off" placeholder="Город, станция или аэропорт" required>
+            <ul id="destination-options" class="place-options" role="listbox" aria-label="Точка назначения" hidden></ul>
+            <p id="destination-status" class="field-status" role="status"></p>
+          </div>
+          <label class="editor-toggle"><input id="flexible-dates" type="checkbox"> Гибкие даты выезда</label>
+          <div class="date-fields">
+            <label class="editor-field" for="date-from"><span id="date-from-label">Дата выезда</span><input id="date-from" type="date" required></label>
+            <label id="date-to-field" class="editor-field" for="date-to" hidden>Последняя дата выезда<input id="date-to" type="date" disabled></label>
+          </div>
+          <label class="editor-field" for="trip-wishes"><span>Пожелания <small>необязательно</small></span>
+            <textarea id="trip-wishes" rows="3" maxlength="2000" placeholder="Например, без такси и ночёвки; прибыть до вечера."></textarea>
+          </label>
+          <details class="optional-trip-fields">
+            <summary>Адреса отправления и назначения</summary>
+            <label class="editor-field" for="origin-address">Адрес отправления <span>необязательно</span><input id="origin-address" type="text" autocomplete="street-address" maxlength="240"></label>
+            <label class="editor-field" for="destination-address">Адрес назначения <span>необязательно</span><input id="destination-address" type="text" autocomplete="off" maxlength="240"></label>
+          </details>
+          <label class="editor-toggle"><input id="has-flight" type="checkbox"> Уже есть рейс Red Wings</label>
+          <section id="flight-fields" class="flight-fields" aria-label="Выбор рейса Red Wings" hidden>
+            <div class="place-picker">
+              <label for="flight-from">Город или аэропорт вылета</label>
+              <input id="flight-from" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="flight-from-options" aria-describedby="flight-from-status" autocomplete="off" placeholder="Найти точку вылета">
+              <ul id="flight-from-options" class="place-options" role="listbox" aria-label="Точка вылета рейса" hidden></ul>
+              <p id="flight-from-status" class="field-status" role="status"></p>
+            </div>
+            <label class="editor-field" for="flight-date">Дата вылета<input id="flight-date" type="date"></label>
+            <p id="flights-status" class="field-status" role="status"></p>
+            <button id="reload-flights" class="text-button" type="button" hidden>Повторить поиск рейсов</button>
+            <label class="editor-field" for="flight-options">Рейс WZ<select id="flight-options" disabled><option value="">Выберите точку вылета и дату</option></select></label>
+            <div id="flight-detail" class="flight-detail" hidden></div>
+          </section>
+        </fieldset>
+      </div>
+      <div class="trip-editor-footer">
+        <p id="trip-form-error" class="trip-form-error" role="alert" hidden></p>
+        <p id="trip-form-status" class="field-status" role="status" hidden></p>
+        <div id="trip-replace-confirm" class="trip-replace-confirm" hidden>
+          <p>Новый маршрут заменит текущую переписку после загрузки.</p>
+          <div class="dialog-actions"><button id="cancel-trip-start" class="secondary-button" type="button">К параметрам</button><button id="confirm-trip-start" class="primary-button" type="button">Построить новый маршрут</button></div>
+        </div>
+        <button id="start-trip" class="primary-button start-trip" type="submit">Построить маршрут</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="reset-dialog" class="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-description">
+    <h2 id="reset-title">Начать новый диалог?</h2>
+    <p id="reset-description">Текущая переписка и условия поездки будут удалены с этого экрана.</p>
+    <div class="dialog-actions">
+      <form method="dialog"><button class="secondary-button" autofocus>Продолжить текущий</button></form>
+      <button id="confirm-reset" class="primary-button" type="button">Начать новый</button>
+    </div>
+  </dialog>
+  <noscript><p class="noscript">Для переписки с помощником включите JavaScript.</p></noscript>
+</body>
+</html>

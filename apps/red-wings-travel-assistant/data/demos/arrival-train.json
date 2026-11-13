@@ -1,0 +1,406 @@
+{
+  "id": "arrival-train",
+  "type": "after_flight",
+  "label": "Самара (Курумоч) → Нижний Тагил",
+  "message": "8 декабря 2026 года еду из аэропорта Самары Курумоч до железнодорожного вокзала Нижнего Тагила. Подберите рейс Red Wings и общественный транспорт после прилёта; сравните запас времени на пересадку.",
+  "checked_at": "2026-11-13T13:55:33.984Z",
+  "data_mode": "snapshot",
+  "trip": {
+    "network_mode": "current",
+    "ground_preference": "public",
+    "origin": {
+      "city": "Самара",
+      "region": "Самарская область",
+      "place_id": null,
+      "address": null,
+      "node_id": "s9600380"
+    },
+    "destination": {
+      "city": "Нижний Тагил",
+      "region": "Свердловская область",
+      "place_id": null,
+      "address": null,
+      "node_id": "s9607483"
+    },
+    "date_range": {
+      "from": "2026-12-08",
+      "to": "2026-12-08",
+      "meaning": "departure_window"
+    },
+    "passengers": null,
+    "baggage": null,
+    "requires_red_wings": true,
+    "selected_flight": {
+      "number": "WZ 1034",
+      "date": "2026-12-08",
+      "leg_id": "ae366cbd71e429577e20"
+    },
+    "constraints": {
+      "allow_taxi": null,
+      "allow_overnight": null,
+      "allow_night_travel": null,
+      "modes": null,
+      "departure_after": null,
+      "arrive_by": null,
+      "max_budget": null
+    }
+  },
+  "result": {
+    "status": "partial",
+    "reply": "Заранее проверенный пример на 8 декабря 2026: WZ 1034 из Курумоча в 08:00 (UTC+4), прилёт в Кольцово в 10:40 (UTC+5). После автобуса №65 рекомендую электричку №7067 в 14:38: расчётный запас — 54 минуты, прибытие в Тагил в 16:31. №7115/7116 прибывает в 16:19, но запас меньше — 26 минут. Точное отправление автобуса ещё нужно подтвердить. Будьте в Курумоче к 06:00; доезд из Самары не включён.",
+    "plans": [
+      {
+        "id": "arrival-train-7067",
+        "title": "Больше запаса на пересадку · электричка №7067",
+        "status": "partial",
+        "network_mode": "current",
+        "requires_red_wings": true,
+        "summary": "Рекомендуемый вариант по запасу времени: WZ 1034 → автобус №65 → электричка 14:38–16:31. Расчётный запас после выхода к платформе — 54 минуты.",
+        "legs": [
+          {
+            "id": "ae366cbd71e429577e20",
+            "from": "s9600380",
+            "to": "s9600370",
+            "mode": "plane",
+            "origin": "Курумоч",
+            "destination": "Кольцово",
+            "carrier": "Red Wings",
+            "carrier_code": 617,
+            "carrier_iata": "WZ",
+            "number": "WZ 1034",
+            "departure": "2026-12-08T08:00:00+04:00",
+            "arrival": "2026-12-08T10:40:00+05:00",
+            "duration_minutes": 100,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.212Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08"
+              },
+              {
+                "label": "Покупка на сайте Red Wings",
+                "url": "https://flyredwings.com/booking/"
+              }
+            ]
+          },
+          {
+            "id": "demo-arrival-svx-bus-65",
+            "from": "s9600370",
+            "to": "s9607404",
+            "mode": "bus",
+            "origin": "Кольцово, аэропорт (SVX)",
+            "destination": "Екатеринбург-Пасс., железнодорожный вокзал",
+            "carrier": null,
+            "number": "65",
+            "departure": null,
+            "arrival": null,
+            "duration_minutes": 109,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "published_pattern",
+            "physical_transfer": true,
+            "source_name": "Аэропорт Кольцово: автобус №65",
+            "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+            "checked_at": "2026-11-13T14:01:37.000Z",
+            "note": "Расчётные 109 минут включают 65 минут в пути и до 44 минут ожидания. По будням автобус работает 05:59–23:51; опубликованный будний интервал — до 41 минуты, в расчёте оставлены более осторожные 44 минуты. Точное отправление 8 декабря не подтверждено. Датированные времена автобуса не заданы.",
+            "links": [
+              {
+                "label": "Автобус №65: маршрут и интервалы",
+                "url": "https://ar-svx.ru/how-to-get/from/bus/"
+              }
+            ]
+          },
+          {
+            "id": "03493faa5174b0fcff7d",
+            "from": "s9607404",
+            "to": "s9607483",
+            "mode": "suburban",
+            "origin": "Екатеринбург-Пасс.",
+            "destination": "Нижний Тагил",
+            "carrier": "Свердловская пригородная компания",
+            "carrier_code": 1331,
+            "carrier_iata": null,
+            "number": "7067",
+            "departure": "2026-12-08T14:38:00+05:00",
+            "arrival": "2026-12-08T16:31:00+05:00",
+            "duration_minutes": 113,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9607404&toId=s9607483&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.983Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9607404&toId=s9607483&when=2026-12-08"
+              }
+            ]
+          }
+        ],
+        "connections": [
+          {
+            "from_leg": "ae366cbd71e429577e20",
+            "to_leg": "demo-arrival-svx-bus-65",
+            "status": "unknown",
+            "available_minutes": null,
+            "minimum_minutes": 60,
+            "basis": "60 минут после прилёта до готовности к наземному переезду; точное отправление автобуса не подтверждено."
+          },
+          {
+            "from_leg": "demo-arrival-svx-bus-65",
+            "to_leg": "03493faa5174b0fcff7d",
+            "status": "unknown",
+            "available_minutes": null,
+            "minimum_minutes": 15,
+            "basis": "15 минут на вход на вокзал и выход к платформе; расчёт по верхней границе интервала сохранён в connection_checks."
+          }
+        ],
+        "connection_checks": {
+          "method": "conservative_interval",
+          "ready_at": "2026-12-08T13:44:00+05:00",
+          "departure_at": "2026-12-08T14:38:00+05:00",
+          "slack_minutes": 54,
+          "explanation": "Прилёт в 10:40 (UTC+5) + 60 минут до выхода к автобусу = 11:40; + до 44 минут ожидания и 65 минут в пути = не позднее расчётных 13:29 у вокзала; + 15 минут на вход и платформу = 13:44. До отправления электрички в 14:38 остаётся 54 минут. Это оценка по опубликованному интервалу, а не подтверждение датированного автобуса или гарантия пересадки."
+        },
+        "warnings": [
+          "Начало поездки — аэропорт Курумоч (KUF). Будьте в аэропорту к 06:00 по Самаре (UTC+4), за 120 минут до вылета. Доезд из города Самары не включён.",
+          "Для автобуса №65 есть опубликованный маршрут и интервалы, но нет точного отправления на 8 декабря. Перед покупкой всей цепочки проверьте его работу на дату поездки.",
+          "Расчёт включает 60 минут после прилёта, до 44 минут ожидания автобуса, 65 минут в пути и 15 минут на вход и выход к платформе. Он не гарантирует пересадку при задержке рейса или пробках.",
+          "Цена уточняется у перевозчиков; наличие мест и условия провоза багажа не подтверждены."
+        ],
+        "total_duration_minutes": null,
+        "total_price": null,
+        "reasonableness": {
+          "status": "unknown",
+          "explanation": "Сравниваются две электрички после одного WZ 1034. Полный наземный путь Самара → Нижний Тагил без перелёта не проверялся; самый быстрый или дешёвый путь не установлен."
+        },
+        "sources": [
+          {
+            "name": "Яндекс Расписания",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.212Z"
+          },
+          {
+            "name": "Аэропорт Кольцово: автобус №65",
+            "url": "https://ar-svx.ru/how-to-get/from/bus/",
+            "checked_at": "2026-11-13T14:01:37.000Z"
+          },
+          {
+            "name": "Яндекс Расписания",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9607404&toId=s9607483&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.983Z"
+          }
+        ]
+      },
+      {
+        "id": "arrival-train-7115-7116",
+        "title": "На 12 минут раньше в Тагиле · №7115/7116",
+        "status": "partial",
+        "network_mode": "current",
+        "requires_red_wings": true,
+        "summary": "Альтернатива: тот же рейс и автобус, электричка 14:10–16:19. Прибытие на 12 минут раньше; расчётный запас после выхода к платформе — 26 минут.",
+        "legs": [
+          {
+            "id": "ae366cbd71e429577e20",
+            "from": "s9600380",
+            "to": "s9600370",
+            "mode": "plane",
+            "origin": "Курумоч",
+            "destination": "Кольцово",
+            "carrier": "Red Wings",
+            "carrier_code": 617,
+            "carrier_iata": "WZ",
+            "number": "WZ 1034",
+            "departure": "2026-12-08T08:00:00+04:00",
+            "arrival": "2026-12-08T10:40:00+05:00",
+            "duration_minutes": 100,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.212Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08"
+              },
+              {
+                "label": "Покупка на сайте Red Wings",
+                "url": "https://flyredwings.com/booking/"
+              }
+            ]
+          },
+          {
+            "id": "demo-arrival-svx-bus-65",
+            "from": "s9600370",
+            "to": "s9607404",
+            "mode": "bus",
+            "origin": "Кольцово, аэропорт (SVX)",
+            "destination": "Екатеринбург-Пасс., железнодорожный вокзал",
+            "carrier": null,
+            "number": "65",
+            "departure": null,
+            "arrival": null,
+            "duration_minutes": 109,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "published_pattern",
+            "physical_transfer": true,
+            "source_name": "Аэропорт Кольцово: автобус №65",
+            "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+            "checked_at": "2026-11-13T14:01:37.000Z",
+            "note": "Расчётные 109 минут включают 65 минут в пути и до 44 минут ожидания. По будням автобус работает 05:59–23:51; опубликованный будний интервал — до 41 минуты, в расчёте оставлены более осторожные 44 минуты. Точное отправление 8 декабря не подтверждено. Датированные времена автобуса не заданы.",
+            "links": [
+              {
+                "label": "Автобус №65: маршрут и интервалы",
+                "url": "https://ar-svx.ru/how-to-get/from/bus/"
+              }
+            ]
+          },
+          {
+            "id": "02c86009592d2b9a8cf0",
+            "from": "s9607404",
+            "to": "s9607483",
+            "mode": "suburban",
+            "origin": "Екатеринбург-Пасс.",
+            "destination": "Нижний Тагил",
+            "carrier": "Свердловская пригородная компания",
+            "carrier_code": 1331,
+            "carrier_iata": null,
+            "number": "7115/7116",
+            "departure": "2026-12-08T14:10:00+05:00",
+            "arrival": "2026-12-08T16:19:00+05:00",
+            "duration_minutes": 129,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9607404&toId=s9607483&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.983Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9607404&toId=s9607483&when=2026-12-08"
+              }
+            ]
+          }
+        ],
+        "connections": [
+          {
+            "from_leg": "ae366cbd71e429577e20",
+            "to_leg": "demo-arrival-svx-bus-65",
+            "status": "unknown",
+            "available_minutes": null,
+            "minimum_minutes": 60,
+            "basis": "60 минут после прилёта до готовности к наземному переезду; точное отправление автобуса не подтверждено."
+          },
+          {
+            "from_leg": "demo-arrival-svx-bus-65",
+            "to_leg": "02c86009592d2b9a8cf0",
+            "status": "unknown",
+            "available_minutes": null,
+            "minimum_minutes": 15,
+            "basis": "15 минут на вход на вокзал и выход к платформе; расчёт по верхней границе интервала сохранён в connection_checks."
+          }
+        ],
+        "connection_checks": {
+          "method": "conservative_interval",
+          "ready_at": "2026-12-08T13:44:00+05:00",
+          "departure_at": "2026-12-08T14:10:00+05:00",
+          "slack_minutes": 26,
+          "explanation": "Прилёт в 10:40 (UTC+5) + 60 минут до выхода к автобусу = 11:40; + до 44 минут ожидания и 65 минут в пути = не позднее расчётных 13:29 у вокзала; + 15 минут на вход и платформу = 13:44. До отправления электрички в 14:10 остаётся 26 минут. Это оценка по опубликованному интервалу, а не подтверждение датированного автобуса или гарантия пересадки."
+        },
+        "warnings": [
+          "Начало поездки — аэропорт Курумоч (KUF). Будьте в аэропорту к 06:00 по Самаре (UTC+4), за 120 минут до вылета. Доезд из города Самары не включён.",
+          "Для автобуса №65 есть опубликованный маршрут и интервалы, но нет точного отправления на 8 декабря. Перед покупкой всей цепочки проверьте его работу на дату поездки.",
+          "Расчёт включает 60 минут после прилёта, до 44 минут ожидания автобуса, 65 минут в пути и 15 минут на вход и выход к платформе. Он не гарантирует пересадку при задержке рейса или пробках.",
+          "Цена уточняется у перевозчиков; наличие мест и условия провоза багажа не подтверждены."
+        ],
+        "total_duration_minutes": null,
+        "total_price": null,
+        "reasonableness": {
+          "status": "unknown",
+          "explanation": "Сравниваются две электрички после одного WZ 1034. Полный наземный путь Самара → Нижний Тагил без перелёта не проверялся; самый быстрый или дешёвый путь не установлен."
+        },
+        "sources": [
+          {
+            "name": "Яндекс Расписания",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9600380&toId=s9600370&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.212Z"
+          },
+          {
+            "name": "Аэропорт Кольцово: автобус №65",
+            "url": "https://ar-svx.ru/how-to-get/from/bus/",
+            "checked_at": "2026-11-13T14:01:37.000Z"
+          },
+          {
+            "name": "Яндекс Расписания",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9607404&toId=s9607483&when=2026-12-08",
+            "checked_at": "2026-11-13T13:55:33.983Z"
+          }
+        ]
+      }
+    ]
+  },
+  "verification": {
+    "checks": [
+      {
+        "id": "receipt_dated_legs",
+        "status": "pass",
+        "detail": "Датированные WZ 1034 и электрички №7067, №7115/7116 скопированы из сохранённого live-receipt; исходные checked_at и ссылки сохранены.",
+        "receipt": "context/44_travel_assistant_chat_20261113/receipts/demo_candidates.json"
+      },
+      {
+        "id": "timezone_arithmetic",
+        "status": "pass",
+        "detail": "08:00 UTC+4 → 10:40 UTC+5 = 100 минут; №7067 = 113 минут, №7115/7116 = 129 минут."
+      },
+      {
+        "id": "airport_reporting_time",
+        "status": "pass",
+        "detail": "От 06:00 до 08:00 в Курумоче — 120 минут. Городской подъезд не добавлен."
+      },
+      {
+        "id": "official_bus_pattern",
+        "status": "pass",
+        "detail": "Официальный сайт аэропорта подтверждает автобус №65 до железнодорожного вокзала, 65 минут в пути; будний режим покрывает расчётное окно. Использованы консервативные 44 минуты ожидания вместо опубликованных будних 41.",
+        "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+        "checked_at": "2026-11-13T14:01:37.000Z"
+      },
+      {
+        "id": "interval_connections",
+        "status": "pass",
+        "detail": "10:40 + 60 + 44 + 65 + 15 = 13:44 UTC+5; до 14:38 — 54 минуты, до 14:10 — 26 минут."
+      },
+      {
+        "id": "unknown_bus_times",
+        "status": "pass",
+        "detail": "У автобуса departure=null, arrival=null, evidence_status=published_pattern; оба плана и общий ответ partial, полная длительность и цены null."
+      }
+    ],
+    "assumptions": [
+      "WZ 1034 выполняется по сохранённому расписанию без задержки.",
+      "После прилёта отведены 60 минут до выхода к автобусу; время получения багажа индивидуально не подтверждено.",
+      "Опубликованный режим автобуса №65 сохранится 8 декабря; 44 минуты приняты как консервативный предел ожидания, 65 минут — опубликованное время в пути.",
+      "15 минут от прибытия автобуса к вокзалу до готовности на платформе — планировочный буфер, а не измеренный маршрут внутри вокзала."
+    ],
+    "limitations": [
+      "Это заранее подготовленный снимок расписаний, не ответ LLM и не новый live-поиск при открытии примера.",
+      "Точное отправление автобуса на дату поездки не подтверждено; расчётный запас не делает всю цепочку verified.",
+      "Курумоч — исходная точка, Нижний Тагил, железнодорожный вокзал — конечная; городские адресные участки не рассчитаны.",
+      "Цены, места, условия багажа и защищённая стыковка не подтверждены. Покупка выполняется отдельно у перевозчиков.",
+      "Новых transport GET через broker: 0 из разрешённых 8. Использован общий сохранённый receipt; дополнительно прочитана публичная страница аэропорта."
+    ]
+  }
+}

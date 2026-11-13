@@ -1,0 +1,414 @@
+{
+  "id": "feeder-flight",
+  "type": "to_flight",
+  "label": "Из Каменска-Уральского к рейсу WZ",
+  "message": "8 декабря 2026 хочу доехать общественным транспортом от железнодорожного вокзала Каменска-Уральского к рейсу Red Wings WZ 1033 из Кольцово в Самару. Конечная точка — аэропорт Курумоч, без ночёвки. Покажи подвоз и запас до вылета.",
+  "checked_at": "2026-11-13T14:02:35.993Z",
+  "data_mode": "snapshot",
+  "trip": {
+    "network_mode": "current",
+    "ground_preference": "public",
+    "origin": {
+      "city": "Каменск-Уральский",
+      "region": "Свердловская область",
+      "place_id": "c11164",
+      "address": null,
+      "node_id": "s9607640"
+    },
+    "destination": {
+      "city": "Самара",
+      "region": "Самарская область",
+      "place_id": "c51",
+      "address": null,
+      "node_id": "s9600380"
+    },
+    "date_range": {
+      "from": "2026-12-08",
+      "to": "2026-12-08",
+      "meaning": "departure_window"
+    },
+    "passengers": null,
+    "baggage": null,
+    "requires_red_wings": true,
+    "selected_flight": {
+      "number": "WZ 1033",
+      "date": "2026-12-08",
+      "leg_id": "f92e88475ad61abc291f"
+    },
+    "constraints": {
+      "allow_taxi": false,
+      "allow_overnight": false,
+      "allow_night_travel": true,
+      "modes": [
+        "train",
+        "suburban",
+        "bus",
+        "plane",
+        "walk"
+      ],
+      "departure_after": null,
+      "arrive_by": null,
+      "max_budget": null
+    }
+  },
+  "result": {
+    "status": "partial",
+    "network_mode": "current",
+    "reply": "Есть удобный по расписанию подвоз на 8 декабря: электричка 6612/6611 от вокзала Каменска-Уральского в 17:18 до станции Кольцово в 19:06, затем электричка 6056 в 19:49 до аэропортовой платформы в 19:55. Между поездами 43 минуты. Пеший путь к терминалу найден на карте: 338 м, около 5 минут; закладываем 15 минут с запасом. После этого до WZ 1033 в 22:45 остаётся 155 минут — минимум 120 минут соблюдается с запасом 35 минут. Прилёт в Курумоч в 23:30 местного времени (UTC+4); доезд в Самару не включён. Это сохранённый пример: номера платформ, доступность пешего пути зимой, багаж, места и цены нужно уточнить. Продолжить подбор можно в чате.",
+    "plans": [
+      {
+        "id": "feeder_kamensk_svx_kuf_20261208",
+        "title": "Каменск-Уральский → Курумоч через Кольцово",
+        "status": "partial",
+        "network_mode": "current",
+        "requires_red_wings": true,
+        "variant": "public_with_rw",
+        "summary": "Две датированные электрички под WZ 1033. На станции Кольцово 43 мин между поездами; после расчётного 15-минутного перехода к терминалу остаётся 155 мин до вылета. Переходы проверены не полностью.",
+        "legs": [
+          {
+            "id": "165faff3bc3c7500138b",
+            "from": "s9607640",
+            "to": "s9607461",
+            "mode": "suburban",
+            "origin": "Каменск-Уральский",
+            "destination": "Кольцово",
+            "carrier": "Свердловская пригородная компания",
+            "carrier_code": 1331,
+            "carrier_iata": null,
+            "number": "6612/6611",
+            "departure": "2026-12-08T17:18:00+05:00",
+            "arrival": "2026-12-08T19:06:00+05:00",
+            "duration_minutes": 108,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9607640&toId=s9607461&when=2026-12-08",
+            "checked_at": "2026-11-13T14:01:48.248Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9607640&toId=s9607461&when=2026-12-08"
+              }
+            ],
+            "data_mode": "snapshot"
+          },
+          {
+            "id": "99e6ae485e22570b43a0",
+            "from": "s9607461",
+            "to": "s9886280",
+            "mode": "suburban",
+            "origin": "Кольцово",
+            "destination": "Аэропорт Кольцово",
+            "carrier": "Свердловская пригородная компания",
+            "carrier_code": 1331,
+            "carrier_iata": null,
+            "number": "6056",
+            "departure": "2026-12-08T19:49:00+05:00",
+            "arrival": "2026-12-08T19:55:00+05:00",
+            "duration_minutes": 6,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9607461&toId=s9886280&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:11.324Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9607461&toId=s9886280&when=2026-12-08"
+              }
+            ],
+            "data_mode": "snapshot"
+          },
+          {
+            "id": "feeder_airport_platform_to_svx",
+            "from": "s9886280",
+            "to": "s9600370",
+            "mode": "walk",
+            "origin": "Аэропорт Кольцово, железнодорожная платформа",
+            "destination": "Кольцово, пассажирский терминал",
+            "carrier": null,
+            "carrier_code": null,
+            "carrier_iata": null,
+            "number": null,
+            "departure": null,
+            "arrival": null,
+            "duration_minutes": 15,
+            "distance_km": 0.338,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "indicative",
+            "physical_transfer": true,
+            "data_mode": "snapshot",
+            "source_name": "Valhalla / OpenStreetMap contributors",
+            "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A56.7520252504397%2C%22lon%22%3A60.80673919330006%7D%2C%7B%22lat%22%3A56.750107%2C%22lon%22%3A60.804833%7D%5D%2C%22costing%22%3A%22pedestrian%22%2C%22directions_options%22%3A%7B%22units%22%3A%22kilometers%22%7D%7D",
+            "checked_at": "2026-11-13T14:02:35.993Z",
+            "note": "Маршрутизатор оценил путь между точками платформы и аэропорта в 338 м и 4 мин 40 с. В плане выделено 15 мин: округлённые 5 мин ходьбы и 10 мин запаса. Это расчётный допуск, а не датированное расписание или проверка входов терминала.",
+            "links": [
+              {
+                "label": "Пеший маршрут на карте",
+                "url": "https://yandex.ru/maps/?rtext=56.7520252504397%2C60.80673919330006~56.750107%2C60.804833&rtt=pd"
+              },
+              {
+                "label": "Расчёт пешего пути Valhalla",
+                "url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A56.7520252504397%2C%22lon%22%3A60.80673919330006%7D%2C%7B%22lat%22%3A56.750107%2C%22lon%22%3A60.804833%7D%5D%2C%22costing%22%3A%22pedestrian%22%2C%22directions_options%22%3A%7B%22units%22%3A%22kilometers%22%7D%7D"
+              },
+              {
+                "label": "Перевозчик: расположение аэропортовой платформы",
+                "url": "https://www.svrpk.ru/for-passengers/trains-and-routes/poezda-v-aeroport-kolcovo/"
+              }
+            ]
+          },
+          {
+            "id": "f92e88475ad61abc291f",
+            "from": "s9600370",
+            "to": "s9600380",
+            "mode": "plane",
+            "origin": "Кольцово",
+            "destination": "Курумоч",
+            "carrier": "Red Wings",
+            "carrier_code": 617,
+            "carrier_iata": "WZ",
+            "number": "WZ 1033",
+            "departure": "2026-12-08T22:45:00+05:00",
+            "arrival": "2026-12-08T23:30:00+04:00",
+            "duration_minutes": 105,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08",
+            "checked_at": "2026-11-13T14:01:36.827Z",
+            "published_start_date": "2026-12-08",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08"
+              },
+              {
+                "label": "Покупка на сайте Red Wings",
+                "url": "https://flyredwings.com/booking/"
+              }
+            ],
+            "data_mode": "snapshot"
+          }
+        ],
+        "gaps": [
+          {
+            "kind": "station_transfer",
+            "from": "s9607461",
+            "to": "s9607461",
+            "reason": "На станции Кольцово между электричками 43 мин, но номера платформ и конкретный переход между ними не проверены."
+          },
+          {
+            "kind": "airport_walk_validation",
+            "from": "s9886280",
+            "to": "s9600370",
+            "reason": "Пеший маршрут 338 м найден по OpenStreetMap; входы, доступность зимой и фактическое время перехода с багажом не проверены. Учтён расчётный допуск 15 мин."
+          }
+        ],
+        "connections": [
+          {
+            "from_leg": "165faff3bc3c7500138b",
+            "to_leg": "99e6ae485e22570b43a0",
+            "status": "unknown",
+            "available_minutes": 43,
+            "minimum_minutes": null,
+            "overnight": false,
+            "long_wait": false,
+            "basis": "Один станционный код s9607461; номера платформ и длительность перехода между ними не подтверждены."
+          },
+          {
+            "from_leg": "99e6ae485e22570b43a0",
+            "to_leg": "feeder_airport_platform_to_svx",
+            "status": "unknown",
+            "available_minutes": null,
+            "minimum_minutes": 0,
+            "overnight": false,
+            "long_wait": false,
+            "basis": "Пеший переход следует после прибытия в 19:55; точные времена ходьбы не выдаются за расписание."
+          },
+          {
+            "from_leg": "feeder_airport_platform_to_svx",
+            "to_leg": "f92e88475ad61abc291f",
+            "status": "unknown",
+            "available_minutes": null,
+            "minimum_minutes": 120,
+            "overnight": false,
+            "long_wait": false,
+            "basis": "От прибытия электрички до вылета 170 мин. После расчётного допуска 15 мин на переход остаётся 155 мин, что на 35 мин больше минимального буфера 120 мин."
+          }
+        ],
+        "warnings": [
+          "Проверенный пример из сохранённого снимка расписаний на 8 декабря 2026; перед поездкой перепроверьте изменения.",
+          "Переход от аэропортовой платформы к терминалу оценён в 15 мин с запасом; доступность пути зимой и номера платформ требуют проверки.",
+          "При прибытии электрички в 19:55 и переходе за 15 мин до вылета WZ 1033 остаётся 155 мин, включая минимум 120 мин на регистрацию и багаж. Запас сверх минимума — 35 мин; это не гарантия при задержках.",
+          "Прилёт в 23:30 по времени Самары (UTC+4). Финальная точка — аэропорт Курумоч, доезд в город не включён.",
+          "Наличие мест, условия багажа и цена не подтверждены. Цена уточняется у перевозчиков. До проверки переходов покупать билеты на всю цепочку нельзя."
+        ],
+        "sources": [
+          {
+            "name": "Яндекс Расписания: Каменск-Уральский → Кольцово, 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9607640&toId=s9607461&when=2026-12-08",
+            "checked_at": "2026-11-13T14:01:48.248Z"
+          },
+          {
+            "name": "Яндекс Расписания: Кольцово → Аэропорт Кольцово, 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9607461&toId=s9886280&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:11.324Z"
+          },
+          {
+            "name": "Яндекс Расписания: WZ 1033 Кольцово → Курумоч, 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08",
+            "checked_at": "2026-11-13T14:01:36.827Z"
+          },
+          {
+            "name": "Valhalla / OpenStreetMap: пеший путь 338 м",
+            "url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A56.7520252504397%2C%22lon%22%3A60.80673919330006%7D%2C%7B%22lat%22%3A56.750107%2C%22lon%22%3A60.804833%7D%5D%2C%22costing%22%3A%22pedestrian%22%2C%22directions_options%22%3A%7B%22units%22%3A%22kilometers%22%7D%7D",
+            "checked_at": "2026-11-13T14:02:35.993Z"
+          },
+          {
+            "name": "Свердловская пригородная компания: аэропортовая платформа",
+            "url": "https://www.svrpk.ru/for-passengers/trains-and-routes/poezda-v-aeroport-kolcovo/",
+            "checked_at": "2026-11-13T14:02:35.993Z"
+          },
+          {
+            "name": "Проверить рейс и цену у Red Wings",
+            "url": "https://flyredwings.com/booking/",
+            "checked_at": "2026-11-13T14:01:36.827Z"
+          }
+        ],
+        "recommendation": {
+          "status": "needs_validation"
+        },
+        "connection_quality": {
+          "long_wait_count": 0,
+          "overnight_count": 0,
+          "max_wait_minutes": 43,
+          "total_wait_minutes": 43
+        },
+        "total_duration_minutes": null,
+        "total_price": null,
+        "reasonableness": {
+          "status": "unknown",
+          "explanation": "Сравнение с полным прямым наземным маршрутом до того же конечного узла не выполнено. Этот пример показывает подвоз к WZ, без утверждения о самом быстром способе поездки."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "name": "Яндекс Расписания: Каменск-Уральский → Кольцово, 8 декабря 2026",
+        "url": "https://rasp.yandex.ru/search/?fromId=s9607640&toId=s9607461&when=2026-12-08",
+        "checked_at": "2026-11-13T14:01:48.248Z"
+      },
+      {
+        "name": "Яндекс Расписания: Кольцово → Аэропорт Кольцово, 8 декабря 2026",
+        "url": "https://rasp.yandex.ru/search/?fromId=s9607461&toId=s9886280&when=2026-12-08",
+        "checked_at": "2026-11-13T14:02:11.324Z"
+      },
+      {
+        "name": "Яндекс Расписания: WZ 1033 Кольцово → Курумоч, 8 декабря 2026",
+        "url": "https://rasp.yandex.ru/search/?fromId=s9600370&toId=s9600380&when=2026-12-08",
+        "checked_at": "2026-11-13T14:01:36.827Z"
+      },
+      {
+        "name": "Valhalla / OpenStreetMap: пеший путь 338 м",
+        "url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A56.7520252504397%2C%22lon%22%3A60.80673919330006%7D%2C%7B%22lat%22%3A56.750107%2C%22lon%22%3A60.804833%7D%5D%2C%22costing%22%3A%22pedestrian%22%2C%22directions_options%22%3A%7B%22units%22%3A%22kilometers%22%7D%7D",
+        "checked_at": "2026-11-13T14:02:35.993Z"
+      },
+      {
+        "name": "Свердловская пригородная компания: аэропортовая платформа",
+        "url": "https://www.svrpk.ru/for-passengers/trains-and-routes/poezda-v-aeroport-kolcovo/",
+        "checked_at": "2026-11-13T14:02:35.993Z"
+      },
+      {
+        "name": "Проверить рейс и цену у Red Wings",
+        "url": "https://flyredwings.com/booking/",
+        "checked_at": "2026-11-13T14:01:36.827Z"
+      }
+    ],
+    "missing_data": [
+      "На станции Кольцово между электричками 43 мин, но номера платформ и конкретный переход между ними не проверены.",
+      "Пеший маршрут 338 м найден по OpenStreetMap; входы, доступность зимой и фактическое время перехода с багажом не проверены. Учтён расчётный допуск 15 мин."
+    ]
+  },
+  "verification": {
+    "checks": [
+      {
+        "id": "dated_ground",
+        "status": "pass",
+        "description": "Обе электрички получены из запросов Яндекс Расписаний с date=2026-12-08.",
+        "leg_ids": [
+          "165faff3bc3c7500138b",
+          "99e6ae485e22570b43a0"
+        ]
+      },
+      {
+        "id": "strict_rw",
+        "status": "pass",
+        "description": "WZ 1033 подтверждён одновременно carrier_code=617 и carrier_iata=WZ; обе временные точки датированы.",
+        "leg_id": "f92e88475ad61abc291f"
+      },
+      {
+        "id": "rail_connection",
+        "status": "partial",
+        "description": "19:06 → 19:49, 43 мин в одном станционном узле. Платформы не установлены.",
+        "available_minutes": 43
+      },
+      {
+        "id": "airport_walk",
+        "status": "partial",
+        "description": "Маршрут Valhalla найден: 0.338 км, 279.735 с. Допуск 15 мин включает округлённые 5 мин ходьбы и 10 мин запаса.",
+        "routed_minutes": 5,
+        "allocated_minutes": 15
+      },
+      {
+        "id": "preflight_buffer",
+        "status": "pass_with_assumption",
+        "description": "19:55 → 22:45 = 170 мин; минус 15 мин на переход = 155 мин. Требуется 120 мин, остаток 35 мин.",
+        "available_minutes": 170,
+        "transfer_allowance_minutes": 15,
+        "after_transfer_minutes": 155,
+        "minimum_minutes": 120,
+        "slack_minutes": 35
+      },
+      {
+        "id": "timezones",
+        "status": "pass",
+        "description": "Наземка и вылет: UTC+5; Самара: UTC+4. Длительность полёта 105 мин, а не 45 мин."
+      },
+      {
+        "id": "no_overnight_or_long_wait",
+        "status": "pass_with_assumption",
+        "description": "Все транспортные отправления и прибытия — 8 декабря по местному времени. Ночёвки и ожидания более 5 ч нет при соблюдении расписания и расчётного допуска на переход."
+      },
+      {
+        "id": "endpoints",
+        "status": "pass",
+        "description": "Начало — известный вокзал s9607640, конец — аэропорт Курумоч s9600380. Адреса домов не придуманы."
+      },
+      {
+        "id": "schema",
+        "status": "pass",
+        "description": "Read-only проверка: полные ключи emptyTrip/constraints, applyTripPatch и acceptJourneyResult; временная арифметика, источники шести ответов и строгая пара кодов Red Wings прошли проверку."
+      }
+    ],
+    "assumptions": [
+      "Пассажир самостоятельно прибывает на вокзал Каменска-Уральского к отправлению в 17:18; путь от дома не задан и не рассчитан.",
+      "На пеший путь от аэропортовой платформы к терминалу отведено 15 мин: 5 мин по маршрутизатору и 10 мин дополнительного запаса. Это параметр расчёта, не время из расписания.",
+      "Пригодность 43 мин на станции Кольцово условна до проверки платформ, физического перехода и доступности для пассажира.",
+      "Поездка выполняется по опубликованному на момент проверки расписанию; задержки не моделировались."
+    ],
+    "limitations": [
+      "Частичный кандидат: физические переходы не прошли полную проверку; полное время поездки намеренно null.",
+      "Билеты, места, цены, багаж и защита стыковки не проверялись; бронирования и покупки не выполнялись.",
+      "Финиш — аэропорт Курумоч; доезд в Самару и адрес назначения не включены.",
+      "Другие даты, прямой наземный путь и все возможные подвозящеe маршруты не сравнивались.",
+      "Текущая сеть декабря 2026 отделена от сценариев 2027–2028. В этом примере нет сценарного авиарейса.",
+      "Мгновенное демо — сохранённые проверенные данные, без имитации ответа LLM; последующее сообщение должно обрабатываться настоящим чатом."
+    ]
+  }
+}

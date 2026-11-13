@@ -1,0 +1,3096 @@
+{
+  "schema_version": "travel-case-routes/1",
+  "generated_at": "2026-11-13T13:23:03+00:00",
+  "status": "partial",
+  "trip": {
+    "origin_text": "Ханты-Мансийск, Ленина 109",
+    "destination_text": "Миасс",
+    "date_window": {
+      "start": "2026-12-01",
+      "end": "2027-01-15"
+    },
+    "date_semantics": "unresolved",
+    "outbound_date": null,
+    "return_date": null,
+    "probe_date": "2026-12-11",
+    "probe_date_is_user_selection": false,
+    "timezone": "Asia/Yekaterinburg",
+    "utc_offset": "+05:00",
+    "passengers": null,
+    "baggage": null,
+    "taxi_allowed": null,
+    "overnight_allowed": null,
+    "arrival_deadline": null,
+    "destination_address": null
+  },
+  "clarifications": [
+    {
+      "id": "date_semantics",
+      "priority": 1,
+      "question": "01.12.2026–15.01.2027 — окно возможного выезда или даты всей поездки с возвращением?",
+      "options": [
+        "Можно выехать в любой день окна",
+        "Нужно уехать 1 декабря и вернуться 15 января",
+        "Другие ограничения дат"
+      ]
+    },
+    {
+      "id": "trip_constraints",
+      "priority": 2,
+      "question": "Сколько пассажиров и багажа; допустимы ли дальнее такси, ночной переезд/ночёвка; есть ли крайний срок прибытия и точный адрес в Миассе?"
+    }
+  ],
+  "evidence_status_values": [
+    "dated",
+    "published_pattern",
+    "indicative",
+    "unknown"
+  ],
+  "nodes": [
+    {
+      "id": "origin",
+      "label": "Ханты-Мансийск, ул. Ленина, 109",
+      "kind": "address",
+      "address": "ул. Ленина, 109",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "unknown",
+      "source_ids": []
+    },
+    {
+      "id": "hma_bus",
+      "label": "Ханты-Мансийск, Авторечвокзал",
+      "kind": "bus_station",
+      "address": "ул. Бориса Щербины, 3",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "hma_bus_contacts"
+      ]
+    },
+    {
+      "id": "hma_airport",
+      "label": "Аэропорт Ханты-Мансийск",
+      "kind": "airport",
+      "address": null,
+      "code": "HMA",
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "hma_schedule_page"
+      ]
+    },
+    {
+      "id": "sgc_bus",
+      "label": "Сургут, аэропорт, автобусная касса АТП №1",
+      "kind": "bus_stop",
+      "address": "ул. Аэрофлотская, 50",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "sgc_bus_operator"
+      ]
+    },
+    {
+      "id": "sgc_airport",
+      "label": "Аэропорт Сургут им. Фармана Салманова",
+      "kind": "airport",
+      "address": "ул. Аэрофлотская, 49/1",
+      "code": "SGC",
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "sgc_access"
+      ]
+    },
+    {
+      "id": "sgc_rail",
+      "label": "Сургут, железнодорожный вокзал",
+      "kind": "railway_station",
+      "address": null,
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "indicative",
+      "source_ids": [
+        "sgc_bus16_image"
+      ]
+    },
+    {
+      "id": "svx_airport",
+      "label": "Екатеринбург, аэропорт Кольцово",
+      "kind": "airport",
+      "address": null,
+      "code": "SVX",
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "sgc_schedule"
+      ]
+    },
+    {
+      "id": "ekb_rail",
+      "label": "Екатеринбург-Пасс.",
+      "kind": "railway_station",
+      "address": null,
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "svx_access"
+      ]
+    },
+    {
+      "id": "ekb_north_bus",
+      "label": "Екатеринбург, Северный автовокзал",
+      "kind": "bus_station",
+      "address": "ул. Вокзальная, 15А",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "ekb_miass_bus"
+      ]
+    },
+    {
+      "id": "ekb_south_bus",
+      "label": "Екатеринбург, Южный автовокзал",
+      "kind": "bus_station",
+      "address": "ул. 8 Марта, 145",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "ekb_miass_bus"
+      ]
+    },
+    {
+      "id": "cek_airport",
+      "label": "Аэропорт Челябинск (Баландино) им. И.В. Курчатова",
+      "kind": "airport",
+      "address": null,
+      "code": "CEK",
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "hma_schedule_data"
+      ]
+    },
+    {
+      "id": "cek_rail",
+      "label": "Челябинск-Главный",
+      "kind": "railway_station",
+      "address": null,
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "spk_winter2025"
+      ]
+    },
+    {
+      "id": "miass_rail",
+      "label": "Миасс-1",
+      "kind": "railway_station",
+      "address": "ул. Академика Павлова",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "miass_station"
+      ]
+    },
+    {
+      "id": "miass_bus",
+      "label": "Миасс, автовокзал",
+      "kind": "bus_station",
+      "address": "ул. Академика Павлова, 48",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "svx_miass_bus"
+      ]
+    },
+    {
+      "id": "miass_mashgorodok",
+      "label": "Миасс, автостанция Машгородок",
+      "kind": "bus_station",
+      "address": "просп. Октября, 67А",
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "indicative",
+      "source_ids": [
+        "ekb_miass_bus"
+      ]
+    },
+    {
+      "id": "miass_predzavod",
+      "label": "Миасс, автостанция Предзаводская",
+      "kind": "bus_station",
+      "address": null,
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "indicative",
+      "source_ids": [
+        "ekb_miass_bus"
+      ]
+    },
+    {
+      "id": "miass",
+      "label": "Миасс, адрес прибытия уточняется",
+      "kind": "city",
+      "address": null,
+      "code": null,
+      "timezone": "Asia/Yekaterinburg",
+      "evidence_status": "unknown",
+      "source_ids": []
+    }
+  ],
+  "legs": [
+    {
+      "id": "access_hma_bus",
+      "mode": "taxi",
+      "origin": "Ханты-Мансийск, ул. Ленина, 109",
+      "destination": "Ханты-Мансийск, Авторечвокзал",
+      "origin_node": "origin",
+      "destination_node": "hma_bus",
+      "carrier": null,
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": null,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "unknown",
+      "source_name": "Автовокзал ХМА: адрес посадки",
+      "source_url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_bus_contacts"
+      ],
+      "links": [
+        {
+          "label": "Автовокзал ХМА: адрес посадки",
+          "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+        "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс."
+      ]
+    },
+    {
+      "id": "access_hma_airport",
+      "mode": "taxi",
+      "origin": "Ханты-Мансийск, ул. Ленина, 109",
+      "destination": "Аэропорт Ханты-Мансийск",
+      "origin_node": "origin",
+      "destination_node": "hma_airport",
+      "carrier": null,
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": null,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "unknown",
+      "source_name": "Юграавиа: как добраться",
+      "source_url": "https://ugraavia.ru/passengers/how-get-there/",
+      "checked_at": "2026-11-13T13:23:02+00:00",
+      "fetched_at": "2026-11-13T13:23:02+00:00",
+      "source_ids": [
+        "hma_access"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: как добраться",
+          "url": "https://ugraavia.ru/passengers/how-get-there/"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+        "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс.",
+        "Автобусы №3/5/6 опубликованы аэропортом, но остановка от дома и календарь не установлены."
+      ]
+    },
+    {
+      "id": "hma_sgc_bus680",
+      "mode": "bus",
+      "origin": "Ханты-Мансийск, Авторечвокзал",
+      "destination": "Сургут, аэропорт, автобусная касса АТП №1",
+      "origin_node": "hma_bus",
+      "destination_node": "sgc_bus",
+      "carrier": "ООО «Ханты-Мансийское ПАТП»",
+      "number": "680",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 330,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Туту: Ханты-Мансийск — Сургут",
+      "source_url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/",
+      "checked_at": "2026-11-13T13:23:00+00:00",
+      "fetched_at": "2026-11-13T13:23:00+00:00",
+      "source_ids": [
+        "feeder_tutu",
+        "hma_bus_image",
+        "hma_bus_contacts"
+      ],
+      "links": [
+        {
+          "label": "Туту: Ханты-Мансийск — Сургут",
+          "url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/"
+        },
+        {
+          "label": "Автовокзал ХМА: таблица с 01.08.2026",
+          "url": "https://hmav.ru/wp-content/uploads/2026/08/01_08_2026.png"
+        },
+        {
+          "label": "Автовокзал ХМА: адрес посадки",
+          "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "06:15",
+        "arrival_local": "11:45",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Первично подтверждены №680, отправление 06:15 и проезд через Сургут; остановка аэропорта и 11:45 — вторичное расписание, не датированный договор.",
+        "Не переносить 19:10 из первичной таблицы: это прибытие в Радужный."
+      ]
+    },
+    {
+      "id": "hma_sgc_bus700_disputed",
+      "mode": "bus",
+      "origin": "Ханты-Мансийск, Авторечвокзал",
+      "destination": "Сургут, аэропорт, автобусная касса АТП №1",
+      "origin_node": "hma_bus",
+      "destination_node": "sgc_bus",
+      "carrier": "ООО «Ханты-Мансийское ПАТП»",
+      "number": "700",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 300,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Туту: Ханты-Мансийск — Сургут",
+      "source_url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/",
+      "checked_at": "2026-11-13T13:23:00+00:00",
+      "fetched_at": "2026-11-13T13:23:00+00:00",
+      "source_ids": [
+        "feeder_tutu",
+        "hma_bus_image"
+      ],
+      "links": [
+        {
+          "label": "Туту: Ханты-Мансийск — Сургут",
+          "url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/"
+        },
+        {
+          "label": "Автовокзал ХМА: таблица с 01.08.2026",
+          "url": "https://hmav.ru/wp-content/uploads/2026/08/01_08_2026.png"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "07:30",
+        "arrival_local": "12:30",
+        "weekdays_iso": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Конфликт источников: отсутствует в таблице автовокзала с 01.08.2026. Не использовать основным feeder без проверки на дату."
+      ],
+      "use_in_default_plan": false
+    },
+    {
+      "id": "sgc_stop_to_terminal",
+      "mode": "walk",
+      "origin": "Сургут, аэропорт, автобусная касса АТП №1",
+      "destination": "Аэропорт Сургут им. Фармана Салманова",
+      "origin_node": "sgc_bus",
+      "destination_node": "sgc_airport",
+      "carrier": null,
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": null,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "unknown",
+      "source_name": "АТП №1: расписание от аэропорта Сургута",
+      "source_url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+      "checked_at": "2026-11-13T13:23:00+00:00",
+      "fetched_at": "2026-11-13T13:23:00+00:00",
+      "source_ids": [
+        "sgc_bus_operator",
+        "sgc_access"
+      ],
+      "links": [
+        {
+          "label": "АТП №1: расписание от аэропорта Сургута",
+          "url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie"
+        },
+        {
+          "label": "Аэропорт Сургут: наземный транспорт",
+          "url": "https://www.airport-surgut.ru/surgut/how-to-find/"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Касса и терминал опубликованы по разным адресам 50 и 49/1; безопасный пешеходный переход, расстояние и длительность не обследованы."
+      ]
+    },
+    {
+      "id": "rw1018_mon",
+      "mode": "plane",
+      "origin": "Аэропорт Сургут им. Фармана Салманова",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "sgc_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Red Wings",
+      "number": "WZ 1018",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 110,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Аэропорт Сургут: сезонное расписание",
+      "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "sgc_schedule"
+      ],
+      "links": [
+        {
+          "label": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "13:35",
+        "arrival_local": "15:25",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          1
+        ],
+        "valid_from": "2026-12-07",
+        "valid_to": "2027-03-22",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-07",
+          "2026-12-14",
+          "2026-12-21",
+          "2026-12-28",
+          "2027-01-04",
+          "2027-01-11"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": []
+    },
+    {
+      "id": "rw1018_wed",
+      "mode": "plane",
+      "origin": "Аэропорт Сургут им. Фармана Салманова",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "sgc_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Red Wings",
+      "number": "WZ 1018",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 110,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Аэропорт Сургут: сезонное расписание",
+      "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "sgc_schedule"
+      ],
+      "links": [
+        {
+          "label": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "15:25",
+        "arrival_local": "17:15",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          3
+        ],
+        "valid_from": "2026-11-18",
+        "valid_to": "2027-03-24",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-02",
+          "2026-12-09",
+          "2026-12-16",
+          "2026-12-23",
+          "2026-12-30",
+          "2027-01-06",
+          "2027-01-13"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": []
+    },
+    {
+      "id": "rw1018_fri",
+      "mode": "plane",
+      "origin": "Аэропорт Сургут им. Фармана Салманова",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "sgc_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Red Wings",
+      "number": "WZ 1018",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 110,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Аэропорт Сургут: сезонное расписание",
+      "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "sgc_schedule"
+      ],
+      "links": [
+        {
+          "label": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "16:30",
+        "arrival_local": "18:20",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          5
+        ],
+        "valid_from": "2026-11-20",
+        "valid_to": "2027-03-26",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-04",
+          "2026-12-11",
+          "2026-12-18",
+          "2026-12-25",
+          "2027-01-01",
+          "2027-01-08",
+          "2027-01-15"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": []
+    },
+    {
+      "id": "rw1018_20261211",
+      "mode": "plane",
+      "origin": "Аэропорт Сургут им. Фармана Салманова",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "sgc_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Red Wings",
+      "number": "WZ 1018",
+      "departure": "2026-12-11T16:30:00+05:00",
+      "arrival": "2026-12-11T18:20:00+05:00",
+      "duration_minutes": 110,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "dated",
+      "source_name": "Аэропорт Сургут: сезонное расписание",
+      "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "sgc_schedule",
+        "context40_snapshot"
+      ],
+      "links": [
+        {
+          "label": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/"
+        },
+        {
+          "label": "Сохранённая выдача Яндекс Расписаний SGC 11.12.2026",
+          "url": "https://rasp.yandex.ru/station/9623563/?date=2026-12-11"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Датированный snapshot подтверждает вылет и перевозчика; arrival в snapshot был null.",
+        "18:20 разрешено по пятничному сезонному расписанию аэропорта; это опубликованное плановое время, не фактический прилёт и не отдельный датированный ответ перевозчика."
+      ],
+      "field_evidence": {
+        "departure": {
+          "status": "dated",
+          "source_ids": [
+            "context40_snapshot"
+          ]
+        },
+        "arrival": {
+          "status": "published_pattern",
+          "source_ids": [
+            "sgc_schedule"
+          ],
+          "calendar_resolved_for": "2026-12-11"
+        }
+      },
+      "original_snapshot_arrival": null,
+      "ticket_or_seat_confirmed": false
+    },
+    {
+      "id": "ut301_mwfs",
+      "mode": "plane",
+      "origin": "Аэропорт Ханты-Мансийск",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "hma_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Utair",
+      "number": "UT 301",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 135,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Юграавиа: открытые данные опубликованного расписания",
+      "source_url": "https://ugraavia.ru/api/air/schedule/get",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_schedule_data",
+        "hma_schedule_page"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get"
+        },
+        {
+          "label": "Юграавиа: публичное расписание",
+          "url": "https://ugraavia.ru/passengers/flight-schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "08:30",
+        "arrival_local": "10:45",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "valid_from": "2026-10-26",
+        "valid_to": "2027-03-27",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-02",
+          "2026-12-04",
+          "2026-12-05",
+          "2026-12-07",
+          "2026-12-09",
+          "2026-12-11",
+          "2026-12-12",
+          "2026-12-14",
+          "2026-12-16",
+          "2026-12-18",
+          "2026-12-19",
+          "2026-12-21",
+          "2026-12-23",
+          "2026-12-25",
+          "2026-12-26",
+          "2026-12-28",
+          "2026-12-30",
+          "2027-01-01",
+          "2027-01-02",
+          "2027-01-04",
+          "2027-01-06",
+          "2027-01-08",
+          "2027-01-09",
+          "2027-01-11",
+          "2027-01-13",
+          "2027-01-15"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": []
+    },
+    {
+      "id": "ut301_thsu",
+      "mode": "plane",
+      "origin": "Аэропорт Ханты-Мансийск",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "hma_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Utair",
+      "number": "UT 301",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 120,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Юграавиа: открытые данные опубликованного расписания",
+      "source_url": "https://ugraavia.ru/api/air/schedule/get",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_schedule_data",
+        "hma_schedule_page"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get"
+        },
+        {
+          "label": "Юграавиа: публичное расписание",
+          "url": "https://ugraavia.ru/passengers/flight-schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "10:00",
+        "arrival_local": "12:00",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          4,
+          7
+        ],
+        "valid_from": "2026-10-25",
+        "valid_to": "2027-03-28",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-03",
+          "2026-12-06",
+          "2026-12-10",
+          "2026-12-13",
+          "2026-12-17",
+          "2026-12-20",
+          "2026-12-24",
+          "2026-12-27",
+          "2026-12-31",
+          "2027-01-03",
+          "2027-01-07",
+          "2027-01-10",
+          "2027-01-14"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": []
+    },
+    {
+      "id": "ut301_tue_jan",
+      "mode": "plane",
+      "origin": "Аэропорт Ханты-Мансийск",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "hma_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Utair",
+      "number": "UT 301",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 135,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Юграавиа: открытые данные опубликованного расписания",
+      "source_url": "https://ugraavia.ru/api/air/schedule/get",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_schedule_data",
+        "hma_schedule_page"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get"
+        },
+        {
+          "label": "Юграавиа: публичное расписание",
+          "url": "https://ugraavia.ru/passengers/flight-schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "08:30",
+        "arrival_local": "10:45",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          2
+        ],
+        "valid_from": "2027-01-05",
+        "valid_to": "2027-03-23",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2027-01-05",
+          "2027-01-12"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": []
+    },
+    {
+      "id": "rusline897_fri",
+      "mode": "plane",
+      "origin": "Аэропорт Ханты-Мансийск",
+      "destination": "Аэропорт Челябинск (Баландино) им. И.В. Курчатова",
+      "origin_node": "hma_airport",
+      "destination_node": "cek_airport",
+      "carrier": "РусЛайн",
+      "number": "7R 897",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 100,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Юграавиа: открытые данные опубликованного расписания",
+      "source_url": "https://ugraavia.ru/api/air/schedule/get",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_schedule_data",
+        "hma_schedule_page"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get"
+        },
+        {
+          "label": "Юграавиа: публичное расписание",
+          "url": "https://ugraavia.ru/passengers/flight-schedule/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "08:15",
+        "arrival_local": "09:55",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          5
+        ],
+        "valid_from": "2026-12-04",
+        "valid_to": "2027-03-26",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-04",
+          "2026-12-11",
+          "2026-12-18",
+          "2026-12-25",
+          "2027-01-01",
+          "2027-01-08",
+          "2027-01-15"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": [
+        "Время обоих аэропортов +05:00. Не переносить 10:15 из общего агрегатора на зимний график."
+      ]
+    },
+    {
+      "id": "ut116_hma_sgc",
+      "mode": "plane",
+      "origin": "Аэропорт Ханты-Мансийск",
+      "destination": "Аэропорт Сургут им. Фармана Салманова",
+      "origin_node": "hma_airport",
+      "destination_node": "sgc_airport",
+      "carrier": "Utair",
+      "number": "UT 116",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 65,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Юграавиа: открытые данные опубликованного расписания",
+      "source_url": "https://ugraavia.ru/api/air/schedule/get",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_schedule_data"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "21:00",
+        "arrival_local": "22:05",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "valid_from": "2026-11-12",
+        "valid_to": "2027-03-27",
+        "dated_operation_confirmed": false,
+        "dates_in_requested_window": [
+          "2026-12-01",
+          "2026-12-02",
+          "2026-12-03",
+          "2026-12-04",
+          "2026-12-05",
+          "2026-12-06",
+          "2026-12-07",
+          "2026-12-08",
+          "2026-12-09",
+          "2026-12-10",
+          "2026-12-11",
+          "2026-12-12",
+          "2026-12-13",
+          "2026-12-14",
+          "2026-12-15",
+          "2026-12-16",
+          "2026-12-17",
+          "2026-12-18",
+          "2026-12-19",
+          "2026-12-20",
+          "2026-12-21",
+          "2026-12-22",
+          "2026-12-23",
+          "2026-12-24",
+          "2026-12-25",
+          "2026-12-26",
+          "2026-12-27",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-30",
+          "2026-12-31",
+          "2027-01-01",
+          "2027-01-02",
+          "2027-01-03",
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06",
+          "2027-01-07",
+          "2027-01-08",
+          "2027-01-09",
+          "2027-01-10",
+          "2027-01-11",
+          "2027-01-12",
+          "2027-01-13",
+          "2027-01-14",
+          "2027-01-15"
+        ],
+        "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+      },
+      "notes": [
+        "Для WZ1018 нужен другой день; ночёвка и расходы не согласованы."
+      ]
+    },
+    {
+      "id": "rw4540_outside_window",
+      "mode": "plane",
+      "origin": "Аэропорт Ханты-Мансийск",
+      "destination": "Екатеринбург, аэропорт Кольцово",
+      "origin_node": "hma_airport",
+      "destination_node": "svx_airport",
+      "carrier": "Red Wings",
+      "number": "WZ 4540",
+      "departure": "2026-11-24T15:40:00+05:00",
+      "arrival": "2026-11-24T17:15:00+05:00",
+      "duration_minutes": 95,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "dated",
+      "source_name": "Юграавиа: открытые данные опубликованного расписания",
+      "source_url": "https://ugraavia.ru/api/air/schedule/get",
+      "checked_at": "2026-11-13T13:22:57+00:00",
+      "fetched_at": "2026-11-13T13:22:57+00:00",
+      "source_ids": [
+        "hma_schedule_data"
+      ],
+      "links": [
+        {
+          "label": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Вне окна 01.12.2026–15.01.2027; не превращать в регулярный маршрут и не предлагать в этом окне."
+      ],
+      "use_in_default_plan": false,
+      "within_requested_window": false
+    },
+    {
+      "id": "svx_miass_taxi",
+      "mode": "taxi",
+      "origin": "Екатеринбург, аэропорт Кольцово",
+      "destination": "Миасс, адрес прибытия уточняется",
+      "origin_node": "svx_airport",
+      "destination_node": "miass",
+      "carrier": "Business Transfer",
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 220,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+      "source_url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "svx_miass_taxi"
+      ],
+      "links": [
+        {
+          "label": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "url": "https://businesstransfer.ru/transfer/miass-koltsovo/"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Опубликованный ориентир около 250 км/3:40; оператор описывает встречу с рейса.",
+        "Точный адрес, обратное направление от аэропорта, дата, подача, багаж и цена требуют согласования; рейс машины не забронирован."
+      ]
+    },
+    {
+      "id": "cek_miass_taxi",
+      "mode": "taxi",
+      "origin": "Аэропорт Челябинск (Баландино) им. И.В. Курчатова",
+      "destination": "Миасс, адрес прибытия уточняется",
+      "origin_node": "cek_airport",
+      "destination_node": "miass",
+      "carrier": "Драйвер174 / Business Transfer (отдельные предложения)",
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": null,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Драйвер174: Челябинск/аэропорт — Миасс",
+      "source_url": "https://driver174.ru/uslugi-mezhdugorodnego-taksi/chelyabinska-oblast/taksi-chelyabinsk-miass/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "cek_miass_driver",
+        "cek_miass_taxi"
+      ],
+      "links": [
+        {
+          "label": "Драйвер174: Челябинск/аэропорт — Миасс",
+          "url": "https://driver174.ru/uslugi-mezhdugorodnego-taksi/chelyabinska-oblast/taksi-chelyabinsk-miass/"
+        },
+        {
+          "label": "Business Transfer: Миасс — Баландино и встреча с рейса",
+          "url": "https://businesstransfer.ru/transfer/miass-balandino/"
+        }
+      ],
+      "schedule_pattern": null,
+      "notes": [
+        "Два разных предложения не один сквозной договор. Драйвер174 прямо описывает CEK→Миасс; Business Transfer даёт дорожный ориентир 115 км/1:40 в обратном направлении и встречу с рейса.",
+        "Ориентир 100 минут не превращён в подтверждённую длительность этой подачи. Цена/машина/адрес неизвестны."
+      ],
+      "indicative_duration_minutes": 100,
+      "indicative_distance_km": 115
+    },
+    {
+      "id": "svx_ekb_bus65",
+      "mode": "bus",
+      "origin": "Екатеринбург, аэропорт Кольцово",
+      "destination": "Екатеринбург-Пасс.",
+      "origin_node": "svx_airport",
+      "destination_node": "ekb_rail",
+      "carrier": null,
+      "number": "65",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 65,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Кольцово: общественный транспорт из аэропорта",
+      "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "svx_access"
+      ],
+      "links": [
+        {
+          "label": "Кольцово: общественный транспорт из аэропорта",
+          "url": "https://ar-svx.ru/how-to-get/from/bus/"
+        }
+      ],
+      "schedule_pattern": {
+        "valid_from": null,
+        "valid_to": null,
+        "service_hours": {
+          "weekdays": [
+            "05:59",
+            "23:51"
+          ],
+          "weekends": [
+            "06:21",
+            "23:46"
+          ]
+        },
+        "headway_minutes": {
+          "weekdays": [
+            16,
+            41
+          ],
+          "weekends": [
+            16,
+            44
+          ]
+        },
+        "departure_local": null,
+        "arrival_local": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Нельзя присвоить конкретное отправление по диапазону работы. Уточнить действительность схемы и расписания на дату."
+      ]
+    },
+    {
+      "id": "svx_train6053",
+      "mode": "suburban",
+      "origin": "Екатеринбург, аэропорт Кольцово",
+      "destination": "Екатеринбург-Пасс.",
+      "origin_node": "svx_airport",
+      "destination_node": "ekb_rail",
+      "carrier": "Свердловская пригородная компания",
+      "number": "6053",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 34,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Кольцово: общественный транспорт из аэропорта",
+      "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "svx_access"
+      ],
+      "links": [
+        {
+          "label": "Кольцово: общественный транспорт из аэропорта",
+          "url": "https://ar-svx.ru/how-to-get/from/bus/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "07:39",
+        "arrival_local": "08:13",
+        "valid_from": null,
+        "valid_to": null,
+        "weekdays_iso": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Дни и срок действия в блоке выезда из аэропорта не указаны. По пятничному WZ18:20 ни одно это отправление уже не доступно."
+      ]
+    },
+    {
+      "id": "svx_train6037",
+      "mode": "suburban",
+      "origin": "Екатеринбург, аэропорт Кольцово",
+      "destination": "Екатеринбург-Пасс.",
+      "origin_node": "svx_airport",
+      "destination_node": "ekb_rail",
+      "carrier": "Свердловская пригородная компания",
+      "number": "6037",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 35,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Кольцово: общественный транспорт из аэропорта",
+      "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "svx_access"
+      ],
+      "links": [
+        {
+          "label": "Кольцово: общественный транспорт из аэропорта",
+          "url": "https://ar-svx.ru/how-to-get/from/bus/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "08:45",
+        "arrival_local": "09:20",
+        "valid_from": null,
+        "valid_to": null,
+        "weekdays_iso": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Дни и срок действия в блоке выезда из аэропорта не указаны. По пятничному WZ18:20 ни одно это отправление уже не доступно."
+      ]
+    },
+    {
+      "id": "svx_train6055",
+      "mode": "suburban",
+      "origin": "Екатеринбург, аэропорт Кольцово",
+      "destination": "Екатеринбург-Пасс.",
+      "origin_node": "svx_airport",
+      "destination_node": "ekb_rail",
+      "carrier": "Свердловская пригородная компания",
+      "number": "6055",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 30,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "published_pattern",
+      "source_name": "Кольцово: общественный транспорт из аэропорта",
+      "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "svx_access"
+      ],
+      "links": [
+        {
+          "label": "Кольцово: общественный транспорт из аэропорта",
+          "url": "https://ar-svx.ru/how-to-get/from/bus/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "17:20",
+        "arrival_local": "17:50",
+        "valid_from": null,
+        "valid_to": null,
+        "weekdays_iso": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Дни и срок действия в блоке выезда из аэропорта не указаны. По пятничному WZ18:20 ни одно это отправление уже не доступно."
+      ]
+    },
+    {
+      "id": "ekb_miass_train373",
+      "mode": "train",
+      "origin": "Екатеринбург-Пасс.",
+      "destination": "Миасс-1",
+      "origin_node": "ekb_rail",
+      "destination_node": "miass_rail",
+      "carrier": "РЖД/ФПК",
+      "number": "373Е (нужна проверка 373/374)",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 547,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+      "source_url": "https://raspisanija.ru/route/ekaterinburg/miass/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "ekb_miass_train"
+      ],
+      "links": [
+        {
+          "label": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+          "url": "https://raspisanija.ru/route/ekaterinburg/miass/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "02:26",
+        "arrival_local": "11:33",
+        "arrival_day_offset": 0,
+        "valid_from": null,
+        "valid_to": null,
+        "listed_dates_in_window": [
+          "2026-12-04",
+          "2026-12-08",
+          "2026-12-12",
+          "2026-12-16",
+          "2026-12-20",
+          "2026-12-24",
+          "2026-12-28",
+          "2027-01-01",
+          "2027-01-05",
+          "2027-01-09",
+          "2027-01-13"
+        ],
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Вторичное расписание; есть неоднозначность номера 373Е/374Е. Нельзя считать подтверждённой стыковку с WZ11.12 до проверки РЖД на 12.12.",
+        "Рейс 02:26 после вечернего прилёта — ночной выезд, требует согласия пользователя."
+      ]
+    },
+    {
+      "id": "ekb_miass_train262",
+      "mode": "train",
+      "origin": "Екатеринбург-Пасс.",
+      "destination": "Миасс-1",
+      "origin_node": "ekb_rail",
+      "destination_node": "miass_rail",
+      "carrier": "РЖД/ФПК",
+      "number": "262Е",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 396,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+      "source_url": "https://raspisanija.ru/route/ekaterinburg/miass/",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "ekb_miass_train"
+      ],
+      "links": [
+        {
+          "label": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+          "url": "https://raspisanija.ru/route/ekaterinburg/miass/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "22:38",
+        "arrival_local": "05:14",
+        "arrival_day_offset": 1,
+        "listed_dates_in_window": [
+          "2026-12-12",
+          "2026-12-19",
+          "2026-12-27",
+          "2027-01-03",
+          "2027-01-10"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Часы и отдельные даты из вторичного источника; нет датированного подтверждения РЖД или мест."
+      ]
+    },
+    {
+      "id": "ekb_svx_to_miass_bus",
+      "mode": "bus",
+      "origin": "Екатеринбург, аэропорт Кольцово",
+      "destination": "Миасс, автовокзал",
+      "origin_node": "svx_airport",
+      "destination_node": "miass_bus",
+      "carrier": "Перевозчик не установлен; указан Северный автовокзал",
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 240,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Автовокзалы.ру: Кольцово — Миасс",
+      "source_url": "https://www.avtovokzaly.ru/avtobus/aeroport_kolcovo-miass",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "svx_miass_bus"
+      ],
+      "links": [
+        {
+          "label": "Автовокзалы.ру: Кольцово — Миасс",
+          "url": "https://www.avtovokzaly.ru/avtobus/aeroport_kolcovo-miass"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "09:35",
+        "arrival_local": "13:35",
+        "arrival_day_offset": 0,
+        "weekdays_iso": [
+          3,
+          6
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Транзит Екатеринбург—Сибай; номер маршрута не установлен.",
+        "Утреннее отправление раньше всех найденных WZ1018 в SVX; без отдельного дня/ночёвки не стыкуется."
+      ]
+    },
+    {
+      "id": "north_miass_bus0800",
+      "mode": "bus",
+      "origin": "Екатеринбург, Северный автовокзал",
+      "destination": "Миасс, автостанция Машгородок",
+      "origin_node": "ekb_north_bus",
+      "destination_node": "miass_mashgorodok",
+      "carrier": "ООО «Хотэй»",
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 255,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Автовокзалы.ру: Екатеринбург — Миасс",
+      "source_url": "https://www.avtovokzaly.ru/avtobus/ekaterinburg-miass",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "ekb_miass_bus"
+      ],
+      "links": [
+        {
+          "label": "Автовокзалы.ру: Екатеринбург — Миасс",
+          "url": "https://www.avtovokzaly.ru/avtobus/ekaterinburg-miass"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "08:00",
+        "arrival_local": "12:15",
+        "valid_from": null,
+        "valid_to": null,
+        "weekdays_iso": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Страница показывает ближайшие ноябрьские даты, не всё исследуемое окно. Номер маршрута не установлен. Доступ от SVX к Северному не рассчитан."
+      ]
+    },
+    {
+      "id": "south_miass_bus1423",
+      "mode": "bus",
+      "origin": "Екатеринбург, Южный автовокзал",
+      "destination": "Миасс, автостанция Машгородок",
+      "origin_node": "ekb_south_bus",
+      "destination_node": "miass_mashgorodok",
+      "carrier": "Вторичная публикация Южного автовокзала; перевозчик не установлен",
+      "number": null,
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": 231,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Автовокзалы.ру: Екатеринбург — Миасс",
+      "source_url": "https://www.avtovokzaly.ru/avtobus/ekaterinburg-miass",
+      "checked_at": "2026-11-13T13:23:01+00:00",
+      "fetched_at": "2026-11-13T13:23:01+00:00",
+      "source_ids": [
+        "ekb_miass_bus"
+      ],
+      "links": [
+        {
+          "label": "Автовокзалы.ру: Екатеринбург — Миасс",
+          "url": "https://www.avtovokzaly.ru/avtobus/ekaterinburg-miass"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": "14:23",
+        "arrival_local": "18:14",
+        "weekdays_iso": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Транзит Екатеринбург—Златоуст; номер не установлен. Прилёт RW пятницы18:20 позже отправления; прямой UT30110:45 потенциально оставляет время, но трансфер к Южному не рассчитан."
+      ]
+    },
+    {
+      "id": "sgc_rail_bus16",
+      "mode": "bus",
+      "origin": "Сургут, железнодорожный вокзал",
+      "destination": "Аэропорт Сургут им. Фармана Салманова",
+      "origin_node": "sgc_rail",
+      "destination_node": "sgc_airport",
+      "carrier": "АО «СПОПАТ»",
+      "number": "16",
+      "departure": null,
+      "arrival": null,
+      "duration_minutes": null,
+      "price": null,
+      "seats_available": null,
+      "evidence_status": "indicative",
+      "source_name": "Аэропорт Сургут: вложенное расписание №16",
+      "source_url": "https://www.airport-surgut.ru/upload/medialibrary/07a/bqlcc7heaadvju07hr954qytkhjbzxfo/%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82%D1%8B%2016_107%20(%D0%A1%D1%83%D1%80%D0%B3%D1%83%D1%82)%20-%200001.jpg",
+      "checked_at": "2026-11-13T13:23:00+00:00",
+      "fetched_at": "2026-11-13T13:23:00+00:00",
+      "source_ids": [
+        "sgc_bus16_image",
+        "sgc_access"
+      ],
+      "links": [
+        {
+          "label": "Аэропорт Сургут: вложенное расписание №16",
+          "url": "https://www.airport-surgut.ru/upload/medialibrary/07a/bqlcc7heaadvju07hr954qytkhjbzxfo/%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82%D1%8B%2016_107%20(%D0%A1%D1%83%D1%80%D0%B3%D1%83%D1%82)%20-%200001.jpg"
+        },
+        {
+          "label": "Аэропорт Сургут: наземный транспорт",
+          "url": "https://www.airport-surgut.ru/surgut/how-to-find/"
+        }
+      ],
+      "schedule_pattern": {
+        "departure_local": null,
+        "arrival_local": null,
+        "valid_from": "2024-10-01",
+        "valid_to": "2025-04-30",
+        "dated_operation_confirmed": false
+      },
+      "notes": [
+        "Маршрут назван аэропортом, но вложенное расписание истекло в 2025. Текущие часы и длительность неизвестны; в основной цепочке не нужен, если №680 высаживает у аэропорта."
+      ]
+    }
+  ],
+  "corridors": [
+    {
+      "id": "rw_bus_sgc_svx_taxi",
+      "title": "RW: автобус №680 → Сургут → WZ1018 → Кольцово → такси в Миасс",
+      "status": "partial",
+      "evidence_status": "indicative",
+      "summary": "Самый подкреплённый найденными источниками RW-коридор. Автобус идёт к аэропорту, не требует обязательного переезда через город Сургут.",
+      "requires_red_wings": true,
+      "leg_ids": [
+        "access_hma_bus",
+        "hma_sgc_bus680",
+        "sgc_stop_to_terminal",
+        "rw1018_20261211",
+        "svx_miass_taxi"
+      ],
+      "legs": [
+        {
+          "id": "access_hma_bus",
+          "mode": "taxi",
+          "origin": "Ханты-Мансийск, ул. Ленина, 109",
+          "destination": "Ханты-Мансийск, Авторечвокзал",
+          "origin_node": "origin",
+          "destination_node": "hma_bus",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "Автовокзал ХМА: адрес посадки",
+          "source_url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "hma_bus_contacts"
+          ],
+          "links": [
+            {
+              "label": "Автовокзал ХМА: адрес посадки",
+              "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+            "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс."
+          ]
+        },
+        {
+          "id": "hma_sgc_bus680",
+          "mode": "bus",
+          "origin": "Ханты-Мансийск, Авторечвокзал",
+          "destination": "Сургут, аэропорт, автобусная касса АТП №1",
+          "origin_node": "hma_bus",
+          "destination_node": "sgc_bus",
+          "carrier": "ООО «Ханты-Мансийское ПАТП»",
+          "number": "680",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 330,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Туту: Ханты-Мансийск — Сургут",
+          "source_url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/",
+          "checked_at": "2026-11-13T13:23:00+00:00",
+          "fetched_at": "2026-11-13T13:23:00+00:00",
+          "source_ids": [
+            "feeder_tutu",
+            "hma_bus_image",
+            "hma_bus_contacts"
+          ],
+          "links": [
+            {
+              "label": "Туту: Ханты-Мансийск — Сургут",
+              "url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/"
+            },
+            {
+              "label": "Автовокзал ХМА: таблица с 01.08.2026",
+              "url": "https://hmav.ru/wp-content/uploads/2026/08/01_08_2026.png"
+            },
+            {
+              "label": "Автовокзал ХМА: адрес посадки",
+              "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "06:15",
+            "arrival_local": "11:45",
+            "arrival_day_offset": 0,
+            "weekdays_iso": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "valid_from": null,
+            "valid_to": null,
+            "dated_operation_confirmed": false
+          },
+          "notes": [
+            "Первично подтверждены №680, отправление 06:15 и проезд через Сургут; остановка аэропорта и 11:45 — вторичное расписание, не датированный договор.",
+            "Не переносить 19:10 из первичной таблицы: это прибытие в Радужный."
+          ]
+        },
+        {
+          "id": "sgc_stop_to_terminal",
+          "mode": "walk",
+          "origin": "Сургут, аэропорт, автобусная касса АТП №1",
+          "destination": "Аэропорт Сургут им. Фармана Салманова",
+          "origin_node": "sgc_bus",
+          "destination_node": "sgc_airport",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "АТП №1: расписание от аэропорта Сургута",
+          "source_url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+          "checked_at": "2026-11-13T13:23:00+00:00",
+          "fetched_at": "2026-11-13T13:23:00+00:00",
+          "source_ids": [
+            "sgc_bus_operator",
+            "sgc_access"
+          ],
+          "links": [
+            {
+              "label": "АТП №1: расписание от аэропорта Сургута",
+              "url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie"
+            },
+            {
+              "label": "Аэропорт Сургут: наземный транспорт",
+              "url": "https://www.airport-surgut.ru/surgut/how-to-find/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Касса и терминал опубликованы по разным адресам 50 и 49/1; безопасный пешеходный переход, расстояние и длительность не обследованы."
+          ]
+        },
+        {
+          "id": "rw1018_20261211",
+          "mode": "plane",
+          "origin": "Аэропорт Сургут им. Фармана Салманова",
+          "destination": "Екатеринбург, аэропорт Кольцово",
+          "origin_node": "sgc_airport",
+          "destination_node": "svx_airport",
+          "carrier": "Red Wings",
+          "number": "WZ 1018",
+          "departure": "2026-12-11T16:30:00+05:00",
+          "arrival": "2026-12-11T18:20:00+05:00",
+          "duration_minutes": 110,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "dated",
+          "source_name": "Аэропорт Сургут: сезонное расписание",
+          "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "sgc_schedule",
+            "context40_snapshot"
+          ],
+          "links": [
+            {
+              "label": "Аэропорт Сургут: сезонное расписание",
+              "url": "https://www.airport-surgut.ru/surgut/schedule/"
+            },
+            {
+              "label": "Сохранённая выдача Яндекс Расписаний SGC 11.12.2026",
+              "url": "https://rasp.yandex.ru/station/9623563/?date=2026-12-11"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Датированный snapshot подтверждает вылет и перевозчика; arrival в snapshot был null.",
+            "18:20 разрешено по пятничному сезонному расписанию аэропорта; это опубликованное плановое время, не фактический прилёт и не отдельный датированный ответ перевозчика."
+          ],
+          "field_evidence": {
+            "departure": {
+              "status": "dated",
+              "source_ids": [
+                "context40_snapshot"
+              ]
+            },
+            "arrival": {
+              "status": "published_pattern",
+              "source_ids": [
+                "sgc_schedule"
+              ],
+              "calendar_resolved_for": "2026-12-11"
+            }
+          },
+          "original_snapshot_arrival": null,
+          "ticket_or_seat_confirmed": false
+        },
+        {
+          "id": "svx_miass_taxi",
+          "mode": "taxi",
+          "origin": "Екатеринбург, аэропорт Кольцово",
+          "destination": "Миасс, адрес прибытия уточняется",
+          "origin_node": "svx_airport",
+          "destination_node": "miass",
+          "carrier": "Business Transfer",
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 220,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "indicative",
+          "source_name": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "source_url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+          "checked_at": "2026-11-13T13:23:01+00:00",
+          "fetched_at": "2026-11-13T13:23:01+00:00",
+          "source_ids": [
+            "svx_miass_taxi"
+          ],
+          "links": [
+            {
+              "label": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+              "url": "https://businesstransfer.ru/transfer/miass-koltsovo/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Опубликованный ориентир около 250 км/3:40; оператор описывает встречу с рейса.",
+            "Точный адрес, обратное направление от аэропорта, дата, подача, багаж и цена требуют согласования; рейс машины не забронирован."
+          ]
+        }
+      ],
+      "warnings": [
+        "Смысл диапазона дат не уточнён; 11 декабря — исследовательский пример, не выбранная дата.",
+        "Цена и места неизвестны; договора, билетов, машины и гарантии стыковки нет.",
+        "Полная длительность не рассчитана: доступ от дома, переходы, ожидание и точный адрес Миасса не покрыты.",
+        "Автобус 06:15–11:45 — общий паттерн; его работа 11.12 и переход к терминалу не подтверждены.",
+        "Пятничный плановый зазор 11:45→16:30 равен 285 минутам, но не гарантирует стыковку при зимнем опоздании автобуса.",
+        "18:20 у WZ11.12 восстановлено по сезонному пятничному паттерну; исходный snapshot arrival=null."
+      ],
+      "total_duration_minutes": null,
+      "total_price": null,
+      "reasonableness": {
+        "status": "detour",
+        "explanation": "Относительно прямого HMA→SVX добавляются автобусный feeder и ожидание в SGC; на пятничном примере прилёт в SVX на 455 минут позже UT301. Экономия и полное время не установлены."
+      },
+      "sources": [
+        {
+          "id": "hma_bus_contacts",
+          "title": "Автовокзал ХМА: адрес посадки",
+          "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "feeder_tutu",
+          "title": "Туту: Ханты-Мансийск — Сургут",
+          "url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/",
+          "fetched_at": "2026-11-13T13:23:00+00:00"
+        },
+        {
+          "id": "hma_bus_image",
+          "title": "Автовокзал ХМА: таблица с 01.08.2026",
+          "url": "https://hmav.ru/wp-content/uploads/2026/08/01_08_2026.png",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "sgc_bus_operator",
+          "title": "АТП №1: расписание от аэропорта Сургута",
+          "url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+          "fetched_at": "2026-11-13T13:23:00+00:00"
+        },
+        {
+          "id": "sgc_access",
+          "title": "Аэропорт Сургут: наземный транспорт",
+          "url": "https://www.airport-surgut.ru/surgut/how-to-find/",
+          "fetched_at": "2026-11-13T13:23:00+00:00"
+        },
+        {
+          "id": "sgc_schedule",
+          "title": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "context40_snapshot",
+          "title": "Сохранённая выдача Яндекс Расписаний SGC 11.12.2026",
+          "url": "https://rasp.yandex.ru/station/9623563/?date=2026-12-11",
+          "fetched_at": null
+        },
+        {
+          "id": "svx_miass_taxi",
+          "title": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        }
+      ],
+      "fetched_at": "2026-11-13T13:23:03+00:00",
+      "candidate_dates": null,
+      "priority": 3,
+      "connection_status": "unverified",
+      "ticket_or_seat_confirmed": false
+    },
+    {
+      "id": "baseline_hma_cek_taxi",
+      "title": "Без требования RW: HMA → Челябинск 7R897 → такси в Миасс",
+      "status": "partial",
+      "evidence_status": "indicative",
+      "summary": "Прямой рейс по пятницам с 4 декабря: 08:15–09:55; далее конкретный публикуемый аэропортовый такси-коридор.",
+      "requires_red_wings": false,
+      "leg_ids": [
+        "access_hma_airport",
+        "rusline897_fri",
+        "cek_miass_taxi"
+      ],
+      "legs": [
+        {
+          "id": "access_hma_airport",
+          "mode": "taxi",
+          "origin": "Ханты-Мансийск, ул. Ленина, 109",
+          "destination": "Аэропорт Ханты-Мансийск",
+          "origin_node": "origin",
+          "destination_node": "hma_airport",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "Юграавиа: как добраться",
+          "source_url": "https://ugraavia.ru/passengers/how-get-there/",
+          "checked_at": "2026-11-13T13:23:02+00:00",
+          "fetched_at": "2026-11-13T13:23:02+00:00",
+          "source_ids": [
+            "hma_access"
+          ],
+          "links": [
+            {
+              "label": "Юграавиа: как добраться",
+              "url": "https://ugraavia.ru/passengers/how-get-there/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+            "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс.",
+            "Автобусы №3/5/6 опубликованы аэропортом, но остановка от дома и календарь не установлены."
+          ]
+        },
+        {
+          "id": "rusline897_fri",
+          "mode": "plane",
+          "origin": "Аэропорт Ханты-Мансийск",
+          "destination": "Аэропорт Челябинск (Баландино) им. И.В. Курчатова",
+          "origin_node": "hma_airport",
+          "destination_node": "cek_airport",
+          "carrier": "РусЛайн",
+          "number": "7R 897",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 100,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Юграавиа: открытые данные опубликованного расписания",
+          "source_url": "https://ugraavia.ru/api/air/schedule/get",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "hma_schedule_data",
+            "hma_schedule_page"
+          ],
+          "links": [
+            {
+              "label": "Юграавиа: открытые данные опубликованного расписания",
+              "url": "https://ugraavia.ru/api/air/schedule/get"
+            },
+            {
+              "label": "Юграавиа: публичное расписание",
+              "url": "https://ugraavia.ru/passengers/flight-schedule/"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "08:15",
+            "arrival_local": "09:55",
+            "arrival_day_offset": 0,
+            "weekdays_iso": [
+              5
+            ],
+            "valid_from": "2026-12-04",
+            "valid_to": "2027-03-26",
+            "dated_operation_confirmed": false,
+            "dates_in_requested_window": [
+              "2026-12-04",
+              "2026-12-11",
+              "2026-12-18",
+              "2026-12-25",
+              "2027-01-01",
+              "2027-01-08",
+              "2027-01-15"
+            ],
+            "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+          },
+          "notes": [
+            "Время обоих аэропортов +05:00. Не переносить 10:15 из общего агрегатора на зимний график."
+          ]
+        },
+        {
+          "id": "cek_miass_taxi",
+          "mode": "taxi",
+          "origin": "Аэропорт Челябинск (Баландино) им. И.В. Курчатова",
+          "destination": "Миасс, адрес прибытия уточняется",
+          "origin_node": "cek_airport",
+          "destination_node": "miass",
+          "carrier": "Драйвер174 / Business Transfer (отдельные предложения)",
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "indicative",
+          "source_name": "Драйвер174: Челябинск/аэропорт — Миасс",
+          "source_url": "https://driver174.ru/uslugi-mezhdugorodnego-taksi/chelyabinska-oblast/taksi-chelyabinsk-miass/",
+          "checked_at": "2026-11-13T13:23:01+00:00",
+          "fetched_at": "2026-11-13T13:23:01+00:00",
+          "source_ids": [
+            "cek_miass_driver",
+            "cek_miass_taxi"
+          ],
+          "links": [
+            {
+              "label": "Драйвер174: Челябинск/аэропорт — Миасс",
+              "url": "https://driver174.ru/uslugi-mezhdugorodnego-taksi/chelyabinska-oblast/taksi-chelyabinsk-miass/"
+            },
+            {
+              "label": "Business Transfer: Миасс — Баландино и встреча с рейса",
+              "url": "https://businesstransfer.ru/transfer/miass-balandino/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Два разных предложения не один сквозной договор. Драйвер174 прямо описывает CEK→Миасс; Business Transfer даёт дорожный ориентир 115 км/1:40 в обратном направлении и встречу с рейса.",
+            "Ориентир 100 минут не превращён в подтверждённую длительность этой подачи. Цена/машина/адрес неизвестны."
+          ],
+          "indicative_duration_minutes": 100,
+          "indicative_distance_km": 115
+        }
+      ],
+      "warnings": [
+        "Смысл диапазона дат не уточнён; 11 декабря — исследовательский пример, не выбранная дата.",
+        "Цена и места неизвестны; договора, билетов, машины и гарантии стыковки нет.",
+        "Полная длительность не рассчитана: доступ от дома, переходы, ожидание и точный адрес Миасса не покрыты.",
+        "Дата рейса разрешается по сезонному календарю; праздничные изменения и продажа не проверены.",
+        "Возможное прибытие к адресу Миасса нельзя получить простым сложением 09:55+100 минут: нужны багаж, выход, подача и согласованный адрес."
+      ],
+      "total_duration_minutes": null,
+      "total_price": null,
+      "reasonableness": {
+        "status": "unknown",
+        "explanation": "Избегает feeder до Сургута и ведёт к более короткому из двух опубликованных оператором дорожных коридоров (CEK↔Миасс). Называть его самым быстрым/дешёвым пока нельзя."
+      },
+      "sources": [
+        {
+          "id": "hma_access",
+          "title": "Юграавиа: как добраться",
+          "url": "https://ugraavia.ru/passengers/how-get-there/",
+          "fetched_at": "2026-11-13T13:23:02+00:00"
+        },
+        {
+          "id": "hma_schedule_data",
+          "title": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "hma_schedule_page",
+          "title": "Юграавиа: публичное расписание",
+          "url": "https://ugraavia.ru/passengers/flight-schedule/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "cek_miass_driver",
+          "title": "Драйвер174: Челябинск/аэропорт — Миасс",
+          "url": "https://driver174.ru/uslugi-mezhdugorodnego-taksi/chelyabinska-oblast/taksi-chelyabinsk-miass/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        },
+        {
+          "id": "cek_miass_taxi",
+          "title": "Business Transfer: Миасс — Баландино и встреча с рейса",
+          "url": "https://businesstransfer.ru/transfer/miass-balandino/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        }
+      ],
+      "fetched_at": "2026-11-13T13:23:03+00:00",
+      "candidate_dates": null,
+      "priority": 1,
+      "connection_status": "unverified",
+      "ticket_or_seat_confirmed": false
+    },
+    {
+      "id": "baseline_hma_svx_taxi",
+      "title": "Без требования RW: HMA → Кольцово UT301 → такси в Миасс",
+      "status": "partial",
+      "evidence_status": "indicative",
+      "summary": "Прямой UT301 в пн/ср/пт/сб 08:30–10:45; в чт/вс отдельный паттерн 10:00–12:00, вторники только с 05.01.",
+      "requires_red_wings": false,
+      "leg_ids": [
+        "access_hma_airport",
+        "ut301_mwfs",
+        "svx_miass_taxi"
+      ],
+      "legs": [
+        {
+          "id": "access_hma_airport",
+          "mode": "taxi",
+          "origin": "Ханты-Мансийск, ул. Ленина, 109",
+          "destination": "Аэропорт Ханты-Мансийск",
+          "origin_node": "origin",
+          "destination_node": "hma_airport",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "Юграавиа: как добраться",
+          "source_url": "https://ugraavia.ru/passengers/how-get-there/",
+          "checked_at": "2026-11-13T13:23:02+00:00",
+          "fetched_at": "2026-11-13T13:23:02+00:00",
+          "source_ids": [
+            "hma_access"
+          ],
+          "links": [
+            {
+              "label": "Юграавиа: как добраться",
+              "url": "https://ugraavia.ru/passengers/how-get-there/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+            "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс.",
+            "Автобусы №3/5/6 опубликованы аэропортом, но остановка от дома и календарь не установлены."
+          ]
+        },
+        {
+          "id": "ut301_mwfs",
+          "mode": "plane",
+          "origin": "Аэропорт Ханты-Мансийск",
+          "destination": "Екатеринбург, аэропорт Кольцово",
+          "origin_node": "hma_airport",
+          "destination_node": "svx_airport",
+          "carrier": "Utair",
+          "number": "UT 301",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 135,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Юграавиа: открытые данные опубликованного расписания",
+          "source_url": "https://ugraavia.ru/api/air/schedule/get",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "hma_schedule_data",
+            "hma_schedule_page"
+          ],
+          "links": [
+            {
+              "label": "Юграавиа: открытые данные опубликованного расписания",
+              "url": "https://ugraavia.ru/api/air/schedule/get"
+            },
+            {
+              "label": "Юграавиа: публичное расписание",
+              "url": "https://ugraavia.ru/passengers/flight-schedule/"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "08:30",
+            "arrival_local": "10:45",
+            "arrival_day_offset": 0,
+            "weekdays_iso": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "valid_from": "2026-10-26",
+            "valid_to": "2027-03-27",
+            "dated_operation_confirmed": false,
+            "dates_in_requested_window": [
+              "2026-12-02",
+              "2026-12-04",
+              "2026-12-05",
+              "2026-12-07",
+              "2026-12-09",
+              "2026-12-11",
+              "2026-12-12",
+              "2026-12-14",
+              "2026-12-16",
+              "2026-12-18",
+              "2026-12-19",
+              "2026-12-21",
+              "2026-12-23",
+              "2026-12-25",
+              "2026-12-26",
+              "2026-12-28",
+              "2026-12-30",
+              "2027-01-01",
+              "2027-01-02",
+              "2027-01-04",
+              "2027-01-06",
+              "2027-01-08",
+              "2027-01-09",
+              "2027-01-11",
+              "2027-01-13",
+              "2027-01-15"
+            ],
+            "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+          },
+          "notes": []
+        },
+        {
+          "id": "svx_miass_taxi",
+          "mode": "taxi",
+          "origin": "Екатеринбург, аэропорт Кольцово",
+          "destination": "Миасс, адрес прибытия уточняется",
+          "origin_node": "svx_airport",
+          "destination_node": "miass",
+          "carrier": "Business Transfer",
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 220,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "indicative",
+          "source_name": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "source_url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+          "checked_at": "2026-11-13T13:23:01+00:00",
+          "fetched_at": "2026-11-13T13:23:01+00:00",
+          "source_ids": [
+            "svx_miass_taxi"
+          ],
+          "links": [
+            {
+              "label": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+              "url": "https://businesstransfer.ru/transfer/miass-koltsovo/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Опубликованный ориентир около 250 км/3:40; оператор описывает встречу с рейса.",
+            "Точный адрес, обратное направление от аэропорта, дата, подача, багаж и цена требуют согласования; рейс машины не забронирован."
+          ]
+        }
+      ],
+      "warnings": [
+        "Смысл диапазона дат не уточнён; 11 декабря — исследовательский пример, не выбранная дата.",
+        "Цена и места неизвестны; договора, билетов, машины и гарантии стыковки нет.",
+        "Полная длительность не рассчитана: доступ от дома, переходы, ожидание и точный адрес Миасса не покрыты.",
+        "Включён паттерн пн/ср/пт/сб; для чт/вс/январского вторника использовать соответствующий отдельный leg. В декабре вторник не покрыт найденным UT301."
+      ],
+      "total_duration_minutes": null,
+      "total_price": null,
+      "reasonableness": {
+        "status": "unknown",
+        "explanation": "Общее продолжение SVX→Миасс позволяет честно сопоставить цену обязательного RW без добавления SVX→CEK."
+      },
+      "sources": [
+        {
+          "id": "hma_access",
+          "title": "Юграавиа: как добраться",
+          "url": "https://ugraavia.ru/passengers/how-get-there/",
+          "fetched_at": "2026-11-13T13:23:02+00:00"
+        },
+        {
+          "id": "hma_schedule_data",
+          "title": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "hma_schedule_page",
+          "title": "Юграавиа: публичное расписание",
+          "url": "https://ugraavia.ru/passengers/flight-schedule/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "svx_miass_taxi",
+          "title": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        }
+      ],
+      "fetched_at": "2026-11-13T13:23:03+00:00",
+      "candidate_dates": null,
+      "priority": 2,
+      "connection_status": "unverified",
+      "ticket_or_seat_confirmed": false
+    },
+    {
+      "id": "rw_bus_sgc_svx_train",
+      "title": "RW с поездом: №680 → WZ1018 → автобус №65 → поезд до Миасса-1",
+      "status": "candidate",
+      "evidence_status": "indicative",
+      "summary": "Есть конкретный автобус из SVX к Екатеринбург-Пасс. и ночной поезд-кандидат 02:26–11:33; сквозная стыковка пока не доказана.",
+      "requires_red_wings": true,
+      "leg_ids": [
+        "access_hma_bus",
+        "hma_sgc_bus680",
+        "sgc_stop_to_terminal",
+        "rw1018_20261211",
+        "svx_ekb_bus65",
+        "ekb_miass_train373"
+      ],
+      "legs": [
+        {
+          "id": "access_hma_bus",
+          "mode": "taxi",
+          "origin": "Ханты-Мансийск, ул. Ленина, 109",
+          "destination": "Ханты-Мансийск, Авторечвокзал",
+          "origin_node": "origin",
+          "destination_node": "hma_bus",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "Автовокзал ХМА: адрес посадки",
+          "source_url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "hma_bus_contacts"
+          ],
+          "links": [
+            {
+              "label": "Автовокзал ХМА: адрес посадки",
+              "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+            "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс."
+          ]
+        },
+        {
+          "id": "hma_sgc_bus680",
+          "mode": "bus",
+          "origin": "Ханты-Мансийск, Авторечвокзал",
+          "destination": "Сургут, аэропорт, автобусная касса АТП №1",
+          "origin_node": "hma_bus",
+          "destination_node": "sgc_bus",
+          "carrier": "ООО «Ханты-Мансийское ПАТП»",
+          "number": "680",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 330,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Туту: Ханты-Мансийск — Сургут",
+          "source_url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/",
+          "checked_at": "2026-11-13T13:23:00+00:00",
+          "fetched_at": "2026-11-13T13:23:00+00:00",
+          "source_ids": [
+            "feeder_tutu",
+            "hma_bus_image",
+            "hma_bus_contacts"
+          ],
+          "links": [
+            {
+              "label": "Туту: Ханты-Мансийск — Сургут",
+              "url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/"
+            },
+            {
+              "label": "Автовокзал ХМА: таблица с 01.08.2026",
+              "url": "https://hmav.ru/wp-content/uploads/2026/08/01_08_2026.png"
+            },
+            {
+              "label": "Автовокзал ХМА: адрес посадки",
+              "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "06:15",
+            "arrival_local": "11:45",
+            "arrival_day_offset": 0,
+            "weekdays_iso": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "valid_from": null,
+            "valid_to": null,
+            "dated_operation_confirmed": false
+          },
+          "notes": [
+            "Первично подтверждены №680, отправление 06:15 и проезд через Сургут; остановка аэропорта и 11:45 — вторичное расписание, не датированный договор.",
+            "Не переносить 19:10 из первичной таблицы: это прибытие в Радужный."
+          ]
+        },
+        {
+          "id": "sgc_stop_to_terminal",
+          "mode": "walk",
+          "origin": "Сургут, аэропорт, автобусная касса АТП №1",
+          "destination": "Аэропорт Сургут им. Фармана Салманова",
+          "origin_node": "sgc_bus",
+          "destination_node": "sgc_airport",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "АТП №1: расписание от аэропорта Сургута",
+          "source_url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+          "checked_at": "2026-11-13T13:23:00+00:00",
+          "fetched_at": "2026-11-13T13:23:00+00:00",
+          "source_ids": [
+            "sgc_bus_operator",
+            "sgc_access"
+          ],
+          "links": [
+            {
+              "label": "АТП №1: расписание от аэропорта Сургута",
+              "url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie"
+            },
+            {
+              "label": "Аэропорт Сургут: наземный транспорт",
+              "url": "https://www.airport-surgut.ru/surgut/how-to-find/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Касса и терминал опубликованы по разным адресам 50 и 49/1; безопасный пешеходный переход, расстояние и длительность не обследованы."
+          ]
+        },
+        {
+          "id": "rw1018_20261211",
+          "mode": "plane",
+          "origin": "Аэропорт Сургут им. Фармана Салманова",
+          "destination": "Екатеринбург, аэропорт Кольцово",
+          "origin_node": "sgc_airport",
+          "destination_node": "svx_airport",
+          "carrier": "Red Wings",
+          "number": "WZ 1018",
+          "departure": "2026-12-11T16:30:00+05:00",
+          "arrival": "2026-12-11T18:20:00+05:00",
+          "duration_minutes": 110,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "dated",
+          "source_name": "Аэропорт Сургут: сезонное расписание",
+          "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "sgc_schedule",
+            "context40_snapshot"
+          ],
+          "links": [
+            {
+              "label": "Аэропорт Сургут: сезонное расписание",
+              "url": "https://www.airport-surgut.ru/surgut/schedule/"
+            },
+            {
+              "label": "Сохранённая выдача Яндекс Расписаний SGC 11.12.2026",
+              "url": "https://rasp.yandex.ru/station/9623563/?date=2026-12-11"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Датированный snapshot подтверждает вылет и перевозчика; arrival в snapshot был null.",
+            "18:20 разрешено по пятничному сезонному расписанию аэропорта; это опубликованное плановое время, не фактический прилёт и не отдельный датированный ответ перевозчика."
+          ],
+          "field_evidence": {
+            "departure": {
+              "status": "dated",
+              "source_ids": [
+                "context40_snapshot"
+              ]
+            },
+            "arrival": {
+              "status": "published_pattern",
+              "source_ids": [
+                "sgc_schedule"
+              ],
+              "calendar_resolved_for": "2026-12-11"
+            }
+          },
+          "original_snapshot_arrival": null,
+          "ticket_or_seat_confirmed": false
+        },
+        {
+          "id": "svx_ekb_bus65",
+          "mode": "bus",
+          "origin": "Екатеринбург, аэропорт Кольцово",
+          "destination": "Екатеринбург-Пасс.",
+          "origin_node": "svx_airport",
+          "destination_node": "ekb_rail",
+          "carrier": null,
+          "number": "65",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 65,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Кольцово: общественный транспорт из аэропорта",
+          "source_url": "https://ar-svx.ru/how-to-get/from/bus/",
+          "checked_at": "2026-11-13T13:23:01+00:00",
+          "fetched_at": "2026-11-13T13:23:01+00:00",
+          "source_ids": [
+            "svx_access"
+          ],
+          "links": [
+            {
+              "label": "Кольцово: общественный транспорт из аэропорта",
+              "url": "https://ar-svx.ru/how-to-get/from/bus/"
+            }
+          ],
+          "schedule_pattern": {
+            "valid_from": null,
+            "valid_to": null,
+            "service_hours": {
+              "weekdays": [
+                "05:59",
+                "23:51"
+              ],
+              "weekends": [
+                "06:21",
+                "23:46"
+              ]
+            },
+            "headway_minutes": {
+              "weekdays": [
+                16,
+                41
+              ],
+              "weekends": [
+                16,
+                44
+              ]
+            },
+            "departure_local": null,
+            "arrival_local": null,
+            "dated_operation_confirmed": false
+          },
+          "notes": [
+            "Нельзя присвоить конкретное отправление по диапазону работы. Уточнить действительность схемы и расписания на дату."
+          ]
+        },
+        {
+          "id": "ekb_miass_train373",
+          "mode": "train",
+          "origin": "Екатеринбург-Пасс.",
+          "destination": "Миасс-1",
+          "origin_node": "ekb_rail",
+          "destination_node": "miass_rail",
+          "carrier": "РЖД/ФПК",
+          "number": "373Е (нужна проверка 373/374)",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 547,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "indicative",
+          "source_name": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+          "source_url": "https://raspisanija.ru/route/ekaterinburg/miass/",
+          "checked_at": "2026-11-13T13:23:01+00:00",
+          "fetched_at": "2026-11-13T13:23:01+00:00",
+          "source_ids": [
+            "ekb_miass_train"
+          ],
+          "links": [
+            {
+              "label": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+              "url": "https://raspisanija.ru/route/ekaterinburg/miass/"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "02:26",
+            "arrival_local": "11:33",
+            "arrival_day_offset": 0,
+            "valid_from": null,
+            "valid_to": null,
+            "listed_dates_in_window": [
+              "2026-12-04",
+              "2026-12-08",
+              "2026-12-12",
+              "2026-12-16",
+              "2026-12-20",
+              "2026-12-24",
+              "2026-12-28",
+              "2027-01-01",
+              "2027-01-05",
+              "2027-01-09",
+              "2027-01-13"
+            ],
+            "dated_operation_confirmed": false
+          },
+          "notes": [
+            "Вторичное расписание; есть неоднозначность номера 373Е/374Е. Нельзя считать подтверждённой стыковку с WZ11.12 до проверки РЖД на 12.12.",
+            "Рейс 02:26 после вечернего прилёта — ночной выезд, требует согласия пользователя."
+          ]
+        }
+      ],
+      "warnings": [
+        "Смысл диапазона дат не уточнён; 11 декабря — исследовательский пример, не выбранная дата.",
+        "Цена и места неизвестны; договора, билетов, машины и гарантии стыковки нет.",
+        "Полная длительность не рассчитана: доступ от дома, переходы, ожидание и точный адрес Миасса не покрыты.",
+        "Потенциальная дата поезда после пятницы 11.12 — 12.12; сначала проверить РЖД, номер 373/374 и согласие на ночной выезд.",
+        "От прилёта WZ18:20 до поезда02:26 формально 486 минут; это лишь разность опубликованных часов при условии правильной даты поезда."
+      ],
+      "total_duration_minutes": null,
+      "total_price": null,
+      "reasonableness": {
+        "status": "unknown",
+        "explanation": "Может заменить дальний индивидуальный трансфер, но добавляет городской автобус, ожидание и ночное отправление. Цена не установлена."
+      },
+      "sources": [
+        {
+          "id": "hma_bus_contacts",
+          "title": "Автовокзал ХМА: адрес посадки",
+          "url": "https://hmav.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "feeder_tutu",
+          "title": "Туту: Ханты-Мансийск — Сургут",
+          "url": "https://bus.tutu.ru/raspisanie/gorod_Hanty-Mansijsk/gorod_Surgut/",
+          "fetched_at": "2026-11-13T13:23:00+00:00"
+        },
+        {
+          "id": "hma_bus_image",
+          "title": "Автовокзал ХМА: таблица с 01.08.2026",
+          "url": "https://hmav.ru/wp-content/uploads/2026/08/01_08_2026.png",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "sgc_bus_operator",
+          "title": "АТП №1: расписание от аэропорта Сургута",
+          "url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+          "fetched_at": "2026-11-13T13:23:00+00:00"
+        },
+        {
+          "id": "sgc_access",
+          "title": "Аэропорт Сургут: наземный транспорт",
+          "url": "https://www.airport-surgut.ru/surgut/how-to-find/",
+          "fetched_at": "2026-11-13T13:23:00+00:00"
+        },
+        {
+          "id": "sgc_schedule",
+          "title": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "context40_snapshot",
+          "title": "Сохранённая выдача Яндекс Расписаний SGC 11.12.2026",
+          "url": "https://rasp.yandex.ru/station/9623563/?date=2026-12-11",
+          "fetched_at": null
+        },
+        {
+          "id": "svx_access",
+          "title": "Кольцово: общественный транспорт из аэропорта",
+          "url": "https://ar-svx.ru/how-to-get/from/bus/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        },
+        {
+          "id": "ekb_miass_train",
+          "title": "Расписания.ру: Екатеринбург — Миасс, данные Яндекс",
+          "url": "https://raspisanija.ru/route/ekaterinburg/miass/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        }
+      ],
+      "fetched_at": "2026-11-13T13:23:03+00:00",
+      "candidate_dates": null,
+      "priority": 4,
+      "connection_status": "unverified",
+      "ticket_or_seat_confirmed": false
+    },
+    {
+      "id": "rw_air_feeder_sgc_svx",
+      "title": "RW с авиаподвозом: HMA → SGC UT116 → следующий WZ1018 → такси",
+      "status": "candidate",
+      "evidence_status": "indicative",
+      "summary": "UT116 публикуется ежедневно вечером 21:00–22:05; до WZ нужен другой день.",
+      "requires_red_wings": true,
+      "leg_ids": [
+        "access_hma_airport",
+        "ut116_hma_sgc",
+        "rw1018_fri",
+        "svx_miass_taxi"
+      ],
+      "legs": [
+        {
+          "id": "access_hma_airport",
+          "mode": "taxi",
+          "origin": "Ханты-Мансийск, ул. Ленина, 109",
+          "destination": "Аэропорт Ханты-Мансийск",
+          "origin_node": "origin",
+          "destination_node": "hma_airport",
+          "carrier": null,
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": null,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "unknown",
+          "source_name": "Юграавиа: как добраться",
+          "source_url": "https://ugraavia.ru/passengers/how-get-there/",
+          "checked_at": "2026-11-13T13:23:02+00:00",
+          "fetched_at": "2026-11-13T13:23:02+00:00",
+          "source_ids": [
+            "hma_access"
+          ],
+          "links": [
+            {
+              "label": "Юграавиа: как добраться",
+              "url": "https://ugraavia.ru/passengers/how-get-there/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Вид доступа нужно согласовать: такси пока не разрешено пользователем; нет заказа, расчёта подачи, времени или цены.",
+            "Это открытый участок от заданного дома к конкретному узлу, а не подтверждённый наземный рейс.",
+            "Автобусы №3/5/6 опубликованы аэропортом, но остановка от дома и календарь не установлены."
+          ]
+        },
+        {
+          "id": "ut116_hma_sgc",
+          "mode": "plane",
+          "origin": "Аэропорт Ханты-Мансийск",
+          "destination": "Аэропорт Сургут им. Фармана Салманова",
+          "origin_node": "hma_airport",
+          "destination_node": "sgc_airport",
+          "carrier": "Utair",
+          "number": "UT 116",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 65,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Юграавиа: открытые данные опубликованного расписания",
+          "source_url": "https://ugraavia.ru/api/air/schedule/get",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "hma_schedule_data"
+          ],
+          "links": [
+            {
+              "label": "Юграавиа: открытые данные опубликованного расписания",
+              "url": "https://ugraavia.ru/api/air/schedule/get"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "21:00",
+            "arrival_local": "22:05",
+            "arrival_day_offset": 0,
+            "weekdays_iso": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "valid_from": "2026-11-12",
+            "valid_to": "2027-03-27",
+            "dated_operation_confirmed": false,
+            "dates_in_requested_window": [
+              "2026-12-01",
+              "2026-12-02",
+              "2026-12-03",
+              "2026-12-04",
+              "2026-12-05",
+              "2026-12-06",
+              "2026-12-07",
+              "2026-12-08",
+              "2026-12-09",
+              "2026-12-10",
+              "2026-12-11",
+              "2026-12-12",
+              "2026-12-13",
+              "2026-12-14",
+              "2026-12-15",
+              "2026-12-16",
+              "2026-12-17",
+              "2026-12-18",
+              "2026-12-19",
+              "2026-12-20",
+              "2026-12-21",
+              "2026-12-22",
+              "2026-12-23",
+              "2026-12-24",
+              "2026-12-25",
+              "2026-12-26",
+              "2026-12-27",
+              "2026-12-28",
+              "2026-12-29",
+              "2026-12-30",
+              "2026-12-31",
+              "2027-01-01",
+              "2027-01-02",
+              "2027-01-03",
+              "2027-01-04",
+              "2027-01-05",
+              "2027-01-06",
+              "2027-01-07",
+              "2027-01-08",
+              "2027-01-09",
+              "2027-01-10",
+              "2027-01-11",
+              "2027-01-12",
+              "2027-01-13",
+              "2027-01-14",
+              "2027-01-15"
+            ],
+            "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+          },
+          "notes": [
+            "Для WZ1018 нужен другой день; ночёвка и расходы не согласованы."
+          ]
+        },
+        {
+          "id": "rw1018_fri",
+          "mode": "plane",
+          "origin": "Аэропорт Сургут им. Фармана Салманова",
+          "destination": "Екатеринбург, аэропорт Кольцово",
+          "origin_node": "sgc_airport",
+          "destination_node": "svx_airport",
+          "carrier": "Red Wings",
+          "number": "WZ 1018",
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 110,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "published_pattern",
+          "source_name": "Аэропорт Сургут: сезонное расписание",
+          "source_url": "https://www.airport-surgut.ru/surgut/schedule/",
+          "checked_at": "2026-11-13T13:22:57+00:00",
+          "fetched_at": "2026-11-13T13:22:57+00:00",
+          "source_ids": [
+            "sgc_schedule"
+          ],
+          "links": [
+            {
+              "label": "Аэропорт Сургут: сезонное расписание",
+              "url": "https://www.airport-surgut.ru/surgut/schedule/"
+            }
+          ],
+          "schedule_pattern": {
+            "departure_local": "16:30",
+            "arrival_local": "18:20",
+            "arrival_day_offset": 0,
+            "weekdays_iso": [
+              5
+            ],
+            "valid_from": "2026-11-20",
+            "valid_to": "2027-03-26",
+            "dated_operation_confirmed": false,
+            "dates_in_requested_window": [
+              "2026-12-04",
+              "2026-12-11",
+              "2026-12-18",
+              "2026-12-25",
+              "2027-01-01",
+              "2027-01-08",
+              "2027-01-15"
+            ],
+            "calendar_derivation": "intersection of published weekday/period with unresolved user window; not dated inventory"
+          },
+          "notes": []
+        },
+        {
+          "id": "svx_miass_taxi",
+          "mode": "taxi",
+          "origin": "Екатеринбург, аэропорт Кольцово",
+          "destination": "Миасс, адрес прибытия уточняется",
+          "origin_node": "svx_airport",
+          "destination_node": "miass",
+          "carrier": "Business Transfer",
+          "number": null,
+          "departure": null,
+          "arrival": null,
+          "duration_minutes": 220,
+          "price": null,
+          "seats_available": null,
+          "evidence_status": "indicative",
+          "source_name": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "source_url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+          "checked_at": "2026-11-13T13:23:01+00:00",
+          "fetched_at": "2026-11-13T13:23:01+00:00",
+          "source_ids": [
+            "svx_miass_taxi"
+          ],
+          "links": [
+            {
+              "label": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+              "url": "https://businesstransfer.ru/transfer/miass-koltsovo/"
+            }
+          ],
+          "schedule_pattern": null,
+          "notes": [
+            "Опубликованный ориентир около 250 км/3:40; оператор описывает встречу с рейса.",
+            "Точный адрес, обратное направление от аэропорта, дата, подача, багаж и цена требуют согласования; рейс машины не забронирован."
+          ]
+        }
+      ],
+      "warnings": [
+        "Смысл диапазона дат не уточнён; 11 декабря — исследовательский пример, не выбранная дата.",
+        "Цена и места неизвестны; договора, билетов, машины и гарантии стыковки нет.",
+        "Полная длительность не рассчитана: доступ от дома, переходы, ожидание и точный адрес Миасса не покрыты.",
+        "Ночёвка не разрешена; стоимость/место пребывания/стыковка отдельных билетов не исследованы.",
+        "Не предлагать как готовую альтернативу по умолчанию."
+      ],
+      "total_duration_minutes": null,
+      "total_price": null,
+      "reasonableness": {
+        "status": "detour",
+        "explanation": "Добавляет второй авиабилет и обязательное междневное ожидание; полезен только при согласованной ночёвке/неприемлемости автобуса."
+      },
+      "sources": [
+        {
+          "id": "hma_access",
+          "title": "Юграавиа: как добраться",
+          "url": "https://ugraavia.ru/passengers/how-get-there/",
+          "fetched_at": "2026-11-13T13:23:02+00:00"
+        },
+        {
+          "id": "hma_schedule_data",
+          "title": "Юграавиа: открытые данные опубликованного расписания",
+          "url": "https://ugraavia.ru/api/air/schedule/get",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "sgc_schedule",
+          "title": "Аэропорт Сургут: сезонное расписание",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/",
+          "fetched_at": "2026-11-13T13:22:57+00:00"
+        },
+        {
+          "id": "svx_miass_taxi",
+          "title": "Business Transfer: Миасс — Кольцово и встреча с рейса",
+          "url": "https://businesstransfer.ru/transfer/miass-koltsovo/",
+          "fetched_at": "2026-11-13T13:23:01+00:00"
+        }
+      ],
+      "fetched_at": "2026-11-13T13:23:03+00:00",
+      "candidate_dates": null,
+      "priority": 5,
+      "connection_status": "unverified",
+      "ticket_or_seat_confirmed": false
+    }
+  ],
+  "findings": [
+    {
+      "id": "rw_in_hma",
+      "evidence_status": "dated",
+      "conclusion": "RW присутствует в опубликованном расписании HMA на 24.11.2026; внутри окна RW из HMA не найден в полученных строках.",
+      "source_ids": [
+        "hma_schedule_data"
+      ],
+      "not_proven": "Полное отсутствие RW в HMA в декабре–январе."
+    },
+    {
+      "id": "no_rw_sgc_cek",
+      "evidence_status": "published_pattern",
+      "conclusion": "Найден прямой SGC→CEK UT259, а не RW. Прямой RW по этой паре не подтверждён.",
+      "source_ids": [
+        "sgc_schedule"
+      ]
+    },
+    {
+      "id": "other_rw_nodes",
+      "evidence_status": "unknown",
+      "conclusion": "Каталог RW показывает SGC→Магнитогорск/Уфа/Самара/Казань и другие пары, но прямые датированные сегменты к полезным для Миасса узлам не получены.",
+      "source_ids": [
+        "rw_sales",
+        "sgc_schedule"
+      ],
+      "not_proven": "Наличие прямого рейса или экономическая разумность этих обходов."
+    },
+    {
+      "id": "sgc_transfer",
+      "evidence_status": "indicative",
+      "conclusion": "Если №680 останавливается у кассы аэропорта, городской автобус до SGC не требуется. При прибытии на ж/д вокзал маршрут №16 известен, но опубликованная картинка расписания устарела.",
+      "source_ids": [
+        "feeder_tutu",
+        "sgc_access",
+        "sgc_bus16_image"
+      ]
+    },
+    {
+      "id": "cek_public_transport",
+      "evidence_status": "unknown",
+      "conclusion": "Датированное CEK→Челябинск-Главный→Миасс не подтверждено. Найденный первичный турпродукт СПК относится к зиме с 29.11.2025; не перенесён на 2026/27. Такси-коридор найден отдельно.",
+      "source_ids": [
+        "spk_winter2025",
+        "spk_search",
+        "cek_miass_driver"
+      ]
+    },
+    {
+      "id": "svx_direct_miass_bus",
+      "evidence_status": "indicative",
+      "conclusion": "Есть вторичная публикация Кольцово09:35→Миасс13:35 ср/сб; после вечернего WZ возможен только другой день.",
+      "source_ids": [
+        "svx_miass_bus"
+      ]
+    },
+    {
+      "id": "no_extra_flight",
+      "evidence_status": "unknown",
+      "conclusion": "SVX→CEK не включён: оба узла рассматриваются как самостоятельные наземные выходы к Миассу.",
+      "source_ids": []
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "same_friday_svx",
+      "probe_date": "2026-12-11",
+      "not_user_selected": true,
+      "metric": "published_arrival_difference_at_SVX",
+      "baseline_leg_id": "ut301_mwfs",
+      "rw_leg_id": "rw1018_20261211",
+      "baseline_arrival_local": "10:45",
+      "rw_arrival_local": "18:20",
+      "difference_minutes": 455,
+      "fetched_at": "2026-11-13T13:23:03+00:00",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "hma_schedule_data",
+        "sgc_schedule",
+        "context40_snapshot"
+      ],
+      "limitation": "Не door-to-door, не разница полной длительности и не утверждение о цене."
+    },
+    {
+      "id": "bus680_rw1018_friday_gap",
+      "metric": "nominal_bus_arrival_to_flight_departure",
+      "minutes": 285,
+      "connection_status": "unverified",
+      "evidence_status": "published_pattern",
+      "source_ids": [
+        "feeder_tutu",
+        "sgc_schedule"
+      ],
+      "limitation": "Разность общих часов; нет датированного автобуса, учёта перехода/регистрации/зимней задержки."
+    }
+  ],
+  "integration_rules": [
+    "Первые карточки после уточнения дат: baseline_hma_cek_taxi, baseline_hma_svx_taxi, rw_bus_sgc_svx_taxi; все partial.",
+    "Для API plan использовать corridors[].legs как объекты; top-level legs — реестр, leg_ids — стабильные ссылки.",
+    "published_pattern хранит часы в schedule_pattern; departure/arrival=null, пока не выбрана дата. dates_in_requested_window — вывод календаря, не билеты/места.",
+    "Один leg dated не делает corridor verified. Цены/места null; суммарные время/цена null до полного покрытия.",
+    "RW11.12 arrival18:20 — отдельное поле из сезонного паттерна, исходный snapshot arrival=null сохранён.",
+    "Не трактовать отсутствие результата как отмену рейса или отсутствие перевозчика. Не подставлять нули вместо неизвестного.",
+    "Перевозчики такси описаны как кандидаты, никаких заявок/сообщений/заказов не отправлялось."
+  ],
+  "access_limits": {
+    "secret_search_performed": false,
+    "paid_api_called": false,
+    "ticket_internal_endpoint_called": false,
+    "booking_performed": false,
+    "browser_used": false,
+    "public_schedule_data_used": true,
+    "key_required_status": "Supplied by coordinator; keyless timetable APIs unavailable without key, not retried here."
+  }
+}

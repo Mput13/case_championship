@@ -1,0 +1,909 @@
+{
+  "schema_version": "vykhino-hma-research-sources/1",
+  "generated_at": "2026-11-13T13:57:32.270293+00:00",
+  "research_window": {
+    "start": "2026-12-01",
+    "end": "2026-12-31",
+    "chosen_by_user": false,
+    "reason": "Dates unspecified; December2026 is a research assumption, not passenger intent."
+  },
+  "scope": {
+    "origin": "Выхино: distinguish metro exit, MCD3 platform and street address",
+    "destination": "Ханты-Мансийск; final address unspecified",
+    "airports_moscow": [
+      "ZIA",
+      "DME",
+      "SVO",
+      "VKO"
+    ],
+    "arrival_airports_checked": [
+      "HMA",
+      "SGC",
+      "SVX",
+      "NYA"
+    ],
+    "unresolved_input_code": "SWZ: not normalized to SGC or WZ automatically",
+    "one_flight_constraint": true
+  },
+  "external_actions": {
+    "browser_used": false,
+    "api_keys_used": false,
+    "paid_calls": false,
+    "bookings": false
+  },
+  "sources": [
+    {
+      "id": "VH01",
+      "title": "Аэропорт Жуковский: подъезд и границы сезонной страницы",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "zia_access",
+          "url": "https://zia.aero/transport/public-transport/",
+          "fetched_at": "2026-11-13T13:57:25.868452+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://zia.aero/transport/public-transport/",
+          "byte_length": 105009,
+          "sha256": "1592ce2202a4cb60fe173fcfe8baaa76f53afa49e226b0d607f1b636951fb11e",
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "id": "zia_season",
+          "url": "https://zia.aero/flights/seasonal-schedule/",
+          "fetched_at": "2026-11-13T13:57:25.869018+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://zia.aero/flights/seasonal-schedule/",
+          "byte_length": 466504,
+          "sha256": "edf852e6eb52600eecd828f427b98ad23eeecbe6dc9f954e4e628127a5717bf9",
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "verified_support": [
+        "На текущей странице перечислены 2А от Отдыха (~20 мин), 19к от Ильинской (~35 мин), 441 от Котельников (~65 мин, интервал ~15–20 мин).",
+        "Страница сезонного расписания содержит летние периоды 2026; не источник декабрьских WZ.",
+        "Не установлены декабрьские отправления 2А и электричек от Выхино."
+      ]
+    },
+    {
+      "id": "VH02",
+      "title": "Аэропорт Нягань: зимний рейс Red Wings",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "nya_winter_index",
+          "url": "https://nyaganaero.ru/",
+          "method": "native_web_search_primary_domain_index",
+          "retrieval_status": "indexed_primary_text_retrieved",
+          "observed_at": "2026-11-13T13:57:32.270293+00:00",
+          "live_http_fetch_succeeded": false,
+          "published_record": {
+            "flight_published": "ИН5151",
+            "carrier": "АО Ред Вингс",
+            "from": "ZIA",
+            "to": "NYA",
+            "departure_local": "03:15",
+            "arrival_local": "08:00",
+            "weekday_iso": 1,
+            "period_start": "2026-10-25",
+            "period_finish": "2027-03-27",
+            "aircraft": "SSJ100"
+          },
+          "search_query": "Москва Жуковский 03:15 08:00; domain nyaganaero.ru",
+          "limitations": [
+            "The index crawl is reported as yesterday; no successful origin HTTP receipt.",
+            "Additional 17/30 December departures seen only on nonprimary aggregators are excluded."
+          ]
+        }
+      ],
+      "verified_support": [
+        "Официальный источник получен текстом индексированной поисковой выдачи: сезон 25.10.2026–27.03.2027; ИН5151 Москва (Жуковский)→Нягань по понедельникам 03:15–08:00, SSJ100, АО Ред Вингс.",
+        "Время местное для каждого аэропорта. ИН — опубликованное внутреннее обозначение; WZ — обозначение Red Wings в продукте.",
+        "Прямой GET не удался: RemoteDisconnected: Remote end closed connection without response; web open: TimeoutError. Не приписывать этому источнику успешный live GET.",
+        "Наземный NYA→Ханты-Мансийск на декабрь и городской подъезд из NYA не подтверждены первичным датированным расписанием."
+      ]
+    },
+    {
+      "id": "VH03",
+      "title": "Юграавиа: опубликованное расписание HMA",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "hma_api",
+          "url": "https://ugraavia.ru/api/air/schedule/get",
+          "fetched_at": "2026-11-13T13:57:25.869196+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://ugraavia.ru/api/air/schedule/get",
+          "byte_length": 120244,
+          "sha256": "35d664f4a33ff7af0b94cc441833c4ff2502bd562a36f3c84b1c64c3245cea31",
+          "content_type": "application/json; charset=UTF-8",
+          "total_records": 214,
+          "published_records": [
+            {
+              "NAME_ENG": "WZ4539",
+              "FROM_ENG": "SVX",
+              "TO_ENG": "HMA",
+              "SENDING": "11:30",
+              "ARRIVAL": "13:05",
+              "PERIOD_START": "24.11.2026",
+              "PERIOD_FINISH": "24.11.2026",
+              "DAYS": "2"
+            },
+            {
+              "NAME_ENG": "WZ4540",
+              "FROM_ENG": "HMA",
+              "TO_ENG": "SVX",
+              "SENDING": "15:40",
+              "ARRIVAL": "17:15",
+              "PERIOD_START": "24.11.2026",
+              "PERIOD_FINISH": "24.11.2026",
+              "DAYS": "2"
+            },
+            {
+              "NAME_ENG": "SU1382",
+              "FROM_ENG": "SVO",
+              "TO_ENG": "HMA",
+              "SENDING": "01:45",
+              "ARRIVAL": "05:50",
+              "PERIOD_START": "25.10.2026",
+              "PERIOD_FINISH": "25.10.2026",
+              "DAYS": "7"
+            },
+            {
+              "NAME_ENG": "SU1382",
+              "FROM_ENG": "SVO",
+              "TO_ENG": "HMA",
+              "SENDING": "00:45",
+              "ARRIVAL": "05:50",
+              "PERIOD_START": "26.10.2026",
+              "PERIOD_FINISH": "27.03.2027",
+              "DAYS": "1,2,3,4,6,7"
+            },
+            {
+              "NAME_ENG": "SU1382",
+              "FROM_ENG": "SVO",
+              "TO_ENG": "HMA",
+              "SENDING": "00:45",
+              "ARRIVAL": "05:50",
+              "PERIOD_START": "06.11.2026",
+              "PERIOD_FINISH": "25.12.2026",
+              "DAYS": "5"
+            },
+            {
+              "NAME_ENG": "SU1382",
+              "FROM_ENG": "SVO",
+              "TO_ENG": "HMA",
+              "SENDING": "00:45",
+              "ARRIVAL": "05:50",
+              "PERIOD_START": "08.01.2027",
+              "PERIOD_FINISH": "26.03.2027",
+              "DAYS": "5"
+            },
+            {
+              "NAME_ENG": "Y73313",
+              "FROM_ENG": "DME",
+              "TO_ENG": "HMA",
+              "SENDING": "15:20",
+              "ARRIVAL": "20:30",
+              "PERIOD_START": "29.12.2026",
+              "PERIOD_FINISH": "29.12.2026",
+              "DAYS": "2"
+            },
+            {
+              "NAME_ENG": "UT351",
+              "FROM_ENG": "VKO",
+              "TO_ENG": "HMA",
+              "SENDING": "11:20",
+              "ARRIVAL": "16:30",
+              "PERIOD_START": "26.10.2026",
+              "PERIOD_FINISH": "30.12.2026",
+              "DAYS": "1,2,3,4,5"
+            },
+            {
+              "NAME_ENG": "UT351",
+              "FROM_ENG": "VKO",
+              "TO_ENG": "HMA",
+              "SENDING": "11:20",
+              "ARRIVAL": "16:30",
+              "PERIOD_START": "04.01.2027",
+              "PERIOD_FINISH": "26.03.2027",
+              "DAYS": "1,2,3,4,5"
+            },
+            {
+              "NAME_ENG": "UT9069",
+              "FROM_ENG": "VKO",
+              "TO_ENG": "HMA",
+              "SENDING": "11:00",
+              "ARRIVAL": "16:00",
+              "PERIOD_START": "10.11.2026",
+              "PERIOD_FINISH": "10.11.2026",
+              "DAYS": "2"
+            },
+            {
+              "NAME_ENG": "SU1420",
+              "FROM_ENG": "SVO",
+              "TO_ENG": "HMA",
+              "SENDING": "10:50",
+              "ARRIVAL": "15:00",
+              "PERIOD_START": "04.11.2026",
+              "PERIOD_FINISH": "04.11.2026",
+              "DAYS": "3"
+            },
+            {
+              "NAME_ENG": "UT295",
+              "FROM_ENG": "VKO",
+              "TO_ENG": "HMA",
+              "SENDING": "11:15",
+              "ARRIVAL": "16:05",
+              "PERIOD_START": "31.10.2026",
+              "PERIOD_FINISH": "31.10.2026",
+              "DAYS": "6"
+            },
+            {
+              "NAME_ENG": "UT463",
+              "FROM_ENG": "VKO",
+              "TO_ENG": "HMA",
+              "SENDING": "10:00",
+              "ARRIVAL": "14:20",
+              "PERIOD_START": "04.11.2026",
+              "PERIOD_FINISH": "04.11.2026",
+              "DAYS": "3"
+            }
+          ],
+          "scope": "data.BLOCK; arrivals from Moscow airports plus all WZ rows; schedule, not inventory"
+        },
+        {
+          "id": "hma_city_access",
+          "url": "https://ugraavia.ru/passengers/how-get-there/",
+          "fetched_at": "2026-11-13T13:59:56.688180+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://ugraavia.ru/passengers/how-get-there/",
+          "byte_length": 27762,
+          "sha256": "289b0ae51cda0d0c7f1a0da10b5866fb11781f5619a3e3cb9417ade663583495",
+          "content_type": "text/html; charset=UTF-8",
+          "support": [
+            "Airport lists city routes3(06:00–00:00),5(05:00–01:00),6(06:00–01:00). These are general service windows, not a date-specific airport stop timetable.",
+            "Detailed city schedule is linked by airport to http://xmao.domtransauto.ru/HM. Destination address and exact ride duration remain unverified."
+          ]
+        }
+      ],
+      "verified_support": [
+        "Прямой baseline SVO→HMA SU1382 00:45–05:50 и VKO→HMA UT351 11:20–16:30; проверять период и день недели каждой строки.",
+        "DME→HMA Y73313 только 29.12.2026 15:20–20:30.",
+        "Полученные WZ4539/4540 относятся к SVX↔HMA 24.11.2026, не к декабрю.",
+        "HMA→город: официальная страница указывает №3,5,6 с общими окнами работы, но не даёт длительность до адреса и время отправления от аэропорта после выбранного рейса."
+      ]
+    },
+    {
+      "id": "VH04",
+      "title": "Сургут: сезонные прилёты",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "sgc_arrivals",
+          "url": "https://www.airport-surgut.ru/surgut/schedule/in/",
+          "fetched_at": "2026-11-13T13:57:25.869359+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://www.airport-surgut.ru/surgut/schedule/in/",
+          "byte_length": 812990,
+          "sha256": "701a4f5ee61ecb56505c5fdbea13ff1825c948e8007315fd654877f9f053c530",
+          "content_type": "text/html; charset=UTF-8",
+          "selected_published_rows": [
+            {
+              "values": "12:40 | 14:25 | WZ1017 | ЕКАТЕРИНБУРГ (КОЛЬЦОВО) | RedWings | 18.11.2026 - 24.03.2027",
+              "weekdays_active": [
+                "ср"
+              ]
+            },
+            {
+              "values": "13:50 | 15:30 | WZ1017 | ЕКАТЕРИНБУРГ (КОЛЬЦОВО) | RedWings | 20.11.2026 - 26.03.2027",
+              "weekdays_active": [
+                "пт"
+              ]
+            },
+            {
+              "values": "10:50 | 12:35 | WZ1017 | ЕКАТЕРИНБУРГ (КОЛЬЦОВО) | RedWings | 07.12.2026 - 22.03.2027",
+              "weekdays_active": [
+                "пн"
+              ]
+            },
+            {
+              "values": "13:40 | 15:20 | WZ1017 | ЕКАТЕРИНБУРГ (КОЛЬЦОВО) | RedWings | 28.03.2027 - 21.06.2027",
+              "weekdays_active": [
+                "пн",
+                "ср",
+                "вс"
+              ]
+            },
+            {
+              "values": "14:00 | 15:40 | WZ1017 | ЕКАТЕРИНБУРГ (КОЛЬЦОВО) | RedWings | 02.04.2027 - 18.06.2027",
+              "weekdays_active": [
+                "пт"
+              ]
+            },
+            {
+              "values": "20:50 | 02:10 | ЮТ247 | МОСКВА / ВНК | ПАО ЮТэйр | 14.11.2026 - 31.12.2026",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "20:50 | 02:10 | ЮТ247 | МОСКВА / ВНК | ПАО ЮТэйр | 02.01.2027 - 21.06.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "11:15 | 16:35 | ЮТ295 | МОСКВА / ВНК | ПАО ЮТэйр | 14.11.2026 - 31.12.2026",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "11:15 | 16:35 | ЮТ295 | МОСКВА / ВНК | ПАО ЮТэйр | 02.01.2027 - 27.03.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "11:30 | 16:50 | ЮТ295 | МОСКВА / ВНК | ПАО ЮТэйр | 28.03.2027 - 21.06.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "22:10 | 03:30 | SU1510 | МОСКВА / ШРМ | Аэрофлот | 14.11.2026 - 10.12.2026",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "22:10 | 03:30 | SU1510 | МОСКВА / ШРМ | Аэрофлот | 15.02.2027 - 22.03.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "21:45 | 03:00 | SU1510 | МОСКВА / ШРМ | Аэрофлот | 29.03.2027 - 21.06.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "01:35 | 06:55 | SU1512 | МОСКВА / ШРМ | Аэрофлот | 14.11.2026 - 27.03.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб"
+              ]
+            },
+            {
+              "values": "01:35 | 06:55 | SU1512 | МОСКВА / ШРМ | Аэрофлот | 15.11.2026 - 15.11.2026",
+              "weekdays_active": [
+                "вс"
+              ]
+            },
+            {
+              "values": "01:35 | 06:55 | SU1512 | МОСКВА / ШРМ | Аэрофлот | 22.11.2026 - 21.03.2027",
+              "weekdays_active": [
+                "вс"
+              ]
+            },
+            {
+              "values": "01:35 | 06:50 | SU1512 | МОСКВА / ШРМ | Аэрофлот | 29.03.2027 - 21.06.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "06:30 | 11:45 | SU1516 | МОСКВА / ШРМ | Аэрофлот | 29.03.2027 - 21.06.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт"
+              ]
+            },
+            {
+              "values": "01:35 | 06:55 | СУ1512 | МОСКВА / ШРМ | Аэрофлот | 28.03.2027 - 28.03.2027",
+              "weekdays_active": [
+                "вс"
+              ]
+            },
+            {
+              "values": "22:10 | 03:30 | FV6513 | МОСКВА / ШРМ | Россия | 11.12.2026 - 14.02.2027",
+              "weekdays_active": [
+                "пн",
+                "вт",
+                "ср",
+                "чт",
+                "пт",
+                "сб",
+                "вс"
+              ]
+            },
+            {
+              "values": "22:10 | 03:30 | FV6513 | МОСКВА / ШРМ | Россия | 23.03.2027 - 26.03.2027",
+              "weekdays_active": [
+                "вт",
+                "пт"
+              ]
+            },
+            {
+              "values": "22:00 | 03:30 | FV6513 | МОСКВА / ШРМ | Россия | 24.03.2027 - 28.03.2027",
+              "weekdays_active": [
+                "ср",
+                "чт",
+                "сб",
+                "вс"
+              ]
+            }
+          ],
+          "scope": "Published domestic arrivals; Moscow rows and all WZ/RedWings rows; not proof of worldwide absence"
+        }
+      ],
+      "verified_support": [
+        "В полученных WZ-строках есть SVX→SGC WZ1017; московских WZ не найдено.",
+        "Московские строки у других перевозчиков присутствуют. Неполученная пара не равна отмене/отсутствию авиасообщения."
+      ]
+    },
+    {
+      "id": "VH05",
+      "title": "Кольцово: прилёты на декабрь",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "svx_arrivals",
+          "url": "https://ar-svx.ru/schedule/?type=arr&startDate=2026-12-01&endDate=2026-12-31",
+          "fetched_at": "2026-11-13T13:57:25.869598+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://ar-svx.ru/schedule/?type=arr&startDate=2026-12-01&endDate=2026-12-31",
+          "byte_length": 419159,
+          "sha256": "ba2d1918b090c6d6fd2c48374c96b930315b80cbd9da2505b253703951b9e7f1",
+          "content_type": "text/html; charset=UTF-8",
+          "moscow_row_count": 54,
+          "moscow_iata_in_rows": [
+            "DME",
+            "SVO",
+            "VKO"
+          ],
+          "moscow_wz_rows": [],
+          "moscow_sample_rows": [
+            "08:25 12:55 ежедневно 23 ноя / 27 дек Ural airlines U6-273 A-320 DME",
+            "08:25 12:55 пн, вт, ср, чт, сб, вс 28 дек / 03 янв Ural airlines U6-273 A-320 DME",
+            "10:00 14:30 пн, вт, ср, чт, пт, сб 26 окт / 27 мар Ural airlines U6-261 A-320 DME",
+            "10:00 14:30 вс 01 ноя / 21 мар Ural airlines U6-261 A-320 DME"
+          ],
+          "scope": "Arrivals requested for 2026-12-01..31; no Moscow WZ row in returned rows; absence is bounded to this response"
+        }
+      ],
+      "verified_support": [
+        "Проверены возвращённые строки с DME/SVO/VKO/ZIA. WZ по московским парам в этой выдаче не найден; это ограниченный результат проверки.",
+        "SVX не следует называть близким наземным выходом к ХМА без расчёта длительного наземного плеча."
+      ]
+    },
+    {
+      "id": "VH06",
+      "title": "Московский транспорт: МЦД, метро и Внуково",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "moscow_mcd",
+          "url": "https://transport.mos.ru/mcd/about",
+          "fetched_at": "2026-11-13T13:57:25.869825+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "failed",
+          "error": "HTTPError: HTTP Error 477: ",
+          "alternate_read": {
+            "method": "native_web_search_primary_domain_index",
+            "retrieval_status": "primary_index_text_retrieved",
+            "observed_at": "2026-11-13T13:59:17.684986+00:00",
+            "note": "О проекте МЦД; индекс первичного домена. Live open/GET не удался."
+          }
+        },
+        {
+          "id": "moscow_faq",
+          "url": "https://transport.mos.ru/metro/faq",
+          "fetched_at": "2026-11-13T13:57:29.377989+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "failed",
+          "error": "HTTPError: HTTP Error 477: ",
+          "alternate_read": {
+            "method": "native_web_search_primary_domain_index",
+            "retrieval_status": "primary_index_text_retrieved",
+            "observed_at": "2026-11-13T13:59:17.684986+00:00",
+            "note": "Официальный FAQ: вход и пересадка метро05:30–01:00; это не расписание МЦД-3."
+          }
+        },
+        {
+          "id": "vko_metro",
+          "url": "https://transport.mos.ru/mostrans/all_news/132205",
+          "fetched_at": "2026-11-13T13:57:29.425933+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "failed",
+          "error": "HTTPError: HTTP Error 477: ",
+          "alternate_read": {
+            "method": "native_web_search_primary_domain_index",
+            "retrieval_status": "primary_index_text_retrieved",
+            "observed_at": "2026-11-13T13:59:17.684986+00:00",
+            "note": "Датированная новость Московского транспорта об Аэропорте Внуково, Солнцевская линия."
+          }
+        }
+      ],
+      "verified_support": [
+        "Метро открыто для входа и пересадок 05:30–01:00; первые поезда зависят от станции. Это не датированное расписание МЦД-3.",
+        "Станция Аэропорт Внуково связана с Солнцевской линией; доступ к терминалу требует отдельного времени перехода.",
+        "Выхино и Отдых — разные станции; выбор поезда до Раменского/Отдыха необходимо подтвердить расписанием."
+      ]
+    },
+    {
+      "id": "VH07",
+      "title": "Аэроэкспресс: SVO/DME",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "aero_svo",
+          "url": "https://aeroexpress.ru/aero/route/sheremetyevo.html",
+          "fetched_at": "2026-11-13T13:57:29.620015+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "failed",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "alternate_read": {
+            "method": "native_web_open",
+            "retrieval_status": "primary_text_retrieved",
+            "observed_at": "2026-11-13T13:59:17.684986+00:00",
+            "note": "Успешно прочитан полный текст страницы оператора через native web open; отдельный urllib GET не удался."
+          }
+        },
+        {
+          "id": "aero_dme",
+          "url": "https://aeroexpress.ru/aero/route/domodedovo.html",
+          "fetched_at": "2026-11-13T13:57:29.621179+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "failed",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "alternate_read": {
+            "method": "native_web_open",
+            "retrieval_status": "primary_text_retrieved",
+            "observed_at": "2026-11-13T13:59:17.684986+00:00",
+            "note": "Успешно прочитан полный текст страницы оператора через native web open; отдельный urllib GET не удался."
+          }
+        },
+        {
+          "id": "aero_bus",
+          "url": "https://aeroexpress.ru/aero/scheduleBus.html",
+          "fetched_at": "2026-11-13T13:57:29.684714+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "failed",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "alternate_read": {
+            "method": "native_web_open",
+            "retrieval_status": "primary_text_retrieved",
+            "observed_at": "2026-11-13T13:59:17.684986+00:00",
+            "note": "Без выбранного направления/даты получены повторяющиеся00:00–00:44; не расписание поездки."
+          }
+        }
+      ],
+      "verified_support": [
+        "SVO: Белорусский вокзал→аэропорт около 46 мин; от Ховрино 1195 до B/C около20 мин с интервалом10 мин, 1195D до D/E/F 15–20 мин с интервалом15 мин.",
+        "DME: Павелецкий вокзал→аэропорт около45 мин; Верхние Котлы→DME около40 мин.",
+        "Текст scheduleBus без выбранного направления содержит 00:00→00:44: это не реальные датированные отправления.",
+        "Первый/последний декабрьский поезд/автобус не установлен; часы терминала SU1382 также не получены."
+      ]
+    },
+    {
+      "id": "VH08",
+      "title": "АТП №1: наземный Сургут→Ханты-Мансийск",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "sgc_coach",
+          "url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+          "fetched_at": "2026-11-13T13:57:29.713444+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://xn--86-6kcee6ewafl.xn--p1ai/raspisanie",
+          "byte_length": 215028,
+          "sha256": "8f88e85af991283a78b4994ce84451b466aa53a7a7472c583c95221d7f403ae4",
+          "content_type": "text/html; charset=utf-8"
+        }
+      ],
+      "verified_support": [
+        "Опубликована №700 17:15–22:35 кроме субботы/воскресенья (5 ч20 мин).",
+        "Страница сама датирует актуальность 15.01.2026, продажа за20 дней; декабрьский рейс/места не подтверждены.",
+        "Наличие кассы Аэрофлотская50 в аэропорту не доказывает, что отправление каждой строки именно от аэропорта."
+      ]
+    },
+    {
+      "id": "VH09",
+      "title": "2ГИС: серверная маршрутизация общественного транспорта",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "2gis_pt",
+          "url": "https://docs.2gis.com/api/navigation/routing/reference/public_transport",
+          "fetched_at": "2026-11-13T13:57:29.892174+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://docs.2gis.com/api/navigation/routing/reference/public_transport",
+          "byte_length": 533498,
+          "sha256": "312a0e74648978aef8508782c2a10a56b8cd89bacf3c7a86aaddc515dbe4071a",
+          "content_type": "text/html"
+        },
+        {
+          "id": "2gis_start",
+          "url": "https://docs.2gis.com/api/navigation/routing/start",
+          "fetched_at": "2026-11-13T13:57:29.913921+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://docs.2gis.com/api/navigation/routing/start",
+          "byte_length": 853944,
+          "sha256": "97d6bacc239015cd4e1c322d65ac8549ad58bb408d9a0fef507b830f3d39566a",
+          "content_type": "text/html"
+        },
+        {
+          "id": "2gis_pricing",
+          "url": "https://docs.2gis.com/platform-manager/subscription/pricing",
+          "fetched_at": "2026-11-13T13:57:29.989338+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://docs.2gis.com/platform-manager/subscription/pricing",
+          "byte_length": 63267,
+          "sha256": "9077b1decf128cfa43902eea5a9c6571ffb287a5aee4cf264d1064bb3c8e13d0",
+          "content_type": "text/html"
+        },
+        {
+          "id": "2gis_legal",
+          "url": "https://law.2gis.ru/offer-license-agreement-webapi",
+          "fetched_at": "2026-11-13T13:57:30.001320+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://law.2gis.ru/offer-license-agreement-webapi",
+          "byte_length": 151249,
+          "sha256": "3b320f52a9be244181868f62052637c2324f04b6cc7f6f58c07103c9fd7f4669",
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "verified_support": [
+        "POST https://routing.api.2gis.com/public_transport/2.0?key=<ROUTING_KEY>; source/target.point.lat,lon, transport, start_time Unix seconds, enable_schedule, max_result_count.",
+        "Developer API key с включённым Routing API через Менеджер Платформы; адрес требует Geocoder/Places. Документированы mcd, metro, suburban_train, bus, aeroexpress, pedestrian.",
+        "Демо: маршрут максимум50 км,1000 единиц Routing; подписка Routing600 единиц/мин; месячный пакет отдельно.",
+        "Оферта включает Routing API, ограничивает извлечение/хранение продуктов (п3.1), запрещает удалять или изменять товарные знаки и уведомления о правах (п3.5). Условия для собственного ранжирования/хранения маршрутов нужно согласовать для продукта.",
+        "Вызовы с ключами не выполнялись: покрытие Выхино/Отдых/аэропортов и горизонт будущих расписаний не проверены."
+      ]
+    },
+    {
+      "id": "VH10",
+      "title": "Яндекс: официальный SDK и серверный transit API",
+      "source_kind": "primary",
+      "resources": [
+        {
+          "id": "ya_router",
+          "url": "https://yandex.ru/maps-api/docs/router-api/request.html",
+          "fetched_at": "2026-11-13T13:57:30.027268+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://yandex.ru/maps-api/docs/router-api/request.html",
+          "byte_length": 55618,
+          "sha256": "7712a19c325368117f7bec7a1874026c6f3f78d004858d61f8d0bfc7cd000a29",
+          "content_type": "text/html; charset=utf-8"
+        },
+        {
+          "id": "ya_quickstart",
+          "url": "https://yandex.ru/maps-api/docs/router-api/quickstart.html",
+          "fetched_at": "2026-11-13T13:57:30.226982+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://yandex.ru/maps-api/docs/router-api/quickstart.html",
+          "byte_length": 23773,
+          "sha256": "9669eb76c0cc3d93f359f1cdc0d3f4531abbb2b13a393bd5abed4f4025297391",
+          "content_type": "text/html; charset=utf-8"
+        },
+        {
+          "id": "ya_js",
+          "url": "https://yandex.ru/dev/jsapi-v2-1/doc/ru/v2-1/ref/reference/IMultiRouteParams",
+          "fetched_at": "2026-11-13T13:57:30.357075+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://yandex.ru/dev/jsapi-v2-1/doc/ru/v2-1/ref/reference/IMultiRouteParams",
+          "byte_length": 330948,
+          "sha256": "196b541ead333cbb61372c6bf3c921879b954b916169ca3d9e22809f9b3e4ad6",
+          "content_type": "text/html;charset=utf-8"
+        },
+        {
+          "id": "ya_terms",
+          "url": "https://yandex.ru/dev/tariffs/doc/ru/router/terms/",
+          "fetched_at": "2026-11-13T13:57:30.398039+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://yandex.ru/dev/tariffs/doc/ru/router/terms/",
+          "byte_length": 148406,
+          "sha256": "caf5c5006989488d6a2005ae6cc61c94b31cb9ae68bef969791800aa3774a976",
+          "content_type": "text/html;charset=utf-8"
+        },
+        {
+          "id": "ya_prices",
+          "url": "https://yandex.ru/dev/tariffs/doc/ru/router/prices/",
+          "fetched_at": "2026-11-13T13:57:30.523112+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://yandex.ru/dev/tariffs/doc/ru/router/prices/",
+          "byte_length": 156883,
+          "sha256": "1fa555d7b37c5c20798ee0fa4687dc77f7e66edf896f4703ba824bed4bd22b68",
+          "content_type": "text/html;charset=utf-8"
+        },
+        {
+          "id": "ya_js_legal",
+          "url": "https://yandex.ru/legal/maps_api/ru/",
+          "fetched_at": "2026-11-13T13:57:30.612636+00:00",
+          "method": "public_GET",
+          "auth_used": false,
+          "retrieval_status": "fetched",
+          "http_status": 200,
+          "resolved_url": "https://yandex.ru/legal/maps_api/ru/",
+          "byte_length": 261587,
+          "sha256": "56f72588711f4d19a42d1e26fd9ab8a7a00d90a6deeba50f762f084c98b30433",
+          "content_type": "text/html;charset=utf-8"
+        }
+      ],
+      "verified_support": [
+        "JS API2.1: ymaps.multiRouter.MultiRoute, routingMode masstransit, отдельный ключ JavaScript API; работает в странице приложения, не серверный SDK для Python.",
+        "Официальный серверный GET https://api.routing.yandex.net/v2/route?apikey=<ROUTER_KEY>&waypoints=<lat,lon>|<lat,lon>&mode=transit; ключ продукта Получение деталей маршрута.",
+        "Документированы departure_time, results1..3 (дополнительные результаты на платном тарифе); будущий transit timetable horizon не установлен успешным вызовом.",
+        "Router и JS/Geocoder не считать одним доступом. Тарификация Router по ответам; при трёх ответах на один запрос оплачиваются все три.",
+        "Стандартная лицензия Router п2.1.1: временный кэш до30 дней для производительности после минимальной оплаты; расширенная п2.1.2 — на срок оферты. П2.2.4 запрещает менять порядок/сортировку, скрывать и модифицировать полученные данные; собственное ранжирование сквозных поездок требует согласования применимости лицензии.",
+        "Авторизованные SDK/HTTP вызовы не выполнялись; это рекомендация подключения, не полученный маршрут."
+      ]
+    }
+  ],
+  "core_gap": {
+    "statement": "One flight plus direct ground connectors does not represent metro/platform→rail→walk→airport bus city chains.",
+    "basis": "Assigned task context; application code was not inspected in this research scope.",
+    "required_change": "Ordered ground segment arrays and time validation across city transfers; implementation owned by root."
+  },
+  "itinerary_findings": [
+    {
+      "id": "rw_zia_nya",
+      "status": "flight_published_ground_continuation_unverified",
+      "flight_record_source": "VH02",
+      "research_example_date": "2026-12-07",
+      "date_chosen_by_user": false,
+      "flight_duration_minutes_derived": 165,
+      "buffer_before_flight_minutes_assumed": 120,
+      "airport_target_time_local_derived": "2026-12-07T01:15:00+03:00",
+      "unknown": [
+        "Last MCD3 departure Vykhino→Otdykh on previous evening",
+        "Last/first2A on research date",
+        "Transfer walk durations",
+        "NYA airport→coach boarding point",
+        "Dated coach Nyagan→HMA",
+        "Final HMA address",
+        "Fares and inventory"
+      ]
+    },
+    {
+      "id": "baseline_vko_hma",
+      "status": "flight_published_city_access_unverified",
+      "source": "VH03",
+      "flight": "UT351",
+      "flight_duration_minutes_derived": 190
+    },
+    {
+      "id": "baseline_svo_hma",
+      "status": "flight_published_city_access_unverified",
+      "source": "VH03",
+      "flight": "SU1382",
+      "flight_duration_minutes_derived": 185
+    }
+  ],
+  "connector_acceptance": {
+    "live_authorized_calls": "NOT_RUN",
+    "primary_docs_verified": true,
+    "recommended_server_connector": "2GIS Routing API /public_transport/2.0",
+    "official_server_alternative": "Yandex Router /v2/route mode=transit",
+    "yandex_sdk_ui_option": "JavaScript API2.1 MultiRoute routingMode=masstransit",
+    "real_public_routes_returned": false,
+    "future_schedule_horizon_verified": false,
+    "license_for_custom_ranking_verified": false
+  }
+}

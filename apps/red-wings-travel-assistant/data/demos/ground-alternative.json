@@ -1,0 +1,218 @@
+{
+  "id": "ground-alternative",
+  "type": "ground_baseline",
+  "label": "Тула → Москва · сравнить с поездом",
+  "message": "Покажи сохранённый пример: Тула → Москва 8 декабря 2026 года, один пассажир, прямой наземный путь без обязательного перелёта Red Wings.",
+  "checked_at": "2026-11-13T14:02:01.235Z",
+  "data_mode": "snapshot",
+  "trip": {
+    "network_mode": "current",
+    "ground_preference": "public",
+    "origin": {
+      "city": "Тула",
+      "region": "Тульская область",
+      "place_id": "c15",
+      "address": null,
+      "node_id": "s9623131"
+    },
+    "destination": {
+      "city": "Москва",
+      "region": "Москва",
+      "place_id": "c213",
+      "address": null,
+      "node_id": "s2000001"
+    },
+    "date_range": {
+      "from": "2026-12-08",
+      "to": "2026-12-08",
+      "meaning": "departure_window"
+    },
+    "passengers": 1,
+    "baggage": null,
+    "requires_red_wings": false,
+    "selected_flight": null,
+    "constraints": {
+      "allow_taxi": false,
+      "allow_overnight": false,
+      "allow_night_travel": false,
+      "modes": [
+        "train",
+        "suburban",
+        "bus"
+      ],
+      "departure_after": null,
+      "arrive_by": null,
+      "max_budget": null
+    }
+  },
+  "result": {
+    "status": "ok",
+    "reply": "Сохранённый проверенный пример, не ответ LLM. На 8 декабря 2026 года есть прямой поезд 728М: Тула (Московский вокзал) 09:10 → Москва (Курский вокзал) 11:24, 2 ч 14 мин. Другой вариант — электричка 7048, 17:00–19:37, 2 ч 37 мин. Всё время — UTC+3. Подтверждён наземный вариант; удобную цепочку WZ в проверенном примере не подтвердили. Здесь разумно начать с прямого поезда; навязывать авиационный крюк оснований нет. Это отдельное сравнение без обязательного WZ, а не выполнение требования включить Red Wings. Цена уточняется у перевозчика; наличие мест не проверено. Дальнейшее обсуждение поездки можно продолжить в настоящем чате.",
+    "plans": [
+      {
+        "id": "ground-tula-moscow-train",
+        "title": "Поезд 728М: Тула → Москва",
+        "status": "verified",
+        "network_mode": "current",
+        "requires_red_wings": false,
+        "total_duration_minutes": 134,
+        "total_price": null,
+        "summary": "8 декабря 2026: 09:10–11:24 (UTC+3), без пересадок между вокзалами. Цена уточняется у перевозчика.",
+        "legs": [
+          {
+            "id": "f01bc56dbf8cbff0ba3d",
+            "mode": "train",
+            "carrier": "РЖД/ФПК",
+            "carrier_code": 112,
+            "number": "728М",
+            "departure": "2026-12-08T09:10:00+03:00",
+            "arrival": "2026-12-08T11:24:00+03:00",
+            "duration_minutes": 134,
+            "from": "s9623131",
+            "to": "s2000001",
+            "origin": "Тула (Московский вокзал)",
+            "destination": "Москва (Курский вокзал)",
+            "carrier_iata": null,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "data_mode": "snapshot",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9623131&toId=s2000001&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:01.235Z",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9623131&toId=s2000001&when=2026-12-08"
+              }
+            ]
+          }
+        ],
+        "gaps": [],
+        "connections": [],
+        "warnings": [
+          "Сохранённый снимок расписания: перед поездкой проверьте изменения. Наличие мест не подтверждено; цена уточняется у перевозчика.",
+          "Это отдельный наземный вариант для сравнения, без выполнения требования включить рейс Red Wings.",
+          "Время указано между вокзалами; поездки от адреса до вокзала и от вокзала до конечного адреса не рассчитаны."
+        ],
+        "sources": [
+          {
+            "name": "Яндекс Расписания: Тула (Московский вокзал) → Москва (Курский вокзал), 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9623131&toId=s2000001&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:01.235Z"
+          },
+          {
+            "name": "Яндекс Расписания: проверенный поиск Тула → Москва, 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=c15&toId=c213&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:01.235Z"
+          }
+        ],
+        "recommendation": {
+          "status": "schedule_checked"
+        },
+        "connection_quality": {
+          "long_wait_count": 0,
+          "overnight_count": 0,
+          "max_wait_minutes": 0,
+          "total_wait_minutes": 0
+        },
+        "reasonableness": {
+          "status": "unknown",
+          "explanation": "Прямой наземный путь подтверждён. Полная сопоставимая цепочка с WZ в этом примере не рассчитывалась."
+        }
+      },
+      {
+        "id": "ground-tula-moscow-suburban",
+        "title": "Электричка 7048: Тула → Москва",
+        "status": "verified",
+        "network_mode": "current",
+        "requires_red_wings": false,
+        "total_duration_minutes": 157,
+        "total_price": null,
+        "summary": "8 декабря 2026: 17:00–19:37 (UTC+3), без пересадок между вокзалами. Цена уточняется у перевозчика.",
+        "legs": [
+          {
+            "id": "5ebdaf607d381c8fb418",
+            "mode": "suburban",
+            "carrier": "Центральная пригородная пассажирская компания",
+            "carrier_code": 153,
+            "number": "7048",
+            "departure": "2026-12-08T17:00:00+03:00",
+            "arrival": "2026-12-08T19:37:00+03:00",
+            "duration_minutes": 157,
+            "from": "s9623131",
+            "to": "s2000001",
+            "origin": "Тула (Московский вокзал)",
+            "destination": "Москва (Курский вокзал)",
+            "carrier_iata": null,
+            "price": null,
+            "availability": "unknown",
+            "evidence_status": "dated",
+            "data_mode": "snapshot",
+            "source_name": "Яндекс Расписания",
+            "source_url": "https://rasp.yandex.ru/search/?fromId=s9623131&toId=s2000001&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:01.235Z",
+            "links": [
+              {
+                "label": "Проверить расписание",
+                "url": "https://rasp.yandex.ru/search/?fromId=s9623131&toId=s2000001&when=2026-12-08"
+              }
+            ]
+          }
+        ],
+        "gaps": [],
+        "connections": [],
+        "warnings": [
+          "Сохранённый снимок расписания: перед поездкой проверьте изменения. Наличие мест не подтверждено; цена уточняется у перевозчика.",
+          "Это отдельный наземный вариант для сравнения, без выполнения требования включить рейс Red Wings.",
+          "Время указано между вокзалами; поездки от адреса до вокзала и от вокзала до конечного адреса не рассчитаны."
+        ],
+        "sources": [
+          {
+            "name": "Яндекс Расписания: Тула (Московский вокзал) → Москва (Курский вокзал), 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=s9623131&toId=s2000001&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:01.235Z"
+          },
+          {
+            "name": "Яндекс Расписания: проверенный поиск Тула → Москва, 8 декабря 2026",
+            "url": "https://rasp.yandex.ru/search/?fromId=c15&toId=c213&when=2026-12-08",
+            "checked_at": "2026-11-13T14:02:01.235Z"
+          }
+        ],
+        "recommendation": {
+          "status": "schedule_checked"
+        },
+        "connection_quality": {
+          "long_wait_count": 0,
+          "overnight_count": 0,
+          "max_wait_minutes": 0,
+          "total_wait_minutes": 0
+        },
+        "reasonableness": {
+          "status": "unknown",
+          "explanation": "Прямой наземный путь подтверждён. Полная сопоставимая цепочка с WZ в этом примере не рассчитывалась."
+        }
+      }
+    ]
+  },
+  "verification": {
+    "checks": [
+      "Брокер /search: from=c15, to=c213, date=2026-12-08, modes=train,suburban,bus, task=demo_alternative; HTTP 200, status=ok, complete=true, checked_dates=[2026-12-08].",
+      "В ответе 27 прямых наземных сегментов train/suburban; сохранены два дневных варианта с конкретными вокзалами s9623131 → s2000001.",
+      "Поезд 728М: 2026-12-08T09:10:00+03:00 → 2026-12-08T11:24:00+03:00; разность меток времени 134 минуты.",
+      "Электричка 7048: 2026-12-08T17:00:00+03:00 → 2026-12-08T19:37:00+03:00; разность меток времени 157 минут.",
+      "requires_red_wings=false в Trip и обоих Plan; участков plane нет. Стыковки, ночёвки и переходы между узлами не требуются.",
+      "Всего выполнено 3 GET к брокеру с task=demo_alternative: /resolve Тула, /resolve Москва, /search Тула → Москва. Запросов моделей не было."
+    ],
+    "assumptions": [
+      "Пример рассчитан для одного пассажира и поездки между указанными вокзалами; багаж и адреса не заданы.",
+      "Наземный путь выбран исходной точкой сравнения: он прямой и занимает 2 ч 14 мин. Количественное превосходство над всеми возможными авиамаршрутами не устанавливалось."
+    ],
+    "limitations": [
+      "Снимок проверен 13 ноября 2026 года; загрузка демо не обновляет расписание.",
+      "Исчерпывающего поиска цепочек Red Wings не было. Отсутствие WZ в сохранённом примере не доказывает отсутствие любого рейса или возможной цепочки WZ.",
+      "Цены, наличие мест, оформление билетов и условия багажа не проверены.",
+      "Сохранённый пример не имитирует выполненный ответ LLM; продолжение настоящим чатом требует работающего подключения чата и проверяется отдельно."
+    ]
+  }
+}
