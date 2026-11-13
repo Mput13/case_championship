@@ -666,13 +666,13 @@ function weights(){
   const wb=document.getElementById('why-btn'); if(wb&&!wb.onclick) wb.onclick=()=>{ const pn=document.querySelector('.main>.panel'), on=pn.classList.toggle('why-on'); wb.setAttribute('aria-expanded',String(on)); wb.querySelector('span').textContent=on?'Скрыть пояснения к весам':'Что значит каждый вес'; };
   const box=document.getElementById('wlist'); if(box.childElementCount) return;
   for(const w of CR){ if(ZERO.has(w.key)) continue;
-    const inp=h('input',{type:'range',min:0,max:40,step:1,value:W[w.key],id:'w-'+w.key});
+    const inp=h('input',{type:'range',min:0,max:40,step:0.5,value:W[w.key],id:'w-'+w.key});
     inp.addEventListener('input',()=>{ const nw={...W,[w.key]:+inp.value}; if(!(wsum(nw)>0)){ inp.value=W[w.key]; return; } W=nw; update(); });
     box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key,title:w.why},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why)));
   }
 }
 function weightLabels(){
-  const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ if(ZERO.has(w.key)) continue; document.getElementById('wp-'+w.key).textContent=ru(W[w.key]/t*100)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
+  const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ if(ZERO.has(w.key)) continue; const p=W[w.key]/t*100; document.getElementById('wp-'+w.key).textContent=ru(p,Math.abs(p-Math.round(p))>0.05?1:0)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
   const s=document.getElementById('stab'); s.textContent='';
   s.append(h('div',{},'Топ-3: ',h('b',{},R.rows.slice(0,3).map(x=>x.c.city).join(', '))), h('div',{},'Один вес ×0,5 или ×1,5: тройка та же в ',h('b',{},`${R.same} из ${R.total}`)), '');
 }

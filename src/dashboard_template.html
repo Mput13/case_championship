@@ -628,7 +628,7 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <p class="win-note" id="fu-note"></p>
   </section>
   <section class="win" data-tab="network" aria-labelledby="p9-title">
-    <div class="sec-h"><div><div class="eyebrow">Проверка другой моделью · коллеги 12.11 <span class="tag fix">условный расчёт</span></div><h2 id="p9-title">Помесячная модель на 2027–2028 годы</h2><div class="hint">Своя модель спроса, поставки самолётов по месяцам, сравнение с работой без проекта. Прирост известной части результата за два года</div></div></div>
+    <div class="sec-h"><div><div class="eyebrow">Проверка моделью сети и конкуренции P40 · 13.11 <span class="tag fix">эксперимент</span></div><h2 id="p9-title">Помесячная модель на 2027–2028 годы (с учётом конкурентов)</h2><div class="hint">Своя модель спроса, поставки самолётов по месяцам и реакция на цены и частоты конкурентов. Прирост известной части результата за 24 месяца</div></div><div class="ctl"><div class="seg" id="p9-seg" role="group" aria-label="Сценарий модели P40"></div></div></div>
     <div id="p9"></div>
     <p class="win-note" id="p9-note"></p>
   </section>
@@ -825,13 +825,13 @@ function weights(){
   const wb=document.getElementById('why-btn'); if(wb&&!wb.onclick) wb.onclick=()=>{ const pn=document.querySelector('.main>.panel'), on=pn.classList.toggle('why-on'); wb.setAttribute('aria-expanded',String(on)); wb.querySelector('span').textContent=on?'Скрыть пояснения к весам':'Что значит каждый вес'; };
   const box=document.getElementById('wlist'); if(box.childElementCount) return;
   for(const w of CR){ if(ZERO.has(w.key)) continue;
-    const inp=h('input',{type:'range',min:0,max:40,step:1,value:W[w.key],id:'w-'+w.key});
+    const inp=h('input',{type:'range',min:0,max:40,step:0.5,value:W[w.key],id:'w-'+w.key});
     inp.addEventListener('input',()=>{ const nw={...W,[w.key]:+inp.value}; if(!(wsum(nw)>0)){ inp.value=W[w.key]; return; } W=nw; update(); });
     box.append(h('div',{class:'w'},h('div',{class:'w-top'},h('label',{for:'w-'+w.key,title:w.why},w.label+(w.dir==='-'?' (меньше — лучше)':'')),h('span',{id:'wp-'+w.key})),inp,h('small',{},w.why)));
   }
 }
 function weightLabels(){
-  const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ if(ZERO.has(w.key)) continue; document.getElementById('wp-'+w.key).textContent=ru(W[w.key]/t*100)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
+  const t=Object.values(W).reduce((a,b)=>a+b,0)||1; for(const w of CR){ if(ZERO.has(w.key)) continue; const p=W[w.key]/t*100; document.getElementById('wp-'+w.key).textContent=ru(p,Math.abs(p-Math.round(p))>0.05?1:0)+'%'; const i=document.getElementById('w-'+w.key); if(+i.value!==W[w.key]) i.value=W[w.key]; }
   const s=document.getElementById('stab'); s.textContent='';
   s.append(h('div',{},'Топ-3: ',h('b',{},R.rows.slice(0,3).map(x=>x.c.city).join(', '))), h('div',{},'Один вес ×0,5 или ×1,5: тройка та же в ',h('b',{},`${R.same} из ${R.total}`)), '');
 }
@@ -1556,27 +1556,52 @@ function fuelWin(){
   document.getElementById('fu-note').textContent=`Сети не пересобираются: те же лучи и частоты, меняется только цена топлива. В 2026 году государство в среднем возвращало ${ru(k0)} ₽ за тонну (демпфер и обратный акциз, январь — сентябрь); без демпфера остаётся обратный акциз ${ru(A.fuel_compensation_rub_per_t[1])} ₽. Будущая ставка на 2027–2028 годы неизвестна.`;
 }
 
-/* --- 7. модель коллег P09 --- */
+/* --- 7. помесячная модель на 2027–2028 годы (P40 с конкуренцией и проверкой P09) --- */
+let P9C='comp_market_base';
 function p09(){
-  const box=document.getElementById('p9'), P=R2.p09||[]; if(!box) return; if(!P.length){ box.textContent='Нет данных'; return; }
-  const base=P.filter(x=>x.scen==='base'), cau=Object.fromEntries(P.filter(x=>x.scen==='cautious').map(x=>[x.id,x]));
+  const box=document.getElementById('p9'), P40=R2.p40||[], P9=R2.p09||[]; if(!box) return;
+  if(!P40.length&&!P9.length){ box.textContent='Нет данных'; return; }
+  const useP40=P40.length>0;
+  if(useP40) segInto('p9-seg',[['comp_market_base','Рынок: База'],['comp_market_cautious','Осторожный'],['comp_expansion_stress_2028','Стресс 2028'],['p09_legacy_check','Без рынка (P09)']],P9C,k=>{P9C=k;p09();});
+  const base=useP40?P40.filter(x=>x.cfg===P9C):P9.filter(x=>x.scen==='base');
+  const cau=Object.fromEntries((useP40?P40.filter(x=>x.cfg==='comp_market_cautious'):P9.filter(x=>x.scen==='cautious')).map(x=>[x.id,x]));
   const city=id=>id.split('_')[0];
+  const arch=id=>{ const p=id.split('_').slice(1).join('_'); return p==='RADIAL'?'RADIAL':p==='HYBRID'?'HYBRID':p==='SEASONAL'?'СЕЗОН':p==='HUB'?'HUB':p==='HUB_LOCAL_ONLY'?'LOCAL':p; };
   const best={}; base.forEach(x=>{ const c=city(x.id); if(!best[c]||x.dop>best[c].dop) best[c]=x; });
   const rows=Object.values(best).sort((a,b)=>b.dop-a.dop).slice(0,12);
-  const all=rows.flatMap(x=>[x.dop,(cau[x.id]||{}).dop??x.dop]), lo=Math.min(0,...all), hi=Math.max(...all);
-  const W=1000,rh=30,top=26,H=top+rows.length*rh+30, x0=260,x1=930, X=v=>x0+(v-lo)/(hi-lo)*(x1-x0);
+  const showOld=useP40&&P9C==='comp_market_base';
+  const showCau=useP40?(P9C==='comp_market_base'||P9C==='comp_expansion_stress_2028'||P9C==='p09_legacy_check'):true;
+  const all=rows.flatMap(x=>[x.dop, showCau?(cau[x.id]||{}).dop??x.dop:x.dop, showOld&&x.old_dop!=null?x.old_dop:x.dop]);
+  const lo=Math.min(0,...all), hi=Math.max(0,...all);
+  const W=1000,rh=31,top=26,H=top+rows.length*rh+34, x0=275,x1=875, X=v=>hi>lo?x0+(v-lo)/(hi-lo)*(x1-x0):x0;
   const NM={AER:'Сочи',MRV:'Минеральные Воды',CEK:'Челябинск',OMS:'Омск',SVX:'Екатеринбург',VOG:'Волгоград',KUF:'Самара',UFA:'Уфа',TJM:'Тюмень',PEE:'Пермь',GOJ:'Нижний Новгород',REN:'Оренбург',KZN:'Казань',BAX:'Барнаул',KGD:'Калининград',KJA:'Красноярск',IKT:'Иркутск',MCX:'Махачкала',VVO:'Владивосток',KHV:'Хабаровск',GSV:'Саратов'};
-  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Лучшие программы второй модели">`;
-  g+=`<line x1="${X(0)}" y1="${top-8}" x2="${X(0)}" y2="${H-24}" stroke="#B9B5AC"/><text x="${X(0)}" y="${top-12}" text-anchor="middle" font-size="11" fill="#5E6675">0</text>`;
-  rows.forEach((x,i)=>{ const y=top+i*rh, me=city(x.id)===HUB0, c=cau[x.id];
-    g+=`<text x="${x0-12}" y="${y+16}" text-anchor="end" font-size="13" font-weight="${me?700:400}" fill="#111318">${esc(NM[city(x.id)]||city(x.id))}</text>`;
-    g+=`<rect x="${Math.min(X(0),X(x.dop))}" y="${y+4}" width="${Math.abs(X(x.dop)-X(0))}" height="${rh-12}" rx="4" fill="${me?'#E32A2F':'#8C96A6'}"><title>${esc(x.label)}: ${sgn(x.dop)} млн ₽, +${ru(x.dj)} поездок</title></rect>`;
-    g+=`<text x="${X(Math.max(x.dop,0))+8}" y="${y+16}" font-size="12" fill="#111318">${sgn(x.dop)}</text>`;
-    if(c) g+=`<circle cx="${X(c.dop)}" cy="${y+rh/2-2}" r="5" fill="#fff" stroke="#111318" stroke-width="2"><title>осторожный сценарий: ${sgn(c.dop)} млн ₽</title></circle>`; });
-  g+=`<circle cx="${x0}" cy="${H-10}" r="5" fill="#fff" stroke="#111318" stroke-width="2"/><text x="${x0+10}" y="${H-6}" font-size="11" fill="#5E6675">осторожный сценарий · полоса — базовый, млн ₽ за 2027–2028 годы, лучшая конструкция сети каждого города</text>`;
+  const HW=R2.p40_hub_w28||{}, COV=R2.p40_comp_cov||{};
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Лучшие программы помесячной модели 2027–2028 с учётом конкуренции">`;
+  g+=`<line x1="${X(0)}" y1="${top-8}" x2="${X(0)}" y2="${H-28}" stroke="#B9B5AC"/><text x="${X(0)}" y="${top-12}" text-anchor="middle" font-size="11" fill="#5E6675">0</text>`;
+  rows.forEach((x,i)=>{ const y=top+i*rh, ct=city(x.id), me=ct===HUB0, c=cau[x.id], w28=HW[ct]?HW[ct].w28:null, lf=x.lf!=null?` · LF ${Math.round(x.lf*100)}%`:'';
+    const col=me?'#E32A2F':x.dop<0?'#C9CED6':'#8C96A6';
+    const tip=`${x.label}: ${sgn(x.dop)} млн ₽${lf}, +${ru(x.dj)} поездок`+(x.old_dop!=null&&useP40?`; без рынка P09: ${sgn(x.old_dop)} млн ₽`:'')+(w28!=null?`; индекс давления 2028: ${ru(w28,2)} (${HW[ct].ass})`:'');
+    g+=`<text x="${x0-12}" y="${y+16}" text-anchor="end" font-size="12.5" font-weight="${me?700:400}" fill="#111318">${esc(NM[ct]||ct)} <tspan fill="#5E6675" font-weight="400" font-size="11">· ${esc(arch(x.id))}</tspan></text>`;
+    g+=`<rect x="${Math.min(X(0),X(x.dop))}" y="${y+5}" width="${Math.max(2,Math.abs(X(x.dop)-X(0)))}" height="${rh-13}" rx="4" fill="${col}"><title>${esc(tip)}</title></rect>`;
+    if(showOld&&x.old_dop!=null) g+=`<line x1="${X(x.old_dop)}" x2="${X(x.old_dop)}" y1="${y+2}" y2="${y+rh-5}" stroke="#386796" stroke-width="2.5"><title>расчёт без учёта конкурентов (P09): ${sgn(x.old_dop)} млн ₽</title></line>`;
+    if(showCau&&c) g+=`<circle cx="${X(c.dop)}" cy="${y+rh/2-1.5}" r="4.8" fill="#fff" stroke="#111318" stroke-width="2"><title>рыночный осторожный сценарий: ${sgn(c.dop)} млн ₽</title></circle>`;
+    const tx=X(Math.max(x.dop,0))+8;
+    g+=`<text x="${tx}" y="${y+16}" font-size="12" font-weight="${me?700:400}" fill="#111318">${sgn(x.dop)}${x.lf!=null?` <tspan fill="#5E6675" font-size="11">(${Math.round(x.lf*100)}%)</tspan>`:''}</text>`; });
+  let lx=x0;
+  if(showCau){ g+=`<circle cx="${lx}" cy="${H-11}" r="4.5" fill="#fff" stroke="#111318" stroke-width="2"/><text x="${lx+9}" y="${H-7}" font-size="11" fill="#5E6675">рынок: осторожный</text>`; lx+=142; }
+  if(showOld){ g+=`<line x1="${lx}" x2="${lx}" y1="${H-17}" y2="${H-5}" stroke="#386796" stroke-width="2.5"/><text x="${lx+8}" y="${H-7}" font-size="11" fill="#5E6675">без рынка (P09)</text>`; lx+=125; }
+  g+=`<text x="${lx}" y="${H-7}" font-size="11" fill="#5E6675">полоса — ${P9C==='comp_expansion_stress_2028'?'стресс 2028':P9C==='comp_market_cautious'?'рынок: осторожный':P9C==='p09_legacy_check'?'без рынка (P09)':'рынок: база'}, млн ₽ за 24 мес. (LF%)</text>`;
   box.innerHTML=g+'</svg>';
-  const om=rows.findIndex(x=>city(x.id)===HUB0)+1;
-  document.getElementById('p9-note').textContent=`Модель коллег считает 24 месяца с поставками новых самолётов в августе 2027 — сентябре 2028 года и сравнивает с работой без проекта. Омск — ${om}-е место среди городов; выше южные курорты, у которых больше дней «Ковра», и Челябинск. Это прирост известной части результата: аренда, база и полная прибыль в обеих моделях не посчитаны. Независимая проверка 12.11 повторила расчёт и ошибок не нашла (141 проверка).`;
+  const omIdx=rows.findIndex(x=>city(x.id)===HUB0)+1, omObj=best[HUB0], omsW=HW[HUB0]?ru(HW[HUB0].w28,2):'0,15', aerW=HW.AER?ru(HW.AER.w28,2):'0,34';
+  const covTxt=COV.exact?` Проверены тарифы и перевозчики по ${COV.exact} точным парам (${COV.sub26} с субсидией-2026)${COV.yandex?` и ${COV.yandex} парам по расписаниям`:''}.`:'';
+  const scenMsg=P9C==='comp_market_base'
+    ?`При включении цен конкурентов и субсидий-2026 Сочи теряет ~450 млн ₽ относительно прежнего расчёта (индекс давления 2028: ${aerW}), уступая 1-е место Минводам. Омск (RADIAL, индекс давления ${omsW}) выходит на ${omIdx>0?omIdx+'-е место':'+'+ru(omObj?.dop,0)+' млн ₽'} (${sgn(omObj?.dop||0)} млн ₽) и обходит Челябинск (${sgn(best.CEK?.dop||0)}).`
+    :P9C==='comp_market_cautious'
+    ?`В осторожном рыночном сценарии (низкая доходная ставка, жёсткая ценовая реакция конкурентов) в плюсе остаются радиальные программы городов без плотного демпинга: Волгоград (+299 млн ₽, но 141 день «Ковра» в год и опора на ZIA), Нижний Новгород (+191) и Казань (+149). Омск уходит в ${sgn(omObj?.dop||0)} млн ₽ — главная уязвимость на 2027–2028 гг.`
+    :P9C==='comp_expansion_stress_2028'
+    ?`Стресс-тест 2028 моделирует усиление конкуренции (Победа 189, Аэрофлот, Nordwind, S7) в полную силу с 2028 г.: лидеры те же (Волгоград, Нижний Новгород, Казань — радиальные базы), разрыв между базой и стрессом показывает чувствительность сети к ценовой войне.`
+    :`Прежний расчёт P09 без учёта цен конкурентов и субсидий-2026 переоценивал Сочи (+1 227 млн ₽) и стыковочные гибриды. Переключение на «Рынок: База» сразу переводит фокус с HYBRID на RADIAL.`;
+  document.getElementById('p9-note').textContent=`24 месяца (2027–2028), прирост известной операционной части результата при RW_SUPPORT_NEW = 0 (без аренды самолётов и стоимости запуска базы). ${scenMsg}${covTxt} Индекс конкурентного давления — сценарный ориентир, а не вероятность.`;
 }
 
 /* --- 7б. треугольник или челнок: недельная модель коллег --- */

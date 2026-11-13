@@ -247,6 +247,37 @@ def research(nodes):
         out["p09"] = [{"id": r.programme_id, "label": r.label, "scen": r.scenario, "dj": float(r.delta_journeys),
                        "drev": float(r.delta_revenue_net) / 1e6, "dop": float(r.delta_known_operating_subtotal) / 1e6}
                       for r in p9.itertuples()]
+    if (C / "p40_programmes.csv").exists():
+        p40 = pd.read_csv(C / "p40_programmes.csv")
+        cfgs = {"comp_market_base", "comp_market_cautious", "comp_expansion_stress_2028", "p09_legacy_check"}
+        p40 = p40[p40.config.isin(cfgs) & (p40.programme_id != "KEEP")]
+        out["p40"] = [{"id": r.programme_id, "label": r.label, "cfg": r.config, "scen": r.scenario,
+                       "dj": round(float(r.delta_journeys), 1),
+                       "drev": round(float(r.delta_revenue_net) / 1e6, 2),
+                       "dop": round(float(r.delta_known_operating_subtotal) / 1e6, 2),
+                       "old_dop": round(float(r.p09_original_delta_known_operating_subtotal) / 1e6, 2),
+                       "lf": round(float(r.flight_load_factor), 3),
+                       "fl": int(r.calendar_flights)}
+                      for r in p40.itertuples()]
+    if (C / "p40_hub_weights_22.csv").exists():
+        hw = pd.read_csv(C / "p40_hub_weights_22.csv")
+        out["p40_hub_w28"] = {
+            r.hub: {"w28": round(float(r.W_comp_2028), 3), "w27": round(float(r.W_comp_2027), 3),
+                    "lcc": round(float(r.lcc189), 2), "afl": round(float(r.aeroflot_cluster), 2),
+                    "n4": round(float(r.nordwind_kzn), 2), "s7": round(float(r.s7_regional), 2),
+                    "sub": round(float(r.subsidized_incumbent), 2), "ass": str(r.assessment)}
+            for r in hw.itertuples()
+        }
+    if (C / "p40_route_competitors_verified.csv").exists():
+        rc = pd.read_csv(C / "p40_route_competitors_verified.csv")
+        ex_rc = rc[rc.p40_match_scope == "exact_pair"]
+        yx_rc = rc[rc.p40_match_scope == "yandex_hub_city_check"]
+        sub_rc = ex_rc[ex_rc.subsidized_2026.astype(str).str.lower() == "true"]
+        out["p40_comp_cov"] = {
+            "total": int(len(rc)), "exact": int(len(ex_rc)), "yandex": int(len(yx_rc)),
+            "sub26": int(len(sub_rc)),
+            "med_w28": round(float(ex_rc.W_comp_2028.median()), 3) if len(ex_rc) else None,
+        }
     if (C / "p10_type_productivity.csv").exists():
         pr = pd.read_csv(C / "p10_type_productivity.csv")
         out["prod"] = [{"type": r.aircraft_type, "cond": r.condition, "seats": int(r.seats),
@@ -499,8 +530,12 @@ def monthly():
 def main():
     ll = pd.read_csv(P / "longlist.csv")
     kov = pd.read_csv(P / "kover_days.csv").set_index("iata")
-    ap = pd.read_csv(ROOT / "data/raw/ourairports_airports.csv", keep_default_na=False)
-    ap = ap[ap.iata_code != ""].drop_duplicates("iata_code").set_index("iata_code")
+    oa_p = ROOT / "data/raw/ourairports_airports.csv"
+    if oa_p.exists():
+        ap = pd.read_csv(oa_p, keep_default_na=False)
+        ap = ap[ap.iata_code != ""].drop_duplicates("iata_code").set_index("iata_code")
+    else:
+        ap = pd.read_csv(P / "catchments.csv", keep_default_na=False).drop_duplicates("iata").set_index("iata")
     posts = pd.read_csv(ROOT / "data/raw/favt_posts.csv")
     months, by_month = monthly()
     w = pd.read_csv(ROOT / "data/assumptions/longlist_weights.csv")
