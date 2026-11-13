@@ -38,6 +38,81 @@ def txt(v):
     return None if v is None or (isinstance(v, float) and v != v) else str(v)
 
 
+def case_answer(names):
+    """Выбор первого хаба: почему — Омск и порядок расширения.
+    Тексты — data/manual/case_answer.json, числа — из готовых таблиц расчёта (без пересчёта)."""
+    cfg = json.loads((ROOT / "data/manual/case_answer.json").read_text(encoding="utf-8"))
+    sm = pd.read_csv(P / "network_summary.csv")
+    b = sm[sm.scenario == "base"]
+    hb = b[b.hub.notna()].set_index("hub")
+    d0 = b[b.hub.isna()].iloc[0]
+    ll = pd.read_csv(P / "longlist.csv").set_index("iata")
+    dist = ll[["dist_msk_km", "dist_ekb_km"]].min(axis=1)
+    kov = ll.last365_days
+    r0 = pd.read_csv(rules.scores_file(0.0)).set_index("iata")
+    r5 = pd.read_csv(rules.scores_file(rules.FILTER_OPTION_KM)).set_index("iata")
+    ramp = pd.read_csv(P / "fleet_ramp.csv")
+    H = str(pd.read_csv(ROOT / "data/assumptions/choice.csv").set_index("parameter").value["chosen_hub"])
+    ramp = ramp[(ramp.scenario == "base") & (ramp.hub == H)].sort_values("fleet_cap")
+    ch = pd.read_csv(ROOT / "data/manual/competitor_hubs.csv").set_index(pd.read_csv(ROOT / "data/manual/competitor_hubs.csv").columns[0])
+    rt = pd.read_csv(P / "network_routes.csv")
+    tri = (rt[(rt.scenario == "base") & rt.variant.str.startswith("Прямые")].groupby("variant")
+           .triangle_result_mln_year.first().sort_values(ascending=False))
+    nm = lambda i: names.get(i, i)
+    n_ = lambda v: f"{v:,.0f}".replace(",", " ")
+    sg = lambda v: ("+" if v >= 0 else "−") + n_(abs(v))
+    sc = lambda i: f"{float(r0.loc[i, 'score']) * 100:.1f}".replace(".", ",") if "score" in r0.columns else ""
+    rank0 = r0["rank"].astype(int)
+    top3 = list(r0.sort_values("rank").index[:3])
+    # города вдали от баз и без сильного «Ковра» (порог — медиана «Ковра» по лонглисту)
+    far = [i for i in hb.index if i in dist.index and dist[i] >= rules.FILTER_OPTION_KM and kov.get(i, 999) <= kov.median()]
+    far_best = max(far, key=lambda i: hb.loc[i, "result_mln_year"]) if far else H
+    near = ["CEK", "TJM", "PEE", "UFA"]
+    km = lambda i: n_(dist[i])
+    cmp_kov = ", ".join(f"{nm(i)} {int(kov[i])}" for i in ["CEK", "TJM", "PEE", "UFA", "KUF", "AER"] if i in kov.index)
+    steps_ = []
+    prev = set()
+    for r in ramp.itertuples():
+        sp = r.spokes.split(";")
+        new = [x for x in sp if x not in prev]
+        steps_.append(f"{int(r.aircraft)} самолёта: {sg(r.result_mln_year)} млн ₽" if r.aircraft < 5 else f"{int(r.aircraft)} самолётов: {sg(r.result_mln_year)} млн ₽")
+        prev = set(sp)
+    first = ramp.iloc[0].spokes.split(";")
+    full = ramp.iloc[-1].spokes.split(";")
+    pos_tri = [(v, x) for v, x in tri.items() if x > 0]
+    tri_txt = "; ".join(f"{' — '.join(nm(c) for c in v.replace('Прямые ', '').split('-'))} ({sg(x)})" for v, x in pos_tri)
+    comp = lambda i: (str(ch.loc[i].iloc[1]) if i in ch.index and isinstance(ch.loc[i].iloc[1], str) else "")
+    fill = {
+        "why_rank": f"{int(rank0[H])}-е место из {len(r0)} в рейтинге городов без фильтра и {int(r5.loc[H, 'rank'])}-е среди городов дальше {int(rules.FILTER_OPTION_KM)} км от Москвы и Екатеринбурга (балл {sc(H)}). Веса критериев в рейтинге учтены.",
+        "why_dist": f"До ближайшей базы Red Wings {km(H)} км: его пассажиры — новые для компании. У сильных соседей по рейтингу базы рядом: " + ", ".join(f"{nm(i)} {km(i)} км" for i in near) + " до Екатеринбурга.",
+        "why_kover": f"{int(kov[H])} дней ограничений за последний год — меньше, чем у всех сильных кандидатов: {cmp_kov}.",
+        "why_money": f"{sg(hb.loc[H, 'result_mln_year'])} млн ₽ в год на {int(hb.loc[H, 'aircraft'])} самолётах с учётом сезонности — "
+                     + ("больше всех городов вдали от наших баз без сильного «Ковра»" if far_best == H else f"второй результат вдали от баз после {nm(far_best)}")
+                     + f". Больше, чем у Уфы ({sg(hb.loc['UFA', 'result_mln_year'])} на {int(hb.loc['UFA', 'aircraft'])}) и Перми ({sg(hb.loc['PEE', 'result_mln_year'])} на {int(hb.loc['PEE', 'aircraft'])}).",
+        "why_ramp": "Сеть добавляет лучи по мере поставок и на каждом шаге в плюсе: " + "; ".join(steps_) + f". У Уфы сеть упирается в {int(hb.loc['UFA', 'aircraft'])} самолётов и {sg(hb.loc['UFA', 'result_mln_year'])} млн ₽.",
+        "why_comp": f"В Омске нет базы конкурента; ближайший чужой хаб — S7 в Новосибирске, через него сейчас летает часть пассажиров с пересадкой. В Челябинске опорные рейсы конкурентов ({comp('CEK')}), в Тюмени — база {comp('TJM')}.",
+        "honest_rank": f"выше Омска {', '.join(f'{nm(i)} ({sc(i)})' for i in top3)}: это крупные города с большим пассажиропотоком.",
+        "honest_money": f"выше Омска {nm('CEK')} ({sg(hb.loc['CEK', 'result_mln_year'])} млн ₽ на {int(hb.loc['CEK', 'aircraft'])} самолётах: пересадки из Сибири на юг, один луч в Минеральные Воды даёт около 40% итога) и Сочи ({sg(hb.loc['AER', 'result_mln_year'])}, но {int(kov['AER'])} дня «Ковра» за год).",
+        "ord_oms": f"Первые SJ-100: лучи {', '.join(nm(x) for x in first)}; к полной сети ({int(ramp.iloc[-1].aircraft)} самолётов) добавляются {', '.join(nm(x) for x in full if x not in first)}. Итог {sg(hb.loc[H, 'result_mln_year'])} млн ₽ в год.",
+        "ord_direct": (f"Из {len(tri)} треугольников модели окупаются {len(pos_tri)}: {tri_txt} млн ₽. Вся прямая сеть — {sg(d0.result_mln_year)} млн ₽ на {int(d0.aircraft)} самолётах, поэтому запускаем только окупаемые, по одному. Первой стоит проверить пару Екатеринбург — Красноярск (расчёт P38)." if pos_tri else "Треугольники при нынешних допущениях не окупаются."),
+        "ord_cek": f"Лучший итог сети: {sg(hb.loc['CEK', 'result_mln_year'])} млн ₽ на {int(hb.loc['CEK', 'aircraft'])} самолётах, {int(kov['CEK'])} дней «Ковра». Условие: {km('CEK')} км до Екатеринбурга, поэтому по данным бронирований сначала проверить, сколько его пассажиров уже летают Red Wings из Кольцово.",
+        "ord_tjm": f"{sg(hb.loc['TJM', 'result_mln_year'])} млн ₽ на {int(hb.loc['TJM', 'aircraft'])} самолётах, {int(kov['TJM'])} дней «Ковра». Условие то же: {km('TJM')} км до Екатеринбурга; в Тюмени база Utair.",
+        "ord_ufa": f"Первые места рейтинга без фильтра, но сети слабее: Уфа {sg(hb.loc['UFA', 'result_mln_year'])}, Пермь {sg(hb.loc['PEE', 'result_mln_year'])} млн ₽ при {int(kov['UFA'])} и {int(kov['PEE'])} днях «Ковра». Подходят для прямых рейсов и как точки сетей Омска и Челябинска.",
+    }
+
+    def fmt(o):
+        if isinstance(o, str):
+            return o.format(**fill) if "{" in o else o
+        if isinstance(o, list):
+            return [fmt(x) for x in o]
+        if isinstance(o, dict):
+            return {k: fmt(v) for k, v in o.items()}
+        return o
+    out = fmt({k: v for k, v in cfg.items() if k != "source"})
+    out["hub"] = H
+    return out
+
+
 def season_window(a):
     """Окно «Сезонность»: помесячный спрос и кресла сети каждого хаба (docs/37_seasonality.md).
     Спрос месяца = (перевезённые + потерянные за год) / 12 × профиль пары; кресла — по частоте сезона."""
@@ -552,7 +627,7 @@ def main():
         return o
     no2 = fmt_(no2)
     no2["hub_pax"] = float(s0_.segments_year) / 1e6
-    steps = {"no2": no2, "competitors": rd("data/manual/competitor_bases.csv"), "scale": scale, "ramp": ramp, "choice": choice,
+    steps = {"case": case_answer(names), "no2": no2, "competitors": rd("data/manual/competitor_bases.csv"), "scale": scale, "ramp": ramp, "choice": choice,
              "roadmap": rd("data/manual/roadmap.csv"), "risks": rd("data/manual/risks.csv"),
              "rw_share_2025": float(na_.loc["rw_pax_2025", "base"]) / float(na_.loc["market_pax_2025", "base"]) * 100}
     p = posts.copy()

@@ -417,6 +417,24 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ctl select{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:6px 8px;background:var(--white)}
 .ctl .seg button{padding:7px 12px;flex:none;white-space:nowrap}
 .xp{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.ca-two{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:22px}
+@media (max-width:1000px){.ca-two{grid-template-columns:minmax(0,1fr)}}
+.ca-h{margin:4px 0 8px;font-size:16px}
+.ca-why{margin:0;padding-left:20px;display:grid;gap:7px;font-size:13.5px;line-height:1.5}
+.ca-why b{font-weight:500}
+.ca-hon{background:#F6F4EF;border-radius:14px;padding:14px 16px}
+.ca-hon p{margin:0 0 8px;font-size:13px;line-height:1.5;color:var(--muted)}
+.ca-hon p b{color:var(--ink);font-weight:500}
+.ca-ord{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.ca-ord li{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:4px;align-content:start}
+.ca-ord .nm{display:flex;align-items:baseline;gap:8px}
+.ca-ord .nm i{font-style:normal;font-weight:700;color:var(--white);background:var(--red);border-radius:50%;width:24px;height:24px;display:inline-grid;place-items:center;font-size:12.5px;flex:none}
+.ca-ord li.direct .nm i{background:#3FA772}
+.ca-ord li.next .nm i,.ca-ord li.later .nm i{background:#E8962E}
+.ca-ord li.fleet .nm i{background:#5B6475}
+.ca-ord .nm b{font-size:15px}
+.ca-ord .wh{font-size:12px;color:var(--red);font-weight:500}
+.ca-ord p{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
 #mk-facts{display:grid;gap:10px;align-content:start}
 .mkf{display:grid;gap:2px;border-left:3px solid var(--line);padding:2px 0 2px 10px}
 .mkf b{font-size:13.5px;font-weight:500}
@@ -531,6 +549,13 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
     <p class="win-note" id="dc-note"></p>
   </section>
   <section class="win" data-tab="direct" aria-labelledby="xpd-title"><div class="sec-h"><div><div class="eyebrow">Консультация эксперта авиакомпании, 12.11</div><h2 id="xpd-title">Что говорит практика про рейсы</h2></div></div><div class="xp" id="xp-direct"></div></section>
+  <section class="win" id="case" data-tab="network" aria-labelledby="ca-title">
+    <div class="sec-h"><div><div class="eyebrow">Выбор первого хаба и порядок расширения <span class="tag fix">общий вывод</span></div><h2 id="ca-title"></h2><div class="hint" id="ca-lead"></div></div></div>
+    <div class="ca-two"><div><h3 class="ca-h">Почему Омск</h3><ol class="ca-why" id="ca-why"></ol></div><div class="ca-hon"><h3 class="ca-h" id="ca-hon-t"></h3><div id="ca-hon"></div></div></div>
+    <h3 class="ca-h" id="ca-ord-t"></h3>
+    <ol class="ca-ord" id="ca-ord"></ol>
+    <p class="win-note" id="ca-rule"></p>
+  </section>
   <section class="mapcard" id="vs" aria-labelledby="vs-title" data-tab="network"><span id="step3" class="anchor"></span>
     <div class="sec-h ld-h">
       <div><div class="eyebrow">Шаг 3 · расчёт обеих гипотез <span class="tag live">меняется от города на табло</span></div><h2 id="vs-title">Хаб или прямые рейсы</h2><div class="hint">Итог сети за год: выручка минус включённые расходы на рейсы; аренда самолётов и создание базы считаются отдельно</div></div>
@@ -1669,6 +1694,22 @@ function marketWin(){
   document.getElementById('mk-note').textContent=`В рынок входят пассажиры всех российских авиакомпаний: внутренние и международные рейсы, регулярные и чартерные. Наша сеть целиком внутренняя, поэтому рядом с долей всего рынка показываем долю внутреннего (${ru(dom,1)} млн). Спрос пар в модели взят за 2025 год. В 2026 году внутренние перевозки падают: у «Аэрофлота» за 10 месяцев ${sgn(M.afl_dom_10m*100,1)}%. Если рынок к 2027 году не восстановится, пассажиров в сети будет меньше расчётных — это риск осторожного сценария. Место №2 по числу пассажиров считаем по всему рынку, как в статистике Росавиации.`;
 }
 
+/* --- выбор первого хаба: почему Омск и порядок расширения --- */
+function caseWin(){
+  const C=D.steps&&D.steps.case; if(!C||!document.getElementById('ca-why')) return;
+  document.getElementById('ca-title').textContent=C.title;
+  document.getElementById('ca-lead').textContent=C.lead;
+  const w=document.getElementById('ca-why'); w.textContent='';
+  C.why.forEach(x=>w.append(h('li',{},h('b',{},x.b),' ',x.t)));
+  document.getElementById('ca-hon-t').textContent=C.honest_title;
+  const hn=document.getElementById('ca-hon'); hn.textContent='';
+  C.honest.forEach(x=>hn.append(h('p',{},h('b',{},x.b+': '),x.t)));
+  document.getElementById('ca-ord-t').textContent=C.order_title;
+  const o=document.getElementById('ca-ord'); o.textContent='';
+  C.order.forEach(x=>o.append(h('li',{class:x.kind},h('div',{class:'nm'},h('i',{},x.n),h('b',{},x.what)),h('span',{class:'wh'},x.when),h('p',{},x.why))));
+  document.getElementById('ca-rule').textContent=C.rule;
+}
+
 /* --- 8. самолёты до №2 --- */
 const F2={year:2030,case:'C_SLOW007',cond:'базовая',mix:0};
 function fleet2(){
@@ -1699,7 +1740,7 @@ function fleet2(){
 
 /* --- запуск --- */
 ['hubs','direct','network','growth'].forEach(expert);
-[hub20,fiveCity,flight,triangles,directCheck,week,seasonWin,leaseWin,fuelWin,p09,marketWin,fleet2].forEach(fn=>{ try{ fn(); }catch(e){ console.error(fn.name,e); } });
+[caseWin,hub20,fiveCity,flight,triangles,directCheck,week,seasonWin,leaseWin,fuelWin,p09,marketWin,fleet2].forEach(fn=>{ try{ fn(); }catch(e){ console.error(fn.name,e); } });
 showTab(location.hash.slice(1));
 
 </script>
