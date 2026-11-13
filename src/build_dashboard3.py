@@ -150,7 +150,8 @@ def rating():
         cards[r["iata"]] = {"lo": num(r["score_low"]), "hi": num(r["score_high"]), "rows": rows}
     cr = [{"k": c["key"], "n": c.get("short"), "full": names[c["key"]], "dir": c.get("dir"), "w": c.get("weight") or 0,
            "unit": c.get("unit") or ""} for c in crit["criteria"]]
-    rt = [{"iata": r["iata"], "rank": int(r["rank"]), "city": r["city"], "score": num(r["score"]),
+    far = {r["iata"]: int(r["rank"]) for r in rd("data/processed/longlist_scores_min500.csv")}
+    rt = [{"iata": r["iata"], "rank": int(r["rank"]), "rank_far": far.get(r["iata"]), "city": r["city"], "score": num(r["score"]),
            "n": [(num(r[k]) if r.get(k) not in ("", None) else None) for k in keys]} for r in sorted(sc, key=lambda r: int(r["rank"]))]
     return cr, rt, cards
 

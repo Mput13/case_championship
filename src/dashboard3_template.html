@@ -755,7 +755,7 @@ function renderTicket() {
         <div class="seg" id="net-scn"><button class="${S.scn === 'base' ? 'on' : ''}" data-s="base">Базовый</button><button class="${S.scn === 'cautious' ? 'on' : ''}" data-s="cautious">Осторожный</button></div></div></div>
     <div class="facts">${F.map(([l, v, c, t]) => `<div class="fact"><div class="t-lbl">${l}</div><span class="chip ${c}">${v}</span><div class="s">${t}</div></div>`).join('')}</div></div>
   <div class="t-stub">
-    <div><div class="t-lbl">Место в рейтинге</div><div class="t-val">${rt ? `${rt.rank} из ${D.rating.length}` : '—'}</div></div>
+    <div><div class="t-lbl">Место в рейтинге</div><div class="t-val">${rt ? `${rt.rank} из ${D.rating.length}` : '—'}</div>${rt && rt.rank_far ? `<div class="hint">${rt.rank_far} из ${D.rating.filter(x => x.rank_far).length} среди городов дальше 500 км от баз</div>` : ''}</div>
     <div><div class="t-lbl">Балл</div><div class="t-val">${rt ? fmt(rt.score * 100, 1) : '—'}</div></div>
     <div><div class="t-lbl">Пассажиропоток аэропорта 2025</div><div class="t-val">${hi.pax ? fmt(hi.pax / 1e6, 2) + ' млн' : '—'}</div></div>
     <div><div class="t-lbl">«Ковёр» у аэропорта</div><div class="t-val">${hi.kover != null ? fmt(hi.kover) + ' дн. за год' : '—'}</div></div>
@@ -903,7 +903,7 @@ function renderCard() {
 let WT = null;
 function renderWeights() {
   if (!WT) WT = D.crit.map(c => c.w);
-  $('#w-sl').innerHTML = D.crit.map((c, i) => `<div class="slider"><span style="font-size:13px">${esc(c.full)}</span><input type="range" min="0" max="40" value="${WT[i]}" data-i="${i}"><output>${WT[i]}</output></div>`).join('');
+  $('#w-sl').innerHTML = D.crit.map((c, i) => `<div class="slider"><span style="font-size:13px">${esc(c.full)}</span><input type="range" min="0" max="40" step="0.5" value="${WT[i]}" data-i="${i}"><output>${WT[i]}</output></div>`).join('');
   $$('#w-sl input').forEach(i => i.oninput = () => { WT[+i.dataset.i] = +i.value; i.nextElementSibling.textContent = i.value; renderRank(); });
   renderRank();
 }
