@@ -1,0 +1,128 @@
+{
+  "status": "CONDITIONAL",
+  "owner": "bounded resource research; 2026-11-13",
+  "assumptions": [
+    {
+      "id": "RES-A01",
+      "parameter": "Готовый ресурс и его распределение",
+      "value": "UNDER4=2M+1MR+1KEEP; PILOT5=2M+1MR+1O+1OR; PLAN6=2M+1MR+2O+1OR; EXTRA7=2M+1MR+3O+1OR; EXTRA8=2M+1MR+4O+1OR",
+      "unit": "scenario aircraft",
+      "basis": "Пользовательский бюджет 4/5/6/8; дополнительная конструкция7 выведена из числа RT и дневных часов.",
+      "unknown": "Фактические tail IDs, готовность, дата выделения, освобождение от KEEP, обслуживание и crew.",
+      "limit": "Не план поставок RW, не оценка вероятности и не доказанный достаточный или минимальный парк. Выделение резерва не бесплатно."
+    },
+    {
+      "id": "RES-A02",
+      "parameter": "Москва",
+      "value": "ZIA diagnostic; DME independent sensitivity",
+      "basis": "Exact P08 research_v1 at6a6326c: MOW-R01/MOW-R03 и airport_status.csv.",
+      "unknown": "Выбор физического аэропорта, свободные мощности, слоты, договоры и доступ пассажиров.",
+      "limit": "Никакой observed ZIA/DME OD не создаётся из MOW; варианты ZIA/DME не складываются. Исторический ангар не подтверждает SJ100_PD8 readiness."
+    },
+    {
+      "id": "RES-A03",
+      "parameter": "Block-time и координаты",
+      "value": "ceil5(30+60*1.2*great_circle_km/750); haversineR6371",
+      "unit": "minutes per adjacent leg",
+      "basis": "Неизменная формула P08; координаты9 аэропортов из exact P08 AUTHOR_catchments.csv, IKT из авторского f20000e panel. Только геометрия.",
+      "unknown": "Фактические трассы, winds, directional blocks, payload, fuel, airport dispatch and SJ100_PD8 performance.",
+      "limit": "Симметричный геометрический аналог SSJ, не измеренный block. Маркетинговая дальность не route acceptance."
+    },
+    {
+      "id": "RES-A04",
+      "parameter": "Два вида чувствительности времени",
+      "value": "Geometryk1.1 vs1.2 separately; blockstress x1.0/x1.1/x1.2 applied to ceil5 baseline and rounded up again",
+      "basis": "Геометрические коэффициенты наследованы из P08, дополнительный stress запрошен пользователем.",
+      "limit": "Стресс не доверительный интервал, вероятность задержки или зимний коэффициент. В стресс-шаблоне первый вылет сохраняется, следующие сдвигаются; фиксированные часы проверены отдельно и дают turn failures."
+    },
+    {
+      "id": "RES-A05",
+      "parameter": "Наземное время и старт",
+      "value": "08:00 local base;45min intermediate turn",
+      "basis": "P08 MOW-A04; конструкторская постановка для всех ротаций.",
+      "unknown": "Согласованный минимальный turn, слоты, curfews, ground service и продажа часов.",
+      "limit": "В номинале нет резерва сверх45min между последовательными плечами. Не повторять одновременно номинальные часы и stressed arrivals."
+    },
+    {
+      "id": "RES-A06",
+      "parameter": "Недельная частота",
+      "value": "Each Moscow triangle4 full circuits,2 each orientation; each Moscow pair2 eachway. OMS3RT/pair, except EXTRA8 Moscow/IKT5RT.",
+      "basis": "Пользовательская диагностическая частота; EXTRA8 explicit frequency proposal.",
+      "limit": "Не частоты старой прибыли и не утверждение достаточного спроса. 6/8/10/12 unique unordered physical pairs, не количество сегментов или OD-пассажиров."
+    },
+    {
+      "id": "RES-A07",
+      "parameter": "Дни и возвраты",
+      "value": "Moscow both orientations same weekdays: Mon/Thu AER-VOG, Tue/Fri GSV-MRV. OMS pair groups Mon/Thu/Sun and Tue/Fri/Sat; EXTRA8 explicit5-day sets.",
+      "basis": "Новая календарная конструкция; прямые возвраты проверены по датам из local arrival outbound до local departure inbound.",
+      "limit": "Ночи не полные24h. Для каждого исходящего есть3или4 и7 ночей, не обязательно одновременно3и4. Календарная возможность не одинаковая utility, доступность мест или RT fare."
+    },
+    {
+      "id": "RES-A08",
+      "parameter": "Горизонт датированных тестов",
+      "value": "Summer2027-08-02..08 forUNDER4/PILOT5; summer2028-08-07..13 forPLAN6/EXTRA7/EXTRA8; winter2028-02-07..13 all.",
+      "basis": "Две недельные сезонные точки на candidate; даты понедельников выбраны для читаемого теста, не как даты поставки/запуска.",
+      "limit": "Одинаковые частоты и блоки в двух сезонах — контрольная конструкция, не сезонная модель. Продление до3weeks только для поиска возврата; annual calendar, monthly intensity, holidays NOT_RUN. Не умножать на52."
+    },
+    {
+      "id": "RES-A09",
+      "parameter": "Дневные блок-часы",
+      "value": "10h selected diagnostic;8h stricter control",
+      "basis": "P08 MOW-A08; проверены обе точки в неизменённом P06 checker, включая UTC midnight splitting.",
+      "limit": "Это не отраслевой максимум, fleet utilisation forecast, crew limit или законность. На Omsk часть8h проверок FAIL."
+    },
+    {
+      "id": "RES-A10",
+      "parameter": "Duty proxy и персонал",
+      "value": "elapsed firstdep-lastarr +60min report +30min release;12h marker",
+      "basis": "Явная исследовательская прокси; P03 crew advisory требует разделять block, duty и реальные нормы.12h выбран как сигнальный маркер, не нормативный порог.",
+      "unknown": "Crew IDs, exact AFM, base qualifications, standby crews, accumulated hours, rest, leave, training, RPP and applicable FTL.",
+      "limit": "Количество одновременных ротаций — нижнее требование к одновременно работающим экипажам, не достаточный штат. P06 crew_id=null,crew_windows=null.725min приx1.2 не legal violation finding и не crew approval."
+    },
+    {
+      "id": "RES-A11",
+      "parameter": "Резерв и MRO",
+      "value": "One dedicated standby at Moscow;one atOMS whenOMS launches; same variant; not assigned scheduled project legs",
+      "basis": "User scenario; P08 same-base reserve convention. Assigned reserve intervals block use unless explicitly released in separate substitution probe.",
+      "unknown": "Reserve availability, crew, technical recovery, engineering shifts, spare parts, maintenance intervals, reliability and cost.",
+      "limit": "Один резерв не считается одновременно в двух базах. Не покрывает два отказа одной базы; не доказывает recovery из удалённого аэропорта. Неиспользованный день не автоматически accepted MRO window."
+    },
+    {
+      "id": "RES-A12",
+      "parameter": "Типы самолётов и пассажирский инвентарь",
+      "value": "Primary hypothetical new-resource typeSJ100_PD8; alternative RRJ95LR_100 repeats same timing analogue only. RRJ95B,RRJ95LR_100,SJ100_PD8 distinct.",
+      "basis": "P03 exact79dc698 type parameter table; P08 seats/cabin unknown rules.",
+      "unknown": "RW configuration, saleable/blocked seats, airframe and engine readiness, exact operating variant, fuel and MRO costs.",
+      "limit": "seats=null,technical_blocked_seats=null,saleable_seats=null in engine input. physical_adjacent_leg=true denotes designed adjacency only, not observed or released inventory. No equal cost/performance claim."
+    },
+    {
+      "id": "RES-A13",
+      "parameter": "Поставка, задержка и отсутствие новых",
+      "value": "NewSJ100_PD8 not before2027-07-01; threshold activation only after actual ready resources; no fixed delivery calendar",
+      "basis": "H2-2027 task boundary; user asked thresholds, delayed and no_new.",
+      "unknown": "RW allocations, dates of transfer/service entry, induction and qualified crew/MRO readiness.",
+      "limit": "DELAYED follows actual highest affordable threshold, not all-or-nothing assumption. NO_NEW0 only means zero new aircraft in named branch; does not mean zero existing fleet or market demand."
+    },
+    {
+      "id": "RES-A14",
+      "parameter": "KEEP и альтернативное применение",
+      "value": "No donor assumed; UNDER4 fourth ready resource remains explicitly outside project inKEEP/alternative",
+      "unknown": "Old tail-date tasks, sales commitments, own diversion and displaced contribution; alternative use of new capacity.",
+      "limit": "Existing resource is not free without donor/release evidence. Reserve, idle and standby days are not cost-free. No aircraft repositioning between bases was silently inserted. Initial locations are conditional prerequisites."
+    },
+    {
+      "id": "RES-A15",
+      "parameter": "Экономика и источники",
+      "value": "joint_PnL=null; passenger_growth=null; revenue_delta=null; funding=null; market_share=null",
+      "basis": "User excludes joint P&L; common environment remains UNKNOWN; authorf20000e is a separate model.",
+      "limit": "No old+72.4/+40.4million/year reused or scaled from7eachway to2eachway. No web/paid/live calls, no new cost assumptions. P04/P05 supplied pins are not invoked for new calculations."
+    },
+    {
+      "id": "RES-A16",
+      "parameter": "Граница готового механизма",
+      "value": "Unmodified P06 check_operations from982f13d common.py andoperations.py, executed on synthetic local bundle",
+      "basis": "Exact Git blob SHA256 ininputpins.json; no changes tocore/frozen.",
+      "limit": "P06 checks physical consistency, block budgets and known intervals. Actual transfer_date/service_entry_date null, maintenance_intervals null,crew_windows null. Cyclic closure and date returns checked separately. No seal/economy/itinerary booking or full-bundle evaluation invoked."
+    }
+  ]
+}

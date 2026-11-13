@@ -1,0 +1,121 @@
+{
+  "package": "context/42_consensus_strategy_20261113/resource_scenarios",
+  "status": "BOUNDED_PACKAGE_COMPLETE_CONDITIONAL",
+  "overall_strategy_accepted": false,
+  "dispatch_ready": false,
+  "recommended_slide_statement": "5 готовых:8 пар;6:10 пар;7:12 пар по3RT наOMS;8:12 пар с5RT наOMS–Москва/Иркутск. Условный ресурс, не график поставки.",
+  "root_hypothesis_assessment": {
+    "under4": "Retain3 Moscow=2working+1standby; explicit1KEEP; deferOMS.",
+    "pilot5": "Retain2+1 Moscow and1+1OMS for2OMS pairs.",
+    "plan6": "Retain2+1 Moscow and2+1OMS for4OMS pairs.",
+    "extra8": "Retain2+1 Moscow and4+1OMS only with explicit frequency deployment; candidate raises Moscow/IKT to5RT.",
+    "additional7": "Constructed2+1 Moscow and3+1OMS supports6OMS pairs at3RT; not a universal minimum.",
+    "delayed": "Actual ready threshold gates activation; no invented dates or capacity.",
+    "no_new": "Existing aircraft require named donor and loss of previous tasks; otherwise no incremental new-resource programme."
+  },
+  "calendar_change": "Both orientations same dates: AER/VOG MonThu;GSV/MRV TueFri; two Moscow tails share both triangles.",
+  "moscow_branch": {
+    "main": "ZIA diagnostic only",
+    "sensitivity": "DME",
+    "chosen_airport": null,
+    "observed_MOW_OD_reassigned": false
+  },
+  "date_scope": "Two representative dated seasonal weeks per candidate; no full2027-2028 schedule or annualisation.",
+  "new_aircraft_earliest_boundary": "2027-07-01; actual delivery/service-entry UNKNOWN",
+  "resource_proofs": {
+    "P06_exact_pin": "982f13d9b6c378ed9581125ecc5c40f17dade6a3",
+    "test_counts": {
+      "flights": 2832,
+      "rotations": 1176,
+      "operations_runs": 60,
+      "return_tests": 944,
+      "checks": 666
+    },
+    "hard_selected_template_failures": 0,
+    "base10h_all_runs": "CONDITIONAL",
+    "negative_controls": "wrong location,turn shortfall,reserve without release,variant mismatch all rejected",
+    "return_calendar": "Every tested direct departure has3or4-night and7-night return in repeated pattern; seats and utility UNKNOWN"
+  },
+  "material_findings": [
+    {
+      "id": "F01",
+      "status": "FAIL_ALTERNATIVE_CALENDAR",
+      "finding": "One orientation Mon/Thu and the reverse Tue/Fri has no exact 7-night return on any of the six Moscow pairs.",
+      "counterexample": "ZIA>AER Mon 2027-08-02; AER>ZIA Tue/Fri only; no return Mon 2027-08-09.",
+      "remedy": "Two Moscow working tails: both orientations Mon/Thu AER-VOG; Tue/Fri GSV-MRV."
+    },
+    {
+      "id": "F02",
+      "status": "FAIL_FIXED_CLOCK_STRESS",
+      "finding": "45min exact baseline turns cannot absorb any positive block overrun with all later departures fixed.",
+      "remedy": "Stress templates explicitly retime following legs; new slots and sales times remain unaccepted."
+    },
+    {
+      "id": "F03",
+      "status": "CONDITIONAL",
+      "finding": "8h/day filter fails some OMS round trips; 10h/day has no hard errors in this bounded sample. Neither is crew approval."
+    },
+    {
+      "id": "F04",
+      "status": "CONDITIONAL",
+      "finding": "At x1.2 OMS-ZIA and OMS-DME round-trip duty proxy is 725min (12h05); above chosen 12h screening marker. No legal FTL verdict.",
+      "remedy": "Actual report/release, RPP, rests and roster required; retime or explicit crew relief only after costing."
+    },
+    {
+      "id": "F05",
+      "status": "CONDITIONAL",
+      "finding": "7 ready supports the constructed 12-pair 3RT/week programme with 3 OMS working +1 OMS standby. 8 is not a derived minimum for 12 pairs.",
+      "remedy": "8-ready example has 4 OMS working +1 standby and increases OMS-Moscow and OMS-IKT to5RT/week. Demand and financing UNKNOWN."
+    },
+    {
+      "id": "F06",
+      "status": "CONDITIONAL",
+      "finding": "All enumerated direct departures have at least one 3-or4-night return and a7-night return under repeated pattern. Identical usefulness, full-day stay, prices and seats are not proved."
+    }
+  ],
+  "finance": {
+    "joint_PnL": null,
+    "funding": null,
+    "growth": null,
+    "old_profit_reused": false,
+    "status": "NOT_RUN_UNKNOWN"
+  },
+  "required_before_commercial_use": [
+    "physical Moscow airport",
+    "actual ready and released tail IDs/dates",
+    "separate base crew and standby roster",
+    "type-qualified MRO and reserve response",
+    "actual directional seasonal blocks,payload and slots",
+    "KEEP and donor/alternative cost",
+    "joint demand,fares,costs,cash and financing"
+  ],
+  "files": [
+    "README.md",
+    "candidate_resource_requirements.csv",
+    "dated_templates.csv",
+    "verification.json",
+    "assumptions.json",
+    "inputpins.json",
+    "base_resource_requirements.csv",
+    "rotations.csv",
+    "return_windows.csv",
+    "operations_results.json",
+    "adversarial_probes.json",
+    "reserve_substitution_probes.json",
+    "pair_block_assumptions.csv",
+    "tail_week_utilisation.csv",
+    "build_package.py"
+  ],
+  "manifest": "output_manifest.json",
+  "actions": {
+    "children": 0,
+    "web_or_paid_calls": 0,
+    "servers": 0,
+    "bookings": 0,
+    "restarts": 0,
+    "git_mutations": 0,
+    "git_reads": "exact git show only",
+    "writes": "assigned resource_scenarios directory only"
+  },
+  "handoff_state": "STOP; no further polling or work requested"
+}
