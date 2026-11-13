@@ -1129,12 +1129,25 @@ async function loadDemos() {
 
 async function openDemo(demo, trigger) {
   if (busy) return;
+  clearError();
   busy = true;
   elements.newDialog.disabled = true;
   setDemoButtonsDisabled(true);
   resizeInput();
-  elements.demosStatus.hidden = false;
-  elements.demosStatus.textContent = offlineDemo ? "Открываю сохранённый пример…" : "Агент разбирает маршрут…";
+  elements.welcome.hidden = true;
+  elements.demoGallery.open = false;
+  const progress = node("div", "loading demo-progress");
+  progress.setAttribute("role", "status");
+  const progressBody = node("div", "demo-progress-body");
+  const progressTitle = node("p", "demo-progress-title", offlineDemo ? "Открываю сохранённый пример…" : "Загружаю данные маршрута…");
+  const progressTime = node("p", "demo-progress-time", "Прошло 0 с");
+  progressTime.setAttribute("aria-hidden", "true");
+  progressBody.append(progressTitle, node("p", "demo-progress-route", demo.label), progressTime);
+  progress.append(progressBody);
+  elements.messages.append(progress);
+  const startedAt = performance.now();
+  const progressTimer = setInterval(() => { progressTime.textContent = `Прошло ${Math.floor((performance.now() - startedAt) / 1000)} с`; }, 1000);
+  scrollToEnd();
   elements.demos.setAttribute("aria-busy", "true");
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 240000);
@@ -1145,6 +1158,7 @@ async function openDemo(demo, trigger) {
     if (offlineDemo) data = (await loadOfflineData()).snapshots[demo.id];
     else {
       data = await seedDemo(demo.id, controller.signal);
+      progressTitle.textContent = "Агент разбирает маршрут…";
       data = await analyzePrepared(data, controller.signal, "По сохранённому примеру выбери вариант и назови главное условие стыковки. Используй данные сессии без нового поиска. Снимок не является свежей проверкой; сценарий 2028 не является действующим рейсом. Объясни выбор и ограничения без повторения всех карточек.");
     }
     if (!object(data) || !["ok", "partial", "needs_input"].includes(data.status) || (!offlineDemo && !string(data.session_id)) || typeof data.reply !== "string" || !object(data.trip) || !Array.isArray(data.plans) || !object(data.demo) || data.demo.id !== demo.id || !Object.hasOwn(dataModeLabels, data.demo.data_mode)) {
@@ -1172,12 +1186,19 @@ async function openDemo(demo, trigger) {
     });
   } finally {
     clearTimeout(timeout);
+    clearInterval(progressTimer);
+    progress.remove();
     busy = false;
     setDemoButtonsDisabled(false);
     elements.demos.removeAttribute("aria-busy");
     elements.demosStatus.hidden = true;
     elements.demosStatus.textContent = "";
     resizeInput();
+    if (!opened) {
+      elements.welcome.hidden = hasMessages;
+      elements.demoGallery.open = true;
+      scrollToEnd();
+    }
     // Do not steal focus if the person moved to the composer during loading.
     if (opened && (document.activeElement === trigger || document.activeElement === elements.confirmReset || document.activeElement === document.body)) elements.input.focus();
     else if (!opened && document.activeElement === document.body) trigger?.focus();

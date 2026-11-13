@@ -58,7 +58,7 @@ svg { display: block; flex-shrink: 0; }
 .demo-gallery { max-width: 640px; margin: 0 auto 28px; }
 .demo-access { max-width: 640px; margin: 0 auto 8px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
 .demo-access button { min-height: 44px; }
-.demo-access button[aria-pressed="true"] { border-color: var(--red); color: var(--red); }
+.demo-access button[aria-pressed="true"] { border-color: var(--rw); color: var(--rw); }
 .offline-status { color: var(--muted); font-size: 13px; line-height: 1.5; }
 .demo-gallery > summary { width: fit-content; min-height: 44px; padding: 10px 0; cursor: pointer; color: var(--muted); font-size: 14px; list-style: none; }
 .demo-gallery > summary::before { content: "+"; display: inline-block; width: 20px; }
@@ -93,6 +93,13 @@ svg { display: block; flex-shrink: 0; }
 .message-assistant > .message-body { max-width: 74ch; }
 .loading { display: flex; align-items: center; gap: 9px; min-height: 28px; color: var(--muted); font-size: 14px; }
 .loading::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--rw); animation: breathe 1.4s ease-in-out infinite; }
+.demo-progress { align-items: flex-start; gap: 14px; margin: 12px 0; padding: 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); }
+.demo-progress::before { flex: 0 0 20px; width: 20px; height: 20px; margin-top: 2px; border: 2px solid var(--line); border-top-color: var(--rw); background: transparent; animation: spin 1s linear infinite; }
+.demo-progress-body { min-width: 0; }
+.demo-progress-title { margin: 0; color: var(--ink); font-size: 16px; font-weight: 600; }
+.demo-progress-route { margin: 6px 0 0; line-height: 1.5; }
+.demo-progress-time { margin: 10px 0 0; font-size: 12px; font-variant-numeric: tabular-nums; }
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes breathe { 50% { opacity: .3; } }
 .error { margin-top: 22px; padding: 14px 16px; background: #fcf5f5; border-left: 3px solid var(--rw); border-radius: 0 6px 6px 0; font-size: 14px; line-height: 1.65; overflow-wrap: anywhere; }
 .error p { margin: 0; white-space: pre-wrap; }
