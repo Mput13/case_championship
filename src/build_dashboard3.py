@@ -1,4 +1,4 @@
-"""Собирает Дашборд 3 (outputs/redwings_panel_v3.html): панель для аналитиков Red Wings.
+"""Собирает Дашборд 3 (outputs/redwings_panel.html, главная страница сайта): панель для аналитиков Red Wings.
 
 Все числа берутся из таблиц проекта; в шаблоне src/dashboard3_template.html цифр модели нет.
 Вкладки: загрузка данных (проверка по правилам, разница, быстрая оценка, согласование),
@@ -19,6 +19,7 @@ import csv
 import json
 import math
 import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -163,6 +164,41 @@ def pairs():
     return out
 
 
+def transfers(hubs):
+    """Куда сейчас пересаживаются: пары с городом-хабом без прямого рейса, где сегодня летят через чужой аэропорт."""
+    sys.path.insert(0, str(ROOT / "src"))
+    import demand_model as dm
+    import rules
+    reg = dm.nodes().region.to_dict()
+    out = {h: [] for h in hubs}
+    for r in rd("data/processed/demand_estimates.csv"):
+        now = r.get("od_route_now") or ""
+        od = num(r.get("od_base"))
+        if not now.startswith("с пересадкой: ") or r.get("closed") == "True" or od <= 0:
+            continue
+        km = num(r["km"])
+        for c, o, oc in ((r["a"], r["b"], r["city_b"]), (r["b"], r["a"], r["city_a"])):
+            if c in out:
+                out[c].append({"to": o, "city": oc, "via": now[len("с пересадкой: "):], "od": round(od),
+                               "ssj": km <= rules.green_limit(reg.get(c), reg.get(o)), "unc": r.get("uncertain") == "True"})
+    for c in out:
+        out[c].sort(key=lambda x: -x["od"])
+    return out
+
+
+def hub_info(hubs, seas, cards, crit):
+    """Поля посадочного талона хаба: регион, пассажиропоток аэропорта, дни «Ковра», месяцы."""
+    ll = {r["iata"]: r for r in rd("data/processed/longlist.csv")}
+    ki = next((i for i, c in enumerate(crit) if c["k"] == "last365_days"), None)
+    out = {}
+    for h in hubs:
+        r = ll.get(h, {})
+        kov = cards.get(h, {}).get("rows", [{}] * (ki + 1))[ki].get("raw") if ki is not None and h in cards else None
+        out[h] = {"region": r.get("region", ""), "fd": r.get("fed_district", ""), "pax": num(r.get("pax_2025"), None),
+                  "pax_src": r.get("pax_source_url", ""), "kover": kov, "prof": seas.get(h)}
+    return out
+
+
 def checks(H, summ, rays_base, kf, asm):
     s = {(x["scenario"], x["hub"]): x for x in summ}
     b, c = s[("base", H)], s[("cautious", H)]
@@ -211,10 +247,11 @@ def main():
     D = {"meta": {"built": datetime.now().strftime("%d.%m.%Y %H:%M"), "commit": commit, "hub": H, "map_src": map_src},
          "asm": asm, "hubs": summ, "rays": rays, "names": names, "pts": pts, "map": mp,
          "crit": cr, "rating": rt, "cards": cards, "src": src, "kf": kf, "kf_head": list(kf[0].keys()),
-         "pairs": pairs(), "rules": rules, "demo": demo, "checks": checks(H, summ, rays["base"], kf, asm)}
+         "pairs": pairs(), "rules": rules, "demo": demo, "checks": checks(H, summ, rays["base"], kf, asm),
+         "transfers": transfers(list(rays["base"])), "hubinfo": hub_info(list(rays["base"]), seas, cards, cr)}
     tpl = (ROOT / "src/dashboard3_template.html").read_text(encoding="utf-8")
     html = tpl.replace("__DATA__", json.dumps(D, ensure_ascii=False, separators=(",", ":")))
-    out = ROOT / "outputs/redwings_panel_v3.html"
+    out = ROOT / "outputs/redwings_panel.html"
     out.write_text(html, encoding="utf-8")
     print(f"Дашборд 3: {out.relative_to(ROOT)}, {len(html) // 1024} КБ, хабов {len(rays['base'])}, пар {len(D['pairs'])}")
 

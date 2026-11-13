@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Red Wings: Дашборд 3 для аналитиков</title>
+<title>Red Wings: сеть и хабы</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Montserrat+Alternates:wght@500;700&display=swap">
@@ -105,10 +105,9 @@ tr.bad td{background:var(--red-bg)}tr.warn td{background:var(--amber-bg)}tr.new 
 .mono{font-family:var(--mono);font-size:12.5px}
 .bar{height:8px;border-radius:4px;background:var(--paper-2);position:relative;min-width:70px}
 .bar i{position:absolute;top:0;bottom:0;left:0;border-radius:4px;background:var(--red)}
-body.m-show .tech,body.m-show .dev,body.m-an .dev{display:none!important}
-body.m-show .kpi .v{font-size:32px}
-.dev{border-left:3px solid var(--blue);background:var(--blue-bg);border-radius:0 12px 12px 0;padding:12px 14px;margin-top:12px}
-.dev>.dt{font-size:11.5px;font-weight:700;color:var(--blue);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.dev{border-left:3px solid var(--blue);background:var(--blue-bg);border-radius:0 12px 12px 0;padding:10px 14px;margin-top:12px}
+.dev>summary{cursor:pointer;font-size:13px;font-weight:500;color:var(--blue)}
+.dev[open]>summary{margin-bottom:8px}
 pre.raw{background:var(--ink);color:#D5DAE2;border-radius:12px;padding:12px 14px;overflow:auto;font-family:var(--mono);font-size:12px;line-height:1.6;margin:8px 0 0;max-height:360px}
 pre.raw .a{color:#7FD3A4}pre.raw .d{color:#FF8A8D}pre.raw .h{color:var(--steel)}
 .story{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px}
@@ -182,6 +181,36 @@ svg text{font-family:var(--f)}
 .chain div{background:var(--paper);border-radius:8px;padding:6px 10px}
 .chain b{font-weight:500}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;z-index:70;font-size:14px;display:none;max-width:calc(100vw - 32px)}
+.ticket{background:var(--white);border-radius:22px;display:grid;grid-template-columns:minmax(0,1fr) 280px;overflow:hidden;border:1px solid var(--line);position:relative}
+@media(max-width:900px){.ticket{grid-template-columns:minmax(0,1fr)}}
+.t-main{padding:24px 28px;display:grid;gap:22px;min-width:0;align-content:start}
+.t-stub{padding:24px 22px;border-left:2px dashed var(--line);display:grid;gap:14px;align-content:start;background:var(--paper)}
+@media(max-width:900px){.t-stub{border-left:0;border-top:2px dashed var(--line)}}
+.t-head{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
+.t-code{font-family:var(--code);font-weight:700;font-size:clamp(48px,6vw,72px);line-height:.95}
+.t-city{font-size:24px;font-weight:700;line-height:1.2}
+.t-lbl{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.t-val{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.t-ctl{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 18px}
+@media(max-width:1100px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fact{border-top:1px solid var(--line);padding-top:10px;display:grid;gap:5px;align-content:start;min-width:0}
+.chip{justify-self:start;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;padding:2px 10px;border-radius:7px;background:var(--paper)}
+.chip.g{background:var(--green-bg);color:#1E6B45}.chip.r{background:var(--red-bg);color:var(--red-d)}.chip.y{background:var(--amber-bg);color:#7A5410}
+.fact .s{font-size:12px;color:var(--muted)}
+.spark{display:flex;align-items:flex-end;gap:3px;height:50px}
+.spark i{flex:1;background:var(--red);border-radius:2px 2px 0 0;min-height:2px}
+.spark-l{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.barcode{height:48px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 9px,transparent 9px 11px,var(--ink) 11px 12px,transparent 12px 16px);opacity:.85;border-radius:2px}
+.dm-lead{margin:0 0 6px;max-width:880px}
+#dmsk{width:100%;display:block}
+#dmsk .dm-city{font-size:22px;font-weight:700;fill:var(--ink)}
+#dmsk .dm-hub{font-size:15px;font-weight:500;fill:var(--ink)}
+#dmsk .dm-dest{font-size:14px;fill:var(--ink)}
+#dmsk .dm-ray{font-size:14px;font-weight:700;fill:var(--red-d)}
+#dmsk .dm-more{font-size:13px;fill:var(--steel)}
+#dmsk .dm-num{font-size:13px;fill:var(--muted);font-variant-numeric:tabular-nums}
+#dmsk .fl{transition:stroke-opacity .15s}
 .banner{display:flex;gap:12px;align-items:center;background:var(--amber-bg);border:1px solid #EBD9A8;border-radius:12px;padding:10px 14px;margin-bottom:14px;flex-wrap:wrap}
 .vtab{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:4px 0 10px;overflow-x:auto}
 .vtab button{border:0;background:none;padding:8px 12px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;font-size:14px}
@@ -190,21 +219,18 @@ footer{color:var(--muted);font-size:13px;padding-block:24px 40px;border-top:1px 
 footer code{font-family:var(--mono);font-size:12px;background:var(--paper-2);padding:1px 6px;border-radius:4px}
 </style>
 </head>
-<body class="m-an">
+<body>
 <div class="stick">
 <header class="top"><div class="wrap">
   <div class="brand"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Сеть и хабы <small>аналитика Red Wings</small></div>
   <div class="search"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" stroke="#8C96A6" stroke-width="2.5" fill="none"/><path d="M15 15l6 6" stroke="#8C96A6" stroke-width="2.5"/></svg>
     <input id="q" placeholder="Город, маршрут, параметр или источник" autocomplete="off"><div class="sres" id="sres"></div></div>
-  <div class="pill" id="pill"></div>
-  <div class="sw" id="mode" title="Сколько подробностей показывать"><button data-m="show">Показ</button><button class="on" data-m="an">Аналитик</button><button data-m="dev">Разработчик</button></div>
 </div></header>
 <nav class="tabs"><div class="wrap" id="tabs">
   <button class="on" data-t="up"><b>01</b>Загрузка данных</button>
   <button data-t="net"><b>02</b>Сеть</button>
   <button data-t="how"><b>03</b>Как считается</button>
   <button data-t="data"><b>04</b>Данные</button>
-  <div class="ver" aria-label="Версия панели"><a href="redwings_panel_v1.html">Дашборд 1</a><a href="redwings_panel.html">Дашборд 2</a><a class="on" href="redwings_panel_v3.html" aria-current="page">Дашборд 3</a></div>
 </div></nav>
 </div>
 
@@ -219,26 +245,19 @@ footer code{font-family:var(--mono);font-size:12px;background:var(--paper-2);pad
 <!-- ================= 02 СЕТЬ ================= -->
 <section class="tab" id="t-net">
   <div id="net-banner"></div>
-  <div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:14px">
-    <div><h1 id="net-h"></h1><p class="sub" id="net-sub" style="margin:0"></p></div>
-    <div class="row"><select id="net-hub"></select><div class="seg" id="net-scn"><button class="on" data-s="base">Базовый</button><button data-s="cautious">Осторожный</button></div></div>
+  <article class="ticket" id="ticket"></article>
+  <div class="card" style="margin-top:16px;padding-bottom:10px">
+    <div class="hd"><h2>Куда сейчас пересаживаются</h2><div class="seg r" id="tz"><button class="on" data-z="ssj">Долетит SSJ</button><button data-z="all">Все направления</button></div></div>
+    <p class="dm-lead" id="dm-lead"></p>
+    <svg id="dmsk" viewBox="0 0 1000 300"></svg>
+    <div class="legend" id="dm-legend" style="margin-top:6px"></div>
   </div>
-  <div class="kpis" id="kpis"></div>
-  <div class="grid g55">
+  <div class="grid g55" style="margin-top:16px">
     <div class="card"><div class="hd"><h2>Сеть на карте</h2><span class="sub r">толщина — пассажиры, цвет — итог луча</span></div>
       <svg id="map" viewBox="0 0 600 330" style="width:100%;height:auto;display:block;border-radius:10px"></svg>
       <div class="legend" style="margin-top:8px"><span><i style="background:var(--green)"></i>луч в плюсе</span><span><i style="background:var(--red)"></i>в минусе</span><span>город или строка таблицы открывает карточку луча</span></div></div>
     <div class="card"><div class="hd"><h2>Лучи</h2><div class="seg r" id="r-f"><button class="on" data-f="all">Все</button><button data-f="minus">В минусе</button><button data-f="est">Спрос оценён</button></div><button class="btn sm" id="r-csv">.csv</button></div>
-      <div class="tw"><table id="r-t"></table></div>
-      <div class="grid g3 tech" style="margin-top:12px" id="r-unit"></div></div>
-  </div>
-  <div class="grid g2" style="margin-top:16px">
-    <div class="card"><div class="hd"><h2>Сравнить с другим хабом</h2><select id="c-b" class="r"></select></div><div class="tw"><table id="c-t"></table></div></div>
-    <div class="card"><div class="hd"><h2>Что если</h2><span class="sub">быстрая оценка без пересборки сети</span><button class="btn sm r" id="s-reset">Сбросить</button></div>
-      <div id="s-sl"></div>
-      <div class="row" style="margin:10px 0 4px;align-items:flex-end;gap:18px"><div><div class="sub">Итог сети, млн ₽ в год</div><div class="big" id="s-res"></div></div><div class="sub" id="s-delta"></div></div>
-      <h3 style="margin-top:14px">Что сильнее всего двигает итог, каждый фактор ±10%</h3>
-      <svg id="tornado" viewBox="0 0 520 240" style="width:100%;height:auto;display:block"></svg></div>
+      <div class="tw"><table id="r-t"></table></div></div>
   </div>
 </section>
 
@@ -340,9 +359,7 @@ function demandTag(src) {
 const pairKey = (a, b) => [a, b].sort().join('-');
 
 /* ---------- шапка ---------- */
-function renderPill() {
-  $('#pill').innerHTML = S.demoRun ? `<span class="dot amber"></span>Расчёт #${D.demo.run} · пример` : `<span class="dot"></span>Расчёт от ${D.meta.built}${D.meta.commit ? ' · ' + D.meta.commit : ''}`;
-}
+function renderPill() { }
 const RENDER = {};
 function go(t) {
   S.tab = t; $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
@@ -351,8 +368,6 @@ function go(t) {
   if (location.hash !== '#' + t) history.replaceState(null, '', '#' + t);
 }
 $('#tabs').onclick = e => { const b = e.target.closest('button'); if (b) go(b.dataset.t); };
-$('#mode').onclick = e => { const b = e.target.closest('button'); if (!b) return; S.mode = b.dataset.m;
-  $$('#mode button').forEach(x => x.classList.toggle('on', x === b)); document.body.className = 'm-' + S.mode; try { localStorage.setItem('rw3-mode', S.mode); } catch (e) { } };
 function why(ev, title, lines, tag) {
   ev.stopPropagation(); const p = $('#pop');
   p.innerHTML = `<h3>${title} ${tag ? `<span class="tag ${tag[0]}">${tag[1]}</span>` : ''}</h3><div class="chain">${lines.map(l => `<div>${l}</div>`).join('')}</div>`;
@@ -361,7 +376,7 @@ function why(ev, title, lines, tag) {
   p.style.left = Math.max(16, Math.min(window.innerWidth - p.offsetWidth - 16, r.left - 300)) + 'px';
 }
 document.addEventListener('click', e => { if (!e.target.closest('#pop')) $('#pop').classList.remove('on'); if (!e.target.closest('.search')) $('#sres').style.display = 'none'; });
-const devBox = (title, html) => `<div class="dev"><div class="dt">Для разработчика · ${title}</div>${html}</div>`;
+const devBox = (title, html) => `<details class="dev"><summary>Для разработчика: ${title}</summary>${html}</details>`;
 
 /* ================= 01 ЗАГРУЗКА ================= */
 const STEPS = [['Файл', 'чтение и весь файл целиком'], ['Проверка', 'правила, которые можно менять'], ['Что изменится', 'путь строки и разница'],
@@ -557,7 +572,7 @@ delta   = ${S.qf || DEFAULT_QF}`)}</pre>`)}
         <div class="soft"><h3>1. Скачать новую версию файла</h3><p class="sub" style="margin:0 0 8px">known_flows.csv: ${nk.filter(r => r._st === 'chg').length} изменённых и ${nk.filter(r => r._st === 'new').length} новых строк, всего ${nk.length}.</p><button class="btn red sm" id="nkdl">known_flows.csv</button></div>
         <div class="soft"><h3>2. Отклонённые строки</h3><p class="sub" style="margin:0 0 8px">${S.v.badRows.length} ${pl(S.v.badRows.length, 'строка', 'строки', 'строк')} с причиной, для исправления.</p><button class="btn sm" id="qdl2" ${S.v.badRows.length ? '' : 'disabled'}>Скачать</button></div>
       </div>
-      <div class="soft" style="margin-top:12px"><h3>3. Запустить расчёт</h3><p class="sub" style="margin:0">Положить файл в <span class="mono">data/manual/known_flows.csv</span> и выполнить:</p><pre class="raw">py src/update.py --force</pre><p class="hint" style="margin:6px 0 0">Модель пересчитает спрос, рейтинг и сеть, соберёт Excel и все три дашборда и запустит автотесты. Как это выглядит, показано на примере: откройте шаг 1 и нажмите «Открыть пример».</p></div>
+      <div class="soft" style="margin-top:12px"><h3>3. Запустить расчёт</h3><p class="sub" style="margin:0">Положить файл в <span class="mono">data/manual/known_flows.csv</span> и выполнить:</p><pre class="raw">py src/update.py --force</pre><p class="hint" style="margin:6px 0 0">Модель пересчитает спрос, рейтинг и сеть, соберёт Excel и эту панель и запустит автотесты. Как это выглядит, показано на примере: откройте шаг 1 и нажмите «Открыть пример».</p></div>
       ${nav('')}`;
       $('#nkdl').onclick = () => dl('known_flows.csv', toCSV(D.kf_head, nk));
       $('#qdl2').onclick = () => dl('otkloneno_' + S.file.name, toCSV([...S.file.head, 'reason'], S.v.badRows.map(x => ({ ...x.r, reason: x.err.map(r => r.name).join('; ') }))));
@@ -577,7 +592,7 @@ data/processed/longlist_scores.csv      рейтинг
 data/processed/network_routes.csv       лучи всех хабов
 data/processed/network_summary.csv      итоги сетей
 outputs/redwings_model.xlsx             Excel модели
-outputs/redwings_panel*.html            три дашборда`)}</pre>`)}
+outputs/redwings_panel.html             эта панель`)}</pre>`)}
     ${nav('К согласованию', S.pipeDone)}`;
     renderPipeSteps(S.pipeDone ? PIPE.length : -1);
     drawLineage($('#pp-lg'), { lit: S.pipeDone ? downstream('known_flows') : new Set(), static: true });
@@ -630,7 +645,7 @@ outputs/redwings_panel*.html            три дашборда`)}</pre>`)}
   // 7. где видно
   st => {
     st.innerHTML = `<h2>Шаг 7. Где это видно <span class="tag t-demo">пример</span></h2>
-    <p class="sub">Принятая версия расходится по всем экранам. Вверху панели стоит «Расчёт #${D.demo.run}», вкладка «Сеть» показывает его с пометкой. Прежнюю версию можно вернуть.</p>
+    <p class="sub">Принятая версия расходится по всем экранам. Вкладка «Сеть» показывает расчёт #${D.demo.run} с пометкой «пример». Прежнюю версию можно вернуть.</p>
     <div class="grid g2" style="margin-top:14px">
       <button class="card" data-go="net" style="text-align:left"><h3>Сеть → ${esc(nm(D.demo.hub))} →</h3><p class="sub" style="margin:0">Итог сети, лучи и карта по расчёту #${D.demo.run}. Иркутск и Улан-Удэ отмечены как факт.</p></button>
       <button class="card" data-go="ray" style="text-align:left"><h3>Карточка луча Омск — Иркутск →</h3><p class="sub" style="margin:0">Источник спроса: отчёт аэропорта. Было и стало по итогу луча.</p></button>
@@ -662,7 +677,7 @@ function preview(hub) {
 }
 const PIPE = [['Сохранить версию файла', 'известные потоки и отклонённые строки'], ['Проверка на сервере', 'те же правила, что в браузере'], ['demand_model.py', 'спрос пар по 39 известным парам'],
   ['od_model.py', 'поездки и пересадки'], ['seasonality.py', 'профили месяцев'], ['longlist_score.py', 'рейтинг 20 городов'], ['network_model.py', 'сети 20 хабов, базовый и осторожный'],
-  ['build_workbook.py', 'Excel модели'], ['build_dashboard.py', 'три дашборда'], ['Автотесты', 'проверки модели и панели'], ['Готово к согласованию', `расчёт #${D.demo.run}`]];
+  ['build_workbook.py', 'Excel модели'], ['build_dashboard3.py', 'эта панель'], ['Автотесты', 'проверки модели и панели'], ['Готово к согласованию', `расчёт #${D.demo.run}`]];
 const logLine = ([c, t, m]) => `<div class="${c}"><span class="t">${t}</span> ${esc(m)}</div>`;
 function renderPipeSteps(n) { $('#pp-steps').innerHTML = PIPE.map(([a, b], i) => `<div class="chk"><span class="ico ${i < n ? 'ok' : i === n ? 'run' : 'wait'}">${i < n ? '✓' : i + 1}</span><div><b class="${/\.py$/.test(a) ? 'mono' : ''}" style="font-weight:500">${a}</b><br><span class="sub">${b}</span></div></div>`).join(''); }
 function runPipe() {
@@ -716,27 +731,82 @@ function drawLineage(svg, o = {}) {
 /* ================= 02 СЕТЬ ================= */
 function hubList() { return D.hubs.filter(h => h.scenario === 'base').sort((a, b) => b.result_mln_year - a.result_mln_year); }
 function renderNet() {
-  const sel = $('#net-hub'); sel.innerHTML = hubList().map(h => `<option value="${h.hub}">${esc(h.variant)}${h.hub === D.meta.hub ? ' · выбран первым' : ''} (${sg(h.result_mln_year)})</option>`).join(''); sel.value = S.hub;
-  $$('#net-scn button').forEach(b => b.classList.toggle('on', b.dataset.s === S.scn));
   const s = summary(); if (!s) return;
   $('#net-banner').innerHTML = s.demo ? `<div class="banner"><span class="tag t-demo">пример</span><span>Показан расчёт #${D.demo.run} из примера загрузки. Настоящий итог хаба: ${sg(s.res0)} млн ₽.</span><button class="btn sm" id="nb-back" style="margin-left:auto">Показать настоящий расчёт</button></div>` : '';
-  if ($('#nb-back')) $('#nb-back').onclick = () => { S.demoRun = false; S.status = 'none'; renderPill(); renderNet(); };
-  $('#net-h').textContent = `Сеть хаба ${s.name}`;
-  $('#net-sub').innerHTML = `${S.scn === 'base' ? 'Базовый' : 'Осторожный'} сценарий · суммы в млн ₽ в год · ${S.hub === D.meta.hub ? 'выбран первым хабом' : 'один из 20 вариантов'}`;
-  const a = A[S.scn];
-  const K = [['Итог сети', sg(s.res), 'млн ₽', 'main', ['Итог сети за год', [`<b>Выручка</b> ${fmt(s.rev)} млн ₽${s.sub ? ` + субсидии ${fmt(s.sub)}` : ''}`, `<b>минус затраты</b> ${fmt(s.cost)} млн ₽: топливо, ТО, экипажи, навигация, сборы`, `<b>= ${sg(s.res)}</b> млн ₽`, '<span class="mono">network_summary.csv</span> ← <span class="mono">network_model.py</span>'], ['t-model', 'модель']]],
-    ['Самолётов', fmt(s.aircraft), 'SJ-100', '', ['Самолёты', [`Блок-часы пикового сезона в неделю ÷ ${fmt(a.block_h_per_day * 7)} часов на самолёт, вверх до целого`, `+ ${fmt(a.spare_aircraft)} резервный`, `= ${fmt(s.aircraft)}`], ['t-model', 'модель']]],
-    ['Лучей', fmt(s.routes), '', '', ['Лучи', ['Модель добавляет лучи, пока растёт выигрыш на блок-час', `Требование кейса: ${fmt(a.min_routes)}–${fmt(a.max_routes)} маршрутов`], ['t-model', 'модель']]],
-    ['Пассажиров', fmt(s.seg / 1000, 1), 'тыс. сегм.', '', ['Пассажиры', ['Сегменты: каждый перелёт отдельно, как в статистике', `Поездок «откуда — куда»: ${fmt(s.od)}`, `Из них с пересадкой в хабе: ${fmt(s.tr)}`], ['t-model', 'модель']]],
-    ['С пересадкой', fmt(s.tr / 1000), 'тыс. поездок', '', ['Пересадки', ['Пары, которые сейчас летают через другие города', `Доля, выбравшая пересадку в хабе: до ${fmt(a.capture_transfer, 2)}`], ['t-asm', 'допущение + модель']]],
-    ['Доля рынка', sg(s.share, 2), 'п. п.', '', ['Прирост доли Red Wings', [`Новые пассажиры ÷ ${fmt(a.market_pax_2025 / 1e6, 2)} млн пассажиров рынка 2025`, 'Рынок: Росавиация'], ['t-fact', 'факт + модель']]]];
-  $('#kpis').innerHTML = K.map(([l, v, u, c], i) => `<div class="kpi ${c}"><button class="why" data-k="${i}" title="Откуда это число">?</button><div class="l">${l}</div><div class="v">${v}<small>${u}</small></div>${i === 0 && s.demo ? `<div class="d" style="color:var(--amber)">было ${sg(s.res0)}</div>` : ''}</div>`).join('');
-  $$('#kpis .why').forEach(b => b.onclick = e => { const w = K[+b.dataset.k][4]; why(e, w[0], w[1], w[2]); });
-  drawMap(); renderRays(); renderCmp(); renderSens();
+  if ($('#nb-back')) $('#nb-back').onclick = () => { S.demoRun = false; S.status = 'none'; renderNet(); };
+  renderTicket(); renderTransfers(); drawMap(); renderRays();
+}
+function renderTicket() {
+  const s = summary(), a = A[S.scn], hi = D.hubinfo[S.hub] || {}, rt = D.rating.find(x => x.iata === S.hub);
+  const F = [
+    ['Итог сети', `${sg(s.res)} млн ₽`, s.res >= 0 ? 'g' : 'r', `в год: выручка ${fmt(s.rev)}${s.sub ? ` и субсидии ${fmt(s.sub)}` : ''} минус затраты ${fmt(s.cost)}`],
+    ['Самолётов SJ-100', fmt(s.aircraft), '', `${fmt(s.aircraft - a.spare_aircraft)} летают, ${fmt(a.spare_aircraft)} в резерве`],
+    ['Лучей', fmt(s.routes), '', `${fmt(s.flights)} рейсов в неделю`],
+    ['Пассажиров в год', `${fmt(s.seg / 1e3, 1)} тыс.`, '', 'каждый перелёт считается отдельно'],
+    ['С пересадкой в хабе', `${fmt(s.tr / 1e3)} тыс.`, '', 'поездок в год между городами лучей'],
+    ['Прирост доли рынка', `${sg(s.share, 2)} п. п.`, '', `к ${fmt(a.market_pax_2025 / 1e6, 2)} млн пассажиров рынка 2025`],
+    ['Запас по тарифу', s.be <= 0 ? `${fmt(-s.be)}%` : `не хватает ${fmt(s.be)}%`, s.be <= 0 ? 'g' : 'r', s.be <= 0 ? 'на столько можно снизить средний билет до нулевого итога' : 'на столько надо поднять средний билет до нулевого итога'],
+    ['Дней «Ковра» в сети', fmt(s.kover), s.kover < 30 ? 'g' : s.kover > 80 ? 'r' : 'y', 'в среднем по аэропортам сети за 365 дней']];
+  const prof = hi.prof || [], mx = Math.max(...prof, 1);
+  $('#ticket').innerHTML = `<div class="t-main">
+    <div class="t-head"><div><div class="t-lbl">Хаб</div><div class="t-code">${S.hub}</div></div>
+      <div><div class="t-city">${esc(nm(S.hub))}</div><div class="t-lbl" style="margin-top:4px">${esc(hi.region || '')}${hi.fd ? ' · ' + esc(hi.fd) : ''}</div>${S.hub === D.meta.hub ? '<span class="tag t-fact" style="margin-top:6px">выбран первым хабом</span>' : ''}</div>
+      <div class="t-ctl"><select id="net-hub">${hubList().map(h => `<option value="${h.hub}" ${h.hub === S.hub ? 'selected' : ''}>${esc(h.variant.replace('Хаб ', ''))} · ${sg(h.result_mln_year)}</option>`).join('')}</select>
+        <div class="seg" id="net-scn"><button class="${S.scn === 'base' ? 'on' : ''}" data-s="base">Базовый</button><button class="${S.scn === 'cautious' ? 'on' : ''}" data-s="cautious">Осторожный</button></div></div></div>
+    <div class="facts">${F.map(([l, v, c, t]) => `<div class="fact"><div class="t-lbl">${l}</div><span class="chip ${c}">${v}</span><div class="s">${t}</div></div>`).join('')}</div></div>
+  <div class="t-stub">
+    <div><div class="t-lbl">Место в рейтинге</div><div class="t-val">${rt ? `${rt.rank} из ${D.rating.length}` : '—'}</div></div>
+    <div><div class="t-lbl">Балл</div><div class="t-val">${rt ? fmt(rt.score * 100, 1) : '—'}</div></div>
+    <div><div class="t-lbl">Пассажиропоток аэропорта 2025</div><div class="t-val">${hi.pax ? fmt(hi.pax / 1e6, 2) + ' млн' : '—'}</div></div>
+    <div><div class="t-lbl">«Ковёр» у аэропорта</div><div class="t-val">${hi.kover != null ? fmt(hi.kover) + ' дн. за год' : '—'}</div></div>
+    ${prof.length ? `<div><div class="t-lbl" style="margin-bottom:6px">Пассажиры аэропорта по месяцам</div><div class="spark">${prof.map((v, i) => `<i style="height:${v / mx * 100}%" title="${MON[i]}: ${fmt(v, 2)} от среднего"></i>`).join('')}</div><div class="spark-l"><span>янв</span><span>июл</span><span>дек</span></div></div>` : ''}
+    <div class="barcode"></div>
+    <div class="hint">${S.scn === 'base' ? 'Базовый' : 'Осторожный'} сценарий${s.demo ? ' · <b>пример #' + D.demo.run + '</b>' : ''}</div></div>`;
+  $('#net-hub').onchange = e => { S.hub = e.target.value; renderNet(); };
+  $('#net-scn').onclick = e => { const b = e.target.closest('button'); if (b) { S.scn = b.dataset.s; renderNet(); } };
+}
+let TZ = 'ssj';
+$('#tz').onclick = e => { const b = e.target.closest('button'); if (!b) return; TZ = b.dataset.z; $$('#tz button').forEach(x => x.classList.toggle('on', x === b)); renderTransfers(); };
+function renderTransfers() {
+  const city = nm(S.hub), rayTo = new Set(rays().map(r => r.to)), svg = $('#dmsk');
+  const list = (D.transfers[S.hub] || []).filter(x => TZ === 'all' || x.ssj);
+  const T = v => v >= 1e6 ? fmt(v / 1e6, 2) + ' млн' : fmt(v / 1e3) + ' тыс.', sum = a => a.reduce((t, x) => t + x.od, 0);
+  if (!list.length) { $('#dm-lead').textContent = `Из города ${city} почти все направления связаны прямыми рейсами: пересаживаться сейчас некому.`; svg.innerHTML = ''; svg.setAttribute('viewBox', '0 0 1000 10'); $('#dm-legend').innerHTML = ''; return; }
+  const groups = {}; list.forEach(x => (groups[x.via] = groups[x.via] || []).push(x));
+  const byHub = Object.entries(groups).map(([hub, xs]) => ({ hub, xs, v: sum(xs) })).sort((a, b) => b.v - a.v);
+  const hubs = byHub.slice(0, 5), other = byHub.slice(5);
+  if (other.length) hubs.push({ hub: `ещё ${other.length} ${pl(other.length, 'узел', 'узла', 'узлов')}`, xs: other.flatMap(g => g.xs), v: other.reduce((t, g) => t + g.v, 0), rest: true });
+  const dests = []; hubs.forEach(g => { const top = g.rest ? [] : g.xs.slice(0, 6), more = g.rest ? g.xs : g.xs.slice(6);
+    top.forEach(x => dests.push({ g, name: x.city, v: x.od, x })); if (more.length) dests.push({ g, name: `ещё ${more.length} направл.`, v: sum(more), more: true }); });
+  const tot = sum(list), W = 1000, pad = 20, gapH = 14, gapD = 6, k = Math.max(260 - gapH * (hubs.length - 1), 120) / tot;
+  const slot = d => Math.max(d.v * k, 18), hslot = g => Math.max(g.v * k, 34);
+  const destH = dests.reduce((a, d) => a + slot(d), 0) + gapD * (dests.length - 1), hubH = hubs.reduce((a, g) => a + hslot(g), 0) + gapH * (hubs.length - 1);
+  const H = Math.max(hubH, destH) + pad * 2, X0 = 190, X1 = 510, X2 = 740, bw = 10, cityH = tot * k, cy0 = (H - cityH) / 2;
+  const link = (x0, y0, x1, y1, w) => `M${x0},${y0 + w / 2}C${(x0 + x1) / 2},${y0 + w / 2} ${(x0 + x1) / 2},${y1 + w / 2} ${x1},${y1 + w / 2}`;
+  let L = '', N = '', Tx = '', hy = (H - hubH) / 2, dy = (H - destH) / 2, cy = cy0;
+  hubs.forEach(g => { const hh = g.v * k; g.dy = hy;
+    L += `<path class="fl" data-h="${esc(g.hub)}" d="${link(X0 + bw, cy, X1, hy, hh)}" fill="none" stroke="#E32A2F" stroke-opacity=".28" stroke-width="${Math.max(hh, 1)}"><title>${esc(city)} → ${esc(g.hub)}: ${T(g.v)} поездок в год</title></path>`;
+    N += `<rect x="${X1}" y="${hy}" width="${bw}" height="${Math.max(hh, 2)}" rx="2" fill="${g.rest ? '#B9B5AC' : '#5E6675'}"/>`;
+    Tx += `<text x="${X1 - 10}" y="${hy + hh / 2}" dy=".35em" text-anchor="end" class="dm-hub">${esc(g.hub)}</text><text x="${X1 - 10}" y="${hy + hh / 2 + 15}" dy=".35em" text-anchor="end" class="dm-num">${T(g.v)}</text>`;
+    cy += hh; hy += hslot(g) + gapH; });
+  dests.forEach(d => { const g = d.g, w = d.v * k, ray = d.x && rayTo.has(d.x.to);
+    L += `<path class="fl" data-h="${esc(g.hub)}" d="${link(X1 + bw, g.dy, X2, dy, w)}" fill="none" stroke="${d.more ? '#B9B5AC' : ray ? '#E32A2F' : '#8C96A6'}" stroke-opacity="${ray ? .45 : .35}" stroke-width="${Math.max(w, 1)}"><title>${esc(city)} → ${esc(d.name)}${d.more ? '' : ' через ' + esc(g.hub)}: ${T(d.v)} поездок в год${ray ? ' · уже луч сети' : ''}</title></path>`;
+    N += `<rect x="${X2}" y="${dy}" width="${bw}" height="${Math.max(w, 2)}" rx="2" fill="${d.more ? '#B9B5AC' : d.x.ssj ? '#E32A2F' : '#FFFFFF'}" ${d.more || d.x.ssj ? '' : 'stroke="#111318" stroke-width="1.2"'}/>`;
+    Tx += `<text x="${X2 + bw + 10}" y="${dy + w / 2}" dy=".35em" class="${d.more ? 'dm-more' : ray ? 'dm-ray' : 'dm-dest'}">${esc(d.name)}</text><text x="${W - 6}" y="${dy + w / 2}" dy=".35em" text-anchor="end" class="dm-num">${T(d.v)}</text>`;
+    g.dy += w; dy += slot(d) + gapD; });
+  N += `<rect x="${X0}" y="${cy0}" width="${bw}" height="${cityH}" rx="2" fill="#111318"/>`;
+  const words = city.length > 11 && city.includes(' ') ? [city.slice(0, city.lastIndexOf(' ')), city.slice(city.lastIndexOf(' ') + 1)] : [city], ty = cy0 + cityH / 2 - (words.length - 1) * 13 - 9;
+  words.forEach((w, i) => Tx += `<text x="${X0 - 14}" y="${ty + i * 26}" text-anchor="end" class="dm-city">${esc(w)}</text>`);
+  Tx += `<text x="${X0 - 14}" y="${ty + (words.length - 1) * 26 + 21}" text-anchor="end" class="dm-num">${T(tot)} в год</text>`;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = `<g>${L}</g><g>${N}</g><g>${Tx}</g>`;
+  svg.querySelectorAll('.fl').forEach(p => { const o = p.getAttribute('stroke-opacity');
+    p.onmouseenter = () => svg.querySelectorAll('.fl').forEach(q => { q._o = q._o || q.getAttribute('stroke-opacity'); q.setAttribute('stroke-opacity', q.dataset.h === p.dataset.h ? .6 : .1); });
+    p.onmouseleave = () => svg.querySelectorAll('.fl').forEach(q => q.setAttribute('stroke-opacity', q._o || o)); });
+  const big = hubs[0], nRay = list.filter(x => rayTo.has(x.to)).length;
+  $('#dm-lead').innerHTML = `У этих направлений нет прямого рейса из города ${esc(city)}, поэтому сейчас люди летят с пересадкой в чужих аэропортах: <b>${T(tot)} поездок в год</b>${TZ === 'ssj' ? ' в зоне полёта SSJ' : ''}. Больше всего через ${esc(big.hub)} (${Math.round(big.v / tot * 100)}%).` + (nRay ? ` ${nRay} ${pl(nRay, 'направление', 'направления', 'направлений')} из списка уже стали лучами сети: их названия выделены красным.` : '');
+  $('#dm-legend').innerHTML = `<span><i style="background:#111318;height:10px;width:10px"></i>город-хаб</span><span><i style="background:#5E6675;height:10px;width:10px"></i>где пересаживаются сейчас</span><span><i style="background:#E32A2F;height:10px;width:10px"></i>в зоне полёта SSJ</span><span><i style="background:#fff;box-shadow:inset 0 0 0 1.5px #111318;height:10px;width:10px"></i>дальше SSJ</span><span><b style="color:var(--red-d)">Название</b> — уже луч сети</span><span>толщина — поездок в год по модели спроса</span>`;
 }
 RENDER.net = renderNet;
-$('#net-hub').onchange = e => { S.hub = e.target.value; renderNet(); };
-$('#net-scn').onclick = e => { const b = e.target.closest('button'); if (b) { S.scn = b.dataset.s; renderNet(); } };
 function drawMap() {
   const rs = rays(), P = D.pts, o = P[S.hub], svg = $('#map');
   if (!o || !rs.length) { svg.innerHTML = '<text x="20" y="40">Нет координат</text>'; return; }
@@ -764,10 +834,6 @@ function renderRays() {
     L.map(r => { const t = demandTag(r.src); return `<tr class="click ${r.demo && Math.abs(r.res - r.res0) > 1 ? 'warn' : ''}" data-to="${r.to}"><td><b>${esc(r.city)}</b> <span class="hint tech">${fmt(r.km)} км</span></td><td class="n">${r.fs} / ${r.fw}</td><td class="n">${fmt(r.seg)}</td><td class="n tech">${fmt(r.lf, 2)}</td><td class="n ${cls(r.res)}"><b>${sg(r.res, 1)}</b></td><td><span class="tag ${t[0]}">${t[1]}</span></td></tr>`; }).join('') +
     `<tr><td><b>Всего</b></td><td class="n">${all.reduce((a, r) => a + r.fs, 0)} / ${all.reduce((a, r) => a + r.fw, 0)}</td><td class="n">${fmt(all.reduce((a, r) => a + r.seg, 0))}</td><td class="tech"></td><td class="n"><b>${sg(all.reduce((a, r) => a + r.res, 0), 1)}</b></td><td></td></tr>`;
   $$('#r-t tr.click').forEach(t => t.onclick = () => openRay(S.hub, t.dataset.to));
-  const rev = all.reduce((a, r) => a + r.rev, 0), seg = all.reduce((a, r) => a + r.seg, 0), cost = all.reduce((a, r) => a + r.cost, 0);
-  const skm = all.reduce((a, r) => a + r.km * A[S.scn].route_factor * A[S.scn].seats * r.flights, 0);
-  $('#r-unit').innerHTML = [['Средний билет', fmt(rev * 1e6 / seg) + ' ₽', 'выручка ÷ пассажиры'], ['Доход на кресло-км', fmt(rev * 1e6 / skm, 2) + ' ₽', 'RASK'], ['Затраты на кресло-км', fmt(cost * 1e6 / skm, 2) + ' ₽', 'CASK, переменные']]
-    .map(([a, b, c]) => `<div class="soft"><div class="sub">${a}</div><b style="font-size:19px">${b}</b><div class="hint">${c}</div></div>`).join('');
 }
 $('#r-f').onclick = e => { const b = e.target.closest('button'); if (!b) return; rF = b.dataset.f; $$('#r-f button').forEach(x => x.classList.toggle('on', x === b)); renderRays(); };
 $('#r-csv').onclick = () => dl(`luchi_${S.hub}_${S.scn}.csv`, toCSV(['to', 'city', 'km', 'fs', 'fw', 'seg', 'local', 'tr', 'lf', 'rev', 'subsidy', 'cost', 'res', 'src'], rayList()));
@@ -808,39 +874,6 @@ function openRay(hub, to) {
   $('#drawer').classList.add('on'); $('#dx').onclick = () => $('#drawer').classList.remove('on');
 }
 $('#drawer').onclick = e => { if (e.target.id === 'drawer') $('#drawer').classList.remove('on'); };
-function renderCmp() {
-  const b = $('#c-b'), others = hubList().filter(h => h.hub !== S.hub);
-  if (!S.cmp || S.cmp === S.hub) S.cmp = others[0].hub;
-  b.innerHTML = others.map(h => `<option value="${h.hub}">${esc(h.variant)}</option>`).join(''); b.value = S.cmp;
-  const X = summary(S.hub), Y = summary(S.cmp);
-  const R = [['Итог, млн ₽', 'res', 0, 1], ['Самолётов', 'aircraft', 0, -1], ['Лучей', 'routes', 0, 0], ['Пассажиров', 'seg', 0, 1], ['С пересадкой', 'tr', 0, 1], ['Доля рынка, п. п.', 'share', 2, 1], ['Запас по тарифу, %', 'be', 0, -1], ['Дней «Ковра»', 'kover', 0, -1]];
-  $('#c-t').innerHTML = `<tr><th></th><th class="n">${esc(X.name)}</th><th class="n">${esc(Y.name)}</th><th class="n">разница</th></tr>` + R.map(([l, k, d, g]) => { const x = X[k] - Y[k];
-    return `<tr><td>${l}</td><td class="n">${fmt(X[k], d)}</td><td class="n">${fmt(Y[k], d)}</td><td class="n ${g && Math.abs(x) > 1e-9 ? (x * g > 0 ? 'up' : 'dn') : ''}">${Math.abs(x) > 1e-9 ? sg(x, d) : '0'}</td></tr>`; }).join('') +
-    `<tr><td colspan="4" class="hint">Зелёным отмечено, где ${esc(X.name)} лучше. Запас по тарифу: на сколько процентов можно снизить средний билет до нулевого итога.</td></tr>`;
-}
-$('#c-b').onchange = e => { S.cmp = e.target.value; renderCmp(); };
-const SL = [['fare', 'Средний билет', -20, 20], ['dem', 'Спрос', -20, 20], ['fuel', 'Цена топлива', -30, 30], ['mro', 'Ставка ТО', -30, 50], ['ground', 'Сборы аэропортов', -20, 30]];
-const SV = { fare: 0, dem: 0, fuel: 0, mro: 0, ground: 0 }, Z = { fare: 0, dem: 0, fuel: 0, mro: 0, ground: 0 };
-function sens(v) {
-  return rays().reduce((acc, r) => { const room = A[S.scn].lf_peak_max / r.lf - 1, d = v.dem > 0 ? Math.min(v.dem, room) : v.dem, c = r.cc;
-    return acc + r.rev * (1 + v.fare) * (1 + d) + r.subsidy - (c.fuel * (1 + v.fuel) + c.mro * (1 + v.mro) + c.crew + c.nav + c.ground * (1 + v.ground) + c.deice + c.pax * (1 + d)); }, 0);
-}
-function renderSens() {
-  $('#s-sl').innerHTML = SL.map(([k, l, a, b]) => `<div class="slider"><span>${l}</span><input type="range" min="${a}" max="${b}" value="${SV[k]}" data-k="${k}"><output>${sg(SV[k])}%</output></div>`).join('');
-  const upd = () => { const v = Object.fromEntries(Object.entries(SV).map(([k, x]) => [k, x / 100])), r0 = sens(Z), r = sens(v);
-    $('#s-res').innerHTML = `<span class="${cls(r)}">${sg(r)}</span>`; $('#s-delta').innerHTML = `к расчёту <b class="${cls(r - r0)}">${sg(r - r0)}</b> млн ₽<br><span class="hint">рейсы и лучи прежние; рост спроса ограничен креслами</span>`; };
-  $$('#s-sl input').forEach(i => i.oninput = () => { SV[i.dataset.k] = +i.value; i.nextElementSibling.textContent = sg(+i.value) + '%'; upd(); });
-  upd();
-  const r0 = sens(Z), T = SL.map(([k, l]) => { const lo = sens({ ...Z, [k]: -0.1 }) - r0, hi = sens({ ...Z, [k]: 0.1 }) - r0; return { l, lo, hi, m: Math.max(Math.abs(lo), Math.abs(hi)) }; }).sort((a, b) => b.m - a.m);
-  const mx = (T[0].m || 1) * 1.15, cx = 330, sc = 115 / mx; let s = `<line x1="${cx}" x2="${cx}" y1="6" y2="${18 + T.length * 42}" stroke="var(--ink)"/>`;
-  T.forEach((t, i) => { const y = 14 + i * 42;
-    [[t.lo, '−10%'], [t.hi, '+10%']].forEach(([v, lab]) => { const w = Math.abs(v) * sc, x = v < 0 ? cx - w : cx;
-      s += `<rect x="${x}" y="${y}" width="${w}" height="24" rx="3" fill="${v < 0 ? 'var(--red)' : 'var(--green)'}" opacity=".85"/><text x="${v < 0 ? x - 4 : x + w + 4}" y="${y + 16}" text-anchor="${v < 0 ? 'end' : 'start'}" style="font-size:11px">${lab}: ${sg(v)}</text>`; });
-    s += `<text x="0" y="${y + 16}" style="font-size:12.5px;font-weight:500">${t.l}</text>`; });
-  $('#tornado').setAttribute('viewBox', `0 0 520 ${26 + T.length * 42}`); $('#tornado').innerHTML = s;
-}
-$('#s-reset').onclick = () => { Object.keys(SV).forEach(k => SV[k] = 0); renderSens(); };
-
 /* ================= 03 КАК СЧИТАЕТСЯ ================= */
 function renderHow() {
   drawLineage($('#lineage'));
@@ -890,7 +923,7 @@ function renderData() {
   const L = D.src.filter(s => srcF === 'all' || s.role === srcF);
   $('#src-t').innerHTML = `<tr><th>Источник</th><th>Владелец</th><th class="tech">Тип</th><th>Для чего</th><th class="n">Строк</th><th class="n">Обновлено</th><th></th></tr>` + L.map(s => {
     const own = s.id === 'known_flows';
-    return `<tr><td><b style="font-weight:500">${esc(s.name)}</b><div class="mono dev" style="font-size:11.5px;padding:0;margin:0;background:none;border:0">${esc(s.id)} · ${esc(s.url)}</div></td><td class="sub">${esc(s.owner)}</td><td class="tech sub">${KIND[s.kind] || esc(s.kind)}</td><td class="sub">${esc((s.feeds || []).join(', ')) || (s.role === 'watch' ? 'новости и сигналы' : '')}</td><td class="n">${s.rows != null ? fmt(s.rows) : '—'}</td><td class="n">${s.fetched ? s.fetched.split('-').reverse().join('.') : '—'}</td>
+    return `<tr><td><b style="font-weight:500">${esc(s.name)}</b><div class="mono hint" style="font-size:11px;word-break:break-all">${esc(s.id)} · ${esc(s.url)}</div></td><td class="sub">${esc(s.owner)}</td><td class="tech sub">${KIND[s.kind] || esc(s.kind)}</td><td class="sub">${esc((s.feeds || []).join(', ')) || (s.role === 'watch' ? 'новости и сигналы' : '')}</td><td class="n">${s.rows != null ? fmt(s.rows) : '—'}</td><td class="n">${s.fetched ? s.fetched.split('-').reverse().join('.') : '—'}</td>
       <td style="white-space:nowrap">${own ? '<button class="btn sm" data-dl="kf">Скачать</button> <button class="btn sm" data-up="1">Загрузить</button>' : /^https?:/.test(s.url) ? `<a class="btn sm" href="${esc(s.url)}" target="_blank" rel="noopener" style="text-decoration:none">Источник ↗</a>` : ''}</td></tr>`; }).join('');
   $$('#src-t [data-dl]').forEach(b => b.onclick = () => dl('known_flows.csv', toCSV(D.kf_head, D.kf)));
   $$('#src-t [data-up]').forEach(b => b.onclick = () => { S.step = 0; go('up'); });
@@ -916,7 +949,7 @@ function renderAsm() {
   $('#asm-dl').disabled = !n;
 }
 $('#asm-f').onclick = e => { const b = e.target.closest('button'); if (!b) return; asmF = b.dataset.f; $$('#asm-f button').forEach(x => x.classList.toggle('on', x === b)); renderAsm(); };
-$('#asm-dl').onclick = () => dl('network.csv', toCSV(['parameter', 'base', 'cautious', 'unit', 'source'], D.asm.map(a => ({ parameter: a.k, base: DRAFT[a.k] ?? a.b, cautious: a.c, unit: a.u, source: DRAFT[a.k] != null ? 'черновик из Дашборда 3: ' + a.s : a.s }))));
+$('#asm-dl').onclick = () => dl('network.csv', toCSV(['parameter', 'base', 'cautious', 'unit', 'source'], D.asm.map(a => ({ parameter: a.k, base: DRAFT[a.k] ?? a.b, cautious: a.c, unit: a.u, source: DRAFT[a.k] != null ? 'черновик из панели: ' + a.s : a.s }))));
 function renderChecks() {
   let C = D.checks.slice();
   if (S.demoRun) C = C.filter(c => !(c[0] === 'warn' && /неуверенно/.test(c[1]))).concat([['warn', 'Улан-Удэ: итог луча близок к нулю (пример)', 'модель снизила частоту']]);
@@ -936,8 +969,7 @@ $('#q').oninput = () => {
   box.style.display = 'block'; box.querySelectorAll('button').forEach(b => b.onclick = () => { R[+b.dataset.i][2](); box.style.display = 'none'; $('#q').value = ''; });
 };
 
-$('#foot').innerHTML = `Дашборд 3 собран ${D.meta.built}${D.meta.commit ? `, версия кода <code>${D.meta.commit}</code>` : ''}. Пересборка: <code>py src/update.py</code> или <code>py src/build_dashboard3.py</code>. Карта: ${esc(D.meta.map_src.split(/[:(]/)[0].trim())}.`;
-try { const m = localStorage.getItem('rw3-mode'); if (m) { const b = $(`#mode [data-m="${m}"]`); if (b) b.click(); } } catch (e) { }
+$('#foot').innerHTML = `Собрано ${D.meta.built} из таблиц модели. Пересборка: <code>py src/update.py</code>. Карта: ${esc(D.meta.map_src.split(/[:(]/)[0].trim())}.`;
 renderPill();
 const start = location.hash.slice(1); go(['up', 'net', 'how', 'data'].includes(start) ? start : 'up');
 </script>

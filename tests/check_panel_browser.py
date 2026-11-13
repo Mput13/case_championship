@@ -11,7 +11,7 @@ with sync_playwright() as p:
     page = browser.new_page(viewport={"width": 1440, "height": 1100}, device_scale_factor=1)
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)))
-    page.goto((ROOT / "outputs/redwings_panel.html").as_uri(), wait_until="networkidle")
+    page.goto((ROOT / "archive/dashboards/redwings_panel_v2.html").as_uri(), wait_until="networkidle")
     ai = page.locator("#rw-ai-paper")
     ai.scroll_into_view_if_needed()
     page.evaluate("document.fonts.ready")

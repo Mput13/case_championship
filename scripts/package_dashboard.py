@@ -84,8 +84,8 @@ def package(root, revision, output):
     if match is None:
         raise ValueError('Embedded dashboard data missing')
     payload, _ = json.JSONDecoder().raw_decode(text[match.end():])
-    if not payload.get('cities'):
-        raise ValueError('Dashboard city data is empty')
+    if not (payload.get('hubs') or payload.get('cities')):
+        raise ValueError('Dashboard data is empty')
     files['index.html'] = panel
     files['release.json'] = (json.dumps({'commit': revision, 'files': {
         name: hashlib.sha256(data).hexdigest() for name, data in sorted(files.items())

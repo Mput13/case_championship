@@ -8,7 +8,7 @@ from openpyxl import load_workbook
 
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "data/processed"
-html = (ROOT / "outputs/redwings_panel.html").read_text(encoding="utf-8")
+html = (ROOT / "archive/dashboards/redwings_panel_v2.html").read_text(encoding="utf-8")
 data = json.loads(re.search(r"const D = (.*);\n", html).group(1))
 summary = pd.read_csv(P / "network_summary.csv")
 embedded = pd.DataFrame(data["net"]["summary"])

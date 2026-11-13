@@ -649,10 +649,11 @@ def main():
     data = clean(data)
     js = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     ai = (ROOT / "src/dashboard_ai_workflow.html").read_text(encoding="utf-8")
-    # Дашборд 2 (вкладки) — главная страница сайта; Дашборд 1 — прежняя длинная страница, собирается из тех же данных
-    for tpl_name, out_name in (("dashboard_template.html", "redwings_panel.html"), ("dashboard_template_v1.html", "redwings_panel_v1.html")):
+    # Дашборды 1 и 2 — архив (archive/dashboards); главная страница сайта — Дашборд 3 (src/build_dashboard3.py)
+    (ROOT / "archive/dashboards").mkdir(parents=True, exist_ok=True)
+    for tpl_name, out_name in (("dashboard_template.html", "redwings_panel_v2.html"), ("dashboard_template_v1.html", "redwings_panel_v1.html")):
         tpl = (ROOT / "src" / tpl_name).read_text(encoding="utf-8").replace("<!--__AI_WORKFLOW__-->", ai)
-        out = ROOT / "outputs" / out_name
+        out = ROOT / "archive/dashboards" / out_name
         out.write_text(tpl.replace("/*__DATA__*/null", js), encoding="utf-8")
         print("ok", out, len(cities), "городов,", len(months), "мес.")
 

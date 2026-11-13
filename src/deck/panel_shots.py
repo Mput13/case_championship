@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[2]
-PANEL = ROOT / "outputs" / "redwings_panel.html"
+PANEL = ROOT / "archive" / "dashboards" / "redwings_panel_v2.html"
 OUT = ROOT / "outputs" / "presentation" / "panel_shots"
 CHROME = os.environ.get("CHROME_PATH", r"C:\Program Files\Google\Chrome\Application\chrome.exe")
 SHOTS = {"board": ".board", "ladder": "#vs > div:not([class])", "runway": "#rwy", "reach": "#map"}

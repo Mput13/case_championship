@@ -6,7 +6,7 @@ from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "outputs/redwings_panel_v3.html"
+OUT = ROOT / "outputs/redwings_panel.html"
 
 
 def payload():
@@ -41,9 +41,17 @@ class Dashboard3Tests(unittest.TestCase):
         self.assertEqual([r["expr"] for r in d["rules"]], [r["expr"] for r in rules])
         self.assertTrue(all(r["level"] in ("ошибка", "предупреждение") for r in rules))
 
-    def test_version_switch_in_all_dashboards(self):
-        for name in ("redwings_panel.html", "redwings_panel_v1.html", "redwings_panel_v3.html"):
-            self.assertIn('href="redwings_panel_v3.html"', (ROOT / "outputs" / name).read_text(encoding="utf-8"), name)
+    def test_only_dashboard3_published(self):
+        self.assertFalse((ROOT / "outputs/redwings_panel_v1.html").exists())
+        self.assertFalse((ROOT / "outputs/redwings_panel_v3.html").exists())
+        for name in ("redwings_panel_v1.html", "redwings_panel_v2.html"):
+            self.assertTrue((ROOT / "archive/dashboards" / name).exists(), name)
+
+    def test_transfers_for_every_hub(self):
+        _, d = payload()
+        for h in d["rays"]["base"]:
+            self.assertIn(h, d["transfers"])
+            self.assertIn(h, d["hubinfo"])
 
     def test_demo_is_labelled(self):
         text, d = payload()
