@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "checks_by_review_point": {
+    "1": 110,
+    "4": 171,
+    "2": 812,
+    "6": 30,
+    "3": 7,
+    "5": 65,
+    "7": 3,
+    "8": 57
+  },
+  "max_abs_error_by_point": {
+    "1": 9.5367431640625e-07,
+    "4": 1.1641532182693481e-10,
+    "2": 4.76837158203125e-07,
+    "6": 0.0,
+    "3": 0.0,
+    "5": 1.1920928955078125e-07,
+    "7": 0.0,
+    "8": 0.0
+  },
+  "failures": [],
+  "top3_independently_repriced": [
+    {
+      "GSV_summer": 5,
+      "AER_summer": 6,
+      "GSV_winter": 5,
+      "AER_winter": 6,
+      "residual_rub": 490305899.80887914,
+      "weekly_BH": [
+        137.51242771772394,
+        137.51242771772394
+      ],
+      "direct_before_rub": 177829309.21557873
+    },
+    {
+      "GSV_summer": 5,
+      "AER_summer": 6,
+      "GSV_winter": 5,
+      "AER_winter": 5,
+      "residual_rub": 489191624.2486452,
+      "weekly_BH": [
+        137.51242771772394,
+        124.8646843924447
+      ],
+      "direct_before_rub": 176275376.30616805
+    },
+    {
+      "GSV_summer": 6,
+      "AER_summer": 5,
+      "GSV_winter": 5,
+      "AER_winter": 6,
+      "residual_rub": 489180512.27441585,
+      "weekly_BH": [
+        137.18987794565442,
+        137.51242771772394
+      ],
+      "direct_before_rub": 176686729.97206855
+    }
+  ],
+  "seasonal_demand_reprices": 4,
+  "critical_sums": {
+    "OMS": {
+      "network_subtotal_rub": 454971379.145169,
+      "annual_or_period_recurring_rub": 101382162.64252424,
+      "insurance_rub": 56000000.0,
+      "residual_before_insurance_rub": 409589216.5026448,
+      "residual_after_recurring_rub": 353589216.5026448,
+      "residual_fuel_credit_3024_rub": -541810978.8000067
+    },
+    "DIRECT2": {
+      "network_subtotal_rub": 143322510.44015563,
+      "annual_or_period_recurring_rub": 54000166.37606696,
+      "insurance_rub": 32000000.0,
+      "residual_before_insurance_rub": 121322344.06408867,
+      "residual_after_recurring_rub": 89322344.06408867,
+      "residual_fuel_credit_3024_rub": -358171032.4284519
+    },
+    "HYBRID": {
+      "network_subtotal_rub": 598293889.5853246,
+      "annual_or_period_recurring_rub": 154782329.0185912,
+      "insurance_rub": 88000000.0,
+      "residual_before_insurance_rub": 531511560.5667335,
+      "residual_after_recurring_rub": 443511560.5667335,
+      "residual_fuel_credit_3024_rub": -899382011.2284585
+    },
+    "HYBRID10": {
+      "network_subtotal_rub": 632800688.3607478,
+      "annual_or_period_recurring_rub": 142494788.55186856,
+      "insurance_rub": 80000000.0,
+      "residual_before_insurance_rub": 570305899.8088793,
+      "residual_after_recurring_rub": 490305899.80887926,
+      "residual_fuel_credit_3024_rub": -757084974.9578682
+    }
+  },
+  "reused_receipts": {
+    "network/validation.json": "PASS",
+    "budget/validation_pass1.json": "PASS",
+    "budget/validation_pass2.json": "PASS",
+    "calculation/validation.json": "PASS"
+  },
+  "method": "Independent budget arithmetic; original source primitives for top3, receipt ranking for remaining bounded candidates; no exporter/full audit/build run",
+  "limitations": "Conditional scenario only: contracts, coverage, slots, rotations, actual profit and full 2027 not proven. No independent empirical demand validation."
+}

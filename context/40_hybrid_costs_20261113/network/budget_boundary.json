@@ -1,0 +1,67 @@
+{
+  "status": "COMPLETED_VARIABLE_FINANCIAL_AND_EXPOSURE_HANDOFF",
+  "main_case": "HYBRID",
+  "base_operating_subtotal_rub": 598293889.5853246,
+  "included": [
+    "fuel burn gross",
+    "fuel credit as cost deduction once",
+    "MRO hourly proxy",
+    "crew hourly proxy",
+    "navigation hourly proxy",
+    "ground per departure proxy",
+    "deice expected allowance per departure",
+    "pax per boarded segment",
+    "own old fare forgone deducted from revenue"
+  ],
+  "additions_rule": "Add only uncovered differential expenses. No second full ground/MRO/crew/pax bill; no second fuel credit; no double transfer fare.",
+  "fleet": {
+    "OMS_working": 6,
+    "OMS_reserve": 1,
+    "MOW_working": 3,
+    "MOW_reserve": 1,
+    "local_total": 11,
+    "geographic_reserve_resources": [
+      "R_OMS",
+      "R_MOW"
+    ],
+    "direct2_shared_MOW_reserve_once": true
+  },
+  "station_unique": [
+    "OMS",
+    "MOW",
+    "IKT",
+    "VOG",
+    "GOJ",
+    "KJA",
+    "KUF",
+    "BAX",
+    "GSV",
+    "UUD",
+    "AER",
+    "MRV"
+  ],
+  "shared_station_fixed_service_once": [
+    "MOW",
+    "VOG",
+    "GSV"
+  ],
+  "missing_prices": "Not researched in this role; independent budget assembly owns uncovered BoQ. This handoff has no blocking dependency on it.",
+  "finance_main_excluded_by_user": true,
+  "financing_annual_rub": null,
+  "financing_status": "UNKNOWN_NOT_ZERO_SEPARATE",
+  "financing_formula": "annual_financing = sum(annual charge by actual financed tail); net_after_finance = subtotal - uncovered_operating_additions - annual_financing",
+  "residual_before_all_uncovered_operating_additions_and_finance_rub": 598293889.5853246,
+  "arithmetic_financing_ceiling_per_11_tail_year_rub": 54390353.59866588,
+  "ceiling_caveat": "Pure break-even quotient if no other additions. Not a quoted aircraft price, lease benchmark or finance allowance.",
+  "cash_vs_PnL": "Gross fuel cash vs later tax-credit receipts/timing/eligibility unresolved; model net fuel is PnL scenario. Spares inventory/deposits and launch cash must not be summed again as annual consumption/amortisation.",
+  "unknown_quantities": [
+    "bag incidence",
+    "actual deice events",
+    "crew roster/room nights",
+    "overnight stays",
+    "IRROPS incidence",
+    "ferry/positioning movements",
+    "dispatch/tail/crew MRO buffers"
+  ],
+  "entry": "No new SJ100/PD8 before H2 2027. These are annual steady-state frequencies after entry, not full 2027 revenue; actual delivery/entry dates unknown."
+}

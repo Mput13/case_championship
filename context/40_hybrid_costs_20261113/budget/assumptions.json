@@ -1,0 +1,97 @@
+{
+  "status": "COMPLETED_BUDGET_MODULE_NOT_ACTUAL_PNL",
+  "team_approved": false,
+  "scenarios": [
+    "low",
+    "base",
+    "high"
+  ],
+  "reference_date": "2026-11-13",
+  "currency": "RUB",
+  "budget_price_year": "2026 planning nominal; 2027-28 not escalated or quoted",
+  "station_options": [
+    "lean_outsource",
+    "expanded"
+  ],
+  "FTE_formula": "posts*hours_per_post_day*coverage_days_year/effective_hours_FTE_year",
+  "effective_hours": [
+    1800,
+    1680,
+    1560
+  ],
+  "payroll_load": [
+    1.25,
+    1.32,
+    1.4
+  ],
+  "annualization": "BoQ station retained 12 months regardless of winter flying; period station cost = annual * retained_months/12; use actual coverage_hours if known; no aircraft-night -> crew-night shortcut",
+  "MAIN_excludes": [
+    "aircraft purchase",
+    "aircraft lease",
+    "financing",
+    "CAPEX immediate writeoff",
+    "refundable deposits",
+    "initial inventory as expense"
+  ],
+  "unknown_actuals": [
+    "RW insurance premium/coverage",
+    "RW station contract/handler split",
+    "2027 salary offers",
+    "roster person-nights",
+    "IT contract",
+    "outstation minimums",
+    "invoice VAT recoverability"
+  ],
+  "no_price_fact_from": [
+    "P04 empty cells",
+    "RW insured value78bn",
+    "unperioded initial insurance tender",
+    "SSJ2015 sublease"
+  ],
+  "irrops": {
+    "affected_share": [
+      0.002,
+      0.01,
+      0.03
+    ],
+    "overnight_share_of_affected": [
+      0.25,
+      0.5,
+      1
+    ],
+    "nights_per_overnight": [
+      1,
+      1,
+      2
+    ],
+    "meals_per_affected": [
+      1,
+      2,
+      3
+    ],
+    "rebooking_share_of_affected": [
+      0.25,
+      0.5,
+      1
+    ],
+    "note": "All probabilities author scenarios; prefer actual event units over this convenience sensitivity; transport event volumes supplied separately"
+  },
+  "insurance_sweep_RUB_aircraft_year": [
+    0,
+    1000000,
+    3000000,
+    5000000,
+    8000000,
+    12000000,
+    20000000,
+    30000000,
+    50000000,
+    60000000
+  ],
+  "search": {
+    "queries": 8,
+    "opens_clicks_including_errors": 12,
+    "stopped": true
+  },
+  "API": "budget_api.py evaluate(exposures,scenario,variant,residual_before=None); zero absent exposures means not yet supplied, returned explicitly; never implicit completed network budget"
+}

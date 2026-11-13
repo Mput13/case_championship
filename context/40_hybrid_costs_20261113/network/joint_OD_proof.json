@@ -1,0 +1,165 @@
+{
+  "hub_local_OD": [
+    [
+      "BAX",
+      "OMS"
+    ],
+    [
+      "GOJ",
+      "OMS"
+    ],
+    [
+      "GSV",
+      "OMS"
+    ],
+    [
+      "IKT",
+      "OMS"
+    ],
+    [
+      "KJA",
+      "OMS"
+    ],
+    [
+      "KUF",
+      "OMS"
+    ],
+    [
+      "MOW",
+      "OMS"
+    ],
+    [
+      "OMS",
+      "UUD"
+    ],
+    [
+      "OMS",
+      "VOG"
+    ]
+  ],
+  "hub_transfer_OD": [
+    [
+      "BAX",
+      "GOJ"
+    ],
+    [
+      "BAX",
+      "GSV"
+    ],
+    [
+      "BAX",
+      "KUF"
+    ],
+    [
+      "BAX",
+      "VOG"
+    ],
+    [
+      "GOJ",
+      "IKT"
+    ],
+    [
+      "GOJ",
+      "KJA"
+    ],
+    [
+      "GOJ",
+      "UUD"
+    ],
+    [
+      "GSV",
+      "IKT"
+    ],
+    [
+      "GSV",
+      "KJA"
+    ],
+    [
+      "GSV",
+      "UUD"
+    ],
+    [
+      "IKT",
+      "VOG"
+    ],
+    [
+      "KJA",
+      "KUF"
+    ],
+    [
+      "KJA",
+      "VOG"
+    ],
+    [
+      "KUF",
+      "UUD"
+    ],
+    [
+      "UUD",
+      "VOG"
+    ]
+  ],
+  "direct_OD": [
+    [
+      "AER",
+      "MOW"
+    ],
+    [
+      "AER",
+      "VOG"
+    ],
+    [
+      "GSV",
+      "MOW"
+    ],
+    [
+      "GSV",
+      "MRV"
+    ],
+    [
+      "MOW",
+      "MRV"
+    ],
+    [
+      "MOW",
+      "VOG"
+    ]
+  ],
+  "shared_OD": [],
+  "invariant": "Every endpoint journey is in exactly one offered OD set; hub segments=local+2*transfer; one transfer fare split over two spokes. Under source existing-direct + 1.35 circuity filter, OD sets are disjoint.",
+  "shared_airports_or_city_markets": [
+    "GSV",
+    "MOW",
+    "VOG"
+  ],
+  "physical_leg_intersection": [],
+  "own_migration": "Only OMS-UUD in fixed offered OD has existing RW frequency. Old fare forgone is subtracted once for local migrated journeys. No transfer-OD own migration is present.",
+  "excluded_MOW_pairs": [
+    {
+      "origin": "MOW",
+      "destination": "VOG",
+      "direct_km": 927.9215257729877,
+      "via_OMS_km": 4328.268690475243,
+      "circuity": 4.664477081582582,
+      "limit": 1.35,
+      "has_existing_direct": true,
+      "accepted": false,
+      "rejection": "existing_direct_service;circuity_exceeds_limit",
+      "evidence": "f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:416"
+    },
+    {
+      "origin": "MOW",
+      "destination": "GSV",
+      "direct_km": 745.3395394238781,
+      "via_OMS_km": 4067.2654248894523,
+      "circuity": 5.456929640460653,
+      "limit": 1.35,
+      "has_existing_direct": true,
+      "accepted": false,
+      "rejection": "existing_direct_service;circuity_exceeds_limit",
+      "evidence": "f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:416"
+    }
+  ],
+  "scope_limit": "Not a behavioural network-choice model. Latent substitution on excluded highly circuitous itineraries is assumed zero under the explicitly frozen filter, not empirically measured.",
+  "shared_services": "Do not add separate station/base fixed costs for shared GSV/MOW/VOG twice. Flight, passenger, ground proxy and BH costs add because events differ; negotiated station minimums/discounts are unknown."
+}

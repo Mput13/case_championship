@@ -1,0 +1,201 @@
+{
+  "owner_commit": "f20000e72d5ca934f45f3aaaca4c320750ebccff",
+  "previous_owner": "c11eb8c15d32add540d89d086f62487a5b2d424e",
+  "hub": {
+    "hub": "OMS",
+    "spokes": [
+      "MOW",
+      "IKT",
+      "VOG",
+      "GOJ",
+      "KJA",
+      "KUF",
+      "BAX",
+      "GSV",
+      "UUD"
+    ]
+  },
+  "chains": {
+    "GSV_MRV": [
+      "MOW",
+      "GSV",
+      "MRV",
+      "MOW"
+    ],
+    "AER_VOG": [
+      "MOW",
+      "AER",
+      "VOG",
+      "MOW"
+    ]
+  },
+  "orientations": {
+    "GSV_MRV": [
+      [
+        "MOW",
+        "GSV",
+        "MRV",
+        "MOW"
+      ],
+      [
+        "MOW",
+        "MRV",
+        "GSV",
+        "MOW"
+      ]
+    ],
+    "AER_VOG": [
+      [
+        "MOW",
+        "AER",
+        "VOG",
+        "MOW"
+      ],
+      [
+        "MOW",
+        "VOG",
+        "AER",
+        "MOW"
+      ]
+    ]
+  },
+  "frozen_seasonal_frequencies": {
+    "base": {
+      "GSV_MRV": {
+        "summer": 7,
+        "winter": 7
+      },
+      "AER_VOG": {
+        "summer": 7,
+        "winter": 7
+      }
+    },
+    "cautious": {
+      "GSV_MRV": {
+        "summer": 3,
+        "winter": 3
+      },
+      "AER_VOG": {
+        "summer": 3,
+        "winter": 3
+      }
+    }
+  },
+  "frequency_unit": "complete directed circuits/week in EACH orientation; each triangle yields 6*f one-way departures/week",
+  "map_edges": [
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "MOW"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "IKT"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "VOG"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "GOJ"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "KJA"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "KUF"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "BAX"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "GSV"
+    },
+    {
+      "network": "OMS",
+      "origin": "OMS",
+      "destination": "UUD"
+    },
+    {
+      "network": "GSV_MRV",
+      "origin": "MOW",
+      "destination": "GSV"
+    },
+    {
+      "network": "GSV_MRV",
+      "origin": "GSV",
+      "destination": "MRV"
+    },
+    {
+      "network": "GSV_MRV",
+      "origin": "MRV",
+      "destination": "MOW"
+    },
+    {
+      "network": "AER_VOG",
+      "origin": "MOW",
+      "destination": "AER"
+    },
+    {
+      "network": "AER_VOG",
+      "origin": "AER",
+      "destination": "VOG"
+    },
+    {
+      "network": "AER_VOG",
+      "origin": "VOG",
+      "destination": "MOW"
+    }
+  ],
+  "airport_scope": "MOW is a pooled city market at SVO coordinates, not an approved operating/billing airport.",
+  "capacity": "100 seats SSJ95B proxy; SJ100/PD8 economics not independently calibrated; no entry before H2 2027",
+  "seasons": {
+    "summer": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "winter": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ]
+  },
+  "weights": {
+    "summer": 0.5833333333333334,
+    "winter": 0.4166666666666667
+  },
+  "annualization": "Weekly seasonal means * scenario W * 7/12 or 5/12. W=52 base,48 cautious; not 365/7; not 48/52 demand scaling.",
+  "main_cases": [
+    "OMS",
+    "GSV_MRV",
+    "AER_VOG",
+    "DIRECT2",
+    "HYBRID"
+  ],
+  "diagnostic_cases": [
+    "PUBLISHED_SELECTED_DIRECT",
+    "PUBLISHED_HYBRID_ADD"
+  ],
+  "budget_boundary": "Existing variable costs, crew/MRO proxies and own fare forgone retained. Lease/purchase excluded from MAIN by user; financing separately UNKNOWN_NOT_ZERO. Station/IT/insurance/launch/cash additions belong to budget assembly.",
+  "completed_handoff": true,
+  "blocking_dependencies": []
+}

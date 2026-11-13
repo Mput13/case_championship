@@ -1,0 +1,28 @@
+citation,snapshot_path,line,text
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:270,source/f20000e7/src/network_model.py,270,"def leg_cost(A, km, south, pax):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:295,source/f20000e7/src/network_model.py,295,def seasons(A):
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:302,source/f20000e7/src/network_model.py,302,"def pair_profile(a, b, A):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:323,source/f20000e7/src/network_model.py,323,"def spill_carried(load, f, ratios, A):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:336,source/f20000e7/src/network_model.py,336,"def leg_share(L, f, A):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:361,source/f20000e7/src/network_model.py,361,"def hub_network(H, D, A, scen, cand_nodes, fixed_spokes=None):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:486,source/f20000e7/src/network_model.py,486,    if fixed_spokes is not None:
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:458,source/f20000e7/src/network_model.py,458,"            tk = 2 * t * fare(A, dxy) * A[""transfer_fare_factor""]"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:465,source/f20000e7/src/network_model.py,465,"            mg = min(loc_c[X], L[""rw_now""])             # свои пассажиры Red Wings со старого рейса"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:579,source/f20000e7/src/network_model.py,579,"def direct_network(D, A, scen, nodes_all, fixed_selection=None):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:615,source/f20000e7/src/network_model.py,615,"    def tri_eval(B, X, Y, legs):"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:635,source/f20000e7/src/network_model.py,635,    def joint(sel):
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:643,source/f20000e7/src/network_model.py,643,"                    g[""F""] += fs[s]"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:652,source/f20000e7/src/network_model.py,652,"                    carried[(t, n)] = tot * f / F"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:714,source/f20000e7/src/network_model.py,714,    if fixed_selection is not None:
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/network_model.py:829,source/f20000e7/src/network_model.py,829,"            ac = math.ceil(hours_peak / (A[""block_h_per_day""] * 7)) + A[""spare_aircraft""]"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/seasonality.py:30,source/f20000e7/src/seasonality.py,30,"YEARS = [2017, 2018, 2019]"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/seasonality.py:48,source/f20000e7/src/seasonality.py,48,def year_index(v):
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/seasonality.py:61,source/f20000e7/src/seasonality.py,61,"        ks[y] = float(np.polyfit(allp - 1, dom - 1, 1)[0])"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/seasonality.py:63,source/f20000e7/src/seasonality.py,63,"    fb = np.mean([year_index(afl[afl.month.str.startswith(str(y))].sort_values(""month"").value.values)"
+f20000e72d5ca934f45f3aaaca4c320750ebccff:src/seasonality.py:84,source/f20000e7/src/seasonality.py,84,            idx = 1 + k * (raw - 1)
+f20000e72d5ca934f45f3aaaca4c320750ebccff:data/assumptions/network.csv:32,source/f20000e7/data/assumptions/network.csv,32,"weeks_per_year,52,48,недель,""допущение: осторожно — самолёты летают 48 недель из-за «Ковра» и погоды; годовой спрос распределяется на эти недели (аудит команды, ветка audit/end-to-end-20261110)"""
+f20000e72d5ca934f45f3aaaca4c320750ebccff:data/assumptions/network.csv:7,source/f20000e7/data/assumptions/network.csv,7,"spare_aircraft,1,1,самолёт,""допущение коллег: spare_scenario 1; при исправности SSJ около 77% (docs/17) нужен резерв"""
+f20000e72d5ca934f45f3aaaca4c320750ebccff:data/assumptions/network.csv:53,source/f20000e7/data/assumptions/network.csv,53,"season_on,1,1,да/нет,""решение команды 13.11.2026: спрос считается по двум сезонам расписания IATA (лето апрель–октябрь, зима ноябрь–март) с месячными профилями аэропортов (src/seasonality.py, docs/37_seasonality.md); 0 — ровный спрос весь год, как раньше"""
+f20000e72d5ca934f45f3aaaca4c320750ebccff:data/assumptions/network.csv:54,source/f20000e7/data/assumptions/network.csv,54,"season_amplitude,1.00,1.28,множитель размаха сезонности,""база: профили аэропортов Росавиации 2017–2019 с поправкой на международные рейсы k = 0,78 (data/processed/seasonality_calibration.json); осторожно 1,28 ≈ 1 / k — размах как у аэропортов вместе с летними чартерами"""
+f20000e72d5ca934f45f3aaaca4c320750ebccff:data/assumptions/network.csv:55,source/f20000e7/data/assumptions/network.csv,55,"lf_peak_max,0.95,0.90,доля,""факт: наибольшая месячная загрузка кресел на внутренних линиях группы «Аэрофлот» 0,947 в 2024 и 0,949 в 2025 году (data/processed/aeroflot_traffic_monthly.csv); осторожно 0,90 — допущение"""
+f20000e72d5ca934f45f3aaaca4c320750ebccff:data/assumptions/network.csv:52,source/f20000e7/data/assumptions/network.csv,52,"fuel_compensation_rub_per_t,32930,3024,руб. на тонну керосина,""демпфер + обратный акциз 3 024 ₽/т, которые получают авиакомпании; база — среднее за январь–сентябрь 2026 года (3 024; 4 804; 55 122; 50 858; 31 010; 18 125; 30 664; 41 321; 61 445 ₽/т, расчёты Рейтер в The Moscow Times 04.02–06.10.2026, например https://ru.themoscowtimes.com/2026/10/06/dempfer-dlya-aviakerosina-v-rf-vyros-v-15-raza-v-senavg-raschyot-reyter-a207929); осторожно — только обратный акциз, как в январе 2026 года, когда демпфер был нулевым"""

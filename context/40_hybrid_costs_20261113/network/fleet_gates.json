@@ -1,0 +1,55 @@
+{
+  "status": "CAPACITY_RULE_LOWER_BOUND_NOT_DISPATCH_VALIDATION",
+  "model_rule": "ceil(peak seasonal weekly BH / 70) + 1 reserve per geographically independent base",
+  "summer_weekly_BH": {
+    "OMS": 396.79030273023005,
+    "MOW": 174.81055814942258,
+    "combined": 571.6008608796526
+  },
+  "fixed_local_resources": {
+    "OMS_working": [
+      "OMS-W01",
+      "OMS-W02",
+      "OMS-W03",
+      "OMS-W04",
+      "OMS-W05",
+      "OMS-W06"
+    ],
+    "OMS_reserve": [
+      "R_OMS"
+    ],
+    "MOW_working": [
+      "MOW-W01",
+      "MOW-W02",
+      "MOW-W03"
+    ],
+    "MOW_reserve": [
+      "R_MOW"
+    ]
+  },
+  "published_ten": {
+    "arithmetic": "6 OMS working + 3 MOW working + 1 pooled R1 = 10; 7 hub + 3 direct means direct working increment only",
+    "status": "CONDITIONAL_RESERVE_GAP_AT_SECOND_BASE",
+    "gates": [
+      "Define which actual MOW airport is used",
+      "Identify reserve location and readiness at each base",
+      "Guarantee donor/local replacement aircraft and qualified crew or paid ferry lead time",
+      "Show reserve recovery windows, simultaneous-AOG policy, maintenance and weather constraints",
+      "Include repositioning, donor opportunity cost and station support where actually incurred"
+    ],
+    "note": "A single R1 cannot provide immediate simultaneous local coverage in OMS and MOW. Existing operator reserve might satisfy one gate, but availability and donor effect are unknown, not zero."
+  },
+  "no_extra_reserve_double_count": "OMS model already includes one spare. Add only missing MOW spare; two direct triangles share the same MOW reserve. Do not sum standalone chain fleets.",
+  "not_checked": [
+    "actual tail circulation",
+    "slots",
+    "minimum turns",
+    "daily rolling-duty limits",
+    "crew qualifications/roster",
+    "maintenance due dates/PD8 support",
+    "actual rotations/positioning",
+    "weekly closure constraints"
+  ],
+  "resource_labels": "Scenario identifiers only, not actual aircraft registrations",
+  "cautious": "Fixed same OD/city composition remains; lower minimum BH fleet is a sensitivity, retained base fleet remains 11 for full-budget fixed costs."
+}
