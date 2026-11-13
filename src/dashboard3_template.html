@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Wings: Дашборд 3 для аналитиков</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Montserrat+Alternates:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#F3F1EC; --paper-2:#E9E6DF; --white:#FFFFFF; --ink:#111318; --ink-2:#1C2029; --ink-3:#252A35; --ink-line:#2A2F3A;
+  --steel:#8C96A6; --muted:#5E6675; --line:#D9D6CF; --red:#E32A2F; --red-d:#C0262B; --amber:#F5B841; --green:#3FA772;
+  --sea:#E4EBF0; --land:#FBFAF7; --geo-line:#B9B5AC; --blue:#3E6E95;
+  --red-bg:#FBE6E6; --green-bg:#E3F2E9; --amber-bg:#FDF2D9; --blue-bg:#E2ECF4;
+  --f:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --code:"Montserrat Alternates","Onest",system-ui,Arial,sans-serif;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);font-size:15px;line-height:1.5}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+.wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.stick{position:sticky;top:0;z-index:30}
+@media(max-width:760px){.stick{position:static}.brand small{display:none}}
+.top{background:var(--ink);color:#F4F5F7}
+.top .wrap{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--code);font-weight:700;font-size:17px;white-space:nowrap}
+.brand small{font-family:var(--f);font-weight:400;color:var(--steel);font-size:13px}
+.search{flex:1;min-width:180px;max-width:380px;position:relative}
+.search input{width:100%;background:var(--ink-3);border:1px solid var(--ink-line);color:#F4F5F7;border-radius:10px;padding:8px 12px 8px 34px}
+.search input::placeholder{color:var(--steel)}
+.search svg{position:absolute;left:11px;top:11px}
+.sres{position:absolute;top:44px;left:0;right:0;background:var(--white);color:var(--ink);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.25);overflow:hidden;display:none;z-index:5}
+.sres button{display:flex;gap:10px;width:100%;text-align:left;border:0;background:none;padding:9px 14px;border-bottom:1px solid var(--paper-2)}
+.sres button:hover{background:var(--paper)}
+.sres span{color:var(--muted);font-size:13px;margin-left:auto}
+.pill{display:flex;align-items:center;gap:8px;background:var(--ink-3);border:1px solid var(--ink-line);border-radius:999px;padding:6px 12px;font-size:13px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex:none}
+.dot.amber{background:var(--amber)}
+.sw{display:flex;background:var(--ink-3);border-radius:999px;padding:3px;border:1px solid var(--ink-line)}
+.sw a,.sw button{border:0;background:none;color:var(--steel);padding:5px 11px;border-radius:999px;font-size:13px;text-decoration:none;white-space:nowrap}
+.sw .on{background:#F4F5F7;color:var(--ink)}
+.ver{display:flex;margin-left:auto;align-self:center;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;flex:none}
+.ver a{padding:5px 12px;text-decoration:none;color:var(--muted);white-space:nowrap}
+.ver a.on{background:var(--red);color:#fff;font-weight:500}
+.tabs{background:var(--white);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto}
+.tabs button{display:inline-flex;align-items:baseline;flex:none;border:0;background:none;padding:14px 14px 12px;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;font-weight:500}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--red)}
+.tabs button b{font-family:var(--code);font-size:12px;color:var(--steel);margin-right:6px}
+main{padding-block:26px 60px}
+section.tab{display:none}section.tab.on{display:block}
+h1{font-family:var(--code);font-weight:700;font-size:clamp(24px,3vw,32px);line-height:1.15;margin:0 0 6px;text-wrap:balance}
+h2{font-size:19px;margin:0 0 4px;font-weight:700}
+h3{font-size:15px;margin:0 0 6px;font-weight:700}
+.lead{color:var(--muted);max-width:800px;margin:0 0 22px}
+.sub{color:var(--muted);font-size:13.5px}
+.hint{font-size:12.5px;color:var(--muted)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g55{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+#r-t .tag{white-space:normal}
+#r-t td{padding:7px 8px}
+@media(max-width:1000px){.g2,.g3,.g4,.g55{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px 20px;min-width:0}
+.card .hd{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.card .hd .r{margin-left:auto}
+.soft{background:var(--paper);border-radius:14px;padding:14px 16px}
+.btn{border:1px solid var(--line);background:var(--white);border-radius:10px;padding:7px 14px;font-weight:500;font-size:14px}
+.btn:hover{border-color:var(--ink)}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}.btn.red:hover{background:var(--red-d)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.sm{padding:4px 10px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tag{display:inline-block;font-size:11.5px;font-weight:500;padding:1px 8px;border-radius:999px;white-space:nowrap;vertical-align:1px}
+.t-fact{background:var(--green-bg);color:#23704A}.t-model{background:var(--blue-bg);color:var(--blue)}
+.t-asm{background:var(--amber-bg);color:#8A6210}.t-est{background:var(--red-bg);color:var(--red-d)}
+.t-demo{background:var(--ink);color:#fff}.t-req{background:var(--paper-2);color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:16px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative;min-width:0}
+.kpi .l{font-size:13px;color:var(--muted);padding-right:22px}
+.kpi .v{font-family:var(--code);font-weight:700;font-size:26px;line-height:1.2;margin-top:4px;white-space:nowrap}
+.kpi .v small{font-family:var(--f);font-size:13px;font-weight:500;color:var(--muted);margin-left:3px}
+.kpi .d{font-size:12.5px;margin-top:2px}
+.kpi.main{background:var(--ink);color:#fff;border-color:var(--ink)}
+.kpi.main .l,.kpi.main .v small{color:var(--steel)}
+.why{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--muted);font-size:12px;font-weight:700;line-height:20px;padding:0;text-align:center}
+.kpi.main .why{background:var(--ink-3);border-color:var(--ink-line);color:var(--steel)}
+.up{color:#23704A}.dn{color:var(--red-d)}
+.tw{overflow-x:auto;border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-size:12px;font-weight:500;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--white);position:sticky;top:0;z-index:1}
+td{padding:8px 10px;border-bottom:1px solid var(--paper-2);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--paper)}
+tr.bad td{background:var(--red-bg)}tr.warn td{background:var(--amber-bg)}tr.new td{background:var(--green-bg)}tr.sel td{outline:2px solid var(--red);outline-offset:-2px}
+.mono{font-family:var(--mono);font-size:12.5px}
+.bar{height:8px;border-radius:4px;background:var(--paper-2);position:relative;min-width:70px}
+.bar i{position:absolute;top:0;bottom:0;left:0;border-radius:4px;background:var(--red)}
+body.m-show .tech,body.m-show .dev,body.m-an .dev{display:none!important}
+body.m-show .kpi .v{font-size:32px}
+.dev{border-left:3px solid var(--blue);background:var(--blue-bg);border-radius:0 12px 12px 0;padding:12px 14px;margin-top:12px}
+.dev>.dt{font-size:11.5px;font-weight:700;color:var(--blue);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+pre.raw{background:var(--ink);color:#D5DAE2;border-radius:12px;padding:12px 14px;overflow:auto;font-family:var(--mono);font-size:12px;line-height:1.6;margin:8px 0 0;max-height:360px}
+pre.raw .a{color:#7FD3A4}pre.raw .d{color:#FF8A8D}pre.raw .h{color:var(--steel)}
+.story{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px}
+@media(max-width:900px){.story{grid-template-columns:minmax(0,1fr)}}
+.steps{display:flex;flex-direction:column;gap:6px;position:sticky;top:130px;align-self:start}
+@media(max-width:900px){.steps{position:static;flex-direction:row;overflow-x:auto}}
+.steps button{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1px solid transparent;background:none;border-radius:12px;padding:10px 12px;color:var(--muted);flex:none}
+.steps .k{flex:none;width:28px;height:28px;border-radius:50%;background:var(--paper-2);color:var(--muted);font-family:var(--code);font-weight:700;font-size:13px;display:grid;place-items:center}
+.steps b{display:block;color:var(--ink);font-weight:500;font-size:14px;line-height:1.3}
+.steps small{font-size:12.5px;line-height:1.3;display:block}
+.steps button.on{background:var(--white);border-color:var(--line)}
+.steps button.on .k{background:var(--red);color:#fff}
+.steps button.done .k{background:var(--ink);color:#fff}
+.steps button:disabled{opacity:.45;cursor:default}
+.stage{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px 26px;min-width:0}
+.nav{display:flex;justify-content:space-between;margin-top:22px;padding-top:16px;border-top:1px solid var(--paper-2);gap:10px;flex-wrap:wrap}
+.drop{border:2px dashed var(--line);border-radius:16px;padding:28px;text-align:center;background:var(--land);transition:.2s}
+.drop.over{border-color:var(--red);background:var(--red-bg)}
+.file{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--land);text-align:left}
+.file .ic{width:40px;height:48px;border-radius:6px;background:var(--green);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:end center;padding-bottom:6px;flex:none}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--paper-2)}
+.chk:last-child{border-bottom:0}
+.ico{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
+.ico.ok{background:var(--green)}.ico.bad{background:var(--red)}.ico.warn{background:var(--amber);color:var(--ink)}.ico.wait{background:var(--paper-2);color:var(--muted)}.ico.run{background:var(--blue)}
+.formula{font-family:var(--mono);font-size:13px;background:var(--paper);border-radius:10px;padding:10px 12px;margin:8px 0;overflow-x:auto;line-height:1.6}
+.formula b{color:var(--red-d)}
+input.code,textarea.code{font-family:var(--mono);font-size:12.5px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--white);width:100%}
+input.code.err{border-color:var(--red);background:var(--red-bg)}
+.log{background:var(--ink);color:#C9CED6;border-radius:12px;padding:12px 14px;font-family:var(--mono);font-size:12px;line-height:1.65;height:320px;overflow-y:auto}
+.log .ok{color:#7FD3A4}.log .w{color:var(--amber)}.log .t{color:var(--steel)}
+.prog{height:6px;border-radius:3px;background:var(--paper-2);overflow:hidden;margin:10px 0}
+.prog i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.big{font-family:var(--code);font-weight:700;font-size:38px;line-height:1.1}
+.trans{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:10px}
+@media(max-width:900px){.trans{grid-template-columns:minmax(0,1fr)}}
+.trans div{background:var(--paper);border-radius:10px;padding:10px 12px;font-size:13px;position:relative}
+.trans div b{display:block;font-size:11.5px;color:var(--muted);font-weight:500;margin-bottom:4px}
+.trans .mono{word-break:break-all}
+.flow{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+.flow span{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--paper-2);color:var(--muted);font-size:13px;font-weight:500}
+.flow span.done{background:var(--ink);color:#fff}.flow span.now{background:var(--red);color:#fff}
+.seg{display:inline-flex;background:var(--paper-2);border-radius:10px;padding:3px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:5px 12px;border-radius:8px;font-size:13.5px;color:var(--muted)}
+.seg button.on{background:var(--white);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+select{border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--white)}
+textarea{border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;resize:vertical}
+.slider{display:grid;grid-template-columns:140px minmax(0,1fr) 60px;gap:10px;align-items:center;padding:5px 0}
+.slider input{width:100%;accent-color:var(--red)}
+.slider output{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:4px;border-radius:2px;margin-right:5px;vertical-align:2px}
+svg text{font-family:var(--f)}
+.lg .node rect{fill:var(--white);stroke:var(--line);stroke-width:1.2;transition:.2s}
+.lg .node text{font-size:11.5px;fill:var(--ink)}
+.lg .node.src rect{fill:var(--land)}
+.lg .node.step rect{fill:var(--ink)}.lg .node.step text{fill:#F4F5F7;font-family:var(--mono);font-size:11px}
+.lg .node.tbl text{font-family:var(--mono);font-size:11px}
+.lg .node.scr rect{fill:var(--red-bg);stroke:#F0B9BA}
+.lg .edge{fill:none;stroke:var(--line);stroke-width:1.4;transition:.2s}
+.lg.focus .node{opacity:.25}.lg.focus .edge{opacity:.12}
+.lg.focus .node.hl{opacity:1}.lg.focus .edge.hl{opacity:1;stroke:var(--red);stroke-width:2}
+.lg .node.lit rect{stroke:var(--red);stroke-width:2.4}.lg .edge.lit{stroke:var(--red);stroke-width:2.2}.lg .node.step.lit rect{fill:var(--red)}
+.lg.dim .node:not(.lit){opacity:.45}
+.lg .node{cursor:pointer}
+.drawer{position:fixed;inset:0;background:rgba(17,19,24,.45);z-index:50;display:none;justify-content:flex-end}
+.drawer.on{display:flex}
+.drawer .pn{width:min(720px,100%);background:var(--paper);height:100%;overflow-y:auto;padding:22px 24px 40px}
+.pop{position:fixed;z-index:60;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.18);padding:16px 18px;width:min(420px,calc(100vw - 32px));display:none;font-size:13.5px}
+.pop.on{display:block}
+.chain{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.chain div{background:var(--paper);border-radius:8px;padding:6px 10px}
+.chain b{font-weight:500}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;z-index:70;font-size:14px;display:none;max-width:calc(100vw - 32px)}
+.banner{display:flex;gap:12px;align-items:center;background:var(--amber-bg);border:1px solid #EBD9A8;border-radius:12px;padding:10px 14px;margin-bottom:14px;flex-wrap:wrap}
+.vtab{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:4px 0 10px;overflow-x:auto}
+.vtab button{border:0;background:none;padding:8px 12px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;font-size:14px}
+.vtab button.on{color:var(--ink);border-bottom-color:var(--red)}
+footer{color:var(--muted);font-size:13px;padding-block:24px 40px;border-top:1px solid var(--line)}
+footer code{font-family:var(--mono);font-size:12px;background:var(--paper-2);padding:1px 6px;border-radius:4px}
+</style>
+</head>
+<body class="m-an">
+<div class="stick">
+<header class="top"><div class="wrap">
+  <div class="brand"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Сеть и хабы <small>аналитика Red Wings</small></div>
+  <div class="search"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" stroke="#8C96A6" stroke-width="2.5" fill="none"/><path d="M15 15l6 6" stroke="#8C96A6" stroke-width="2.5"/></svg>
+    <input id="q" placeholder="Город, маршрут, параметр или источник" autocomplete="off"><div class="sres" id="sres"></div></div>
+  <div class="pill" id="pill"></div>
+  <div class="sw" id="mode" title="Сколько подробностей показывать"><button data-m="show">Показ</button><button class="on" data-m="an">Аналитик</button><button data-m="dev">Разработчик</button></div>
+</div></header>
+<nav class="tabs"><div class="wrap" id="tabs">
+  <button class="on" data-t="up"><b>01</b>Загрузка данных</button>
+  <button data-t="net"><b>02</b>Сеть</button>
+  <button data-t="how"><b>03</b>Как считается</button>
+  <button data-t="data"><b>04</b>Данные</button>
+  <div class="ver" aria-label="Версия панели"><a href="redwings_panel_v1.html">Дашборд 1</a><a href="redwings_panel.html">Дашборд 2</a><a class="on" href="redwings_panel_v3.html" aria-current="page">Дашборд 3</a></div>
+</div></nav>
+</div>
+
+<main class="wrap">
+<!-- ================= 01 ЗАГРУЗКА ================= -->
+<section class="tab on" id="t-up">
+  <h1>Загрузка данных</h1>
+  <p class="lead">Новый файл проходит семь шагов: чтение, проверка по правилам, сравнение с прежними данными, быстрая оценка, полный расчёт, согласование и обновление панели. Отклонённые строки не удаляются, каждую цифру можно открыть в сыром виде.</p>
+  <div class="story"><div class="steps" id="steps"></div><div class="stage" id="stage"></div></div>
+</section>
+
+<!-- ================= 02 СЕТЬ ================= -->
+<section class="tab" id="t-net">
+  <div id="net-banner"></div>
+  <div class="row" style="justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+    <div><h1 id="net-h"></h1><p class="sub" id="net-sub" style="margin:0"></p></div>
+    <div class="row"><select id="net-hub"></select><div class="seg" id="net-scn"><button class="on" data-s="base">Базовый</button><button data-s="cautious">Осторожный</button></div></div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid g55">
+    <div class="card"><div class="hd"><h2>Сеть на карте</h2><span class="sub r">толщина — пассажиры, цвет — итог луча</span></div>
+      <svg id="map" viewBox="0 0 600 330" style="width:100%;height:auto;display:block;border-radius:10px"></svg>
+      <div class="legend" style="margin-top:8px"><span><i style="background:var(--green)"></i>луч в плюсе</span><span><i style="background:var(--red)"></i>в минусе</span><span>город или строка таблицы открывает карточку луча</span></div></div>
+    <div class="card"><div class="hd"><h2>Лучи</h2><div class="seg r" id="r-f"><button class="on" data-f="all">Все</button><button data-f="minus">В минусе</button><button data-f="est">Спрос оценён</button></div><button class="btn sm" id="r-csv">.csv</button></div>
+      <div class="tw"><table id="r-t"></table></div>
+      <div class="grid g3 tech" style="margin-top:12px" id="r-unit"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><div class="hd"><h2>Сравнить с другим хабом</h2><select id="c-b" class="r"></select></div><div class="tw"><table id="c-t"></table></div></div>
+    <div class="card"><div class="hd"><h2>Что если</h2><span class="sub">быстрая оценка без пересборки сети</span><button class="btn sm r" id="s-reset">Сбросить</button></div>
+      <div id="s-sl"></div>
+      <div class="row" style="margin:10px 0 4px;align-items:flex-end;gap:18px"><div><div class="sub">Итог сети, млн ₽ в год</div><div class="big" id="s-res"></div></div><div class="sub" id="s-delta"></div></div>
+      <h3 style="margin-top:14px">Что сильнее всего двигает итог, каждый фактор ±10%</h3>
+      <svg id="tornado" viewBox="0 0 520 240" style="width:100%;height:auto;display:block"></svg></div>
+  </div>
+</section>
+
+<!-- ================= 03 КАК СЧИТАЕТСЯ ================= -->
+<section class="tab" id="t-how">
+  <h1>Как считается</h1>
+  <p class="lead">Путь каждой цифры: источник, программа, которая его обработала, таблица и экран. Наведите на блок схемы, и подсветится всё, от чего он зависит и что зависит от него.</p>
+  <div class="card"><div class="hd"><h2>Путь данных</h2><span class="sub r">главные шаги из <span class="mono">src/update.py</span></span></div>
+    <div class="tw"><svg id="lineage" class="lg" viewBox="0 -8 1140 470" style="width:100%;min-width:900px;height:auto;display:block"></svg></div>
+    <div id="lin-info" class="hint" style="margin-top:6px">Нажмите на блок, чтобы увидеть, что он делает.</div></div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card" id="formulas"></div>
+    <div class="card"><div class="hd"><h2>Балл города в рейтинге</h2><select id="sc-city" class="r"></select></div>
+      <p class="sub" style="margin-top:0">Сырое значение переводится в шкалу 0–1 и умножается на вес. Сумма вкладов и есть балл. Наведите на строку, чтобы увидеть источник.</p>
+      <div class="tw"><table id="sc-t"></table></div><div id="sc-sum" style="margin-top:10px"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><div class="hd"><h2>Свои веса</h2><span class="sub">рейтинг 20 городов пересчитывается сразу</span><button class="btn sm r" id="w-reset">Веса команды</button></div>
+    <div class="grid g2"><div id="w-sl"></div><div class="tw"><table id="w-t"></table></div></div></div>
+</section>
+
+<!-- ================= 04 ДАННЫЕ ================= -->
+<section class="tab" id="t-data">
+  <h1>Данные</h1>
+  <p class="lead">Все источники модели, шаблоны загрузки, правила проверки и допущения. Числа, которые задаёт команда, лежат в таблицах. Код модели берёт их оттуда.</p>
+  <div class="card"><div class="hd"><h2>Каталог источников</h2><div class="seg r" id="src-f"><button class="on" data-f="all">Все</button><button data-f="data">Данные модели</button><button data-f="watch">Новости</button></div></div>
+    <div class="tw"><table id="src-t"></table></div></div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><div class="hd"><h2>Шаблон «Потоки по парам городов»</h2><button class="btn sm r" id="tpl-dl">Скачать шаблон</button></div>
+      <p class="sub" style="margin-top:0">Файл <span class="mono">data/manual/known_flows.csv</span>, сейчас <span id="kf-n"></span> строк.</p>
+      <div class="tw"><table id="tpl-t"></table></div></div>
+    <div class="card"><div class="hd"><h2>Правила проверки</h2><button class="btn sm r" id="rules-dl">Скачать правила</button></div>
+      <p class="sub" style="margin-top:0">Файл <span class="mono">data/manual/upload_rules.csv</span>. По этим правилам панель и сервер проверяют загрузку. Правило можно поменять на шаге «Проверка» во вкладке «Загрузка данных».</p>
+      <div class="tw"><table id="rules-t"></table></div></div>
+  </div>
+  <div class="grid g55" style="margin-top:16px">
+    <div class="card"><div class="hd"><h2>Допущения модели</h2><span class="sub r"><span class="mono">data/assumptions/network.csv</span></span></div>
+      <div class="row" style="margin-bottom:10px"><div class="seg" id="asm-f"><button class="on" data-f="all">Все</button><button data-f="fact">Факты</button><button data-f="asm">Допущения</button><button data-f="req">Требования кейса</button></div>
+        <button class="btn sm red" id="asm-dl" disabled style="margin-left:auto">Скачать черновик</button></div>
+      <p class="hint" id="asm-draft" style="margin:0 0 8px"></p>
+      <div class="tw" style="max-height:540px"><table id="asm-t"></table></div></div>
+    <div class="card"><div class="hd"><h2>Проверки расчёта</h2><span class="sub r" id="chk-sum"></span></div><div id="checks"></div></div>
+  </div>
+</section>
+<footer id="foot"></footer>
+</main>
+
+<div class="drawer" id="drawer"><div class="pn" id="dpn"></div></div>
+<div class="pop" id="pop"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const D = __DATA__;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const fmt = (n, d = 0) => (n == null || isNaN(n)) ? '—' : Number(n).toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
+const sg = (n, d = 0) => (n > 0 ? '+' : '') + fmt(n, d);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const cls = n => n >= 0 ? 'up' : 'dn';
+const nm = c => D.names[c] || c;
+const MON = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+const A = { base: Object.fromEntries(D.asm.map(a => [a.k, +a.b])), cautious: Object.fromEntries(D.asm.map(a => [a.k, +a.c])) };
+const pl = (n, a, b, c) => { n = Math.abs(n) % 100; const m = n % 10; return n > 10 && n < 20 ? c : m === 1 ? a : m > 1 && m < 5 ? b : c; };
+function toast(t) { const e = $('#toast'); e.textContent = t; e.style.display = 'block'; clearTimeout(e._t); e._t = setTimeout(() => e.style.display = 'none', 3400); }
+function dl(name, text) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + text], { type: 'text/csv;charset=utf-8' })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); }
+const csvCell = v => /[,"\n]/.test(String(v ?? '')) ? `"${String(v).replace(/"/g, '""')}"` : String(v ?? '');
+const toCSV = (head, rows) => head.join(',') + '\n' + rows.map(r => head.map(h => csvCell(r[h])).join(',')).join('\n');
+
+/* ---------- состояние ---------- */
+const S = { tab: 'up', mode: 'an', hub: D.meta.hub, scn: 'base', step: 0, file: null, v: null, demoRun: false, pipeDone: false,
+  status: 'none', reviewer: '', review: '', sel: 0, rawTab: 'new' };
+const REVIEWERS = ['второй аналитик сети', 'руководитель сети', 'разработчик модели'];
+
+/* ---------- данные расчёта с учётом примера ---------- */
+function rays(hub = S.hub, scn = S.scn) {
+  const base = (D.rays[scn][hub] || []).map(r => ({ ...r }));
+  if (!(S.demoRun && hub === D.demo.hub && scn === 'base')) return base;
+  return base.map(r => { const p = D.demo.rays[r.to]; if (!p) return r;
+    const o = { ...r, demo: true, res0: r.res, fs0: r.fs, fw0: r.fw };
+    o.res = p.res; o.rev = +(r.rev + (p.res - r.res)).toFixed(1); o.cost = +(o.rev + r.subsidy - p.res).toFixed(1);
+    if (p.fs) { o.fs = p.fs; o.fw = p.fw; }
+    const f = S.v && S.v.okRows.find(x => pairKey(x.r.from_iata, x.r.to_iata) === pairKey(hub, r.to));
+    if (f && f.old) { o.local = Math.round(r.local * f.year / f.old[0]); o.seg = o.local + r.tr; o.src = `Отчёт аэропорта о потоке пары (${f.r.period} × ${f.r.annual_factor}) × доля своих поездок`; }
+    return o; });
+}
+function summary(hub = S.hub, scn = S.scn) {
+  const h = D.hubs.find(x => x.hub === hub && x.scenario === scn); if (!h) return null;
+  const o = { routes: h.routes, aircraft: h.aircraft, flights: h.flights_week, seg: h.segments_year, od: h.od_trips_year, tr: h.transfer_od_year,
+    rev: h.revenue_mln_year, sub: h.subsidy_mln_year, cost: h.var_cost_mln_year, res: h.result_mln_year, share: h.share_pp, be: h.fare_up_to_breakeven_pct, kover: h.kover_days_avg, name: h.variant.replace('Хаб ', '') };
+  if (S.demoRun && hub === D.demo.hub && scn === 'base') { const rs = rays(hub, scn); o.res0 = o.res;
+    o.res = rs.reduce((a, r) => a + r.res, 0); o.rev = rs.reduce((a, r) => a + r.rev, 0); o.cost = o.rev + o.sub - o.res; o.seg = rs.reduce((a, r) => a + r.seg, 0);
+    o.flights = D.demo.summary.flights_week; o.share = D.demo.summary.share_pp; o.demo = true; }
+  return o;
+}
+function demandTag(src) {
+  if (/Отчёт аэропорта/.test(src)) return ['t-fact', 'факт × доля'];
+  if (/неуверенн/.test(src)) return ['t-est', 'оценка, неуверенно'];
+  if (/Среднее оценок|модель тяготения/.test(src)) return ['t-model', 'оценка'];
+  return ['t-model', 'модель пересадок'];
+}
+const pairKey = (a, b) => [a, b].sort().join('-');
+
+/* ---------- шапка ---------- */
+function renderPill() {
+  $('#pill').innerHTML = S.demoRun ? `<span class="dot amber"></span>Расчёт #${D.demo.run} · пример` : `<span class="dot"></span>Расчёт от ${D.meta.built}${D.meta.commit ? ' · ' + D.meta.commit : ''}`;
+}
+const RENDER = {};
+function go(t) {
+  S.tab = t; $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  $$('section.tab').forEach(s => s.classList.toggle('on', s.id === 't-' + t));
+  RENDER[t](); window.scrollTo({ top: 0 });
+  if (location.hash !== '#' + t) history.replaceState(null, '', '#' + t);
+}
+$('#tabs').onclick = e => { const b = e.target.closest('button'); if (b) go(b.dataset.t); };
+$('#mode').onclick = e => { const b = e.target.closest('button'); if (!b) return; S.mode = b.dataset.m;
+  $$('#mode button').forEach(x => x.classList.toggle('on', x === b)); document.body.className = 'm-' + S.mode; try { localStorage.setItem('rw3-mode', S.mode); } catch (e) { } };
+function why(ev, title, lines, tag) {
+  ev.stopPropagation(); const p = $('#pop');
+  p.innerHTML = `<h3>${title} ${tag ? `<span class="tag ${tag[0]}">${tag[1]}</span>` : ''}</h3><div class="chain">${lines.map(l => `<div>${l}</div>`).join('')}</div>`;
+  p.classList.add('on'); const r = ev.target.getBoundingClientRect();
+  p.style.top = Math.max(12, Math.min(window.innerHeight - p.offsetHeight - 12, r.bottom + 8)) + 'px';
+  p.style.left = Math.max(16, Math.min(window.innerWidth - p.offsetWidth - 16, r.left - 300)) + 'px';
+}
+document.addEventListener('click', e => { if (!e.target.closest('#pop')) $('#pop').classList.remove('on'); if (!e.target.closest('.search')) $('#sres').style.display = 'none'; });
+const devBox = (title, html) => `<div class="dev"><div class="dt">Для разработчика · ${title}</div>${html}</div>`;
+
+/* ================= 01 ЗАГРУЗКА ================= */
+const STEPS = [['Файл', 'чтение и весь файл целиком'], ['Проверка', 'правила, которые можно менять'], ['Что изменится', 'путь строки и разница'],
+  ['Быстрая оценка', 'влияние на лучи хаба'], ['Расчёт', 'модель пересобирает сеть'], ['Согласование', 'сырые данные, перепроверка, решение'], ['Где видно', 'обновлённая панель']];
+function canGo(i) { return i === 0 || (i === 1 && !!S.file) || (S.file && i <= 4 && S.v.okRows.length) || (i === 5 && S.pipeDone) || (i === 6 && S.status === 'accepted'); }
+function renderSteps() {
+  $('#steps').innerHTML = STEPS.map(([a, b], i) => `<button data-i="${i}" class="${i === S.step ? 'on' : ''} ${i < S.step ? 'done' : ''}" ${canGo(i) ? '' : 'disabled'}><span class="k">${i < S.step ? '✓' : i + 1}</span><span><b>${a}</b><small>${b}</small></span></button>`).join('');
+}
+$('#steps').onclick = e => { const b = e.target.closest('button'); if (b && !b.disabled) { S.step = +b.dataset.i; renderUp(); } };
+$('#stage').addEventListener('click', e => { const b = e.target.closest('[data-nav]'); if (b && !b.disabled) { S.step += +b.dataset.nav; renderUp(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+const nav = (next = 'Дальше', ok = true) => `<div class="nav"><button class="btn" data-nav="-1" ${S.step ? '' : 'disabled'}>← Назад</button>${next ? `<button class="btn red" data-nav="1" ${ok ? '' : 'disabled'}>${next} →</button>` : ''}</div>`;
+const demoTag = () => S.file && S.file.demo ? '<span class="tag t-demo">пример</span> ' : '';
+
+function parseCSV(t) {
+  const lines = t.replace(/^﻿/, '').replace(/\r/g, '').split('\n').filter(l => l.trim());
+  const delim = (lines[0].match(/;/g) || []).length > (lines[0].match(/,/g) || []).length ? ';' : ',';
+  const split = l => { const out = []; let cur = '', q = false; for (let i = 0; i < l.length; i++) { const ch = l[i];
+    if (ch === '"') { if (q && l[i + 1] === '"') { cur += '"'; i++; } else q = !q; } else if (ch === delim && !q) { out.push(cur); cur = ''; } else cur += ch; } out.push(cur); return out; };
+  const head = split(lines[0]).map(h => h.trim());
+  return { delim, head, lines, rows: lines.slice(1).map(l => { const v = split(l); return Object.fromEntries(head.map((h, i) => [h, (v[i] ?? '').trim()])); }) };
+}
+const KNOWN = new Set([...Object.keys(D.names), ...Object.keys(D.pts), ...Object.keys(D.pairs).flatMap(k => k.split('-'))]);
+let RULES = D.rules.filter(r => r.dataset === 'known_flows').map(r => ({ ...r, on: true }));
+function compile(expr) {
+  try { return { fn: new Function('row', 'h', 'with (h) { with (row) { return (' + expr + '); } }') }; } catch (e) { return { err: e.message }; }
+}
+function validate(f) {
+  const NUM = ['pax', 'annual_factor'];
+  const ctxRows = f.rows.map(r => { const row = { ...r }; NUM.forEach(k => row[k] = r[k] === '' ? NaN : Number(String(r[k]).replace(/\s/g, '').replace(',', '.')));
+    row.year = Math.round(row.pax * (row.annual_factor || 1)); const o = D.pairs[pairKey(r.from_iata, r.to_iata)]; row.old = o ? o[0] : null; return row; });
+  const counts = {};
+  const helpers = c => ({ iata: x => KNOWN.has(String(x)), isInt: x => Number.isInteger(x), unique: k => c ? (counts[k] = (counts[k] || 0) + 1, true) : counts[k] === 1 });
+  const res = RULES.map(rule => { const c = compile(rule.expr); return { rule, ...c, fails: [] }; });
+  res.forEach(x => { if (x.fn && x.rule.on) ctxRows.forEach(row => { try { x.fn(row, helpers(true)); } catch (e) { } }); });
+  res.forEach(x => { if (!x.fn || !x.rule.on) return; ctxRows.forEach((row, i) => { let ok; try { ok = !!x.fn(row, helpers(false)); } catch (e) { ok = false; x.runErr = e.message; } if (!ok) x.fails.push(i); }); });
+  const rows = f.rows.map((r, i) => { const errs = res.filter(x => x.fails.includes(i)); const o = D.pairs[pairKey(r.from_iata, r.to_iata)];
+    return { i: i + 1, r, year: ctxRows[i].year, old: o || null, err: errs.filter(x => x.rule.level === 'ошибка').map(x => x.rule), warn: errs.filter(x => x.rule.level !== 'ошибка').map(x => x.rule) }; });
+  const need = ['from_iata', 'to_iata', 'pax', 'period', 'annual_factor', 'source'];
+  return { res, rows, miss: need.filter(c => !f.head.includes(c)), okRows: rows.filter(x => !x.err.length), badRows: rows.filter(x => x.err.length) };
+}
+function loadFile(name, text, demo) {
+  const p = parseCSV(text);
+  S.file = { name, text, demo, size: new Blob([text]).size, ...p }; S.v = validate(S.file);
+  S.pipeDone = false; S.status = 'none'; S.demoRun = false; S.sel = 0; renderPill();
+  if (crypto.subtle) crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(b => { S.file.sha = [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); if (S.step === 0) renderUp(); }).catch(() => { });
+  renderUp();
+}
+function csvTable(head, rows, mark) {
+  return `<div class="tw" style="max-height:340px"><table><tr><th>№</th>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>${rows.map((r, i) => `<tr class="${mark ? mark(r, i) : ''}"><td class="hint">${i + 1}</td>${head.map(h => `<td class="${h === 'pax' ? 'n' : ''}" style="${h === 'source' || h === 'quote' ? 'max-width:260px' : ''}">${esc(r[h])}</td>`).join('')}</tr>`).join('')}</table></div>`;
+}
+
+/* --- новые версии файлов --- */
+function newKnownFlows() {
+  const rows = D.kf.map(r => ({ ...r, _st: '' }));
+  S.v.okRows.forEach(x => { const k = pairKey(x.r.from_iata, x.r.to_iata); const idx = rows.findIndex(r => pairKey(r.from_iata, r.to_iata) === k);
+    const nr = Object.fromEntries(D.kf_head.map(h => [h, x.r[h] ?? ''])); if (!nr.from_city) nr.from_city = nm(x.r.from_iata); if (!nr.to_city) nr.to_city = nm(x.r.to_iata);
+    if (idx >= 0) rows[idx] = { ...nr, _st: 'chg', _old: rows[idx] }; else rows.push({ ...nr, _st: 'new' }); });
+  return rows;
+}
+function unifiedDiff(rows) {
+  let out = `<span class="h">--- a/data/manual/known_flows.csv\n+++ b/data/manual/known_flows.csv</span>\n`;
+  rows.forEach(r => { if (r._st === 'chg') out += `<span class="d">-${esc(D.kf_head.map(h => csvCell(r._old[h])).join(','))}</span>\n<span class="a">+${esc(D.kf_head.map(h => csvCell(r[h])).join(','))}</span>\n`;
+    else if (r._st === 'new') out += `<span class="a">+${esc(D.kf_head.map(h => csvCell(r[h])).join(','))}</span>\n`; });
+  return out;
+}
+
+const UP = [
+  // 1. файл
+  st => {
+    const f = S.file;
+    st.innerHTML = `<h2>Шаг 1. Файл</h2>
+    <p class="sub">Аналитик заносит данные в шаблон источника и перетаскивает файл сюда. Сейчас к загрузке подключён шаблон «Потоки по парам городов» (отчёты аэропортов о пассажирах по направлениям). Файл читается в браузере и никуда не отправляется.</p>
+    <div class="drop" id="drop">${f ? `<div class="file"><span class="ic">CSV</span><div style="min-width:0"><b>${esc(f.name)}</b> ${demoTag()}<div class="sub">${fmt(f.size / 1024, 1)} КБ · ${f.rows.length} ${pl(f.rows.length, 'строка', 'строки', 'строк')} · ${f.head.length} колонок</div></div><button class="btn sm" id="fx" style="margin-left:auto">Убрать</button></div>`
+      : `<svg width="40" height="40" viewBox="0 0 24 24"><path d="M12 16V4m0 0l-5 5m5-5l5 5M4 20h16" stroke="#8C96A6" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <p style="margin:6px 0 14px"><b>Перетащите .csv</b> или выберите файл</p>
+        <div class="row" style="justify-content:center"><button class="btn red" id="demo">Открыть пример</button><label class="btn">Свой файл<input type="file" accept=".csv,text/csv" id="fin" hidden></label><button class="btn" id="tpl">Скачать шаблон</button></div>
+        <p class="hint" style="margin:12px 0 0">Пример: отчёт аэропорта Омск за январь–октябрь 2026. Цифры в нём придуманы для показа, в модель они не попадают.</p>`}</div>
+    ${f ? `<div class="row" style="margin-top:18px;justify-content:space-between"><h3 style="margin:0">Весь файл</h3><div class="seg" id="vw"><button class="${S.raw1 !== 'txt' ? 'on' : ''}" data-v="tbl">Таблица</button><button class="${S.raw1 === 'txt' ? 'on' : ''}" data-v="txt">Как в файле</button></div></div>
+      ${S.raw1 === 'txt' ? `<pre class="raw">${esc(f.text)}</pre>` : csvTable(f.head, f.rows)}
+      ${devBox('как прочитан файл', `<div class="sub">Разделитель «${f.delim}», кодировка UTF-8, заголовок: ${f.head.length} колонок. SHA-256: <span class="mono">${f.sha || 'считается…'}</span></div><pre class="raw">${esc(JSON.stringify(f.rows[0], null, 2))}</pre><p class="hint" style="margin:6px 0 0">Так первая строка выглядит после разбора. Тот же разбор делает сервер перед расчётом.</p>`)}` : ''}
+    ${nav('Проверить', !!f)}`;
+    if (!f) {
+      $('#demo').onclick = () => loadFile(D.demo.file_name, D.demo.file_csv, true);
+      $('#tpl').onclick = () => dl('shablon_known_flows.csv', D.kf_head.join(',') + '\n');
+      $('#fin').onchange = e => { const x = e.target.files[0]; if (x) x.text().then(t => loadFile(x.name, t, false)); };
+      const d = $('#drop'); d.ondragover = e => { e.preventDefault(); d.classList.add('over'); }; d.ondragleave = () => d.classList.remove('over');
+      d.ondrop = e => { e.preventDefault(); d.classList.remove('over'); const x = e.dataTransfer.files[0]; if (x) x.text().then(t => loadFile(x.name, t, false)); };
+    } else {
+      $('#fx').onclick = () => { S.file = null; S.v = null; S.demoRun = false; S.pipeDone = false; S.status = 'none'; renderPill(); renderUp(); };
+      $('#vw').onclick = e => { const b = e.target.closest('button'); if (b) { S.raw1 = b.dataset.v; renderUp(); } };
+    }
+  },
+  // 2. проверка
+  st => {
+    const f = S.file, v = S.v = validate(S.file);
+    const shown = ['from_iata', 'to_iata', 'to_city', 'pax', 'period', 'annual_factor', 'source'].filter(h => f.head.includes(h));
+    st.innerHTML = `<h2>Шаг 2. Проверка ${demoTag()}</h2>
+    <p class="sub">Каждая строка проходит правила ниже. Строка с ошибкой в расчёт не идёт, но и не теряется: она остаётся в списке отклонённых и сохранится отдельным файлом. Предупреждение строку не блокирует.</p>
+    <div class="grid g4" style="margin:14px 0">${[['Колонки', v.miss.length ? 'нет: ' + v.miss.join(', ') : 'все на месте', !v.miss.length], ['Строк', f.rows.length, true], ['Принято', v.okRows.length, true], ['Отклонено', v.badRows.length, !v.badRows.length]]
+      .map(([a, b, ok]) => `<div class="kpi"><div class="l">${a}</div><div class="v" style="font-size:21px;color:${ok ? 'var(--ink)' : 'var(--red-d)'}">${b}</div></div>`).join('')}</div>
+    <h3>Что проверено</h3>
+    <div id="rules"></div>
+    <div class="row" style="margin-top:8px"><button class="btn sm" id="radd">+ Своё правило</button><button class="btn sm" id="rreset">Вернуть правила из файла</button><span class="hint">Условие пишется по колонкам строки, например <span class="mono">pax &lt; 2000000</span>. Проверка срабатывает сразу.</span></div>
+    ${devBox('правила как данные', `<p class="sub" style="margin:0 0 6px">Правила лежат в <span class="mono">data/manual/upload_rules.csv</span>. В условии доступны колонки строки, <span class="mono">year</span> (пассажиры за год), <span class="mono">old</span> (прежнее значение пары или null) и функции <span class="mono">iata(код)</span>, <span class="mono">isInt(x)</span>, <span class="mono">unique(ключ)</span>.</p><pre class="raw">${esc(toCSV(['dataset', 'id', 'name', 'expr', 'level', 'why'], RULES))}</pre><button class="btn sm" id="rdl" style="margin-top:8px">Скачать правила с моими изменениями</button>`)}
+    <h3 style="margin-top:18px">Строки файла</h3>
+    <div class="tw" style="max-height:360px"><table><tr><th>№</th>${shown.map(c => `<th>${c}</th>`).join('')}<th class="n">в год</th><th>итог</th></tr>
+      ${v.rows.map(x => `<tr class="${x.err.length ? 'bad' : x.warn.length ? 'warn' : ''}"><td class="hint">${x.i}</td>${shown.map(c => `<td class="${c === 'pax' || c === 'annual_factor' ? 'n' : ''}" style="${c === 'source' ? 'max-width:200px' : ''}">${c === 'pax' ? fmt(+x.r[c]) : esc(x.r[c]) || '<span class="dn">пусто</span>'}</td>`).join('')}
+        <td class="n">${x.err.length ? '' : fmt(x.year)}</td><td style="min-width:200px">${x.err.length ? `<span class="dn"><b>отклонена:</b> ${x.err.map(r => esc(r.name.toLowerCase())).join('; ')}</span>` : x.warn.length ? `<span style="color:#8A6210">принята с предупреждением: ${x.warn.map(r => esc(r.name.toLowerCase())).join('; ')}</span>` : '<span class="up">принята</span>'}</td></tr>`).join('')}
+    </table></div>
+    ${v.badRows.length ? `<div class="soft" style="margin-top:12px"><div class="row"><b>Отклонённые строки: ${v.badRows.length}</b><span class="sub">сохранятся в <span class="mono">data/quarantine/${esc(f.name)}</span> вместе с причиной</span><button class="btn sm" id="qdl" style="margin-left:auto">Скачать</button></div></div>` : ''}
+    ${nav(`Принять ${v.okRows.length} ${pl(v.okRows.length, 'строку', 'строки', 'строк')}`, v.okRows.length > 0 && !v.miss.length)}`;
+    $('#rules').innerHTML = `<div class="tw"><table><tr><th></th><th>Правило</th><th style="min-width:300px">Условие (можно менять)</th><th>Уровень</th><th class="n">Не прошли</th></tr>${v.res.map((x, i) => `<tr>
+      <td><input type="checkbox" data-on="${i}" ${x.rule.on ? 'checked' : ''} title="Включить или выключить правило"></td>
+      <td><input class="code" style="font-family:var(--f);font-size:13.5px;border-color:transparent" data-nm="${i}" value="${esc(x.rule.name)}"><div class="hint">${esc(x.rule.why || '')}</div></td>
+      <td><input class="code ${x.err || x.runErr ? 'err' : ''}" data-ex="${i}" value="${esc(x.rule.expr)}">${x.err ? `<div class="hint dn">${esc(x.err)}</div>` : ''}</td>
+      <td><select data-lv="${i}"><option ${x.rule.level === 'ошибка' ? 'selected' : ''}>ошибка</option><option ${x.rule.level !== 'ошибка' ? 'selected' : ''}>предупреждение</option></select></td>
+      <td class="n">${!x.rule.on ? '<span class="hint">выкл.</span>' : x.err ? '—' : x.fails.length ? `<span class="${x.rule.level === 'ошибка' ? 'dn' : ''}" style="font-weight:700">${x.fails.length}: стр. ${x.fails.map(n => n + 1).join(', ')}</span>` : '<span class="up">✓ 0</span>'}</td></tr>`).join('')}</table></div>`;
+    const re = () => { S.v = validate(S.file); UP[1]($('#stage')); renderSteps(); };
+    $$('[data-on]').forEach(e => e.onchange = () => { RULES[+e.dataset.on].on = e.checked; re(); });
+    $$('[data-ex]').forEach(e => e.onchange = () => { RULES[+e.dataset.ex].expr = e.value; re(); });
+    $$('[data-nm]').forEach(e => e.onchange = () => { RULES[+e.dataset.nm].name = e.value; });
+    $$('[data-lv]').forEach(e => e.onchange = () => { RULES[+e.dataset.lv].level = e.value; re(); });
+    $('#radd').onclick = () => { RULES.push({ dataset: 'known_flows', id: 'my' + RULES.length, name: 'Моё правило', expr: 'pax < 5000000', level: 'предупреждение', why: 'добавлено в панели', on: true }); re(); };
+    $('#rreset').onclick = () => { RULES = D.rules.filter(r => r.dataset === 'known_flows').map(r => ({ ...r, on: true })); re(); };
+    $('#rdl').onclick = () => dl('upload_rules.csv', toCSV(['dataset', 'id', 'name', 'expr', 'level', 'why'], RULES));
+    if ($('#qdl')) $('#qdl').onclick = () => dl('otkloneno_' + f.name, toCSV([...f.head, 'reason'], v.badRows.map(x => ({ ...x.r, reason: x.err.map(r => r.name).join('; ') }))));
+  },
+  // 3. что изменится
+  st => {
+    const ok = S.v.okRows, x = ok[Math.min(S.sel, ok.length - 1)], nk = newKnownFlows();
+    const used = k => Object.entries(D.rays.base).flatMap(([h, rs]) => rs.filter(r => pairKey(h, r.to) === k).map(() => h));
+    const kindTxt = o => !o ? ['t-req', 'новая пара'] : o[1] === 'f' ? ['t-fact', 'факт'] : o[1] === 'e' ? ['t-est', 'оценка, неуверенно'] : ['t-model', 'оценка модели'];
+    const xk = pairKey(x.r.from_iata, x.r.to_iata), xh = used(xk);
+    st.innerHTML = `<h2>Шаг 3. Что изменится ${demoTag()}</h2>
+    <p class="sub">Расчёта ещё нет: панель переводит каждую строку в год и ставит рядом с тем, что модель знала до этого. Нажмите на строку, чтобы увидеть её путь целиком.</p>
+    <div class="tw" style="margin-top:10px"><table><tr><th>Пара</th><th class="n">было, в год</th><th>что было</th><th class="n">стало</th><th class="n">разница</th><th>в каких хабах эта пара — луч</th></tr>
+    ${ok.map((y, i) => { const o = y.old, d = o ? y.year / o[0] - 1 : null, t = kindTxt(o), hs = used(pairKey(y.r.from_iata, y.r.to_iata));
+      return `<tr class="click ${i === S.sel ? 'sel' : ''} ${o && o[1] !== 'f' ? 'new' : ''}" data-s="${i}"><td><b>${esc(nm(y.r.from_iata))} → ${esc(nm(y.r.to_iata))}</b></td><td class="n">${o ? fmt(o[0]) : '—'}</td><td><span class="tag ${t[0]}">${t[1]}</span></td><td class="n"><b>${fmt(y.year)}</b></td><td class="n ${d == null ? '' : cls(d)}">${d == null ? 'новая' : sg(d * 100, 1) + '%'}</td><td class="sub">${hs.length ? hs.map(nm).join(', ') : 'нет: идёт в калибровку спроса'}</td></tr>`; }).join('')}
+    </table></div>
+    <h3 style="margin-top:18px">Путь строки ${x.i}: ${esc(nm(x.r.from_iata))} → ${esc(nm(x.r.to_iata))}</h3>
+    <div class="trans">
+      <div><b>1. Строка файла</b><span class="mono">${esc(S.file.lines[x.i])}</span></div>
+      <div><b>2. Поля</b>вылет <span class="mono">${esc(x.r.from_iata)}</span> = ${esc(nm(x.r.from_iata))}<br>прилёт <span class="mono">${esc(x.r.to_iata)}</span> = ${esc(nm(x.r.to_iata))}<br>пассажиров ${fmt(+x.r.pax)} за ${esc(x.r.period)}</div>
+      <div><b>3. В год</b>${fmt(+x.r.pax)} × ${esc(x.r.annual_factor)} = <b style="display:inline;font-size:13px;color:var(--ink)">${fmt(x.year)}</b><br><span class="hint">колонка annual_factor</span></div>
+      <div><b>4. Пара в модели</b><span class="mono">${xk}</span><br>было ${x.old ? fmt(x.old[0]) : '—'}: ${kindTxt(x.old)[1]}${x.old && x.old[1] === 'e' ? `, методы расходятся в ${fmt(x.old[2], 1)} раза` : ''}</div>
+      <div><b>5. Что сделает модель</b>${x.old && x.old[1] !== 'f' ? 'заменит оценку фактом' : x.old ? 'обновит факт' : 'добавит новую известную пару'} и перенастроит модель спроса. ${xh.length ? `Луч в сети хаба ${xh.map(nm).join(', ')} получит новый спрос.` : 'Лучом ни в одном хабе пара не является.'}</div>
+    </div>
+    <div class="soft" style="margin-top:16px"><h3>Какие расчёты затронет файл</h3>
+      <p class="sub" style="margin:0 0 6px">Красным подсвечено то, что пересчитается: модель спроса, рейтинг (критерий «Пересадки») и сеть. Серое этот файл не использует.</p>
+      <div class="tw"><svg id="mini-lg" class="lg dim" style="width:100%;min-width:760px;height:auto"></svg></div></div>
+    ${devBox('разница в файле known_flows.csv', `<pre class="raw">${unifiedDiff(nk)}</pre><p class="hint" style="margin:6px 0 0">${nk.filter(r => r._st === 'chg').length} строк изменится, ${nk.filter(r => r._st === 'new').length} добавится. Остальные ${nk.filter(r => !r._st).length} строк файла остаются как были.</p>`)}
+    ${nav('Быстрая оценка')}`;
+    $$('[data-s]').forEach(t => t.onclick = () => { S.sel = +t.dataset.s; renderUp(); });
+    drawLineage($('#mini-lg'), { lit: downstream('known_flows'), static: true });
+  },
+  // 4. быстрая оценка
+  st => {
+    const touched = [...new Set(S.v.okRows.flatMap(x => [x.r.from_iata, x.r.to_iata]))].filter(c => D.rays.base[c]);
+    if (!S.qHub || !D.rays.base[S.qHub]) S.qHub = touched.includes(S.hub) ? S.hub : touched[0] || S.hub;
+    const pv = preview(S.qHub);
+    st.innerHTML = `<h2>Шаг 4. Быстрая оценка ${demoTag()}</h2>
+    <p class="sub">Браузер считает за секунду, как новые цифры сдвинут лучи хаба. Рейсы и состав лучей не меняются, поэтому это прикидка: по ней видно, нужен ли полный расчёт.</p>
+    <div class="row" style="margin:10px 0"><span class="sub">Хаб</span><select id="qh">${Object.keys(D.rays.base).map(h => `<option value="${h}" ${h === S.qHub ? 'selected' : ''}>${esc(nm(h))}${touched.includes(h) ? ' · есть в файле' : ''}</option>`).join('')}</select></div>
+    <div class="formula">спрос луча = свои пассажиры × <b>стало / было</b> + пересадки&nbsp; → &nbsp;перевезено = min(спрос, кресла × ${fmt(A.base.lf_peak_max, 2)})&nbsp; → &nbsp;<span id="fshow"></span></div>
+    <div class="row tech"><span class="sub">Формула изменения итога:</span><input class="code ${pv.err ? 'err' : ''}" id="fx2" style="max-width:420px" value="${esc(S.qf || DEFAULT_QF)}"><button class="btn sm" id="fx2r">По умолчанию</button></div>
+    <p class="hint tech" style="margin:4px 0 0">Переменные: <span class="mono">carried</span> перевезём, <span class="mono">seg</span> возили, <span class="mono">yld</span> средний билет луча, <span class="mono">pax_cost</span> = ${fmt(A.base.pax_cost_rub)} ₽ на пассажира, <span class="mono">lf</span>, <span class="mono">km</span>.${pv.err ? ` <span class="dn">${esc(pv.err)}</span>` : ''}</p>
+    ${pv.rows.length ? `<div class="tw" style="margin-top:10px"><table><tr><th>Луч</th><th class="n">свои было</th><th class="n">× стало/было</th><th class="n">всего стало</th><th class="n">кресла × ${fmt(A.base.lf_peak_max, 2)}</th><th class="n">перевезём</th><th class="n">билет, ₽</th><th class="n">итог было</th><th class="n">оценка</th></tr>
+      ${pv.rows.map(r => `<tr><td><b>${esc(r.city)}</b></td><td class="n">${fmt(r.local)}</td><td class="n">${fmt(r.k, 3)}</td><td class="n">${fmt(r.seg2)}</td><td class="n">${fmt(r.cap)}</td><td class="n">${fmt(r.carried)}</td><td class="n">${fmt(r.yld)}</td><td class="n">${sg(r.res, 1)}</td><td class="n ${cls(r.res2 - r.res)}"><b>${sg(r.res2, 1)}</b></td></tr>`).join('')}</table></div>
+      <div class="grid g3" style="margin-top:14px"><div class="kpi"><div class="l">Итог сети ${esc(nm(S.qHub))} сейчас</div><div class="v">${sg(pv.base)}<small>млн ₽</small></div></div>
+        <div class="kpi"><div class="l">Быстрая оценка</div><div class="v ${cls(pv.total - pv.base)}">${sg(pv.total)}<small>млн ₽</small></div><div class="d sub">${sg(pv.total - pv.base)} млн ₽, рейсы прежние</div></div>
+        <div class="kpi"><div class="l">На что смотреть</div><div class="d" style="font-size:13.5px;margin-top:4px">${pv.rows.filter(r => r.res2 < r.res * 0.3 && r.res > 0).map(r => esc(r.city)).join(', ') || 'резких падений нет'}${pv.rows.some(r => r.res2 < r.res * 0.3 && r.res > 0) ? ': итог луча почти обнулился, полный расчёт решит, снижать ли частоту.' : '.'}</div></div></div>`
+      : `<div class="soft" style="margin-top:12px">Строки файла не касаются лучей хаба ${esc(nm(S.qHub))}. Они пойдут в калибровку модели спроса, и сдвиг будет виден после полного расчёта.</div>`}
+    ${pv.skip.length ? `<p class="hint">Не лучи этого хаба: ${pv.skip.map(esc).join(', ')}. Эти строки идут только в калибровку модели спроса.</p>` : ''}
+    ${devBox('как считается в коде', `<pre class="raw">${esc(`k       = year / old                    // стало / было по паре
+seg2    = round(local * k + tr)         // спрос луча
+cap     = round(seg / lf * ${A.base.lf_peak_max})          // кресла при пиковой загрузке
+carried = min(seg2, cap)
+yld     = rev * 1e6 / seg               // средний билет
+delta   = ${S.qf || DEFAULT_QF}`)}</pre>`)}
+    ${nav(S.file.demo ? 'Отправить в расчёт' : 'Что дальше с файлом')}`;
+    $('#fshow').innerHTML = esc(S.qf || DEFAULT_QF);
+    $('#qh').onchange = e => { S.qHub = e.target.value; renderUp(); };
+    $('#fx2').onchange = e => { S.qf = e.target.value; renderUp(); };
+    $('#fx2r').onclick = () => { S.qf = ''; renderUp(); };
+  },
+  // 5. расчёт
+  st => {
+    if (!S.file.demo) {
+      const nk = newKnownFlows();
+      st.innerHTML = `<h2>Шаг 5. Расчёт</h2>
+      <p class="sub">На сайте нет сервера с моделью, поэтому для своего файла панель готовит всё для запуска у команды. Полный расчёт идёт на компьютере команды той же командой, что и обычное обновление.</p>
+      <div class="grid g2" style="margin-top:12px">
+        <div class="soft"><h3>1. Скачать новую версию файла</h3><p class="sub" style="margin:0 0 8px">known_flows.csv: ${nk.filter(r => r._st === 'chg').length} изменённых и ${nk.filter(r => r._st === 'new').length} новых строк, всего ${nk.length}.</p><button class="btn red sm" id="nkdl">known_flows.csv</button></div>
+        <div class="soft"><h3>2. Отклонённые строки</h3><p class="sub" style="margin:0 0 8px">${S.v.badRows.length} ${pl(S.v.badRows.length, 'строка', 'строки', 'строк')} с причиной, для исправления.</p><button class="btn sm" id="qdl2" ${S.v.badRows.length ? '' : 'disabled'}>Скачать</button></div>
+      </div>
+      <div class="soft" style="margin-top:12px"><h3>3. Запустить расчёт</h3><p class="sub" style="margin:0">Положить файл в <span class="mono">data/manual/known_flows.csv</span> и выполнить:</p><pre class="raw">py src/update.py --force</pre><p class="hint" style="margin:6px 0 0">Модель пересчитает спрос, рейтинг и сеть, соберёт Excel и все три дашборда и запустит автотесты. Как это выглядит, показано на примере: откройте шаг 1 и нажмите «Открыть пример».</p></div>
+      ${nav('')}`;
+      $('#nkdl').onclick = () => dl('known_flows.csv', toCSV(D.kf_head, nk));
+      $('#qdl2').onclick = () => dl('otkloneno_' + S.file.name, toCSV([...S.file.head, 'reason'], S.v.badRows.map(x => ({ ...x.r, reason: x.err.map(r => r.name).join('; ') }))));
+      return;
+    }
+    st.innerHTML = `<h2>Шаг 5. Полный расчёт <span class="tag t-demo">пример</span></h2>
+    <p class="sub">Файл сохраняется новой версией, сервер запускает <span class="mono">py src/update.py</span>. В отличие от быстрой оценки, модель заново подбирает частоты рейсов и пересчитывает все хабы. Внизу видно, какие блоки затронуты.</p>
+    <div class="row" style="margin:12px 0"><button class="btn red" id="go" ${S.pipeDone ? 'disabled' : ''}>${S.pipeDone ? 'Расчёт завершён' : 'Запустить расчёт'}</button><span class="sub" id="pp-t">${S.pipeDone ? 'готово к согласованию' : 'на сервере около 3 минут, здесь ускорено'}</span></div>
+    <div class="prog"><i id="pp" style="width:${S.pipeDone ? 100 : 0}%"></i></div>
+    <div class="grid g2"><div id="pp-steps"></div><div class="log" id="log">${S.pipeDone ? D.demo.log.map(logLine).join('') : '<span class="t">ожидает запуска…</span>'}</div></div>
+    <div class="tw"><svg id="pp-lg" class="lg" style="width:100%;min-width:760px;height:auto;margin-top:12px"></svg></div>
+    ${devBox('что меняется на диске', `<pre class="raw">${esc(`data/manual/known_flows.csv            новая версия (старая остаётся в истории git)
+data/quarantine/${S.file.name}   отклонённые строки с причиной
+data/processed/demand_estimates.csv     спрос всех пар
+data/processed/od_pairs.csv             поездки и пересадки
+data/processed/longlist_scores.csv      рейтинг
+data/processed/network_routes.csv       лучи всех хабов
+data/processed/network_summary.csv      итоги сетей
+outputs/redwings_model.xlsx             Excel модели
+outputs/redwings_panel*.html            три дашборда`)}</pre>`)}
+    ${nav('К согласованию', S.pipeDone)}`;
+    renderPipeSteps(S.pipeDone ? PIPE.length : -1);
+    drawLineage($('#pp-lg'), { lit: S.pipeDone ? downstream('known_flows') : new Set(), static: true });
+    $('#go').onclick = runPipe;
+  },
+  // 6. согласование
+  st => {
+    const before = D.rays.base[D.demo.hub], keep = S.demoRun; S.demoRun = true; const after = rays(D.demo.hub, 'base'); S.demoRun = keep;
+    const t0 = before.reduce((a, r) => a + r.res, 0), t1 = after.reduce((a, r) => a + r.res, 0), nk = newKnownFlows();
+    const FL = ['Загружено', 'Автопроверка', 'Перепроверка, если нужна', S.status === 'returned' ? 'Возвращено' : 'Решение'];
+    const rvd = S.reviewer ? 'done' : 'skip';
+    const ST = { none: ['done', 'done', 'skip', 'now'], review: ['done', 'done', 'now', ''], reviewed: ['done', 'done', 'done', 'now'], accepted: ['done', 'done', rvd, 'done'], returned: ['done', 'done', rvd, 'done'] }[S.status];
+    const statusTxt = { none: 'Ждёт решения руководителя сети', review: `На перепроверке: ${S.reviewer}`, reviewed: `Перепроверка пройдена: ${S.reviewer}. Ждёт решения`, accepted: 'Принято. Версия стала основной', returned: 'Возвращено аналитику на доработку' }[S.status];
+    const rawTabs = [['new', 'Новый known_flows.csv'], ['bad', 'Отклонённые строки'], ['diff', 'Построчная разница'], ['res', 'Результат: лучи']];
+    st.innerHTML = `<h2>Шаг 6. Согласование <span class="tag t-demo">пример</span></h2>
+    <div class="flow">${FL.map((t, i) => `<span class="${ST[i] === 'skip' ? '' : ST[i]}" ${ST[i] === 'skip' ? 'style="opacity:.6"' : ''}>${ST[i] === 'done' ? '✓ ' : ''}${t}</span>`).join('<span style="background:none;padding:6px 0">→</span>')}</div>
+    <div class="grid g2">
+      <div><h3>Автоматические проверки</h3>
+        ${[...D.checks.filter(c => !/неуверенно/.test(c[1]) || !c[1].includes('Иркутск')).map(c => [c[0], c[1]]), ['ok', `Правила загрузки: ${S.v.okRows.length} строк приняты, ${S.v.badRows.length} отклонены и сохранены`], ['warn', 'Улан-Удэ: итог луча близок к нулю, модель снизила частоту с 8/6 до 6/5 рейсов']]
+          .map(([c, t]) => `<div class="chk"><span class="ico ${c === 'ok' ? 'ok' : c === 'bad' ? 'bad' : 'warn'}">${c === 'ok' ? '✓' : '!'}</span><div>${esc(t)}</div></div>`).join('')}</div>
+      <div><h3>Итог сети ${esc(nm(D.demo.hub))}</h3>
+        <div class="row" style="gap:6px;align-items:baseline"><span class="big">${sg(t0)}</span><span class="sub">→</span><span class="big ${cls(t1 - t0)}">${sg(t1)}</span><span class="sub">млн ₽ в год</span></div>
+        <p class="sub">По Иркутску и Улан-Удэ отчёт аэропорта дал меньше пассажиров, чем средняя оценка. Итог ниже на ${fmt(t0 - t1)} млн ₽, зато оба луча теперь стоят на фактах.</p>
+        <div class="soft" style="margin-top:10px"><b>${statusTxt}</b>${S.review ? `<div class="sub">Комментарий: ${esc(S.review)}</div>` : ''}
+          ${S.status === 'review' ? `<div class="row" style="margin-top:8px"><button class="btn sm dark" id="revok">Отметить: перепроверка пройдена</button><span class="hint">в рабочей версии это делает сам проверяющий</span></div>` : ''}
+          ${['none', 'reviewed'].includes(S.status) ? `<div class="row" style="margin-top:10px"><button class="btn red" id="acc">Принять</button><button class="btn" id="rev">Отправить на перепроверку</button><button class="btn" id="ret">Вернуть на доработку</button></div>
+          <div id="revbox" hidden style="margin-top:10px"><div class="row"><span class="sub">Кому</span><select id="revw">${REVIEWERS.map(r => `<option>${r}</option>`).join('')}</select></div><textarea id="revc" rows="2" placeholder="Что проверить: например, сверить Иркутск с отчётом аэропорта за 2025 год" style="margin-top:8px"></textarea><button class="btn sm dark" id="revgo" style="margin-top:6px">Отправить</button></div>` : ''}
+          ${['accepted', 'returned'].includes(S.status) ? `<button class="btn sm" id="undo" style="margin-top:8px">Отменить решение</button>` : ''}</div>
+      </div></div>
+    <h3 style="margin-top:20px">Сырые данные: как они лягут в проект</h3>
+    <div class="vtab" id="rt">${rawTabs.map(([k, t]) => `<button data-k="${k}" class="${S.rawTab === k ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div id="rawv"></div>
+    ${nav('Где это видно', S.status === 'accepted')}`;
+    const rv = $('#rawv');
+    if (S.rawTab === 'new') rv.innerHTML = `<p class="hint" style="margin:0 0 6px">Зелёные строки новые, жёлтые изменены. Файл целиком, ${nk.length} строк.</p>` + csvTable(D.kf_head, nk, r => r._st === 'new' ? 'new' : r._st === 'chg' ? 'warn' : '') + `<button class="btn sm" id="nkdl" style="margin-top:8px">Скачать файл</button>`;
+    if (S.rawTab === 'bad') rv.innerHTML = S.v.badRows.length ? csvTable([...S.file.head, 'reason'], S.v.badRows.map(x => ({ ...x.r, reason: x.err.map(r => r.name).join('; ') })), () => 'bad') : '<p class="sub">Отклонённых строк нет.</p>';
+    if (S.rawTab === 'diff') rv.innerHTML = `<pre class="raw">${unifiedDiff(nk)}</pre>`;
+    if (S.rawTab === 'res') rv.innerHTML = `<div class="tw"><table><tr><th>Луч</th><th class="n">рейсов лето/зима</th><th class="n">пассажиров</th><th class="n">итог было</th><th class="n">итог стало</th><th>спрос</th></tr>${after.map((r, i) => { const b = before[i], d = r.res - b.res;
+      return `<tr class="${Math.abs(d) > 5 ? 'warn' : ''}"><td><b>${esc(r.city)}</b></td><td class="n">${b.fs}/${b.fw}${r.fs !== b.fs ? ` → <b>${r.fs}/${r.fw}</b>` : ''}</td><td class="n">${fmt(b.seg)}${r.seg !== b.seg ? ` → ${fmt(r.seg)}` : ''}</td><td class="n">${sg(b.res, 1)}</td><td class="n"><b>${sg(r.res, 1)}</b></td><td><span class="tag ${demandTag(r.src)[0]}">${demandTag(r.src)[1]}</span></td></tr>`; }).join('')}</table></div>`;
+    $$('#rt button').forEach(b => b.onclick = () => { S.rawTab = b.dataset.k; renderUp(); });
+    if ($('#nkdl')) $('#nkdl').onclick = () => dl('known_flows.csv', toCSV(D.kf_head, nk));
+    const set = s => { S.status = s; S.demoRun = s === 'accepted'; renderPill(); renderUp(); };
+    if ($('#acc')) { $('#acc').onclick = () => { set('accepted'); toast('Принято. Панель показывает новый расчёт.'); };
+      $('#ret').onclick = () => { set('returned'); toast('Возвращено аналитику. Основным остаётся прежний расчёт.'); };
+      $('#rev').onclick = () => { $('#revbox').hidden = false; };
+      $('#revgo').onclick = () => { S.reviewer = $('#revw').value; S.review = $('#revc').value.trim(); set('review'); toast('Отправлено на перепроверку: ' + S.reviewer); }; }
+    if ($('#revok')) $('#revok').onclick = () => set('reviewed');
+    if ($('#undo')) $('#undo').onclick = () => set(S.reviewer ? 'reviewed' : 'none');
+  },
+  // 7. где видно
+  st => {
+    st.innerHTML = `<h2>Шаг 7. Где это видно <span class="tag t-demo">пример</span></h2>
+    <p class="sub">Принятая версия расходится по всем экранам. Вверху панели стоит «Расчёт #${D.demo.run}», вкладка «Сеть» показывает его с пометкой. Прежнюю версию можно вернуть.</p>
+    <div class="grid g2" style="margin-top:14px">
+      <button class="card" data-go="net" style="text-align:left"><h3>Сеть → ${esc(nm(D.demo.hub))} →</h3><p class="sub" style="margin:0">Итог сети, лучи и карта по расчёту #${D.demo.run}. Иркутск и Улан-Удэ отмечены как факт.</p></button>
+      <button class="card" data-go="ray" style="text-align:left"><h3>Карточка луча Омск — Иркутск →</h3><p class="sub" style="margin:0">Источник спроса: отчёт аэропорта. Было и стало по итогу луча.</p></button>
+      <button class="card" data-go="data" style="text-align:left"><h3>Данные →</h3><p class="sub" style="margin:0">Проверки расчёта: предупреждение о неуверенной оценке по Иркутску снято.</p></button>
+      <button class="card" data-go="how" style="text-align:left"><h3>Как считается →</h3><p class="sub" style="margin:0">Формулы и путь данных те же: поменялись только входные цифры.</p></button>
+    </div>
+    <div class="row" style="margin-top:16px"><button class="btn" id="back">Вернуть прежний расчёт</button><span class="hint">панель снова покажет настоящий расчёт от ${D.meta.built}</span></div>
+    ${nav('')}`;
+    $$('[data-go]').forEach(b => b.onclick = () => { const g = b.dataset.go; if (g === 'ray') { S.hub = D.demo.hub; S.scn = 'base'; go('net'); setTimeout(() => openRay(D.demo.hub, 'IKT'), 30); } else { if (g === 'net') { S.hub = D.demo.hub; S.scn = 'base'; } go(g); } });
+    $('#back').onclick = () => { S.status = 'none'; S.demoRun = false; S.step = 5; renderPill(); toast('Панель вернулась к настоящему расчёту.'); renderUp(); };
+  }];
+function renderUp() { renderSteps(); UP[S.step]($('#stage')); }
+RENDER.up = renderUp;
+
+const DEFAULT_QF = '(carried - seg) * (yld - pax_cost) / 1e6';
+function preview(hub) {
+  const f = {}, skip = [];
+  S.v.okRows.forEach(x => { const other = x.r.from_iata === hub ? x.r.to_iata : x.r.to_iata === hub ? x.r.from_iata : null;
+    const inRay = other && (D.rays.base[hub] || []).some(r => r.to === other);
+    if (inRay && x.old) f[other] = x.year / x.old[0]; else skip.push(`${nm(x.r.from_iata)} → ${nm(x.r.to_iata)}`); });
+  let fn, err; try { fn = new Function('v', 'with (v) { return (' + (S.qf || DEFAULT_QF) + '); }'); } catch (e) { err = e.message; fn = new Function('v', 'with (v) { return (' + DEFAULT_QF + '); }'); }
+  const rows = (D.rays.base[hub] || []).filter(r => f[r.to]).map(r => {
+    const k = f[r.to], seg2 = Math.round(r.local * k + r.tr), cap = Math.round(r.seg / r.lf * A.base.lf_peak_max), carried = Math.min(seg2, cap), yld = r.rev * 1e6 / r.seg;
+    let d; try { d = +fn({ carried, seg: r.seg, yld, pax_cost: A.base.pax_cost_rub, lf: r.lf, km: r.km, local: r.local, tr: r.tr }); } catch (e) { err = e.message; d = 0; }
+    return { city: r.city, to: r.to, local: r.local, seg: r.seg, k, seg2, cap, carried, yld, res: r.res, res2: r.res + (isFinite(d) ? d : 0) };
+  });
+  const base = (D.rays.base[hub] || []).reduce((a, r) => a + r.res, 0);
+  return { rows, skip, err, base, total: base + rows.reduce((a, r) => a + r.res2 - r.res, 0) };
+}
+const PIPE = [['Сохранить версию файла', 'известные потоки и отклонённые строки'], ['Проверка на сервере', 'те же правила, что в браузере'], ['demand_model.py', 'спрос пар по 39 известным парам'],
+  ['od_model.py', 'поездки и пересадки'], ['seasonality.py', 'профили месяцев'], ['longlist_score.py', 'рейтинг 20 городов'], ['network_model.py', 'сети 20 хабов, базовый и осторожный'],
+  ['build_workbook.py', 'Excel модели'], ['build_dashboard.py', 'три дашборда'], ['Автотесты', 'проверки модели и панели'], ['Готово к согласованию', `расчёт #${D.demo.run}`]];
+const logLine = ([c, t, m]) => `<div class="${c}"><span class="t">${t}</span> ${esc(m)}</div>`;
+function renderPipeSteps(n) { $('#pp-steps').innerHTML = PIPE.map(([a, b], i) => `<div class="chk"><span class="ico ${i < n ? 'ok' : i === n ? 'run' : 'wait'}">${i < n ? '✓' : i + 1}</span><div><b class="${/\.py$/.test(a) ? 'mono' : ''}" style="font-weight:500">${a}</b><br><span class="sub">${b}</span></div></div>`).join(''); }
+function runPipe() {
+  $('#go').disabled = true; const log = $('#log'); log.innerHTML = ''; const L = D.demo.log, lit = [...downstream('known_flows')]; let i = 0;
+  const tick = () => {
+    if (i < L.length) { log.insertAdjacentHTML('beforeend', logLine(L[i])); log.scrollTop = 1e6; }
+    renderPipeSteps(Math.min(PIPE.length, Math.floor((i + 1) / L.length * PIPE.length))); $('#pp').style.width = Math.min(100, (i + 1) / L.length * 100) + '%';
+    drawLineage($('#pp-lg'), { lit: new Set(lit.slice(0, Math.ceil((i + 1) / L.length * lit.length))), static: true });
+    i++; if (i <= L.length) setTimeout(tick, 360);
+    else { S.pipeDone = true; renderSteps(); $('#pp-t').textContent = 'готово к согласованию'; const nx = $('[data-nav="1"]'); if (nx) nx.disabled = false; }
+  };
+  tick();
+}
+
+/* ================= ПУТЬ ДАННЫХ ================= */
+const LN = [
+  ['favt_info', 'src', 'Росавиация: «Ковёр»', 10, 20], ['tochno', 'src', '«Если быть точным»', 10, 70], ['rosstat', 'src', 'Росстат: население', 10, 120],
+  ['airports_pax', 'src', 'Пассажиры аэропортов', 10, 170], ['known_flows', 'src', 'Известные потоки пар', 10, 220], ['yandex', 'src', 'Яндекс Расписания', 10, 270],
+  ['favt_airports', 'src', 'Росавиация: месяцы', 10, 320], ['aeroflot', 'src', '«Аэрофлот»: месяцы', 10, 370], ['asm', 'src', 'Допущения network.csv', 10, 420],
+  ['kover_py', 'step', 'kover_days.py', 260, 20], ['demand_py', 'step', 'demand_model + od_model', 260, 220], ['season_py', 'step', 'seasonality.py', 260, 345],
+  ['kover_csv', 'tbl', 'kover_days.csv', 490, 20], ['dem_csv', 'tbl', 'od_pairs.csv', 490, 220], ['season_csv', 'tbl', 'airport_seasonality.csv', 490, 345],
+  ['score_py', 'step', 'longlist_score.py', 730, 100], ['net_py', 'step', 'network_model.py', 730, 290],
+  ['scr_rating', 'scr', 'Рейтинг городов', 950, 100], ['scr_net', 'scr', 'Сеть: лучи и итог', 950, 250], ['scr_scen', 'scr', 'Сеть: что если', 950, 330]];
+const LE = [['favt_info', 'kover_py'], ['kover_py', 'kover_csv'], ['kover_csv', 'score_py'], ['kover_csv', 'net_py'], ['tochno', 'score_py'], ['rosstat', 'score_py'], ['rosstat', 'demand_py'],
+  ['airports_pax', 'score_py'], ['airports_pax', 'demand_py'], ['known_flows', 'demand_py'], ['yandex', 'demand_py'], ['demand_py', 'dem_csv'], ['dem_csv', 'net_py'], ['dem_csv', 'score_py'],
+  ['favt_airports', 'season_py'], ['aeroflot', 'season_py'], ['season_py', 'season_csv'], ['season_csv', 'net_py'], ['asm', 'net_py'],
+  ['score_py', 'scr_rating'], ['net_py', 'scr_net'], ['net_py', 'scr_scen']];
+const LINFO = { favt_info: 'Сообщения Росавиации об ограничениях аэропортов. Из них считаются дни «Ковра».', tochno: 'Связность городов и время в пути на поезде: из этого считается «дыра» в связности.',
+  known_flows: 'Потоки по парам из отчётов аэропортов. Калибрует модель спроса. Этот файл загружается на вкладке «Загрузка данных».', asm: 'Все числа, которые задаёт команда: тарифы, затраты, загрузка. Два столбца: базовый и осторожный.',
+  demand_py: 'Спрос пар: модель тяготения по населению и расстоянию, похожие пары и кресла в расписании. Затем деление на поездки «откуда — куда» и пересадки.',
+  net_py: 'Подбор сети: добавляет лучи по выигрышу на блок-час, считает частоты по сезонам, самолёты и деньги.', score_py: 'Рейтинг 20 городов: критерии, шкала 0–1, веса команды.',
+  season_py: 'Профиль 12 месяцев для каждого аэропорта.', kover_py: 'Дни «Ковра» по каждому аэропорту за 365 дней.' };
+function downstream(id) { const s = new Set([id]); let ch = true; while (ch) { ch = false; LE.forEach(([a, b]) => { if (s.has(a) && !s.has(b)) { s.add(b); ch = true; } }); } return s; }
+function upstream(id) { const s = new Set([id]); let ch = true; while (ch) { ch = false; LE.forEach(([a, b]) => { if (s.has(b) && !s.has(a)) { s.add(a); ch = true; } }); } return s; }
+function drawLineage(svg, o = {}) {
+  const W = { src: 200, step: 190, tbl: 190, scr: 180 }, H = 34, pos = Object.fromEntries(LN.map(([id, t, l, x, y]) => [id, { x, y, w: W[t], t, l }])), lit = o.lit || new Set();
+  let h = [['Источники', 10], ['Обработка', 260], ['Таблицы', 490], ['Расчёт', 730], ['Экраны', 950]].map(([t, x]) => `<text x="${x}" y="8" style="font-size:11px;fill:var(--muted);font-weight:500">${t.toUpperCase()}</text>`).join('');
+  LE.forEach(([a, b]) => { const p = pos[a], q = pos[b], x1 = p.x + p.w, y1 = p.y + H / 2, x2 = q.x, y2 = q.y + H / 2, mx = (x1 + x2) / 2;
+    h += `<path class="edge ${lit.has(a) && lit.has(b) ? 'lit' : ''}" data-a="${a}" data-b="${b}" d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}"/>`; });
+  LN.forEach(([id, t, l]) => { const p = pos[id]; h += `<g class="node ${t} ${lit.has(id) ? 'lit' : ''}" data-id="${id}"><rect x="${p.x}" y="${p.y}" width="${p.w}" height="${H}" rx="9"/><text x="${p.x + 12}" y="${p.y + 21}">${esc(l)}</text></g>`; });
+  svg.setAttribute('viewBox', '0 -8 1140 470'); svg.innerHTML = h;
+  if (o.static) return;
+  svg.querySelectorAll('.node').forEach(n => {
+    n.onmouseenter = () => { const s = new Set([...upstream(n.dataset.id), ...downstream(n.dataset.id)]); svg.classList.add('focus');
+      svg.querySelectorAll('.node').forEach(m => m.classList.toggle('hl', s.has(m.dataset.id))); svg.querySelectorAll('.edge').forEach(e => e.classList.toggle('hl', s.has(e.dataset.a) && s.has(e.dataset.b))); };
+    n.onmouseleave = () => svg.classList.remove('focus');
+    n.onclick = () => { const id = n.dataset.id; $('#lin-info').innerHTML = `<b>${esc(pos[id].l)}.</b> ${LINFO[id] || ({ src: 'Источник данных, карточка во вкладке «Данные».', tbl: 'Промежуточная таблица в data/processed.', scr: 'Экран панели.' }[pos[id].t])} Зависит от: ${[...upstream(id)].filter(x => x !== id).map(x => pos[x].l).join(', ') || 'ничего'}.`; };
+  });
+}
+
+/* ================= 02 СЕТЬ ================= */
+function hubList() { return D.hubs.filter(h => h.scenario === 'base').sort((a, b) => b.result_mln_year - a.result_mln_year); }
+function renderNet() {
+  const sel = $('#net-hub'); sel.innerHTML = hubList().map(h => `<option value="${h.hub}">${esc(h.variant)}${h.hub === D.meta.hub ? ' · выбран первым' : ''} (${sg(h.result_mln_year)})</option>`).join(''); sel.value = S.hub;
+  $$('#net-scn button').forEach(b => b.classList.toggle('on', b.dataset.s === S.scn));
+  const s = summary(); if (!s) return;
+  $('#net-banner').innerHTML = s.demo ? `<div class="banner"><span class="tag t-demo">пример</span><span>Показан расчёт #${D.demo.run} из примера загрузки. Настоящий итог хаба: ${sg(s.res0)} млн ₽.</span><button class="btn sm" id="nb-back" style="margin-left:auto">Показать настоящий расчёт</button></div>` : '';
+  if ($('#nb-back')) $('#nb-back').onclick = () => { S.demoRun = false; S.status = 'none'; renderPill(); renderNet(); };
+  $('#net-h').textContent = `Сеть хаба ${s.name}`;
+  $('#net-sub').innerHTML = `${S.scn === 'base' ? 'Базовый' : 'Осторожный'} сценарий · суммы в млн ₽ в год · ${S.hub === D.meta.hub ? 'выбран первым хабом' : 'один из 20 вариантов'}`;
+  const a = A[S.scn];
+  const K = [['Итог сети', sg(s.res), 'млн ₽', 'main', ['Итог сети за год', [`<b>Выручка</b> ${fmt(s.rev)} млн ₽${s.sub ? ` + субсидии ${fmt(s.sub)}` : ''}`, `<b>минус затраты</b> ${fmt(s.cost)} млн ₽: топливо, ТО, экипажи, навигация, сборы`, `<b>= ${sg(s.res)}</b> млн ₽`, '<span class="mono">network_summary.csv</span> ← <span class="mono">network_model.py</span>'], ['t-model', 'модель']]],
+    ['Самолётов', fmt(s.aircraft), 'SJ-100', '', ['Самолёты', [`Блок-часы пикового сезона в неделю ÷ ${fmt(a.block_h_per_day * 7)} часов на самолёт, вверх до целого`, `+ ${fmt(a.spare_aircraft)} резервный`, `= ${fmt(s.aircraft)}`], ['t-model', 'модель']]],
+    ['Лучей', fmt(s.routes), '', '', ['Лучи', ['Модель добавляет лучи, пока растёт выигрыш на блок-час', `Требование кейса: ${fmt(a.min_routes)}–${fmt(a.max_routes)} маршрутов`], ['t-model', 'модель']]],
+    ['Пассажиров', fmt(s.seg / 1000, 1), 'тыс. сегм.', '', ['Пассажиры', ['Сегменты: каждый перелёт отдельно, как в статистике', `Поездок «откуда — куда»: ${fmt(s.od)}`, `Из них с пересадкой в хабе: ${fmt(s.tr)}`], ['t-model', 'модель']]],
+    ['С пересадкой', fmt(s.tr / 1000), 'тыс. поездок', '', ['Пересадки', ['Пары, которые сейчас летают через другие города', `Доля, выбравшая пересадку в хабе: до ${fmt(a.capture_transfer, 2)}`], ['t-asm', 'допущение + модель']]],
+    ['Доля рынка', sg(s.share, 2), 'п. п.', '', ['Прирост доли Red Wings', [`Новые пассажиры ÷ ${fmt(a.market_pax_2025 / 1e6, 2)} млн пассажиров рынка 2025`, 'Рынок: Росавиация'], ['t-fact', 'факт + модель']]]];
+  $('#kpis').innerHTML = K.map(([l, v, u, c], i) => `<div class="kpi ${c}"><button class="why" data-k="${i}" title="Откуда это число">?</button><div class="l">${l}</div><div class="v">${v}<small>${u}</small></div>${i === 0 && s.demo ? `<div class="d" style="color:var(--amber)">было ${sg(s.res0)}</div>` : ''}</div>`).join('');
+  $$('#kpis .why').forEach(b => b.onclick = e => { const w = K[+b.dataset.k][4]; why(e, w[0], w[1], w[2]); });
+  drawMap(); renderRays(); renderCmp(); renderSens();
+}
+RENDER.net = renderNet;
+$('#net-hub').onchange = e => { S.hub = e.target.value; renderNet(); };
+$('#net-scn').onclick = e => { const b = e.target.closest('button'); if (b) { S.scn = b.dataset.s; renderNet(); } };
+function drawMap() {
+  const rs = rays(), P = D.pts, o = P[S.hub], svg = $('#map');
+  if (!o || !rs.length) { svg.innerHTML = '<text x="20" y="40">Нет координат</text>'; return; }
+  const ok = rs.filter(r => P[r.to]), xs = ok.map(r => P[r.to][0]).concat(o[0]), ys = ok.map(r => P[r.to][1]).concat(o[1]);
+  const x0 = Math.min(...xs) - 50, x1 = Math.max(...xs) + 60, y0 = Math.min(...ys) - 40, y1 = Math.max(...ys) + 40, w = x1 - x0, h = Math.max(y1 - y0, w * 0.55), k = w / 600;
+  svg.setAttribute('viewBox', `${x0} ${y0 - (h - (y1 - y0)) / 2} ${w} ${h}`);
+  const mx = Math.max(...ok.map(r => r.seg));
+  let s = `<rect x="${x0 - w}" y="${y0 - h}" width="${w * 3}" height="${h * 3}" fill="var(--sea)"/><path d="${D.map}" fill="var(--land)" stroke="var(--geo-line)" stroke-width="${0.8 * k}"/>`;
+  ok.forEach(r => { const p = P[r.to], cx = (o[0] + p[0]) / 2, cy = (o[1] + p[1]) / 2 - Math.hypot(p[0] - o[0], p[1] - o[1]) * 0.15;
+    s += `<path d="M${o[0]},${o[1]} Q${cx},${cy} ${p[0]},${p[1]}" fill="none" stroke="${r.res >= 0 ? 'var(--green)' : 'var(--red)'}" stroke-width="${(1.2 + 4 * r.seg / mx) * k}" stroke-linecap="round" opacity=".85"/>`; });
+  // подписи: раскладываем, чтобы не наезжали
+  const placed = [];
+  ok.slice().sort((a, b) => P[a.to][1] - P[b.to][1]).forEach(r => { const p = P[r.to], left = p[0] < o[0] - 5;
+    let ly = p[1] - 4 * k; for (let t = 0; t < 8 && placed.some(q => Math.abs(q[0] - p[0]) < 110 * k && Math.abs(q[1] - ly) < 22 * k); t++) ly += 12 * k;
+    placed.push([p[0], ly]); const lx = p[0] + (left ? -7 : 7) * k, an = left ? 'end' : 'start';
+    s += `<g style="cursor:pointer" data-to="${r.to}"><circle cx="${p[0]}" cy="${p[1]}" r="${4 * k}" fill="var(--white)" stroke="var(--ink)" stroke-width="${1.5 * k}"/><text x="${lx}" y="${ly}" text-anchor="${an}" style="font-size:${11 * k}px;font-weight:500;paint-order:stroke;stroke:var(--land);stroke-width:${3 * k}px">${esc(r.city)}</text><text x="${lx}" y="${ly + 12 * k}" text-anchor="${an}" style="font-size:${10 * k}px;font-weight:700;fill:${r.res >= 0 ? '#23704A' : 'var(--red-d)'};paint-order:stroke;stroke:var(--land);stroke-width:${3 * k}px">${sg(r.res)}</text></g>`; });
+  s += `<circle cx="${o[0]}" cy="${o[1]}" r="${8 * k}" fill="var(--red)" stroke="#fff" stroke-width="${2 * k}"/><text x="${o[0]}" y="${o[1] + 22 * k}" text-anchor="middle" style="font-size:${13 * k}px;font-weight:700;fill:var(--red-d);paint-order:stroke;stroke:var(--land);stroke-width:${3 * k}px">${esc(nm(S.hub))}</text>`;
+  svg.innerHTML = s; svg.querySelectorAll('[data-to]').forEach(g => g.onclick = () => openRay(S.hub, g.dataset.to));
+}
+let rF = 'all';
+const rayList = () => rays().filter(r => rF === 'all' || (rF === 'minus' && r.res < 0) || (rF === 'est' && demandTag(r.src)[0] !== 't-fact')).sort((a, b) => b.res - a.res);
+function renderRays() {
+  const L = rayList(), all = rays();
+  $('#r-t').innerHTML = `<tr><th>Куда</th><th class="n">рейсов лето / зима</th><th class="n">пассажиров</th><th class="n tech">загрузка</th><th class="n">итог</th><th>спрос</th></tr>` +
+    L.map(r => { const t = demandTag(r.src); return `<tr class="click ${r.demo && Math.abs(r.res - r.res0) > 1 ? 'warn' : ''}" data-to="${r.to}"><td><b>${esc(r.city)}</b> <span class="hint tech">${fmt(r.km)} км</span></td><td class="n">${r.fs} / ${r.fw}</td><td class="n">${fmt(r.seg)}</td><td class="n tech">${fmt(r.lf, 2)}</td><td class="n ${cls(r.res)}"><b>${sg(r.res, 1)}</b></td><td><span class="tag ${t[0]}">${t[1]}</span></td></tr>`; }).join('') +
+    `<tr><td><b>Всего</b></td><td class="n">${all.reduce((a, r) => a + r.fs, 0)} / ${all.reduce((a, r) => a + r.fw, 0)}</td><td class="n">${fmt(all.reduce((a, r) => a + r.seg, 0))}</td><td class="tech"></td><td class="n"><b>${sg(all.reduce((a, r) => a + r.res, 0), 1)}</b></td><td></td></tr>`;
+  $$('#r-t tr.click').forEach(t => t.onclick = () => openRay(S.hub, t.dataset.to));
+  const rev = all.reduce((a, r) => a + r.rev, 0), seg = all.reduce((a, r) => a + r.seg, 0), cost = all.reduce((a, r) => a + r.cost, 0);
+  const skm = all.reduce((a, r) => a + r.km * A[S.scn].route_factor * A[S.scn].seats * r.flights, 0);
+  $('#r-unit').innerHTML = [['Средний билет', fmt(rev * 1e6 / seg) + ' ₽', 'выручка ÷ пассажиры'], ['Доход на кресло-км', fmt(rev * 1e6 / skm, 2) + ' ₽', 'RASK'], ['Затраты на кресло-км', fmt(cost * 1e6 / skm, 2) + ' ₽', 'CASK, переменные']]
+    .map(([a, b, c]) => `<div class="soft"><div class="sub">${a}</div><b style="font-size:19px">${b}</b><div class="hint">${c}</div></div>`).join('');
+}
+$('#r-f').onclick = e => { const b = e.target.closest('button'); if (!b) return; rF = b.dataset.f; $$('#r-f button').forEach(x => x.classList.toggle('on', x === b)); renderRays(); };
+$('#r-csv').onclick = () => dl(`luchi_${S.hub}_${S.scn}.csv`, toCSV(['to', 'city', 'km', 'fs', 'fw', 'seg', 'local', 'tr', 'lf', 'rev', 'subsidy', 'cost', 'res', 'src'], rayList()));
+function openRay(hub, to) {
+  const r = rays(hub).find(x => x.to === to); if (!r) return;
+  const t = demandTag(r.src), CC = { fuel: 'Топливо', mro: 'ТО', crew: 'Экипажи', nav: 'Навигация', ground: 'Сборы', deice: 'Обледенение', pax: 'Пассажиры' };
+  const cc = Object.entries(r.cc), ct = cc.reduce((a, [, v]) => a + v, 0) || 1, cols = ['#E32A2F', '#111318', '#5E6675', '#8C96A6', '#3E6E95', '#C9DCE8', '#F5B841'];
+  const fare = r.rev / r.seg * 1e6, be = -r.res / r.rev * 100, a = A[S.scn], wk = a.weeks_per_year / 12;
+  const m = r.prof.map(v => r.seg / 12 * v), cap = r.prof.map((_, i) => (i >= 3 && i <= 9 ? r.fs : r.fw) * 2 * a.seats * wk * a.lf_peak_max), mx = Math.max(...m, ...cap) * 1.1;
+  const bw = 34, gx = i => 40 + i * 44, gy = v => 170 - v / mx * 150;
+  let ch = `<line x1="36" x2="572" y1="170" y2="170" stroke="var(--ink)"/>`;
+  m.forEach((v, i) => ch += `<rect x="${gx(i)}" y="${gy(v)}" width="${bw}" height="${170 - gy(v)}" rx="3" fill="${v > cap[i] ? 'var(--red)' : 'var(--ink)'}" opacity=".85"><title>${MON[i]}: ${fmt(v)} пасс., кресел ${fmt(cap[i])}</title></rect><text x="${gx(i) + bw / 2}" y="186" text-anchor="middle" style="font-size:10.5px;fill:var(--muted)">${MON[i]}</text>`);
+  ch += `<path d="${cap.map((c, i) => `${i ? 'L' : 'M'}${gx(i)},${gy(c)} L${gx(i) + 44},${gy(c)}`).join(' ')}" fill="none" stroke="var(--red)" stroke-width="2" stroke-dasharray="5 3"/>`;
+  const step1 = t[0] === 't-fact' ? 'отчёт аэропорта о потоке пары' : /пересадк/.test(r.src) ? 'поездки, которые сейчас идут с пересадкой в другом городе' : 'среднее трёх методов: модель тяготения, похожие пары, кресла в расписании';
+  $('#dpn').innerHTML = `<div class="row" style="justify-content:space-between"><span class="sub">${esc(nm(hub))} → ${esc(r.city)} · ${fmt(r.km)} км · ${esc(r.light)}</span><button class="btn sm" id="dx">Закрыть ✕</button></div>
+  <h1 style="margin-top:6px">${esc(nm(hub))} — ${esc(r.city)} ${r.demo ? '<span class="tag t-demo">пример</span>' : ''}</h1>
+  <div class="grid g4" style="margin:14px 0">
+    <div class="kpi main"><div class="l">Итог луча</div><div class="v">${sg(r.res, 1)}<small>млн ₽</small></div>${r.demo && Math.abs(r.res - r.res0) > .05 ? `<div class="d" style="color:var(--amber)">было ${sg(r.res0, 1)}</div>` : ''}</div>
+    <div class="kpi"><div class="l">Пассажиров в год</div><div class="v" style="font-size:22px">${fmt(r.seg)}</div><div class="d sub">${fmt(r.local)} своих + ${fmt(r.tr)} пересадки</div></div>
+    <div class="kpi"><div class="l">Рейсов в неделю</div><div class="v" style="font-size:22px">${r.fs} / ${r.fw}</div><div class="d sub">лето / зима, в одну сторону</div></div>
+    <div class="kpi"><div class="l">Загрузка</div><div class="v" style="font-size:22px">${fmt(r.lf, 2)}</div><div class="d sub">не помещается ${fmt(r.spill)} пасс.</div></div></div>
+  <div class="card"><div class="hd"><h2>Откуда спрос</h2><span class="tag ${t[0]}">${t[1]}</span></div><p style="margin:0">${esc(r.src)}</p>
+    <div class="chain" style="margin-top:10px"><div><b>1. Пара городов:</b> ${step1}</div>
+      <div><b>2. Доля Red Wings:</b> растёт с частотой, максимум ${fmt(a.capture_open, 2)} без прямого рейса, ${fmt(a.capture_competitive, 2)} с конкурентом, ${fmt(a.capture_transfer, 2)} для пересадки</div>
+      <div><b>3. По месяцам:</b> профиль двух аэропортов, лето 7 месяцев, зима 5</div>
+      <div><b>4. Перевезено:</b> не больше рейсов × ${fmt(a.seats)} кресел × ${fmt(a.lf_peak_max, 2)} в каждом месяце</div></div>
+    ${t[0] !== 't-fact' ? `<p class="sub" style="margin:10px 0 0">Как уточнить: загрузить отчёт аэропорта о пассажирах по направлениям на вкладке «Загрузка данных».</p>` : ''}</div>
+  <div class="card" style="margin-top:14px"><div class="hd"><h2>Пассажиры по месяцам</h2><span class="sub r">столбики — спрос, пунктир — кресла × ${fmt(a.lf_peak_max, 2)}</span></div>
+    <svg viewBox="0 0 580 195" style="width:100%;height:auto">${ch}</svg><p class="hint" style="margin:4px 0 0">Красный столбик: спрос выше кресел, часть пассажиров не улетит.</p></div>
+  <div class="card" style="margin-top:14px"><div class="hd"><h2>Деньги луча</h2><span class="sub r">млн ₽ в год</span></div>
+    <div class="row" style="gap:24px;margin-bottom:10px"><div><div class="sub">Выручка</div><b style="font-size:20px">${fmt(r.rev, 1)}</b></div>${r.subsidy ? `<div><div class="sub">Субсидия</div><b style="font-size:20px">${fmt(r.subsidy, 1)}</b></div>` : ''}<div><div class="sub">Затраты</div><b style="font-size:20px">${fmt(r.cost, 1)}</b></div><div><div class="sub">Средний билет</div><b style="font-size:20px">${fmt(fare)} ₽</b></div></div>
+    <div style="display:flex;height:22px;border-radius:6px;overflow:hidden">${cc.map(([k, v], i) => `<div title="${CC[k]}: ${fmt(v, 1)}" style="width:${v / ct * 100}%;background:${cols[i]}"></div>`).join('')}</div>
+    <div class="legend" style="margin-top:8px">${cc.map(([k, v], i) => `<span><i style="background:${cols[i]};height:10px;width:10px;border-radius:2px"></i>${CC[k]} ${fmt(v, 1)}</span>`).join('')}</div>
+    <p class="hint" style="margin:8px 0 0">Затраты по статьям посчитаны по ставкам из network.csv и сведены к итогу модели.</p></div>
+  <div class="card" style="margin-top:14px"><h2>Точка безубыточности</h2>
+    ${r.res >= 0 ? `<p style="margin:6px 0 0">Луч остаётся в плюсе, пока средний билет не упадёт больше чем на <b>${fmt(-be, 1)}%</b>, до ${fmt(fare * (1 + be / 100))} ₽.</p>` : `<p style="margin:6px 0 0">Чтобы выйти в ноль, средний билет должен вырасти на <b>${fmt(be, 1)}%</b>, до ${fmt(fare * (1 + be / 100))} ₽. Модель оставляет луч ради пересадок на другие лучи.</p>`}</div>
+  ${devBox('луч как он лежит в данных', `<p class="sub" style="margin:0 0 6px">Строка <span class="mono">data/processed/network_routes.csv</span>, сценарий ${S.scn}, вариант «Хаб ${hub}»</p><pre class="raw">${esc(JSON.stringify(r, null, 2))}</pre>`)}`;
+  $('#drawer').classList.add('on'); $('#dx').onclick = () => $('#drawer').classList.remove('on');
+}
+$('#drawer').onclick = e => { if (e.target.id === 'drawer') $('#drawer').classList.remove('on'); };
+function renderCmp() {
+  const b = $('#c-b'), others = hubList().filter(h => h.hub !== S.hub);
+  if (!S.cmp || S.cmp === S.hub) S.cmp = others[0].hub;
+  b.innerHTML = others.map(h => `<option value="${h.hub}">${esc(h.variant)}</option>`).join(''); b.value = S.cmp;
+  const X = summary(S.hub), Y = summary(S.cmp);
+  const R = [['Итог, млн ₽', 'res', 0, 1], ['Самолётов', 'aircraft', 0, -1], ['Лучей', 'routes', 0, 0], ['Пассажиров', 'seg', 0, 1], ['С пересадкой', 'tr', 0, 1], ['Доля рынка, п. п.', 'share', 2, 1], ['Запас по тарифу, %', 'be', 0, -1], ['Дней «Ковра»', 'kover', 0, -1]];
+  $('#c-t').innerHTML = `<tr><th></th><th class="n">${esc(X.name)}</th><th class="n">${esc(Y.name)}</th><th class="n">разница</th></tr>` + R.map(([l, k, d, g]) => { const x = X[k] - Y[k];
+    return `<tr><td>${l}</td><td class="n">${fmt(X[k], d)}</td><td class="n">${fmt(Y[k], d)}</td><td class="n ${g && Math.abs(x) > 1e-9 ? (x * g > 0 ? 'up' : 'dn') : ''}">${Math.abs(x) > 1e-9 ? sg(x, d) : '0'}</td></tr>`; }).join('') +
+    `<tr><td colspan="4" class="hint">Зелёным отмечено, где ${esc(X.name)} лучше. Запас по тарифу: на сколько процентов можно снизить средний билет до нулевого итога.</td></tr>`;
+}
+$('#c-b').onchange = e => { S.cmp = e.target.value; renderCmp(); };
+const SL = [['fare', 'Средний билет', -20, 20], ['dem', 'Спрос', -20, 20], ['fuel', 'Цена топлива', -30, 30], ['mro', 'Ставка ТО', -30, 50], ['ground', 'Сборы аэропортов', -20, 30]];
+const SV = { fare: 0, dem: 0, fuel: 0, mro: 0, ground: 0 }, Z = { fare: 0, dem: 0, fuel: 0, mro: 0, ground: 0 };
+function sens(v) {
+  return rays().reduce((acc, r) => { const room = A[S.scn].lf_peak_max / r.lf - 1, d = v.dem > 0 ? Math.min(v.dem, room) : v.dem, c = r.cc;
+    return acc + r.rev * (1 + v.fare) * (1 + d) + r.subsidy - (c.fuel * (1 + v.fuel) + c.mro * (1 + v.mro) + c.crew + c.nav + c.ground * (1 + v.ground) + c.deice + c.pax * (1 + d)); }, 0);
+}
+function renderSens() {
+  $('#s-sl').innerHTML = SL.map(([k, l, a, b]) => `<div class="slider"><span>${l}</span><input type="range" min="${a}" max="${b}" value="${SV[k]}" data-k="${k}"><output>${sg(SV[k])}%</output></div>`).join('');
+  const upd = () => { const v = Object.fromEntries(Object.entries(SV).map(([k, x]) => [k, x / 100])), r0 = sens(Z), r = sens(v);
+    $('#s-res').innerHTML = `<span class="${cls(r)}">${sg(r)}</span>`; $('#s-delta').innerHTML = `к расчёту <b class="${cls(r - r0)}">${sg(r - r0)}</b> млн ₽<br><span class="hint">рейсы и лучи прежние; рост спроса ограничен креслами</span>`; };
+  $$('#s-sl input').forEach(i => i.oninput = () => { SV[i.dataset.k] = +i.value; i.nextElementSibling.textContent = sg(+i.value) + '%'; upd(); });
+  upd();
+  const r0 = sens(Z), T = SL.map(([k, l]) => { const lo = sens({ ...Z, [k]: -0.1 }) - r0, hi = sens({ ...Z, [k]: 0.1 }) - r0; return { l, lo, hi, m: Math.max(Math.abs(lo), Math.abs(hi)) }; }).sort((a, b) => b.m - a.m);
+  const mx = (T[0].m || 1) * 1.15, cx = 330, sc = 115 / mx; let s = `<line x1="${cx}" x2="${cx}" y1="6" y2="${18 + T.length * 42}" stroke="var(--ink)"/>`;
+  T.forEach((t, i) => { const y = 14 + i * 42;
+    [[t.lo, '−10%'], [t.hi, '+10%']].forEach(([v, lab]) => { const w = Math.abs(v) * sc, x = v < 0 ? cx - w : cx;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="24" rx="3" fill="${v < 0 ? 'var(--red)' : 'var(--green)'}" opacity=".85"/><text x="${v < 0 ? x - 4 : x + w + 4}" y="${y + 16}" text-anchor="${v < 0 ? 'end' : 'start'}" style="font-size:11px">${lab}: ${sg(v)}</text>`; });
+    s += `<text x="0" y="${y + 16}" style="font-size:12.5px;font-weight:500">${t.l}</text>`; });
+  $('#tornado').setAttribute('viewBox', `0 0 520 ${26 + T.length * 42}`); $('#tornado').innerHTML = s;
+}
+$('#s-reset').onclick = () => { Object.keys(SV).forEach(k => SV[k] = 0); renderSens(); };
+
+/* ================= 03 КАК СЧИТАЕТСЯ ================= */
+function renderHow() {
+  drawLineage($('#lineage'));
+  const rs = D.rays.base[S.hub] || [], r = rs.slice().sort((a, b) => b.res - a.res)[0], a = A.base;
+  if (r) {
+    const fare = a.fare_fixed_rub + a.fare_per_km_rub * r.km, flt = r.bh * (a.mro_rub_per_hour + a.crew_rub_per_hour + a.navigation_rub_per_hour) + (a.fuel_t_per_hour * r.bh + a.fuel_t_per_cycle) * a.fuel_rub_per_t + a.ground_rub_per_flight + a.deicing_rub_per_flight;
+    const F = [['Тариф в одну сторону', `тариф = <b>${fmt(a.fare_fixed_rub)}</b> + <b>${fmt(a.fare_per_km_rub, 2)}</b> × км`, `${fmt(r.km)} км: ${fmt(fare)} ₽`, 'fare_fixed_rub, fare_per_km_rub'],
+      ['Блок-время рейса', `часы = <b>${fmt(a.block_fixed_h, 1)}</b> + км × <b>${fmt(a.route_factor, 2)}</b> / <b>${fmt(a.block_speed_kmh)}</b>`, `${fmt(r.bh, 2)} ч`, 'на юг и запад коэффициент трассы ' + fmt(a.route_factor_south, 2)],
+      ['Затраты на рейс', `часы × (ТО ${fmt(a.mro_rub_per_hour)} + экипаж ${fmt(a.crew_rub_per_hour)} + навигация ${fmt(a.navigation_rub_per_hour)}) + топливо (${fmt(a.fuel_t_per_hour, 2)} т/ч × часы + ${fmt(a.fuel_t_per_cycle, 2)} т) × ${fmt(a.fuel_rub_per_t)} ₽ + сборы ${fmt(a.ground_rub_per_flight)} + обледенение ${fmt(a.deicing_rub_per_flight)}`, `${fmt(flt / 1000)} тыс. ₽ на рейс и ${fmt(a.pax_cost_rub)} ₽ на пассажира`, 'ставки network.csv'],
+      ['Перевезено в месяц', `перевезено = min(спрос × профиль месяца, рейсы × ${fmt(a.seats)} кресел × <b>${fmt(a.lf_peak_max, 2)}</b>)`, `лето ${r.fs}, зима ${r.fw} рейсов в неделю`, 'профиль месяца: среднее двух аэропортов'],
+      ['Самолётов в сети', `самолёты = ⌈блок-часы пикового сезона в неделю / <b>${fmt(a.block_h_per_day * 7)}</b>⌉ + <b>${fmt(a.spare_aircraft)}</b> резерв`, `хаб ${esc(nm(S.hub))}: ${fmt(summary(S.hub, 'base').aircraft)}`, `${fmt(a.block_h_per_day)} блок-часов в сутки`],
+      ['Балл города', 'балл = Σ вес × оценка 0–1 / Σ весов', `${esc(nm(S.hub))}: ${fmt((D.rating.find(x => x.iata === S.hub) || {}).score, 3)}`, 'веса команды']];
+    $('#formulas').innerHTML = `<div class="hd"><h2>Формулы на примере луча ${esc(nm(S.hub))} — ${esc(r.city)}</h2></div>` + F.map(([t, f, ex, s]) => `<div style="padding:4px 0 10px;border-bottom:1px solid var(--paper-2)"><h3 style="margin:0">${t}</h3><div class="formula">${f}</div><div class="row" style="justify-content:space-between"><b style="font-weight:500">${ex}</b><span class="hint tech">${s}</span></div></div>`).join('') +
+      devBox('где в коде', '<p class="sub" style="margin:0">Тариф, блок-время, затраты и самолёты: <span class="mono">src/network_model.py</span>. Балл: <span class="mono">src/longlist_score.py</span>. Числа в формулах приходят из <span class="mono">data/assumptions/network.csv</span> при сборке панели.</p>');
+  }
+  const sel = $('#sc-city'); if (!sel.options.length) { sel.innerHTML = D.rating.map(c => `<option value="${c.iata}">${esc(c.city)}, место ${c.rank}</option>`).join(''); sel.onchange = renderCard; }
+  if (D.cards[S.hub] && !sel._set) { sel.value = S.hub; sel._set = 1; }
+  renderCard(); renderWeights();
+}
+RENDER.how = renderHow;
+function renderCard() {
+  const i = $('#sc-city').value, rt = D.rating.find(x => x.iata === i), c = D.cards[i], W = D.crit.reduce((a, x) => a + x.w, 0) || 1;
+  $('#sc-t').innerHTML = `<tr><th>Критерий</th><th class="n">Значение</th><th class="n">0–1</th><th class="n">Вес</th><th>Вклад</th></tr>` + D.crit.map((k, j) => ({ k, j })).filter(x => x.k.w > 0).map(({ k, j }) => { const row = c.rows[j], n = rt.n[j], v = (n ?? 0.5) * k.w / W;
+    return `<tr title="${esc(row.src)}"><td>${esc(k.full)}${k.dir === '-' ? ' <span class="hint">(меньше — лучше)</span>' : ''}${row.weak ? ` <span class="tag t-est" title="${esc(row.weak)}">слабое</span>` : ''}</td><td class="n">${typeof row.raw === 'number' ? fmt(row.raw, Math.abs(row.raw) < 10 ? 2 : 0) : esc(row.t ?? row.raw ?? '—')}</td><td class="n">${fmt(n, 2)}</td><td class="n">${k.w}</td><td style="min-width:110px"><div class="bar"><i style="width:${Math.min(100, v / 0.25 * 100)}%"></i></div><span class="hint">${fmt(v, 3)}</span></td></tr>`; }).join('');
+  $('#sc-sum').innerHTML = `<b>Балл ${fmt(rt.score, 3)}, место ${rt.rank}</b> <span class="sub">при случайных весах от ${fmt(c.lo, 3)} до ${fmt(c.hi, 3)}</span>`;
+}
+let WT = null;
+function renderWeights() {
+  if (!WT) WT = D.crit.map(c => c.w);
+  $('#w-sl').innerHTML = D.crit.map((c, i) => `<div class="slider"><span style="font-size:13px">${esc(c.full)}</span><input type="range" min="0" max="40" value="${WT[i]}" data-i="${i}"><output>${WT[i]}</output></div>`).join('');
+  $$('#w-sl input').forEach(i => i.oninput = () => { WT[+i.dataset.i] = +i.value; i.nextElementSibling.textContent = i.value; renderRank(); });
+  renderRank();
+}
+function renderRank() {
+  const W = WT.reduce((a, b) => a + b, 0) || 1, L = D.rating.map(r => ({ ...r, s: r.n.reduce((a, v, i) => a + (v ?? 0.5) * WT[i], 0) / W })).sort((a, b) => b.s - a.s);
+  $('#w-t').innerHTML = '<tr><th>Место</th><th>Город</th><th class="n">Балл</th><th class="n">Было</th></tr>' + L.map((r, i) => { const d = r.rank - (i + 1);
+    return `<tr class="${r.iata === D.meta.hub ? 'warn' : ''}"><td>${i + 1}</td><td>${esc(r.city)}</td><td class="n">${fmt(r.s, 3)}</td><td class="n ${d > 0 ? 'up' : d < 0 ? 'dn' : ''}">${r.rank}${d ? (d > 0 ? ' ▲' : ' ▼') + Math.abs(d) : ''}</td></tr>`; }).join('');
+}
+$('#w-reset').onclick = () => { WT = null; renderWeights(); };
+
+/* ================= 04 ДАННЫЕ ================= */
+const KIND = { telegram: 'лента Telegram', http_file: 'файл по ссылке', manual: 'ручной файл', api: 'API' };
+let srcF = 'all';
+const asmTag = s => /^факт/i.test(s) ? ['t-fact', 'факт', 'fact'] : /^требование/i.test(s) ? ['t-req', 'требование кейса', 'req'] : /допущение/i.test(s) ? ['t-asm', 'допущение', 'asm'] : ['t-fact', 'источник', 'fact'];
+let asmF = 'all'; const DRAFT = {};
+function renderData() {
+  const L = D.src.filter(s => srcF === 'all' || s.role === srcF);
+  $('#src-t').innerHTML = `<tr><th>Источник</th><th>Владелец</th><th class="tech">Тип</th><th>Для чего</th><th class="n">Строк</th><th class="n">Обновлено</th><th></th></tr>` + L.map(s => {
+    const own = s.id === 'known_flows';
+    return `<tr><td><b style="font-weight:500">${esc(s.name)}</b><div class="mono dev" style="font-size:11.5px;padding:0;margin:0;background:none;border:0">${esc(s.id)} · ${esc(s.url)}</div></td><td class="sub">${esc(s.owner)}</td><td class="tech sub">${KIND[s.kind] || esc(s.kind)}</td><td class="sub">${esc((s.feeds || []).join(', ')) || (s.role === 'watch' ? 'новости и сигналы' : '')}</td><td class="n">${s.rows != null ? fmt(s.rows) : '—'}</td><td class="n">${s.fetched ? s.fetched.split('-').reverse().join('.') : '—'}</td>
+      <td style="white-space:nowrap">${own ? '<button class="btn sm" data-dl="kf">Скачать</button> <button class="btn sm" data-up="1">Загрузить</button>' : /^https?:/.test(s.url) ? `<a class="btn sm" href="${esc(s.url)}" target="_blank" rel="noopener" style="text-decoration:none">Источник ↗</a>` : ''}</td></tr>`; }).join('');
+  $$('#src-t [data-dl]').forEach(b => b.onclick = () => dl('known_flows.csv', toCSV(D.kf_head, D.kf)));
+  $$('#src-t [data-up]').forEach(b => b.onclick = () => { S.step = 0; go('up'); });
+  $('#kf-n').textContent = D.kf.length;
+  const TPL = { from_iata: ['код аэропорта вылета', '3 латинские буквы, есть в справочнике'], to_iata: ['код аэропорта прилёта', 'то же'], from_city: ['город вылета', 'для чтения человеком'], to_city: ['город прилёта', 'для чтения человеком'],
+    pax: ['пассажиров за период', 'целое, не меньше 0'], period: ['период', '2025 или 2026-01..10'], annual_factor: ['перевод в год', '1 для года, 1.2 для 10 месяцев'], coverage: ['что охватывает', 'airport — все перевозчики'],
+    use: ['как использовать', 'fit — калибровка, check — сверка'], source: ['источник', 'обязательно: ссылка или «допущение: …»'], quote: ['цитата из источника', 'чтобы проверить цифру глазами'] };
+  $('#tpl-t').innerHTML = '<tr><th>Колонка</th><th>Что это</th><th>Правило</th></tr>' + D.kf_head.map(h => `<tr><td class="mono">${h}</td><td>${(TPL[h] || ['', ''])[0]}</td><td class="sub">${(TPL[h] || ['', ''])[1]}</td></tr>`).join('');
+  $('#rules-t').innerHTML = '<tr><th>Правило</th><th>Условие</th><th>Уровень</th></tr>' + D.rules.map(r => `<tr><td>${esc(r.name)}</td><td class="mono">${esc(r.expr)}</td><td><span class="tag ${r.level === 'ошибка' ? 't-est' : 't-asm'}">${esc(r.level)}</span></td></tr>`).join('');
+  renderAsm(); renderChecks();
+}
+RENDER.data = renderData;
+$('#src-f').onclick = e => { const b = e.target.closest('button'); if (!b) return; srcF = b.dataset.f; $$('#src-f button').forEach(x => x.classList.toggle('on', x === b)); renderData(); };
+$('#tpl-dl').onclick = () => dl('shablon_known_flows.csv', D.kf_head.join(',') + '\n');
+$('#rules-dl').onclick = () => dl('upload_rules.csv', toCSV(['dataset', 'id', 'name', 'expr', 'level', 'why'], D.rules));
+function renderAsm() {
+  const L = D.asm.filter(a => asmF === 'all' || asmTag(a.s)[2] === asmF);
+  $('#asm-t').innerHTML = `<tr><th>Параметр</th><th class="n">Базовый</th><th class="n">Осторожный</th><th>Ед.</th><th>Тип</th><th class="tech">Источник</th><th class="n">Черновик</th></tr>` + L.map(a => { const t = asmTag(a.s);
+    return `<tr class="${DRAFT[a.k] != null ? 'warn' : ''}"><td class="mono">${a.k}</td><td class="n">${esc(a.b)}</td><td class="n">${esc(a.c)}</td><td class="sub">${esc(a.u)}</td><td><span class="tag ${t[0]}">${t[1]}</span></td><td class="sub tech" style="max-width:380px">${esc(a.s)}</td><td class="n"><input data-k="${a.k}" value="${esc(DRAFT[a.k] ?? '')}" placeholder="${esc(a.b)}" style="width:86px;border:1px solid var(--line);border-radius:8px;padding:3px 6px;text-align:right"></td></tr>`; }).join('');
+  $$('#asm-t input').forEach(i => i.onchange = () => { if (i.value.trim() === '' || i.value === i.placeholder) delete DRAFT[i.dataset.k]; else DRAFT[i.dataset.k] = i.value.trim(); renderAsm(); });
+  const n = Object.keys(DRAFT).length;
+  $('#asm-draft').textContent = n ? `Черновик: ${Object.entries(DRAFT).map(([k, v]) => k + ' = ' + v).join(', ')}. Скачайте файл и запустите py src/update.py --force у себя.` : 'Впишите своё значение в колонку «Черновик», основная версия не изменится.';
+  $('#asm-dl').disabled = !n;
+}
+$('#asm-f').onclick = e => { const b = e.target.closest('button'); if (!b) return; asmF = b.dataset.f; $$('#asm-f button').forEach(x => x.classList.toggle('on', x === b)); renderAsm(); };
+$('#asm-dl').onclick = () => dl('network.csv', toCSV(['parameter', 'base', 'cautious', 'unit', 'source'], D.asm.map(a => ({ parameter: a.k, base: DRAFT[a.k] ?? a.b, cautious: a.c, unit: a.u, source: DRAFT[a.k] != null ? 'черновик из Дашборда 3: ' + a.s : a.s }))));
+function renderChecks() {
+  let C = D.checks.slice();
+  if (S.demoRun) C = C.filter(c => !(c[0] === 'warn' && /неуверенно/.test(c[1]))).concat([['warn', 'Улан-Удэ: итог луча близок к нулю (пример)', 'модель снизила частоту']]);
+  $('#checks').innerHTML = `<p class="sub" style="margin-top:0">Хаб ${esc(nm(D.meta.hub))}, базовый сценарий.</p>` + C.map(([c, a, b]) => `<div class="chk"><span class="ico ${c === 'ok' ? 'ok' : c === 'bad' ? 'bad' : 'warn'}">${c === 'ok' ? '✓' : '!'}</span><div><b style="font-weight:500">${esc(a)}</b>${b ? `<br><span class="sub">${esc(b)}</span>` : ''}</div></div>`).join('');
+  $('#chk-sum').textContent = `${C.filter(x => x[0] === 'ok').length} в порядке, ${C.filter(x => x[0] !== 'ok').length} на внимание`;
+}
+
+/* ================= ПОИСК ================= */
+$('#q').oninput = () => {
+  const q = $('#q').value.trim().toLowerCase(), box = $('#sres'); if (q.length < 2) { box.style.display = 'none'; return; }
+  const R = [];
+  Object.entries(D.rays.base).forEach(([h, rs]) => rs.forEach(r => { if ((r.city + ' ' + r.to + ' ' + nm(h)).toLowerCase().includes(q)) R.push([`${nm(h)} → ${r.city}`, 'луч', () => { S.hub = h; go('net'); openRay(h, r.to); }]); }));
+  D.rating.forEach(r => { if (r.city.toLowerCase().includes(q)) R.unshift([`${r.city}: место ${r.rank} в рейтинге`, 'город', () => { go('how'); $('#sc-city').value = r.iata; renderCard(); }]); });
+  D.asm.forEach(a => { if ((a.k + ' ' + a.u + ' ' + a.s).toLowerCase().includes(q)) R.push([`${a.k} = ${a.b} ${a.u}`, 'параметр', () => go('data')]); });
+  D.src.forEach(s => { if (s.name.toLowerCase().includes(q)) R.push([s.name, 'источник', () => go('data')]); });
+  box.innerHTML = R.slice(0, 9).map((r, i) => `<button data-i="${i}"><b style="font-weight:500">${esc(r[0])}</b><span>${r[1]}</span></button>`).join('') || '<div style="padding:10px 14px" class="sub">Ничего не нашлось</div>';
+  box.style.display = 'block'; box.querySelectorAll('button').forEach(b => b.onclick = () => { R[+b.dataset.i][2](); box.style.display = 'none'; $('#q').value = ''; });
+};
+
+$('#foot').innerHTML = `Дашборд 3 собран ${D.meta.built}${D.meta.commit ? `, версия кода <code>${D.meta.commit}</code>` : ''}. Пересборка: <code>py src/update.py</code> или <code>py src/build_dashboard3.py</code>. Карта: ${esc(D.meta.map_src.split(/[:(]/)[0].trim())}.`;
+try { const m = localStorage.getItem('rw3-mode'); if (m) { const b = $(`#mode [data-m="${m}"]`); if (b) b.click(); } } catch (e) { }
+renderPill();
+const start = location.hash.slice(1); go(['up', 'net', 'how', 'data'].includes(start) ? start : 'up');
+</script>
+</body>
+</html>

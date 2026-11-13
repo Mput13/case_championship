@@ -79,7 +79,9 @@ def case_answer(names):
         prev = set(sp)
     first = ramp.iloc[0].spokes.split(";")
     full = ramp.iloc[-1].spokes.split(";")
-    pos_tri = [(v, x) for v, x in tri.items() if x > 0]
+    hyb = set(cfg.get("hybrid_triangles", []))
+    pos_tri = [(v, x) for v, x in tri.items() if x > 0 and (not hyb or v.replace("Прямые ", "") in hyb)]
+    n_pos = int((tri > 0).sum())
     tri_txt = "; ".join(f"{' — '.join(nm(c) for c in v.replace('Прямые ', '').split('-'))} ({sg(x)})" for v, x in pos_tri)
     comp = lambda i: (str(ch.loc[i].iloc[1]) if i in ch.index and isinstance(ch.loc[i].iloc[1], str) else "")
     fill = {
@@ -94,7 +96,7 @@ def case_answer(names):
         "honest_rank": f"выше Омска {', '.join(f'{nm(i)} ({sc(i)})' for i in top3)}: это крупные города с большим пассажиропотоком.",
         "honest_money": f"выше Омска {nm('CEK')} ({sg(hb.loc['CEK', 'result_mln_year'])} млн ₽ на {int(hb.loc['CEK', 'aircraft'])} самолётах: пересадки из Сибири на юг, один луч в Минеральные Воды даёт около 40% итога) и Сочи ({sg(hb.loc['AER', 'result_mln_year'])}, но {int(kov['AER'])} дня «Ковра» за год).",
         "ord_oms": f"Первые SJ-100: лучи {', '.join(nm(x) for x in first)}; к полной сети ({int(ramp.iloc[-1].aircraft)} самолётов) добавляются {', '.join(nm(x) for x in full if x not in first)}. Итог {sg(hb.loc[H, 'result_mln_year'])} млн ₽ в год.",
-        "ord_direct": (f"Из {len(tri)} треугольников модели окупаются {len(pos_tri)}: {tri_txt} млн ₽. Вся прямая сеть — {sg(d0.result_mln_year)} млн ₽ на {int(d0.aircraft)} самолётах, поэтому запускаем только окупаемые, по одному. Первой стоит проверить пару Екатеринбург — Красноярск (расчёт P38)." if pos_tri else "Треугольники при нынешних допущениях не окупаются."),
+        "ord_direct": (f"Из {len(tri)} треугольников модели окупаются {n_pos}; в гибрид берём {len(pos_tri)}: {tri_txt} млн ₽. Москва — Самара — Омск повторяет лучи хаба, Москва — Курган — Минеральные Воды почти в нуле. Вся прямая сеть — {sg(d0.result_mln_year)} млн ₽ на {int(d0.aircraft)} самолётах, поэтому запускаем только окупаемые, по одному." if pos_tri else "Треугольники при нынешних допущениях не окупаются."),
         "ord_cek": f"Лучший итог сети: {sg(hb.loc['CEK', 'result_mln_year'])} млн ₽ на {int(hb.loc['CEK', 'aircraft'])} самолётах, {int(kov['CEK'])} дней «Ковра». Условие: {km('CEK')} км до Екатеринбурга, поэтому по данным бронирований сначала проверить, сколько его пассажиров уже летают Red Wings из Кольцово.",
         "ord_tjm": f"{sg(hb.loc['TJM', 'result_mln_year'])} млн ₽ на {int(hb.loc['TJM', 'aircraft'])} самолётах, {int(kov['TJM'])} дней «Ковра». Условие то же: {km('TJM')} км до Екатеринбурга; в Тюмени база Utair.",
         "ord_ufa": f"Первые места рейтинга без фильтра, но сети слабее: Уфа {sg(hb.loc['UFA', 'result_mln_year'])}, Пермь {sg(hb.loc['PEE', 'result_mln_year'])} млн ₽ при {int(kov['UFA'])} и {int(kov['PEE'])} днях «Ковра». Подходят для прямых рейсов и как точки сетей Омска и Челябинска.",

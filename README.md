@@ -54,6 +54,7 @@ py -3.13 src/kover_days.py                        # дни «Ковра» по �
 py -3.13 src/catchment_extra.py                   # население 2025 всех пунктов, зарплата, погода
 py -3.13 src/build_longlist.py                    # data/processed/longlist.csv и outputs/longlist.xlsx
 py -3.13 src/build_dashboard.py                   # панель outputs/redwings_panel.html (табло, веса, карта, «Ковёр»)
+py -3.13 src/build_dashboard3.py                  # Дашборд 3 outputs/redwings_panel_v3.html: загрузка данных по правилам data/manual/upload_rules.csv, сеть, формулы, каталог данных
 ```
 Всё сразу одной командой: `py -3.13 src/update.py --force` — загрузка, проверки, лонглист, спрос по парам (docs/23), сравнение гипотез (docs/24), карты `outputs/map_hub.png` и `outputs/map_direct.png`, книга `outputs/redwings_model.xlsx`, панель.
 Ручные данные со ссылками — `data/manual/longlist_manual.csv`.
