@@ -1,0 +1,123 @@
+diff --git a/src/build_dashboard.py b/src/build_dashboard.py
+index 098cb69..974e3a8 100644
+--- a/src/build_dashboard.py
++++ b/src/build_dashboard.py
+@@ -89,6 +89,14 @@ def research(nodes):
+         out["thr"] = [{"case": r.competition_scenario_id, "year": int(r.year), "pax": float(r.threshold_reported_pax),
+                        "carrier": r.threshold_carrier_under_condition, "growth": float(r.market_annual_growth_condition)}
+                       for r in th.itertuples()]
++    if (C / "p34_triangle_shuttle_controls.csv").exists():
++        out["tri_ctl"] = [{"id": r.programme, "label": r.label, "scen": r.scenario, "v": float(r.delta_vs_keep_mln_month)}
++                          for r in pd.read_csv(C / "p34_triangle_shuttle_controls.csv").itertuples()]
++    if (C / "p36_new_pairs.csv").exists():
++        out["new_pairs"] = [{"pair": r.pair, "path": r.path, "base": float(r.base_mln_month), "cau": float(r.cautious_mln_month),
++                             "comp": r.competitor} for r in pd.read_csv(C / "p36_new_pairs.csv").itertuples()]
++        out["p36_prog"] = [{"name": r.programme, "scen": r.scenario, "new": float(r.new_flights_only)}
++                           for r in pd.read_csv(C / "p36_programmes.csv").itertuples()]
+     ex = ROOT / "data/manual/expert_notes.json"
+     if ex.exists():
+         out["expert"] = json.loads(ex.read_text(encoding="utf-8"))
+diff --git a/src/dashboard_template.html b/src/dashboard_template.html
+index 1fd9cd2..f632a7e 100644
+--- a/src/dashboard_template.html
++++ b/src/dashboard_template.html
+@@ -519,6 +519,11 @@ footer code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:v
+     <div class="tri-g" id="tri"></div>
+     <p class="win-note" id="tri-note"></p>
+   </section>
++  <section class="win" data-tab="direct" aria-labelledby="dc-title">
++    <div class="sec-h"><div><div class="eyebrow">Проверка другой моделью · коллеги 12.11 <span class="tag fix">условный расчёт</span></div><h2 id="dc-title">Треугольник или челнок: проверка по неделе</h2><div class="hint">Самолёт из Екатеринбурга, полный февраль 2027 года, все рейсы по дням и часам. Сравнение с тем же расписанием без новых рейсов, млн ₽ за месяц</div></div><div class="ctl"><div class="seg" id="dc-seg" role="group" aria-label="Сценарий"></div></div></div>
++    <div class="two"><div id="dc-tri"></div><div id="dc-pairs"></div></div>
++    <p class="win-note" id="dc-note"></p>
++  </section>
+   <section class="win" data-tab="direct" aria-labelledby="xpd-title"><div class="sec-h"><div><div class="eyebrow">Консультация эксперта авиакомпании, 12.11</div><h2 id="xpd-title">Что говорит практика про рейсы</h2></div></div><div class="xp" id="xp-direct"></div></section>
+   <section class="mapcard" id="vs" aria-labelledby="vs-title" data-tab="network"><span id="step3" class="anchor"></span>
+     <div class="sec-h ld-h">
+@@ -1521,7 +1526,37 @@ function p09(){
+   g+=`<circle cx="${x0}" cy="${H-10}" r="5" fill="#fff" stroke="#111318" stroke-width="2"/><text x="${x0+10}" y="${H-6}" font-size="11" fill="#5E6675">осторожный сценарий · полоса — базовый, млн ₽ за 2027–2028 годы, лучшая конструкция сети каждого города</text>`;
+   box.innerHTML=g+'</svg>';
+   const om=rows.findIndex(x=>city(x.id)===HUB0)+1;
+-  document.getElementById('p9-note').textContent=`Модель коллег считает 24 месяца с поставками новых самолётов в августе 2027 — сентябре 2028 года и сравнивает с работой без проекта. Омск — ${om}-е место среди городов; выше южные курорты, у которых больше дней «Ковра», и Челябинск. Это прирост известной части результата: аренда, база и полная прибыль в обеих моделях не посчитаны, независимая проверка ещё не завершена.`;
++  document.getElementById('p9-note').textContent=`Модель коллег считает 24 месяца с поставками новых самолётов в августе 2027 — сентябре 2028 года и сравнивает с работой без проекта. Омск — ${om}-е место среди городов; выше южные курорты, у которых больше дней «Ковра», и Челябинск. Это прирост известной части результата: аренда, база и полная прибыль в обеих моделях не посчитаны. Независимая проверка 12.11 повторила расчёт и ошибок не нашла (141 проверка).`;
++}
++
++/* --- 7б. треугольник или челнок: недельная модель коллег --- */
++let DCS='base';
++function directCheck(){
++  const bt=document.getElementById('dc-tri'), bp=document.getElementById('dc-pairs'), C=R2.tri_ctl||[], NP=R2.new_pairs||[]; if(!bt) return;
++  if(!C.length){ bt.textContent='Нет данных'; return; }
++  segInto('dc-seg',[['base','База'],['cautious','Осторожный']],DCS,k=>{DCS=k;directCheck();});
++  const ord=['TRI:SVX-AER-MRV','AER2','AER1','CANCEL_BOTH','CANCEL_TUE_KEEP_FRI'];
++  const rows=ord.map(id=>C.find(x=>x.id===id&&x.scen===DCS)).filter(Boolean);
++  const hi=Math.max(...C.map(x=>x.v)), W=520, rh=46, top=34, x0=12, x1=W-80, X=v=>x0+v/hi*(x1-x0), H=top+rows.length*rh+8;
++  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Треугольник и челноки в Сочи"><text x="${x0}" y="18" font-size="14" font-weight="700" fill="#111318">Один самолёт: Сочи двумя способами</text>`;
++  rows.forEach((x,i)=>{ const y=top+i*rh, tri=x.id.startsWith('TRI'), sh=x.id.startsWith('AER'), col=tri?'#3FA772':sh?'#5B8DB8':'#B9B5AC';
++    g+=`<text x="${x0}" y="${y+12}" font-size="12.5" font-weight="${tri?700:400}" fill="#111318">${esc(x.label)}</text>`;
++    g+=`<rect x="${x0}" y="${y+18}" width="${Math.max(2,X(Math.max(x.v,0))-x0)}" height="16" rx="4" fill="${col}"/>`;
++    if(tri||sh) g+=planeSvg(Math.max(x0+10,X(Math.max(x.v,0))-10),y+26,15,'#fff',0);
++    g+=`<text x="${X(Math.max(x.v,0))+8}" y="${y+31}" font-size="12.5" fill="#111318">${sgn(x.v,1)}</text>`; });
++  bt.innerHTML=g+'</svg>';
++  const N=NP.slice().sort((a,b)=>(DCS==='base'?b.base-a.base:b.cau-a.cau)), all=NP.flatMap(x=>[x.base,x.cau]), lo=Math.min(0,...all), mx=Math.max(0,...all);
++  const W2=520, x2=210, x3=W2-60, Y=v=>x2+(v-lo)/(mx-lo)*(x3-x2), H2=34+N.length*40+24;
++  let q=`<svg viewBox="0 0 ${W2} ${H2}" role="img" aria-label="Новые пары из Екатеринбурга"><text x="0" y="18" font-size="14" font-weight="700" fill="#111318">Новые пары: какие проверять первыми</text>`;
++  q+=`<line x1="${Y(0)}" y1="28" x2="${Y(0)}" y2="${H2-22}" stroke="#B9B5AC"/>`;
++  N.forEach((x,i)=>{ const y=34+i*40, v=DCS==='base'?x.base:x.cau, col=v>0?'#3FA772':'#C9CED6';
++    q+=`<text x="${x2-10}" y="${y+18}" text-anchor="end" font-size="12.5" fill="#111318">${esc(x.pair.replace('—',' — '))}</text>`;
++    q+=`<rect x="${Math.min(Y(0),Y(v))}" y="${y+6}" width="${Math.abs(Y(v)-Y(0))}" height="18" rx="4" fill="${col}"><title>${esc(x.path)} · ${esc(x.comp)}</title></rect>`;
++    q+=`<text x="${v>=0?Y(v)+6:Y(0)+6}" y="${y+19}" font-size="12" fill="#111318">${sgn(v,1)}</text>`; });
++  q+=`<text x="0" y="${H2-4}" font-size="11" fill="#5E6675">один оборот в неделю; полный путь самолёта с возвратом в Екатеринбург</text>`;
++  bp.innerHTML=q+'</svg>';
++  const t=C.find(x=>x.id==='TRI:SVX-AER-MRV'&&x.scen==='base'), a2=C.find(x=>x.id==='AER2'&&x.scen==='base'), so=(R2.p36_prog||[]).find(x=>x.scen==='base'&&x.name.includes('Сочи'));
++  document.getElementById('dc-note').textContent=`Коллеги перебрали 480 240 недельных сочетаний рейсов из Екатеринбурга. В базовом сценарии треугольник через Сочи и Минводы (${sgn(t.v,1)} млн ₽ в месяц) почти равен двум челнокам в Сочи (${sgn(a2.v,1)}): разница ${ru(a2.v-t.v,2)} млн ₽, поэтому в нашей сети остаются треугольники, они дают больше пар городов. Лучший способ занять самолёт — ежедневный рейс Екатеринбург — Сочи: ${so?sgn(so.new,1):'—'} млн ₽ в месяц от новых рейсов. Из новых пар коллеги советуют первой проверить Екатеринбург — Красноярск: без билетов с пересадкой он выше Иркутска. Всё это сравнение с тем же расписанием; аренда, база и полная прибыль не входят.`;
+ }
+ 
+ /* --- 8. самолёты до №2 --- */
+@@ -1554,7 +1589,7 @@ function fleet2(){
+ 
+ /* --- запуск --- */
+ ['hubs','direct','network','growth'].forEach(expert);
+-[hub20,fiveCity,flight,triangles,week,fuelWin,p09,fleet2].forEach(fn=>{ try{ fn(); }catch(e){ console.error(fn.name,e); } });
++[hub20,fiveCity,flight,triangles,directCheck,week,fuelWin,p09,fleet2].forEach(fn=>{ try{ fn(); }catch(e){ console.error(fn.name,e); } });
+ showTab(location.hash.slice(1));
+ 
+ </script>
+diff --git a/src/demand_model.py b/src/demand_model.py
+index 67515a2..1e62cee 100644
+--- a/src/demand_model.py
++++ b/src/demand_model.py
+@@ -130,7 +130,7 @@ def main():
+     kf.loc[low, "model"] = np.exp(predict(beta, F.loc[low, FEATS].values)).round()
+ 
+     # все пары, где на одном конце кандидат в хаб или база
+-    cand = set(pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").iata) | BASES
++    cand = set(pd.read_csv(rules.CITIES).iata) | BASES
+     known = {(r.from_iata, r.to_iata): r for r in kf.itertuples()}
+     known.update({(b, a): r for (a, b), r in list(known.items())})
+     out = []
+diff --git a/src/demand_summary.py b/src/demand_summary.py
+index e93ec73..6939c8b 100644
+--- a/src/demand_summary.py
++++ b/src/demand_summary.py
+@@ -30,7 +30,7 @@ def main():
+     dest["to"] = dest["to"].where(~dest["to"].isin(MOW), "MOW")
+     dest = dest.sort_values("direct", ascending=False).drop_duplicates(["from", "to"])
+     dest = dest[dest.in_ssj]
+-    ll = pd.read_csv(ROOT / "context/07_verification/terra_cities_review/corrected_cities.csv").set_index("iata")
++    ll = pd.read_csv(rules.CITIES).set_index("iata")
+     spokes = []
+     for r in dest.itertuples():
+         if (r._1, r.to) not in both.index:
+diff --git a/src/rules.py b/src/rules.py
+index 2a15f8a..c3d00d7 100644
+--- a/src/rules.py
++++ b/src/rules.py
+@@ -20,6 +20,9 @@ MOW_AIRPORTS = set(_B[_B.node == "MOW"].iata)
+ BASES = list(dict.fromkeys(_B.node))
+ _LP = pd.read_csv(ROOT / "data/assumptions/longlist_params.csv").set_index("parameter").value
+ RAIL_OK_HR, CATCH_KM, MIN_DIST_KM = float(_LP["rail_ok_hr"]), float(_LP["catchment_km"]), float(_LP["min_dist_bases_km"])
++# лонглист команды: 20 городов, пассажиропоток 2025 и ссылки на источники в колонках *_source_url.
++# Копия context/07_verification/terra_cities_review/corrected_cities.csv (коммит cdefb6b, 07.11.2026), перенесена 13.11.2026.
++CITIES = ROOT / "data/manual/longlist_cities.csv"
+ 
+ 
+ def is_south(region):

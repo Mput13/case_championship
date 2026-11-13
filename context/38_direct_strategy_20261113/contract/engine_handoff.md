@@ -1,0 +1,67 @@
+# Передача основному joint/monthly engine
+
+Контракт завершает ограниченную подготовку входов и API. Основной генератор сетей, оптимизация всех сочетаний, новый обзор рынка и окончательные city/strategy/weight решения здесь не выполняются. Использовать только собственные пути этого пакета и закреплённые источники в `source_manifest.json`.
+
+## Версии и требования
+
+`case_requirements.csv` разделяет первичный case_live, текущие docs/requirements и поздний командный scope. Первичный case_live сверён с точными Git bytes P06 `982f13d9…`; он одной строкой, поэтому кроме строки указана позиция символа. `origin` c18f764 и `origin/шаг-1` 6cbe817 имеют одинаковые требования. В cd04921 нет `docs/01_case_brief.md`: отсутствие этого пути не отменяет ТЗ. Обзор веток выполнен read-only по pins, без fetch/checkout и упаковки всех материалов.
+
+ТЗ требует сравнить хаб и прямые рейсы, >=10 городов/top3, >=2 конкурента с региональными базами, base/cautious, пассажиров/выручку/совместимую долю рынка, сеть 8–12 маршрутов с частотами, числом самолётов и методом для каждого А→Б, дорожную карту до 2028, паспорт/карту/материалы ИИ. Заочная сдача 10 ноября 23:59; защита 13 ноября — обновлённый паспорт, 5–8 слайдов, <=5 минут и дорожная карта. Export означает таблицу/код/артефакты; отдельного требования экспортного авиарынка в первичном тексте нет. Долгосрочная цель №2 и весь бизнес — позднее командное уточнение, не доказательство достижения №2 сетью из 8–12 маршрутов.
+
+Новые SJ-100/ПД-8 — не раньше H2 2027 и только после сценарного коммерческого ввода. 42 самолёта для трёх авиакомпаний не означают 42 Red Wings. В docs официальный парк — 28 (20 SSJ100, 3 Ту-214, 2 Ту-204-100B, 3 B777); это stock, не свободный ресурс. Отраслевые альтернативные числа в первичной справке не превращать в доступные хвосты. RRJ/SaM146, будущий SJ/ПД-8 и B777/Ту различаются.
+
+Поздний P08 SVX добавил 141 первичное правило расписания, own SGC/RGK/MMK и KUF–NUX для KEEP, сохранил 17 старых гипотез и обе ориентации треугольников. Stage B оставался NOT_RUN, возврат/повторяемость/назначение хвостов условны. Его новый C07-R на другом аналоге не исправляет frozen исторический +270 block min. P08 Москва: 19 рецептов/57 условных программ, физические DME/ZIA, mixed Tu/SSJ BUS=Батуми; CXR B777/Ту не доказывает RRJ ресурс, ангар не доказывает availability.
+
+P09 уже исправил ранний общий ferry generator в основном builder. Четыре поздние basename-collision копии P01 заменены точными root bytes до использования; P05/P06 numeric demand не менялся. Его 178 программ/1958 опытов и canonical projections — условные вычисления, не actual market/dispatch/full-profit acceptance. Активный P05 default использует 12 месячных значений Aeroflot Group 2025; старый текст docstring про national block interpolation не описывает эту активную ветвь. P36/P37 не закрыли совместный перебор weekly combos/multiple paths, все месяцы/ресурсные когорты, actual OD/net/F/D, новую технику и фактический допуск.
+
+## Universe и численное admission
+
+Считать все 60 строк programme inventory (по два сценария в исходнике), а положительный seed отбирать только по `new_minus_same_WITHOUT_NEW > 0`: 37 программ, 25 физических пар. Четыре эквивалентных REPLACE alias разрешены через P36 equivalence_map. Не выдавать TOTALvsKEEP за вклад новой цепи. CEK–SVX и SVX–TJM в seed только paid positioning: ноль кресел/продаж, расход сохранён. Остальные плечи — коммерческие сценарные service, но actual new RW market не установлен.
+
+Обе ориентации региональных плеч указаны отдельно. Один треугольник обычно продаёт только одно направление; для возврата нужна обратная датированная ориентация или иной принятый продукт. Старый top5 и AER controls сохранены; контроль AER не меняет общую стратегию/рейтинг городов. Не терять CEK–SVX и SVX–ZIA из-за отсутствия CEK–SVX/MOW–SVX в старом route_universe. В физике держать DME/ZIA отдельно, в choice использовать единственный directed MOW pool.
+
+P01 late snapshot — исторические **segments**, airport/carrier totals и квалификация 37 известных потоков; endpoint OD header-only. Например, KJA–SVX наблюдается в июле/августе 2025 как сегменты, а не будущие конечные поездки. Q1 и FY строки не считать мартом/декабрём; Top10 не полный рынок. Не складывать год/квартал/месяц и группу перевозчиков с её частью. OVB H1 не удваивать автоматически, CEK–MOW область не аэропорт. KJA требует выбора определения/версии: сумма 12 monthly total 4 263 245 против FY 4 263 566, отдельные ВВЛ/МВЛ версии расходятся. UT Jan–Sep неполон; самолёты отдельно от вертолётов, Feb–Sep — разности YTD. VVO/UT/KJA профиль не является профилем каждой RW пары.
+
+Разрешён только явно условный сценарный перенос действующего carrier profile с сохранённым snapshot, определением и workbook cell lineage. Новых numeric OD/net/actual invoices здесь не принято. Сообщённые координатором 81 primary service positive и 23 public rates остаются дополнительными свидетельствами/порогами; updates0 не заменяют calibration или invoice. Не читать живые agent outputs.
+
+## Ресурс и три состояния
+
+Каждая когорта имеет 1/2/3 **рабочих** хвоста и отдельный R1; R1 не назначается на рейсы, общий резерв нельзя размножать. Resources из utility — гипотетические envelope для проверки; actual release/reserve NULL. Неполный old calendar не создаёт бесплатный самолёт.
+
+- K1: выбран T1 из B2 с его точными 11 old jobs именно в KEEP. Его свободные промежутки не доказывают отсутствие другой работы.
+- K2: P36 B2, два SVX хвоста, 15 выбранных RT/week — GOJ4/KUF7/OMS2/UFA2. Возвраты и UFA Thu/Sun recurrence — сценарий выбранной программы, не отмена наблюдавшихся Tue/Fri.
+- K3: те же задания K2 плюс условный RRJ T3. Его старая D3 неизвестна; нужна граница допустимой потери/новых фиксированных платежей, а не free plane. Utility оставляет fullPnL/cash/D3 NULL.
+
+K2−K1 содержит другой набор старых заданий, поэтому не равен маргинальной ценности второго борта. Для marginal next-tail сравнивать вложенные задачи в одном мире: `joint optimum(k+1) − joint optimum(k) − actual outside opportunity − fixed new-airframe payments − incremental R1 burden`. Потери старых продуктов, уже вошедшие в joint delta, второй раз не вычитать. Этот пакет не вычисляет optimum. Москва — отдельный conditional RRJ gate с реальным physical airport и international D; B777 и Ту не RRJ.
+
+KEEP, SAME CHANGE WITHOUT_NEW, REPLACE используют одинаковую оболочку ресурсов и внешний сценарий. W сохраняет ровно те же remove/move/swap, что R, но без новых jobs. Все старые/новые продукты и кресла пересчитываются совместно. `W−K`, `R−W`, `R−K` показывать отдельно. Common cancellation C сокращается в R−W; сравнение с KEEP и иной removal-set требует собственного C. Unavoidable lease/salary не избегаются. Внутренний cannib уже в совместной аллокации; отдельно вычитать лишь непокрытые внешние own/interline/3+leg потери.
+
+## API и календарь
+
+`month_adapter.p36_weekly(candidate,state)` восстанавливает exact weekly события из completed ledger и того же directed P34 block API, сверяет block с crew-hour ledger. Это повтор сценария, не продление периода первичного расписания. `evaluate_month(states,tails,2027,month,scenario)` вызывает чистый P31 evaluate_combined_programme и frozen P06 allocator, без прежних exporter/build/verify. Primary direct-only; paid positioning остаётся физическим и расходным, но не marketed product.
+
+Календарь использует реальные даты, UTC/local IANA и ISO weekday. Период economics — **UTC departure month**: полная стоимость рейса относится к месяцу его вылета; BH разбиваются в UTC midnight. Flight, начавшийся в предыдущем месяце, сохраняется как boundary context. Ресурсная позиция/ready time не сбрасываются на неделю/месяц; carry-in/out доступны. Для другого business-month definition нужен отдельный согласованный remap, не незаметная смена периода OD. Январские праздники распределяют один месячный pool по датам; самостоятельного второго annual demand нет.
+
+P36 fixed Feb/EPOCH/range(4)/28day/ready0 здесь не переносятся. P31 допускает enum existing_slots только 0/1/2; для K3 локально, в памяти, расширена только эта проверка до 3 с точным source needle guard. Экономические/choice формулы не меняются, внешние файлы не записываются. Такой адаптер однопоточный: seam patches восстановлены через finally; параллельный main engine должен изолировать instances или передавать calendar/choice/cost callback явно.
+
+`inverse_od(programmes,target,tails,year,month,scenario,focus_pairs)` — малый bounded API: изменяет общий направленный monthly OD во всех трёх состояниях и альтернативах, пересчитывает joint и ищет численный bracket crossing. Проверяет одинаковый KEEP; не генерирует сеть и не доказывает глобальный минимум. `NO_WINNING_OD_IN_TESTED_BRACKET` означает отсутствие выигрыша в проверенной границе до 64× prior, а не бесконечный экономический отказ. `inverse_threshold` даёт необходимую q/capacity границу. Без observed route-month OD результат — нужный OD/net/F threshold, не capacity forecast.
+
+Main engine должен: объединить old jobs один раз на когорту; назначать несколько путей вместе; проверять совпадения IDs/интервалы/перегоны/turn/переход недели/месяца; считать frequency как dated directed departures×7/monthdays; не суммировать solo margins. Cache key включает полные timestamps/paths/actions/tails/initial positions/resources/variant/blocks/cost/tax/OD/profile/calendar/response/source hashes, а не только candidate ID. Не переносить cache/optimum между разными old-job cohorts.
+
+## Сезоны, стоимость и pilot gate
+
+Считать 12 полных месяцев 2027, группировку winter/spring/summer/autumn, отдельно Jan holiday и summer peak. `monthly_profile(year)[month_number]` применяется один раз; cautious annual stress .962 применяется один раз. Направления 50/50,35/65,65/35, sales-day/lead-time и normalized dated weights 0.5–1.5 — явные stress assumptions. Competitor passive/fare−10%/capacity-change и слабые соседние рынки OD×0.5 одинаково действуют на K/W/R; вероятности и actual response не выдумывать. Не использовать неполное расписание как отсутствие рынка.
+
+Стоимость RRJ — прежний подписанный сценарный перенос, не actual invoice: tonnes × landed RUB/tonne один раз, base136300+1696=137996, cautious161696. Fixed crew15/22тыс/BH исключены как в P36; аренда/постоянная зарплата не избегаемы. MRO/ground/deice avoidability, pax basket/контрактные минимумы, overnight/parking/setup/R1, старые потери и net/tax basis требуют фактических данных. P05 net bridge — сценарий `(gross-pass-through)/(1+VAT)×(1-distribution)+ancillary`, не автоматическое снятие НДС/комиссии с найденной цены. Единицы билета/поездки/плеча/кг/тонны и inclusion налогов проверять до замены rates.
+
+P37 69+69 BASE и 115+115 CAUT на SVX–KJA — lower-bound при его условных net и нулевых неизвестных вычетах; 115>100 не помещается. Полная направленная граница: `n_out×net_out+n_back×net_back > variable rotation + F_oneoff/N + F_recurring/N + D + uncovered lost own contribution`. Cannib в effective net добавлять только если он ещё не посчитан joint; не вычитать transferred fare целиком автоматически. Through=0 primary. Cargo/block=0 main до договоров; отдельный contractual upper bound с net/количеством/release/payment/seat/payload, не доход по умолчанию.
+
+S0 — без новых SJ; S1 — иллюстративный entry Aug/Nov2027, partial — только Aug; delay6 — Feb/May2028. Это inherited resource cases, не поставочный прогноз. Entry требует H22027 AND сценарной даты AND actual acceptance/crew/MRO/certification. PD-8 не получает RRJ costs как факт: показывать resource envelope и максимально допустимую unit cost после спроса/альтернативы, full profit NULL.
+
+Pilot design для 2–3 лидеров: SVX–KJA, SVX–IKT, GOJ–KJA. Иллюстративный минимум — 2 коммерческих вылета **в каждую сторону** за неделю на разнесённых днях; для прямого RT это 2 оборота, для треугольника нужны обе ориентации. Это условие теста продукта, не наблюдаемый спрос или разрешение запуска; исходные 1RT fixtures не доказывают такую комбинацию. Запуск требует actual q/net/F, которые после setup/exit/R1/D/C дают результат выше лучшей допустимой альтернативы той же когорты. Вычислить q_min через inverse OD, net_min и Fmax; каждый датированный leg <=100 seats.
+
+Team test-loss budget UNKNOWN. Обратный расчёт: `B_required=max(0,−minimum test cash)` с датами платежей; максимум дополнительных F — оставшийся joint headroom к альтернативе плюс явно утверждённый differential test budget. Пока cash calendar/budget неизвестны, оставлять формулу/границу, не считать их нулём. Меньший убыток сам по себе не рекомендация. Stop при потере хвоста/R1/ops, q/net ниже заранее согласованной границы после lead-time correction, превышении полного бюджета с exit, проигрыше альтернативе после реакции. Expansion — только после повторных observed q/net/invoices/операбельности и проверки общего OD/следующего борта.
+
+## Проверка и передача
+
+`verify.py` реально исполняет календарь 12 месяцев, Jan/Feb/Jul joint receipts, месячный profile-once, Jan pool conservation, MOW shared demand, отсутствие второго ресурса/R1/duplicate old jobs, K1/K2/K3, Sunday→Monday→month boundary, direct-only/P37/tax/fuel units, bounded inverse OD и before/after immutable guard. В validation отдельно названы все UNKNOWN. Основному engine передано непокрытое пространство weekly combinations/multiple paths и actual costs/resources; исследования не ожидаются. Запись только contract, без изменений 1621 прежних файлов (7 mutable metadata не включены в guard). STOP после готового handoff.

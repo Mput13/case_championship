@@ -1,0 +1,18 @@
+{
+  "runs": [
+    {
+      "status": "PASS",
+      "cost_rows": 45,
+      "public_numeric_rows": 22
+    },
+    {
+      "status": "FAIL",
+      "cost_rows": 48,
+      "errors": [
+        "tax_overlap_coverage"
+      ],
+      "reason": "Verifier required EX_VAT on newly explicit UNKNOWN-package rows; no false rate admitted",
+      "fix": "EX_VAT required for published numeric rows; UNKNOWN tax required on UNKNOWN-package rows"
+    }
+  ]
+}

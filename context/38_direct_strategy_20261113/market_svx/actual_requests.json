@@ -1,0 +1,48 @@
+{
+  "retrieved_at_utc": "2026-11-13",
+  "scope_pairs": [
+    "AER-SVX",
+    "CEK-SVX",
+    "GOJ-SVX",
+    "IKT-SVX",
+    "KJA-SVX",
+    "MRV-SVX",
+    "SVX-TJM",
+    "SVX-TOF",
+    "SVX-ZIA"
+  ],
+  "queries": [
+    {
+      "family": "SVX airport official schedule",
+      "attempts": [
+        "web search for ar-svx.ru schedule route rows",
+        "open https://ar-svx.ru/schedule/",
+        "open https://ar-svx.ru/schedule/?type=arr"
+      ],
+      "result": "Opened; direct archive route-row text available; KJA extracted from P37; no claim of negative service from missing rows."
+    },
+    {
+      "family": "RW fares/rules",
+      "attempts": [
+        "open https://flyredwings.com/en/fares/"
+      ],
+      "result": "Rules found: Standard includes 20kg; Light checked baggage paid; no dated route quote."
+    },
+    {
+      "family": "CEK commercial/fare",
+      "attempts": [
+        "search route SVX-CEK",
+        "open Ural Airlines official route page"
+      ],
+      "result": "Official sales route page opened; no quote or ferry clarification."
+    },
+    {
+      "family": "P37 carry-forward",
+      "attempts": [
+        "read P37 source_resolution and market exports"
+      ],
+      "result": "KJA 7/week November, only Tue/Sat visible February; incomplete horizon, no comparable fare; official Aeroflot page blocked 3749707."
+    }
+  ],
+  "coverage_note": "P38 task supplied 9 SVX pairs. This pass does not inspect other 16 pairs. No universal absence conclusions."
+}
