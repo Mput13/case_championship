@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Омск (OMS): пошаговая анимация полётов Red Wings</title>
+<title>Омск (OMS): интерактивная карта, аэропорты, конкуренты и рейсы Red Wings</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Montserrat+Alternates:wght@500;700&display=swap">
@@ -20,17 +20,17 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);font-size:14px;line-height:1.45}
 .top{background:var(--ink);color:#F4F5F7;padding:10px 0}
-.wrap{max-width:1360px;margin:0 auto;padding:0 16px}
+.wrap{max-width:1380px;margin:0 auto;padding:0 16px}
 .top .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--code);font-weight:700;font-size:16px}
 .brand small{font-family:var(--f);font-weight:400;color:var(--steel);font-size:13px}
 .back{margin-left:auto;color:#F4F5F7;text-decoration:none;border:1px solid #2A2F3A;background:var(--ink-3);border-radius:999px;padding:5px 12px;font-size:13px}
 .back:hover{border-color:#F4F5F7}
-main{padding:18px 0 36px;display:flex;flex-direction:column;gap:14px}
+main{padding:16px 0 36px;display:flex;flex-direction:column;gap:12px}
 .card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
 .hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:8px}
 h1{font-family:var(--code);font-size:20px;margin:0}
-h2{font-size:15px;margin:0}
+h3{font-size:14.5px;margin:0}
 .sub{color:var(--muted);font-size:12.5px}
 .seg{display:inline-flex;background:var(--paper-2);border-radius:10px;padding:3px;flex-wrap:wrap;gap:2px}
 .seg button{border:0;background:none;padding:5px 10px;border-radius:8px;font-size:12.5px;color:var(--muted);cursor:pointer;font-family:inherit;font-weight:500}
@@ -39,241 +39,865 @@ h2{font-size:15px;margin:0}
 .btn:hover{border-color:var(--ink)}
 .btn.red{background:var(--red);border-color:var(--red);color:#fff}
 .btn.red:hover{background:var(--red-d)}
-.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.clock{font-family:var(--mono);font-size:13px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--paper);border:1px solid var(--line)}
-.scrub{display:flex;align-items:center;gap:10px;margin-top:8px}
-.scrub input[type=range]{flex:1;accent-color:var(--red);cursor:pointer}
+.btn.sm{padding:4px 9px;font-size:12px}
+.clock{font-family:var(--mono);font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--paper);border:1px solid var(--line)}
 .mono{font-family:var(--mono);font-size:12px}
-.strip{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--paper);border-left:3px solid var(--red);font-size:13px}
-.strip.tr{background:var(--amber-bg);border-left-color:#B45309}
-.map-box{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--sea)}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:8px 12px;background:var(--white);border-top:1px solid var(--line)}
-.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
-.g-ticks{display:grid;grid-template-columns:86px 1fr;gap:8px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:4px}
-.g-ticks div{display:flex;justify-content:space-between}
-.g-row{display:grid;grid-template-columns:86px 1fr;gap:8px;align-items:center;margin-bottom:5px}
-.g-lbl{font-family:var(--mono);font-size:11.5px;font-weight:700;line-height:1.15}
-.g-lbl small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
-.g-track{position:relative;height:22px;background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.g-bar{position:absolute;top:2px;bottom:2px;border-radius:4px;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.86;overflow:hidden;white-space:nowrap}
-.g-bar:hover{opacity:1;outline:1.5px solid var(--ink);z-index:3}
-.g-bar.on{opacity:1;outline:2px solid #fff;box-shadow:0 0 0 1.5px var(--ink);z-index:4}
-.g-ph{position:absolute;top:0;bottom:0;width:2px;background:var(--red);z-index:5;pointer-events:none}
-.tw{overflow-x:auto;max-height:220px;border:1px solid var(--line);border-radius:10px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
 table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
 th{position:sticky;top:0;background:var(--paper);color:var(--muted);font-size:11px;font-weight:500;text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);z-index:2}
 td{padding:6px 9px;border-bottom:1px solid var(--paper-2);white-space:nowrap}
-tr.click{cursor:pointer}tr.click:hover{background:var(--paper)}tr.act{background:var(--blue-bg)}
+tr.click{cursor:pointer}tr.click:hover{background:var(--paper)}tr.sel{background:var(--blue-bg)}
 .tag{display:inline-block;font-size:11px;font-weight:500;padding:1px 7px;border-radius:999px}
-.t-fly{background:var(--blue-bg);color:var(--blue)}.t-turn{background:var(--amber-bg);color:#8A6210}.t-ok{background:var(--green-bg);color:#23704A}.t-wait{background:var(--paper-2);color:var(--muted)}
+.t-model{background:var(--blue-bg);color:var(--blue)}.t-asm{background:var(--amber-bg);color:#8A6210}.t-fact{background:var(--green-bg);color:#23704A}.t-req{background:var(--paper-2);color:var(--muted)}
+.up{color:#23704A}.dn{color:var(--red-d)}
+
+.an-wrap{display:flex;flex-direction:column;gap:12px}
+.an-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.an-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.an-clock{font-family:var(--mono);font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--paper);border:1px solid var(--line)}
+.an-scrub{display:flex;align-items:center;gap:10px}
+.an-scrub input[type=range]{flex:1;accent-color:var(--red);cursor:pointer}
+.an-strip{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--paper);border-left:3px solid var(--red);font-size:13px}
+.an-strip.tr{background:var(--amber-bg);border-left-color:#B45309}
+.an-split{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(350px,0.95fr);gap:14px;align-items:stretch}
+@media(max-width:1060px){.an-split{grid-template-columns:minmax(0,1fr)}}
+.an-mapbox{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--sea);display:flex;flex-direction:column;position:relative}
+.an-mapbar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:7px 10px;background:var(--white);border-bottom:1px solid var(--line);font-size:12px}
+.an-stage{position:relative;flex:1;min-height:330px;background:var(--sea);user-select:none;overflow:hidden}
+.an-stage svg{width:100%;height:100%;min-height:330px;display:block;cursor:grab}
+.an-stage svg.panning{cursor:grabbing}
+.an-zoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:4px;z-index:4}
+.an-zoom button{width:28px;height:28px;border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:8px;font-weight:700;font-size:14px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.an-zoom button:hover{border-color:var(--ink);background:#fff}
+.an-tip{position:absolute;pointer-events:none;z-index:10;background:rgba(17,19,24,.94);color:#F4F5F7;padding:8px 10px;border-radius:9px;font-size:12px;line-height:1.4;max-width:270px;box-shadow:0 8px 24px rgba(0,0,0,.22);display:none}
+.an-tip b{color:#fff}
+.an-tip small{color:#B8C0CE;display:block;margin-top:2px}
+.an-chips{display:flex;gap:4px;flex-wrap:wrap;padding:7px 10px;background:var(--paper);border-top:1px solid var(--line)}
+.an-chip{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:500;cursor:pointer;color:var(--ink)}
+.an-chip:hover{border-color:var(--ink)}
+.an-chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.an-chip.hub{border-color:#F0B9BA;color:var(--red-d)}
+.an-chip.hub.on{background:var(--red);color:#fff;border-color:var(--red)}
+.an-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);padding:7px 10px;background:var(--white);border-top:1px solid var(--line)}
+.an-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:0}
+.an-insp{border:1px solid var(--line);border-radius:14px;background:var(--white);display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.an-itabs{display:flex;gap:2px;background:var(--paper);border-bottom:1px solid var(--line);padding:6px 8px 0}
+.an-itabs button{border:0;background:none;padding:7px 11px;font-size:12.5px;font-weight:500;color:var(--muted);border-bottom:2.5px solid transparent;cursor:pointer;border-radius:8px 8px 0 0}
+.an-itabs button.on{background:var(--white);color:var(--ink);border-bottom-color:var(--red);font-weight:700}
+.an-ibody{padding:12px 14px;overflow-y:auto;max-height:455px;display:flex;flex-direction:column;gap:10px;font-size:12.5px}
+.an-ihead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--paper-2);padding-bottom:8px}
+.an-icode{font-family:var(--code);font-size:22px;font-weight:700;line-height:1}
+.an-kgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+@media(max-width:520px){.an-kgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.an-kbox{background:var(--paper);border-radius:9px;padding:6px 8px}
+.an-kbox b{display:block;font-size:10.5px;color:var(--muted);font-weight:500}
+.an-kbox span{font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.an-alert{padding:7px 10px;border-radius:9px;font-size:12px;background:var(--amber-bg);color:#7A5410;border-left:3px solid #D97706}
+.an-alert.red{background:var(--red-bg);color:var(--red-d);border-left-color:var(--red)}
+.an-alert.ok{background:var(--green-bg);color:#1E6B45;border-left-color:var(--green)}
+.an-alert.blue{background:var(--blue-bg);color:var(--blue);border-left-color:var(--blue)}
+.an-sec{border-top:1px solid var(--paper-2);padding-top:8px}
+.an-sec h4{margin:0 0 6px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.an-mini{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums}
+.an-mini th{text-align:left;color:var(--muted);font-weight:500;padding:4px 5px;border-bottom:1px solid var(--line);background:var(--paper);position:static}
+.an-mini td{padding:4px 5px;border-bottom:1px solid var(--paper-2);vertical-align:top;white-space:normal}
+.an-mini td.n,.an-mini th.n{text-align:right;white-space:nowrap}
+.an-spark{display:flex;align-items:flex-end;gap:3px;height:36px;padding-top:4px}
+.an-spark i{flex:1;background:var(--red);border-radius:2px 2px 0 0;min-height:2px;opacity:.85}
+.an-spark-l{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px}
+.an-rot{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.an-leg{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:4px 8px;font-size:11.5px;cursor:pointer;text-align:left}
+.an-leg:hover{border-color:var(--ink)}
+.an-leg.on{border-color:var(--red);background:var(--red-bg);color:var(--red-d);font-weight:700}
+.an-g-ticks,.an-g-row{display:grid;grid-template-columns:84px 1fr;gap:8px;align-items:center}
+.an-g-ticks{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:4px}
+.an-g-ticks div{display:flex;justify-content:space-between}
+.an-g-row{margin-bottom:5px}
+.an-g-lbl{font-family:var(--mono);font-size:11.5px;font-weight:700;line-height:1.15}
+.an-g-lbl small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
+.an-g-track{position:relative;height:22px;background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.an-g-bar{position:absolute;top:2px;bottom:2px;border-radius:4px;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.85;overflow:hidden;white-space:nowrap}
+.an-g-bar:hover{opacity:1;outline:1.5px solid var(--ink);z-index:3}
+.an-g-bar.on{opacity:1;outline:2px solid #fff;box-shadow:0 0 0 1.5px var(--ink);z-index:4}
+.an-g-bar.sel{outline:2px solid #111318;opacity:1;z-index:4}
+.an-g-ph{position:absolute;top:0;bottom:0;width:2px;background:var(--red);z-index:5;pointer-events:none}
+.an-pill{display:inline-block;padding:1px 6px;border-radius:999px;font-size:10.5px;font-weight:600;background:var(--paper-2);color:var(--ink)}
+.an-pill.g{background:var(--green-bg);color:#23704A}
+.an-pill.r{background:var(--red-bg);color:var(--red-d)}
+.an-pill.y{background:var(--amber-bg);color:#8A6210}
+.an-pill.b{background:var(--blue-bg);color:var(--blue)}
+.an-ap-node{cursor:pointer}
+.an-ap-node:hover .an-ap-ring{stroke-opacity:1;stroke-width:2}
+.an-arc-hit{cursor:pointer}
+.an-plane{cursor:pointer}
+
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <div class="brand"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Омск (OMS): анимация полётов <small>SJ-100 · Red Wings</small></div>
+  <div class="brand"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Омск (OMS): интерактивная карта, аэропорты и рейсы <small>SJ-100 · Red Wings</small></div>
   <a class="back" href="redwings_panel.html#net">← Вернуться в панель «02 Сеть»</a>
 </div></header>
 <main class="wrap">
   <section class="card">
     <div class="hd">
-      <div><h1>Пошаговое расписание хаба Омск (OMS)</h1><div class="sub" id="an-sub"></div></div>
+      <div><h1>Интерактивная карта, аэропорты и расписание хаба Омск (OMS)</h1><div class="sub" id="an-sub"></div></div>
       <div class="seg" id="an-mode">
         <button class="on" data-m="radial">Радиальная 5+1 ВС</button>
         <button data-m="full">Полная 7+1 ВС</button>
         <button data-m="start">Старт 2+1 ВС</button>
       </div>
     </div>
-    <div class="hd" style="margin-bottom:0">
-      <div class="seg" id="an-day"></div>
-      <div class="row">
-        <button class="btn" id="an-reset" title="В начало">⏮</button>
-        <button class="btn" id="an-prev">◀ Шаг</button>
-        <button class="btn red" id="an-play" style="min-width:86px">▶ Пуск</button>
-        <button class="btn" id="an-next">Шаг ▶</button>
+    <div id="an-root">
+<div class="an-wrap">
+  <div class="an-ctl">
+    <div class="seg an-day"></div>
+    <div class="an-row">
+      <button class="btn sm an-reset" title="В начало суток">⏮</button>
+      <button class="btn sm an-prev">◀ Шаг</button>
+      <button class="btn sm red an-play" style="min-width:82px">▶ Пуск</button>
+      <button class="btn sm an-next">Шаг ▶</button>
+    </div>
+    <div class="an-row">
+      <div class="seg an-spd">
+        <button data-s="15">×15</button>
+        <button class="on" data-s="60">×60</button>
+        <button data-s="180">×180</button>
       </div>
-      <div class="row">
-        <div class="seg" id="an-spd">
-          <button data-s="15">×15</button>
-          <button class="on" data-s="60">×60</button>
-          <button data-s="180">×180</button>
+      <span class="clock an-clock">Пн 06:30 OMS</span>
+    </div>
+  </div>
+  <div class="an-scrub">
+    <span class="mono an-min">00:00</span>
+    <input type="range" class="an-scr" min="0" max="1440" value="390">
+    <span class="mono an-max">24:00</span>
+  </div>
+  <div class="an-strip">
+    <span class="an-msg"></span>
+    <span class="mono an-step"></span>
+  </div>
+  <div class="an-split">
+    <div class="an-mapbox">
+      <div class="an-mapbar">
+        <div class="an-row">
+          <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" class="an-chk-hubs" checked> Хабы конкурентов и «Ковёр»</label>
+          <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" class="an-chk-comp" checked> Прямые рейсы конкурентов из OMS</label>
         </div>
-        <span class="clock" id="an-clock">Пн 05:00 OMS</span>
+        <span class="sub an-stat"></span>
+      </div>
+      <div class="an-stage">
+        <svg class="an-svg" viewBox="255 245 410 155" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="an-zoom">
+          <button type="button" class="an-zi" title="Приблизить">+</button>
+          <button type="button" class="an-zo" title="Отдалить">−</button>
+          <button type="button" class="an-zr" title="Сбросить масштаб" style="font-size:12px">⌖</button>
+        </div>
+        <div class="an-tip"></div>
+      </div>
+      <div class="an-chips"></div>
+      <div class="an-legend">
+        <span><i style="background:#E32A2F"></i>База OMS + резерв</span>
+        <span><i style="background:#3FA772"></i>Прибыльный ствол</span>
+        <span><i style="background:#D97706"></i>Фидер (BAX/KJA)</span>
+        <span><i style="background:#3E6E95"></i>Старт (UFA/NOZ)</span>
+        <span><i style="background:#7C3AED"></i>Хаб конкурента (S7/SU)</span>
+        <span style="margin-left:auto">Клик по городу, дуге или борту открывает аналитику</span>
       </div>
     </div>
-    <div class="scrub">
-      <span class="mono" id="an-min">00:00</span>
-      <input type="range" id="an-scr" min="0" max="1440" value="300">
-      <span class="mono" id="an-max">24:00</span>
-    </div>
-  </section>
-
-  <div class="strip" id="an-strip">
-    <span id="an-msg"></span>
-    <span class="mono" id="an-step"></span>
+    <aside class="an-insp">
+      <div class="an-itabs">
+        <button type="button" class="on" data-it="airport">Аэропорт и конкуренты</button>
+        <button type="button" data-it="flight">Рейс и луч</button>
+        <button type="button" data-it="hub">Стыковки в OMS</button>
+      </div>
+      <div class="an-ibody"></div>
+    </aside>
   </div>
-
-  <div class="map-box">
-    <svg id="an-svg" viewBox="255 245 410 155" style="width:100%;height:300px;display:block" preserveAspectRatio="xMidYMid meet"></svg>
-    <div class="legend">
-      <span><i style="background:#E32A2F"></i>База OMS + резерв</span>
-      <span><i style="background:#3FA772"></i>Прибыльный ствол</span>
-      <span><i style="background:#D97706"></i>Фидер (BAX/KJA)</span>
-      <span><i style="background:#3E6E95"></i>Стартовый луч (UFA/NOZ)</span>
-      <span style="margin-left:auto" id="an-stat"></span>
+  <div style="margin-top:4px">
+    <div class="hd" style="margin-bottom:6px">
+      <h3 style="margin:0">Таймлайн ротации бортов (OMS UTC+6 · клик по рейсу = переход и карточка)</h3>
+      <span class="sub r an-ghint"></span>
     </div>
+    <div class="an-g-ticks"><span>Борт</span><div class="an-ticks"></div></div>
+    <div class="an-gantt"></div>
   </div>
-
-  <section class="card">
-    <div class="hd"><h2>Таймлайн ротации бортов (OMS UTC+6 · клик по рейсу = прыжок)</h2><span class="sub" id="an-ghint"></span></div>
-    <div class="g-ticks"><span>Борт</span><div id="an-ticks"></div></div>
-    <div id="an-gantt"></div>
-  </section>
-
-  <section class="card">
-    <div class="hd"><h2>Табло рейсов (клик = перейти к вылету)</h2><span class="sub" id="an-bsum"></span></div>
-    <div class="tw">
+  <div style="margin-top:4px">
+    <div class="hd" style="margin-bottom:6px">
+      <h3 style="margin:0">Табло рейсов (клик = перейти к вылету и разобрать рейс)</h3>
+      <span class="sub r an-bsum"></span>
+    </div>
+    <div class="tw" style="max-height:210px">
       <table>
         <thead><tr><th>Рейс</th><th>Борт</th><th>Маршрут</th><th>Вылет OMS</th><th>Прилёт OMS</th><th>БЧ</th><th>Статус</th></tr></thead>
-        <tbody id="an-board"></tbody>
+        <tbody class="an-board"></tbody>
       </table>
     </div>
+  </div>
+</div>
+</div>
   </section>
 </main>
 <script>
-const ANIM = {"map":"M540,358L537,359L535,357L534,353L531,355L528,354L525,351L522,348L520,344L517,340L514,341L511,343L507,343L505,340L505,337L502,339L501,342L495,330L489,317L482,310L484,307L481,306L478,309L475,312L472,313L468,314L469,309L465,310L462,311L462,308L459,309L455,308L456,304L455,301L454,298L451,299L448,297L445,296L441,298L438,301L430,304L426,305L424,307L420,307L417,308L413,310L410,311L407,309L405,314L408,315L408,318L411,319L407,320L404,323L405,327L402,329L400,331L403,334L407,336L407,342L404,344L401,342L399,344L396,343L393,341L392,338L389,341L386,339L382,339L380,343L377,343L375,341L373,344L371,341L370,338L367,335L364,335L362,332L359,334L355,333L352,336L349,339L347,342L344,344L344,349L342,352L340,349L338,346L336,348L334,352L334,357L335,360L332,366L336,367L336,371L340,372L342,376L344,379L345,382L343,384L347,387L344,389L342,392L339,394L337,397L336,400L334,403L335,406L337,411L337,415L338,411L337,415L337,420L339,423L340,426L342,431L342,434L339,438L336,437L334,433L331,430L328,428L328,425L326,423L323,422L320,424L316,421L313,419L308,418L305,416L301,414L297,411L294,407L290,404L288,403L286,400L283,398L286,397L289,396L289,392L290,389L291,386L289,383L293,384L295,380L292,379L292,374L294,372L299,372L300,367L299,364L300,361L301,358L301,354L298,353L295,352L292,350L289,349L287,346L284,347L281,346L277,345L277,341L275,338L271,338L270,333L270,328L268,327L265,328L261,329L258,328L258,325L256,320L259,318L262,318L262,314L260,312L257,308L256,304L254,301L254,297L254,294L251,291L247,293L245,290L241,290L241,286L239,283L239,280L238,276L237,272L238,269L238,266L237,262L239,257L240,254L242,252L246,250L251,251L249,248L245,248L242,244L239,245L244,239L253,228L256,225L258,221L256,218L252,215L250,213L253,210L250,206L251,202L248,200L249,197L248,194L249,189L248,185L245,181L248,177L250,173L247,169L243,168L242,165L244,162L246,159L250,156L253,155L254,152L256,154L259,152L262,152L266,153L261,153L264,155L268,156L265,159L268,157L272,157L275,158L279,158L288,163L292,166L298,169L302,171L305,173L306,178L306,180L304,184L300,187L297,189L293,190L288,189L284,187L278,186L274,184L270,183L268,182L264,180L259,178L263,180L265,183L268,185L265,185L268,185L269,188L273,189L274,192L273,195L273,198L275,201L274,204L277,206L280,208L284,211L286,212L290,210L290,207L287,207L284,203L284,199L288,200L292,202L297,204L301,204L301,200L299,196L302,192L307,189L311,185L316,186L316,189L320,189L321,185L322,182L322,179L319,177L320,173L321,170L321,167L317,164L320,165L328,165L333,169L334,172L327,173L325,176L328,178L330,182L337,181L338,178L339,174L342,173L346,174L343,171L350,169L354,166L361,164L366,161L369,160L373,160L368,161L369,165L366,167L370,168L373,168L377,164L380,163L383,164L387,164L390,162L394,160L397,162L395,166L398,167L399,164L402,163L405,161L403,157L401,154L404,153L409,152L417,153L421,155L425,157L430,159L435,161L438,164L441,166L445,164L446,160L442,160L440,157L438,154L435,153L434,150L436,146L437,142L433,142L434,139L438,136L441,133L443,130L444,127L445,123L447,120L458,121L464,123L464,126L463,130L462,133L459,135L463,139L464,143L462,147L463,152L463,156L463,161L468,164L465,168L466,172L463,174L462,177L460,179L456,180L458,183L455,184L452,184L450,181L445,182L450,186L457,186L460,188L462,185L465,183L467,182L470,178L474,173L474,168L472,166L472,163L481,160L483,161L486,164L487,168L487,171L488,174L495,174L492,174L489,173L487,170L491,167L489,165L488,161L485,160L480,158L476,158L472,158L470,156L468,152L469,149L472,145L470,141L468,137L465,136L468,133L472,130L475,129L475,124L479,124L479,127L477,130L477,133L476,136L481,138L484,138L488,138L492,141L495,141L492,141L492,138L489,137L485,136L481,134L480,131L484,130L488,132L491,130L488,129L491,126L497,126L500,128L504,129L506,131L514,132L515,135L511,137L512,142L511,147L512,144L513,141L516,142L515,146L513,148L518,147L518,143L517,140L517,136L517,132L513,131L511,129L506,127L504,125L504,121L501,118L503,115L510,113L517,113L524,112L527,113L530,111L534,111L529,115L533,119L530,117L536,114L538,112L535,110L530,107L532,105L535,107L533,105L529,104L532,102L535,104L537,101L540,99L543,97L546,95L550,95L554,93L558,94L562,93L568,92L571,91L568,90L564,91L567,89L572,89L575,89L581,89L578,91L582,90L586,90L590,89L594,87L598,88L597,92L599,90L595,86L602,85L605,85L611,86L604,85L604,81L610,76L616,73L620,73L624,73L627,75L630,76L627,77L621,79L624,79L630,79L634,80L638,81L635,83L632,84L636,85L640,84L647,82L650,83L654,83L658,83L661,85L664,87L663,90L666,89L669,91L669,94L665,93L663,92L664,94L668,95L664,100L661,101L657,103L653,105L648,107L645,110L643,112L639,114L636,114L634,117L630,117L628,121L625,122L630,120L633,122L631,119L634,119L639,118L642,118L646,116L650,115L655,113L651,113L648,112L650,110L655,111L658,110L662,113L665,112L667,114L668,119L666,121L670,124L667,123L668,120L669,117L671,114L674,114L683,113L687,114L692,114L692,117L695,119L698,119L703,121L699,120L705,121L709,120L714,122L717,120L717,117L717,113L720,114L724,113L727,114L730,115L733,117L735,115L740,115L743,117L747,120L741,121L747,123L742,123L746,125L746,129L742,128L739,126L742,129L745,133L748,133L745,133L747,135L749,138L753,141L756,142L759,139L761,133L764,130L767,131L764,132L766,134L770,136L773,136L777,135L780,134L783,135L786,136L789,138L792,137L793,134L796,135L800,135L798,132L799,128L796,128L798,125L803,125L803,121L806,121L811,123L817,123L827,124L834,127L827,127L824,126L821,127L825,127L835,127L832,129L830,131L832,129L828,128L829,131L825,130L824,133L828,133L832,131L836,127L842,127L848,128L850,131L847,131L844,133L850,133L853,135L850,138L853,136L858,137L861,140L863,142L868,141L871,140L877,139L890,140L896,142L899,144L900,148L898,151L901,153L905,153L905,158L906,162L904,164L907,163L908,160L907,157L910,155L914,153L918,153L922,154L928,154L934,155L938,152L941,155L941,158L947,159L948,162L952,162L955,159L954,156L951,154L953,151L960,150L964,150L966,152L970,152L975,152L979,151L983,152L987,154L991,156L995,157L1000,160L1000,199L997,202L993,204L988,203L986,200L983,200L986,201L982,202L979,202L975,202L972,203L976,202L979,202L982,203L987,202L987,206L991,208L993,210L994,214L995,217L997,219L998,223L996,225L990,225L987,224L985,221L986,224L983,225L978,228L974,231L971,232L968,232L966,235L963,237L961,239L960,242L957,243L954,245L952,250L949,248L946,245L943,245L939,245L936,246L931,252L931,248L932,245L928,248L925,249L924,252L922,249L921,252L918,250L917,254L917,257L915,260L912,264L910,269L912,272L916,272L915,275L914,278L914,282L916,284L917,288L914,289L916,285L912,286L910,289L909,294L909,298L911,301L909,305L904,305L900,308L899,312L900,315L900,319L896,319L894,321L892,324L892,328L890,332L888,335L883,341L884,338L882,328L881,325L881,321L880,312L879,306L878,297L878,290L880,284L882,280L885,276L884,273L887,272L891,270L896,265L899,261L902,256L904,254L906,251L910,248L911,245L915,242L919,241L920,238L919,234L921,227L926,226L923,223L920,224L916,226L916,229L915,232L912,233L910,236L907,238L905,241L902,243L902,240L899,241L900,238L901,235L902,231L899,233L897,231L893,232L888,232L885,235L883,238L880,241L877,244L875,246L873,250L871,253L872,256L876,257L872,258L868,258L865,259L862,259L857,262L857,258L862,258L859,257L857,254L854,256L852,254L847,252L846,255L844,258L841,256L838,257L834,256L831,258L828,256L825,256L820,256L816,256L811,259L808,264L805,266L802,272L799,275L796,277L794,280L791,284L790,286L787,290L784,293L781,297L777,299L776,303L781,304L784,304L784,307L783,311L786,310L789,307L787,310L787,313L791,313L793,310L791,314L794,310L794,307L797,308L801,309L803,313L806,315L807,318L804,319L806,322L806,326L808,328L806,332L805,335L804,340L802,343L803,347L802,350L803,354L802,357L801,360L801,365L796,372L795,377L793,380L792,383L790,388L788,392L786,396L784,399L782,402L781,405L778,408L777,412L771,419L769,422L766,423L763,422L762,418L759,417L758,420L756,424L754,427L753,424L755,422L756,418L756,415L756,410L755,403L757,400L759,397L765,400L766,395L768,392L768,389L769,385L770,380L771,377L774,373L773,370L772,366L769,368L765,369L763,371L758,373L755,373L753,369L754,366L753,361L750,360L748,357L745,356L741,355L738,352L738,348L736,345L735,339L735,336L734,333L732,330L732,327L730,324L729,321L725,318L722,318L718,314L714,315L706,317L701,321L704,325L704,328L703,331L700,333L700,337L698,341L696,344L697,349L693,350L689,355L685,353L683,351L679,351L675,349L671,347L668,350L665,354L662,355L658,356L654,359L649,357L643,357L641,354L640,351L636,350L633,347L630,346L627,345L622,347L619,348L616,347L613,346L611,344L611,340L611,337L608,335L603,333L599,331L595,329L592,333L590,337L589,340L590,344L591,347L589,351L587,353L584,351L580,350L578,351L575,350L572,348L571,344L566,344L562,341L559,343L555,346L552,348L550,350L547,354L544,356L541,356L540,358Z M268,390L272,389L274,392L277,396L280,396L283,396L282,399L279,400L275,402L272,403L270,406L267,404L268,401L264,396L266,393L268,391Z M813,307L814,311L815,314L817,321L817,326L816,329L817,333L817,337L819,347L820,350L822,359L824,363L820,358L817,356L815,359L813,370L814,376L816,381L818,386L817,390L817,386L814,384L811,387L811,390L809,385L810,380L810,374L811,370L811,367L809,362L811,355L811,351L811,346L810,342L811,339L810,335L808,332L808,329L809,324L810,320L809,316L812,316L813,313L811,307Z M357,131L359,128L362,128L363,125L366,123L363,123L365,121L367,118L371,117L375,116L377,117L382,118L379,119L382,120L378,120L381,120L377,122L378,125L377,129L378,134L381,137L385,141L388,143L384,143L387,144L383,143L379,143L376,145L374,142L369,142L368,139L371,139L367,137L370,135L367,137L364,135L361,134L358,134L357,131Z M385,103L379,102L383,100L379,100L382,98L385,96L389,97L391,94L395,91L402,90L406,89L408,87L412,87L419,87L422,86L426,85L430,85L433,81L438,80L442,80L444,82L441,87L419,94L415,94L411,96L408,97L404,98L400,100L403,100L400,103L395,103L396,106L391,104L394,107L391,108L388,108L390,111L383,111L387,112L384,113L386,115L384,118L381,117L377,117L371,117L373,114L377,113L373,113L368,112L372,111L375,108L379,109L375,107L379,107L381,105L378,105L382,103Z M403,152L400,153L397,151L394,150L392,147L395,145L398,147L400,149L403,152Z M854,98L849,102L841,102L835,100L830,98L832,95L837,97L842,96L846,97L851,98Z M827,95L824,96L822,100L814,98L812,96L815,94L812,93L811,96L813,99L818,100L814,101L810,101L807,101L800,102L797,101L796,103L790,102L786,99L787,96L785,93L789,92L790,90L795,88L799,90L803,92L805,93L805,90L808,90L813,91L817,92L824,93L827,95Z M627,64L624,67L619,67L615,67L606,68L602,70L599,70L596,70L599,67L601,64L606,62L608,60L605,59L608,58L611,58L614,56L613,59L618,58L622,60L626,62Z M599,59L597,62L593,62L587,62L584,60L578,60L575,60L572,58L568,55L564,54L571,52L574,50L578,49L581,49L588,48L588,52L592,51L596,50L600,52L599,55L597,58Z M333,45L330,46L326,44L335,42L338,41L342,42L339,42L335,45Z M359,43L355,45L348,45L344,46L343,49L338,49L334,48L341,47L337,45L342,44L346,45L348,43L345,43L351,41L354,41L351,43L357,42Z M589,43L586,43L586,46L573,49L569,50L565,49L560,48L564,48L561,48L567,47L557,47L563,46L559,45L564,45L566,42L562,42L566,40L578,38L583,39L587,42Z","pts":{"BAX":[517.7,316.4],"GOJ":[318.9,287.7],"GSV":[330.9,332.9],"IKT":[622.0,327.3],"KJA":[562.4,288.2],"KUF":[350.8,314.9],"MOW":[288.1,292.5],"NOZ":[534.4,311.9],"OMS":[466.6,300.4],"SVX":[404.0,282.6],"UFA":[379.4,304.4],"UUD":[637.2,331.9],"VOG":[321.7,362.2]},"names":{"BAX":"Барнаул","GOJ":"Нижний Новгород","GSV":"Саратов","IKT":"Иркутск","KJA":"Красноярск","KUF":"Самара","MOW":"Москва","NOZ":"Новокузнецк","OMS":"Омск","SVX":"Екатеринбург","UFA":"Уфа","UUD":"Улан-Удэ","VOG":"Волгоград"},"modes":{"radial":{"label":"Радиальная без фидеров (5+1 ВС · 7 лучей)","sub":"Радиальная сеть P40 без фидеров KJA/BAX: 5 активных + 1 резерв SJ-100 · 7 прибыльных стволов · 50 оборотов (100 рейсов/нед.) · макс. 68.3 ч/нед. на борт","aircraft":["AC-1","AC-2","AC-3","AC-4","AC-5"],"reserve":"AC-6 Рез.","spokes":["GOJ","GSV","IKT","KUF","MOW","UUD","VOG"],"feeders":[],"start_only":[],"stats":{"total_rotations":50,"total_legs":100,"total_bh":340.2,"max_ac_bh":68.33,"min_ac_bh":67.5,"min_turn_min":60,"ac_bh":{"AC-1":68.33,"AC-2":68.33,"AC-3":67.83,"AC-4":68.17,"AC-5":67.5}},"flights":[{"id":"P001A","ac":"AC-1","o":"OMS","d":"VOG","t1":300,"t2":530,"bh":230,"wave":"am"},{"id":"P001B","ac":"AC-1","o":"VOG","d":"OMS","t1":590,"t2":820,"bh":230,"wave":"am"},{"id":"P002A","ac":"AC-2","o":"OMS","d":"UUD","t1":310,"t2":540,"bh":230,"wave":"am"},{"id":"P002B","ac":"AC-2","o":"UUD","d":"OMS","t1":600,"t2":830,"bh":230,"wave":"am"},{"id":"P003A","ac":"AC-3","o":"OMS","d":"IKT","t1":320,"t2":530,"bh":210,"wave":"am"},{"id":"P003B","ac":"AC-3","o":"IKT","d":"OMS","t1":590,"t2":800,"bh":210,"wave":"am"},{"id":"P004A","ac":"AC-4","o":"OMS","d":"GOJ","t1":330,"t2":520,"bh":190,"wave":"am"},{"id":"P004B","ac":"AC-4","o":"GOJ","d":"OMS","t1":580,"t2":770,"bh":190,"wave":"am"},{"id":"P005A","ac":"AC-5","o":"OMS","d":"KUF","t1":340,"t2":505,"bh":165,"wave":"am"},{"id":"P005B","ac":"AC-5","o":"KUF","d":"OMS","t1":565,"t2":730,"bh":165,"wave":"am"},{"id":"P006A","ac":"AC-1","o":"OMS","d":"UUD","t1":945,"t2":1175,"bh":230,"wave":"pm"},{"id":"P006B","ac":"AC-1","o":"UUD","d":"OMS","t1":1235,"t2":1465,"bh":230,"wave":"pm"},{"id":"P007A","ac":"AC-4","o":"OMS","d":"GOJ","t1":960,"t2":1150,"bh":190,"wave":"pm"},{"id":"P007B","ac":"AC-4","o":"GOJ","d":"OMS","t1":1210,"t2":1400,"bh":190,"wave":"pm"},{"id":"P008A","ac":"AC-5","o":"OMS","d":"KUF","t1":975,"t2":1140,"bh":165,"wave":"pm"},{"id":"P008B","ac":"AC-5","o":"KUF","d":"OMS","t1":1200,"t2":1365,"bh":165,"wave":"pm"},{"id":"P009A","ac":"AC-5","o":"OMS","d":"VOG","t1":1740,"t2":1970,"bh":230,"wave":"am"},{"id":"P009B","ac":"AC-5","o":"VOG","d":"OMS","t1":2030,"t2":2260,"bh":230,"wave":"am"},{"id":"P010A","ac":"AC-4","o":"OMS","d":"UUD","t1":1750,"t2":1980,"bh":230,"wave":"am"},{"id":"P010B","ac":"AC-4","o":"UUD","d":"OMS","t1":2040,"t2":2270,"bh":230,"wave":"am"},{"id":"P011A","ac":"AC-3","o":"OMS","d":"IKT","t1":1760,"t2":1970,"bh":210,"wave":"am"},{"id":"P011B","ac":"AC-3","o":"IKT","d":"OMS","t1":2030,"t2":2240,"bh":210,"wave":"am"},{"id":"P012A","ac":"AC-1","o":"OMS","d":"GOJ","t1":1770,"t2":1960,"bh":190,"wave":"am"},{"id":"P012B","ac":"AC-1","o":"GOJ","d":"OMS","t1":2020,"t2":2210,"bh":190,"wave":"am"},{"id":"P013A","ac":"AC-2","o":"OMS","d":"KUF","t1":1780,"t2":1945,"bh":165,"wave":"am"},{"id":"P013B","ac":"AC-2","o":"KUF","d":"OMS","t1":2005,"t2":2170,"bh":165,"wave":"am"},{"id":"P014A","ac":"AC-3","o":"OMS","d":"VOG","t1":2385,"t2":2615,"bh":230,"wave":"pm"},{"id":"P014B","ac":"AC-3","o":"VOG","d":"OMS","t1":2675,"t2":2905,"bh":230,"wave":"pm"},{"id":"P015A","ac":"AC-2","o":"OMS","d":"GSV","t1":2400,"t2":2590,"bh":190,"wave":"pm"},{"id":"P015B","ac":"AC-2","o":"GSV","d":"OMS","t1":2650,"t2":2840,"bh":190,"wave":"pm"},{"id":"P016A","ac":"AC-2","o":"OMS","d":"VOG","t1":3180,"t2":3410,"bh":230,"wave":"am"},{"id":"P016B","ac":"AC-2","o":"VOG","d":"OMS","t1":3470,"t2":3700,"bh":230,"wave":"am"},{"id":"P017A","ac":"AC-5","o":"OMS","d":"UUD","t1":3190,"t2":3420,"bh":230,"wave":"am"},{"id":"P017B","ac":"AC-5","o":"UUD","d":"OMS","t1":3480,"t2":3710,"bh":230,"wave":"am"},{"id":"P018A","ac":"AC-1","o":"OMS","d":"IKT","t1":3200,"t2":3410,"bh":210,"wave":"am"},{"id":"P018B","ac":"AC-1","o":"IKT","d":"OMS","t1":3470,"t2":3680,"bh":210,"wave":"am"},{"id":"P019A","ac":"AC-3","o":"OMS","d":"GOJ","t1":3210,"t2":3400,"bh":190,"wave":"am"},{"id":"P019B","ac":"AC-3","o":"GOJ","d":"OMS","t1":3460,"t2":3650,"bh":190,"wave":"am"},{"id":"P020A","ac":"AC-4","o":"OMS","d":"KUF","t1":3220,"t2":3385,"bh":165,"wave":"am"},{"id":"P020B","ac":"AC-4","o":"KUF","d":"OMS","t1":3445,"t2":3610,"bh":165,"wave":"am"},{"id":"P021A","ac":"AC-4","o":"OMS","d":"MOW","t1":3825,"t2":4050,"bh":225,"wave":"pm"},{"id":"P021B","ac":"AC-4","o":"MOW","d":"OMS","t1":4110,"t2":4335,"bh":225,"wave":"pm"},{"id":"P022A","ac":"AC-5","o":"OMS","d":"GSV","t1":3840,"t2":4030,"bh":190,"wave":"pm"},{"id":"P022B","ac":"AC-5","o":"GSV","d":"OMS","t1":4090,"t2":4280,"bh":190,"wave":"pm"},{"id":"P023A","ac":"AC-4","o":"OMS","d":"VOG","t1":4620,"t2":4850,"bh":230,"wave":"am"},{"id":"P023B","ac":"AC-4","o":"VOG","d":"OMS","t1":4910,"t2":5140,"bh":230,"wave":"am"},{"id":"P024A","ac":"AC-3","o":"OMS","d":"UUD","t1":4630,"t2":4860,"bh":230,"wave":"am"},{"id":"P024B","ac":"AC-3","o":"UUD","d":"OMS","t1":4920,"t2":5150,"bh":230,"wave":"am"},{"id":"P025A","ac":"AC-2","o":"OMS","d":"IKT","t1":4640,"t2":4850,"bh":210,"wave":"am"},{"id":"P025B","ac":"AC-2","o":"IKT","d":"OMS","t1":4910,"t2":5120,"bh":210,"wave":"am"},{"id":"P026A","ac":"AC-5","o":"OMS","d":"GOJ","t1":4650,"t2":4840,"bh":190,"wave":"am"},{"id":"P026B","ac":"AC-5","o":"GOJ","d":"OMS","t1":4900,"t2":5090,"bh":190,"wave":"am"},{"id":"P027A","ac":"AC-1","o":"OMS","d":"KUF","t1":4660,"t2":4825,"bh":165,"wave":"am"},{"id":"P027B","ac":"AC-1","o":"KUF","d":"OMS","t1":4885,"t2":5050,"bh":165,"wave":"am"},{"id":"P028A","ac":"AC-2","o":"OMS","d":"MOW","t1":5265,"t2":5490,"bh":225,"wave":"pm"},{"id":"P028B","ac":"AC-2","o":"MOW","d":"OMS","t1":5550,"t2":5775,"bh":225,"wave":"pm"},{"id":"P029A","ac":"AC-3","o":"OMS","d":"GSV","t1":5280,"t2":5470,"bh":190,"wave":"pm"},{"id":"P029B","ac":"AC-3","o":"GSV","d":"OMS","t1":5530,"t2":5720,"bh":190,"wave":"pm"},{"id":"P030A","ac":"AC-1","o":"OMS","d":"VOG","t1":6060,"t2":6290,"bh":230,"wave":"am"},{"id":"P030B","ac":"AC-1","o":"VOG","d":"OMS","t1":6350,"t2":6580,"bh":230,"wave":"am"},{"id":"P031A","ac":"AC-4","o":"OMS","d":"UUD","t1":6070,"t2":6300,"bh":230,"wave":"am"},{"id":"P031B","ac":"AC-4","o":"UUD","d":"OMS","t1":6360,"t2":6590,"bh":230,"wave":"am"},{"id":"P032A","ac":"AC-5","o":"OMS","d":"IKT","t1":6080,"t2":6290,"bh":210,"wave":"am"},{"id":"P032B","ac":"AC-5","o":"IKT","d":"OMS","t1":6350,"t2":6560,"bh":210,"wave":"am"},{"id":"P033A","ac":"AC-2","o":"OMS","d":"GOJ","t1":6090,"t2":6280,"bh":190,"wave":"am"},{"id":"P033B","ac":"AC-2","o":"GOJ","d":"OMS","t1":6340,"t2":6530,"bh":190,"wave":"am"},{"id":"P034A","ac":"AC-3","o":"OMS","d":"KUF","t1":6100,"t2":6265,"bh":165,"wave":"am"},{"id":"P034B","ac":"AC-3","o":"KUF","d":"OMS","t1":6325,"t2":6490,"bh":165,"wave":"am"},{"id":"P035A","ac":"AC-5","o":"OMS","d":"MOW","t1":6705,"t2":6930,"bh":225,"wave":"pm"},{"id":"P035B","ac":"AC-5","o":"MOW","d":"OMS","t1":6990,"t2":7215,"bh":225,"wave":"pm"},{"id":"P036A","ac":"AC-4","o":"OMS","d":"GSV","t1":6720,"t2":6910,"bh":190,"wave":"pm"},{"id":"P036B","ac":"AC-4","o":"GSV","d":"OMS","t1":6970,"t2":7160,"bh":190,"wave":"pm"},{"id":"P037A","ac":"AC-3","o":"OMS","d":"VOG","t1":7500,"t2":7730,"bh":230,"wave":"am"},{"id":"P037B","ac":"AC-3","o":"VOG","d":"OMS","t1":7790,"t2":8020,"bh":230,"wave":"am"},{"id":"P038A","ac":"AC-1","o":"OMS","d":"UUD","t1":7510,"t2":7740,"bh":230,"wave":"am"},{"id":"P038B","ac":"AC-1","o":"UUD","d":"OMS","t1":7800,"t2":8030,"bh":230,"wave":"am"},{"id":"P039A","ac":"AC-2","o":"OMS","d":"IKT","t1":7520,"t2":7730,"bh":210,"wave":"am"},{"id":"P039B","ac":"AC-2","o":"IKT","d":"OMS","t1":7790,"t2":8000,"bh":210,"wave":"am"},{"id":"P040A","ac":"AC-5","o":"OMS","d":"GOJ","t1":7530,"t2":7720,"bh":190,"wave":"am"},{"id":"P040B","ac":"AC-5","o":"GOJ","d":"OMS","t1":7780,"t2":7970,"bh":190,"wave":"am"},{"id":"P041A","ac":"AC-4","o":"OMS","d":"KUF","t1":7540,"t2":7705,"bh":165,"wave":"am"},{"id":"P041B","ac":"AC-4","o":"KUF","d":"OMS","t1":7765,"t2":7930,"bh":165,"wave":"am"},{"id":"P042A","ac":"AC-1","o":"OMS","d":"IKT","t1":8145,"t2":8355,"bh":210,"wave":"pm"},{"id":"P042B","ac":"AC-1","o":"IKT","d":"OMS","t1":8415,"t2":8625,"bh":210,"wave":"pm"},{"id":"P043A","ac":"AC-2","o":"OMS","d":"GSV","t1":8160,"t2":8350,"bh":190,"wave":"pm"},{"id":"P043B","ac":"AC-2","o":"GSV","d":"OMS","t1":8410,"t2":8600,"bh":190,"wave":"pm"},{"id":"P044A","ac":"AC-4","o":"OMS","d":"VOG","t1":8940,"t2":9170,"bh":230,"wave":"am"},{"id":"P044B","ac":"AC-4","o":"VOG","d":"OMS","t1":9230,"t2":9460,"bh":230,"wave":"am"},{"id":"P045A","ac":"AC-5","o":"OMS","d":"UUD","t1":8950,"t2":9180,"bh":230,"wave":"am"},{"id":"P045B","ac":"AC-5","o":"UUD","d":"OMS","t1":9240,"t2":9470,"bh":230,"wave":"am"},{"id":"P046A","ac":"AC-2","o":"OMS","d":"IKT","t1":8960,"t2":9170,"bh":210,"wave":"am"},{"id":"P046B","ac":"AC-2","o":"IKT","d":"OMS","t1":9230,"t2":9440,"bh":210,"wave":"am"},{"id":"P047A","ac":"AC-3","o":"OMS","d":"GOJ","t1":8970,"t2":9160,"bh":190,"wave":"am"},{"id":"P047B","ac":"AC-3","o":"GOJ","d":"OMS","t1":9220,"t2":9410,"bh":190,"wave":"am"},{"id":"P048A","ac":"AC-1","o":"OMS","d":"KUF","t1":8980,"t2":9145,"bh":165,"wave":"am"},{"id":"P048B","ac":"AC-1","o":"KUF","d":"OMS","t1":9205,"t2":9370,"bh":165,"wave":"am"},{"id":"P049A","ac":"AC-3","o":"OMS","d":"GOJ","t1":9585,"t2":9775,"bh":190,"wave":"pm"},{"id":"P049B","ac":"AC-3","o":"GOJ","d":"OMS","t1":9835,"t2":10025,"bh":190,"wave":"pm"},{"id":"P050A","ac":"AC-1","o":"OMS","d":"GSV","t1":9600,"t2":9790,"bh":190,"wave":"pm"},{"id":"P050B","ac":"AC-1","o":"GSV","d":"OMS","t1":9850,"t2":10040,"bh":190,"wave":"pm"}]},"full":{"label":"Полная хабовая (7+1 ВС · 9 лучей)","sub":"Полная хабовая сеть: 7 активных + 1 резерв SJ-100 · 9 лучей (7 стволов + фидеры BAX/KJA) · 64 оборотов (128 рейсов/нед.) · макс. 58.2 ч/нед. на борт","aircraft":["AC-1","AC-2","AC-3","AC-4","AC-5","AC-6","AC-7"],"reserve":"AC-8 Рез.","spokes":["BAX","GOJ","GSV","IKT","KJA","KUF","MOW","UUD","VOG"],"feeders":["BAX","KJA"],"start_only":[],"stats":{"total_rotations":64,"total_legs":128,"total_bh":395.7,"max_ac_bh":58.17,"min_ac_bh":54.5,"min_turn_min":60,"ac_bh":{"AC-1":58.17,"AC-2":54.5,"AC-3":57.17,"AC-4":54.5,"AC-5":57.0,"AC-6":56.17,"AC-7":58.17}},"flights":[{"id":"R001A","ac":"AC-1","o":"OMS","d":"UUD","t1":300,"t2":530,"bh":230,"wave":"am"},{"id":"R001B","ac":"AC-1","o":"UUD","d":"OMS","t1":590,"t2":820,"bh":230,"wave":"am"},{"id":"R002A","ac":"AC-7","o":"OMS","d":"VOG","t1":300,"t2":530,"bh":230,"wave":"am"},{"id":"R002B","ac":"AC-7","o":"VOG","d":"OMS","t1":590,"t2":820,"bh":230,"wave":"am"},{"id":"R003A","ac":"AC-6","o":"OMS","d":"GOJ","t1":315,"t2":505,"bh":190,"wave":"am"},{"id":"R003B","ac":"AC-6","o":"GOJ","d":"OMS","t1":565,"t2":755,"bh":190,"wave":"am"},{"id":"R004A","ac":"AC-2","o":"OMS","d":"IKT","t1":330,"t2":540,"bh":210,"wave":"am"},{"id":"R004B","ac":"AC-2","o":"IKT","d":"OMS","t1":600,"t2":810,"bh":210,"wave":"am"},{"id":"R005A","ac":"AC-5","o":"OMS","d":"KUF","t1":330,"t2":495,"bh":165,"wave":"am"},{"id":"R005B","ac":"AC-5","o":"KUF","d":"OMS","t1":555,"t2":720,"bh":165,"wave":"am"},{"id":"R006A","ac":"AC-3","o":"OMS","d":"KJA","t1":420,"t2":555,"bh":135,"wave":"am"},{"id":"R006B","ac":"AC-3","o":"KJA","d":"OMS","t1":615,"t2":750,"bh":135,"wave":"am"},{"id":"R007A","ac":"AC-4","o":"OMS","d":"BAX","t1":510,"t2":600,"bh":90,"wave":"am"},{"id":"R007B","ac":"AC-4","o":"BAX","d":"OMS","t1":660,"t2":750,"bh":90,"wave":"am"},{"id":"R008A","ac":"AC-4","o":"OMS","d":"UUD","t1":840,"t2":1070,"bh":230,"wave":"pm"},{"id":"R008B","ac":"AC-4","o":"UUD","d":"OMS","t1":1130,"t2":1360,"bh":230,"wave":"pm"},{"id":"R009A","ac":"AC-3","o":"OMS","d":"GOJ","t1":850,"t2":1040,"bh":190,"wave":"pm"},{"id":"R009B","ac":"AC-3","o":"GOJ","d":"OMS","t1":1100,"t2":1290,"bh":190,"wave":"pm"},{"id":"R010A","ac":"AC-2","o":"OMS","d":"KUF","t1":870,"t2":1035,"bh":165,"wave":"pm"},{"id":"R010B","ac":"AC-2","o":"KUF","d":"OMS","t1":1095,"t2":1260,"bh":165,"wave":"pm"},{"id":"R011A","ac":"AC-1","o":"OMS","d":"UUD","t1":1740,"t2":1970,"bh":230,"wave":"am"},{"id":"R011B","ac":"AC-1","o":"UUD","d":"OMS","t1":2030,"t2":2260,"bh":230,"wave":"am"},{"id":"R012A","ac":"AC-7","o":"OMS","d":"VOG","t1":1740,"t2":1970,"bh":230,"wave":"am"},{"id":"R012B","ac":"AC-7","o":"VOG","d":"OMS","t1":2030,"t2":2260,"bh":230,"wave":"am"},{"id":"R013A","ac":"AC-6","o":"OMS","d":"GOJ","t1":1755,"t2":1945,"bh":190,"wave":"am"},{"id":"R013B","ac":"AC-6","o":"GOJ","d":"OMS","t1":2005,"t2":2195,"bh":190,"wave":"am"},{"id":"R014A","ac":"AC-2","o":"OMS","d":"IKT","t1":1770,"t2":1980,"bh":210,"wave":"am"},{"id":"R014B","ac":"AC-2","o":"IKT","d":"OMS","t1":2040,"t2":2250,"bh":210,"wave":"am"},{"id":"R015A","ac":"AC-3","o":"OMS","d":"KJA","t1":1860,"t2":1995,"bh":135,"wave":"am"},{"id":"R015B","ac":"AC-3","o":"KJA","d":"OMS","t1":2055,"t2":2190,"bh":135,"wave":"am"},{"id":"R016A","ac":"AC-4","o":"OMS","d":"BAX","t1":1950,"t2":2040,"bh":90,"wave":"am"},{"id":"R016B","ac":"AC-4","o":"BAX","d":"OMS","t1":2100,"t2":2190,"bh":90,"wave":"am"},{"id":"R017A","ac":"AC-4","o":"OMS","d":"VOG","t1":2280,"t2":2510,"bh":230,"wave":"pm"},{"id":"R017B","ac":"AC-4","o":"VOG","d":"OMS","t1":2570,"t2":2800,"bh":230,"wave":"pm"},{"id":"R018A","ac":"AC-5","o":"OMS","d":"GSV","t1":2290,"t2":2480,"bh":190,"wave":"pm"},{"id":"R018B","ac":"AC-5","o":"GSV","d":"OMS","t1":2540,"t2":2730,"bh":190,"wave":"pm"},{"id":"R019A","ac":"AC-6","o":"OMS","d":"KUF","t1":2300,"t2":2465,"bh":165,"wave":"pm"},{"id":"R019B","ac":"AC-6","o":"KUF","d":"OMS","t1":2525,"t2":2690,"bh":165,"wave":"pm"},{"id":"R020A","ac":"AC-1","o":"OMS","d":"UUD","t1":3180,"t2":3410,"bh":230,"wave":"am"},{"id":"R020B","ac":"AC-1","o":"UUD","d":"OMS","t1":3470,"t2":3700,"bh":230,"wave":"am"},{"id":"R021A","ac":"AC-7","o":"OMS","d":"VOG","t1":3180,"t2":3410,"bh":230,"wave":"am"},{"id":"R021B","ac":"AC-7","o":"VOG","d":"OMS","t1":3470,"t2":3700,"bh":230,"wave":"am"},{"id":"R022A","ac":"AC-6","o":"OMS","d":"GOJ","t1":3195,"t2":3385,"bh":190,"wave":"am"},{"id":"R022B","ac":"AC-6","o":"GOJ","d":"OMS","t1":3445,"t2":3635,"bh":190,"wave":"am"},{"id":"R023A","ac":"AC-2","o":"OMS","d":"IKT","t1":3210,"t2":3420,"bh":210,"wave":"am"},{"id":"R023B","ac":"AC-2","o":"IKT","d":"OMS","t1":3480,"t2":3690,"bh":210,"wave":"am"},{"id":"R024A","ac":"AC-5","o":"OMS","d":"KUF","t1":3210,"t2":3375,"bh":165,"wave":"am"},{"id":"R024B","ac":"AC-5","o":"KUF","d":"OMS","t1":3435,"t2":3600,"bh":165,"wave":"am"},{"id":"R025A","ac":"AC-3","o":"OMS","d":"KJA","t1":3300,"t2":3435,"bh":135,"wave":"am"},{"id":"R025B","ac":"AC-3","o":"KJA","d":"OMS","t1":3495,"t2":3630,"bh":135,"wave":"am"},{"id":"R026A","ac":"AC-4","o":"OMS","d":"MOW","t1":3720,"t2":3945,"bh":225,"wave":"pm"},{"id":"R026B","ac":"AC-4","o":"MOW","d":"OMS","t1":4005,"t2":4230,"bh":225,"wave":"pm"},{"id":"R027A","ac":"AC-6","o":"OMS","d":"GSV","t1":3730,"t2":3920,"bh":190,"wave":"pm"},{"id":"R027B","ac":"AC-6","o":"GSV","d":"OMS","t1":3980,"t2":4170,"bh":190,"wave":"pm"},{"id":"R028A","ac":"AC-3","o":"OMS","d":"KUF","t1":3740,"t2":3905,"bh":165,"wave":"pm"},{"id":"R028B","ac":"AC-3","o":"KUF","d":"OMS","t1":3965,"t2":4130,"bh":165,"wave":"pm"},{"id":"R029A","ac":"AC-1","o":"OMS","d":"UUD","t1":4620,"t2":4850,"bh":230,"wave":"am"},{"id":"R029B","ac":"AC-1","o":"UUD","d":"OMS","t1":4910,"t2":5140,"bh":230,"wave":"am"},{"id":"R030A","ac":"AC-7","o":"OMS","d":"VOG","t1":4620,"t2":4850,"bh":230,"wave":"am"},{"id":"R030B","ac":"AC-7","o":"VOG","d":"OMS","t1":4910,"t2":5140,"bh":230,"wave":"am"},{"id":"R031A","ac":"AC-6","o":"OMS","d":"GOJ","t1":4635,"t2":4825,"bh":190,"wave":"am"},{"id":"R031B","ac":"AC-6","o":"GOJ","d":"OMS","t1":4885,"t2":5075,"bh":190,"wave":"am"},{"id":"R032A","ac":"AC-2","o":"OMS","d":"IKT","t1":4650,"t2":4860,"bh":210,"wave":"am"},{"id":"R032B","ac":"AC-2","o":"IKT","d":"OMS","t1":4920,"t2":5130,"bh":210,"wave":"am"},{"id":"R033A","ac":"AC-3","o":"OMS","d":"KJA","t1":4740,"t2":4875,"bh":135,"wave":"am"},{"id":"R033B","ac":"AC-3","o":"KJA","d":"OMS","t1":4935,"t2":5070,"bh":135,"wave":"am"},{"id":"R034A","ac":"AC-4","o":"OMS","d":"BAX","t1":4830,"t2":4920,"bh":90,"wave":"am"},{"id":"R034B","ac":"AC-4","o":"BAX","d":"OMS","t1":4980,"t2":5070,"bh":90,"wave":"am"},{"id":"R035A","ac":"AC-5","o":"OMS","d":"MOW","t1":5160,"t2":5385,"bh":225,"wave":"pm"},{"id":"R035B","ac":"AC-5","o":"MOW","d":"OMS","t1":5445,"t2":5670,"bh":225,"wave":"pm"},{"id":"R036A","ac":"AC-4","o":"OMS","d":"GSV","t1":5170,"t2":5360,"bh":190,"wave":"pm"},{"id":"R036B","ac":"AC-4","o":"GSV","d":"OMS","t1":5420,"t2":5610,"bh":190,"wave":"pm"},{"id":"R037A","ac":"AC-1","o":"OMS","d":"KJA","t1":5200,"t2":5335,"bh":135,"wave":"pm"},{"id":"R037B","ac":"AC-1","o":"KJA","d":"OMS","t1":5395,"t2":5530,"bh":135,"wave":"pm"},{"id":"R038A","ac":"AC-1","o":"OMS","d":"UUD","t1":6060,"t2":6290,"bh":230,"wave":"am"},{"id":"R038B","ac":"AC-1","o":"UUD","d":"OMS","t1":6350,"t2":6580,"bh":230,"wave":"am"},{"id":"R039A","ac":"AC-7","o":"OMS","d":"VOG","t1":6060,"t2":6290,"bh":230,"wave":"am"},{"id":"R039B","ac":"AC-7","o":"VOG","d":"OMS","t1":6350,"t2":6580,"bh":230,"wave":"am"},{"id":"R040A","ac":"AC-6","o":"OMS","d":"GOJ","t1":6075,"t2":6265,"bh":190,"wave":"am"},{"id":"R040B","ac":"AC-6","o":"GOJ","d":"OMS","t1":6325,"t2":6515,"bh":190,"wave":"am"},{"id":"R041A","ac":"AC-2","o":"OMS","d":"IKT","t1":6090,"t2":6300,"bh":210,"wave":"am"},{"id":"R041B","ac":"AC-2","o":"IKT","d":"OMS","t1":6360,"t2":6570,"bh":210,"wave":"am"},{"id":"R042A","ac":"AC-5","o":"OMS","d":"KUF","t1":6090,"t2":6255,"bh":165,"wave":"am"},{"id":"R042B","ac":"AC-5","o":"KUF","d":"OMS","t1":6315,"t2":6480,"bh":165,"wave":"am"},{"id":"R043A","ac":"AC-3","o":"OMS","d":"KJA","t1":6180,"t2":6315,"bh":135,"wave":"am"},{"id":"R043B","ac":"AC-3","o":"KJA","d":"OMS","t1":6375,"t2":6510,"bh":135,"wave":"am"},{"id":"R044A","ac":"AC-4","o":"OMS","d":"BAX","t1":6270,"t2":6360,"bh":90,"wave":"am"},{"id":"R044B","ac":"AC-4","o":"BAX","d":"OMS","t1":6420,"t2":6510,"bh":90,"wave":"am"},{"id":"R045A","ac":"AC-3","o":"OMS","d":"MOW","t1":6600,"t2":6825,"bh":225,"wave":"pm"},{"id":"R045B","ac":"AC-3","o":"MOW","d":"OMS","t1":6885,"t2":7110,"bh":225,"wave":"pm"},{"id":"R046A","ac":"AC-5","o":"OMS","d":"GSV","t1":6610,"t2":6800,"bh":190,"wave":"pm"},{"id":"R046B","ac":"AC-5","o":"GSV","d":"OMS","t1":6860,"t2":7050,"bh":190,"wave":"pm"},{"id":"R047A","ac":"AC-7","o":"OMS","d":"KJA","t1":6640,"t2":6775,"bh":135,"wave":"pm"},{"id":"R047B","ac":"AC-7","o":"KJA","d":"OMS","t1":6835,"t2":6970,"bh":135,"wave":"pm"},{"id":"R048A","ac":"AC-1","o":"OMS","d":"UUD","t1":7500,"t2":7730,"bh":230,"wave":"am"},{"id":"R048B","ac":"AC-1","o":"UUD","d":"OMS","t1":7790,"t2":8020,"bh":230,"wave":"am"},{"id":"R049A","ac":"AC-7","o":"OMS","d":"VOG","t1":7500,"t2":7730,"bh":230,"wave":"am"},{"id":"R049B","ac":"AC-7","o":"VOG","d":"OMS","t1":7790,"t2":8020,"bh":230,"wave":"am"},{"id":"R050A","ac":"AC-6","o":"OMS","d":"GOJ","t1":7515,"t2":7705,"bh":190,"wave":"am"},{"id":"R050B","ac":"AC-6","o":"GOJ","d":"OMS","t1":7765,"t2":7955,"bh":190,"wave":"am"},{"id":"R051A","ac":"AC-2","o":"OMS","d":"IKT","t1":7530,"t2":7740,"bh":210,"wave":"am"},{"id":"R051B","ac":"AC-2","o":"IKT","d":"OMS","t1":7800,"t2":8010,"bh":210,"wave":"am"},{"id":"R052A","ac":"AC-5","o":"OMS","d":"KUF","t1":7530,"t2":7695,"bh":165,"wave":"am"},{"id":"R052B","ac":"AC-5","o":"KUF","d":"OMS","t1":7755,"t2":7920,"bh":165,"wave":"am"},{"id":"R053A","ac":"AC-3","o":"OMS","d":"KJA","t1":7620,"t2":7755,"bh":135,"wave":"am"},{"id":"R053B","ac":"AC-3","o":"KJA","d":"OMS","t1":7815,"t2":7950,"bh":135,"wave":"am"},{"id":"R054A","ac":"AC-4","o":"OMS","d":"IKT","t1":8040,"t2":8250,"bh":210,"wave":"pm"},{"id":"R054B","ac":"AC-4","o":"IKT","d":"OMS","t1":8310,"t2":8520,"bh":210,"wave":"pm"},{"id":"R055A","ac":"AC-3","o":"OMS","d":"GSV","t1":8050,"t2":8240,"bh":190,"wave":"pm"},{"id":"R055B","ac":"AC-3","o":"GSV","d":"OMS","t1":8300,"t2":8490,"bh":190,"wave":"pm"},{"id":"R056A","ac":"AC-5","o":"OMS","d":"BAX","t1":8060,"t2":8150,"bh":90,"wave":"pm"},{"id":"R056B","ac":"AC-5","o":"BAX","d":"OMS","t1":8210,"t2":8300,"bh":90,"wave":"pm"},{"id":"R057A","ac":"AC-1","o":"OMS","d":"UUD","t1":8940,"t2":9170,"bh":230,"wave":"am"},{"id":"R057B","ac":"AC-1","o":"UUD","d":"OMS","t1":9230,"t2":9460,"bh":230,"wave":"am"},{"id":"R058A","ac":"AC-7","o":"OMS","d":"VOG","t1":8940,"t2":9170,"bh":230,"wave":"am"},{"id":"R058B","ac":"AC-7","o":"VOG","d":"OMS","t1":9230,"t2":9460,"bh":230,"wave":"am"},{"id":"R059A","ac":"AC-6","o":"OMS","d":"GOJ","t1":8955,"t2":9145,"bh":190,"wave":"am"},{"id":"R059B","ac":"AC-6","o":"GOJ","d":"OMS","t1":9205,"t2":9395,"bh":190,"wave":"am"},{"id":"R060A","ac":"AC-2","o":"OMS","d":"IKT","t1":8970,"t2":9180,"bh":210,"wave":"am"},{"id":"R060B","ac":"AC-2","o":"IKT","d":"OMS","t1":9240,"t2":9450,"bh":210,"wave":"am"},{"id":"R061A","ac":"AC-5","o":"OMS","d":"KUF","t1":8970,"t2":9135,"bh":165,"wave":"am"},{"id":"R061B","ac":"AC-5","o":"KUF","d":"OMS","t1":9195,"t2":9360,"bh":165,"wave":"am"},{"id":"R062A","ac":"AC-3","o":"OMS","d":"KJA","t1":9060,"t2":9195,"bh":135,"wave":"am"},{"id":"R062B","ac":"AC-3","o":"KJA","d":"OMS","t1":9255,"t2":9390,"bh":135,"wave":"am"},{"id":"R063A","ac":"AC-5","o":"OMS","d":"GOJ","t1":9480,"t2":9670,"bh":190,"wave":"pm"},{"id":"R063B","ac":"AC-5","o":"GOJ","d":"OMS","t1":9730,"t2":9920,"bh":190,"wave":"pm"},{"id":"R064A","ac":"AC-4","o":"OMS","d":"GSV","t1":9490,"t2":9680,"bh":190,"wave":"pm"},{"id":"R064B","ac":"AC-4","o":"GSV","d":"OMS","t1":9740,"t2":9930,"bh":190,"wave":"pm"}]},"start":{"label":"Старт хаба (2+1 ВС · 44 рейса)","sub":"Стартовая фаза (oms_ramp_week_flights.csv): 2 активных + 1 резерв SJ-100 · 6 направлений · 44 рейсов/нед. · 68.0 БЧ/нед. на борт","aircraft":["S1","S2"],"reserve":"S3 Рез.","spokes":["GOJ","IKT","MOW","NOZ","UFA","VOG"],"feeders":[],"start_only":["UFA","NOZ"],"stats":{"total_rotations":22,"total_legs":44,"total_bh":136.0,"max_ac_bh":68.0,"min_ac_bh":68.0,"min_turn_min":60,"ac_bh":{"S1":68.0,"S2":68.0}},"flights":[{"id":"F001","ac":"S1","o":"OMS","d":"MOW","t1":300,"t2":510,"bh":210,"wave":"start"},{"id":"F003","ac":"S2","o":"OMS","d":"IKT","t1":300,"t2":510,"bh":210,"wave":"start"},{"id":"F002","ac":"S1","o":"MOW","d":"OMS","t1":570,"t2":780,"bh":210,"wave":"start"},{"id":"F004","ac":"S2","o":"IKT","d":"OMS","t1":570,"t2":780,"bh":210,"wave":"start"},{"id":"F005","ac":"S1","o":"OMS","d":"GOJ","t1":1740,"t2":1935,"bh":195,"wave":"start"},{"id":"F009","ac":"S2","o":"OMS","d":"VOG","t1":1740,"t2":1965,"bh":225,"wave":"start"},{"id":"F006","ac":"S1","o":"GOJ","d":"OMS","t1":1995,"t2":2190,"bh":195,"wave":"start"},{"id":"F010","ac":"S2","o":"VOG","d":"OMS","t1":2025,"t2":2250,"bh":225,"wave":"start"},{"id":"F007","ac":"S1","o":"OMS","d":"NOZ","t1":2460,"t2":2565,"bh":105,"wave":"start"},{"id":"F011","ac":"S2","o":"OMS","d":"UFA","t1":2460,"t2":2595,"bh":135,"wave":"start"},{"id":"F008","ac":"S1","o":"NOZ","d":"OMS","t1":2625,"t2":2730,"bh":105,"wave":"start"},{"id":"F012","ac":"S2","o":"UFA","d":"OMS","t1":2655,"t2":2790,"bh":135,"wave":"start"},{"id":"F013","ac":"S1","o":"OMS","d":"IKT","t1":3180,"t2":3390,"bh":210,"wave":"start"},{"id":"F015","ac":"S2","o":"OMS","d":"GOJ","t1":3180,"t2":3375,"bh":195,"wave":"start"},{"id":"F016","ac":"S2","o":"GOJ","d":"OMS","t1":3435,"t2":3630,"bh":195,"wave":"start"},{"id":"F014","ac":"S1","o":"IKT","d":"OMS","t1":3450,"t2":3660,"bh":210,"wave":"start"},{"id":"F017","ac":"S1","o":"OMS","d":"VOG","t1":4620,"t2":4845,"bh":225,"wave":"start"},{"id":"F021","ac":"S2","o":"OMS","d":"IKT","t1":4620,"t2":4830,"bh":210,"wave":"start"},{"id":"F022","ac":"S2","o":"IKT","d":"OMS","t1":4890,"t2":5100,"bh":210,"wave":"start"},{"id":"F018","ac":"S1","o":"VOG","d":"OMS","t1":4905,"t2":5130,"bh":225,"wave":"start"},{"id":"F019","ac":"S1","o":"OMS","d":"UFA","t1":5340,"t2":5475,"bh":135,"wave":"start"},{"id":"F023","ac":"S2","o":"OMS","d":"MOW","t1":5340,"t2":5550,"bh":210,"wave":"start"},{"id":"F020","ac":"S1","o":"UFA","d":"OMS","t1":5535,"t2":5670,"bh":135,"wave":"start"},{"id":"F024","ac":"S2","o":"MOW","d":"OMS","t1":5610,"t2":5820,"bh":210,"wave":"start"},{"id":"F025","ac":"S1","o":"OMS","d":"IKT","t1":6060,"t2":6270,"bh":210,"wave":"start"},{"id":"F027","ac":"S2","o":"OMS","d":"GOJ","t1":6060,"t2":6255,"bh":195,"wave":"start"},{"id":"F028","ac":"S2","o":"GOJ","d":"OMS","t1":6315,"t2":6510,"bh":195,"wave":"start"},{"id":"F026","ac":"S1","o":"IKT","d":"OMS","t1":6330,"t2":6540,"bh":210,"wave":"start"},{"id":"F029","ac":"S1","o":"OMS","d":"VOG","t1":7500,"t2":7725,"bh":225,"wave":"start"},{"id":"F033","ac":"S2","o":"OMS","d":"UFA","t1":7500,"t2":7635,"bh":135,"wave":"start"},{"id":"F034","ac":"S2","o":"UFA","d":"OMS","t1":7695,"t2":7830,"bh":135,"wave":"start"},{"id":"F030","ac":"S1","o":"VOG","d":"OMS","t1":7785,"t2":8010,"bh":225,"wave":"start"},{"id":"F031","ac":"S1","o":"OMS","d":"NOZ","t1":8220,"t2":8325,"bh":105,"wave":"start"},{"id":"F035","ac":"S2","o":"OMS","d":"IKT","t1":8220,"t2":8430,"bh":210,"wave":"start"},{"id":"F032","ac":"S1","o":"NOZ","d":"OMS","t1":8385,"t2":8490,"bh":105,"wave":"start"},{"id":"F036","ac":"S2","o":"IKT","d":"OMS","t1":8490,"t2":8700,"bh":210,"wave":"start"},{"id":"F037","ac":"S1","o":"OMS","d":"GOJ","t1":8940,"t2":9135,"bh":195,"wave":"start"},{"id":"F041","ac":"S2","o":"OMS","d":"NOZ","t1":8940,"t2":9045,"bh":105,"wave":"start"},{"id":"F042","ac":"S2","o":"NOZ","d":"OMS","t1":9105,"t2":9210,"bh":105,"wave":"start"},{"id":"F038","ac":"S1","o":"GOJ","d":"OMS","t1":9195,"t2":9390,"bh":195,"wave":"start"},{"id":"F039","ac":"S1","o":"OMS","d":"VOG","t1":9660,"t2":9885,"bh":225,"wave":"start"},{"id":"F043","ac":"S2","o":"OMS","d":"MOW","t1":9660,"t2":9870,"bh":210,"wave":"start"},{"id":"F044","ac":"S2","o":"MOW","d":"OMS","t1":9930,"t2":10140,"bh":210,"wave":"start"},{"id":"F040","ac":"S1","o":"VOG","d":"OMS","t1":9945,"t2":10170,"bh":225,"wave":"start"}]}}};
-const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-const COLORS = { 'AC-1': '#2563EB', 'AC-2': '#0D9488', 'AC-3': '#D97706', 'AC-4': '#E32A2F', 'AC-5': '#7C3AED', 'AC-6': '#0284C7', 'AC-7': '#16A34A', 'S1': '#2563EB', 'S2': '#E32A2F' };
-const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-const ST = { mode: 'radial', day: 0, t: 390, playing: false, speed: 60, raf: null, lastTs: null };
+const ANIM = {"map":"M540,358L537,359L535,357L534,353L531,355L528,354L525,351L522,348L520,344L517,340L514,341L511,343L507,343L505,340L505,337L502,339L501,342L495,330L489,317L482,310L484,307L481,306L478,309L475,312L472,313L468,314L469,309L465,310L462,311L462,308L459,309L455,308L456,304L455,301L454,298L451,299L448,297L445,296L441,298L438,301L430,304L426,305L424,307L420,307L417,308L413,310L410,311L407,309L405,314L408,315L408,318L411,319L407,320L404,323L405,327L402,329L400,331L403,334L407,336L407,342L404,344L401,342L399,344L396,343L393,341L392,338L389,341L386,339L382,339L380,343L377,343L375,341L373,344L371,341L370,338L367,335L364,335L362,332L359,334L355,333L352,336L349,339L347,342L344,344L344,349L342,352L340,349L338,346L336,348L334,352L334,357L335,360L332,366L336,367L336,371L340,372L342,376L344,379L345,382L343,384L347,387L344,389L342,392L339,394L337,397L336,400L334,403L335,406L337,411L337,415L338,411L337,415L337,420L339,423L340,426L342,431L342,434L339,438L336,437L334,433L331,430L328,428L328,425L326,423L323,422L320,424L316,421L313,419L308,418L305,416L301,414L297,411L294,407L290,404L288,403L286,400L283,398L286,397L289,396L289,392L290,389L291,386L289,383L293,384L295,380L292,379L292,374L294,372L299,372L300,367L299,364L300,361L301,358L301,354L298,353L295,352L292,350L289,349L287,346L284,347L281,346L277,345L277,341L275,338L271,338L270,333L270,328L268,327L265,328L261,329L258,328L258,325L256,320L259,318L262,318L262,314L260,312L257,308L256,304L254,301L254,297L254,294L251,291L247,293L245,290L241,290L241,286L239,283L239,280L238,276L237,272L238,269L238,266L237,262L239,257L240,254L242,252L246,250L251,251L249,248L245,248L242,244L239,245L244,239L253,228L256,225L258,221L256,218L252,215L250,213L253,210L250,206L251,202L248,200L249,197L248,194L249,189L248,185L245,181L248,177L250,173L247,169L243,168L242,165L244,162L246,159L250,156L253,155L254,152L256,154L259,152L262,152L266,153L261,153L264,155L268,156L265,159L268,157L272,157L275,158L279,158L288,163L292,166L298,169L302,171L305,173L306,178L306,180L304,184L300,187L297,189L293,190L288,189L284,187L278,186L274,184L270,183L268,182L264,180L259,178L263,180L265,183L268,185L265,185L268,185L269,188L273,189L274,192L273,195L273,198L275,201L274,204L277,206L280,208L284,211L286,212L290,210L290,207L287,207L284,203L284,199L288,200L292,202L297,204L301,204L301,200L299,196L302,192L307,189L311,185L316,186L316,189L320,189L321,185L322,182L322,179L319,177L320,173L321,170L321,167L317,164L320,165L328,165L333,169L334,172L327,173L325,176L328,178L330,182L337,181L338,178L339,174L342,173L346,174L343,171L350,169L354,166L361,164L366,161L369,160L373,160L368,161L369,165L366,167L370,168L373,168L377,164L380,163L383,164L387,164L390,162L394,160L397,162L395,166L398,167L399,164L402,163L405,161L403,157L401,154L404,153L409,152L417,153L421,155L425,157L430,159L435,161L438,164L441,166L445,164L446,160L442,160L440,157L438,154L435,153L434,150L436,146L437,142L433,142L434,139L438,136L441,133L443,130L444,127L445,123L447,120L458,121L464,123L464,126L463,130L462,133L459,135L463,139L464,143L462,147L463,152L463,156L463,161L468,164L465,168L466,172L463,174L462,177L460,179L456,180L458,183L455,184L452,184L450,181L445,182L450,186L457,186L460,188L462,185L465,183L467,182L470,178L474,173L474,168L472,166L472,163L481,160L483,161L486,164L487,168L487,171L488,174L495,174L492,174L489,173L487,170L491,167L489,165L488,161L485,160L480,158L476,158L472,158L470,156L468,152L469,149L472,145L470,141L468,137L465,136L468,133L472,130L475,129L475,124L479,124L479,127L477,130L477,133L476,136L481,138L484,138L488,138L492,141L495,141L492,141L492,138L489,137L485,136L481,134L480,131L484,130L488,132L491,130L488,129L491,126L497,126L500,128L504,129L506,131L514,132L515,135L511,137L512,142L511,147L512,144L513,141L516,142L515,146L513,148L518,147L518,143L517,140L517,136L517,132L513,131L511,129L506,127L504,125L504,121L501,118L503,115L510,113L517,113L524,112L527,113L530,111L534,111L529,115L533,119L530,117L536,114L538,112L535,110L530,107L532,105L535,107L533,105L529,104L532,102L535,104L537,101L540,99L543,97L546,95L550,95L554,93L558,94L562,93L568,92L571,91L568,90L564,91L567,89L572,89L575,89L581,89L578,91L582,90L586,90L590,89L594,87L598,88L597,92L599,90L595,86L602,85L605,85L611,86L604,85L604,81L610,76L616,73L620,73L624,73L627,75L630,76L627,77L621,79L624,79L630,79L634,80L638,81L635,83L632,84L636,85L640,84L647,82L650,83L654,83L658,83L661,85L664,87L663,90L666,89L669,91L669,94L665,93L663,92L664,94L668,95L664,100L661,101L657,103L653,105L648,107L645,110L643,112L639,114L636,114L634,117L630,117L628,121L625,122L630,120L633,122L631,119L634,119L639,118L642,118L646,116L650,115L655,113L651,113L648,112L650,110L655,111L658,110L662,113L665,112L667,114L668,119L666,121L670,124L667,123L668,120L669,117L671,114L674,114L683,113L687,114L692,114L692,117L695,119L698,119L703,121L699,120L705,121L709,120L714,122L717,120L717,117L717,113L720,114L724,113L727,114L730,115L733,117L735,115L740,115L743,117L747,120L741,121L747,123L742,123L746,125L746,129L742,128L739,126L742,129L745,133L748,133L745,133L747,135L749,138L753,141L756,142L759,139L761,133L764,130L767,131L764,132L766,134L770,136L773,136L777,135L780,134L783,135L786,136L789,138L792,137L793,134L796,135L800,135L798,132L799,128L796,128L798,125L803,125L803,121L806,121L811,123L817,123L827,124L834,127L827,127L824,126L821,127L825,127L835,127L832,129L830,131L832,129L828,128L829,131L825,130L824,133L828,133L832,131L836,127L842,127L848,128L850,131L847,131L844,133L850,133L853,135L850,138L853,136L858,137L861,140L863,142L868,141L871,140L877,139L890,140L896,142L899,144L900,148L898,151L901,153L905,153L905,158L906,162L904,164L907,163L908,160L907,157L910,155L914,153L918,153L922,154L928,154L934,155L938,152L941,155L941,158L947,159L948,162L952,162L955,159L954,156L951,154L953,151L960,150L964,150L966,152L970,152L975,152L979,151L983,152L987,154L991,156L995,157L1000,160L1000,199L997,202L993,204L988,203L986,200L983,200L986,201L982,202L979,202L975,202L972,203L976,202L979,202L982,203L987,202L987,206L991,208L993,210L994,214L995,217L997,219L998,223L996,225L990,225L987,224L985,221L986,224L983,225L978,228L974,231L971,232L968,232L966,235L963,237L961,239L960,242L957,243L954,245L952,250L949,248L946,245L943,245L939,245L936,246L931,252L931,248L932,245L928,248L925,249L924,252L922,249L921,252L918,250L917,254L917,257L915,260L912,264L910,269L912,272L916,272L915,275L914,278L914,282L916,284L917,288L914,289L916,285L912,286L910,289L909,294L909,298L911,301L909,305L904,305L900,308L899,312L900,315L900,319L896,319L894,321L892,324L892,328L890,332L888,335L883,341L884,338L882,328L881,325L881,321L880,312L879,306L878,297L878,290L880,284L882,280L885,276L884,273L887,272L891,270L896,265L899,261L902,256L904,254L906,251L910,248L911,245L915,242L919,241L920,238L919,234L921,227L926,226L923,223L920,224L916,226L916,229L915,232L912,233L910,236L907,238L905,241L902,243L902,240L899,241L900,238L901,235L902,231L899,233L897,231L893,232L888,232L885,235L883,238L880,241L877,244L875,246L873,250L871,253L872,256L876,257L872,258L868,258L865,259L862,259L857,262L857,258L862,258L859,257L857,254L854,256L852,254L847,252L846,255L844,258L841,256L838,257L834,256L831,258L828,256L825,256L820,256L816,256L811,259L808,264L805,266L802,272L799,275L796,277L794,280L791,284L790,286L787,290L784,293L781,297L777,299L776,303L781,304L784,304L784,307L783,311L786,310L789,307L787,310L787,313L791,313L793,310L791,314L794,310L794,307L797,308L801,309L803,313L806,315L807,318L804,319L806,322L806,326L808,328L806,332L805,335L804,340L802,343L803,347L802,350L803,354L802,357L801,360L801,365L796,372L795,377L793,380L792,383L790,388L788,392L786,396L784,399L782,402L781,405L778,408L777,412L771,419L769,422L766,423L763,422L762,418L759,417L758,420L756,424L754,427L753,424L755,422L756,418L756,415L756,410L755,403L757,400L759,397L765,400L766,395L768,392L768,389L769,385L770,380L771,377L774,373L773,370L772,366L769,368L765,369L763,371L758,373L755,373L753,369L754,366L753,361L750,360L748,357L745,356L741,355L738,352L738,348L736,345L735,339L735,336L734,333L732,330L732,327L730,324L729,321L725,318L722,318L718,314L714,315L706,317L701,321L704,325L704,328L703,331L700,333L700,337L698,341L696,344L697,349L693,350L689,355L685,353L683,351L679,351L675,349L671,347L668,350L665,354L662,355L658,356L654,359L649,357L643,357L641,354L640,351L636,350L633,347L630,346L627,345L622,347L619,348L616,347L613,346L611,344L611,340L611,337L608,335L603,333L599,331L595,329L592,333L590,337L589,340L590,344L591,347L589,351L587,353L584,351L580,350L578,351L575,350L572,348L571,344L566,344L562,341L559,343L555,346L552,348L550,350L547,354L544,356L541,356L540,358Z M268,390L272,389L274,392L277,396L280,396L283,396L282,399L279,400L275,402L272,403L270,406L267,404L268,401L264,396L266,393L268,391Z M813,307L814,311L815,314L817,321L817,326L816,329L817,333L817,337L819,347L820,350L822,359L824,363L820,358L817,356L815,359L813,370L814,376L816,381L818,386L817,390L817,386L814,384L811,387L811,390L809,385L810,380L810,374L811,370L811,367L809,362L811,355L811,351L811,346L810,342L811,339L810,335L808,332L808,329L809,324L810,320L809,316L812,316L813,313L811,307Z M357,131L359,128L362,128L363,125L366,123L363,123L365,121L367,118L371,117L375,116L377,117L382,118L379,119L382,120L378,120L381,120L377,122L378,125L377,129L378,134L381,137L385,141L388,143L384,143L387,144L383,143L379,143L376,145L374,142L369,142L368,139L371,139L367,137L370,135L367,137L364,135L361,134L358,134L357,131Z M385,103L379,102L383,100L379,100L382,98L385,96L389,97L391,94L395,91L402,90L406,89L408,87L412,87L419,87L422,86L426,85L430,85L433,81L438,80L442,80L444,82L441,87L419,94L415,94L411,96L408,97L404,98L400,100L403,100L400,103L395,103L396,106L391,104L394,107L391,108L388,108L390,111L383,111L387,112L384,113L386,115L384,118L381,117L377,117L371,117L373,114L377,113L373,113L368,112L372,111L375,108L379,109L375,107L379,107L381,105L378,105L382,103Z M403,152L400,153L397,151L394,150L392,147L395,145L398,147L400,149L403,152Z M854,98L849,102L841,102L835,100L830,98L832,95L837,97L842,96L846,97L851,98Z M827,95L824,96L822,100L814,98L812,96L815,94L812,93L811,96L813,99L818,100L814,101L810,101L807,101L800,102L797,101L796,103L790,102L786,99L787,96L785,93L789,92L790,90L795,88L799,90L803,92L805,93L805,90L808,90L813,91L817,92L824,93L827,95Z M627,64L624,67L619,67L615,67L606,68L602,70L599,70L596,70L599,67L601,64L606,62L608,60L605,59L608,58L611,58L614,56L613,59L618,58L622,60L626,62Z M599,59L597,62L593,62L587,62L584,60L578,60L575,60L572,58L568,55L564,54L571,52L574,50L578,49L581,49L588,48L588,52L592,51L596,50L600,52L599,55L597,58Z M333,45L330,46L326,44L335,42L338,41L342,42L339,42L335,45Z M359,43L355,45L348,45L344,46L343,49L338,49L334,48L341,47L337,45L342,44L346,45L348,43L345,43L351,41L354,41L351,43L357,42Z M589,43L586,43L586,46L573,49L569,50L565,49L560,48L564,48L561,48L567,47L557,47L563,46L559,45L564,45L566,42L562,42L566,40L578,38L583,39L587,42Z","pts":{"BAX":[517.7,316.4],"GOJ":[318.9,287.7],"GSV":[330.9,332.9],"IKT":[622.0,327.3],"KJA":[562.4,288.2],"KUF":[350.8,314.9],"MOW":[288.1,292.5],"NOZ":[534.4,311.9],"OMS":[466.6,300.4],"SVX":[404.0,282.6],"UFA":[379.4,304.4],"UUD":[637.2,331.9],"VOG":[321.7,362.2]},"names":{"BAX":"Барнаул","GOJ":"Нижний Новгород","GSV":"Саратов","IKT":"Иркутск","KJA":"Красноярск","KUF":"Самара","MOW":"Москва","NOZ":"Новокузнецк","OMS":"Омск","SVX":"Екатеринбург","UFA":"Уфа","UUD":"Улан-Удэ","VOG":"Волгоград"},"modes":{"radial":{"label":"Радиальная без фидеров (5+1 ВС · 7 лучей)","sub":"Радиальная сеть P40 без фидеров KJA/BAX: 5 активных + 1 резерв SJ-100 · 7 прибыльных стволов · 50 оборотов (100 рейсов/нед.) · макс. 68.3 ч/нед. на борт","aircraft":["AC-1","AC-2","AC-3","AC-4","AC-5"],"reserve":"AC-6 Рез.","spokes":["GOJ","GSV","IKT","KUF","MOW","UUD","VOG"],"feeders":[],"start_only":[],"stats":{"total_rotations":50,"total_legs":100,"total_bh":340.2,"max_ac_bh":68.33,"min_ac_bh":67.5,"min_turn_min":60,"ac_bh":{"AC-1":68.33,"AC-2":68.33,"AC-3":67.83,"AC-4":68.17,"AC-5":67.5}},"flights":[{"id":"P001A","ac":"AC-1","o":"OMS","d":"VOG","t1":300,"t2":530,"bh":230,"wave":"am"},{"id":"P001B","ac":"AC-1","o":"VOG","d":"OMS","t1":590,"t2":820,"bh":230,"wave":"am"},{"id":"P002A","ac":"AC-2","o":"OMS","d":"UUD","t1":310,"t2":540,"bh":230,"wave":"am"},{"id":"P002B","ac":"AC-2","o":"UUD","d":"OMS","t1":600,"t2":830,"bh":230,"wave":"am"},{"id":"P003A","ac":"AC-3","o":"OMS","d":"IKT","t1":320,"t2":530,"bh":210,"wave":"am"},{"id":"P003B","ac":"AC-3","o":"IKT","d":"OMS","t1":590,"t2":800,"bh":210,"wave":"am"},{"id":"P004A","ac":"AC-4","o":"OMS","d":"GOJ","t1":330,"t2":520,"bh":190,"wave":"am"},{"id":"P004B","ac":"AC-4","o":"GOJ","d":"OMS","t1":580,"t2":770,"bh":190,"wave":"am"},{"id":"P005A","ac":"AC-5","o":"OMS","d":"KUF","t1":340,"t2":505,"bh":165,"wave":"am"},{"id":"P005B","ac":"AC-5","o":"KUF","d":"OMS","t1":565,"t2":730,"bh":165,"wave":"am"},{"id":"P006A","ac":"AC-1","o":"OMS","d":"UUD","t1":945,"t2":1175,"bh":230,"wave":"pm"},{"id":"P006B","ac":"AC-1","o":"UUD","d":"OMS","t1":1235,"t2":1465,"bh":230,"wave":"pm"},{"id":"P007A","ac":"AC-4","o":"OMS","d":"GOJ","t1":960,"t2":1150,"bh":190,"wave":"pm"},{"id":"P007B","ac":"AC-4","o":"GOJ","d":"OMS","t1":1210,"t2":1400,"bh":190,"wave":"pm"},{"id":"P008A","ac":"AC-5","o":"OMS","d":"KUF","t1":975,"t2":1140,"bh":165,"wave":"pm"},{"id":"P008B","ac":"AC-5","o":"KUF","d":"OMS","t1":1200,"t2":1365,"bh":165,"wave":"pm"},{"id":"P009A","ac":"AC-5","o":"OMS","d":"VOG","t1":1740,"t2":1970,"bh":230,"wave":"am"},{"id":"P009B","ac":"AC-5","o":"VOG","d":"OMS","t1":2030,"t2":2260,"bh":230,"wave":"am"},{"id":"P010A","ac":"AC-4","o":"OMS","d":"UUD","t1":1750,"t2":1980,"bh":230,"wave":"am"},{"id":"P010B","ac":"AC-4","o":"UUD","d":"OMS","t1":2040,"t2":2270,"bh":230,"wave":"am"},{"id":"P011A","ac":"AC-3","o":"OMS","d":"IKT","t1":1760,"t2":1970,"bh":210,"wave":"am"},{"id":"P011B","ac":"AC-3","o":"IKT","d":"OMS","t1":2030,"t2":2240,"bh":210,"wave":"am"},{"id":"P012A","ac":"AC-1","o":"OMS","d":"GOJ","t1":1770,"t2":1960,"bh":190,"wave":"am"},{"id":"P012B","ac":"AC-1","o":"GOJ","d":"OMS","t1":2020,"t2":2210,"bh":190,"wave":"am"},{"id":"P013A","ac":"AC-2","o":"OMS","d":"KUF","t1":1780,"t2":1945,"bh":165,"wave":"am"},{"id":"P013B","ac":"AC-2","o":"KUF","d":"OMS","t1":2005,"t2":2170,"bh":165,"wave":"am"},{"id":"P014A","ac":"AC-3","o":"OMS","d":"VOG","t1":2385,"t2":2615,"bh":230,"wave":"pm"},{"id":"P014B","ac":"AC-3","o":"VOG","d":"OMS","t1":2675,"t2":2905,"bh":230,"wave":"pm"},{"id":"P015A","ac":"AC-2","o":"OMS","d":"GSV","t1":2400,"t2":2590,"bh":190,"wave":"pm"},{"id":"P015B","ac":"AC-2","o":"GSV","d":"OMS","t1":2650,"t2":2840,"bh":190,"wave":"pm"},{"id":"P016A","ac":"AC-2","o":"OMS","d":"VOG","t1":3180,"t2":3410,"bh":230,"wave":"am"},{"id":"P016B","ac":"AC-2","o":"VOG","d":"OMS","t1":3470,"t2":3700,"bh":230,"wave":"am"},{"id":"P017A","ac":"AC-5","o":"OMS","d":"UUD","t1":3190,"t2":3420,"bh":230,"wave":"am"},{"id":"P017B","ac":"AC-5","o":"UUD","d":"OMS","t1":3480,"t2":3710,"bh":230,"wave":"am"},{"id":"P018A","ac":"AC-1","o":"OMS","d":"IKT","t1":3200,"t2":3410,"bh":210,"wave":"am"},{"id":"P018B","ac":"AC-1","o":"IKT","d":"OMS","t1":3470,"t2":3680,"bh":210,"wave":"am"},{"id":"P019A","ac":"AC-3","o":"OMS","d":"GOJ","t1":3210,"t2":3400,"bh":190,"wave":"am"},{"id":"P019B","ac":"AC-3","o":"GOJ","d":"OMS","t1":3460,"t2":3650,"bh":190,"wave":"am"},{"id":"P020A","ac":"AC-4","o":"OMS","d":"KUF","t1":3220,"t2":3385,"bh":165,"wave":"am"},{"id":"P020B","ac":"AC-4","o":"KUF","d":"OMS","t1":3445,"t2":3610,"bh":165,"wave":"am"},{"id":"P021A","ac":"AC-4","o":"OMS","d":"MOW","t1":3825,"t2":4050,"bh":225,"wave":"pm"},{"id":"P021B","ac":"AC-4","o":"MOW","d":"OMS","t1":4110,"t2":4335,"bh":225,"wave":"pm"},{"id":"P022A","ac":"AC-5","o":"OMS","d":"GSV","t1":3840,"t2":4030,"bh":190,"wave":"pm"},{"id":"P022B","ac":"AC-5","o":"GSV","d":"OMS","t1":4090,"t2":4280,"bh":190,"wave":"pm"},{"id":"P023A","ac":"AC-4","o":"OMS","d":"VOG","t1":4620,"t2":4850,"bh":230,"wave":"am"},{"id":"P023B","ac":"AC-4","o":"VOG","d":"OMS","t1":4910,"t2":5140,"bh":230,"wave":"am"},{"id":"P024A","ac":"AC-3","o":"OMS","d":"UUD","t1":4630,"t2":4860,"bh":230,"wave":"am"},{"id":"P024B","ac":"AC-3","o":"UUD","d":"OMS","t1":4920,"t2":5150,"bh":230,"wave":"am"},{"id":"P025A","ac":"AC-2","o":"OMS","d":"IKT","t1":4640,"t2":4850,"bh":210,"wave":"am"},{"id":"P025B","ac":"AC-2","o":"IKT","d":"OMS","t1":4910,"t2":5120,"bh":210,"wave":"am"},{"id":"P026A","ac":"AC-5","o":"OMS","d":"GOJ","t1":4650,"t2":4840,"bh":190,"wave":"am"},{"id":"P026B","ac":"AC-5","o":"GOJ","d":"OMS","t1":4900,"t2":5090,"bh":190,"wave":"am"},{"id":"P027A","ac":"AC-1","o":"OMS","d":"KUF","t1":4660,"t2":4825,"bh":165,"wave":"am"},{"id":"P027B","ac":"AC-1","o":"KUF","d":"OMS","t1":4885,"t2":5050,"bh":165,"wave":"am"},{"id":"P028A","ac":"AC-2","o":"OMS","d":"MOW","t1":5265,"t2":5490,"bh":225,"wave":"pm"},{"id":"P028B","ac":"AC-2","o":"MOW","d":"OMS","t1":5550,"t2":5775,"bh":225,"wave":"pm"},{"id":"P029A","ac":"AC-3","o":"OMS","d":"GSV","t1":5280,"t2":5470,"bh":190,"wave":"pm"},{"id":"P029B","ac":"AC-3","o":"GSV","d":"OMS","t1":5530,"t2":5720,"bh":190,"wave":"pm"},{"id":"P030A","ac":"AC-1","o":"OMS","d":"VOG","t1":6060,"t2":6290,"bh":230,"wave":"am"},{"id":"P030B","ac":"AC-1","o":"VOG","d":"OMS","t1":6350,"t2":6580,"bh":230,"wave":"am"},{"id":"P031A","ac":"AC-4","o":"OMS","d":"UUD","t1":6070,"t2":6300,"bh":230,"wave":"am"},{"id":"P031B","ac":"AC-4","o":"UUD","d":"OMS","t1":6360,"t2":6590,"bh":230,"wave":"am"},{"id":"P032A","ac":"AC-5","o":"OMS","d":"IKT","t1":6080,"t2":6290,"bh":210,"wave":"am"},{"id":"P032B","ac":"AC-5","o":"IKT","d":"OMS","t1":6350,"t2":6560,"bh":210,"wave":"am"},{"id":"P033A","ac":"AC-2","o":"OMS","d":"GOJ","t1":6090,"t2":6280,"bh":190,"wave":"am"},{"id":"P033B","ac":"AC-2","o":"GOJ","d":"OMS","t1":6340,"t2":6530,"bh":190,"wave":"am"},{"id":"P034A","ac":"AC-3","o":"OMS","d":"KUF","t1":6100,"t2":6265,"bh":165,"wave":"am"},{"id":"P034B","ac":"AC-3","o":"KUF","d":"OMS","t1":6325,"t2":6490,"bh":165,"wave":"am"},{"id":"P035A","ac":"AC-5","o":"OMS","d":"MOW","t1":6705,"t2":6930,"bh":225,"wave":"pm"},{"id":"P035B","ac":"AC-5","o":"MOW","d":"OMS","t1":6990,"t2":7215,"bh":225,"wave":"pm"},{"id":"P036A","ac":"AC-4","o":"OMS","d":"GSV","t1":6720,"t2":6910,"bh":190,"wave":"pm"},{"id":"P036B","ac":"AC-4","o":"GSV","d":"OMS","t1":6970,"t2":7160,"bh":190,"wave":"pm"},{"id":"P037A","ac":"AC-3","o":"OMS","d":"VOG","t1":7500,"t2":7730,"bh":230,"wave":"am"},{"id":"P037B","ac":"AC-3","o":"VOG","d":"OMS","t1":7790,"t2":8020,"bh":230,"wave":"am"},{"id":"P038A","ac":"AC-1","o":"OMS","d":"UUD","t1":7510,"t2":7740,"bh":230,"wave":"am"},{"id":"P038B","ac":"AC-1","o":"UUD","d":"OMS","t1":7800,"t2":8030,"bh":230,"wave":"am"},{"id":"P039A","ac":"AC-2","o":"OMS","d":"IKT","t1":7520,"t2":7730,"bh":210,"wave":"am"},{"id":"P039B","ac":"AC-2","o":"IKT","d":"OMS","t1":7790,"t2":8000,"bh":210,"wave":"am"},{"id":"P040A","ac":"AC-5","o":"OMS","d":"GOJ","t1":7530,"t2":7720,"bh":190,"wave":"am"},{"id":"P040B","ac":"AC-5","o":"GOJ","d":"OMS","t1":7780,"t2":7970,"bh":190,"wave":"am"},{"id":"P041A","ac":"AC-4","o":"OMS","d":"KUF","t1":7540,"t2":7705,"bh":165,"wave":"am"},{"id":"P041B","ac":"AC-4","o":"KUF","d":"OMS","t1":7765,"t2":7930,"bh":165,"wave":"am"},{"id":"P042A","ac":"AC-1","o":"OMS","d":"IKT","t1":8145,"t2":8355,"bh":210,"wave":"pm"},{"id":"P042B","ac":"AC-1","o":"IKT","d":"OMS","t1":8415,"t2":8625,"bh":210,"wave":"pm"},{"id":"P043A","ac":"AC-2","o":"OMS","d":"GSV","t1":8160,"t2":8350,"bh":190,"wave":"pm"},{"id":"P043B","ac":"AC-2","o":"GSV","d":"OMS","t1":8410,"t2":8600,"bh":190,"wave":"pm"},{"id":"P044A","ac":"AC-4","o":"OMS","d":"VOG","t1":8940,"t2":9170,"bh":230,"wave":"am"},{"id":"P044B","ac":"AC-4","o":"VOG","d":"OMS","t1":9230,"t2":9460,"bh":230,"wave":"am"},{"id":"P045A","ac":"AC-5","o":"OMS","d":"UUD","t1":8950,"t2":9180,"bh":230,"wave":"am"},{"id":"P045B","ac":"AC-5","o":"UUD","d":"OMS","t1":9240,"t2":9470,"bh":230,"wave":"am"},{"id":"P046A","ac":"AC-2","o":"OMS","d":"IKT","t1":8960,"t2":9170,"bh":210,"wave":"am"},{"id":"P046B","ac":"AC-2","o":"IKT","d":"OMS","t1":9230,"t2":9440,"bh":210,"wave":"am"},{"id":"P047A","ac":"AC-3","o":"OMS","d":"GOJ","t1":8970,"t2":9160,"bh":190,"wave":"am"},{"id":"P047B","ac":"AC-3","o":"GOJ","d":"OMS","t1":9220,"t2":9410,"bh":190,"wave":"am"},{"id":"P048A","ac":"AC-1","o":"OMS","d":"KUF","t1":8980,"t2":9145,"bh":165,"wave":"am"},{"id":"P048B","ac":"AC-1","o":"KUF","d":"OMS","t1":9205,"t2":9370,"bh":165,"wave":"am"},{"id":"P049A","ac":"AC-3","o":"OMS","d":"GOJ","t1":9585,"t2":9775,"bh":190,"wave":"pm"},{"id":"P049B","ac":"AC-3","o":"GOJ","d":"OMS","t1":9835,"t2":10025,"bh":190,"wave":"pm"},{"id":"P050A","ac":"AC-1","o":"OMS","d":"GSV","t1":9600,"t2":9790,"bh":190,"wave":"pm"},{"id":"P050B","ac":"AC-1","o":"GSV","d":"OMS","t1":9850,"t2":10040,"bh":190,"wave":"pm"}]},"full":{"label":"Полная хабовая (7+1 ВС · 9 лучей)","sub":"Полная хабовая сеть: 7 активных + 1 резерв SJ-100 · 9 лучей (7 стволов + фидеры BAX/KJA) · 64 оборотов (128 рейсов/нед.) · макс. 58.2 ч/нед. на борт","aircraft":["AC-1","AC-2","AC-3","AC-4","AC-5","AC-6","AC-7"],"reserve":"AC-8 Рез.","spokes":["BAX","GOJ","GSV","IKT","KJA","KUF","MOW","UUD","VOG"],"feeders":["BAX","KJA"],"start_only":[],"stats":{"total_rotations":64,"total_legs":128,"total_bh":395.7,"max_ac_bh":58.17,"min_ac_bh":54.5,"min_turn_min":60,"ac_bh":{"AC-1":58.17,"AC-2":54.5,"AC-3":57.17,"AC-4":54.5,"AC-5":57.0,"AC-6":56.17,"AC-7":58.17}},"flights":[{"id":"R001A","ac":"AC-1","o":"OMS","d":"UUD","t1":300,"t2":530,"bh":230,"wave":"am"},{"id":"R001B","ac":"AC-1","o":"UUD","d":"OMS","t1":590,"t2":820,"bh":230,"wave":"am"},{"id":"R002A","ac":"AC-7","o":"OMS","d":"VOG","t1":300,"t2":530,"bh":230,"wave":"am"},{"id":"R002B","ac":"AC-7","o":"VOG","d":"OMS","t1":590,"t2":820,"bh":230,"wave":"am"},{"id":"R003A","ac":"AC-6","o":"OMS","d":"GOJ","t1":315,"t2":505,"bh":190,"wave":"am"},{"id":"R003B","ac":"AC-6","o":"GOJ","d":"OMS","t1":565,"t2":755,"bh":190,"wave":"am"},{"id":"R004A","ac":"AC-2","o":"OMS","d":"IKT","t1":330,"t2":540,"bh":210,"wave":"am"},{"id":"R004B","ac":"AC-2","o":"IKT","d":"OMS","t1":600,"t2":810,"bh":210,"wave":"am"},{"id":"R005A","ac":"AC-5","o":"OMS","d":"KUF","t1":330,"t2":495,"bh":165,"wave":"am"},{"id":"R005B","ac":"AC-5","o":"KUF","d":"OMS","t1":555,"t2":720,"bh":165,"wave":"am"},{"id":"R006A","ac":"AC-3","o":"OMS","d":"KJA","t1":420,"t2":555,"bh":135,"wave":"am"},{"id":"R006B","ac":"AC-3","o":"KJA","d":"OMS","t1":615,"t2":750,"bh":135,"wave":"am"},{"id":"R007A","ac":"AC-4","o":"OMS","d":"BAX","t1":510,"t2":600,"bh":90,"wave":"am"},{"id":"R007B","ac":"AC-4","o":"BAX","d":"OMS","t1":660,"t2":750,"bh":90,"wave":"am"},{"id":"R008A","ac":"AC-4","o":"OMS","d":"UUD","t1":840,"t2":1070,"bh":230,"wave":"pm"},{"id":"R008B","ac":"AC-4","o":"UUD","d":"OMS","t1":1130,"t2":1360,"bh":230,"wave":"pm"},{"id":"R009A","ac":"AC-3","o":"OMS","d":"GOJ","t1":850,"t2":1040,"bh":190,"wave":"pm"},{"id":"R009B","ac":"AC-3","o":"GOJ","d":"OMS","t1":1100,"t2":1290,"bh":190,"wave":"pm"},{"id":"R010A","ac":"AC-2","o":"OMS","d":"KUF","t1":870,"t2":1035,"bh":165,"wave":"pm"},{"id":"R010B","ac":"AC-2","o":"KUF","d":"OMS","t1":1095,"t2":1260,"bh":165,"wave":"pm"},{"id":"R011A","ac":"AC-1","o":"OMS","d":"UUD","t1":1740,"t2":1970,"bh":230,"wave":"am"},{"id":"R011B","ac":"AC-1","o":"UUD","d":"OMS","t1":2030,"t2":2260,"bh":230,"wave":"am"},{"id":"R012A","ac":"AC-7","o":"OMS","d":"VOG","t1":1740,"t2":1970,"bh":230,"wave":"am"},{"id":"R012B","ac":"AC-7","o":"VOG","d":"OMS","t1":2030,"t2":2260,"bh":230,"wave":"am"},{"id":"R013A","ac":"AC-6","o":"OMS","d":"GOJ","t1":1755,"t2":1945,"bh":190,"wave":"am"},{"id":"R013B","ac":"AC-6","o":"GOJ","d":"OMS","t1":2005,"t2":2195,"bh":190,"wave":"am"},{"id":"R014A","ac":"AC-2","o":"OMS","d":"IKT","t1":1770,"t2":1980,"bh":210,"wave":"am"},{"id":"R014B","ac":"AC-2","o":"IKT","d":"OMS","t1":2040,"t2":2250,"bh":210,"wave":"am"},{"id":"R015A","ac":"AC-3","o":"OMS","d":"KJA","t1":1860,"t2":1995,"bh":135,"wave":"am"},{"id":"R015B","ac":"AC-3","o":"KJA","d":"OMS","t1":2055,"t2":2190,"bh":135,"wave":"am"},{"id":"R016A","ac":"AC-4","o":"OMS","d":"BAX","t1":1950,"t2":2040,"bh":90,"wave":"am"},{"id":"R016B","ac":"AC-4","o":"BAX","d":"OMS","t1":2100,"t2":2190,"bh":90,"wave":"am"},{"id":"R017A","ac":"AC-4","o":"OMS","d":"VOG","t1":2280,"t2":2510,"bh":230,"wave":"pm"},{"id":"R017B","ac":"AC-4","o":"VOG","d":"OMS","t1":2570,"t2":2800,"bh":230,"wave":"pm"},{"id":"R018A","ac":"AC-5","o":"OMS","d":"GSV","t1":2290,"t2":2480,"bh":190,"wave":"pm"},{"id":"R018B","ac":"AC-5","o":"GSV","d":"OMS","t1":2540,"t2":2730,"bh":190,"wave":"pm"},{"id":"R019A","ac":"AC-6","o":"OMS","d":"KUF","t1":2300,"t2":2465,"bh":165,"wave":"pm"},{"id":"R019B","ac":"AC-6","o":"KUF","d":"OMS","t1":2525,"t2":2690,"bh":165,"wave":"pm"},{"id":"R020A","ac":"AC-1","o":"OMS","d":"UUD","t1":3180,"t2":3410,"bh":230,"wave":"am"},{"id":"R020B","ac":"AC-1","o":"UUD","d":"OMS","t1":3470,"t2":3700,"bh":230,"wave":"am"},{"id":"R021A","ac":"AC-7","o":"OMS","d":"VOG","t1":3180,"t2":3410,"bh":230,"wave":"am"},{"id":"R021B","ac":"AC-7","o":"VOG","d":"OMS","t1":3470,"t2":3700,"bh":230,"wave":"am"},{"id":"R022A","ac":"AC-6","o":"OMS","d":"GOJ","t1":3195,"t2":3385,"bh":190,"wave":"am"},{"id":"R022B","ac":"AC-6","o":"GOJ","d":"OMS","t1":3445,"t2":3635,"bh":190,"wave":"am"},{"id":"R023A","ac":"AC-2","o":"OMS","d":"IKT","t1":3210,"t2":3420,"bh":210,"wave":"am"},{"id":"R023B","ac":"AC-2","o":"IKT","d":"OMS","t1":3480,"t2":3690,"bh":210,"wave":"am"},{"id":"R024A","ac":"AC-5","o":"OMS","d":"KUF","t1":3210,"t2":3375,"bh":165,"wave":"am"},{"id":"R024B","ac":"AC-5","o":"KUF","d":"OMS","t1":3435,"t2":3600,"bh":165,"wave":"am"},{"id":"R025A","ac":"AC-3","o":"OMS","d":"KJA","t1":3300,"t2":3435,"bh":135,"wave":"am"},{"id":"R025B","ac":"AC-3","o":"KJA","d":"OMS","t1":3495,"t2":3630,"bh":135,"wave":"am"},{"id":"R026A","ac":"AC-4","o":"OMS","d":"MOW","t1":3720,"t2":3945,"bh":225,"wave":"pm"},{"id":"R026B","ac":"AC-4","o":"MOW","d":"OMS","t1":4005,"t2":4230,"bh":225,"wave":"pm"},{"id":"R027A","ac":"AC-6","o":"OMS","d":"GSV","t1":3730,"t2":3920,"bh":190,"wave":"pm"},{"id":"R027B","ac":"AC-6","o":"GSV","d":"OMS","t1":3980,"t2":4170,"bh":190,"wave":"pm"},{"id":"R028A","ac":"AC-3","o":"OMS","d":"KUF","t1":3740,"t2":3905,"bh":165,"wave":"pm"},{"id":"R028B","ac":"AC-3","o":"KUF","d":"OMS","t1":3965,"t2":4130,"bh":165,"wave":"pm"},{"id":"R029A","ac":"AC-1","o":"OMS","d":"UUD","t1":4620,"t2":4850,"bh":230,"wave":"am"},{"id":"R029B","ac":"AC-1","o":"UUD","d":"OMS","t1":4910,"t2":5140,"bh":230,"wave":"am"},{"id":"R030A","ac":"AC-7","o":"OMS","d":"VOG","t1":4620,"t2":4850,"bh":230,"wave":"am"},{"id":"R030B","ac":"AC-7","o":"VOG","d":"OMS","t1":4910,"t2":5140,"bh":230,"wave":"am"},{"id":"R031A","ac":"AC-6","o":"OMS","d":"GOJ","t1":4635,"t2":4825,"bh":190,"wave":"am"},{"id":"R031B","ac":"AC-6","o":"GOJ","d":"OMS","t1":4885,"t2":5075,"bh":190,"wave":"am"},{"id":"R032A","ac":"AC-2","o":"OMS","d":"IKT","t1":4650,"t2":4860,"bh":210,"wave":"am"},{"id":"R032B","ac":"AC-2","o":"IKT","d":"OMS","t1":4920,"t2":5130,"bh":210,"wave":"am"},{"id":"R033A","ac":"AC-3","o":"OMS","d":"KJA","t1":4740,"t2":4875,"bh":135,"wave":"am"},{"id":"R033B","ac":"AC-3","o":"KJA","d":"OMS","t1":4935,"t2":5070,"bh":135,"wave":"am"},{"id":"R034A","ac":"AC-4","o":"OMS","d":"BAX","t1":4830,"t2":4920,"bh":90,"wave":"am"},{"id":"R034B","ac":"AC-4","o":"BAX","d":"OMS","t1":4980,"t2":5070,"bh":90,"wave":"am"},{"id":"R035A","ac":"AC-5","o":"OMS","d":"MOW","t1":5160,"t2":5385,"bh":225,"wave":"pm"},{"id":"R035B","ac":"AC-5","o":"MOW","d":"OMS","t1":5445,"t2":5670,"bh":225,"wave":"pm"},{"id":"R036A","ac":"AC-4","o":"OMS","d":"GSV","t1":5170,"t2":5360,"bh":190,"wave":"pm"},{"id":"R036B","ac":"AC-4","o":"GSV","d":"OMS","t1":5420,"t2":5610,"bh":190,"wave":"pm"},{"id":"R037A","ac":"AC-1","o":"OMS","d":"KJA","t1":5200,"t2":5335,"bh":135,"wave":"pm"},{"id":"R037B","ac":"AC-1","o":"KJA","d":"OMS","t1":5395,"t2":5530,"bh":135,"wave":"pm"},{"id":"R038A","ac":"AC-1","o":"OMS","d":"UUD","t1":6060,"t2":6290,"bh":230,"wave":"am"},{"id":"R038B","ac":"AC-1","o":"UUD","d":"OMS","t1":6350,"t2":6580,"bh":230,"wave":"am"},{"id":"R039A","ac":"AC-7","o":"OMS","d":"VOG","t1":6060,"t2":6290,"bh":230,"wave":"am"},{"id":"R039B","ac":"AC-7","o":"VOG","d":"OMS","t1":6350,"t2":6580,"bh":230,"wave":"am"},{"id":"R040A","ac":"AC-6","o":"OMS","d":"GOJ","t1":6075,"t2":6265,"bh":190,"wave":"am"},{"id":"R040B","ac":"AC-6","o":"GOJ","d":"OMS","t1":6325,"t2":6515,"bh":190,"wave":"am"},{"id":"R041A","ac":"AC-2","o":"OMS","d":"IKT","t1":6090,"t2":6300,"bh":210,"wave":"am"},{"id":"R041B","ac":"AC-2","o":"IKT","d":"OMS","t1":6360,"t2":6570,"bh":210,"wave":"am"},{"id":"R042A","ac":"AC-5","o":"OMS","d":"KUF","t1":6090,"t2":6255,"bh":165,"wave":"am"},{"id":"R042B","ac":"AC-5","o":"KUF","d":"OMS","t1":6315,"t2":6480,"bh":165,"wave":"am"},{"id":"R043A","ac":"AC-3","o":"OMS","d":"KJA","t1":6180,"t2":6315,"bh":135,"wave":"am"},{"id":"R043B","ac":"AC-3","o":"KJA","d":"OMS","t1":6375,"t2":6510,"bh":135,"wave":"am"},{"id":"R044A","ac":"AC-4","o":"OMS","d":"BAX","t1":6270,"t2":6360,"bh":90,"wave":"am"},{"id":"R044B","ac":"AC-4","o":"BAX","d":"OMS","t1":6420,"t2":6510,"bh":90,"wave":"am"},{"id":"R045A","ac":"AC-3","o":"OMS","d":"MOW","t1":6600,"t2":6825,"bh":225,"wave":"pm"},{"id":"R045B","ac":"AC-3","o":"MOW","d":"OMS","t1":6885,"t2":7110,"bh":225,"wave":"pm"},{"id":"R046A","ac":"AC-5","o":"OMS","d":"GSV","t1":6610,"t2":6800,"bh":190,"wave":"pm"},{"id":"R046B","ac":"AC-5","o":"GSV","d":"OMS","t1":6860,"t2":7050,"bh":190,"wave":"pm"},{"id":"R047A","ac":"AC-7","o":"OMS","d":"KJA","t1":6640,"t2":6775,"bh":135,"wave":"pm"},{"id":"R047B","ac":"AC-7","o":"KJA","d":"OMS","t1":6835,"t2":6970,"bh":135,"wave":"pm"},{"id":"R048A","ac":"AC-1","o":"OMS","d":"UUD","t1":7500,"t2":7730,"bh":230,"wave":"am"},{"id":"R048B","ac":"AC-1","o":"UUD","d":"OMS","t1":7790,"t2":8020,"bh":230,"wave":"am"},{"id":"R049A","ac":"AC-7","o":"OMS","d":"VOG","t1":7500,"t2":7730,"bh":230,"wave":"am"},{"id":"R049B","ac":"AC-7","o":"VOG","d":"OMS","t1":7790,"t2":8020,"bh":230,"wave":"am"},{"id":"R050A","ac":"AC-6","o":"OMS","d":"GOJ","t1":7515,"t2":7705,"bh":190,"wave":"am"},{"id":"R050B","ac":"AC-6","o":"GOJ","d":"OMS","t1":7765,"t2":7955,"bh":190,"wave":"am"},{"id":"R051A","ac":"AC-2","o":"OMS","d":"IKT","t1":7530,"t2":7740,"bh":210,"wave":"am"},{"id":"R051B","ac":"AC-2","o":"IKT","d":"OMS","t1":7800,"t2":8010,"bh":210,"wave":"am"},{"id":"R052A","ac":"AC-5","o":"OMS","d":"KUF","t1":7530,"t2":7695,"bh":165,"wave":"am"},{"id":"R052B","ac":"AC-5","o":"KUF","d":"OMS","t1":7755,"t2":7920,"bh":165,"wave":"am"},{"id":"R053A","ac":"AC-3","o":"OMS","d":"KJA","t1":7620,"t2":7755,"bh":135,"wave":"am"},{"id":"R053B","ac":"AC-3","o":"KJA","d":"OMS","t1":7815,"t2":7950,"bh":135,"wave":"am"},{"id":"R054A","ac":"AC-4","o":"OMS","d":"IKT","t1":8040,"t2":8250,"bh":210,"wave":"pm"},{"id":"R054B","ac":"AC-4","o":"IKT","d":"OMS","t1":8310,"t2":8520,"bh":210,"wave":"pm"},{"id":"R055A","ac":"AC-3","o":"OMS","d":"GSV","t1":8050,"t2":8240,"bh":190,"wave":"pm"},{"id":"R055B","ac":"AC-3","o":"GSV","d":"OMS","t1":8300,"t2":8490,"bh":190,"wave":"pm"},{"id":"R056A","ac":"AC-5","o":"OMS","d":"BAX","t1":8060,"t2":8150,"bh":90,"wave":"pm"},{"id":"R056B","ac":"AC-5","o":"BAX","d":"OMS","t1":8210,"t2":8300,"bh":90,"wave":"pm"},{"id":"R057A","ac":"AC-1","o":"OMS","d":"UUD","t1":8940,"t2":9170,"bh":230,"wave":"am"},{"id":"R057B","ac":"AC-1","o":"UUD","d":"OMS","t1":9230,"t2":9460,"bh":230,"wave":"am"},{"id":"R058A","ac":"AC-7","o":"OMS","d":"VOG","t1":8940,"t2":9170,"bh":230,"wave":"am"},{"id":"R058B","ac":"AC-7","o":"VOG","d":"OMS","t1":9230,"t2":9460,"bh":230,"wave":"am"},{"id":"R059A","ac":"AC-6","o":"OMS","d":"GOJ","t1":8955,"t2":9145,"bh":190,"wave":"am"},{"id":"R059B","ac":"AC-6","o":"GOJ","d":"OMS","t1":9205,"t2":9395,"bh":190,"wave":"am"},{"id":"R060A","ac":"AC-2","o":"OMS","d":"IKT","t1":8970,"t2":9180,"bh":210,"wave":"am"},{"id":"R060B","ac":"AC-2","o":"IKT","d":"OMS","t1":9240,"t2":9450,"bh":210,"wave":"am"},{"id":"R061A","ac":"AC-5","o":"OMS","d":"KUF","t1":8970,"t2":9135,"bh":165,"wave":"am"},{"id":"R061B","ac":"AC-5","o":"KUF","d":"OMS","t1":9195,"t2":9360,"bh":165,"wave":"am"},{"id":"R062A","ac":"AC-3","o":"OMS","d":"KJA","t1":9060,"t2":9195,"bh":135,"wave":"am"},{"id":"R062B","ac":"AC-3","o":"KJA","d":"OMS","t1":9255,"t2":9390,"bh":135,"wave":"am"},{"id":"R063A","ac":"AC-5","o":"OMS","d":"GOJ","t1":9480,"t2":9670,"bh":190,"wave":"pm"},{"id":"R063B","ac":"AC-5","o":"GOJ","d":"OMS","t1":9730,"t2":9920,"bh":190,"wave":"pm"},{"id":"R064A","ac":"AC-4","o":"OMS","d":"GSV","t1":9490,"t2":9680,"bh":190,"wave":"pm"},{"id":"R064B","ac":"AC-4","o":"GSV","d":"OMS","t1":9740,"t2":9930,"bh":190,"wave":"pm"}]},"start":{"label":"Старт хаба (2+1 ВС · 44 рейса)","sub":"Стартовая фаза (oms_ramp_week_flights.csv): 2 активных + 1 резерв SJ-100 · 6 направлений · 44 рейсов/нед. · 68.0 БЧ/нед. на борт","aircraft":["S1","S2"],"reserve":"S3 Рез.","spokes":["GOJ","IKT","MOW","NOZ","UFA","VOG"],"feeders":[],"start_only":["UFA","NOZ"],"stats":{"total_rotations":22,"total_legs":44,"total_bh":136.0,"max_ac_bh":68.0,"min_ac_bh":68.0,"min_turn_min":60,"ac_bh":{"S1":68.0,"S2":68.0}},"flights":[{"id":"F001","ac":"S1","o":"OMS","d":"MOW","t1":300,"t2":510,"bh":210,"wave":"start"},{"id":"F003","ac":"S2","o":"OMS","d":"IKT","t1":300,"t2":510,"bh":210,"wave":"start"},{"id":"F002","ac":"S1","o":"MOW","d":"OMS","t1":570,"t2":780,"bh":210,"wave":"start"},{"id":"F004","ac":"S2","o":"IKT","d":"OMS","t1":570,"t2":780,"bh":210,"wave":"start"},{"id":"F005","ac":"S1","o":"OMS","d":"GOJ","t1":1740,"t2":1935,"bh":195,"wave":"start"},{"id":"F009","ac":"S2","o":"OMS","d":"VOG","t1":1740,"t2":1965,"bh":225,"wave":"start"},{"id":"F006","ac":"S1","o":"GOJ","d":"OMS","t1":1995,"t2":2190,"bh":195,"wave":"start"},{"id":"F010","ac":"S2","o":"VOG","d":"OMS","t1":2025,"t2":2250,"bh":225,"wave":"start"},{"id":"F007","ac":"S1","o":"OMS","d":"NOZ","t1":2460,"t2":2565,"bh":105,"wave":"start"},{"id":"F011","ac":"S2","o":"OMS","d":"UFA","t1":2460,"t2":2595,"bh":135,"wave":"start"},{"id":"F008","ac":"S1","o":"NOZ","d":"OMS","t1":2625,"t2":2730,"bh":105,"wave":"start"},{"id":"F012","ac":"S2","o":"UFA","d":"OMS","t1":2655,"t2":2790,"bh":135,"wave":"start"},{"id":"F013","ac":"S1","o":"OMS","d":"IKT","t1":3180,"t2":3390,"bh":210,"wave":"start"},{"id":"F015","ac":"S2","o":"OMS","d":"GOJ","t1":3180,"t2":3375,"bh":195,"wave":"start"},{"id":"F016","ac":"S2","o":"GOJ","d":"OMS","t1":3435,"t2":3630,"bh":195,"wave":"start"},{"id":"F014","ac":"S1","o":"IKT","d":"OMS","t1":3450,"t2":3660,"bh":210,"wave":"start"},{"id":"F017","ac":"S1","o":"OMS","d":"VOG","t1":4620,"t2":4845,"bh":225,"wave":"start"},{"id":"F021","ac":"S2","o":"OMS","d":"IKT","t1":4620,"t2":4830,"bh":210,"wave":"start"},{"id":"F022","ac":"S2","o":"IKT","d":"OMS","t1":4890,"t2":5100,"bh":210,"wave":"start"},{"id":"F018","ac":"S1","o":"VOG","d":"OMS","t1":4905,"t2":5130,"bh":225,"wave":"start"},{"id":"F019","ac":"S1","o":"OMS","d":"UFA","t1":5340,"t2":5475,"bh":135,"wave":"start"},{"id":"F023","ac":"S2","o":"OMS","d":"MOW","t1":5340,"t2":5550,"bh":210,"wave":"start"},{"id":"F020","ac":"S1","o":"UFA","d":"OMS","t1":5535,"t2":5670,"bh":135,"wave":"start"},{"id":"F024","ac":"S2","o":"MOW","d":"OMS","t1":5610,"t2":5820,"bh":210,"wave":"start"},{"id":"F025","ac":"S1","o":"OMS","d":"IKT","t1":6060,"t2":6270,"bh":210,"wave":"start"},{"id":"F027","ac":"S2","o":"OMS","d":"GOJ","t1":6060,"t2":6255,"bh":195,"wave":"start"},{"id":"F028","ac":"S2","o":"GOJ","d":"OMS","t1":6315,"t2":6510,"bh":195,"wave":"start"},{"id":"F026","ac":"S1","o":"IKT","d":"OMS","t1":6330,"t2":6540,"bh":210,"wave":"start"},{"id":"F029","ac":"S1","o":"OMS","d":"VOG","t1":7500,"t2":7725,"bh":225,"wave":"start"},{"id":"F033","ac":"S2","o":"OMS","d":"UFA","t1":7500,"t2":7635,"bh":135,"wave":"start"},{"id":"F034","ac":"S2","o":"UFA","d":"OMS","t1":7695,"t2":7830,"bh":135,"wave":"start"},{"id":"F030","ac":"S1","o":"VOG","d":"OMS","t1":7785,"t2":8010,"bh":225,"wave":"start"},{"id":"F031","ac":"S1","o":"OMS","d":"NOZ","t1":8220,"t2":8325,"bh":105,"wave":"start"},{"id":"F035","ac":"S2","o":"OMS","d":"IKT","t1":8220,"t2":8430,"bh":210,"wave":"start"},{"id":"F032","ac":"S1","o":"NOZ","d":"OMS","t1":8385,"t2":8490,"bh":105,"wave":"start"},{"id":"F036","ac":"S2","o":"IKT","d":"OMS","t1":8490,"t2":8700,"bh":210,"wave":"start"},{"id":"F037","ac":"S1","o":"OMS","d":"GOJ","t1":8940,"t2":9135,"bh":195,"wave":"start"},{"id":"F041","ac":"S2","o":"OMS","d":"NOZ","t1":8940,"t2":9045,"bh":105,"wave":"start"},{"id":"F042","ac":"S2","o":"NOZ","d":"OMS","t1":9105,"t2":9210,"bh":105,"wave":"start"},{"id":"F038","ac":"S1","o":"GOJ","d":"OMS","t1":9195,"t2":9390,"bh":195,"wave":"start"},{"id":"F039","ac":"S1","o":"OMS","d":"VOG","t1":9660,"t2":9885,"bh":225,"wave":"start"},{"id":"F043","ac":"S2","o":"OMS","d":"MOW","t1":9660,"t2":9870,"bh":210,"wave":"start"},{"id":"F044","ac":"S2","o":"MOW","d":"OMS","t1":9930,"t2":10140,"bh":210,"wave":"start"},{"id":"F040","ac":"S1","o":"VOG","d":"OMS","t1":9945,"t2":10170,"bh":225,"wave":"start"}]}},"airports":{"BAX":{"code":"BAX","city":"Барнаул","icao":"UNBB","region":"Алтайский край","fd":"СФО","tz":7,"pax_2025":792600,"pax_qual":"≈","pop_2025":1088356,"wage_2024":69560,"runway_m":2850,"h24":"не проверено","ssj_ops":"допуск SSJ","ssj_mro":"не найдено","rw_support":"в списке опорных не числится","kover_365":0,"kover_h1_26":0,"frost":32.0,"wind":22.0,"bad_wx":50.0,"seas":[0.901,0.804,0.877,0.797,0.978,1.161,1.329,1.38,1.087,0.97,0.853,0.864],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке аэропорта хаб конкурента не указан (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[],"rpc_carriers":[],"rw_now":[{"pair":"HTA–BAX","other":"HTA","freq":1.0,"status":"субсидия"},{"pair":"UUD–BAX","other":"UUD","freq":1.0,"status":"субсидия"},{"pair":"SVX–BAX","other":"SVX","freq":2.6,"status":"субсидия"}],"subs_2026":[{"pair":"Барнаул – Казань","airline":"Северный Ветер","ac":"Boeing 737-800","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Барнаул – Сургут","airline":"ЮТэйр","ac":"ATR-72","freq":"2","period":"12.01.2026-30.04.2026; 01.09.2026-31.12.2026"},{"pair":"Екатеринбург – Барнаул","airline":"Ред Вингс","ac":"SSJ-100","freq":"4","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Минеральные Воды – Барнаул","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.06.2026-31.12.2026"},{"pair":"Новосибирск – Барнаул","airline":"Сибирь","ac":"ERJ-170","freq":"10","period":"01.01.2026-31.12.2026"},{"pair":"Улан-Удэ – Барнаул","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Чита – Барнаул","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"}],"tariffs":[]},"GOJ":{"code":"GOJ","city":"Нижний Новгород","icao":"UWGG","region":"Нижегородская область","fd":"ПФО","tz":3,"pax_2025":1400000,"pax_qual":"> (нижняя граница)","pop_2025":2106914,"wage_2024":84064,"runway_m":3000,"h24":"24ч","ssj_ops":"допуск SSJ","ssj_mro":"есть ТО SSJ","rw_support":"в списке опорных не числится","kover_365":116,"kover_h1_26":48,"frost":14.0,"wind":1.0,"bad_wx":15.0,"seas":[0.728,0.685,0.776,0.816,1.029,1.314,1.337,1.331,1.279,1.058,0.84,0.809],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке аэропорта хаб конкурента не указан (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[],"rpc_carriers":[{"carrier":"Nordwind","dests":["MRV","UFA"],"ac":["B-737","B-737-800"],"rw":false},{"carrier":"Red Wings","dests":["KUF"],"ac":["RRJ-95B","RRJ-95LR"],"rw":true}],"rw_now":[{"pair":"GOJ–KUF","other":"KUF","freq":2.0,"status":"расписание"},{"pair":"SVX–GOJ","other":"SVX","freq":2.4,"status":"субсидия"}],"subs_2026":[{"pair":"Екатеринбург – Нижний Новгород","airline":"Ред Вингс","ac":"SSJ-100","freq":"4","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Нижний Новгород","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.05.2026-31.05.2026; 01.10.2026-31.12.2026"},{"pair":"Казань – Нижний Новгород","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"02.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Калининград – Нижний Новгород","airline":"Северный Ветер","ac":"Boeing 737-800","freq":"2","period":"16.01.2026-06.04.2026; 01.10.2026-25.12.2026"},{"pair":"Нижний Новгород – Краснодар","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.05.2026-30.09.2026"},{"pair":"Нижний Новгород – Самара","airline":"Ред Вингс","ac":"SSJ-100","freq":"4","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Нижний Новгород – Уфа","airline":"Икар","ac":"Embraer E190","freq":"2","period":"01.01.2026-31.05.2026; 01.09.2026-31.12.2026"},{"pair":"Нижний Новгород – Челябинск","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"02.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Новосибирск – Нижний Новгород","airline":"Сибирь","ac":"ERJ-170","freq":"5","period":"01.01.2026-30.09.2026"},{"pair":"Оренбург – Нижний Новгород","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"01.06.2026-04.10.2026"}],"tariffs":[]},"GSV":{"code":"GSV","city":"Саратов","icao":"UWSG","region":"Саратовская область","fd":"ПФО","tz":4,"pax_2025":1064000,"pax_qual":"≈","pop_2025":1454529,"wage_2024":68750,"runway_m":3000,"h24":"24ч","ssj_ops":"допуск SSJ","ssj_mro":"не найдено","rw_support":"в списке опорных не числится","kover_365":218,"kover_h1_26":88,"frost":15.0,"wind":15.0,"bad_wx":30.0,"seas":[0.879,0.832,0.884,0.935,1.0,0.979,1.113,1.174,1.15,1.102,1.014,0.938],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке аэропорта хаб конкурента не указан (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[],"rpc_carriers":[],"rw_now":[{"pair":"SVX–GSV","other":"SVX","freq":2.8,"status":"субсидия"}],"subs_2026":[{"pair":"Екатеринбург – Саратов","airline":"Ред Вингс","ac":"SSJ-100","freq":"3","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Саратов","airline":"Ред Вингс","ac":"SSJ-100","freq":"4","period":"01.05.2026-30.09.2026"},{"pair":"Калининград – Саратов","airline":"Икар","ac":"Embraer E190","freq":"1","period":"01.01.2026-31.03.2026; 01.11.2026-31.12.2026"},{"pair":"Калининград – Саратов","airline":"Икар","ac":"Embraer E190","freq":"2","period":"01.04.2026-31.05.2026; 01.10.2026-31.10.2026"},{"pair":"Краснодар – Саратов","airline":"АЗИМУТ","ac":"SU 95","freq":"3","period":"01.06.2026-30.09.2026"},{"pair":"Краснодар – Саратов","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.10.2026-31.12.2026"},{"pair":"Минеральные Воды – Саратов","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.06.2026-31.12.2026"},{"pair":"Новосибирск – Саратов","airline":"Сибирь","ac":"ERJ-170","freq":"4","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"}],"tariffs":[]},"IKT":{"code":"IKT","city":"Иркутск","icao":"UIII","region":"Иркутская область","fd":"СФО","tz":8,"pax_2025":4048738,"pax_qual":"=","pop_2025":1228443,"wage_2024":93204,"runway_m":3565,"h24":"не проверено","ssj_ops":"допуск SSJ","ssj_mro":"косвенно","rw_support":"в списке опорных не числится","kover_365":0,"kover_h1_26":0,"frost":66.0,"wind":14.0,"bad_wx":79.0,"seas":[0.837,0.821,0.891,0.848,0.906,1.059,1.319,1.346,1.12,0.975,0.918,0.96],"comp_hub":true,"comp_hub_carrier":"S7","comp_hub_note":"хаб S7 (сайт S7)","oms_carriers":[],"rpc_carriers":[],"rw_now":[],"subs_2026":[{"pair":"Благовещенск – Иркутск","airline":"ИрАэро","ac":"SSJ-100/A319","freq":"3","period":"10.01.2026-31.12.2026"},{"pair":"Иркутск – Нижнеангарск","airline":"ИрАэро","ac":"Ан-24/Ан-26-100","freq":"2","period":"01.01.2026-31.05.2026 01.10.2026-31.12.2026"},{"pair":"Иркутск – Нижнеангарск","airline":"ИрАэро","ac":"Ан-24/Ан-26-100","freq":"3","period":"01.06.2026-30.09.2026"},{"pair":"Иркутск – Таксимо","airline":"ИрАэро","ac":"Ан-24/Ан-26-100","freq":"2","period":"01.01.2026-31.05.2026; 01.10.2026-31.12.2026"},{"pair":"Иркутск – Горно-Алтайск","airline":"Сибирь","ac":"ERJ-170","freq":"3","period":"01.01.2026-31.05.2026; 01.10.2026-31.12.2026"},{"pair":"Иркутск – Казань","airline":"Северный Ветер","ac":"Boeing 737-800","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Иркутск – Таксимо","airline":"ИрАэро","ac":"Ан-24/Ан-26-100","freq":"3","period":"01.06.2026-31.09.2026"},{"pair":"Иркутск – Улан-Удэ","airline":"Сибирь","ac":"ERJ-170","freq":"16","period":"01.01.2026-31.12.2026"},{"pair":"Иркутск – Чита","airline":"Сибирь","ac":"ERJ-170","freq":"10","period":"01.01.2026-31.12.2026"},{"pair":"Иркутск – Самара","airline":"ИрАэро","ac":"SSJ-100/A319","freq":"1","period":"10.01.2026-30.04.2026; 01.10.2026-31.12.2026"}],"tariffs":[]},"KJA":{"code":"KJA","city":"Красноярск","icao":"UNKL","region":"Красноярский край","fd":"СФО","tz":7,"pax_2025":4263566,"pax_qual":"=","pop_2025":1538527,"wage_2024":96834,"runway_m":3700,"h24":"не проверено","ssj_ops":"допуск SSJ","ssj_mro":"не найдено","rw_support":"в списке опорных не числится","kover_365":0,"kover_h1_26":0,"frost":58.0,"wind":11.0,"bad_wx":68.0,"seas":[0.866,0.829,0.949,0.928,0.948,1.053,1.173,1.223,1.087,0.988,0.96,0.995],"comp_hub":true,"comp_hub_carrier":"группа «Аэрофлот»","comp_hub_note":"хаб группы «Аэрофлот» по итогам 2025 года (аэропорт)","oms_carriers":[],"rpc_carriers":[{"carrier":"Россия","dests":["SVX"],"ac":["A-319;B-737","B-737","RRJ-95B","RRJ-95LR"],"rw":false}],"rw_now":[],"subs_2026":[{"pair":"Горно-Алтайск – Красноярск","airline":"КрасАвиа","ac":"ATR-42","freq":"2","period":"01.01.2026-31.05.2026; 01.09.2026-31.12.2026"},{"pair":"Кемерово – Красноярск","airline":"КрасАвиа","ac":"ATR-42","freq":"2","period":"01.01.2026-31.05.2026"},{"pair":"Красноярск – Ленск","airline":"КрасАвиа","ac":"Ан-26","freq":"1","period":"01.01.2026-31.03.2026"},{"pair":"Красноярск – Мирный","airline":"Аэрофлот","ac":"SSJ","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Красноярск – Нерюнгри","airline":"Аэрофлот","ac":"SSJ","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Красноярск – Нижнеангарск","airline":"КрасАвиа","ac":"ATR-42","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Красноярск – Кызыл","airline":"КрасАвиа","ac":"ATR-42","freq":"4","period":"01.01.2026-31.05.2026; 01.09.2026-31.12.2026"},{"pair":"Красноярск – Олекминск","airline":"КрасАвиа","ac":"ATR-42","freq":"1","period":"01.01.2026-31.12.2026"},{"pair":"Красноярск – Махачкала","airline":"Аэрофлот","ac":"B737","freq":"2","period":"10.06.2026-10.09.2026"},{"pair":"Красноярск – Полярный","airline":"КрасАвиа","ac":"ATR-42","freq":"1","period":"01.05.2026-31.10.2026"}],"tariffs":[]},"KUF":{"code":"KUF","city":"Самара","icao":"UWWW","region":"Самарская область","fd":"ПФО","tz":4,"pax_2025":3570000,"pax_qual":"≈","pop_2025":2445817,"wage_2024":76710,"runway_m":3001,"h24":"24ч","ssj_ops":"допуск SSJ","ssj_mro":"есть ТО SSJ","rw_support":"проверить","kover_365":137,"kover_h1_26":47,"frost":21.0,"wind":18.0,"bad_wx":38.0,"seas":[0.813,0.749,0.838,0.873,1.077,1.208,1.266,1.231,1.152,1.052,0.881,0.861],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке аэропорта хаб конкурента не указан (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[],"rpc_carriers":[{"carrier":"Red Wings","dests":["GOJ","SVX"],"ac":["RRJ-95B","RRJ-95LR"],"rw":true},{"carrier":"Азимут","dests":["MRV","NJC"],"ac":["RRJ-95LR"],"rw":false},{"carrier":"Utair","dests":["SVX"],"ac":["AT-72"],"rw":false}],"rw_now":[{"pair":"GOJ–KUF","other":"GOJ","freq":2.0,"status":"расписание"},{"pair":"KUF–SVX","other":"SVX","freq":7.0,"status":"расписание"},{"pair":"KUF–HMA","other":"HMA","freq":1.0,"status":"допущение"},{"pair":"KUF–TJM","other":"TJM","freq":1.1,"status":"субсидия"},{"pair":"KUF–NUX","other":"NUX","freq":1.9,"status":"субсидия"},{"pair":"KUF–MMK","other":"MMK","freq":0.6,"status":"субсидия"},{"pair":"MCX–KUF","other":"MCX","freq":0.8,"status":"субсидия"}],"subs_2026":[{"pair":"Иркутск – Самара","airline":"ИрАэро","ac":"SSJ-100/A319","freq":"1","period":"10.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Иркутск – Самара","airline":"ИрАэро","ac":"SSJ-100/A319","freq":"2","period":"01.05.2026-30.09.2026"},{"pair":"Казань – Самара","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"02.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Калининград – Самара","airline":"Северный Ветер","ac":"Boeing 737-800","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Махачкала – Самара","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Минеральные Воды – Самара","airline":"АЗИМУТ","ac":"SU 95","freq":"3","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Нижний Новгород – Самара","airline":"Ред Вингс","ac":"SSJ-100","freq":"4","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Новосибирск – Самара","airline":"Сибирь","ac":"ERJ-170","freq":"7","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Пермь – Самара","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"02.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Петрозаводск – Самара","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"15.05.2026-15.09.2026"}],"tariffs":[]},"MOW":{"code":"MOW","city":"Москва","icao":"","region":"","fd":"","tz":3,"pax_2025":null,"pax_qual":"","pop_2025":null,"wage_2024":null,"runway_m":null,"h24":"не проверено","ssj_ops":"не подтверждено","ssj_mro":"не найдено","rw_support":"проверить","kover_365":null,"kover_h1_26":null,"frost":null,"wind":null,"bad_wx":null,"seas":[0.848,0.786,0.877,0.926,1.004,1.116,1.234,1.238,1.14,1.035,0.898,0.898],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Крупного базового хаба конкурентов не зафиксировано","oms_carriers":[],"rpc_carriers":[],"rw_now":[],"subs_2026":[],"tariffs":[]},"NOZ":{"code":"NOZ","city":"Новокузнецк","icao":"","region":"Кемеровская область","fd":"","tz":7,"pax_2025":null,"pax_qual":"","pop_2025":1010210,"wage_2024":82450,"runway_m":null,"h24":"не проверено","ssj_ops":"не подтверждено","ssj_mro":"не найдено","rw_support":"проверить","kover_365":0,"kover_h1_26":0,"frost":42.0,"wind":23.0,"bad_wx":62.0,"seas":[0.878,0.86,0.92,0.848,0.903,1.112,1.262,1.257,1.055,0.936,0.966,1.002],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Крупного базового хаба конкурентов не зафиксировано","oms_carriers":[],"rpc_carriers":[],"rw_now":[{"pair":"HTA–NOZ","other":"HTA","freq":0.6,"status":"субсидия"},{"pair":"UUD–NOZ","other":"UUD","freq":1.0,"status":"субсидия"},{"pair":"SVX–NOZ","other":"SVX","freq":2.0,"status":"субсидия"}],"subs_2026":[{"pair":"Екатеринбург – Новокузнецк","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Казань – Новокузнецк","airline":"Северный Ветер","ac":"Boeing 737-800","freq":"2","period":"01.01.2026-20.04.2026"},{"pair":"Красноярск – Новокузнецк","airline":"КрасАвиа","ac":"ATR-42","freq":"3","period":"01.01.2026-31.05.2026; 01.09.2026-31.12.2026"},{"pair":"Новосибирск – Новокузнецк","airline":"Сибирь","ac":"ERJ-170","freq":"10","period":"01.01.2026-23.02.2026; 23.12.2026-31.12.2026"},{"pair":"Улан-Удэ – Новокузнецк","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Чита – Новокузнецк","airline":"Ред Вингс","ac":"SSJ-100","freq":"1","period":"01.01.2026-31.12.2026"}],"tariffs":[]},"OMS":{"code":"OMS","city":"Омск","icao":"UNOO","region":"Омская область","fd":"СФО","tz":6,"pax_2025":1629761,"pax_qual":"=","pop_2025":1250771,"wage_2024":77427,"runway_m":2876,"h24":"не проверено","ssj_ops":"допуск SSJ","ssj_mro":"есть ТО SSJ","rw_support":"проверить","kover_365":7,"kover_h1_26":0,"frost":44.0,"wind":12.0,"bad_wx":54.0,"seas":[0.821,0.744,0.819,0.831,0.942,1.139,1.306,1.327,1.189,0.99,0.923,0.97],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке хабом указана только сама Red Wings (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[{"carrier":"S7","deps_wk":26,"dests":["IKT","MOW","OVB"],"ac":["А 320","Е 170"],"flts":["S7 2565/ 2566","S7 5343/ 5344","S7 5341/ 5342","S7 5345/ 5346"]},{"carrier":"Россия","deps_wk":16,"dests":["KJA","LED","MOW"],"ac":["SSJ 100","А 320","Б 738","Б 739"],"flts":["FV 6871/6872","FV 6471/ 6472","FV 6473/ 6474","FV 6845/6846"]},{"carrier":"Utair","deps_wk":14,"dests":["HMA","NJC","SGC"],"ac":["АТ 7"],"flts":["ЮТ 139/ 140","ЮТ 188/ 187","ЮТ 305/ 306"]},{"carrier":"Победа","deps_wk":9,"dests":["MOW"],"ac":["Б 738"],"flts":["DP 6521/ 6522","DP 6523/ 6524"]},{"carrier":"Ямал","deps_wk":7,"dests":["NOJ","NUX","NYM","SLY"],"ac":["SSJ 100"],"flts":["ЛА 617/618","ЛА 317/ 418","ЛА 417/ 318","ЛА 917/ 418"]},{"carrier":"Nordwind","deps_wk":7,"dests":["AER","LED"],"ac":["Б 738","Б 739"],"flts":["КЛ 305/ 308","КЛ 307/ 308","КЛ 479/ 480"]},{"carrier":"Аэрофлот","deps_wk":7,"dests":["MOW"],"ac":["А 320","Б 738"],"flts":["SU 1688/1689","SU 1762/ 1763","SU 1638/ 1639"]},{"carrier":"Уральские авиалинии","deps_wk":4,"dests":["MOW"],"ac":["А 321"],"flts":["U6 387 / 388"]},{"carrier":"ЮВТ Аэро","deps_wk":2,"dests":["KZN","OVB","RMZ"],"ac":["ЦР 2"],"flts":["ЮВ 289/652","ЮВ 651/652"]},{"carrier":"Red Wings","deps_wk":2,"dests":["SVX"],"ac":["SSJ 100"],"flts":["ИН 5071/5072","ИН 2071/5072","ИН 5071/2072"]},{"carrier":"Азимут","deps_wk":2,"dests":["MRV"],"ac":["SSJ 100"],"flts":["А4 6185/6186"]},{"carrier":"Икар (Pegas Fly)","deps_wk":2,"dests":["KZN"],"ac":["Е90"],"flts":["ЕО 759/760"]},{"carrier":"НордСтар","deps_wk":0,"dests":["KRR","NSK"],"ac":["Б 738"],"flts":["ТИ 913","ТИ 914"]}],"rpc_carriers":[{"carrier":"Red Wings","dests":["SVX"],"ac":["RRJ-95B","SSJ 100"],"rw":true},{"carrier":"Utair","dests":["NJC"],"ac":["АТ 7"],"rw":false},{"carrier":"Азимут","dests":["MRV"],"ac":["SSJ 100"],"rw":false}],"rw_now":[{"pair":"OMS–SVX","other":"SVX","freq":2.0,"status":"расписание"},{"pair":"OMS–UUD","other":"UUD","freq":1.0,"status":"допущение"}],"subs_2026":[{"pair":"Горно-Алтайск – Омск","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"01.05.2026-31.10.2026"},{"pair":"Екатеринбург – Омск","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Казань – Омск","airline":"Икар","ac":"Embraer E190","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Красноярск – Омск","airline":"Аэрофлот","ac":"SSJ","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Минеральные Воды – Омск","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.10.2026-31.12.2026"},{"pair":"Омск – Надым","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"1","period":"02.01.2026-31.12.2026"},{"pair":"Омск – Новый Уренгой","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"3","period":"01.01.2026-30.04.2026, 01.10.2026-31.12.2026"},{"pair":"Омск – Ноябрьск","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"1","period":"01.01.2026-30.04.2026, 01.10.2026-31.12.2026"},{"pair":"Омск – Салехард","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"3","period":"01.01.2026-30.04.2026, 01.10.2026-31.12.2026"},{"pair":"Омск – Тобольск","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"02.01.2026-30.04.2026; 01.10.2026-31.12.2026"}],"tariffs":[{"article":"Постоянный входной пропуск работника сторонней организации","unit":"штука","price":697.0,"page":"4 §5.2.2"},{"article":"Сопровождение и контроль транспорта и работников сторонних организаций по территории и к ВС","unit":"обслуживание","price":4050.0,"page":"4 §5.3"},{"article":"Предоставление автобуса по городу","unit":"моточас за каждый начинающийся час","price":3430.0,"page":"5 §8.1"},{"article":"Базирование на асфальтобетоне, МВМ 30–74.999 т","unit":"ВС/месяц","price":117100.0,"page":"5 §9.1.1"},{"article":"Временная стоянка на асфальтобетоне №0–23, МВМ 30–74.999 т","unit":"ВС/час","price":1018.0,"page":"6 §9.2.1"},{"article":"Временная стоянка на асфальтобетоне №0–23, МВМ 30–74.999 т","unit":"ВС/сутки","price":24432.0,"page":"6 §9.3.1"},{"article":"Складское хранение имущества в неотапливаемом помещении","unit":"м²/месяц","price":330.0,"page":"10 §11.19.1"}]},"SVX":{"code":"SVX","city":"Екатеринбург","icao":"","region":"Свердловская область","fd":"","tz":5,"pax_2025":null,"pax_qual":"","pop_2025":2421534,"wage_2024":95791,"runway_m":null,"h24":"не проверено","ssj_ops":"не подтверждено","ssj_mro":"не найдено","rw_support":"опорный / база","kover_365":30,"kover_h1_26":8,"frost":32.0,"wind":7.0,"bad_wx":38.0,"seas":[0.809,0.748,0.84,0.875,0.995,1.174,1.27,1.278,1.191,1.036,0.892,0.89],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"База Red Wings и Уральских авиалиний","oms_carriers":[],"rpc_carriers":[{"carrier":"Red Wings","dests":["KUF","KZN","OMS","REN"],"ac":["RRJ-95B","RRJ-95LR","SSJ 100"],"rw":true},{"carrier":"Россия","dests":["AER","KJA"],"ac":["A-319;B-737","B-737","RRJ-95B","RRJ-95LR"],"rw":false},{"carrier":"Уральские авиалинии","dests":["AER","MRV"],"ac":["A-320"],"rw":false},{"carrier":"NordStar","dests":["VOG"],"ac":["B-737"],"rw":false},{"carrier":"Utair","dests":["KUF"],"ac":["AT-72"],"rw":false},{"carrier":"Аэрофлот","dests":["MRV"],"ac":["A-320 SH"],"rw":false},{"carrier":"Победа","dests":["AER"],"ac":["B-737"],"rw":false}],"rw_now":[{"pair":"KUF–SVX","other":"KUF","freq":7.0,"status":"расписание"},{"pair":"KZN–SVX","other":"KZN","freq":7.0,"status":"расписание"},{"pair":"OMS–SVX","other":"OMS","freq":2.0,"status":"расписание"},{"pair":"REN–SVX","other":"REN","freq":4.0,"status":"расписание"},{"pair":"SVX–IJK","other":"IJK","freq":1.0,"status":"допущение"},{"pair":"SVX–ABA","other":"ABA","freq":1.4,"status":"субсидия"},{"pair":"SVX–TOF","other":"TOF","freq":2.1,"status":"субсидия"},{"pair":"SVX–STW","other":"STW","freq":0.7,"status":"субсидия"}],"subs_2026":[{"pair":"Белоярский – Екатеринбург","airline":"РусЛайн","ac":"CRJ 100/200","freq":"3","period":"01.01.2026-31.12.2026"},{"pair":"Волгоград – Екатеринбург","airline":"НордСтар","ac":"B-737-800","freq":"2","period":"15.01.2026-31.05.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Абакан","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Астрахань","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.05.2026-30.09.2026"},{"pair":"Екатеринбург – Барнаул","airline":"Ред Вингс","ac":"SSJ-100","freq":"4","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Горно-Алтайск","airline":"Ред Вингс","ac":"SSJ-100","freq":"3","period":"01.01.2026-31.12.2026"},{"pair":"Екатеринбург – Грозный","airline":"Ред Вингс","ac":"SSJ-100","freq":"1","period":"01.05.2026-30.09.2026"},{"pair":"Екатеринбург – Ижевск","airline":"Ижавиа","ac":"Boeing 737-800","freq":"2","period":"01.01.2026-30.04.2026"},{"pair":"Екатеринбург – Кемерово","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Махачкала","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"}],"tariffs":[]},"UFA":{"code":"UFA","city":"Уфа","icao":"UWUU","region":"Республика Башкортостан","fd":"ПФО","tz":5,"pax_2025":4929715,"pax_qual":"=","pop_2025":1653798,"wage_2024":87313,"runway_m":3761,"h24":"24ч","ssj_ops":"допуск SSJ","ssj_mro":"не найдено","rw_support":"в списке опорных не числится","kover_365":64,"kover_h1_26":17,"frost":33.0,"wind":18.0,"bad_wx":49.0,"seas":[0.833,0.764,0.844,0.878,1.05,1.149,1.218,1.219,1.135,1.033,0.927,0.95],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке аэропорта хаб конкурента не указан (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[],"rpc_carriers":[{"carrier":"Nordwind","dests":["GOJ"],"ac":["B-737","B-737-800"],"rw":false},{"carrier":"Utair","dests":["NJC"],"ac":["B-737-400"],"rw":false},{"carrier":"Азимут","dests":["MRV"],"ac":["Сухой Суперджет"],"rw":false}],"rw_now":[],"subs_2026":[{"pair":"Астрахань – Уфа","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Горно-Алтайск – Уфа","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Калининград – Уфа","airline":"Северный Ветер","ac":"Boeing 737-800","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Красноярск – Уфа","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Нарьян-Мар – Уфа","airline":"РусЛайн","ac":"CRJ 100/200","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Нижний Новгород – Уфа","airline":"Икар","ac":"Embraer E190","freq":"2","period":"01.01.2026-31.05.2026; 01.09.2026-31.12.2026"},{"pair":"Омск – Уфа","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Уфа – Надым","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"2","period":"02.01.2026-31.12.2026"},{"pair":"Уфа – Ноябрьск","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"2","period":"02.01.2026-31.12.2026"},{"pair":"Уфа – Салехард","airline":"ЯМАЛ","ac":"SSJ-100 / А-320","freq":"2","period":"02.01.2026-31.12.2026"}],"tariffs":[]},"UUD":{"code":"UUD","city":"Улан-Удэ","icao":"","region":"Республика Бурятия","fd":"","tz":8,"pax_2025":null,"pax_qual":"","pop_2025":565204,"wage_2024":77648,"runway_m":null,"h24":"не проверено","ssj_ops":"не подтверждено","ssj_mro":"не найдено","rw_support":"проверить","kover_365":0,"kover_h1_26":0,"frost":91.0,"wind":8.0,"bad_wx":98.0,"seas":[0.818,0.763,0.853,0.901,0.983,1.164,1.313,1.336,1.151,1.001,0.851,0.865],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Крупного базового хаба конкурентов не зафиксировано","oms_carriers":[],"rpc_carriers":[],"rw_now":[{"pair":"TOF–UUD","other":"TOF","freq":1.0,"status":"субсидия"},{"pair":"OMS–UUD","other":"OMS","freq":1.0,"status":"допущение"},{"pair":"UUD–NOZ","other":"NOZ","freq":1.0,"status":"субсидия"},{"pair":"UUD–KEJ","other":"KEJ","freq":1.0,"status":"субсидия"},{"pair":"UUD–BAX","other":"BAX","freq":1.0,"status":"субсидия"}],"subs_2026":[{"pair":"Благовещенск – Улан-Удэ","airline":"ИрАэро","ac":"SSJ-100/А319","freq":"2","period":"10.01.2026-31.12.2026"},{"pair":"Горно-Алтайск – Улан-Удэ","airline":"ЮВТ АЭРО","ac":"CRJ-200","freq":"2","period":"02.01.2026-31.12.2026"},{"pair":"Иркутск – Улан-Удэ","airline":"Сибирь","ac":"ERJ-170","freq":"16","period":"01.01.2026-31.12.2026"},{"pair":"Кызыл – Улан-Удэ","airline":"КрасАвиа","ac":"ATR-72","freq":"2","period":"01.01.2026-08.06.2026; 04.09.2026-31.12.2026"},{"pair":"Магадан – Улан-Удэ","airline":"ИрАэро","ac":"SSJ-100/А319","freq":"1","period":"10.01.2026-31.12.2026"},{"pair":"Улан-Удэ – Барнаул","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Улан-Удэ – Кемерово","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Улан-Удэ – Новокузнецк","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Улан-Удэ – Омск","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"},{"pair":"Улан-Удэ – Южно-Сахалинск","airline":"ИрАэро","ac":"SSJ-100/А319","freq":"1","period":"10.01.2026-31.12.2026"}],"tariffs":[]},"VOG":{"code":"VOG","city":"Волгоград","icao":"URWW","region":"Волгоградская область","fd":"ЮФО","tz":3,"pax_2025":1540280,"pax_qual":"=","pop_2025":1490835,"wage_2024":68750,"runway_m":2800,"h24":"не проверено","ssj_ops":"допуск SSJ","ssj_mro":"не найдено","rw_support":"в списке опорных не числится","kover_365":141,"kover_h1_26":78,"frost":4.0,"wind":40.0,"bad_wx":44.0,"seas":[0.86,0.797,0.876,0.93,1.056,1.164,1.169,1.154,1.096,1.04,0.935,0.924],"comp_hub":false,"comp_hub_carrier":"","comp_hub_note":"Википедия: в карточке аэропорта хаб конкурента не указан (слабое свидетельство отсутствия, правка 2026)","oms_carriers":[],"rpc_carriers":[{"carrier":"NordStar","dests":["SVX"],"ac":["B-737"],"rw":false}],"rw_now":[],"subs_2026":[{"pair":"Волгоград – Екатеринбург","airline":"НордСтар","ac":"B-737-800","freq":"2","period":"15.01.2026-31.05.2026; 01.10.2026-31.12.2026"},{"pair":"Волгоград – Казань","airline":"Икар","ac":"Embraer E190","freq":"2","period":"01.01.2026-30.04.2026"},{"pair":"Волгоград – Калининград","airline":"Икар","ac":"Embraer E190","freq":"2","period":"01.04.2026-31.05.2026; 01.09.2026-30.09.2026"},{"pair":"Новосибирск – Волгоград","airline":"Сибирь","ac":"ERJ-170","freq":"5","period":"01.01.2026-30.09.2026"}],"tariffs":[]}},"spokes":{"BAX":{"code":"BAX","city":"Барнаул","km":689,"rail_hr":15.1,"direct_now":false,"bh_min":90,"light":"зелёный","fare_model":6434,"base":{"fs":5,"fw":3,"local":5178,"tr":28625,"seg":33803,"lf":0.78,"spill":56,"rev":159.7,"cost":213.9,"res":-54.3,"sub":0.0,"sub_rule":"нужен хотя бы один узловой аэропорт","src":"Поездки, которые сейчас идут с пересадкой в городе Новосибирск: модель поездок по потокам на рейсах","light":"зелёный"},"cautious":null,"est":{"seg_base":16475,"od_base":10676,"od_caut":3745,"route_now":"с пересадкой: Новосибирск"},"comp":{"direct":[],"conn":["Победа","S7"],"seats_day":0.0,"fare_dir":null,"fare_tr":15012,"w_comp":0.112,"tt":[]},"subs_2026":[]},"GOJ":{"code":"GOJ","city":"Нижний Новгород","km":1846,"rail_hr":40.4,"direct_now":false,"bh_min":190,"light":"зелёный","fare_model":13723,"base":{"fs":9,"fw":6,"local":19205,"tr":44751,"seg":63956,"lf":0.79,"spill":172,"rev":769.1,"cost":691.4,"res":77.8,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный"},"cautious":{"fs":3,"fw":3,"local":3556,"tr":4839,"seg":8394,"lf":0.29,"spill":0,"rev":76.2,"cost":418.6,"res":-342.5,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный"},"est":{"seg_base":66094,"od_base":32070,"od_caut":11250,"route_now":"с пересадкой: Екатеринбург"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[]},"subs_2026":[]},"GSV":{"code":"GSV","city":"Саратов","km":1826,"rail_hr":40.1,"direct_now":false,"bh_min":190,"light":"зелёный","fare_model":13597,"base":{"fs":6,"fw":5,"local":14042,"tr":33510,"seg":47553,"lf":0.82,"spill":203,"rev":571.7,"cost":495.1,"res":76.6,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный"},"cautious":{"fs":3,"fw":3,"local":2844,"tr":4121,"seg":6965,"lf":0.24,"spill":0,"rev":62.6,"cost":414.4,"res":-351.8,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный"},"est":{"seg_base":55062,"od_base":25653,"od_caut":8999,"route_now":"с пересадкой: Екатеринбург"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[]},"subs_2026":[]},"IKT":{"code":"IKT","city":"Иркутск","km":2055,"rail_hr":45.1,"direct_now":true,"bh_min":210,"light":"зелёный","fare_model":15040,"base":{"fs":8,"fw":6,"local":23282,"tr":35990,"seg":59272,"lf":0.8,"spill":182,"rev":801.6,"cost":688.2,"res":113.4,"sub":0.0,"sub_rule":"поток пары больше 8000 пасс. в год","src":"Среднее оценок: модель тяготения, похожие пары (Сочи–Екатеринбург, Махачкала–Пермь, Калининград–Пермь), кресла в расписании 7–13.12.2026; оценки расходятся в 9,8 раза — неуверенно × доля своих поездок 100%","light":"зелёный"},"cautious":{"fs":3,"fw":3,"local":5082,"tr":6181,"seg":11263,"lf":0.39,"spill":0,"rev":113.9,"cost":454.5,"res":-340.6,"sub":0.0,"sub_rule":"поток пары больше 8000 пасс. в год","src":"Среднее оценок: модель тяготения, похожие пары (Сочи–Екатеринбург, Махачкала–Пермь, Калининград–Пермь), кресла в расписании 7–13.12.2026; оценки расходятся в 9,8 раза — неуверенно × доля своих поездок 100%","light":"зелёный"},"est":{"seg_base":46703,"od_base":46703,"od_caut":14520,"route_now":"прямой рейс"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[{"carrier":"S7","flt":"S7 6451/ 6452","ac":"Е 170","wd":"2,5","arr":"12.45","dep":"13.25","period":"27.10.26 - 26.03.27"}]},"subs_2026":[]},"KJA":{"code":"KJA","city":"Красноярск","km":1209,"rail_hr":25.3,"direct_now":true,"bh_min":135,"light":"зелёный","fare_model":9710,"base":{"fs":9,"fw":7,"local":4294,"tr":64387,"seg":68681,"lf":0.81,"spill":147,"rev":525.7,"cost":559.3,"res":-33.6,"sub":0.0,"sub_rule":"поток пары больше 8000 пасс. в год","src":"Отчёт аэропорта о потоке пары (2025) × доля своих поездок 37%","light":"зелёный"},"cautious":{"fs":3,"fw":3,"local":3011,"tr":7643,"seg":10655,"lf":0.37,"spill":0,"rev":63.4,"cost":316.1,"res":-252.7,"sub":0.0,"sub_rule":"поток пары больше 8000 пасс. в год","src":"Отчёт аэропорта о потоке пары (2025) × доля своих поездок 37%","light":"зелёный"},"est":{"seg_base":23192,"od_base":8604,"od_caut":8604,"route_now":"прямой рейс"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[{"carrier":"Россия","flt":"FV 6845/6846","ac":"SSJ 100","wd":"1,6","arr":"00.30","dep":"01.30","period":"26.10.26 - 27.03.27"},{"carrier":"Россия","flt":"FV 6845/ 6846","ac":"SSJ 100","wd":"3","arr":"16.30","dep":"17.30","period":"30.12.2026"}]},"subs_2026":[{"pair":"Красноярск – Омск","airline":"Аэрофлот","ac":"SSJ","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Красноярск – Омск","airline":"Аэрофлот","ac":"SSJ","freq":"2","period":"01.05.2026-30.09.2026"}]},"KUF":{"code":"KUF","city":"Самара","km":1506,"rail_hr":33.0,"direct_now":false,"bh_min":165,"light":"зелёный","fare_model":11581,"base":{"fs":8,"fw":6,"local":21938,"tr":37372,"seg":59310,"lf":0.8,"spill":153,"rev":609.3,"cost":559.8,"res":49.5,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный"},"cautious":null,"est":{"seg_base":67035,"od_base":37194,"od_caut":13047,"route_now":"с пересадкой: Екатеринбург"},"comp":{"direct":[],"conn":["Победа","Икар (Pegas Fly)","Nordwind","ЮВТ Аэро","S7","Utair"],"seats_day":0.0,"fare_dir":null,"fare_tr":16405,"w_comp":0.129,"tt":[]},"subs_2026":[]},"MOW":{"code":"MOW","city":"Москва","km":2242,"rail_hr":null,"direct_now":true,"bh_min":225,"light":"зелёный","fare_model":16218,"base":{"fs":3,"fw":3,"local":23431,"tr":0,"seg":23431,"lf":0.75,"spill":0,"rev":379.9,"cost":305.7,"res":74.2,"sub":0.0,"sub_rule":"Москва","src":"Отчёт аэропорта о потоке пары (2025) × доля своих поездок 97%","light":"зелёный"},"cautious":{"fs":3,"fw":3,"local":21651,"tr":0,"seg":21651,"lf":0.75,"spill":31,"rev":267.4,"cost":491.8,"res":-224.4,"sub":0.0,"sub_rule":"Москва","src":"Отчёт аэропорта о потоке пары (2025) × доля своих поездок 97%","light":"зелёный"},"est":{"seg_base":674175,"od_base":656646,"od_caut":656646,"route_now":"прямой рейс"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[{"carrier":"Уральские авиалинии","flt":"U6 387 / 388","ac":"А 321","wd":"1,3,6,7","arr":"05.30","dep":"06.35","period":"31.10.26 - 09.11.26"},{"carrier":"Уральские авиалинии","flt":"U6 387 / 388","ac":"А 321","wd":"1,4,6,7","arr":"05.30","dep":"06.35","period":"12.11.26 - 21.12.26"},{"carrier":"Уральские авиалинии","flt":"U6 387 / 388","ac":"А 321","wd":"ежедневно","arr":"05.30","dep":"06.35","period":"23.12.26 - 27.03.27"},{"carrier":"S7","flt":"S7 2565/ 2566","ac":"А 320","wd":"ежедневно","arr":"05.20","dep":"06.25","period":"25.10.26 - 15.11.26"},{"carrier":"S7","flt":"S7 2565/ 2566","ac":"А 320","wd":"ежедневно","arr":"04.20","dep":"06.25","period":"16.11.26 - 27.03.27"},{"carrier":"Победа","flt":"DP 6521/ 6522","ac":"Б 738","wd":"ежедневно","arr":"06.05","dep":"07.05","period":"26.10.26 - 28.03.27"},{"carrier":"Победа","flt":"DP 6523/ 6524","ac":"Б 738","wd":"5,7","arr":"04.20","dep":"05.20","period":"30.10.26 - 28.03.27"},{"carrier":"Аэрофлот","flt":"SU 1688/1689","ac":"Б 738","wd":"1,2,3,7","arr":"16.15","dep":"17.15","period":"27.12.26 - 30.12.26"},{"carrier":"Аэрофлот","flt":"SU 1688/1689","ac":"Б 738","wd":"5,6,7","arr":"16.15","dep":"17.15","period":"08.01.27 - 10.01.27"},{"carrier":"Аэрофлот","flt":"SU 1688/1689","ac":"Б 738","wd":"2,5","arr":"16.15","dep":"17.15","period":"27.10.26 - 27.11.26"},{"carrier":"Россия","flt":"FV 6871/6872","ac":"Б 738","wd":"1, 4,5,6,7","arr":"04.45","dep":"05.50","period":"16.11.26 - 22.11.26"},{"carrier":"Россия","flt":"FV 6871/6872","ac":"Б 739","wd":"2,3","arr":"04.15","dep":"05.20","period":"27.10.26 - 11.11.26"},{"carrier":"Аэрофлот","flt":"SU 1762/ 1763","ac":"А 320","wd":"1, 4,5,6,7","arr":"04.45","dep":"05.50","period":"26.10.26 - 15.11.26"},{"carrier":"Аэрофлот","flt":"SU 1762/ 1763","ac":"А 320","wd":"ежедневно","arr":"04.45","dep":"05.50","period":"23.11.26 - 30.11.26"},{"carrier":"Аэрофлот","flt":"SU 1638/ 1639","ac":"А 320","wd":"ежедневно","arr":"07.00","dep":"08.05","period":"26.10.26 - 27.03.27"}]},"subs_2026":[]},"NOZ":{"code":"NOZ","city":"Новокузнецк","km":886,"rail_hr":19.4,"direct_now":false,"bh_min":110,"light":"зелёный","fare_model":7675,"base":null,"cautious":null,"est":{"seg_base":22085,"od_base":13096,"od_caut":4594,"route_now":"с пересадкой: Новосибирск"},"comp":{"direct":[],"conn":["S7"],"seats_day":0.0,"fare_dir":null,"fare_tr":17159,"w_comp":0.012,"tt":[]},"subs_2026":[]},"SVX":{"code":"SVX","city":"Екатеринбург","km":804,"rail_hr":16.7,"direct_now":true,"bh_min":100,"light":"зелёный","fare_model":7158,"base":null,"cautious":null,"est":{"seg_base":27319,"od_base":2431,"od_caut":1657,"route_now":"прямой рейс"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[{"carrier":"Red Wings","flt":"ИН 5071/5072","ac":"SSJ 100","wd":"3,6","arr":"00.00","dep":"00.50","period":"28.10.26 - 23.12.26"},{"carrier":"Red Wings","flt":"ИН 2071/5072","ac":"SSJ 100","wd":"6","arr":"00.00","dep":"00.50","period":"26.12.2026"},{"carrier":"Red Wings","flt":"ИН 5071/5072","ac":"SSJ 100","wd":"3","arr":"00.00","dep":"00.50","period":"30.12.2026"},{"carrier":"Red Wings","flt":"ИН 5071/2072","ac":"SSJ 100","wd":"6","arr":"00.00","dep":"00.50","period":"09.01.2027"}]},"subs_2026":[{"pair":"Екатеринбург – Омск","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Екатеринбург – Омск","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.05.2026-31.05.2026; 01.09.2026-30.09.2026"}]},"UFA":{"code":"UFA","city":"Уфа","km":1117,"rail_hr":24.1,"direct_now":true,"bh_min":130,"light":"зелёный","fare_model":9130,"base":null,"cautious":null,"est":{"seg_base":36118,"od_base":36118,"od_caut":20798,"route_now":"прямой рейс"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[]},"subs_2026":[{"pair":"Омск – Уфа","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.01.2026-30.04.2026; 01.10.2026-31.12.2026"},{"pair":"Омск – Уфа","airline":"АЗИМУТ","ac":"SU 95","freq":"2","period":"01.05.2026-30.09.2026"}]},"UUD":{"code":"UUD","city":"Улан-Удэ","km":2267,"rail_hr":53.4,"direct_now":true,"bh_min":230,"light":"зелёный","fare_model":16375,"base":{"fs":8,"fw":6,"local":31304,"tr":30012,"seg":61317,"lf":0.82,"spill":683,"rev":783.0,"cost":738.9,"res":44.1,"sub":0.0,"sub_rule":"нужен хотя бы один узловой аэропорт","src":"Среднее оценок: модель тяготения, похожие пары (Калининград–Пермь, Сочи–Пермь, Сочи–Омск); оценки расходятся в 3,6 раза — неуверенно × доля своих поездок 100%","light":"зелёный"},"cautious":null,"est":{"seg_base":67450,"od_base":67450,"od_caut":20062,"route_now":"прямой рейс"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[]},"subs_2026":[{"pair":"Улан-Удэ – Омск","airline":"Ред Вингс","ac":"SSJ-100","freq":"2","period":"01.01.2026-31.12.2026"}]},"VOG":{"code":"VOG","city":"Волгоград","km":2087,"rail_hr":47.9,"direct_now":false,"bh_min":230,"light":"зелёный (юг/запад  порог 2 150 км)","fare_model":15241,"base":{"fs":8,"fw":6,"local":18929,"tr":43381,"seg":62310,"lf":0.84,"spill":183,"rev":848.6,"cost":741.6,"res":107.0,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный (юг/запад  порог 2 150 км)"},"cautious":{"fs":3,"fw":3,"local":3565,"tr":5023,"seg":8588,"lf":0.3,"spill":0,"rev":87.5,"cost":489.0,"res":-401.5,"sub":0.0,"sub_rule":"подходит","src":"Поездки, которые сейчас идут с пересадкой в городе Екатеринбург: модель поездок по потокам на рейсах","light":"зелёный (юг/запад  порог 2 150 км)"},"est":{"seg_base":72326,"od_base":32155,"od_caut":11280,"route_now":"с пересадкой: Екатеринбург"},"comp":{"direct":[],"conn":[],"seats_day":null,"fare_dir":null,"fare_tr":null,"w_comp":null,"tt":[]},"subs_2026":[]}},"ramp_conns":[{"in_id":"F010","out_id":"F007","o":"VOG","d":"NOZ","wait":210,"note":"OMS_NAMED"},{"in_id":"F010","out_id":"F011","o":"VOG","d":"UFA","wait":210,"note":"OMS_NAMED"},{"in_id":"F018","out_id":"F023","o":"VOG","d":"MOW","wait":210,"note":"CONDITIONAL_MOW_UNRESOLVED"},{"in_id":"F018","out_id":"F019","o":"VOG","d":"UFA","wait":210,"note":"OMS_NAMED"},{"in_id":"F022","out_id":"F023","o":"IKT","d":"MOW","wait":240,"note":"CONDITIONAL_MOW_UNRESOLVED"},{"in_id":"F022","out_id":"F019","o":"IKT","d":"UFA","wait":240,"note":"OMS_NAMED"},{"in_id":"F024","out_id":"F025","o":"MOW","d":"IKT","wait":240,"note":"CONDITIONAL_MOW_UNRESOLVED"},{"in_id":"F024","out_id":"F027","o":"MOW","d":"GOJ","wait":240,"note":"CONDITIONAL_MOW_UNRESOLVED"},{"in_id":"F030","out_id":"F035","o":"VOG","d":"IKT","wait":210,"note":"OMS_NAMED"},{"in_id":"F030","out_id":"F031","o":"VOG","d":"NOZ","wait":210,"note":"OMS_NAMED"},{"in_id":"F036","out_id":"F037","o":"IKT","d":"GOJ","wait":240,"note":"OMS_NAMED"},{"in_id":"F036","out_id":"F041","o":"IKT","d":"NOZ","wait":240,"note":"OMS_NAMED"},{"in_id":"F040","out_id":"F001","o":"VOG","d":"MOW","wait":210,"note":"CONDITIONAL_MOW_UNRESOLVED"},{"in_id":"F040","out_id":"F003","o":"VOG","d":"IKT","wait":210,"note":"OMS_NAMED"},{"in_id":"F044","out_id":"F003","o":"MOW","d":"IKT","wait":240,"note":"CONDITIONAL_MOW_UNRESOLVED"}]};
 
-function fmtTime(m) {
-  m = Math.max(0, Math.round(m));
-  const d = Math.floor(m / 1440), hh = String(Math.floor((m % 1440) / 60)).padStart(2, '0'), mm = String(m % 60).padStart(2, '0');
-  return `${d < 7 ? DAYS[d] : 'Пн+'} ${hh}:${mm}`;
-}
-function fmtClock(m) {
-  const msk = (Math.round(m) - 180 + 10080) % 10080;
-  return `${fmtTime(m)} OMS (${String(Math.floor((msk % 1440) / 60)).padStart(2, '0')}:${String(msk % 60).padStart(2, '0')} MSK)`;
-}
-const curMode = () => ANIM.modes[ST.mode];
-const winRange = () => ST.day === -1 ? [0, Math.max(10080, ...curMode().flights.map(f => f.t2)) + 20] : [ST.day * 1440, ST.day * 1440 + ((ST.mode === 'start' && ST.day === 6) ? 1530 : 1440)];
-const winFlights = () => { const [w0, w1] = winRange(); return curMode().flights.filter(f => f.t2 >= w0 && f.t1 <= w1); };
-const stepPoints = () => { const [w0, w1] = winRange(), s = new Set([w0]); winFlights().forEach(f => { if (f.t1 >= w0 && f.t1 <= w1) s.add(f.t1); if (f.t2 >= w0 && f.t2 <= w1) s.add(f.t2); }); return [...s].sort((a, b) => a - b); };
-const routeColor = c => curMode().feeders.includes(c) ? '#D97706' : curMode().start_only.includes(c) ? '#3E6E95' : '#3FA772';
-function bezier(p0, p1, u) {
-  const mx = (p0[0] + p1[0]) / 2, my = (p0[1] + p1[1]) / 2 - Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) * 0.16;
-  const x = (1 - u) * (1 - u) * p0[0] + 2 * (1 - u) * u * mx + u * u * p1[0];
-  const y = (1 - u) * (1 - u) * p0[1] + 2 * (1 - u) * u * my + u * u * p1[1];
-  const dx = 2 * (1 - u) * (mx - p0[0]) + 2 * u * (p1[0] - mx), dy = 2 * (1 - u) * (my - p0[1]) + 2 * u * (p1[1] - my);
-  return { x, y, ang: Math.atan2(dy, dx) * 180 / Math.PI };
-}
-function buildDays() {
-  $('#an-day').innerHTML = DAYS.map((d, i) => `<button class="${ST.day === i ? 'on' : ''}" data-d="${i}">${d}</button>`).join('') + `<button class="${ST.day === -1 ? 'on' : ''}" data-d="-1">7 дн.</button>`;
-  $$('#an-day button').forEach(b => b.onclick = () => { stop(); ST.day = +b.dataset.d; const [w0] = winRange(), fs = winFlights(); ST.t = fs.length ? Math.max(w0, fs[0].t1 - 15) : w0; renderAll(); });
-}
-function buildMap() {
-  const P = ANIM.pts, o = P.OMS, m = curMode();
-  let s = `<rect x="200" y="200" width="520" height="250" fill="var(--sea)"/><path d="${ANIM.map}" fill="var(--land)" stroke="var(--geo-line)" stroke-width="0.7"/><g id="an-arcs">`;
-  m.spokes.forEach(c => {
-    const p = P[c]; if (!p) return;
-    const mx = (o[0] + p[0]) / 2, my = (o[1] + p[1]) / 2 - Math.hypot(p[0] - o[0], p[1] - o[1]) * 0.16;
-    s += `<path id="an-arc-${c}" d="M${o[0]},${o[1]} Q${mx.toFixed(1)},${my.toFixed(1)} ${p[0]},${p[1]}" fill="none" stroke="${routeColor(c)}" stroke-width="1.4" stroke-opacity="0.3" stroke-linecap="round"/>`;
-  });
-  s += '</g>';
-  if (P.SVX) s += `<circle cx="${P.SVX[0]}" cy="${P.SVX[1]}" r="2.2" fill="none" stroke="var(--muted)" stroke-width="0.9" stroke-dasharray="1.5 1.5"/><text x="${P.SVX[0]}" y="${P.SVX[1] - 4.5}" text-anchor="middle" style="font-size:6.5px;fill:var(--muted)">SVX (база)</text>`;
-  m.spokes.forEach(c => {
-    const p = P[c]; if (!p) return;
-    const dx = c === 'UUD' ? 5 : c === 'GOJ' ? -4 : c === 'GSV' ? 4 : c === 'KUF' ? 4 : c === 'MOW' ? -4 : c === 'NOZ' ? 4 : 0;
-    const dy = (c === 'UUD' || c === 'BAX' || c === 'KUF' || c === 'NOZ') ? 9 : -5;
-    const anc = dx < 0 ? 'end' : dx > 0 ? 'start' : 'middle';
-    s += `<circle cx="${p[0]}" cy="${p[1]}" r="3.2" fill="var(--white)" stroke="${routeColor(c)}" stroke-width="1.5"/><text x="${p[0] + dx}" y="${p[1] + dy}" text-anchor="${anc}" style="font-size:7.5px;font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:2.2px">${c} · ${ANIM.names[c]}</text>`;
-  });
-  s += `<circle cx="${o[0]}" cy="${o[1]}" r="9" fill="none" stroke="#E32A2F" stroke-width="1.2" opacity="0.4"/><circle cx="${o[0]}" cy="${o[1]}" r="5.2" fill="#E32A2F" stroke="#fff" stroke-width="1.5"/><text x="${o[0]}" y="${o[1] + 14}" text-anchor="middle" style="font-size:8.5px;font-weight:700;fill:#C0262B;paint-order:stroke;stroke:var(--land);stroke-width:2.4px">OMS · Омск</text><g id="an-planes"></g>`;
-  $('#an-svg').innerHTML = s;
-}
-function renderDyn() {
-  const m = curMode(), [w0, w1] = winRange(), span = w1 - w0, fs = m.flights, wfs = winFlights();
-  $('#an-sub').textContent = m.sub;
-  $('#an-ghint').textContent = `Оборот ≥ ${m.stats.min_turn_min} мин · макс. ${m.stats.max_ac_bh.toFixed(1)} ч/нед. (лимит 70 ч)`;
-  $('#an-clock').textContent = fmtClock(ST.t);
-  const scr = $('#an-scr'); scr.min = w0; scr.max = w1; scr.value = Math.round(ST.t);
-  $('#an-min').textContent = fmtTime(w0); $('#an-max').textContent = fmtTime(w1);
-  const steps = stepPoints(); let sIdx = 0;
-  for (let i = 0; i < steps.length; i++) if (steps[i] <= ST.t) sIdx = i;
-  $('#an-step').textContent = `Событие ${sIdx + 1}/${steps.length}`;
-  const active = fs.filter(f => ST.t >= f.t1 && ST.t < f.t2), actSp = new Set(active.map(f => f.o === 'OMS' ? f.d : f.o));
-  $$('#an-arcs path').forEach(p => { const on = actSp.has(p.id.replace('an-arc-', '')); p.setAttribute('stroke-opacity', on ? '0.95' : '0.26'); p.setAttribute('stroke-width', on ? '2.4' : '1.3'); });
-  $('#an-planes').innerHTML = active.map(f => {
-    const p0 = ANIM.pts[f.o], p1 = ANIM.pts[f.d]; if (!p0 || !p1) return '';
-    const u = Math.min(1, Math.max(0, (ST.t - f.t1) / (f.t2 - f.t1))), pt = bezier(p0, p1, u), col = COLORS[f.ac] || '#E32A2F';
-    return `<g transform="translate(${pt.x.toFixed(1)},${pt.y.toFixed(1)})"><g transform="rotate(${pt.ang.toFixed(1)})"><path d="M7,0 L2,-1.6 L-3,-6.5 L-4.8,-6.5 L-2,-1.4 L-5.8,-1.1 L-7.2,-3.2 L-8.4,-3.2 L-7.4,0 L-8.4,3.2 L-7.2,3.2 L-5.8,1.1 L-2,1.4 L-4.8,6.5 L-3,6.5 L2,1.6 Z" fill="${col}" stroke="#fff" stroke-width="0.6"/></g><rect x="7" y="-11" width="44" height="10" rx="2.5" fill="#fff" fill-opacity="0.92" stroke="${col}" stroke-width="0.7"/><text x="9" y="-3.8" style="font-size:6.4px;font-weight:700;fill:#111318;font-family:var(--mono)">${f.ac} ${f.d} ${Math.round(u * 100)}%</text></g>`;
-  }).join('');
-  const stMap = m.aircraft.map(ac => {
-    if (active.some(f => f.ac === ac)) return 'fly';
-    const prev = [...fs].filter(f => f.ac === ac && f.t2 <= ST.t).pop();
-    return (prev && prev.d !== 'OMS') ? 'out' : 'oms';
-  });
-  $('#an-stat').textContent = `В небе: ${active.length} · В Омске: ${stMap.filter(x => x === 'oms').length} + 1 рез. · На обороте: ${stMap.filter(x => x === 'out').length}`;
-  const landedFeed = fs.filter(f => m.feeders.includes(f.o) && f.d === 'OMS' && ST.t >= f.t2 && ST.t <= f.t2 + 135);
-  const upWest = fs.filter(f => f.o === 'OMS' && ['KUF', 'GOJ', 'VOG', 'GSV'].includes(f.d) && f.t1 > ST.t && f.t1 <= ST.t + 140);
-  const exact = wfs.filter(f => f.t1 === Math.round(ST.t) || f.t2 === Math.round(ST.t));
-  let msg = '', isTr = false;
-  if (ST.mode === 'full' && landedFeed.length && upWest.length) {
-    isTr = true;
-    msg = `Стыковочное окно в OMS: фидеры ${[...new Set(landedFeed.map(f => f.o))].join('/')} -> западная волна (${[...new Set(upWest.map(f => f.d))].join(', ')})`;
-  } else if (exact.length) {
-    const dep = exact.filter(f => f.t1 === Math.round(ST.t)).map(f => `${f.ac} ${f.o}->${f.d}`);
-    const arr = exact.filter(f => f.t2 === Math.round(ST.t)).map(f => `${f.ac} из ${f.o} в ${f.d}`);
-    msg = [dep.length ? 'Вылет: ' + dep.join(', ') : '', arr.length ? 'Прилёт: ' + arr.join(', ') : ''].filter(Boolean).join(' · ');
-  } else if (active.length) {
-    msg = `В полёте (${active.length} ВС): ` + active.map(f => `${f.ac} ${f.o}->${f.d} (${Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100)}%)`).join(' · ');
-  } else {
-    const nxt = wfs.find(f => f.t1 > ST.t);
-    msg = nxt ? `Стоянка в OMS · ближайший вылет: ${nxt.ac} ${nxt.o}->${nxt.d} в ${fmtTime(nxt.t1)}` : 'Завершение суточной программы · ночное ТО в Омске';
+function mountOmsFlightPlayer(root, ANIM, opts) {
+  opts = opts || {};
+  const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  const MON = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+  const COLORS = { 'AC-1': '#2563EB', 'AC-2': '#0D9488', 'AC-3': '#D97706', 'AC-4': '#E32A2F', 'AC-5': '#7C3AED', 'AC-6': '#0284C7', 'AC-7': '#16A34A', 'S1': '#2563EB', 'S2': '#E32A2F' };
+  const BASE_VB = { x: 255, y: 245, w: 410, h: 155 };
+  const $ = s => root.querySelector(s);
+  const $$ = s => [...root.querySelectorAll(s)];
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmt = (n, d = 0) => (n == null || isNaN(n)) ? '—' : Number(n).toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
+  const sg = (n, d = 0) => (n == null || isNaN(n)) ? '—' : (n > 0 ? '+' : '') + fmt(n, d);
+
+  const ST = {
+    mode: opts.mode || 'radial',
+    day: 0,
+    t: 390,
+    playing: false,
+    speed: 60,
+    raf: null,
+    lastTs: null,
+    selAirport: 'OMS',
+    selSpoke: 'IKT',
+    selFlightId: null,
+    inspTab: 'airport',
+    showHubs: true,
+    showComp: true,
+    vb: { ...BASE_VB },
+    hubFilterAp: 'ALL',
+  };
+
+  const curMode = () => ANIM.modes[ST.mode];
+  const winRange = () => ST.day === -1 ? [0, Math.max(10080, ...curMode().flights.map(f => f.t2)) + 20] : [ST.day * 1440, ST.day * 1440 + ((ST.mode === 'start' && ST.day === 6) ? 1530 : 1440)];
+  const winFlights = () => { const [w0, w1] = winRange(); return curMode().flights.filter(f => f.t2 >= w0 && f.t1 <= w1); };
+  const stepPoints = () => { const [w0, w1] = winRange(), s = new Set([w0]); winFlights().forEach(f => { if (f.t1 >= w0 && f.t1 <= w1) s.add(f.t1); if (f.t2 >= w0 && f.t2 <= w1) s.add(f.t2); }); return [...s].sort((a, b) => a - b); };
+  const routeColor = c => curMode().feeders.includes(c) ? '#D97706' : curMode().start_only.includes(c) ? '#3E6E95' : '#3FA772';
+
+  function fmtTime(m, tzOff) {
+    const shift = tzOff == null ? 0 : (tzOff - 6) * 60;
+    let mm = Math.round(m) + shift;
+    mm = ((mm % 10080) + 10080) % 10080;
+    const d = Math.floor(mm / 1440), hh = String(Math.floor((mm % 1440) / 60)).padStart(2, '0'), mi = String(mm % 60).padStart(2, '0');
+    return `${d < 7 ? DAYS[d] : 'Пн+'} ${hh}:${mi}`;
   }
-  $('#an-strip').className = 'strip' + (isTr ? ' tr' : '');
-  $('#an-msg').textContent = msg;
-  $('#an-ticks').innerHTML = (ST.day === -1 ? DAYS : ['00:00', '06:00', '12:00', '18:00', span > 1440 ? '24:00+' : '24:00']).map(x => `<span>${x}</span>`).join('');
-  const ph = ((ST.t - w0) / span) * 100;
-  $('#an-gantt').innerHTML = m.aircraft.map(ac => {
-    const bars = wfs.filter(f => f.ac === ac).map(f => {
-      const l = Math.max(0, (f.t1 - w0) / span * 100), r = Math.min(100, (f.t2 - w0) / span * 100), w = Math.max(0.7, r - l);
-      const sp = f.o === 'OMS' ? f.d : f.o, bg = m.feeders.includes(sp) ? '#D97706' : COLORS[ac], on = ST.t >= f.t1 && ST.t <= f.t2;
-      return `<div class="g-bar${on ? ' on' : ''}" data-j="${f.t1}" title="${f.id} ${ac}: ${f.o}->${f.d} (${fmtTime(f.t1)}–${fmtTime(f.t2)})" style="left:${l.toFixed(2)}%;width:${w.toFixed(2)}%;background:${bg}">${w > 4 ? (f.o === 'OMS' ? '→' + f.d : f.o + '→') : ''}</div>`;
-    }).join('');
-    return `<div class="g-row"><div class="g-lbl"><span style="color:${COLORS[ac]}">${ac}</span><small>${m.stats.ac_bh[ac].toFixed(1)} ч/нед</small></div><div class="g-track">${bars}${ph >= 0 && ph <= 100 ? `<div class="g-ph" style="left:${ph.toFixed(2)}%"></div>` : ''}</div></div>`;
-  }).join('') + `<div class="g-row"><div class="g-lbl"><span style="color:var(--muted)">${m.reserve}</span><small>резерв</small></div><div class="g-track" style="opacity:.7"><span class="sub" style="padding:2px 8px;display:inline-block">Горячий резерв в OMS (подмена / «Ковёр» / ТО)</span></div></div>`;
-  $$('#an-gantt .g-bar').forEach(el => el.onclick = () => { stop(); ST.t = +el.dataset.j; renderDyn(); });
-  const bRows = wfs.filter(f => ST.day !== -1 || (f.t2 >= ST.t - 180 && f.t1 <= ST.t + 720));
-  $('#an-bsum').textContent = `Рейсов в окне: ${wfs.length} · в небе: ${active.length}`;
-  $('#an-board').innerHTML = bRows.map(f => {
+  function fmtHM(m, tzOff) {
+    const shift = tzOff == null ? 0 : (tzOff - 6) * 60;
+    let mm = ((Math.round(m) + shift) % 1440 + 1440) % 1440;
+    return `${String(Math.floor(mm / 60)).padStart(2, '0')}:${String(mm % 60).padStart(2, '0')}`;
+  }
+  function fmtClock(m) {
+    return `${fmtTime(m)} OMS (${fmtHM(m, 3)} MSK)`;
+  }
+  function bezier(p0, p1, u) {
+    const mx = (p0[0] + p1[0]) / 2, my = (p0[1] + p1[1]) / 2 - Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) * 0.16;
+    const x = (1 - u) * (1 - u) * p0[0] + 2 * (1 - u) * u * mx + u * u * p1[0];
+    const y = (1 - u) * (1 - u) * p0[1] + 2 * (1 - u) * u * my + u * u * p1[1];
+    const dx = 2 * (1 - u) * (mx - p0[0]) + 2 * u * (p1[0] - mx), dy = 2 * (1 - u) * (my - p0[1]) + 2 * u * (p1[1] - my);
+    return { x, y, ang: Math.atan2(dy, dx) * 180 / Math.PI };
+  }
+
+  function setViewBox() {
+    const svg = $('.an-svg');
+    if (svg) svg.setAttribute('viewBox', `${ST.vb.x.toFixed(1)} ${ST.vb.y.toFixed(1)} ${ST.vb.w.toFixed(1)} ${ST.vb.h.toFixed(1)}`);
+  }
+  function zoomBy(factor, cxRatio = 0.5, cyRatio = 0.5) {
+    const nw = Math.max(120, Math.min(460, ST.vb.w * factor));
+    const nh = nw * (BASE_VB.h / BASE_VB.w);
+    const px = ST.vb.x + ST.vb.w * cxRatio, py = ST.vb.y + ST.vb.h * cyRatio;
+    ST.vb.w = nw; ST.vb.h = nh;
+    ST.vb.x = Math.max(195, Math.min(720 - nw, px - nw * cxRatio));
+    ST.vb.y = Math.max(195, Math.min(450 - nh, py - nh * cyRatio));
+    setViewBox();
+  }
+  function focusAirportOnMap(code) {
+    const pt = ANIM.pts[code];
+    if (!pt) return;
+    if (ST.vb.w < 380) {
+      ST.vb.x = Math.max(200, Math.min(720 - ST.vb.w, pt[0] - ST.vb.w / 2));
+      ST.vb.y = Math.max(200, Math.min(450 - ST.vb.h, pt[1] - ST.vb.h / 2));
+      setViewBox();
+    }
+  }
+
+  function showTip(ev, html) {
+    const st = $('.an-stage'), tip = $('.an-tip');
+    if (!st || !tip) return;
+    tip.innerHTML = html;
+    tip.style.display = 'block';
+    const r = st.getBoundingClientRect();
+    const lx = ev.clientX - r.left, ly = ev.clientY - r.top;
+    tip.style.left = Math.max(8, Math.min(r.width - tip.offsetWidth - 8, lx + 14)) + 'px';
+    tip.style.top = Math.max(8, Math.min(r.height - tip.offsetHeight - 8, ly - 12)) + 'px';
+  }
+  function hideTip() { const tip = $('.an-tip'); if (tip) tip.style.display = 'none'; }
+
+  function stop() {
+    ST.playing = false; ST.lastTs = null;
+    if (ST.raf) cancelAnimationFrame(ST.raf);
+    ST.raf = null;
+    const pb = $('.an-play'); if (pb) pb.textContent = '▶ Пуск';
+  }
+  function start() {
+    if (!ST.playing) {
+      ST.playing = true; ST.lastTs = null;
+      const pb = $('.an-play'); if (pb) pb.textContent = '⏸ Пауза';
+      ST.raf = requestAnimationFrame(tick);
+    }
+  }
+  function tick(ts) {
+    if (!ST.playing) return;
+    if (ST.lastTs !== null) {
+      const [w0, w1] = winRange();
+      ST.t += (ts - ST.lastTs) / 1000 * ST.speed;
+      if (ST.t >= w1) ST.t = w0;
+      renderDyn();
+    }
+    ST.lastTs = ts;
+    ST.raf = requestAnimationFrame(tick);
+  }
+  function step(dir) {
+    stop();
+    const pts = stepPoints();
+    ST.t = dir > 0 ? (pts.find(x => x > ST.t + 0.5) ?? pts[0]) : ([...pts].reverse().find(x => x < ST.t - 0.5) ?? pts[pts.length - 1]);
+    renderDyn();
+  }
+
+  function selectAirport(code, switchTab = true) {
+    ST.selAirport = code;
+    if (code !== 'OMS' && ANIM.spokes[code]) ST.selSpoke = code;
+    if (switchTab) ST.inspTab = 'airport';
+    focusAirportOnMap(code);
+    renderMapHighlights();
+    renderChips();
+    renderInspector();
+  }
+  function selectSpoke(code, switchTab = true) {
+    ST.selSpoke = code;
+    ST.selAirport = code;
+    if (switchTab) ST.inspTab = 'flight';
+    const fs = winFlights().filter(f => f.o === code || f.d === code);
+    const active = fs.find(f => ST.t >= f.t1 && ST.t < f.t2) || fs.find(f => f.t1 >= ST.t) || fs[0];
+    if (active) ST.selFlightId = active.id;
+    renderMapHighlights();
+    renderChips();
+    renderInspector();
+  }
+  function selectFlight(fid, jump = false) {
+    const f = curMode().flights.find(x => x.id === fid);
+    if (!f) return;
+    ST.selFlightId = f.id;
     const sp = f.o === 'OMS' ? f.d : f.o;
-    const tag = ST.t >= f.t1 && ST.t < f.t2 ? `<span class="tag t-fly">В полёте ${Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100)}%</span>` : ST.t >= f.t2 ? '<span class="tag t-ok">Прибыл</span>' : f.t1 - ST.t <= 60 ? `<span class="tag t-turn">Через ${Math.round(f.t1 - ST.t)}м</span>` : '<span class="tag t-wait">По графику</span>';
-    return `<tr class="click${ST.t >= f.t1 && ST.t < f.t2 ? ' act' : ''}" data-j="${f.t1}"><td class="mono">${f.id}</td><td class="mono"><b style="color:${COLORS[f.ac]}">${f.ac}</b></td><td><b>${f.o} → ${f.d}</b> <span class="sub">(${ANIM.names[sp]})</span></td><td class="mono">${fmtTime(f.t1)}</td><td class="mono">${fmtTime(f.t2)}</td><td class="mono">${(f.bh / 60).toFixed(1)}ч</td><td>${tag}</td></tr>`;
-  }).join('');
-  $$('#an-board tr').forEach(tr => tr.onclick = () => { stop(); ST.t = +tr.dataset.j; renderDyn(); });
+    ST.selSpoke = sp;
+    ST.selAirport = sp;
+    ST.inspTab = 'flight';
+    if (jump) {
+      stop();
+      if (ST.day !== -1) ST.day = Math.min(6, Math.floor(f.t1 / 1440));
+      ST.t = f.t1;
+    }
+    renderAllDyn();
+  }
+
+  function buildDays() {
+    const el = $('.an-day');
+    el.innerHTML = DAYS.map((d, i) => `<button type="button" class="${ST.day === i ? 'on' : ''}" data-d="${i}">${d}</button>`).join('') + `<button type="button" class="${ST.day === -1 ? 'on' : ''}" data-d="-1">7 дн.</button>`;
+    el.querySelectorAll('button').forEach(b => b.onclick = () => {
+      stop();
+      ST.day = +b.dataset.d;
+      const [w0] = winRange(), fs = winFlights();
+      ST.t = fs.length ? Math.max(w0, fs[0].t1 - 15) : w0;
+      renderAllDyn();
+    });
+  }
+
+  function renderChips() {
+    const m = curMode();
+    const list = ['OMS', ...m.spokes, ...(m.spokes.includes('SVX') ? [] : ['SVX'])];
+    $('.an-chips').innerHTML = list.map(c => {
+      const ap = ANIM.airports[c] || {};
+      const badge = ap.comp_hub ? ` · ${ap.comp_hub_carrier === 'S7' ? 'S7' : 'SU'}` : '';
+      const cls = `an-chip${c === 'OMS' ? ' hub' : ''}${ST.selAirport === c ? ' on' : ''}`;
+      return `<button type="button" class="${cls}" data-ap="${c}">${c} ${esc(ANIM.names[c] || '')}${badge}</button>`;
+    }).join('');
+    $$('.an-chip').forEach(b => b.onclick = () => selectAirport(b.dataset.ap, true));
+  }
+
+  function renderMapHighlights() {
+    const m = curMode();
+    const active = curMode().flights.filter(f => ST.t >= f.t1 && ST.t < f.t2);
+    const actSp = new Set(active.map(f => f.o === 'OMS' ? f.d : f.o));
+    $$('.an-arc-vis').forEach(p => {
+      const c = p.dataset.sp;
+      const isAct = actSp.has(c);
+      const isSel = ST.selSpoke === c || ST.selAirport === c;
+      p.setAttribute('stroke-opacity', isSel ? '1' : (isAct ? '0.92' : '0.28'));
+      p.setAttribute('stroke-width', isSel ? '3.0' : (isAct ? '2.2' : '1.3'));
+    });
+    $$('.an-ap-ring').forEach(c => {
+      const on = c.dataset.ap === ST.selAirport;
+      c.setAttribute('stroke-opacity', on ? '1' : '0');
+    });
+  }
+
+  function buildMap() {
+    const P = ANIM.pts, o = P.OMS, m = curMode();
+    let s = `<rect x="195" y="195" width="530" height="260" fill="var(--sea)"/><path d="${ANIM.map}" fill="var(--land)" stroke="var(--geo-line)" stroke-width="0.7"/>`;
+    if (ST.showComp) {
+      s += '<g id="an-comp-arcs">';
+      ['IKT', 'KJA', 'MOW', 'SVX'].forEach(c => {
+        if (!P[c]) return;
+        const mx = (o[0] + P[c][0]) / 2, my = (o[1] + P[c][1]) / 2 - Math.hypot(P[c][0] - o[0], P[c][1] - o[1]) * 0.22;
+        s += `<path d="M${o[0]},${o[1]} Q${mx.toFixed(1)},${my.toFixed(1)} ${P[c][0]},${P[c][1]}" fill="none" stroke="#64748B" stroke-width="0.9" stroke-dasharray="2.5 2.5" stroke-opacity="0.48"/>`;
+      });
+      s += '</g>';
+    }
+    s += '<g class="an-arcs">';
+    m.spokes.forEach(c => {
+      const p = P[c]; if (!p) return;
+      const mx = (o[0] + p[0]) / 2, my = (o[1] + p[1]) / 2 - Math.hypot(p[0] - o[0], p[1] - o[1]) * 0.16;
+      const d = `M${o[0]},${o[1]} Q${mx.toFixed(1)},${my.toFixed(1)} ${p[0]},${p[1]}`;
+      s += `<path class="an-arc-vis" data-sp="${c}" d="${d}" fill="none" stroke="${routeColor(c)}" stroke-width="1.4" stroke-opacity="0.3" stroke-linecap="round"/>`;
+      s += `<path class="an-arc-hit" data-sp="${c}" d="${d}" fill="none" stroke="transparent" stroke-width="10"/>`;
+    });
+    s += '</g>';
+
+    const nodes = [...new Set([...m.spokes, 'OMS', 'SVX'])];
+    nodes.forEach(c => {
+      const p = P[c]; if (!p) return;
+      const ap = ANIM.airports[c] || {};
+      const isOms = c === 'OMS', isSvx = c === 'SVX' && !m.spokes.includes('SVX');
+      const dx = c === 'UUD' ? 6 : c === 'GOJ' ? -5 : c === 'GSV' ? 5 : c === 'KUF' ? 5 : c === 'MOW' ? -5 : c === 'NOZ' ? 5 : 0;
+      const dy = isOms ? 14 : (c === 'UUD' || c === 'BAX' || c === 'KUF' || c === 'NOZ') ? 9.5 : -6;
+      const anc = dx < 0 ? 'end' : dx > 0 ? 'start' : 'middle';
+      const stroke = isOms ? '#E32A2F' : (ap.comp_hub && ST.showHubs ? '#7C3AED' : (isSvx ? '#5E6675' : routeColor(c)));
+      const fill = isOms ? '#E32A2F' : 'var(--white)';
+      const r = isOms ? 5.2 : (isSvx ? 2.6 : 3.4);
+      let badge = '';
+      if (ST.showHubs) {
+        if (ap.comp_hub) {
+          const lbl = ap.comp_hub_carrier === 'S7' ? 'S7 ХАБ' : 'SU ХАБ';
+          badge += `<rect x="${(p[0] - 13).toFixed(1)}" y="${(p[1] + 5).toFixed(1)}" width="26" height="8" rx="2" fill="#7C3AED"/><text x="${p[0]}" y="${(p[1] + 10.7).toFixed(1)}" text-anchor="middle" style="font-size:5.3px;font-weight:700;fill:#fff">${lbl}</text>`;
+        } else if ((ap.kover_365 || 0) >= 30 && !isOms) {
+          badge += `<circle cx="${(p[0] + 4.2).toFixed(1)}" cy="${(p[1] - 3.5).toFixed(1)}" r="2.1" fill="#D97706" stroke="#fff" stroke-width="0.6"/>`;
+        }
+      }
+      s += `<g class="an-ap-node" data-ap="${c}">`
+        + (isOms ? `<circle cx="${p[0]}" cy="${p[1]}" r="9" fill="none" stroke="#E32A2F" stroke-width="1.2" opacity="0.35"/>` : '')
+        + `<circle class="an-ap-ring" data-ap="${c}" cx="${p[0]}" cy="${p[1]}" r="${r + 4.2}" fill="none" stroke="#111318" stroke-width="1.6" stroke-dasharray="2 1.5" stroke-opacity="0"/>`
+        + `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${isOms ? 1.5 : 1.6}"/>`
+        + badge
+        + `<text x="${p[0] + dx}" y="${p[1] + dy}" text-anchor="${anc}" style="font-size:${isOms ? 8.5 : (isSvx ? 6.5 : 7.5)}px;font-weight:700;fill:${isOms ? '#C0262B' : 'var(--ink)'};paint-order:stroke;stroke:var(--land);stroke-width:2.2px">${c}${isSvx ? ' (база RW)' : ' · ' + esc(ANIM.names[c] || '')}</text>`
+        + `<circle cx="${p[0]}" cy="${p[1]}" r="10.5" fill="transparent"/>`
+        + `</g>`;
+    });
+    s += '<g class="an-planes"></g>';
+    const svg = $('.an-svg');
+    svg.innerHTML = s;
+    setViewBox();
+
+    $$('.an-ap-node').forEach(g => {
+      const c = g.dataset.ap;
+      g.onmouseenter = ev => {
+        const ap = ANIM.airports[c] || {}, sp = ANIM.spokes[c];
+        const pax = ap.pax_2025 ? `${fmt(ap.pax_2025 / 1e6, 2)} млн пасс.` : 'пасс. н/д';
+        const kov = ap.kover_365 != null ? `Ковёр: ${ap.kover_365} дн.` : '';
+        const hub = ap.comp_hub ? `<br><b>⚠ ${esc(ap.comp_hub_note)}</b>` : '';
+        const pnl = sp && sp.base ? `<br>Луч OMS–${c}: ${sp.base.fs}/${sp.base.fw} нед · итог ${sg(sp.base.res, 1)} млн ₽` : '';
+        showTip(ev, `<b>${c} · ${esc(ap.city || c)}</b> (${esc(ap.region || '')})<br>${pax}${kov ? ' · ' + kov : ''}${hub}${pnl}<small>Клик — открыть карточку аэропорта</small>`);
+      };
+      g.onmouseleave = hideTip;
+      g.onclick = ev => { if (svg._dragged) return; ev.stopPropagation(); selectAirport(c, true); };
+    });
+
+    $$('.an-arc-hit').forEach(p => {
+      const c = p.dataset.sp;
+      p.onmouseenter = ev => {
+        const sp = ANIM.spokes[c];
+        if (!sp) return;
+        const b = sp.base;
+        const comp = sp.comp && sp.comp.tt && sp.comp.tt.length ? sp.comp.tt.map(x => x.carrier).filter((v, i, a) => a.indexOf(v) === i).join(', ') : (sp.comp && sp.comp.direct && sp.comp.direct.length ? sp.comp.direct.join(', ') : 'прямых конкурентов нет');
+        const eco = b ? `Частота: ${b.fs}/${b.fw} нед · LF ${Math.round(b.lf * 100)}% · Итог ${sg(b.res, 1)} млн ₽` : (sp.est ? `Спрос пары (база): ${fmt(sp.est.od_base)} поездок/год` : '');
+        showTip(ev, `<b>Луч OMS ↔ ${c} (${esc(sp.city)})</b><br>${sp.km} км · БЧ ${sp.bh_min ? (sp.bh_min / 60).toFixed(1) + 'ч' : '—'}<br>${eco}<br>Конкуренты: ${esc(comp)}<small>Клик — разобрать луч и рейсы</small>`);
+      };
+      p.onmouseleave = hideTip;
+      p.onclick = ev => { if (svg._dragged) return; ev.stopPropagation(); selectSpoke(c, true); };
+    });
+    renderMapHighlights();
+  }
+
+  function renderInspector() {
+    $$('.an-itabs button').forEach(b => b.classList.toggle('on', b.dataset.it === ST.inspTab));
+    const box = $('.an-ibody');
+    if (ST.inspTab === 'airport') {
+      const c = ST.selAirport || 'OMS';
+      const ap = ANIM.airports[c];
+      if (!ap) { box.innerHTML = '<div class="sub">Нет данных по аэропорту.</div>'; return; }
+      const sp = c !== 'OMS' ? ANIM.spokes[c] : null;
+      const mx = Math.max(...(ap.seas || [1]), 1);
+      const seaHtml = (ap.seas && ap.seas.length)
+        ? `<div class="an-sec"><h4>Сезонность пассажиропотока (12 мес.) <span class="sub">пик ${MON[ap.seas.indexOf(Math.max(...ap.seas))]}</span></h4><div class="an-spark">${ap.seas.map((v, i) => `<i style="height:${(v / mx * 100).toFixed(0)}%" title="${MON[i]}: ×${v.toFixed(2)}"></i>`).join('')}</div><div class="an-spark-l"><span>янв</span><span>апр</span><span>июл</span><span>окт</span><span>дек</span></div></div>`
+        : '';
+
+      let hubBanner = '';
+      if (ap.comp_hub) hubBanner = `<div class="an-alert red"><b>Хаб конкурента (${esc(ap.comp_hub_carrier)}):</b> ${esc(ap.comp_hub_note)}</div>`;
+      else if (c === 'SVX') hubBanner = `<div class="an-alert blue"><b>Действующая база Red Wings (Кольцово):</b> ${esc(ap.comp_hub_note)}</div>`;
+      else if (c === 'OMS') hubBanner = `<div class="an-alert ok"><b>Кандидат в хаб Red Wings:</b> 13 авиакомпаний в зимнем расписании OMS, доминирующего хаба конкурентов нет · «Ковёр» 7 дн./год</div>`;
+
+      let compHtml = '';
+      if (c === 'OMS') {
+        compHtml = `<div class="an-sec"><h4>Все авиакомпании в расписании OMS (зима 2026/27) <span class="an-pill">${ap.oms_carriers.length} а/к</span></h4>
+          <table class="an-mini"><thead><tr><th>Перевозчик</th><th class="n">Выл./нед</th><th>Направления</th><th>ВС</th></tr></thead>
+          <tbody>${ap.oms_carriers.map(x => `<tr><td><b>${esc(x.carrier)}</b><div class="sub mono" style="font-size:10px">${esc(x.flts.slice(0, 2).join(', '))}</div></td><td class="n">${x.deps_wk ? x.deps_wk : '<span class="sub">вне 7–13.12</span>'}</td><td>${esc(x.dests.join(', '))}</td><td class="mono">${esc(x.ac.join(', '))}</td></tr>`).join('')}</tbody></table></div>`;
+        if (ap.tariffs && ap.tariffs.length) {
+          compHtml += `<div class="an-sec"><h4>Ключевые тарифы аэропорта Омск <span class="sub">pdf 21.08.2026</span></h4>
+            <table class="an-mini"><tbody>${ap.tariffs.map(t => `<tr><td>${esc(t.article)}</td><td class="n"><b>${fmt(t.price)} ₽</b><div class="sub">${esc(t.unit)}</div></td></tr>`).join('')}</tbody></table>
+            <div class="sub" style="margin-top:4px">Примечание: справочно к базовой ставке наземного обслуживания 96 089 ₽/рейс без двойного счёта.</div></div>`;
+        }
+      } else {
+        if (sp && sp.comp) {
+          const tt = sp.comp.tt || [];
+          const dir = sp.comp.direct || [];
+          const tr = sp.comp.conn || [];
+          compHtml += `<div class="an-sec"><h4>Конкуренция на линии OMS ↔ ${c}</h4>`;
+          if (tt.length) {
+            compHtml += `<table class="an-mini"><thead><tr><th>А/к и рейс</th><th>ВС</th><th>Дни</th><th>В OMS</th></tr></thead>
+              <tbody>${tt.map(r => `<tr><td><b>${esc(r.carrier)}</b> <span class="mono">${esc(r.flt)}</span></td><td>${esc(r.ac)}</td><td>${esc(r.wd)}</td><td class="mono">${esc(r.arr)}–${esc(r.dep)}</td></tr>`).join('')}</tbody></table>`;
+          } else {
+            compHtml += `<div class="sub">В зимнем расписании Омска (2026/27) прямых регулярных рейсов на этом плече нет.</div>`;
+          }
+          compHtml += `<div class="an-kgrid" style="margin-top:6px">
+            <div class="an-kbox"><b>Прямые а/к (p40)</b><span>${dir.length ? esc(dir.join(', ')) : 'нет'}</span></div>
+            <div class="an-kbox"><b>С пересадкой (p40)</b><span>${tr.length ? esc(tr.join(', ')) : '—'}</span></div>
+            <div class="an-kbox"><b>Тариф 20кг (прям/пер.)</b><span>${sp.comp.fare_dir ? fmt(sp.comp.fare_dir) + ' ₽' : '—'} / ${sp.comp.fare_tr ? fmt(sp.comp.fare_tr) + ' ₽' : '—'}</span></div>
+          </div></div>`;
+        }
+        if (ap.rpc_carriers && ap.rpc_carriers.length) {
+          compHtml += `<div class="an-sec"><h4>Присутствие перевозчиков в ${c} (7–13.12.2026)</h4>
+            <table class="an-mini"><thead><tr><th>Авиакомпания</th><th>Направления выборки</th><th>ВС</th></tr></thead>
+            <tbody>${ap.rpc_carriers.map(x => `<tr><td><b>${esc(x.carrier)}</b>${x.rw ? ' <span class="an-pill r">RW</span>' : ''}</td><td>${esc(x.dests.join(', '))}</td><td>${esc(x.ac.join(', ') || '—')}</td></tr>`).join('')}</tbody></table></div>`;
+        }
+      }
+
+      const rwHtml = (ap.rw_now && ap.rw_now.length)
+        ? `<div class="an-sec"><h4>Действующие маршруты Red Wings из ${c}</h4><div>${ap.rw_now.map(x => `<span class="an-pill" style="margin:2px 4px 2px 0">${esc(x.pair)} · ${x.freq ?? '?'}/нед (${esc(x.status)})</span>`).join('')}</div></div>`
+        : '';
+      const subHtml = (ap.subs_2026 && ap.subs_2026.length)
+        ? `<div class="an-sec"><h4>Субсидии Росавиации 2026 (${ap.subs_2026.length})</h4>
+            <table class="an-mini"><tbody>${ap.subs_2026.slice(0, 6).map(x => `<tr><td><b>${esc(x.pair)}</b></td><td>${esc(x.airline)}</td><td class="n">${esc(x.freq)}/нед · ${esc(x.ac)}</td></tr>`).join('')}</tbody></table></div>`
+        : '';
+
+      box.innerHTML = `
+        <div class="an-ihead">
+          <div>
+            <div class="an-icode">${c} <span style="font-family:var(--f);font-size:17px">${esc(ap.city)}</span></div>
+            <div class="sub">${esc(ap.region)}${ap.fd ? ' · ' + esc(ap.fd) : ''}${ap.icao ? ' · ICAO ' + ap.icao : ''} · UTC+${ap.tz}</div>
+          </div>
+          ${sp ? `<button type="button" class="btn sm red an-go-spoke" data-sp="${c}">Экономика луча →</button>` : ''}
+        </div>
+        ${hubBanner}
+        <div class="an-kgrid">
+          <div class="an-kbox"><b>Пасс. 2025</b><span>${ap.pax_2025 ? (ap.pax_qual + ' ' + fmt(ap.pax_2025 / 1e6, 2) + ' млн') : '—'}</span></div>
+          <div class="an-kbox"><b>Охват (60 мин)</b><span>${ap.pop_2025 ? fmt(ap.pop_2025 / 1e3, 0) + ' тыс.' : '—'}</span></div>
+          <div class="an-kbox"><b>Ср. зарплата ’24</b><span>${ap.wage_2024 ? fmt(ap.wage_2024) + ' ₽' : '—'}</span></div>
+          <div class="an-kbox"><b>ВПП / Режим</b><span>${ap.runway_m ? fmt(ap.runway_m) + ' м' : '—'} · ${esc(ap.h24)}</span></div>
+          <div class="an-kbox"><b>SSJ / ТО</b><span>${esc(ap.ssj_ops)} · ${esc(ap.ssj_mro)}</span></div>
+          <div class="an-kbox"><b>«Ковёр» 365д / 1П26</b><span class="${(ap.kover_365 || 0) > 60 ? 'dn' : ''}">${ap.kover_365 ?? '—'} / ${ap.kover_h1_26 ?? '—'} дн.</span></div>
+        </div>
+        <div class="sub">Погода (год): мороз ${ap.frost ?? '—'} дн. · ветер ${ap.wind ?? '—'} дн. · сложная погода ${ap.bad_wx ?? '—'} дн. · Статус RW: ${esc(ap.rw_support)}</div>
+        ${compHtml}
+        ${rwHtml}
+        ${subHtml}
+        ${seaHtml}`;
+
+      const goBtn = box.querySelector('.an-go-spoke');
+      if (goBtn) goBtn.onclick = () => selectSpoke(goBtn.dataset.sp, true);
+      return;
+    }
+
+    if (ST.inspTab === 'flight') {
+      const m = curMode();
+      let f = m.flights.find(x => x.id === ST.selFlightId);
+      if (!f) f = m.flights.find(x => (x.o === ST.selSpoke || x.d === ST.selSpoke) && ST.t >= x.t1 && ST.t < x.t2) || m.flights.find(x => x.o === ST.selSpoke || x.d === ST.selSpoke) || m.flights[0];
+      const spCode = f ? (f.o === 'OMS' ? f.d : f.o) : ST.selSpoke;
+      const sp = ANIM.spokes[spCode];
+      let fltHtml = '';
+      if (f) {
+        const col = COLORS[f.ac] || '#E32A2F';
+        const tzO = (ANIM.airports[f.o] || {}).tz || 6, tzD = (ANIM.airports[f.d] || {}).tz || 6;
+        const status = ST.t >= f.t1 && ST.t < f.t2 ? `В полёте · ${Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100)}%` : (ST.t >= f.t2 ? 'Прибыл' : 'По графику');
+        const fDay = Math.floor(f.t1 / 1440);
+        const dayLegs = m.flights.filter(x => x.ac === f.ac && Math.floor(x.t1 / 1440) === fDay).sort((a, b) => a.t1 - b.t1);
+        const rotHtml = dayLegs.map((x, idx) => {
+          const prev = dayLegs[idx - 1];
+          const gap = prev ? `<span class="sub" style="font-size:10.5px">оборот ${x.t1 - prev.t2}м →</span>` : '';
+          return `${gap}<button type="button" class="an-leg${x.id === f.id ? ' on' : ''}" data-fid="${x.id}">${x.id}: ${x.o}→${x.d} ${fmtHM(x.t1)}</button>`;
+        }).join('');
+        fltHtml = `
+          <div class="an-ihead">
+            <div>
+              <div class="an-icode"><span style="color:${col}">${f.ac}</span> · ${f.o} → ${f.d}</div>
+              <div class="sub">Рейс <b class="mono">${f.id}</b> · волна: ${f.wave === 'am' ? 'утро' : f.wave === 'pm' ? 'вечер' : 'старт'} · <span class="an-pill b">${status}</span></div>
+            </div>
+            <div class="an-row">
+              <button type="button" class="btn sm an-jump-flt" data-fid="${f.id}">⏮ К вылету</button>
+              <button type="button" class="btn sm an-open-ap" data-ap="${spCode}">Аэропорт ${spCode}</button>
+            </div>
+          </div>
+          <div class="an-kgrid">
+            <div class="an-kbox"><b>Вылет (${f.o} UTC+${tzO})</b><span>${fmtTime(f.t1, tzO)}</span><div class="sub">${fmtHM(f.t1)} OMS / ${fmtHM(f.t1, 3)} MSK</div></div>
+            <div class="an-kbox"><b>Прилёт (${f.d} UTC+${tzD})</b><span>${fmtTime(f.t2, tzD)}</span><div class="sub">${fmtHM(f.t2)} OMS / ${fmtHM(f.t2, 3)} MSK</div></div>
+            <div class="an-kbox"><b>Блок-время / Налёт ВС</b><span>${(f.bh / 60).toFixed(2)} ч</span><div class="sub">борта ${m.stats.ac_bh[f.ac].toFixed(1)} / 70.0 ч нед.</div></div>
+          </div>
+          <div class="an-sec"><h4>Суточная ротация ${f.ac} (${DAYS[Math.min(6, fDay)]})</h4><div class="an-rot">${rotHtml}</div></div>`;
+      }
+
+      let spHtml = '';
+      if (sp) {
+        const b = sp.base, c = sp.cautious;
+        if (b) {
+          spHtml += `<div class="an-sec"><h4>Экономика луча OMS ↔ ${sp.code} (${esc(sp.city)}, ${sp.km} км) <span class="an-pill ${b.res >= 0 ? 'g' : 'r'}">${sg(b.res, 1)} млн ₽</span></h4>
+            <table class="an-mini"><thead><tr><th>Показатель</th><th class="n">Базовый</th><th class="n">Осторожный</th></tr></thead><tbody>
+              <tr><td>Частота (лето / зима)</td><td class="n">${b.fs} / ${b.fw} нед</td><td class="n">${c ? `${c.fs} / ${c.fw} нед` : 'не вошёл в сеть'}</td></tr>
+              <tr><td>Местные + трансфер пасс.</td><td class="n">${fmt(b.local)} + ${fmt(b.tr)}</td><td class="n">${c ? `${fmt(c.local)} + ${fmt(c.tr)}` : '—'}</td></tr>
+              <tr><td>Загрузка LF / Spill</td><td class="n">${Math.round(b.lf * 100)}% / ${fmt(b.spill)}</td><td class="n">${c ? `${Math.round(c.lf * 100)}% / ${fmt(c.spill)}` : '—'}</td></tr>
+              <tr><td>Выручка / Расходы, млн ₽</td><td class="n">${fmt(b.rev, 1)} / ${fmt(b.cost, 1)}</td><td class="n">${c ? `${fmt(c.rev, 1)} / ${fmt(c.cost, 1)}` : '—'}</td></tr>
+              <tr><td><b>Итог луча, млн ₽/год</b></td><td class="n"><b class="${b.res >= 0 ? 'up' : 'dn'}">${sg(b.res, 1)}</b></td><td class="n">${c ? `<b class="${c.res >= 0 ? 'up' : 'dn'}">${sg(c.res, 1)}</b>` : '—'}</td></tr>
+            </tbody></table>
+            <div class="sub" style="margin-top:5px">Дальность: ${esc(b.light)} · Ж/д: ${sp.rail_hr ?? '—'} ч · Субсидия в модели: ${esc(b.sub_rule)}</div>
+            <div class="sub" style="margin-top:3px">Источник спроса: ${esc(b.src)}</div></div>`;
+        } else if (sp.est) {
+          spHtml += `<div class="an-sec"><h4>Оценка спроса стартового луча OMS ↔ ${sp.code} (${sp.km} км)</h4>
+            <div class="an-kgrid">
+              <div class="an-kbox"><b>Сегментов (база)</b><span>${fmt(sp.est.seg_base)}</span></div>
+              <div class="an-kbox"><b>OD поездок (база/ост.)</b><span>${fmt(sp.est.od_base)} / ${fmt(sp.est.od_caut)}</span></div>
+              <div class="an-kbox"><b>Ж/д · сейчас маршрут</b><span>${sp.rail_hr ?? '—'} ч · ${esc(sp.est.route_now)}</span></div>
+            </div></div>`;
+        }
+
+        const dirC = sp.comp && sp.comp.direct && sp.comp.direct.length ? sp.comp.direct.join(', ') : (sp.comp && sp.comp.tt && sp.comp.tt.length ? sp.comp.tt.map(x => x.carrier).filter((v, i, a) => a.indexOf(v) === i).join(', ') : 'нет');
+        const trC = sp.comp && sp.comp.conn && sp.comp.conn.length ? sp.comp.conn.join(', ') : '—';
+        spHtml += `<div class="an-sec"><h4>Тарифы, конкуренты и субсидии 2026 на OMS ↔ ${sp.code}</h4>
+          <div class="an-kgrid">
+            <div class="an-kbox"><b>Тариф модели / Прям. конк.</b><span>${sp.fare_model ? fmt(sp.fare_model) + ' ₽' : '—'} / ${sp.comp && sp.comp.fare_dir ? fmt(sp.comp.fare_dir) + ' ₽' : '—'}</span></div>
+            <div class="an-kbox"><b>Пересад. конк. (20 кг)</b><span>${sp.comp && sp.comp.fare_tr ? fmt(sp.comp.fare_tr) + ' ₽' : '—'}</span></div>
+            <div class="an-kbox"><b>Прямых кресел конк./дн.</b><span>${sp.comp && sp.comp.seats_day != null ? sp.comp.seats_day : '—'}</span></div>
+          </div>
+          <div class="sub" style="margin-top:4px">Прямые конкуренты: <b>${esc(dirC)}</b> · Стыковочные: ${esc(trC)}</div>
+          ${sp.subs_2026 && sp.subs_2026.length ? `<div style="margin-top:4px">${sp.subs_2026.map(s => `<span class="an-pill y">Субсидия 2026: ${esc(s.airline)} · ${esc(s.freq)}/нед · ${esc(s.ac)}</span>`).join(' ')}</div>` : '<div class="sub">В перечне субсидий Росавиации 2026 эта пара с другими а/к не закреплена.</div>'}
+        </div>`;
+      }
+
+      box.innerHTML = fltHtml + spHtml;
+      box.querySelectorAll('.an-leg').forEach(b => b.onclick = () => selectFlight(b.dataset.fid, true));
+      const jb = box.querySelector('.an-jump-flt');
+      if (jb) jb.onclick = () => selectFlight(jb.dataset.fid, true);
+      const ob = box.querySelector('.an-open-ap');
+      if (ob) ob.onclick = () => selectAirport(ob.dataset.ap, true);
+      return;
+    }
+
+    // Вкладка "Стыковки в OMS" (45..240 мин между прилётом в OMS и вылетом из OMS)
+    const m = curMode();
+    const wfs = winFlights();
+    const ins = wfs.filter(f => f.d === 'OMS');
+    const outs = wfs.filter(f => f.o === 'OMS');
+    const conns = [];
+    ins.forEach(inf => {
+      outs.forEach(outf => {
+        if (inf.o === outf.d) return;
+        const w = outf.t1 - inf.t2;
+        if (w >= 45 && w <= 240) {
+          conns.push({ inf, outf, wait: w });
+        }
+      });
+    });
+    conns.sort((a, b) => a.inf.t2 - b.inf.t2 || a.wait - b.wait);
+    const filtered = ST.hubFilterAp === 'ALL' ? conns : conns.filter(x => x.inf.o === ST.hubFilterAp || x.outf.d === ST.hubFilterAp);
+    const apOpts = ['ALL', ...m.spokes];
+    box.innerHTML = `
+      <div class="an-ihead">
+        <div>
+          <div style="font-weight:700;font-size:14px">Волны стыковок через Омск (окно 45–240 мин)</div>
+          <div class="sub">Показано: ${filtered.length} из ${conns.length} стыковок в окне ${ST.day === -1 ? 'недели' : DAYS[ST.day]}</div>
+        </div>
+        <select class="an-hfilt" style="font-size:12px;padding:3px 7px">${apOpts.map(c => `<option value="${c}" ${c === ST.hubFilterAp ? 'selected' : ''}>${c === 'ALL' ? 'Все лучи' : c + ' · ' + esc(ANIM.names[c] || '')}</option>`).join('')}</select>
+      </div>
+      ${ST.mode === 'start' && ANIM.ramp_conns && ANIM.ramp_conns.length ? `<div class="an-alert blue">В стартовой фазе проверены <b>${ANIM.ramp_conns.length}</b> стыковки в окне 45–240 мин (из oms_ramp_connections.csv), однако сквозной тариф/MCT требуют оформления на этапе запуска.</div>` : ''}
+      ${filtered.length ? `<table class="an-mini"><thead><tr><th>Цепочка через OMS</th><th>Прилёт</th><th>Вылет</th><th class="n">Стык</th></tr></thead>
+        <tbody>${filtered.slice(0, 60).map(x => `<tr class="click an-crow" data-t="${x.inf.t2}" data-fid="${x.outf.id}"><td><b>${x.inf.o} → OMS → ${x.outf.d}</b><div class="sub">${x.inf.ac} → ${x.outf.ac}</div></td><td class="mono">${fmtTime(x.inf.t2)}</td><td class="mono">${fmtTime(x.outf.t1)}</td><td class="n"><span class="an-pill ${x.wait <= 120 ? 'g' : 'y'}">${x.wait} м</span></td></tr>`).join('')}</tbody></table>`
+        : '<div class="sub">В выбранном суточном окне нет пересадок с ожиданием 45–240 мин. Переключите день или выберите режим «Полная хабовая».</div>'}`;
+    box.querySelector('.an-hfilt').onchange = e => { ST.hubFilterAp = e.target.value; renderInspector(); };
+    box.querySelectorAll('.an-crow').forEach(tr => tr.onclick = () => {
+      stop();
+      ST.t = +tr.dataset.t;
+      ST.selFlightId = tr.dataset.fid;
+      renderAllDyn();
+    });
+  }
+
+  function renderDyn() {
+    const m = curMode(), [w0, w1] = winRange(), span = w1 - w0, fs = m.flights, wfs = winFlights();
+    if (opts.onSub) opts.onSub(m.sub);
+    $('.an-ghint').textContent = `Оборот ≥ ${m.stats.min_turn_min} мин · макс. ${m.stats.max_ac_bh.toFixed(1)} ч/нед. (лимит 70 ч)`;
+    $('.an-clock').textContent = fmtClock(ST.t);
+    const scr = $('.an-scr'); scr.min = w0; scr.max = w1; scr.value = Math.round(ST.t);
+    $('.an-min').textContent = fmtTime(w0); $('.an-max').textContent = fmtTime(w1);
+    const steps = stepPoints(); let sIdx = 0;
+    for (let i = 0; i < steps.length; i++) if (steps[i] <= ST.t) sIdx = i;
+    $('.an-step').textContent = `Событие ${sIdx + 1}/${steps.length}`;
+
+    const active = fs.filter(f => ST.t >= f.t1 && ST.t < f.t2);
+    renderMapHighlights();
+    const planesG = $('.an-planes');
+    planesG.innerHTML = active.map(f => {
+      const p0 = ANIM.pts[f.o], p1 = ANIM.pts[f.d]; if (!p0 || !p1) return '';
+      const u = Math.min(1, Math.max(0, (ST.t - f.t1) / (f.t2 - f.t1))), pt = bezier(p0, p1, u), col = COLORS[f.ac] || '#E32A2F';
+      const isSel = f.id === ST.selFlightId;
+      return `<g class="an-plane" data-fid="${f.id}" transform="translate(${pt.x.toFixed(1)},${pt.y.toFixed(1)})"><g transform="rotate(${pt.ang.toFixed(1)})"><path d="M7,0 L2,-1.6 L-3,-6.5 L-4.8,-6.5 L-2,-1.4 L-5.8,-1.1 L-7.2,-3.2 L-8.4,-3.2 L-7.4,0 L-8.4,3.2 L-7.2,3.2 L-5.8,1.1 L-2,1.4 L-4.8,6.5 L-3,6.5 L2,1.6 Z" fill="${col}" stroke="${isSel ? '#111318' : '#fff'}" stroke-width="${isSel ? 1.1 : 0.6}"/></g><rect x="7" y="-11" width="46" height="10" rx="2.5" fill="#fff" fill-opacity="0.94" stroke="${isSel ? '#111318' : col}" stroke-width="${isSel ? 1.2 : 0.7}"/><text x="9" y="-3.8" style="font-size:6.4px;font-weight:700;fill:#111318;font-family:var(--mono)">${f.ac} ${f.d} ${Math.round(u * 100)}%</text></g>`;
+    }).join('');
+    $$('.an-plane').forEach(g => {
+      const fid = g.dataset.fid;
+      g.onmouseenter = ev => {
+        const f = fs.find(x => x.id === fid); if (!f) return;
+        const pct = Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100);
+        showTip(ev, `<b>${f.ac} · рейс ${f.id} (${f.o} → ${f.d})</b><br>Прогресс: ${pct}% · ${fmtTime(f.t1)} – ${fmtTime(f.t2)} OMS<small>Клик — разобрать рейс и ротацию</small>`);
+      };
+      g.onmouseleave = hideTip;
+      g.onclick = ev => { ev.stopPropagation(); selectFlight(fid, false); };
+    });
+
+    const stMap = m.aircraft.map(ac => {
+      if (active.some(f => f.ac === ac)) return 'fly';
+      const prev = [...fs].filter(f => f.ac === ac && f.t2 <= ST.t).pop();
+      return (prev && prev.d !== 'OMS') ? 'out' : 'oms';
+    });
+    $('.an-stat').textContent = `В небе: ${active.length} · В Омске: ${stMap.filter(x => x === 'oms').length} + 1 рез. · На обороте: ${stMap.filter(x => x === 'out').length}`;
+
+    const landedFeed = fs.filter(f => m.feeders.includes(f.o) && f.d === 'OMS' && ST.t >= f.t2 && ST.t <= f.t2 + 135);
+    const upWest = fs.filter(f => f.o === 'OMS' && ['KUF', 'GOJ', 'VOG', 'GSV'].includes(f.d) && f.t1 > ST.t && f.t1 <= ST.t + 140);
+    const exact = wfs.filter(f => f.t1 === Math.round(ST.t) || f.t2 === Math.round(ST.t));
+    let msg = '', isTr = false;
+    if (ST.mode === 'full' && landedFeed.length && upWest.length) {
+      isTr = true;
+      msg = `Стыковочное окно в OMS: фидеры ${[...new Set(landedFeed.map(f => f.o))].join('/')} → западная волна (${[...new Set(upWest.map(f => f.d))].join(', ')})`;
+    } else if (exact.length) {
+      const dep = exact.filter(f => f.t1 === Math.round(ST.t)).map(f => `${f.ac} ${f.o}→${f.d}`);
+      const arr = exact.filter(f => f.t2 === Math.round(ST.t)).map(f => `${f.ac} из ${f.o} в ${f.d}`);
+      msg = [dep.length ? 'Вылет: ' + dep.join(', ') : '', arr.length ? 'Прилёт: ' + arr.join(', ') : ''].filter(Boolean).join(' · ');
+    } else if (active.length) {
+      msg = `В полёте (${active.length} ВС): ` + active.map(f => `${f.ac} ${f.o}→${f.d} (${Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100)}%)`).join(' · ');
+    } else {
+      const nxt = wfs.find(f => f.t1 > ST.t);
+      msg = nxt ? `Стоянка в OMS · ближайший вылет: ${nxt.ac} ${nxt.o}→${nxt.d} в ${fmtTime(nxt.t1)}` : 'Завершение суточной программы · ночное ТО в Омске';
+    }
+    $('.an-strip').className = 'an-strip' + (isTr ? ' tr' : '');
+    $('.an-msg').textContent = msg;
+
+    $('.an-ticks').innerHTML = (ST.day === -1 ? DAYS : ['00:00', '06:00', '12:00', '18:00', span > 1440 ? '24:00+' : '24:00']).map(x => `<span>${x}</span>`).join('');
+    const ph = ((ST.t - w0) / span) * 100;
+    $('.an-gantt').innerHTML = m.aircraft.map(ac => {
+      const bars = wfs.filter(f => f.ac === ac).map(f => {
+        const l = Math.max(0, (f.t1 - w0) / span * 100), r = Math.min(100, (f.t2 - w0) / span * 100), w = Math.max(0.7, r - l);
+        const sp = f.o === 'OMS' ? f.d : f.o, bg = m.feeders.includes(sp) ? '#D97706' : COLORS[ac];
+        const on = ST.t >= f.t1 && ST.t <= f.t2, sel = f.id === ST.selFlightId;
+        return `<div class="an-g-bar${on ? ' on' : ''}${sel ? ' sel' : ''}" data-fid="${f.id}" title="${f.id} ${ac}: ${f.o}→${f.d} (${fmtTime(f.t1)}–${fmtTime(f.t2)})" style="left:${l.toFixed(2)}%;width:${w.toFixed(2)}%;background:${bg}">${w > 4 ? (f.o === 'OMS' ? '→' + f.d : f.o + '→') : ''}</div>`;
+      }).join('');
+      return `<div class="an-g-row"><div class="an-g-lbl"><span style="color:${COLORS[ac]}">${ac}</span><small>${m.stats.ac_bh[ac].toFixed(1)} ч/нед</small></div><div class="an-g-track">${bars}${ph >= 0 && ph <= 100 ? `<div class="an-g-ph" style="left:${ph.toFixed(2)}%"></div>` : ''}</div></div>`;
+    }).join('') + `<div class="an-g-row"><div class="an-g-lbl"><span style="color:var(--muted)">${esc(m.reserve)}</span><small>резерв</small></div><div class="an-g-track" style="opacity:.7"><span class="sub" style="padding:2px 8px;display:inline-block">Горячий резерв в OMS (подмена / «Ковёр» / ТО)</span></div></div>`;
+    $$('.an-g-bar').forEach(el => el.onclick = () => selectFlight(el.dataset.fid, true));
+
+    const bRows = wfs.filter(f => ST.day !== -1 || (f.t2 >= ST.t - 180 && f.t1 <= ST.t + 720));
+    $('.an-bsum').textContent = `Рейсов в окне: ${wfs.length} · в небе: ${active.length}`;
+    $('.an-board').innerHTML = bRows.map(f => {
+      const sp = f.o === 'OMS' ? f.d : f.o;
+      const tag = ST.t >= f.t1 && ST.t < f.t2 ? `<span class="tag t-model">В полёте ${Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100)}%</span>` : ST.t >= f.t2 ? '<span class="tag t-fact">Прибыл</span>' : f.t1 - ST.t <= 60 ? `<span class="tag t-asm">Через ${Math.round(f.t1 - ST.t)}м</span>` : '<span class="tag t-req">По графику</span>';
+      const isAct = (ST.t >= f.t1 && ST.t < f.t2) || f.id === ST.selFlightId;
+      return `<tr class="click${isAct ? ' sel' : ''}" data-fid="${f.id}"><td class="mono">${f.id}</td><td class="mono"><b style="color:${COLORS[f.ac]}">${f.ac}</b></td><td><b>${f.o} → ${f.d}</b> <span class="sub">(${esc(ANIM.names[sp] || sp)})</span></td><td class="mono">${fmtTime(f.t1)}</td><td class="mono">${fmtTime(f.t2)}</td><td class="mono">${(f.bh / 60).toFixed(1)}ч</td><td>${tag}</td></tr>`;
+    }).join('');
+    $$('.an-board tr').forEach(tr => tr.onclick = () => selectFlight(tr.dataset.fid, true));
+  }
+
+  function renderAllDyn() {
+    buildDays();
+    renderChips();
+    renderDyn();
+    renderInspector();
+  }
+  function renderAll() {
+    buildDays();
+    buildMap();
+    renderChips();
+    renderDyn();
+    renderInspector();
+  }
+
+  // Обработчики управления
+  $$('.an-spd button').forEach(b => b.onclick = () => { $$('.an-spd button').forEach(x => x.classList.remove('on')); b.classList.add('on'); ST.speed = +b.dataset.s; });
+  $('.an-play').onclick = () => ST.playing ? stop() : start();
+  $('.an-next').onclick = () => step(1);
+  $('.an-prev').onclick = () => step(-1);
+  $('.an-reset').onclick = () => { stop(); const [w0] = winRange(), fs = winFlights(); ST.t = fs.length ? Math.max(w0, fs[0].t1) : w0; renderDyn(); };
+  $('.an-scr').oninput = e => { stop(); ST.t = +e.target.value; renderDyn(); };
+  $('.an-chk-hubs').onchange = e => { ST.showHubs = e.target.checked; buildMap(); renderDyn(); };
+  $('.an-chk-comp').onchange = e => { ST.showComp = e.target.checked; buildMap(); renderDyn(); };
+  $$('.an-itabs button').forEach(b => b.onclick = () => { ST.inspTab = b.dataset.it; renderInspector(); });
+  $('.an-zi').onclick = () => zoomBy(0.75);
+  $('.an-zo').onclick = () => zoomBy(1.33);
+  $('.an-zr').onclick = () => { ST.vb = { ...BASE_VB }; setViewBox(); };
+
+  // Зум колесом и панорамирование мышью
+  const svg = $('.an-svg');
+  svg.addEventListener('wheel', ev => {
+    ev.preventDefault();
+    const r = svg.getBoundingClientRect();
+    zoomBy(ev.deltaY > 0 ? 1.15 : 0.87, (ev.clientX - r.left) / r.width, (ev.clientY - r.top) / r.height);
+  }, { passive: false });
+  let pan = null;
+  svg.addEventListener('pointerdown', ev => {
+    if (ev.button !== 0) return;
+    svg._dragged = false;
+    pan = { sx: ev.clientX, sy: ev.clientY, vx: ST.vb.x, vy: ST.vb.y };
+  });
+  window.addEventListener('pointermove', ev => {
+    if (!pan) return;
+    const dx = ev.clientX - pan.sx, dy = ev.clientY - pan.sy;
+    if (Math.hypot(dx, dy) > 4) { svg._dragged = true; svg.classList.add('panning'); }
+    if (!svg._dragged) return;
+    const r = svg.getBoundingClientRect();
+    ST.vb.x = Math.max(195, Math.min(720 - ST.vb.w, pan.vx - dx * (ST.vb.w / r.width)));
+    ST.vb.y = Math.max(195, Math.min(450 - ST.vb.h, pan.vy - dy * (ST.vb.h / r.height)));
+    setViewBox();
+  });
+  window.addEventListener('pointerup', () => { pan = null; svg.classList.remove('panning'); setTimeout(() => { svg._dragged = false; }, 0); });
+
+  renderAll();
+  return {
+    stop,
+    setMode(m) {
+      stop();
+      ST.mode = m;
+      const [w0] = winRange(), fs = winFlights();
+      ST.t = fs.length ? Math.max(w0, fs[0].t1 + 60) : w0;
+      ST.selFlightId = null;
+      if (!curMode().spokes.includes(ST.selSpoke)) ST.selSpoke = curMode().spokes[0] || 'IKT';
+      renderAll();
+    },
+    getState: () => ST,
+  };
 }
-function renderAll() { buildDays(); buildMap(); renderDyn(); }
-function step(dir) {
-  stop(); const pts = stepPoints();
-  ST.t = dir > 0 ? (pts.find(x => x > ST.t + 0.5) ?? pts[0]) : ([...pts].reverse().find(x => x < ST.t - 0.5) ?? pts[pts.length - 1]);
-  renderDyn();
-}
-function tick(ts) {
-  if (!ST.playing) return;
-  if (ST.lastTs !== null) { const [w0, w1] = winRange(); ST.t += (ts - ST.lastTs) / 1000 * ST.speed; if (ST.t >= w1) ST.t = w0; renderDyn(); }
-  ST.lastTs = ts; ST.raf = requestAnimationFrame(tick);
-}
-function start() { if (!ST.playing) { ST.playing = true; ST.lastTs = null; $('#an-play').textContent = '⏸ Пауза'; ST.raf = requestAnimationFrame(tick); } }
-function stop() { ST.playing = false; ST.lastTs = null; if (ST.raf) cancelAnimationFrame(ST.raf); ST.raf = null; $('#an-play').textContent = '▶ Пуск'; }
-$$('#an-mode button').forEach(b => b.onclick = () => { stop(); $$('#an-mode button').forEach(x => x.classList.remove('on')); b.classList.add('on'); ST.mode = b.dataset.m; const [w0] = winRange(), fs = winFlights(); ST.t = fs.length ? Math.max(w0, fs[0].t1 + 60) : w0; renderAll(); });
-$$('#an-spd button').forEach(b => b.onclick = () => { $$('#an-spd button').forEach(x => x.classList.remove('on')); b.classList.add('on'); ST.speed = +b.dataset.s; });
-$('#an-play').onclick = () => ST.playing ? stop() : start();
-$('#an-next').onclick = () => step(1);
-$('#an-prev').onclick = () => step(-1);
-$('#an-reset').onclick = () => { stop(); const [w0] = winRange(), fs = winFlights(); ST.t = fs.length ? Math.max(w0, fs[0].t1) : w0; renderDyn(); };
-$('#an-scr').oninput = e => { stop(); ST.t = +e.target.value; renderDyn(); };
-renderAll();
+
+const player = mountOmsFlightPlayer(document.getElementById('an-root'), ANIM, {
+  mode: 'radial',
+  onSub: txt => { document.getElementById('an-sub').textContent = txt; }
+});
+document.querySelectorAll('#an-mode button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#an-mode button').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  player.setMode(b.dataset.m);
+});
 </script>
 </body>
 </html>

@@ -245,7 +245,7 @@ def main():
         commit = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True).strip()
     except Exception:
         commit = ""
-    from build_flight_animation import build_animation_payload
+    from build_flight_animation import PLAYER_CSS, PLAYER_HTML, PLAYER_JS, build_animation_payload
     D = {"meta": {"built": datetime.now().strftime("%d.%m.%Y %H:%M"), "commit": commit, "hub": H, "map_src": map_src},
          "asm": asm, "hubs": summ, "rays": rays, "names": names, "pts": pts, "map": mp,
          "crit": cr, "rating": rt, "cards": cards, "src": src, "kf": kf, "kf_head": list(kf[0].keys()),
@@ -253,7 +253,11 @@ def main():
          "transfers": transfers(list(rays["base"])), "hubinfo": hub_info(list(rays["base"]), seas, cards, cr),
          "anim": build_animation_payload(pts, names, mp)}
     tpl = (ROOT / "src/dashboard3_template.html").read_text(encoding="utf-8")
-    html = tpl.replace("__DATA__", json.dumps(D, ensure_ascii=False, separators=(",", ":")))
+    html = (tpl
+            .replace("__ANIM_CSS__", PLAYER_CSS)
+            .replace("__ANIM_HTML__", PLAYER_HTML)
+            .replace("__ANIM_JS__", PLAYER_JS)
+            .replace("__DATA__", json.dumps(D, ensure_ascii=False, separators=(",", ":"))))
     out = ROOT / "outputs/redwings_panel.html"
     out.write_text(html, encoding="utf-8")
     print(f"Дашборд 3: {out.relative_to(ROOT)}, {len(html) // 1024} КБ, хабов {len(rays['base'])}, пар {len(D['pairs'])}")

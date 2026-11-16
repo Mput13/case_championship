@@ -1,4 +1,4 @@
-"""Проверки расписания и встроенной анимации полётов хаба Омск (OMS)."""
+"""Проверки расписания, справочников аэропортов/конкурентов и встроенной анимации хаба Омск (OMS)."""
 import csv
 import json
 import re
@@ -47,17 +47,47 @@ class FlightAnimationTests(unittest.TestCase):
         self.assertEqual(s["stats"]["total_legs"], csv_count)
         self.assertLessEqual(s["stats"]["max_ac_bh"], 70.0)
 
+        # Интерактивные данные аэропортов, конкурентов и лучей
+        airports = payload["airports"]
+        for code in ("OMS", "IKT", "UUD", "VOG", "MOW", "GSV", "GOJ", "KUF", "KJA", "BAX", "UFA", "NOZ", "SVX"):
+            self.assertIn(code, airports)
+        self.assertTrue(airports["KJA"]["comp_hub"])
+        self.assertIn("Аэрофлот", airports["KJA"]["comp_hub_carrier"])
+        self.assertTrue(airports["IKT"]["comp_hub"])
+        self.assertEqual(airports["IKT"]["comp_hub_carrier"], "S7")
+        self.assertGreaterEqual(len(airports["OMS"]["oms_carriers"]), 10)
+        self.assertTrue(airports["OMS"]["tariffs"])
+
+        spokes = payload["spokes"]
+        self.assertIn("IKT", spokes)
+        self.assertIsNotNone(spokes["IKT"]["base"])
+        self.assertEqual(spokes["BAX"]["comp"]["fare_tr"], 15012)
+        self.assertEqual(spokes["KUF"]["comp"]["fare_tr"], 16405)
+        self.assertGreaterEqual(len(payload["ramp_conns"]), 10)
+
     def test_embedded_in_dashboard3_and_standalone(self):
-        panel_html = (ROOT / "outputs/redwings_panel.html").read_text(encoding="utf-8")
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import package_dashboard as pd
+
+        panel_bytes = (ROOT / "outputs/redwings_panel.html").read_bytes()
+        pd.validate_html(panel_bytes)
+        panel_html = panel_bytes.decode("utf-8")
         m = re.search(r"\bconst D\s*=\s*", panel_html)
         self.assertIsNotNone(m)
         d, _ = json.JSONDecoder().raw_decode(panel_html[m.end():])
         self.assertIn("anim", d)
+        self.assertIn("airports", d["anim"])
+        self.assertIn("spokes", d["anim"])
         self.assertEqual(d["anim"]["modes"]["radial"]["stats"]["total_legs"], 100)
+        self.assertIn("mountOmsFlightPlayer", panel_html)
 
-        standalone = (ROOT / "outputs/oms_flight_animation.html").read_text(encoding="utf-8")
+        standalone_bytes = (ROOT / "outputs/oms_flight_animation.html").read_bytes()
+        pd.validate_html(standalone_bytes)
+        standalone = standalone_bytes.decode("utf-8")
         self.assertIn("const ANIM", standalone)
-        self.assertLess(standalone.lower().find("<meta charset=\"utf-8\">"), 1024)
+        self.assertIn("mountOmsFlightPlayer", standalone)
+        self.assertLess(standalone.lower().find('<meta charset="utf-8">'), 1024)
 
 
 if __name__ == "__main__":
