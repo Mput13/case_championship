@@ -40,7 +40,7 @@ jobs:
       - name: Publish atomic release
         run: |
           set -eu
-          ssh -i "$HOME/.ssh/redwings_deploy" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 redwings-deploy@45.150.36.187 "deploy $GITHUB_SHA" < "$RUNNER_TEMP/dashboard.tar.gz"
+          ssh -i "$HOME/.ssh/redwings_deploy" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 redwings-deploy@redwings.altair.ad "deploy $GITHUB_SHA" < "$RUNNER_TEMP/dashboard.tar.gz"
       - name: Check public HTTPS release
         run: |
           set -eu
