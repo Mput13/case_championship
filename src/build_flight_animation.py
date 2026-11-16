@@ -723,9 +723,9 @@ PLAYER_CSS = """
 .an-wrap{display:flex;flex-direction:column;gap:12px}
 .an-ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:space-between}
 .an-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.an-clock{font-family:var(--mono);font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--paper);border:1px solid var(--line)}
+.an-clock{font-family:var(--mono);font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--paper);border:1px solid var(--line);white-space:nowrap}
 .an-scrub{display:flex;align-items:center;gap:10px}
-.an-scrub input[type=range]{flex:1;accent-color:var(--red);cursor:pointer}
+.an-scrub input[type=range]{flex:1;accent-color:var(--red);cursor:pointer;min-height:28px}
 .an-strip{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--paper);border-left:3px solid var(--red);font-size:13px}
 .an-strip.tr{background:var(--amber-bg);border-left-color:#B45309}
 .an-split{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(350px,0.95fr);gap:14px;align-items:stretch}
@@ -733,7 +733,8 @@ PLAYER_CSS = """
 .an-mapbox{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--sea);display:flex;flex-direction:column;position:relative}
 .an-mapbar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:7px 10px;background:var(--white);border-bottom:1px solid var(--line);font-size:12px}
 .an-stage{position:relative;flex:1;min-height:330px;background:var(--sea);user-select:none;overflow:hidden}
-.an-stage svg{width:100%;height:100%;min-height:330px;display:block;cursor:grab}
+.an-stage svg{width:100%;height:100%;min-height:330px;display:block;cursor:grab;touch-action:pan-y}
+.an-stage svg.zoomed{touch-action:none}
 .an-stage svg.panning{cursor:grabbing}
 .an-zoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:4px;z-index:4}
 .an-zoom button{width:28px;height:28px;border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:8px;font-weight:700;font-size:14px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.08)}
@@ -767,6 +768,14 @@ PLAYER_CSS = """
 .an-alert.blue{background:var(--blue-bg);color:var(--blue);border-left-color:var(--blue)}
 .an-sec{border-top:1px solid var(--paper-2);padding-top:8px}
 .an-sec h4{margin:0 0 6px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:6px}
+details.an-fold{border-top:1px solid var(--paper-2);padding-top:8px}
+details.an-fold>summary{list-style:none;cursor:pointer;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;user-select:none}
+details.an-fold>summary::-webkit-details-marker{display:none}
+details.an-fold>summary .an-fbadge{font-size:11px;font-weight:500;color:var(--muted);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+details.an-fold[open]>summary .an-fbadge::after{content:" ▴"}
+details.an-fold:not([open])>summary .an-fbadge::after{content:" ▾"}
+details.an-gfold{border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+details.an-gfold>summary{font-size:14px;margin-bottom:8px}
 .an-mini{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums}
 .an-mini th{text-align:left;color:var(--muted);font-weight:500;padding:4px 5px;border-bottom:1px solid var(--line);background:var(--paper);position:static}
 .an-mini td{padding:4px 5px;border-bottom:1px solid var(--paper-2);vertical-align:top;white-space:normal}
@@ -799,20 +808,44 @@ PLAYER_CSS = """
 .an-ap-node:hover .an-ap-ring{stroke-opacity:1;stroke-width:2}
 .an-arc-hit{cursor:pointer}
 .an-plane{cursor:pointer}
+@media(min-width:761px){.an-mob-only{display:none!important} details.an-fold>summary .an-fbadge{display:none}}
+@media(max-width:1060px){.an-ibody{max-height:none;overflow-y:visible}}
+@media(max-width:760px){
+  .an-mob-hide,.an-pc-only{display:none!important}
+  .an-ctl{gap:6px}
+  .an-day{flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .an-day::-webkit-scrollbar,.an-chips::-webkit-scrollbar{display:none}
+  .an-day button{flex:0 0 auto;padding:6px 11px}
+  .an-play{padding:6px 14px;font-size:13px}
+  .an-clock{margin-left:auto;font-size:12px}
+  .an-scrub{gap:7px;font-size:11.5px}
+  .an-strip{font-size:12px;padding:7px 10px}
+  .an-split{gap:10px}
+  .an-mapbar{padding:6px 9px;font-size:11.5px}
+  .an-mapbar label{gap:5px}
+  .an-stage,.an-stage svg{min-height:205px;height:215px}
+  .an-zoom button{width:34px;height:34px;font-size:16px}
+  .an-chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:7px 8px;gap:6px}
+  .an-chip{flex:0 0 auto;white-space:nowrap;padding:5px 11px;font-size:12px}
+  .an-legend{font-size:11px;gap:6px 10px;padding:6px 9px}
+  .an-itabs{padding:5px 6px 0}
+  .an-itabs button{flex:1;text-align:center;padding:8px 6px;font-size:12px;white-space:nowrap}
+  .an-ibody{padding:10px 11px;gap:8px}
+  .an-icode{font-size:19px}
+  .an-g-ticks,.an-g-row{grid-template-columns:56px 1fr;gap:6px}
+}
 """
 
 PLAYER_HTML = """
 <div class="an-wrap">
   <div class="an-ctl">
     <div class="seg an-day"></div>
-    <div class="an-row">
-      <button class="btn sm an-reset" title="В начало суток">⏮</button>
-      <button class="btn sm an-prev">◀ Шаг</button>
+    <div class="an-row" style="flex:1;justify-content:flex-end">
+      <button class="btn sm an-reset an-mob-hide" title="В начало суток">⏮</button>
+      <button class="btn sm an-prev an-mob-hide">◀ Шаг</button>
       <button class="btn sm red an-play" style="min-width:82px">▶ Пуск</button>
-      <button class="btn sm an-next">Шаг ▶</button>
-    </div>
-    <div class="an-row">
-      <div class="seg an-spd">
+      <button class="btn sm an-next an-mob-hide">Шаг ▶</button>
+      <div class="seg an-spd an-mob-hide">
         <button data-s="15">×15</button>
         <button class="on" data-s="60">×60</button>
         <button data-s="180">×180</button>
@@ -827,16 +860,16 @@ PLAYER_HTML = """
   </div>
   <div class="an-strip">
     <span class="an-msg"></span>
-    <span class="mono an-step"></span>
+    <span class="mono an-step an-mob-hide"></span>
   </div>
   <div class="an-split">
     <div class="an-mapbox">
       <div class="an-mapbar">
         <div class="an-row">
-          <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" class="an-chk-hubs" checked> Хабы конкурентов и «Ковёр»</label>
-          <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" class="an-chk-comp" checked> Прямые рейсы конкурентов из OMS</label>
+          <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" class="an-chk-hubs" checked> Хабы конкурентов<span class="an-pc-only"> и «Ковёр»</span></label>
+          <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" class="an-chk-comp" checked> Прямые<span class="an-pc-only"> рейсы конкурентов</span> из OMS</label>
         </div>
-        <span class="sub an-stat"></span>
+        <span class="sub an-stat an-mob-hide"></span>
       </div>
       <div class="an-stage">
         <svg class="an-svg" viewBox="255 245 410 155" preserveAspectRatio="xMidYMid meet"></svg>
@@ -849,39 +882,37 @@ PLAYER_HTML = """
       </div>
       <div class="an-chips"></div>
       <div class="an-legend">
-        <span><i style="background:#E32A2F"></i>База OMS + резерв</span>
-        <span><i style="background:#3FA772"></i>Прибыльный ствол</span>
-        <span><i style="background:#D97706"></i>Фидер (BAX/KJA)</span>
-        <span><i style="background:#3E6E95"></i>Старт (UFA/NOZ)</span>
-        <span><i style="background:#7C3AED"></i>Хаб конкурента (S7/SU)</span>
-        <span style="margin-left:auto">Клик по городу, дуге или борту открывает аналитику</span>
+        <span><i style="background:#E32A2F"></i>База OMS</span>
+        <span><i style="background:#3FA772"></i>Прибыльный</span>
+        <span><i style="background:#D97706"></i>Фидер</span>
+        <span><i style="background:#3E6E95"></i>Старт</span>
+        <span><i style="background:#7C3AED"></i>Хаб S7/SU</span>
+        <span class="an-mob-hide" style="margin-left:auto">Клик по городу, дуге или борту открывает аналитику</span>
       </div>
     </div>
     <aside class="an-insp">
       <div class="an-itabs">
-        <button type="button" class="on" data-it="airport">Аэропорт и конкуренты</button>
+        <button type="button" class="on" data-it="airport">Аэропорт<span class="an-pc-only"> и конкуренты</span></button>
         <button type="button" data-it="flight">Рейс и луч</button>
-        <button type="button" data-it="hub">Стыковки в OMS</button>
+        <button type="button" data-it="hub">Стыковки<span class="an-pc-only"> в OMS</span></button>
       </div>
       <div class="an-ibody"></div>
     </aside>
   </div>
-  <div style="margin-top:4px">
-    <div class="hd" style="margin-bottom:6px">
-      <h3 style="margin:0">Таймлайн ротации бортов (OMS UTC+6 · клик по рейсу = переход и карточка)</h3>
-      <span class="sub r an-ghint"></span>
-    </div>
+  <details class="an-fold an-gfold" open>
+    <summary><span>Таймлайн ротации бортов <span class="an-pc-only">(OMS UTC+6 · клик по рейсу = переход и карточка)</span></span><span class="an-fbadge">график</span></summary>
+    <div class="sub an-ghint an-mob-hide" style="margin-bottom:6px"></div>
     <div class="an-g-ticks"><span>Борт</span><div class="an-ticks"></div></div>
     <div class="an-gantt"></div>
-  </div>
+  </details>
   <div style="margin-top:4px">
     <div class="hd" style="margin-bottom:6px">
-      <h3 style="margin:0">Табло рейсов (клик = перейти к вылету и разобрать рейс)</h3>
+      <h3 style="margin:0">Табло рейсов <span class="an-pc-only">(клик = перейти к вылету и разобрать рейс)</span></h3>
       <span class="sub r an-bsum"></span>
     </div>
-    <div class="tw" style="max-height:210px">
+    <div class="tw" style="max-height:240px">
       <table>
-        <thead><tr><th>Рейс</th><th>Борт</th><th>Маршрут</th><th>Вылет OMS</th><th>Прилёт OMS</th><th>БЧ</th><th>Статус</th></tr></thead>
+        <thead><tr><th>Рейс</th><th class="an-mob-hide">Борт</th><th>Маршрут</th><th>Вылет<span class="an-pc-only"> OMS</span></th><th class="an-mob-hide">Прилёт OMS</th><th class="an-mob-hide">БЧ</th><th>Статус</th></tr></thead>
         <tbody class="an-board"></tbody>
       </table>
     </div>
@@ -938,8 +969,9 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
     let mm = ((Math.round(m) + shift) % 1440 + 1440) % 1440;
     return `${String(Math.floor(mm / 60)).padStart(2, '0')}:${String(mm % 60).padStart(2, '0')}`;
   }
+  const isMob = () => Boolean(window.matchMedia && window.matchMedia('(max-width:760px)').matches);
   function fmtClock(m) {
-    return `${fmtTime(m)} OMS (${fmtHM(m, 3)} MSK)`;
+    return isMob() ? `${fmtTime(m)} OMS` : `${fmtTime(m)} OMS (${fmtHM(m, 3)} MSK)`;
   }
   function bezier(p0, p1, u) {
     const mx = (p0[0] + p1[0]) / 2, my = (p0[1] + p1[1]) / 2 - Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) * 0.16;
@@ -951,7 +983,10 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
 
   function setViewBox() {
     const svg = $('.an-svg');
-    if (svg) svg.setAttribute('viewBox', `${ST.vb.x.toFixed(1)} ${ST.vb.y.toFixed(1)} ${ST.vb.w.toFixed(1)} ${ST.vb.h.toFixed(1)}`);
+    if (svg) {
+      svg.setAttribute('viewBox', `${ST.vb.x.toFixed(1)} ${ST.vb.y.toFixed(1)} ${ST.vb.w.toFixed(1)} ${ST.vb.h.toFixed(1)}`);
+      svg.classList.toggle('zoomed', ST.vb.w < 395);
+    }
   }
   function zoomBy(factor, cxRatio = 0.5, cyRatio = 0.5) {
     const nw = Math.max(120, Math.min(460, ST.vb.w * factor));
@@ -973,6 +1008,7 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
   }
 
   function showTip(ev, html) {
+    if ((ev && ev.pointerType === 'touch') || isMob()) return;
     const st = $('.an-stage'), tip = $('.an-tip');
     if (!st || !tip) return;
     tip.innerHTML = html;
@@ -1187,8 +1223,9 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
       if (!ap) { box.innerHTML = '<div class="sub">Нет данных по аэропорту.</div>'; return; }
       const sp = c !== 'OMS' ? ANIM.spokes[c] : null;
       const mx = Math.max(...(ap.seas || [1]), 1);
+      const foldOpen = isMob() ? '' : ' open';
       const seaHtml = (ap.seas && ap.seas.length)
-        ? `<div class="an-sec"><h4>Сезонность пассажиропотока (12 мес.) <span class="sub">пик ${MON[ap.seas.indexOf(Math.max(...ap.seas))]}</span></h4><div class="an-spark">${ap.seas.map((v, i) => `<i style="height:${(v / mx * 100).toFixed(0)}%" title="${MON[i]}: ×${v.toFixed(2)}"></i>`).join('')}</div><div class="an-spark-l"><span>янв</span><span>апр</span><span>июл</span><span>окт</span><span>дек</span></div></div>`
+        ? `<details class="an-fold"${foldOpen}><summary><span>Сезонность пассажиропотока (12 мес.) <span class="sub">пик ${MON[ap.seas.indexOf(Math.max(...ap.seas))]}</span></span><span class="an-fbadge">график</span></summary><div class="an-spark">${ap.seas.map((v, i) => `<i style="height:${(v / mx * 100).toFixed(0)}%" title="${MON[i]}: ×${v.toFixed(2)}"></i>`).join('')}</div><div class="an-spark-l"><span>янв</span><span>апр</span><span>июл</span><span>окт</span><span>дек</span></div></details>`
         : '';
 
       let hubBanner = '';
@@ -1199,12 +1236,12 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
       let compHtml = '';
       if (c === 'OMS') {
         compHtml = `<div class="an-sec"><h4>Все авиакомпании в расписании OMS (зима 2026/27) <span class="an-pill">${ap.oms_carriers.length} а/к</span></h4>
-          <table class="an-mini"><thead><tr><th>Перевозчик</th><th class="n">Выл./нед</th><th>Направления</th><th>ВС</th></tr></thead>
-          <tbody>${ap.oms_carriers.map(x => `<tr><td><b>${esc(x.carrier)}</b><div class="sub mono" style="font-size:10px">${esc(x.flts.slice(0, 2).join(', '))}</div></td><td class="n">${x.deps_wk ? x.deps_wk : '<span class="sub">вне 7–13.12</span>'}</td><td>${esc(x.dests.join(', '))}</td><td class="mono">${esc(x.ac.join(', '))}</td></tr>`).join('')}</tbody></table></div>`;
+          <table class="an-mini"><thead><tr><th>Перевозчик</th><th class="n">Выл./нед</th><th>Направления</th><th class="an-mob-hide">ВС</th></tr></thead>
+          <tbody>${ap.oms_carriers.map(x => `<tr><td><b>${esc(x.carrier)}</b><div class="sub mono" style="font-size:10px">${esc(x.flts.slice(0, 2).join(', '))}</div></td><td class="n">${x.deps_wk ? x.deps_wk : '<span class="sub">вне 7–13.12</span>'}</td><td>${esc(x.dests.join(', '))}</td><td class="mono an-mob-hide">${esc(x.ac.join(', '))}</td></tr>`).join('')}</tbody></table></div>`;
         if (ap.tariffs && ap.tariffs.length) {
-          compHtml += `<div class="an-sec"><h4>Ключевые тарифы аэропорта Омск <span class="sub">pdf 21.08.2026</span></h4>
+          compHtml += `<details class="an-fold"${foldOpen}><summary><span>Ключевые тарифы аэропорта Омск <span class="sub">pdf 21.08.2026</span></span><span class="an-fbadge">${ap.tariffs.length}</span></summary>
             <table class="an-mini"><tbody>${ap.tariffs.map(t => `<tr><td>${esc(t.article)}</td><td class="n"><b>${fmt(t.price)} ₽</b><div class="sub">${esc(t.unit)}</div></td></tr>`).join('')}</tbody></table>
-            <div class="sub" style="margin-top:4px">Примечание: справочно к базовой ставке наземного обслуживания 96 089 ₽/рейс без двойного счёта.</div></div>`;
+            <div class="sub" style="margin-top:4px">Примечание: справочно к базовой ставке наземного обслуживания 96 089 ₽/рейс без двойного счёта.</div></details>`;
         }
       } else {
         if (sp && sp.comp) {
@@ -1213,8 +1250,8 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
           const tr = sp.comp.conn || [];
           compHtml += `<div class="an-sec"><h4>Конкуренция на линии OMS ↔ ${c}</h4>`;
           if (tt.length) {
-            compHtml += `<table class="an-mini"><thead><tr><th>А/к и рейс</th><th>ВС</th><th>Дни</th><th>В OMS</th></tr></thead>
-              <tbody>${tt.map(r => `<tr><td><b>${esc(r.carrier)}</b> <span class="mono">${esc(r.flt)}</span></td><td>${esc(r.ac)}</td><td>${esc(r.wd)}</td><td class="mono">${esc(r.arr)}–${esc(r.dep)}</td></tr>`).join('')}</tbody></table>`;
+            compHtml += `<table class="an-mini"><thead><tr><th>А/к и рейс</th><th class="an-mob-hide">ВС</th><th>Дни</th><th>В OMS</th></tr></thead>
+              <tbody>${tt.map(r => `<tr><td><b>${esc(r.carrier)}</b> <span class="mono">${esc(r.flt)}</span></td><td class="an-mob-hide">${esc(r.ac)}</td><td>${esc(r.wd)}</td><td class="mono">${esc(r.arr)}–${esc(r.dep)}</td></tr>`).join('')}</tbody></table>`;
           } else {
             compHtml += `<div class="sub">В зимнем расписании Омска (2026/27) прямых регулярных рейсов на этом плече нет.</div>`;
           }
@@ -1225,18 +1262,18 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
           </div></div>`;
         }
         if (ap.rpc_carriers && ap.rpc_carriers.length) {
-          compHtml += `<div class="an-sec"><h4>Присутствие перевозчиков в ${c} (7–13.12.2026)</h4>
-            <table class="an-mini"><thead><tr><th>Авиакомпания</th><th>Направления выборки</th><th>ВС</th></tr></thead>
-            <tbody>${ap.rpc_carriers.map(x => `<tr><td><b>${esc(x.carrier)}</b>${x.rw ? ' <span class="an-pill r">RW</span>' : ''}</td><td>${esc(x.dests.join(', '))}</td><td>${esc(x.ac.join(', ') || '—')}</td></tr>`).join('')}</tbody></table></div>`;
+          compHtml += `<details class="an-fold"${foldOpen}><summary><span>Присутствие перевозчиков в ${c} <span class="sub an-pc-only">(7–13.12.2026)</span></span><span class="an-fbadge">${ap.rpc_carriers.length} а/к</span></summary>
+            <table class="an-mini"><thead><tr><th>Авиакомпания</th><th>Направления выборки</th><th class="an-mob-hide">ВС</th></tr></thead>
+            <tbody>${ap.rpc_carriers.map(x => `<tr><td><b>${esc(x.carrier)}</b>${x.rw ? ' <span class="an-pill r">RW</span>' : ''}</td><td>${esc(x.dests.join(', '))}</td><td class="an-mob-hide">${esc(x.ac.join(', ') || '—')}</td></tr>`).join('')}</tbody></table></details>`;
         }
       }
 
       const rwHtml = (ap.rw_now && ap.rw_now.length)
-        ? `<div class="an-sec"><h4>Действующие маршруты Red Wings из ${c}</h4><div>${ap.rw_now.map(x => `<span class="an-pill" style="margin:2px 4px 2px 0">${esc(x.pair)} · ${x.freq ?? '?'}/нед (${esc(x.status)})</span>`).join('')}</div></div>`
+        ? `<details class="an-fold"${foldOpen}><summary><span>Действующие маршруты Red Wings из ${c}</span><span class="an-fbadge">${ap.rw_now.length}</span></summary><div>${ap.rw_now.map(x => `<span class="an-pill" style="margin:2px 4px 2px 0">${esc(x.pair)} · ${x.freq ?? '?'}/нед (${esc(x.status)})</span>`).join('')}</div></details>`
         : '';
       const subHtml = (ap.subs_2026 && ap.subs_2026.length)
-        ? `<div class="an-sec"><h4>Субсидии Росавиации 2026 (${ap.subs_2026.length})</h4>
-            <table class="an-mini"><tbody>${ap.subs_2026.slice(0, 6).map(x => `<tr><td><b>${esc(x.pair)}</b></td><td>${esc(x.airline)}</td><td class="n">${esc(x.freq)}/нед · ${esc(x.ac)}</td></tr>`).join('')}</tbody></table></div>`
+        ? `<details class="an-fold"${foldOpen}><summary><span>Субсидии Росавиации 2026 (${ap.subs_2026.length})</span><span class="an-fbadge">${ap.subs_2026.length}</span></summary>
+            <table class="an-mini"><tbody>${ap.subs_2026.slice(0, 6).map(x => `<tr><td><b>${esc(x.pair)}</b></td><td>${esc(x.airline)}</td><td class="n">${esc(x.freq)}/нед · ${esc(x.ac)}</td></tr>`).join('')}</tbody></table></details>`
         : '';
 
       box.innerHTML = `
@@ -1465,7 +1502,7 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
       const sp = f.o === 'OMS' ? f.d : f.o;
       const tag = ST.t >= f.t1 && ST.t < f.t2 ? `<span class="tag t-model">В полёте ${Math.round((ST.t - f.t1) / (f.t2 - f.t1) * 100)}%</span>` : ST.t >= f.t2 ? '<span class="tag t-fact">Прибыл</span>' : f.t1 - ST.t <= 60 ? `<span class="tag t-asm">Через ${Math.round(f.t1 - ST.t)}м</span>` : '<span class="tag t-req">По графику</span>';
       const isAct = (ST.t >= f.t1 && ST.t < f.t2) || f.id === ST.selFlightId;
-      return `<tr class="click${isAct ? ' sel' : ''}" data-fid="${f.id}"><td class="mono">${f.id}</td><td class="mono"><b style="color:${COLORS[f.ac]}">${f.ac}</b></td><td><b>${f.o} → ${f.d}</b> <span class="sub">(${esc(ANIM.names[sp] || sp)})</span></td><td class="mono">${fmtTime(f.t1)}</td><td class="mono">${fmtTime(f.t2)}</td><td class="mono">${(f.bh / 60).toFixed(1)}ч</td><td>${tag}</td></tr>`;
+      return `<tr class="click${isAct ? ' sel' : ''}" data-fid="${f.id}"><td class="mono">${f.id}</td><td class="mono an-mob-hide"><b style="color:${COLORS[f.ac]}">${f.ac}</b></td><td><b>${f.o} → ${f.d}</b> <span class="sub an-pc-only">(${esc(ANIM.names[sp] || sp)})</span></td><td class="mono">${fmtTime(f.t1)}</td><td class="mono an-mob-hide">${fmtTime(f.t2)}</td><td class="mono an-mob-hide">${(f.bh / 60).toFixed(1)}ч</td><td>${tag}</td></tr>`;
     }).join('');
     $$('.an-board tr').forEach(tr => tr.onclick = () => selectFlight(tr.dataset.fid, true));
   }
@@ -1477,6 +1514,8 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
     renderInspector();
   }
   function renderAll() {
+    const gf = $('.an-gfold');
+    if (gf) gf.open = !isMob();
     buildDays();
     buildMap();
     renderChips();
@@ -1508,6 +1547,7 @@ function mountOmsFlightPlayer(root, ANIM, opts) {
   let pan = null;
   svg.addEventListener('pointerdown', ev => {
     if (ev.button !== 0) return;
+    if (ev.pointerType === 'touch' && ST.vb.w >= 395) return;
     svg._dragged = false;
     pan = { sx: ev.clientX, sy: ev.clientY, vx: ST.vb.x, vy: ST.vb.y };
   });
@@ -1567,11 +1607,14 @@ body{{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);fon
 .top .wrap{{display:flex;align-items:center;gap:14px;flex-wrap:wrap}}
 .brand{{display:flex;align-items:center;gap:10px;font-family:var(--code);font-weight:700;font-size:16px}}
 .brand small{{font-family:var(--f);font-weight:400;color:var(--steel);font-size:13px}}
-.back{{margin-left:auto;color:#F4F5F7;text-decoration:none;border:1px solid #2A2F3A;background:var(--ink-3);border-radius:999px;padding:5px 12px;font-size:13px}}
+.back{{margin-left:auto;color:#F4F5F7;text-decoration:none;border:1px solid #2A2F3A;background:var(--ink-3);border-radius:999px;padding:5px 12px;font-size:13px;white-space:nowrap}}
 .back:hover{{border-color:#F4F5F7}}
 main{{padding:16px 0 36px;display:flex;flex-direction:column;gap:12px}}
 .card{{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}}
-.hd{{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:8px}}
+.hd{{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;justify-content:space-between;margin-bottom:8px}}
+.card>.hd>div:first-child{{flex:1 1 320px;min-width:0}}
+#an-mode{{flex:0 0 auto;margin-left:auto;white-space:nowrap}}
+@media(min-width:761px){{.card>.hd{{flex-wrap:nowrap;align-items:flex-start}}}}
 h1{{font-family:var(--code);font-size:20px;margin:0}}
 h3{{font-size:14.5px;margin:0}}
 .sub{{color:var(--muted);font-size:12.5px}}
@@ -1593,22 +1636,35 @@ tr.click{{cursor:pointer}}tr.click:hover{{background:var(--paper)}}tr.sel{{backg
 .tag{{display:inline-block;font-size:11px;font-weight:500;padding:1px 7px;border-radius:999px}}
 .t-model{{background:var(--blue-bg);color:var(--blue)}}.t-asm{{background:var(--amber-bg);color:#8A6210}}.t-fact{{background:var(--green-bg);color:#23704A}}.t-req{{background:var(--paper-2);color:var(--muted)}}
 .up{{color:#23704A}}.dn{{color:var(--red-d)}}
+@media(max-width:760px){{
+  .wrap{{padding:0 10px}}
+  .top .wrap{{gap:8px}}
+  .brand{{font-size:14px}}
+  .brand small{{display:none}}
+  .back{{padding:4px 10px;font-size:12px}}
+  main{{padding:10px 0 24px}}
+  .card{{padding:12px;border-radius:13px}}
+  h1{{font-size:16.5px;line-height:1.25}}
+  .hd{{gap:8px}}
+  #an-mode{{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
+  #an-mode button{{padding:6px 4px;font-size:11.5px;text-align:center}}
+}}
 {PLAYER_CSS}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <div class="brand"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Омск (OMS): интерактивная карта, аэропорты и рейсы <small>SJ-100 · Red Wings</small></div>
-  <a class="back" href="redwings_panel.html#net">← Вернуться в панель «02 Сеть»</a>
+  <div class="brand"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Омск (OMS): карта и рейсы <small>SJ-100 · Red Wings</small></div>
+  <a class="back" href="redwings_panel.html#net">← Панель<span class="an-pc-only"> «02 Сеть»</span></a>
 </div></header>
 <main class="wrap">
   <section class="card">
     <div class="hd">
       <div><h1>Интерактивная карта, аэропорты и расписание хаба Омск (OMS)</h1><div class="sub" id="an-sub"></div></div>
       <div class="seg" id="an-mode">
-        <button class="on" data-m="radial">Радиальная 5+1 ВС</button>
-        <button data-m="full">Полная 7+1 ВС</button>
-        <button data-m="start">Старт 2+1 ВС</button>
+        <button class="on" data-m="radial"><span class="an-pc-only">Радиальная </span>5+1 ВС</button>
+        <button data-m="full"><span class="an-pc-only">Полная </span>7+1 ВС</button>
+        <button data-m="start"><span class="an-pc-only">Старт </span>2+1 ВС</button>
       </div>
     </div>
     <div id="an-root">{PLAYER_HTML}</div>

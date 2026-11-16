@@ -24,11 +24,13 @@ input,select,textarea{font:inherit;color:inherit}
 a{color:inherit}
 .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .stick{position:sticky;top:0;z-index:30}
-@media(max-width:760px){.stick{position:static}.brand small{display:none}}
+@media(max-width:760px){.stick{position:static}.brand small{display:none}.nav-oms{order:2;margin-left:auto;padding:5px 10px;font-size:12.5px}.nav-oms span{display:none}.search{order:3;min-width:100%;max-width:none}}
 .top{background:var(--ink);color:#F4F5F7}
 .top .wrap{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--code);font-weight:700;font-size:17px;white-space:nowrap}
 .brand small{font-family:var(--f);font-weight:400;color:var(--steel);font-size:13px}
+.nav-oms{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:var(--red);border:1px solid var(--red);color:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.nav-oms:hover{background:var(--red-d);border-color:var(--red-d)}
 .search{flex:1;min-width:180px;max-width:380px;position:relative}
 .search input{width:100%;background:var(--ink-3);border:1px solid var(--ink-line);color:#F4F5F7;border-radius:10px;padding:8px 12px 8px 34px}
 .search input::placeholder{color:var(--steel)}
@@ -215,7 +217,6 @@ svg text{font-family:var(--f)}
 .vtab{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:4px 0 10px;overflow-x:auto}
 .vtab button{border:0;background:none;padding:8px 12px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;font-size:14px}
 .vtab button.on{color:var(--ink);border-bottom-color:var(--red)}
-__ANIM_CSS__
 footer{color:var(--muted);font-size:13px;padding-block:24px 40px;border-top:1px solid var(--line)}
 footer code{font-family:var(--mono);font-size:12px;background:var(--paper-2);padding:1px 6px;border-radius:4px}
 </style>
@@ -226,6 +227,7 @@ footer code{font-family:var(--mono);font-size:12px;background:var(--paper-2);pad
   <div class="brand"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="#E32A2F"/></svg>Сеть и хабы <small>аналитика Red Wings</small></div>
   <div class="search"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" stroke="#8C96A6" stroke-width="2.5" fill="none"/><path d="M15 15l6 6" stroke="#8C96A6" stroke-width="2.5"/></svg>
     <input id="q" placeholder="Город, маршрут, параметр или источник" autocomplete="off"><div class="sres" id="sres"></div></div>
+  <a class="nav-oms" href="oms_flight_animation.html">Карта OMS<span> и конкуренты</span> ↗</a>
 </div></header>
 <nav class="tabs"><div class="wrap" id="tabs">
   <button class="on" data-t="up"><b>01</b>Загрузка данных</button>
@@ -254,13 +256,12 @@ footer code{font-family:var(--mono);font-size:12px;background:var(--paper-2);pad
     <div class="legend" id="dm-legend" style="margin-top:6px"></div>
   </div>
   <div class="grid g55" style="margin-top:16px">
-    <div class="card"><div class="hd"><h2>Сеть на карте</h2><span class="sub r">толщина — пассажиры, цвет — итог луча</span></div>
+    <div class="card"><div class="hd"><h2>Сеть на карте</h2><span class="sub r">толщина — пассажиры, цвет — итог луча</span><a class="btn sm red" href="oms_flight_animation.html" style="text-decoration:none">Карта OMS и рейсы ↗</a></div>
       <svg id="map" viewBox="0 0 600 330" style="width:100%;height:auto;display:block;border-radius:10px"></svg>
       <div class="legend" style="margin-top:8px"><span><i style="background:var(--green)"></i>луч в плюсе</span><span><i style="background:var(--red)"></i>в минусе</span><span>город или строка таблицы открывает карточку луча</span></div></div>
     <div class="card"><div class="hd"><h2>Лучи</h2><div class="seg r" id="r-f"><button class="on" data-f="all">Все</button><button data-f="minus">В минусе</button><button data-f="est">Спрос оценён</button></div><button class="btn sm" id="r-csv">.csv</button></div>
       <div class="tw"><table id="r-t"></table></div></div>
   </div>
-  <div class="card" id="anim-card" style="margin-top:16px"></div>
 </section>
 
 <!-- ================= 03 КАК СЧИТАЕТСЯ ================= -->
@@ -364,7 +365,6 @@ const pairKey = (a, b) => [a, b].sort().join('-');
 function renderPill() { }
 const RENDER = {};
 function go(t) {
-  if (t !== 'net' && typeof stopAnim === 'function') stopAnim();
   S.tab = t; $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
   $$('section.tab').forEach(s => s.classList.toggle('on', s.id === 't-' + t));
   RENDER[t](); window.scrollTo({ top: 0 });
@@ -737,33 +737,7 @@ function renderNet() {
   const s = summary(); if (!s) return;
   $('#net-banner').innerHTML = s.demo ? `<div class="banner"><span class="tag t-demo">пример</span><span>Показан расчёт #${D.demo.run} из примера загрузки. Настоящий итог хаба: ${sg(s.res0)} млн ₽.</span><button class="btn sm" id="nb-back" style="margin-left:auto">Показать настоящий расчёт</button></div>` : '';
   if ($('#nb-back')) $('#nb-back').onclick = () => { S.demoRun = false; S.status = 'none'; renderNet(); };
-  renderTicket(); renderTransfers(); drawMap(); renderRays(); renderAnim();
-}
-let AN_PLAYER = null, AN_MODE = 'radial', AN_SUB = '';
-function stopAnim() { if (AN_PLAYER) AN_PLAYER.stop(); }
-__ANIM_JS__
-function renderAnim() {
-  const card = $('#anim-card');
-  if (!card || !D.anim) return;
-  if (S.hub !== 'OMS') {
-    stopAnim(); AN_PLAYER = null;
-    card.innerHTML = `<div class="hd"><h2>Интерактивная карта и расписание (Омск)</h2><button class="btn sm red r" id="an-to-oms">Переключить хаб на Омск (OMS)</button></div><p class="sub" style="margin:0">Расписание оборотов, стыковки и инспектор аэропортов собраны для базового хаба Омск (OMS). Сейчас открыт ${esc(nm(S.hub))}.</p>`;
-    $('#an-to-oms').onclick = () => { S.hub = 'OMS'; renderNet(); };
-    return;
-  }
-  if (!AN_PLAYER) {
-    card.innerHTML = `<div class="hd"><div><h2>Интерактивная карта, аэропорты и расписание Омска (OMS)</h2><div class="sub" id="an-sub"></div></div><div class="row r"><div class="seg" id="an-mode"><button class="${AN_MODE === 'radial' ? 'on' : ''}" data-m="radial">Радиальная 5+1 ВС</button><button class="${AN_MODE === 'full' ? 'on' : ''}" data-m="full">Полная 7+1 ВС</button><button class="${AN_MODE === 'start' ? 'on' : ''}" data-m="start">Старт 2+1 ВС</button></div><a class="btn sm" href="oms_flight_animation.html" target="_blank" rel="noopener" style="text-decoration:none">Отдельный экран ↗</a></div></div><div id="an-d3-root">__ANIM_HTML__</div>`;
-    AN_PLAYER = mountOmsFlightPlayer(document.getElementById('an-d3-root'), D.anim, {
-      mode: AN_MODE,
-      onSub: txt => { AN_SUB = txt; if ($('#an-sub')) $('#an-sub').textContent = txt; }
-    });
-    $$('#an-mode button').forEach(b => b.onclick = () => {
-      $$('#an-mode button').forEach(x => x.classList.remove('on'));
-      b.classList.add('on');
-      AN_MODE = b.dataset.m;
-      AN_PLAYER.setMode(AN_MODE);
-    });
-  }
+  renderTicket(); renderTransfers(); drawMap(); renderRays();
 }
 function renderTicket() {
   const s = summary(), a = A[S.scn], hi = D.hubinfo[S.hub] || {}, rt = D.rating.find(x => x.iata === S.hub);

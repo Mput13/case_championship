@@ -65,7 +65,7 @@ class FlightAnimationTests(unittest.TestCase):
         self.assertEqual(spokes["KUF"]["comp"]["fare_tr"], 16405)
         self.assertGreaterEqual(len(payload["ramp_conns"]), 10)
 
-    def test_embedded_in_dashboard3_and_standalone(self):
+    def test_prod_panel_clean_and_standalone_page(self):
         import sys
         sys.path.insert(0, str(ROOT / "scripts"))
         import package_dashboard as pd
@@ -76,17 +76,17 @@ class FlightAnimationTests(unittest.TestCase):
         m = re.search(r"\bconst D\s*=\s*", panel_html)
         self.assertIsNotNone(m)
         d, _ = json.JSONDecoder().raw_decode(panel_html[m.end():])
-        self.assertIn("anim", d)
-        self.assertIn("airports", d["anim"])
-        self.assertIn("spokes", d["anim"])
-        self.assertEqual(d["anim"]["modes"]["radial"]["stats"]["total_legs"], 100)
-        self.assertIn("mountOmsFlightPlayer", panel_html)
+        self.assertNotIn("anim", d)
+        self.assertNotIn("anim-card", panel_html)
+        self.assertIn('href="oms_flight_animation.html"', panel_html)
 
         standalone_bytes = (ROOT / "outputs/oms_flight_animation.html").read_bytes()
         pd.validate_html(standalone_bytes)
         standalone = standalone_bytes.decode("utf-8")
         self.assertIn("const ANIM", standalone)
         self.assertIn("mountOmsFlightPlayer", standalone)
+        self.assertIn("an-mob-hide", standalone)
+        self.assertIn("an-fold", standalone)
         self.assertLess(standalone.lower().find('<meta charset="utf-8">'), 1024)
 
 
