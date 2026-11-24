@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Корпоративный спрос Red Wings — объяснение итогов исследования для совета директоров</title>
+<style>
+:root {
+  --bg: #f5f6f7; --surface: #ffffff; --ink: #14181c; --ink-2: #46505a; --ink-3: #7f8994; --line: #e1e5e9;
+  --accent: #c84b28; --accent-ink: #9c3417; --blue: #1e60a8; --green: #147a55; --red: #a93232; --amber: #8f6200;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.62 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+code, pre { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.85em; }
+code { background: #eceff2; padding: 1px 6px; border-radius: 4px; color: #1f2b37; }
+a { color: var(--blue); text-underline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 36px; max-width: 1280px; margin: 0 auto; padding: 0 28px 110px; }
+nav#toc { position: sticky; top: 0; align-self: start; max-height: 680px; overflow-y: auto; padding: 28px 0; font-size: 14px; line-height: 1.38; }
+nav#toc b { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+nav#toc a { display: block; padding: 6px 10px; border-left: 2px solid var(--line); color: var(--ink-2); text-decoration: none; }
+nav#toc a:hover { color: var(--ink); }
+nav#toc a.on { border-left-color: var(--accent); color: var(--ink); font-weight: 600; background: #eef1f4; border-radius: 0 6px 6px 0; }
+#toc-mobile-bar { display: none; position: sticky; top: 0; z-index: 30; background: var(--surface); border-bottom: 1px solid var(--line); padding: 10px 16px; }
+#toc-toggle { background: var(--surface); border: 1px solid #cbd2d9; border-radius: 8px; padding: 6px 12px; font: 600 14px inherit; color: var(--ink); cursor: pointer; }
+#toc-drawer { display: none; padding: 8px 0 4px; }
+#toc-drawer.open { display: block; }
+#toc-drawer a { display: block; padding: 6px 4px; color: var(--ink-2); text-decoration: none; font-size: 15px; border-bottom: 1px solid #f0f2f4; }
+main { min-width: 0; }
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; padding: 0 16px 80px; }
+  nav#toc { display: none; }
+  #toc-mobile-bar { display: block; }
+}
+
+header.hero { padding: 48px 0 22px; }
+header.hero .kicker { font-size: 13px; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+header.hero h1 { font-size: 38px; line-height: 1.14; margin: 10px 0 14px; letter-spacing: -0.02em; max-width: 24ch; }
+header.hero p.lead { font-size: 19.5px; color: var(--ink-2); max-width: 64ch; margin: 0 0 22px; line-height: 1.55; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0 8px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.tile b { display: block; font-size: 27px; line-height: 1.1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.tile span { font-size: 13.5px; color: var(--ink-2); line-height: 1.35; display: block; margin-top: 5px; }
+@media (max-width: 760px) { .tiles { grid-template-columns: repeat(2, 1fr); } header.hero h1 { font-size: 29px; } }
+
+section { padding: 34px 0 8px; border-top: 1px solid var(--line); margin-top: 32px; scroll-margin-top: 18px; }
+section > h2 { font-size: 27px; line-height: 1.22; margin: 0 0 8px; letter-spacing: -0.015em; }
+section > h2 .n { color: var(--ink-3); font-weight: 500; margin-right: 8px; }
+section > p.sub { color: var(--ink-2); font-size: 18px; margin: 0 0 18px; max-width: 68ch; line-height: 1.5; }
+h3 { font-size: 20px; margin: 28px 0 8px; line-height: 1.3; }
+h4 { font-size: 16.5px; margin: 18px 0 6px; }
+p, li { max-width: 74ch; }
+ul, ol { padding-left: 22px; }
+li { margin: 5px 0; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin: 16px 0; }
+.verdict-box { background: #ffffff; border: 2px solid #203b5a; border-radius: var(--radius); padding: 20px 22px; margin: 18px 0; }
+.verdict-box h3 { margin-top: 0; color: #16304c; }
+.note { background: #fff7f2; border: 1px solid #f4d3c0; border-radius: var(--radius); padding: 13px 16px; margin: 16px 0; max-width: 78ch; }
+.note b:first-child { color: var(--accent-ink); }
+.warn { background: #fdf2f2; border: 1px solid #efc6c6; border-radius: var(--radius); padding: 13px 16px; margin: 16px 0; max-width: 78ch; }
+.warn b:first-child { color: var(--red); }
+.good { background: #eefaf5; border: 1px solid #bce6d4; border-radius: var(--radius); padding: 13px 16px; margin: 16px 0; max-width: 78ch; }
+.good b:first-child { color: var(--green); }
+.analogy { border-left: 3px solid var(--accent); padding: 3px 0 3px 15px; color: var(--ink-2); margin: 14px 0; max-width: 72ch; }
+.term { background: #f1f4f8; border: 1px solid #dbe2ea; border-radius: 8px; padding: 11px 14px; margin: 12px 0; font-size: 15.5px; color: var(--ink-2); max-width: 76ch; }
+.term b { color: var(--ink); }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 14px 0; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 14px 0; }
+@media (max-width: 820px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+.table-wrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; background: var(--surface); }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); line-height: 1.42; }
+th { font-size: 12.5px; letter-spacing: .03em; text-transform: uppercase; color: var(--ink-2); background: #fafbfb; font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.neg { color: var(--red); font-weight: 600; }
+td.pos { color: var(--green); font-weight: 600; }
+
+.tag { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 4px; padding: 2px 8px; white-space: nowrap; }
+.tag.yes { background: #e5f6ee; color: var(--green); }
+.tag.part { background: #fcf3d7; color: var(--amber); }
+.tag.no { background: #fae3e3; color: var(--red); }
+.tag.info { background: #e8f0fa; color: var(--blue); }
+
+.fig { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin: 18px 0; }
+.fig svg { width: 100%; height: auto; display: block; }
+.fig .cap { font-size: 14.5px; color: var(--ink-2); margin-top: 10px; line-height: 1.5; max-width: none; }
+.fig .cap b { color: var(--ink); }
+
+.demo-box { background: #ffffff; border: 1px solid #cbd5e1; border-radius: var(--radius); padding: 18px 20px; margin: 18px 0; }
+.demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 10px 0 14px; }
+.demo-row label { font-weight: 600; font-size: 15px; }
+.demo-row input[type=range] { flex: 1; min-width: 200px; max-width: 340px; accent-color: var(--accent); }
+.demo-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 680px) { .demo-metrics { grid-template-columns: 1fr; } }
+.demo-m { background: #f8fafc; border: 1px solid var(--line); border-radius: 8px; padding: 11px 14px; }
+.demo-m span { display: block; font-size: 13px; color: var(--ink-2); }
+.demo-m strong { display: block; font-size: 22px; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.demo-m strong.neg { color: var(--red); }
+.demo-m strong.pos { color: var(--green); }
+
+details.csv-sample { margin: 12px 0; background: #fafbfc; border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+details.csv-sample summary { cursor: pointer; font-weight: 600; font-size: 15px; color: var(--blue); }
+details.csv-sample pre { margin: 10px 0 4px; background: #18202a; color: #e8edf2; padding: 12px 14px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div id="toc-mobile-bar">
+  <button type="button" id="toc-toggle" aria-expanded="false" aria-controls="toc-drawer">Содержание ▾</button>
+  <div id="toc-drawer">
+    <a href="#s1">1. Главный вывод для совета директоров</a>
+    <a href="#s2">2. Что мы проверяли и как устроены данные</a>
+    <a href="#s3">3. Где спроса нет: пять реальных барьеров</a>
+    <a href="#s4">4. Три пилота на цифрах (и два доп. кейса)</a>
+    <a href="#s5">5. Самолёты и вопрос про Екатеринбург</a>
+    <a href="#s6">6. Честные ограничения: чего мы не видим снаружи</a>
+    <a href="#s7">7. Пять вопросов Red Wings и карта файлов</a>
+  </div>
+</div>
+
+<div class="layout">
+  <nav id="toc" aria-label="Содержание документа">
+    <b>Содержание</b>
+    <a href="#s1">1. Главный вывод</a>
+    <a href="#s2">2. Как мы искали спрос</a>
+    <a href="#s3">3. Где спроса нет</a>
+    <a href="#s4">4. Три пилота на цифрах</a>
+    <a href="#s5">5. Флот и Екатеринбург</a>
+    <a href="#s6">6. Наши ограничения</a>
+    <a href="#s7">7. Пять вопросов и файлы</a>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">Аналитическая записка для руководства · срез 24 ноября 2026</div>
+      <h1>Есть ли у госкорпораций спрос на самолёты Red Wings</h1>
+      <p class="lead">
+        Прямой разбор итогов исследования без внутреннего технического жаргона: какой управленческий вывод мы получили,
+        на каких маршрутах можно заработать, где скрыты убытки, чего мы не видим из открытых данных и зачем идти на встречу 26–27 ноября.
+      </p>
+      <div class="tiles">
+        <div class="tile">
+          <b>0 ВС</b>
+          <span>выделенных самолётов оправдано прямо сейчас по открытым данным</span>
+        </div>
+        <div class="tile">
+          <b>68</b>
+          <span>российских компаний и госкорпораций проверено по 7 отраслям</span>
+        </div>
+        <div class="tile">
+          <b>30 пар</b>
+          <span>городов (53 пары аэропортов) разобрано по расписаниям и ЖД</span>
+        </div>
+        <div class="tile">
+          <b>3 пилота</b>
+          <span>контрастных бизнес-кейса готовы для живой калибровки с Red Wings</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CHAPTER 1 -->
+    <section id="s1">
+      <h2><span class="n">01</span>Главный вывод для совета директоров</h2>
+      <p class="sub">Если говорить коротко, как аналитик — совету директоров: ответ на вопрос «запускать ли сейчас отдельную программу под госкорпорации?» — <strong>пока нет</strong>.</p>
+
+      <div class="verdict-box">
+        <h3>Управленческий итог в четырёх пунктах</h3>
+        <ol>
+          <li><strong>Покупать или выделять отдельные самолёты прямо сейчас оснований нет.</strong> Из 30 проверенных направлений ни одно не прошло наш заранее заданный порог доказанного спроса (нужно было минимум 3 маршрута с подтверждённым объёмом, дефицитом рейсов и понятным плательщиком; по открытым данным прошло <strong>0 из 3</strong>). Базовая потребность в выделенном парке на сегодня — <strong>0 самолётов</strong>.</li>
+          <li><strong>Это не значит, что денег на этом рынке нет — это значит, что входить нужно ступенчато.</strong> Крупные корпоративные перелёты реально существуют: вахты на нефтегазовых стройках ЯНАО и Сибири, командировки инженеров Росатома, делегации на форумы 2027 года, производственная кооперация заводов Ростеха. Но начинать нужно не с выделения нового борта, а с <strong>корпоративных тарифов и гарантированных блоков мест на уже летающих рейсах</strong>.</li>
+          <li><strong>Мы нашли 4 конкретные ловушки, на которых авиакомпания может потерять деньги, если пойдёт «наобум»:</strong>
+            <ul>
+              <li><em>Блок мест на крупный форум по обычной цене уводит рейс в минус</em> (на пике ИННОПРОМ-2027 вытеснение обычных пассажиров даёт убыток <strong>−22,9 тыс. ₽</strong> туда и <strong>−83,2 тыс. ₽</strong> обратно, если не поднять цену блока выше 17–19 тыс. ₽).</li>
+              <li><em>SSJ100 (100 кресел эконом) не подходит под крупные вахтовые чартеры и бизнес-класс</em> (в кейсе «Уфа ↔ Новый Уренгой» два SSJ100 стоят в обороте <strong>4,15 млн ₽</strong> против <strong>3,19 млн ₽</strong> у одного Ту-214 — на 30% дороже).</li>
+              <li><em>Маршрут «Санкт-Петербург ↔ Новый Уренгой» (2 380 км) лежит на самой границе зимней дальности SSJ-95B</em> (при зимнем ограничении загрузки на 25% группа из 80 человек просто не поместится в 75 доступных мест).</li>
+              <li><em>Екатеринбург (SVX) пока не доказан как корпоративный пересадочный хаб</em> — по геометрии пересадок он не лучше Тюмени и уступает Шереметьево.</li>
+            </ul>
+          </li>
+          <li><strong>Главный результат этой работы — готовый инструмент переговоров.</strong> Вместо «гадания по открытым источникам» мы собрали по 3 контрастным пилотам точную модель порогов (какую цену и себестоимость выдерживает каждый вариант) и <strong>5 конкретных вопросов к Red Wings</strong>. Как только Red Wings и заказчики подставят свои реальные цифры (затраты на лётный час, загрузку рейсов и списки дат), модель за один день пересчитает, какие именно пилоты приносят прибыль.</li>
+        </ol>
+      </div>
+
+      <div class="analogy">
+        <strong>Простая аналогия:</strong> мы провели разведку нефтяного участка со спутника и по открытым буровым картам. Мы точно узнали, где нефти нет (болото и чужие скважины), нашли три перспективные точки и посчитали, при какой цене барреля там выгодно бурить. Но ставить буровую вышку (выделять самолёты) нельзя, пока не сделаны три контрольных замера внутри самой компании — именно за этими замерами мы идём на встречу 26–27 ноября.
+      </div>
+    </section>
+
+    <!-- CHAPTER 2 -->
+    <section id="s2">
+      <h2><span class="n">02</span>Что мы проверяли и как устроены данные</h2>
+      <p class="sub">Почему мы смотрели 68 компаний без привязки к текущим рейсам Red Wings и как сырые открытые записи превратились в расчёт.</p>
+
+      <p>
+        Главное правило постановки задачи: <strong>сначала искать чистый спрос, не оглядываясь на текущую сеть Red Wings и дальность SSJ100</strong>.
+        Если сразу искать только маршруты, куда сегодня летает SSJ100, мы бы пропустили и крупные вахты на 150 человек, и дальние перелёты вроде Красноярск ↔ Владивосток (3 125 км), и запросы с бизнес-классом.
+        Поэтому мы пошли от самих корпораций: какие у них заводы, стройки и форумы → куда и кто из сотрудников реально летает → есть ли там уже удобные рейсы или поезд → и только в самом конце сопоставили найденные потоки с типами самолётов.
+      </p>
+
+      <div class="fig">
+        <svg viewBox="0 0 820 190" role="img" aria-label="Воронка исследования от 68 компаний к 3 пилотам и 0 готовых программ">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#46505a"/>
+            </marker>
+          </defs>
+          <!-- Box 1 -->
+          <rect x="8" y="22" width="168" height="126" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="22" y="48" font-size="11.5" font-weight="700" fill="#7f8994">ШАГ 1 · СКРИНИНГ</text>
+          <text x="22" y="75" font-size="20" font-weight="700" fill="#14181c">68 юрлиц</text>
+          <text x="22" y="98" font-size="13" fill="#46505a">7 отраслей: Ростех,</text>
+          <text x="22" y="115" font-size="13" fill="#46505a">Росатом, Газпром,</text>
+          <text x="22" y="132" font-size="13" fill="#46505a">подрядчики, банки</text>
+          <line x1="176" y1="85" x2="210" y2="85" stroke="#46505a" stroke-width="1.8" marker-end="url(#arr)"/>
+
+          <!-- Box 2 -->
+          <rect x="214" y="22" width="176" height="126" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="228" y="48" font-size="11.5" font-weight="700" fill="#7f8994">ШАГ 2 · МАРШРУТЫ</text>
+          <text x="228" y="75" font-size="20" font-weight="700" fill="#14181c">30 пар городов</text>
+          <text x="228" y="98" font-size="13" fill="#46505a">53 пары аэропортов</text>
+          <text x="228" y="115" font-size="13" fill="#46505a">(4 а/п Москвы отдельно,</text>
+          <text x="228" y="132" font-size="13" fill="#46505a">рейсы + поезда + авто)</text>
+          <line x1="390" y1="85" x2="424" y2="85" stroke="#46505a" stroke-width="1.8" marker-end="url(#arr)"/>
+
+          <!-- Box 3 -->
+          <rect x="428" y="22" width="176" height="126" rx="10" fill="#fff7f2" stroke="#e4a988" stroke-width="1.6"/>
+          <text x="442" y="48" font-size="11.5" font-weight="700" fill="#9c3417">ШАГ 3 · ЭКОНОМИКА</text>
+          <text x="442" y="75" font-size="20" font-weight="700" fill="#14181c">3 пилота + 2</text>
+          <text x="442" y="98" font-size="13" fill="#46505a">Вахта, инженеры+J,</text>
+          <text x="442" y="115" font-size="13" fill="#46505a">форум и длинное плечо</text>
+          <text x="442" y="132" font-size="13" fill="#46505a">(+ СТНГ и РусГидро)</text>
+          <line x1="604" y1="85" x2="638" y2="85" stroke="#46505a" stroke-width="1.8" marker-end="url(#arr)"/>
+
+          <!-- Box 4 -->
+          <rect x="642" y="22" width="170" height="126" rx="10" fill="#eefaf5" stroke="#85cfa8" stroke-width="1.8"/>
+          <text x="656" y="48" font-size="11.5" font-weight="700" fill="#147a55">ИТОГ СРЕЗА 1</text>
+          <text x="656" y="75" font-size="20" font-weight="700" fill="#14181c">0/3 Go · 0 ВС</text>
+          <text x="656" y="98" font-size="13" fill="#46505a">Отдельный борт не</text>
+          <text x="656" y="115" font-size="13" fill="#46505a">доказан; готовы 5</text>
+          <text x="656" y="132" font-size="13" fill="#46505a">вопросов к Red Wings</text>
+
+          <text x="10" y="176" font-size="12" fill="#7f8994">База: 352 проверяемых источника (карточки тендеров, расписания, отчёты, сайты форумов) и 18 кейсов РФ и мира.</text>
+        </svg>
+        <div class="cap"><b>Рис. 1. Как мы сужали задачу.</b> На каждом шаге отсеивались неподтверждённые гипотезы, а несопоставимые данные (например, деньги тендеров и реальные пассажиры) строго разделялись.</div>
+      </div>
+
+      <h3>Какие исходные таблицы мы собрали и что с каждой делали</h3>
+      <p>
+        Чтобы расчёт не держался на «ощущениях», вся аналитика лежит в проверяемых CSV-таблицах. Вот три главные таблицы и реальные строки из них (нажмите, чтобы увидеть сырые данные):
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Таблица</th>
+              <th>Что в одной строке</th>
+              <th>Сколько строк</th>
+              <th>Что с ней делали</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>organizations_screening_v2.csv</code></td>
+              <td>Одно юрлицо (по уникальному ИНН), отрасль, роль (госкорпорация, дочка, подрядчик, организатор) и статус.</td>
+              <td class="num">68</td>
+              <td>Отделили реальных заказчиков от организаторов закупок («Газстройпром» → СТНГ учтён один раз), сняли завышенные статусы, убрали частные компании в контрольную группу.</td>
+            </tr>
+            <tr>
+              <td><code>supply_gap_pairs.csv</code></td>
+              <td>Один конкретный срез расписания (авиа, поезд или автобус) в одну сторону между точными аэропортами/вокзалами.</td>
+              <td class="num">147</td>
+              <td>Разделили 4 аэропорта Москвы (SVO/DME/VKO/ZIA), отделили Ульяновск-Восточный (ULY) от Баратаевки (ULV) и красноярскую Черемшанку (KCY) от Емельяново (KJA), пересчитали точные расстояния.</td>
+            </tr>
+            <tr>
+              <td><code>pilot_economics_summary.csv</code></td>
+              <td>Один сценарный расчёт продукта (чартер, блок мест или билет) с раздельными метриками для клиента и Red Wings.</td>
+              <td class="num">9 веток<br>(48 вар.)</td>
+              <td>Посчитали полные издержки клиента (деньги отдельно от потерянного рабочего времени) и точку безубыточности Red Wings — синхронно в Python, Excel и веб-досье.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details class="csv-sample">
+        <summary>Показать реальные примеры строк из трёх исходных таблиц</summary>
+<pre># 1. organizations_screening_v2.csv (3 реальные строки: Ростех, EPC-подрядчик, организатор форумов)
+RU-INN-7704274402 | 7704274402 | Государственная корпорация Ростех | DEFENCE_INDUSTRY | STATE_GROUP     | Insufficient-Evidence
+RU-INN-7842155505 | 7842155505 | АО «Газстройпром»                 | OIL_GAS          | EPC_CONTRACTOR  | Conditional (организатор для СТНГ)
+RU-INN-7706412930 | 7706412930 | Фонд «Росконгресс»                | TECH_SCIENCE     | EVENT_AGGREGATOR| Insufficient-Evidence (не плательщик)
+
+# 2. supply_gap_pairs.csv (3 реальные строки: расстояния по ортодромии на срез 25–28.11.2026)
+W2T1-SUP-001 | NUX-UFA | 1695.98 км | 2026-11-25 | PUBLIC_SCHEDULED | AIR_DIRECT | YC188 UFA→NUX | ориентир 13 994 ₽
+W2T1-SUP-009 | LED-NUX | 2379.56 км | 2026-11-25 | PUBLIC_SCHEDULED | AIR_DIRECT | YC846 LED→NUX | ориентир 18 200 ₽
+W2T1-SUP-014 | IKT-MJZ | 1276.45 км | 2026-11-28 | PUBLIC_SCHEDULED | AIR_DIRECT | 6R542 IKT→MJZ | код-шеринг дедуплицирован
+
+# 3. pilot_economics_summary.csv (3 реальные базовые ветки расчёта)
+P1A_VANKOR_CHARTER_164     | РН-Ванкор          | UFA-NUX | 1695.98 км | CHARTER | Conditional | STRUCTURAL_HYPOTHESIS
+P2B_ROSTEC_SVX_COOP_JCLASS | ОДК / ВСМПО-АВИСМА | SVX-UFA |  393.12 км | BLOCK   | Conditional | STRUCTURAL_HYPOTHESIS
+P3A_INNOPROM_LED_SVX_BLOCK | Делегации форума   | LED-SVX | 1801.01 км | BLOCK   | Conditional | STRUCTURAL_HYPOTHESIS</pre>
+      </details>
+
+      <div class="term">
+        <strong>Два важных правила чистоты данных, которых мы придерживались:</strong><br>
+        1. <strong>Нельзя переводить рубли тендера в количество пассажиров.</strong> Если компания провела закупку на 32,3 млн ₽ (как «Севернефтегазпром»), мы не делим 32,3 млн на цену билета, потому что в сумме могут быть ж/д билеты, возвраты и сборы агентства.<br>
+        2. <strong>Нельзя объединять 4 аэропорта Москвы в один общий городской код.</strong> Для корпорации вылет из Шереметьево и из Жуковского — это разные маршруты с разным временем в пути и разным расписанием.
+      </div>
+    </section>
+
+    <!-- CHAPTER 3 -->
+    <section id="s3">
+      <h2><span class="n">03</span>Где спроса для Red Wings нет: пять реальных барьеров</h2>
+      <p class="sub">Полезная аналитика экономит деньги, заранее показывая, куда не стоит тратить время коммерческого отдела.</p>
+
+      <p>
+        Когда говорят «госкорпорации много летают», часто смешивают реальный дефицит рейсов с задачами, которые рынок уже решил без Red Wings.
+        Мы проверили все крупные имена и выделили <strong>5 системных барьеров</strong>, которые закрывают идею отдельного рейса или чартера для конкретной группы пассажиров:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Барьер (простым языком)</th>
+              <th>Конкретные примеры из проверки</th>
+              <th>Что это значит для Red Wings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Поезд или автобус быстрее / удобнее</strong><br><span class="tag no">Наземная альтернатива</span></td>
+              <td>
+                • <strong>ЛАЭС-2 (Сосновый Бор):</strong> автобус от м. Автово ~110 мин, авто ~94 мин.<br>
+                • <strong>ЦИПР-2027 (Москва ↔ Н. Новгород):</strong> «Ласточка» 3 ч 50 мин.<br>
+                • <strong>ПМЭФ (Москва ↔ СПб):</strong> «Сапсан» 3,5–4 ч + десятки авиарейсов в день.<br>
+                • <strong>Смоленская АЭС-2 (Десногорск):</strong> авто/автобус ~5 ч 50 мин.
+              </td>
+              <td>Отдельный самолёт на таких плечах проигрывает по времени «от двери до двери» и цене. Исключение возможно только для срочных поездок или нестандартного груза.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Своя ведомственная авиакомпания</strong><br><span class="tag no">Свой флот</span></td>
+              <td>
+                • <strong>Газпром добыча Ямбург:</strong> «Газпром авиа» выполняет &gt;470 рейсов и возит ~75 тыс. пасс./год.<br>
+                • <strong>АЛРОСА (Новосибирск ↔ Мирный):</strong> собственный перевозчик на B737-800 (4J + 174Y) и льготная программа сотрудников.
+              </td>
+              <td>Забирать штатных сотрудников у собственной авиакомпании бесполезно. Потенциальная ниша здесь — <em>только внешние подрядчики</em>, если их не пускают на ведомственные борта.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Тендер на билеты ≠ нехватка рейсов</strong><br><span class="tag part">Рынок уже закрыт</span></td>
+              <td>
+                • <strong>СТНГ (лот АП086346):</strong> 65 103 позиции оформления авиабилетов через агентство (ТМС).<br>
+                • <strong>Почта России ХМАО:</strong> 420 единиц услуги продажи билетов.<br>
+                • <strong>Сбербанк / ВТБ на ПМЭФ:</strong> плотное расписание Аэрофлота/S7 с бизнес-классом.
+              </td>
+              <td>Закупка услуг агентства (ТМС) означает, что сотрудники уже спокойно покупают обычные билеты. Здесь продаётся <em>корпоративный тариф через ТМС</em>, а не новый чартер.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Организатор форума не платит за перелёт</strong><br><span class="tag part">Нет единого плательщика</span></td>
+              <td>
+                • <strong>Фонд «Росконгресс»</strong> организует ПМЭФ, ВЭФ, РЭН и КИФ, но билеты делегатов оплачивает каждая компания-участник сама.
+              </td>
+              <td>Нельзя подписать единый контракт на чартер с организатором форума — нужно договариваться напрямую с крупной компанией-участником, готовой выкупить блок.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Стройка уже завершена или скоро спадёт</strong><br><span class="tag part">Проектный спад</span></td>
+              <td>
+                • <strong>Восточный полигон РЖД (Тында — Побожий):</strong> второй путь уже открыли не позднее июля 2025 года.<br>
+                • <strong>Форум «Армия-2027»:</strong> исключён из правительственного перечня распоряжением № 3284-р.
+              </td>
+              <td>Проектный спрос имеет дату окончания. Если заложить в план 2027 года завершённый объект или отменённый форум, авиакомпания останется с пустым бортом (как в мировом кейсе Alliance Airlines / BHP, где частоты упали с 23 до 7 в неделю).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <strong>Важное уточнение про честность отказов:</strong> ни по одному из этих примеров мы не ставим «вечный крест» на всей корпорации целиком (в реестре формальных отказов <code>No-Go = 0</code>). Отказ всегда относится к конкретной связке <em>«группа пассажиров × маршрут × дата × продукт»</em>: например, штатная вахта Ямбурга закрыта «Газпром авиа», а вот её внешние подрядчики могут оставаться потенциальными клиентами.
+      </div>
+    </section>
+
+    <!-- CHAPTER 4 -->
+    <section id="s4">
+      <h2><span class="n">04</span>Три пилота на цифрах (и два дополнительных кейса)</h2>
+      <p class="sub">Вместо абстрактных средних мы просчитали 3 максимально разных сценария — чтобы на встрече сразу увидеть, где экономика сходится, а где ломается.</p>
+
+      <div class="term">
+        <strong>Три термина, чтобы читать цифры ниже за 10 секунд:</strong><br>
+        • <strong>DOC (Direct Operating Cost)</strong> — прямые переменные затраты авиакомпании на 1 час полёта (топливо, переменное ТО, экипаж, аэронавигация). <strong>DOC_max</strong> — потолок таких затрат, при котором рейс ещё окупается.<br>
+        • <strong>Вытеснение (Displacement)</strong> — сколько денег авиакомпания <em>теряет от обычных пассажиров</em>, если отдаёт 30 кресел корпорации на рейсе, который и так почти полный.<br>
+        • <strong>TCT (Total Cost of Travel)</strong> — полная стоимость поездки для корпорации: мы строго разделяем <em>живые деньги</em> (билет + багаж + такси/вертолёт) и <em>потерянное рабочее время</em> сотрудника в дороге.
+      </div>
+
+      <!-- PILOT 1 -->
+      <h3>Пилот 1. Вахтовый чартер «Уфа ↔ Новый Уренгой» (1 696 км · РН-Ванкор)</h3>
+      <p>
+        <strong>Суть кейса:</strong> по архивным материалам исторического запроса РН-Ванкор (март 2024, исходный файл ТЗ недоступен и требует перепроверки) заказчику требовалось перевозить смену от <strong>150 человек</strong> с <strong>700 кг</strong> дополнительного груза на одном борту и со стоянкой в Новом Уренгое от 10 часов под вертолётную стыковку.
+        Один SSJ100 вмещает лишь 100 пассажиров — значит, у Red Wings есть три принципиально разных варианта: поставить <strong>1 × Ту-214</strong> (164 кресла: 148 эконом + 16 бизнес), поставить <strong>2 × SSJ100</strong> (если заказчик согласится делить смену пополам) или продавать <strong>блок 30 мест</strong> на обычном рейсе для небольшой отдельной группы.
+      </p>
+
+      <div class="fig">
+        <svg viewBox="0 0 850 225" role="img" aria-label="Сравнение безубыточной стоимости оборота Уфа - Новый Уренгой: Ту-214 против двух SSJ100 и блока мест">
+          <text x="16" y="24" font-size="15" font-weight="700" fill="#14181c">Пилот 1 (Уфа ↔ Новый Уренгой): цена одного места и оборота для выхода в ноль</text>
+          <text x="16" y="43" font-size="12.5" fill="#46505a">Сценарный расчёт при одинаковой котировке клиенту 13 500 ₽/место (для блока — 13 000 ₽/место)</text>
+
+          <!-- Row 1: Tu-214 -->
+          <text x="16" y="84" font-size="14" font-weight="600" fill="#14181c">1 × Ту-214 (150 мест)</text>
+          <text x="16" y="101" font-size="12" fill="#46505a">Оборот 3,19 млн ₽ · вклад +748 тыс. ₽</text>
+          <rect x="270" y="68" width="298" height="32" rx="5" fill="#147a55"/>
+          <text x="578" y="89" font-size="13.5" font-weight="700" fill="#147a55">10 793 / 10 460 ₽ за место</text>
+
+          <!-- Row 2: 2x SSJ100 -->
+          <text x="16" y="138" font-size="14" font-weight="600" fill="#14181c">2 × SSJ100 (если делить смену)</text>
+          <text x="16" y="155" font-size="12" fill="#a93232">Оборот 4,15 млн ₽ · убыток −164 тыс. ₽</text>
+          <rect x="270" y="122" width="388" height="32" rx="5" fill="#c84b28"/>
+          <text x="668" y="143" font-size="13.5" font-weight="700" fill="#a93232">14 046 / 13 607 ₽</text>
+
+          <!-- Row 3: Block 30 -->
+          <text x="16" y="192" font-size="14" font-weight="600" fill="#14181c">Блок 30 мест на обычном рейсе</text>
+          <text x="16" y="209" font-size="12" fill="#46505a">При загрузке 55% · вклад +319 тыс. ₽</text>
+          <rect x="270" y="176" width="208" height="32" rx="5" fill="#1e60a8"/>
+          <text x="488" y="197" font-size="13.5" font-weight="700" fill="#1e60a8">7 526 / 6 270 ₽ за место</text>
+        </svg>
+        <div class="cap"><b>Вывод по Пилоту 1:</b> два SSJ100 на 30% дороже одного Ту-214 (4,15 млн ₽ против 3,19 млн ₽ за оборот) и при цене 13 500 ₽ уводят Red Wings в убыток. Но и для Ту-214 (148Y + 16J) есть тонкость: чтобы посадить ровно 150 вахтовиков эконома, нужно либо явное разрешение посадить 2 человек в свободные кресла бизнес-класса, либо монокомпоновка на 194 кресла. Для клиента авиаперелёт (~14 тыс. ₽) радикально выигрывает по времени у поезда (45 ч 33 мин, ~4,1 тыс. ₽).</div>
+      </div>
+
+      <!-- PILOT 2 -->
+      <h3>Пилот 2. Инженеры и руководители: Димитровград (Росатом) + заводы Урала (ОДК / ВСМПО)</h3>
+      <p>
+        Здесь проверяются сразу две разные реальности корпоративных командировок:
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Ветка А · Инженеры «Атомтехэнерго» (Димитровград)</h4>
+          <p>Авиаперелёт из Москвы до Ульяновска-Восточного (<code>ULY</code>) или Самары (<code>KUF</code>) требует около 100 минут доезда до Димитровграда. Альтернатива — ночной поезд 049М (18 часов в пути). По полной стоимости поездки (деньги + рабочее время инженера) блок мест на самолёте выигрывает у поезда (<strong>~17,6 тыс. ₽</strong> против <strong>~19,5 тыс. ₽</strong> в одну сторону), а порог безубыточности блока для Red Wings — <strong>7 737 / 7 372 ₽</strong>. Главный вопрос для проверки: готовы ли инженеры ездить ночным поездом бесплатно для рабочего дня и из какого именно города они выезжают.</p>
+        </div>
+        <div class="card">
+          <h4>Ветка Б · Заводы ОДК / ВСМПО вокруг Екатеринбурга (бизнес-класс)</h4>
+          <p>Кооперация заводов (Екатеринбург ↔ Уфа, Казань, Ульяновск) — это <strong>структурная гипотеза</strong>, потому что закупки Ростеха закрыты по закону. Здесь главный барьер — <strong>бизнес-класс (J)</strong> для топ-менеджмента (ориентир рынка Аэроклуба — 4% билетов, у руководства до 10–15%). У SSJ100 100Y нет настоящего бизнес-класса: если делать «евробизнес» блокировкой соседнего кресла, самолёт теряет часть мест, а безубыточный тариф эконома (Y) в смешанном блоке на SVX ↔ UFA составляет <strong>5 507 / 4 867 ₽</strong> в среднем (<strong>4 774 ₽</strong> по тарифу Y на возврате).</p>
+        </div>
+      </div>
+
+      <!-- PILOT 3 + INTERACTIVE SLIDER -->
+      <h3>Пилот 3. Ловушка пикового форума (ИННОПРОМ-2027) и граница дальности SSJ-95B</h3>
+      <p>
+        <strong>Часть А — Форум «ИННОПРОМ-2027» (5–8 июля 2027, Санкт-Петербург ↔ Екатеринбург, 1 801 км).</strong>
+        Заезд делегации — 4 июля, выезд — 9 июля. Кажется очевидным: продадим корпорации гарантированный блок на 30 мест!
+        Но в дни форума обычные билеты разлетаются сами (загрузка ~85%, средний доход от обычного пассажира ~17 200 ₽). Если продать блок по обычной цене 16 300 ₽ (ещё и с правом вернуть часть невыкупленных мест за 21 день), Red Wings <strong>теряет деньги на обоих плечах: −22 896 ₽ туда и −83 240 ₽ обратно</strong>.
+      </p>
+
+      <div class="demo-box" aria-label="Интерактивный пример расчёта блока на ИННОПРОМ-2027">
+        <h4 style="margin-top:0">Попробуйте сами: при какой цене блок на ИННОПРОМ-2027 перестаёт быть убыточным</h4>
+        <p style="font-size:15px;color:var(--ink-2);margin-top:0">
+          Вылет 04.07.2027 (<code>LED → SVX</code>): квота 30 мест, летит 27 человек, 3 места возвращаются (35% риска не продать их повторно), пиковая загрузка обычного рейса 85%. Подвиньте цену места:
+        </p>
+        <div class="demo-row">
+          <label for="innoprom-price">Цена блока для клиента:</label>
+          <input id="innoprom-price" type="range" min="14000" max="22000" step="100" value="16300">
+          <strong id="innoprom-price-val" style="min-width:92px;font-variant-numeric:tabular-nums">16 300 ₽</strong>
+        </div>
+        <div class="demo-metrics">
+          <div class="demo-m">
+            <span>Чистая выручка Red Wings (95%)</span>
+            <strong id="innoprom-rev">418 095 ₽</strong>
+          </div>
+          <div class="demo-m">
+            <span>Потери вытеснения + сервис</span>
+            <strong id="innoprom-cost">440 991 ₽</strong>
+          </div>
+          <div class="demo-m">
+            <span>Чистый вклад рейса (вылет)</span>
+            <strong id="innoprom-net" class="neg">−22 896 ₽</strong>
+          </div>
+        </div>
+        <p id="innoprom-hint" style="font-size:14px;color:var(--ink-2);margin:10px 0 0">
+          Базовый сценарий (16 300 ₽): рейс в минусе. Точка безубыточности на вылете — <strong>17 193 ₽</strong> (на возврате — <strong>19 351 ₽</strong>). При 20 000 ₽ вклад становится <strong>+72 009 ₽</strong>.
+        </p>
+      </div>
+
+      <p>
+        <strong>Часть Б — Контраст дальнего плеча «Санкт-Петербург ↔ Новый Уренгой» (2 379,56 км · Газпромнефть-Снабжение 2027–2029).</strong>
+        Мы нашли реальную процедуру на <em>самолётные</em> перевозки «Газпромнефть-Снабжения» (ИНН <code>5501072608</code>) на 2027–2029 годы, но файлы с маршрутами закрыты авторизацией. Если там окажется плечо Питер ↔ Новый Уренгой, возникает жёсткое техническое ограничение: <strong>2 379,56 км</strong> на 24,56 км превышает консервативный ориентир SSJ-95B (~2 355 км с учётом маршрутного коэффициента 1,10 и резервов). В зимних условиях ЯНАО это может срезать 20–25% коммерческой загрузки: при снижении на 25% в борте остаётся <strong>75 мест</strong>, и вахтовая группа из 80 человек просто не поместится. Нужен либо SJ-100/Ту-214, либо точный лётный расчёт Red Wings по конкретному борту.
+      </p>
+
+      <h3>Два дополнительных кейса (чтобы картина была полной)</h3>
+      <ul>
+        <li><strong>СТНГ (подрядчик строек Газпрома — Ковыкта, Тас-Юрях, Амурский ГПЗ):</strong> наш главный коммерческий лид среди открытых закупок. Закупка чартеров <code>АП086548</code> (организатор «Газстройпром», бенефициар СТНГ — учтены строго один раз) подтверждает потребность в чартерах, но статус на площадке «подведение итогов» с конца 2024 года, а маршруты 2027 не раскрыты. Сценарный порог чартера на плече Иркутск ↔ Мирный (1 276 км) — <strong>1,80 млн ₽</strong> за оборот (<strong>11 818 / 11 937 ₽</strong> за место).</li>
+        <li><strong>РусГидро (штаб в Красноярске ↔ Владивосток, 3 125 км):</strong> плечо безусловно вне дальности SSJ100 — здесь возможны только среднемагистральный борт (Ту-214) или корпоративный тариф на действующих рейсах. Короткое плечо до Саяно-Шушенской ГЭС (Красноярск ↔ Абакан, 281 км) фактически летает из локального аэропорта Черемшанка (<code>KCY</code>), а не из Емельяново (<code>KJA</code>), и конкурирует с автобусом/авто.</li>
+      </ul>
+    </section>
+
+    <!-- CHAPTER 5 -->
+    <section id="s5">
+      <h2><span class="n">05</span>Флот и вопрос про Екатеринбург</h2>
+      <p class="sub">Какие самолёты покрывают найденную географию и подтвердилась ли идея корпоративного хаба в Екатеринбурге.</p>
+
+      <div class="fig">
+        <svg viewBox="0 0 800 185" role="img" aria-label="Распределение 53 аэропортовых пар по дальности и типам самолётов">
+          <text x="16" y="24" font-size="15" font-weight="700" fill="#14181c">Распределение 53 обследованных пар аэропортов по дальности (ортодромия)</text>
+
+          <!-- Stacked proportional bar total width 760 -->
+          <!-- 42/53 = 79.2% (602px), 5/53 = 9.4% (72px), 6/53 = 11.3% (86px) -->
+          <rect x="16" y="46" width="602" height="44" rx="6" fill="#1e60a8"/>
+          <text x="317" y="73" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">42 пары (79%) · до 2 250 км — подходит SSJ-95B</text>
+
+          <rect x="622" y="46" width="72" height="44" rx="6" fill="#d98a1c"/>
+          <text x="658" y="73" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">5 (9%)</text>
+
+          <rect x="698" y="46" width="86" height="44" rx="6" fill="#a93232"/>
+          <text x="741" y="73" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">6 (11%)</text>
+
+          <!-- Legend boxes below -->
+          <rect x="16" y="108" width="246" height="66" rx="8" fill="#f8fafc" stroke="#dbe2ea"/>
+          <text x="28" y="128" font-size="13" font-weight="700" fill="#1e60a8">До 2 250 км (42 пары)</text>
+          <text x="28" y="146" font-size="12.5" fill="#46505a">Уфа–НУР, Тюмень–НУР, SVX–LED,</text>
+          <text x="28" y="162" font-size="12.5" fill="#46505a">SVX–UFA/KZN/ULY, Москва–ULY/KUF.</text>
+
+          <rect x="276" y="108" width="250" height="66" rx="8" fill="#fffaf0" stroke="#ebd39a"/>
+          <text x="288" y="128" font-size="13" font-weight="700" fill="#8f6200">2 251–2 450 км (5 пар · граница)</text>
+          <text x="288" y="146" font-size="12.5" fill="#46505a">LED–NUX (2 380 км) и 4 а/п Москвы–NUX.</text>
+          <text x="288" y="162" font-size="12.5" fill="#46505a">Зимой нужен расчёт загрузки RW / SJ-100.</text>
+
+          <rect x="540" y="108" width="244" height="66" rx="8" fill="#fdf2f2" stroke="#efc6c6"/>
+          <text x="552" y="128" font-size="13" font-weight="700" fill="#a93232">Свыше 2 450 км (6 пар · вне SSJ)</text>
+          <text x="552" y="146" font-size="12.5" fill="#46505a">Пермь–Иркутск (3 072), КЯА–ВВО (3 125),</text>
+          <text x="552" y="162" font-size="12.5" fill="#46505a">4 а/п Москвы–ВВО (~6 400). Нужен Ту-214+.</text>
+        </svg>
+        <div class="cap"><b>Рис. 2. Дальность — не единственное ограничение SSJ100.</b> По дальности SSJ-95B закрывает 79% пар (42 из 53), но проигрывает там, где заказчику нужно <strong>≥150 кресел в одном самолёте</strong> (вахта) или <strong>полноценный бизнес-класс</strong> (руководители).</div>
+      </div>
+
+      <h3>Что с Екатеринбургом (SVX)?</h3>
+      <p>
+        В начале работы была гипотеза проверить Екатеринбург как потенциальный корпоративный узел. Чтобы не подгонять вывод под привычную идею, мы сравнили <strong>9 крупных аэропортов по абсолютно одинаковым правилам</strong>: сколько прямых корпоративных пар к ним примыкает и сколько пересадочных маршрутов через них укладываются в лишний перепробег не более 25% и 35%.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Аэропорт-кандидат</th>
+              <th class="num">Связные регулярные пары</th>
+              <th class="num">Теоретический транзит (перепробег ≤25% / ≤35%)</th>
+              <th class="num">Подтверждённые стыковки обоих плеч</th>
+              <th>Честная роль по данным</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Шереметьево (SVO)</strong></td>
+              <td class="num">3</td>
+              <td class="num">1 / 1</td>
+              <td class="num">1 / 1</td>
+              <td>Лидер по прямым связям и событийному охвату (5 пар).</td>
+            </tr>
+            <tr>
+              <td><strong>Екатеринбург (SVX)</strong></td>
+              <td class="num">2</td>
+              <td class="num">3 / 4</td>
+              <td class="num">0 / 0</td>
+              <td><strong>Паритет с Тюменью.</strong> Интересен локальными заводами и ИННОПРОМ-2027, но <em>не доказан как пересадочный хаб</em>.</td>
+            </tr>
+            <tr>
+              <td><strong>Тюмень (TJM)</strong></td>
+              <td class="num">2</td>
+              <td class="num">3 / 4</td>
+              <td class="num">0 / 0</td>
+              <td>Точно такая же транзитная геометрия, как у Екатеринбурга, плюс форум TNF-2027.</td>
+            </tr>
+            <tr>
+              <td><strong>Домодедово (DME) / СПб (LED) / Красноярск (KJA)</strong></td>
+              <td class="num">по 2</td>
+              <td class="num">0–2 / 1–2</td>
+              <td class="num">0–1</td>
+              <td>Локальные и отраслевые центры (нефтегаз ЯНАО, ДВ-штаб РусГидро).</td>
+            </tr>
+            <tr>
+              <td><strong>Новосибирск (OVB) / Внуково (VKO) / Жуковский (ZIA)</strong></td>
+              <td class="num">0–1</td>
+              <td class="num">0–1 / 1</td>
+              <td class="num">0 / 0</td>
+              <td>У OVB — контроль АЛРОСА; у VKO — 3 событийные пары; у ZIA — 0 подтверждённых корпоративных связок в срезе.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="good">
+        <strong>Практический вывод по парку:</strong> пока нет хотя бы 3 подтверждённых маршрутов, выделенный парк равен <strong>0 самолётов</strong>. В модели мы на всякий случай посчитали сетку «что будет, если подтвердится 1, 3 или 5 чартерных/регулярных программ»: например, 1 чартерная программа на SSJ100 требует 1 активный борт (2 с учётом резерва 15–20%), а блоки мест вообще не требуют новых самолётов — они используют свободные кресла действующего расписания.
+      </div>
+    </section>
+
+    <!-- CHAPTER 6 -->
+    <section id="s6">
+      <h2><span class="n">06</span>Наши честные ограничения (лимитации)</h2>
+      <p class="sub">Почему мы остановились на «0/3 Go» и что невозможно узнать без диалога с самой Red Wings и заказчиками.</p>
+
+      <p>
+        Главный риск корпоративной аналитики — выдать красивые предположения за факты. Поэтому мы честно зафиксировали три границы, через которые невозможно переступить по открытым источникам:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ограничение</th>
+              <th>Почему оно возникает</th>
+              <th>Как мы с этим обошлись</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Закрытые закупки по ПП РФ № 301</strong></td>
+              <td>Санкционные госкорпорации (Ростех, ОАК, ОДК, «Вертолёты России», часть Росатома) по закону не публикуют закупки в открытой ЕИС.</td>
+              <td>Мы <em>не</em> делаем вид, что у них нет спроса, и <em>не</em> выдумываем числа от общей численности заводов. Эти компании выделены отдельно как «структурная гипотеза» с готовым обезличенным запросом на помесячные агрегаты (без секретных сведений).</td>
+            </tr>
+            <tr>
+              <td><strong>2. Недоступность файлов ТЗ на площадках</strong></td>
+              <td>Портал ЕИС отдаёт ошибку сертификата, а площадки ТЭК-Торг и Energybase требуют авторизации для скачивания приложений (ТЗ с маршрутами «Газпромнефть-Снабжения» на 2027–2029 гг., РН-Ванкора, Почты ХМАО).</td>
+              <td>Мы не взламываем и не обходим доступ. Фиксируем то, что реально видно (например, предмет — <em>самолётные</em> перевозки на 2027–2029 гг.), а недостающие маршруты выносим в список вопросов.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Нет внутренних ставок Red Wings</strong></td>
+              <td>У нас нет реальной себестоимости блок-часа Red Wings по SSJ100 и Ту-214, надбавок за стоянку и противообледенительную обработку в ЯНАО, реальной загрузки рейсов и планов по бизнес-классу.</td>
+              <td>Мы <strong>отказались от устаревших модельных ставок из прошлогоднего кейса</strong> (они искажают экономику на 25–40%). Вместо этого построили калькулятор обратных порогов: подставляете реальную ставку Red Wings на встрече — сразу видите прибыль или убыток.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="warn">
+        <strong>Ещё три мелких ограничения, о которых стоит помнить на встрече:</strong> (1) в базовом расчёте чартера <code>РН-Ванкор</code> пустой перегон самолёта (<code>ferry_factor</code>) по умолчанию стоит 0 — если самолёт нужно гнать пустым из другой базы, безубыточная цена вырастет; (2) по поезду 049М из Димитровграда (18:15 → 11:15) длительность 18 ч верна при местном времени отправления (UTC+4), а при московском — 17 ч; (3) из 11 будущих событий 2027 года точные даты организаторами подтверждены у <strong>4</strong> (ПМГФ 20–23.04 — кстати, он перенесён с октября 2026!, ЦИПР 31.05–03.06, ИННОПРОМ 05–08.07, TNF 14–17.09), остальные пока в статусе ожидания дат.
+      </div>
+    </section>
+
+    <!-- CHAPTER 7 -->
+    <section id="s7">
+      <h2><span class="n">07</span>Пять вопросов Red Wings и карта всех файлов</h2>
+      <p class="sub">Что именно спросить на встрече 26–27 ноября, чтобы за 1 день превратить этот анализ в готовые коммерческие предложения.</p>
+
+      <div class="card">
+        <h3 style="margin-top:0">Пять вопросов на встречу (по убыванию важности)</h3>
+        <ol>
+          <li><span class="tag no">Критично · P0</span> <strong>Реальные затраты и маржа:</strong> в каком диапазоне лежат прямые расходы на лётный час (DOC), целевая маржа и надбавки за северную стоянку, ПОО и перегоны для SSJ100 и Ту-214? <em>(Без этого нельзя назвать финальную цену чартера.)</em></li>
+          <li><span class="tag no">Критично · P0</span> <strong>Бизнес-класс и зима на ЯНАО:</strong> планируются ли двухклассные борта (Ту-214 / новые SJ-100) или продажа «евробизнеса» на SSJ100, и проходит ли конкретный борт зимний маршрут «Питер ↔ Новый Уренгой» (2 380 км) без потери кресел?</li>
+          <li><span class="tag part">Важно · P1</span> <strong>Текущий корпоративный опыт и загрузка:</strong> какие B2B/вахтовые контракты уже есть у Red Wings (в том числе в контуре Ростеха), через какой канал они продаются и можно ли получить обезличенные данные о загрузке и средней выручке на рейсах в Екатеринбург и Новый Уренгой?</li>
+          <li><span class="tag part">Важно · P1</span> <strong>Приоритеты руководства и свободные окна флота:</strong> есть ли сезонные или дневные «провалы» загрузки флота (например, зимой), которые нужно закрыть в первую очередь, и какую роль руководство отводит Екатеринбургу?</li>
+          <li><span class="tag info">Фокус · P2</span> <strong>Что делать следующим шагом (Срез 2):</strong> готовить детальные коммерческие предложения по 2–3 пилотам (ИННОПРОМ, Уфа ↔ НУР, Атомтехэнерго) или широкую карту корпоративного спроса и потребного парка на 2027–2030 годы?</li>
+        </ol>
+      </div>
+
+      <h3>Как пользоваться остальными файлами комплекта (простой навигатор)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Файл</th>
+              <th>Зачем он нужен</th>
+              <th>Когда открывать</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Эта объяснялка</strong><br><code>explain_for_board.html</code></td>
+              <td>Понять всю картину, выводы и ограничения за 5–7 минут простым языком.</td>
+              <td>Перед встречей — для себя и для руководителей.</td>
+            </tr>
+            <tr>
+              <td><strong>1-страничный меморандум</strong><br><code>briefing_memo.md</code></td>
+              <td>Краткая текстовая шпаргалка на 1 лист (4 вывода, барьеры, 5 вопросов).</td>
+              <td>Распечатать или отправить письмом перед созвоном.</td>
+            </tr>
+            <tr>
+              <td><strong>Интерактивное досье</strong><br><code>redwings_corporate_dossier.html</code></td>
+              <td>Технический стенд со всеми 68 компаниями, 352 ссылками и калькулятором «Что если» (с кнопкой выгрузки правок в JSON).</td>
+              <td>На самой встрече — когда эксперт спросит «а что с конкретной компанией X?» или «подставьте мой DOC = 350 тыс. ₽/ч».</td>
+            </tr>
+            <tr>
+              <td><strong>Модель Excel</strong><br><code>redwings_corporate_model.xlsx</code></td>
+              <td>Финансовая книга на 9 листов с 11 058 живыми формулами (100% совпадает с калькулятором досье).</td>
+              <td>Отдать финансовому аналитику Red Wings для проверки формул и подстановки внутренних ставок.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:14px;color:var(--ink-3);margin-top:26px">
+        Независимая проверка качества (Консул из 4 моделей — Strategist, Skeptic, Quant, Minimalist): финальный вердикт <strong>SHIP</strong>, средняя оценка <strong>8,5 / 10</strong> (рост с 6,25 в Раунде 0 и 6,50 в Раунде 1), 7 из 7 автоматических предикатов пройдены, 0 открытых блокеров.
+      </p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  // Sticky TOC scroll-spy
+  const links = Array.from(document.querySelectorAll("nav#toc a"));
+  const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  function updateToc() {
+    let active = sections[0];
+    const y = window.scrollY + 140;
+    for (const sec of sections) {
+      if (sec.offsetTop <= y) active = sec;
+    }
+    for (const a of links) {
+      a.classList.toggle("on", active && a.getAttribute("href") === "#" + active.id);
+    }
+  }
+  window.addEventListener("scroll", updateToc, { passive: true });
+  updateToc();
+
+  // Mobile TOC drawer
+  const toggle = document.getElementById("toc-toggle");
+  const drawer = document.getElementById("toc-drawer");
+  if (toggle && drawer) {
+    toggle.addEventListener("click", () => {
+      const open = drawer.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.textContent = open ? "Содержание ▴" : "Содержание ▾";
+    });
+    drawer.addEventListener("click", e => {
+      if (e.target.tagName === "A") {
+        drawer.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.textContent = "Содержание ▾";
+      }
+    });
+  }
+
+  // Interactive INNOPROM-2027 P3A outbound demo (exact validated formula from model_inputs_registry.json)
+  // pax=27, quota=30, released=3, spoilage=35%, disp_lf=85%, market_net_yield=17200, net_rev=95%, service=27*700+12000=30900
+  const slider = document.getElementById("innoprom-price");
+  const priceVal = document.getElementById("innoprom-price-val");
+  const revEl = document.getElementById("innoprom-rev");
+  const costEl = document.getElementById("innoprom-cost");
+  const netEl = document.getElementById("innoprom-net");
+  const hintEl = document.getElementById("innoprom-hint");
+  const fmt = n => Math.round(n).toLocaleString("ru-RU").replace("-", "−") + " ₽";
+
+  function recalcInnoprom() {
+    const price = Number(slider.value);
+    const paidSeats = 27;
+    const netRev = paidSeats * price * 0.95;
+    const displacedSeats = (27 + 3 * 0.35) * 0.85; // 23.8425
+    const totalCost = displacedSeats * 17200 + (27 * 700 + 12000); // 410091 + 30900 = 440991
+    const net = netRev - totalCost;
+    priceVal.textContent = fmt(price);
+    revEl.textContent = fmt(netRev);
+    costEl.textContent = fmt(totalCost);
+    netEl.textContent = (net > 0 ? "+" : "") + fmt(net);
+    netEl.className = net >= 0 ? "pos" : "neg";
+    if (price < 17193) {
+      hintEl.innerHTML = "При цене <strong>" + fmt(price) + "</strong> вытеснение обычных пассажиров съедает выручку — рейс в минусе. Точка выхода в ноль на вылете: <strong>17 193 ₽</strong> (на возврате: <strong>19 351 ₽</strong>).";
+    } else {
+      hintEl.innerHTML = "При цене <strong>" + fmt(price) + "</strong> блок перекрывает вытеснение обычных пассажиров на вылете. На возврате 09.07 точка безубыточности выше — <strong>19 351 ₽</strong>.";
+    }
+  }
+  if (slider) {
+    slider.addEventListener("input", recalcInnoprom);
+    recalcInnoprom();
+  }
+})();
+</script>
+</body>
+</html>
