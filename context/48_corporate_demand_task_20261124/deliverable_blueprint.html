@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Макет итогового результата для Red Wings</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    color: var(--foreground, #e5e7eb);
+    font-size: 12.5px;
+    line-height: 1.38;
+  }
+  .section { margin-bottom: 16px; }
+  .section:last-child { margin-bottom: 0; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border, #2e3440);
+  }
+  .sec-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+    margin: 0;
+  }
+  .sec-meta {
+    font-size: 10.5px;
+    font-family: var(--font-mono, monospace);
+    color: var(--muted-foreground, #9ca3af);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* 3-tier delivery stack */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .tiers { grid-template-columns: 1fr; }
+  }
+  .tier {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .tier.t1 { border-top: 3px solid var(--chart-1, #3b82f6); }
+  .tier.t2 { border-top: 3px solid var(--chart-2, #10b981); }
+  .tier.t3 { border-top: 3px solid var(--chart-4, #a855f7); }
+  .tier-kicker {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted-foreground, #9ca3af);
+  }
+  .tier h3 {
+    margin: 0;
+    font-size: 12.6px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+  }
+  .tier p {
+    margin: 0;
+    font-size: 11.3px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+  .tier-who {
+    margin-top: auto;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border, #2e3440);
+    font-size: 11px;
+    color: var(--info, #38bdf8);
+  }
+
+  /* Slide storyboard: 3x3 grid */
+  .slides {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .slides { grid-template-columns: 1fr; }
+  }
+  .slide {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .slide-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .s-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--foreground, #f3f4f6);
+    background: var(--secondary, #232834);
+    padding: 1px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .s-cut {
+    font-family: var(--font-mono, monospace);
+    font-size: 9.8px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .cut1 {
+    background: var(--accent-surface, rgba(59,130,246,0.16));
+    color: var(--chart-1, #60a5fa);
+  }
+  .cut2 {
+    background: var(--warning-surface, rgba(245,158,11,0.16));
+    color: var(--warning, #fbbf24);
+  }
+  .slide-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+  }
+  .slide-visual {
+    font-size: 11px;
+    color: var(--muted-foreground, #cbd5e1);
+    background: var(--secondary, #232834);
+    border-radius: 5px;
+    padding: 5px 7px;
+  }
+  .slide-visual b { color: var(--foreground, #e5e7eb); font-weight: 600; }
+  .slide-q {
+    margin-top: auto;
+    font-size: 10.8px;
+    color: var(--muted-foreground, #9ca3af);
+  }
+
+  /* Example Decision Card wireframe */
+  .mock-card {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 14px 16px;
+  }
+  .mock-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border, #2e3440);
+  }
+  .mock-route {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--foreground, #f3f4f6);
+  }
+  .pills {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .p-fact { background: rgba(34,197,94,0.16); color: var(--success, #4ade80); }
+  .p-model { background: rgba(59,130,246,0.16); color: var(--chart-1, #60a5fa); }
+  .p-rw { background: rgba(245,158,11,0.16); color: var(--warning, #fbbf24); }
+  .mock-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .mock-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .m-cell {
+    background: var(--secondary, #232834);
+    border-radius: 6px;
+    padding: 8px 9px;
+  }
+  .m-lbl {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted-foreground, #9ca3af);
+    margin-bottom: 3px;
+  }
+  .m-val {
+    font-size: 11.4px;
+    color: var(--foreground, #e5e7eb);
+    font-weight: 500;
+  }
+  .m-sub {
+    font-size: 10.5px;
+    color: var(--muted-foreground, #9ca3af);
+    margin-top: 2px;
+  }
+  .mock-foot {
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border, #2e3440);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 11.2px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+  .mock-foot b { color: var(--foreground, #f3f4f6); }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">1. Три уровня итогового пакета</h2>
+    <span class="sec-meta">презентация · рабочий разбор · проверяемые данные</span>
+  </div>
+
+  <div class="tiers">
+    <div class="tier t1">
+      <span class="tier-kicker">УРОВЕНЬ 1 · ДЛЯ ВСТРЕЧИ (10–15 МИН)</span>
+      <h3>Управляющая презентация (9–11 слайдов)</h3>
+      <p>Короткий ответ: где у госкорпораций есть подтверждённый спрос, кого отсеяли и почему, какие маршруты, самолёты и форматы контракта сходятся по деньгам.</p>
+      <div class="tier-who">Формат: слайды (PPTX / PDF / HTML)</div>
+    </div>
+
+    <div class="tier t2">
+      <span class="tier-kicker">УРОВЕНЬ 2 · ДЛЯ ВОПРОСОВ И СПОРОВ</span>
+      <h3>Непрерывный HTML-отчёт с фильтрами</h3>
+      <p>Интерактивная карта пар и центров притяжения, таблица всех 50–60+ компаний (Go/Conditional/No-Go), переключатель сценариев Min/Base/Max и калькулятор порога безубыточности.</p>
+      <div class="tier-who">Формат: автономный HTML-документ (как DID)</div>
+    </div>
+
+    <div class="tier t3">
+      <span class="tier-kicker">УРОВЕНЬ 3 · ДОКАЗАТЕЛЬНАЯ БАЗА</span>
+      <h3>Реестры CSV и журнал источников</h3>
+      <p>Каждое число промаркировано (<code>FACT</code> / <code>MODEL</code> / <code>NEEDS-RW-DATA</code>), привязано к URL отчёта, ТЗ 223-ФЗ, расписания или прейскуранта — без «чёрного ящика».</p>
+      <div class="tier-who">Формат: CSV + MD + скрипты пересчёта</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">2. Раскадровка презентации для Red Wings (9 ключевых слайдов)</h2>
+    <span class="sec-meta">Срез 1 (до данных RW) · Срез 2 (с данными RW)</span>
+  </div>
+
+  <div class="slides">
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 1</span>
+        <span class="s-cut cut1">Срез 1 + 2</span>
+      </div>
+      <div class="slide-title">Главный вывод (Executive Summary)</div>
+      <div class="slide-visual"><b>Визуал:</b> 3–4 ключевые цифры + карта топ-кластеров и список быстрых пилотов.</div>
+      <div class="slide-q">Есть ли реальный спрос госкорпораций сверх текущего рынка и где он лежит?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 2</span>
+        <span class="s-cut cut1">Срез 1</span>
+      </div>
+      <div class="slide-title">Воронка 50–60+ организаций: Go / No-Go</div>
+      <div class="slide-visual"><b>Визуал:</b> матрица 7 секторов + отдельная колонка «Кому НЕ интересно и почему».</div>
+      <div class="slide-q">Почему фокус на X и Y, а на Газпром авиа / Алросу / магистрали не тратим ресурс?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 3</span>
+        <span class="s-cut cut1">Срез 1</span>
+      </div>
+      <div class="slide-title">Бенчмарки контрактов РФ и мира</div>
+      <div class="slide-visual"><b>Визуал:</b> сравнение 4 моделей (Utair, Airbus Shuttle, Alliance FIFO, GSA/Travel Bank) + фильтр РФ.</div>
+      <div class="slide-q">Как работают такие контракты на практике, где они ломаются и как учесть 223-ФЗ / НДС 0%?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 4</span>
+        <span class="s-cut cut1">Срез 1</span>
+      </div>
+      <div class="slide-title">Карта связей, поставщиков и пулинга</div>
+      <div class="slide-visual"><b>Визуал:</b> географический граф площадок и поставщиков + выделение естественных узлов (вкл. SVX).</div>
+      <div class="slide-q">Куда реально летают корпорации и где 3–4 клиента сходятся на одной паре?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 5</span>
+        <span class="s-cut cut1">Срез 1</span>
+      </div>
+      <div class="slide-title">Календарь проектов и событийных пиков</div>
+      <div class="slide-visual"><b>Визуал:</b> таймлайн 2026–2028: срочные стройки (с датой спада) + форумы (ПМЭФ, ВЭФ, ИННОПРОМ и др.).</div>
+      <div class="slide-q">Где постоянный поток, а где временный или пиковый спрос под чартер/доп. частоты?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 6</span>
+        <span class="s-cut cut1">Срез 1 → 2</span>
+      </div>
+      <div class="slide-title">Объём по когортам, бизнес-класс и разрыв</div>
+      <div class="slide-visual"><b>Визуал:</b> таблица топ-пар: когорты (Min/Base/Max), доля бизнес-класса, расписание конкурентов и тип GAP.</div>
+      <div class="slide-q">Сколько людей реально летает и почему текущие рейсы и ЖД не закрывают задачу?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 7</span>
+        <span class="s-cut cut1">Срез 1 → 2</span>
+      </div>
+      <div class="slide-title">Ранжирование по дальности и потребный парк</div>
+      <div class="slide-visual"><b>Визуал:</b> диаграмма «дальность × кресла/рейс» с наложением SSJ100 / SJ-100 / Ту-214 / двухклассных ВС.</div>
+      <div class="slide-q">Какие самолёты и в каком количестве нужны компании, чтобы обслужить эту сеть?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 8</span>
+        <span class="s-cut cut2">Срез 1 → 2 (RW)</span>
+      </div>
+      <div class="slide-title">Двусторонняя экономика и пилотные кейсы</div>
+      <div class="slide-visual"><b>Визуал:</b> сравнение «блок vs чартер», экономия бюджета клиента vs порог безубыточности RW (вкл. Уфа↔НУР и др.).</div>
+      <div class="slide-q">Сколько это стоит корпорации, сколько зарабатывает RW и где граница окупаемости?</div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-head">
+        <span class="s-num">СЛАЙД 9</span>
+        <span class="s-cut cut1">Срез 1 + 2</span>
+      </div>
+      <div class="slide-title">Запрос данных к RW и план следующих шагов</div>
+      <div class="slide-visual"><b>Визуал:</b> 5 критичных вопросов к RW (DOC, бизнес-класс, B2B-каналы, окна флота) + дорожная карта пилота.</div>
+      <div class="slide-q">Какие внутренние цифры RW нужны, чтобы перейти от оценки к коммерческому предложению?</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">3. Пример единицы результата: «Карточка решения» по каждому топ-маршруту</h2>
+    <span class="sec-meta">единый шаблон с явной маркировкой статуса данных</span>
+  </div>
+
+  <div class="mock-card">
+    <div class="mock-top">
+      <div class="mock-route">Город A (аэропорт) ↔ Город B (аэропорт) · Пул: Корпорация 1 + Корпорация 2 + Поставщик</div>
+      <div class="pills">
+        <span class="pill p-fact">FACT: расписание, ТЗ, прейскурант</span>
+        <span class="pill p-model">MODEL: когорты Min/Base/Max</span>
+        <span class="pill p-rw">NEEDS-RW-DATA: DOC и вытеснение</span>
+      </div>
+    </div>
+
+    <div class="mock-grid">
+      <div class="m-cell">
+        <div class="m-lbl">1. Спрос и режим</div>
+        <div class="m-val">Регулярный + проектный</div>
+        <div class="m-sub">Когорты: топы (Бизнес), инженеры, вахта · сегм./нед (Min–Max)</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-lbl">2. Разрыв (Supply Gap)</div>
+        <div class="m-val">Нет прямого / плохое окно</div>
+        <div class="m-sub">Сейчас стык через Москву (+8 ч, +1 ночь гостиницы) или нет блока</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-lbl">3. Дальность и ВС</div>
+        <div class="m-val">X км · Тип ВС и салон</div>
+        <div class="m-sub">Подходит SSJ100 / Ту-214 / нужен бизнес-класс · N рейсов/нед</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-lbl">4. Продукт и канал</div>
+        <div class="m-val">Блок мест / Пул / Чартер</div>
+        <div class="m-sub">223-ФЗ / ТМС / прямой фрахт · release window, замена ФИО, НДС 0%</div>
+      </div>
+    </div>
+
+    <div class="mock-foot">
+      <div><b>Экономика клиента:</b> цена места RW vs стык + гостиница + простой</div>
+      <div><b>Экономика RW:</b> порог загрузки / цены кресла (сценарно → пересчёт по DOC RW)</div>
+      <div><b>Вердикт:</b> Go / Conditional / Stop-условие</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
