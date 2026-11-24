@@ -309,10 +309,12 @@ BLOCK = [
     ("rw_paid_seats", "MAX(MIN(pax, quota_seats), ROUNDUP(quota_seats * minimum_take_pct / 100, 0))"),
     ("rw_released_seats", "quota_seats - rw_paid_seats"),
     ("rw_unavailable_y_seats", "euro_j_passengers * euro_seats_per_j"),
-    ("rw_inventory_screen_pass", "IF(quota_seats <= capacity_passengers, IF(pax <= quota_seats, 1, 0), 0)"),
-    ("operational_screen_pass", OPERATING_FILTER + " * rw_inventory_screen_pass"),
     ("rw_held_j_seats", "MIN(j_cap, rw_paid_seats, j_passengers - euro_j_passengers + "
                        "MIN(j_seats_open_to_y, MAX(0, y_passengers + euro_j_passengers - y_cap_base)))"),
+    ("rw_inventory_screen_pass", "IF(quota_seats <= capacity_passengers, IF(pax <= quota_seats, "
+                                 "IF(quota_seats - rw_held_j_seats <= y_cap_base + "
+                                 "IF(allow_y_in_j_seats == 1, MAX(0, j_cap - rw_held_j_seats), 0), 1, 0), 0), 0)"),
+    ("operational_screen_pass", OPERATING_FILTER + " * rw_inventory_screen_pass"),
     ("rw_expected_displaced_j_seats", "rw_held_j_seats * j_displacement_lf_pct / 100"),
     ("rw_expected_displaced_y_seats", "(rw_paid_seats - rw_held_j_seats + rw_unavailable_y_seats + rw_released_seats * release_spoilage_pct / 100) * displacement_lf_pct / 100"),
     ("rw_expected_displaced_seats", "rw_expected_displaced_y_seats + rw_expected_displaced_j_seats"),

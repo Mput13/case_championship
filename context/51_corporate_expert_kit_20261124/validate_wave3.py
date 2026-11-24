@@ -275,25 +275,37 @@ def verify_xlsx(registry, cases, workdir):
     changed_xlsx = save_edit("expert_edit", {param: edited_value})
     displacement = input_address("P3A", "displacement_lf_pct")
     require(displacement != input_address("P3A", "displacement_lf_pct", "inbound"), "Независимые входы плеч P3A")
-    # Copy only the workbook, and exercise missing inputs for each product.
+    # Copy only the workbook, and exercise missing inputs for each product and fleet table.
     blank_xlsx = save_edit("missing_inputs", {displacement: None, param: None,
-        input_address("P1B", "offered_price_rub", variant_id="PUBLIC_FARE_VS_RAIL"): None})
+        input_address("P1B", "offered_price_rub", variant_id="PUBLIC_FARE_VS_RAIL"): None,
+        "fleet_charter_rotations_per_week": None})
+    fleet_denom_xlsx = save_edit("missing_fleet_denom", {"fleet_weekly_available_block_h": None})
     y_thresholds = {}
     for code in ("P2B", "C5"):
         variant, *_ = model_cells(code)
         for direction in DIRECTIONS[:2]:
             threshold = variant["expected_outputs"][direction]["rw_break_even_y_price_rub"]
             y_thresholds[input_address(code, "offered_price_rub", direction)] = threshold
+    p2b_sj_quota = input_address("P2B", "quota_seats", variant_id="SVX_UFA_SJ100_J_J4")
     screen_edit = {displacement: 0, input_address("P1A", "allow_y_in_j_seats"): 0,
-                   input_address("P3B", "screen_distance_limit_km"): 2355}
+                   input_address("P3B", "screen_distance_limit_km"): 2355, p2b_sj_quota: 100}
     screen_xlsx = save_edit("zero_and_filters", screen_edit | y_thresholds)
-    original, edited, blank, screen = recalculate(workdir, ROOT / XLSX, changed_xlsx, blank_xlsx, screen_xlsx)
+    original, edited, blank, fleet_denom, screen = recalculate(
+        workdir, ROOT / XLSX, changed_xlsx, blank_xlsx, fleet_denom_xlsx, screen_xlsx)
     calculated = load_workbook(original, data_only=True)
     inputs_after_edit = load_workbook(edited, data_only=True)
     cleared = load_workbook(blank, data_only=True)
+    cleared_denom = load_workbook(fleet_denom, data_only=True)
     screening = load_workbook(screen, data_only=True)
-    error_cells = [error for book in (calculated, inputs_after_edit, cleared, screening) for error in errors(book)]
+    error_cells = [error for book in (calculated, inputs_after_edit, cleared, cleared_denom, screening) for error in errors(book)]
     require(not error_cells, f"Ошибки формул Excel: {error_cells[:20]}")
+    fleet_charter_row = next(r for program, r in zip(registry["fleet_matrix"]["fleet_requirements"]["program_scenarios"],
+                                                     program_rows, strict=True)
+                             if program["programs_confirmed_assumption"] == 1 and program["product"] == "CHARTER")
+    require(all(cleared[SHEETS[5]][f"{col}{fleet_charter_row}"].value == MISSING for col in "FHIJKLMNOP"),
+            "R2-P0-2: пустой вход оборотов парка не должен давать 0 ВС")
+    require(all(cleared_denom[SHEETS[5]][f"{col}{fleet_charter_row}"].value == MISSING for col in "KLMNOP"),
+            "R2-P0-2: пустой знаменатель блок-часов парка не должен давать #DIV/0!")
     blank_fields = ("rw_net_contribution_rub", "rw_break_even_seat_price_rub", "client_total_tct_rub")
     for code in ("P3A", "P1A"):
         for field in blank_fields:
@@ -335,6 +347,13 @@ def verify_xlsx(registry, cases, workdir):
             "Excel: переключение допуска Y в J")
     require(result(screening, "P3B", "distance_fit") == result(screening, "P3B", "operational_screen_pass") == 0,
             "Excel: фильтр дальности")
+    p2b_sj, _, _, _ = model_cells("P2B", "SVX_UFA_SJ100_J_J4")
+    p2b_sj_overflow = calculate("BLOCK", p2b_sj["inputs"]["outbound"] | {"quota_seats": 100})
+    require(p2b_sj_overflow["rw_inventory_screen_pass"] == p2b_sj_overflow["operational_screen_pass"] == 0,
+            "Python: R2-P0-1 квота блока по классу Y")
+    require(result(screening, "P2B", "rw_inventory_screen_pass", "B", "SVX_UFA_SJ100_J_J4") == 0
+            and result(screening, "P2B", "operational_screen_pass", "B", "SVX_UFA_SJ100_J_J4") == 0,
+            "Excel: R2-P0-1 квота блока по классу Y")
     for code in ("P2B", "C5"):
         require(all(result(screening, code, "rw_net_contribution_rub", leg) == 0 for leg in "BCD"),
                 f"Excel: вклад {code} при безубыточном тарифе Y")
@@ -444,6 +463,7 @@ def verify_html(dossier, registry, cases, xlsx_values, workdir):
                     f"{v['variant_id']}: входы встроенного расчёта")
             rows.append((embedded["code"], v, scenario))
     p1a, p3a, p3b = (defaults[code] for code in ("P1A", "P3A", "P3B"))
+    p2b_sj_html = next(s for code, _, s in rows if code == "P2B" and s["variant_id"] == "SVX_UFA_SJ100_J_J4")
     edits = {
         "doc": (p1a, {"outbound": {"doc_per_block_h_rub": p1a["inputs"]["outbound"]["doc_per_block_h_rub"] + 10000}}),
         "ferry": (p1a, {"outbound": {"ferry_factor": 0.25}}),
@@ -451,6 +471,7 @@ def verify_html(dossier, registry, cases, xlsx_values, workdir):
         "range": (p3b, {"outbound": {"screen_distance_limit_km": 2355}}),
         "price": (p3a, {"outbound": {"offered_price_rub": 20000}}),
         "yield": (p3a, {"outbound": {"market_net_yield_rub": 15000}}),
+        "quota_y_overflow": (p2b_sj_html, {"outbound": {"quota_seats": 100}}),
     }
     for case in cases:
         code = case_code(case)
@@ -498,6 +519,9 @@ def verify_html(dossier, registry, cases, xlsx_values, workdir):
     require(edited["y_in_j"]["outbound"]["operational_screen_pass"] == 0
             and edited["y_in_j"]["inbound"]["operational_screen_pass"] == 1, "JS: переключение допуска Y в J")
     require(edited["range"]["outbound"]["operational_screen_pass"] == 0, "JS: фильтр дальности")
+    require(edited["quota_y_overflow"]["outbound"]["rw_inventory_screen_pass"] == 0
+            and edited["quota_y_overflow"]["outbound"]["operational_screen_pass"] == 0,
+            "JS: R2-P0-1 квота блока по классу Y")
     forum_base = next(c for c in cases if case_code(c) == "P3A")["expected_outputs"]["outbound"]
     new_contribution = edited["price"]["outbound"]["rw_net_contribution_rub"]
     require(forum_base["rw_net_contribution_rub"] < 0 < new_contribution, "JS: изменение знака вклада P3A при цене 20 000")

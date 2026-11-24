@@ -254,24 +254,37 @@ def write_fleet(ws, registry, inputs):
                 "С базовым резервом", "С резервом 15%", "С резервом 20%",
                 "Доля общего резерва 15%, ВС", "Доля общего резерва 20%, ВС"))
     program_cells = []
+    blk_avail = inputs["fleet_weekly_available_block_h"]
+    occ_avail = inputs["fleet_weekly_aircraft_occupancy_h"]
+    res_pct = inputs["fleet_reserve_pct"]
     for item in req["program_scenarios"]:
         r = ws.max_row + 1
         plane, route, product = (item[key] for key in ("aircraft_type", "example_airport_pair", "product"))
         block_h = f"H${pair_cells[route]}"
-        ground_h = inputs["fleet_ground_times_h"]
+        ground_refs = [inputs["fleet_ground_times_h"]]
         if plane.startswith("Ту-214"):
-            ground_h += "+" + inputs["vankor_rfi_min_excess_parking"]
-        rotations = inputs.get({"CHARTER": "fleet_charter_rotations_per_week",
-                                "REGULAR_ROTATION": "fleet_regular_rotations_per_week"}.get(product), "0")
-        ws.append([item["programs_confirmed_assumption"], plane, route, item["nominal_seats_per_aircraft"],
-                   product, f"={rotations}", item["window_plan"], f"=A{r}*F{r}*2*{block_h}",
-                   f"=A{r}*F{r}*(2*{block_h}+{ground_h})",
-                   f'=IF(F{r}=0,0,IF(G{r}="STAGGERED",MIN(1,A{r}),A{r}))',
-                   f"=MAX(J{r},ROUNDUP(H{r}/{inputs['fleet_weekly_available_block_h']},0),"
-                   f"ROUNDUP(I{r}/{inputs['fleet_weekly_aircraft_occupancy_h']},0))",
-                   f"=ROUNDUP(K{r}/(1-{inputs['fleet_reserve_pct']}/100),0)",
-                   f"=ROUNDUP(K{r}/0.85,0)", f"=ROUNDUP(K{r}/0.80,0)",
-                   f"=ROUND(K{r}/0.85-K{r},2)", f"=ROUND(K{r}/0.80-K{r},2)"])
+            ground_refs.append(inputs["vankor_rfi_min_excess_parking"])
+        ground_h = "+".join(ground_refs)
+        rot_key = {"CHARTER": "fleet_charter_rotations_per_week",
+                   "REGULAR_ROTATION": "fleet_regular_rotations_per_week"}.get(product)
+        rot_formula = f'=IF(ISNUMBER({inputs[rot_key]}),{inputs[rot_key]},"{MISSING}")' if rot_key else "=0"
+        ws.append([
+            item["programs_confirmed_assumption"], plane, route, item["nominal_seats_per_aircraft"],
+            product, rot_formula, item["window_plan"],
+            f'=IF(ISNUMBER(F{r}),A{r}*F{r}*2*{block_h},"{MISSING}")',
+            f'=IF(AND(ISNUMBER(F{r}),COUNT({",".join(ground_refs)})={len(ground_refs)}),'
+            f'A{r}*F{r}*(2*{block_h}+{ground_h}),"{MISSING}")',
+            f'=IF(ISNUMBER(F{r}),IF(F{r}=0,0,IF(G{r}="STAGGERED",MIN(1,A{r}),A{r})),"{MISSING}")',
+            f'=IF(AND(ISNUMBER(H{r}),ISNUMBER(I{r}),ISNUMBER(J{r}),ISNUMBER({blk_avail}),{blk_avail}>0,'
+            f'ISNUMBER({occ_avail}),{occ_avail}>0),MAX(J{r},ROUNDUP(H{r}/{blk_avail},0),'
+            f'ROUNDUP(I{r}/{occ_avail},0)),"{MISSING}")',
+            f'=IF(AND(ISNUMBER(K{r}),ISNUMBER({res_pct}),{res_pct}>=0,{res_pct}<100),'
+            f'ROUNDUP(K{r}/(1-{res_pct}/100),0),"{MISSING}")',
+            f'=IF(ISNUMBER(K{r}),ROUNDUP(K{r}/0.85,0),"{MISSING}")',
+            f'=IF(ISNUMBER(K{r}),ROUNDUP(K{r}/0.80,0),"{MISSING}")',
+            f'=IF(ISNUMBER(K{r}),ROUND(K{r}/0.85-K{r},2),"{MISSING}")',
+            f'=IF(ISNUMBER(K{r}),ROUND(K{r}/0.80-K{r},2),"{MISSING}")',
+        ])
         ws.row_dimensions[r].height = 31
         for letter in "HIOP":
             ws[f"{letter}{r}"].number_format = "#,##0.00"
