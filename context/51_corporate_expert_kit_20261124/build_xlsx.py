@@ -11,8 +11,11 @@ from openpyxl.comments import Comment
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter as column
+from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.worksheet.hyperlink import Hyperlink
 from openpyxl.workbook.properties import CalcProperties
+
+from economics_engine import ASSUMPTIONS_SHEET
 
 ROOT = Path(__file__).resolve().parent
 W1 = ROOT.parent / "49_corporate_screening_20261124"
@@ -20,7 +23,7 @@ W2 = ROOT.parent / "50_corporate_wave2_20261124"
 W3_REGISTRY = ROOT / "model_inputs_registry.json"
 OUTPUT = ROOT / "redwings_corporate_model.xlsx"
 SHEETS = (
-    "0_Executive_Summary", "1_Inputs_Assumptions", "2_Pilot1_UFA_NUX",
+    "0_Executive_Summary", ASSUMPTIONS_SHEET, "2_Pilot1_UFA_NUX",
     "3_Pilot2_Atom_SVX", "4_Pilot3_Innoprom_LED", "5_Fleet_Distance_53",
     "6_Hubs_9_Nodes", "7_Orgs_68_Screening", "8_RW_Questions_5",
 )
@@ -37,12 +40,18 @@ DATA_PRIORITIES = (
 )
 METRICS = {
     "pax": "Летящие пассажиры",
+    "offered_price_rub": "Предложенный тариф Y, ₽",
     "quota_seats": "Выделенная квота, мест",
     "j_share_pct": "Доля группы с запросом J, %",
     "payload_seat_haircut_pct": "Зимнее снижение ёмкости, %",
     "displacement_lf_pct": "Вероятность вытеснения Y, %",
     "j_passengers": "Пассажиры с запросом J",
+    "allow_y_in_j_seats": "Допуск рассадки Y в J (0 / 1)",
     "effective_seats_per_aircraft": "Эффективная ёмкость на борт, мест",
+    "j_cap": "Ёмкость класса J, мест",
+    "y_cap_base": "Ёмкость класса Y, мест",
+    "j_fits": "Группа J помещается (1 = да)",
+    "y_fits": "Группа Y помещается (1 = да)",
     "client_cash_tct_rub": "Клиент · денежный бюджет, ₽/пасс.",
     "client_lost_work_h": "Клиент · потерянное рабочее время, ч/пасс.",
     "client_time_value_rub": "Клиент · стоимость рабочего времени, ₽/пасс.",
@@ -60,19 +69,21 @@ METRICS = {
     "rw_net_contribution_rub": "RW · чистый вклад за окно, ₽",
     "rw_total_flight_cost_rub": "RW · полные затраты на чартер за окно, ₽",
     "rw_break_even_charter_price_rub": "RW · цена безубыточности чартера, ₽",
-    "rw_break_even_seat_price_rub": "RW · цена безубыточности места, ₽",
+    "rw_break_even_seat_price_rub": "Безубыт. ср. цена места, ₽",
+    "rw_break_even_y_price_rub": "Безубыт. тариф Y, ₽",
     "rw_target_price_per_seat_rub": "RW · цена места с целевой маржой, ₽",
     "rw_doc_max_rub_per_block_h": "RW · DOC_max, ₽/блок-ч",
     "rw_expected_displaced_seats": "RW · ожидаемое вытеснение, мест",
     "rw_displacement_cost_rub": "RW · упущенный вклад от вытеснения, ₽",
     "rw_block_net_contribution_after_displacement_rub": "RW · вклад блока с учётом вытеснения, ₽",
-    "operational_screen_pass": "Модельная вместимость, дробление и класс (1 = проходит)",
+    "operational_screen_pass": "Фильтр ёмкости, класса, дробления и дальности (1 = проходит)",
 }
 HEAD = PatternFill("solid", fgColor="24374F")
 INPUT = PatternFill("solid", fgColor="E3F0FC")
 PALE = PatternFill("solid", fgColor="F1F5FA")
 NEGATIVE = Font(color="9B352A")
 NA = "н/п"
+MISSING = "[NEEDS-RW-DATA]"
 
 
 def read_csv(path):
@@ -170,6 +181,9 @@ def write_assumptions(ws, registry):
     first = header(ws, ("param_id", "Параметр", "Единица", "База", "Min", "Max", "source_tag",
                         "evidence_ids", "Ограничение"))
     cells = {}
+    binary = DataValidation(type="whole", operator="between", formula1=0, formula2=1, showErrorMessage=True,
+                            errorTitle="Допуск рассадки Y в J", error="Введите 0 или 1.")
+    ws.add_data_validation(binary)
     for item in registry["assumptions"]:
         key = item["param_id"]
         source_tag = item["source_tag"]
@@ -184,7 +198,12 @@ def write_assumptions(ws, registry):
             ws[f"D{row}"].fill = INPUT
         if source_tag == "NEEDS_RW_DATA":
             ws[f"G{row}"].font = Font(color="855714")
+        address = f"D{row}"
+        if item["excel_cell_hint"] != ref(ws.title, address):
+            raise ValueError(f"Адрес {key} в реестре: {item['excel_cell_hint']}, в книге: {ref(ws.title, address)}")
         cells[key] = ref(ws.title, f"$D${row}")
+        if key.rsplit(".", 1)[-1] == "allow_y_in_j_seats":
+            binary.add(address)
     ws.auto_filter.ref = f"A{first}:I{ws.max_row}"
     ws.print_title_rows = f"{first}:{first}"
     polish(ws, [62, 52, 19, 16, 16, 16, 24, 40, 62], "D4")
@@ -276,12 +295,13 @@ def moment_rows(ws, registry, cases, inputs):
         "P2": " Ориентир 18 ч в пути относится к обратному поезду 049М. Доплечья считаются отдельно.",
     }
     note(ws, "Денежный бюджет и рабочее время клиента показаны на пассажира, вклад RW — за окно или оборот. "
+         "Очистка обязательного входа помечает итог плеча и оборота [NEEDS-RW-DATA]. "
          "«н/п» означает, что метрика неприменима к продукту. Все варианты — [SCENARIO_MODEL]."
-         + rail_note.get(cases[0]["cluster_id"], ""), 12)
+         + rail_note.get(cases[0]["cluster_id"], ""), 12, height=57)
     first = header(ws, ("Ветка и вариант", "Пара", "Продукт", "Тип ВС", "J вылет / возврат",
                         "Ёмкость · вылет / возврат", "Cash TCT, ₽/пасс. · оборот",
                         "Lost Work, ч/пасс. · оборот", "Вклад RW, ₽ · оборот",
-                        "Цена места, ₽ · вылет", "Цена места, ₽ · возврат", "Фильтр · вылет / возврат"))
+                        "Безубыт. место · вылет", "Безубыт. место · возврат", "Фильтр · вылет / возврат"))
     count = sum(len(c["variants"]) for c in cases)
     for _ in range(count):
         ws.append([" "])
@@ -307,6 +327,8 @@ def moment_rows(ws, registry, cases, inputs):
             header(ws, ("Показатель", "Вылет " + variant["direction_labels"]["outbound"],
                         "Возврат " + variant["direction_labels"]["inbound"], "Оборот",
                         "Идентификатор показателя"))
+            guard_row = ws.max_row + 1
+            ws.cell(guard_row, 1, "Обязательные входы")
             base = ws.max_row
             direction_spec = registry["formulas_spec"]["directional"][mode]
             input_keys = list(variant["input_param_ids"]["outbound"])
@@ -318,6 +340,10 @@ def moment_rows(ws, registry, cases, inputs):
             cycle_spec = registry["formulas_spec"]["round_trip"]
             cycle_keys = set(cycle_spec["sum_outputs"][mode])
             precision = registry["formulas_spec"]["precision"]["published_decimals"]
+            cycle_ready = f"AND(B{guard_row}=1,C{guard_row}=1)"
+            for letter in "BC":
+                refs = ",".join(f"{letter}{rows[key]}" for key in input_keys)
+                ws[f"{letter}{guard_row}"] = f'=IF(COUNT({refs})={len(input_keys)},1,"{MISSING}")'
             for key in all_keys:
                 r = rows[key]
                 label = METRICS.get(key)
@@ -328,18 +354,21 @@ def moment_rows(ws, registry, cases, inputs):
                 for direction, letter in zip(DIRECTIONS[:2], "BC"):
                     if key in formulas:
                         cell_formula = expression(formulas[key], {k: f"{letter}{n}" for k, n in rows.items()})
+                        cell_formula = f'=IF({letter}${guard_row}=1,{cell_formula[1:]},"{MISSING}")'
                     else:
-                        cell_formula = "=" + inputs[variant["input_param_ids"][direction][key]]
+                        addr = inputs[variant["input_param_ids"][direction][key]]
+                        cell_formula = f'=IF(ISNUMBER({addr}),{addr},"{MISSING}")'
                     ws[f"{letter}{r}"] = cell_formula
                     ws[f"{letter}{r}"].number_format = metric_format(key)
                 if key in cycle_keys:
-                    ws[f"D{r}"] = f"=ROUND(SUM(B{r}:C{r}),{precision})"
+                    ws[f"D{r}"] = f'=IF({cycle_ready},ROUND(SUM(B{r}:C{r}),{precision}),"{MISSING}")'
                 elif key == "rw_doc_max_rub_per_block_h":
                     cycle_names = {k: f"B{n}:C{n}" for k, n in rows.items()}
                     cycle_names["target_margin_pct"] = f"B{rows['target_margin_pct']}"
                     cycle_formula = expression(cycle_spec[key], cycle_names)
                     margin = rows["target_margin_pct"]
-                    ws[f"D{r}"] = f'=IF(B{margin}=C{margin},ROUND({cycle_formula},{precision}),"Маржа различается")'
+                    ws[f"D{r}"] = (f'=IF({cycle_ready},IF(B{margin}=C{margin},ROUND({cycle_formula},{precision}),'
+                                   f'"Маржа различается"),"{MISSING}")')
                 ws[f"D{r}"].number_format = metric_format(key)
                 if key in METRICS:
                     ws.row_dimensions[r].height = 29
@@ -356,7 +385,7 @@ def moment_rows(ws, registry, cases, inputs):
                 if key not in rows:
                     return NA
                 r = rows[key]
-                return f'=B{r}&" / "&C{r}&"{suffix}"'
+                return f'=IF({cycle_ready},B{r}&" / "&C{r}&"{suffix}","{MISSING}")'
 
             ws[f"E{summary}"] = pair_value("j_share_pct", "%")
             ws[f"F{summary}"] = pair_value("effective_seats_per_aircraft")
@@ -372,7 +401,7 @@ def moment_rows(ws, registry, cases, inputs):
             summary += 1
     ws.conditional_formatting.add(f"I{first + 1}:I{first + count}",
                                   CellIsRule(operator="lessThan", formula=["0"], font=NEGATIVE))
-    polish(ws, [49, 23, 23, 23, 38, 17, 18, 20, 19, 18, 18, 19], "B4")
+    polish(ws, [49, 23, 23, 23, 38, 17, 18, 20, 19, 22, 22, 19], "B4")
     return addresses
 
 
@@ -397,7 +426,7 @@ def write_summary(ws, registry, cases, layouts, fleet_programs):
     ws.row_dimensions[4].height = 26
     note(ws, "Сначала проверить плательщика, число летящих, окно и предложение отдельно по вылету и возврату.", 10)
     header(ws, ("Кластер", "Ветка", "Пара", "Статус", "Продукт", "Cash TCT · оборот",
-                "Lost Work · оборот", "Вклад RW · оборот", "Место · вылет", "Место · возврат"))
+                "Lost Work · оборот", "Вклад RW · оборот", "Безубыт. место · вылет", "Безубыт. место · возврат"))
     for case in cases:
         sheet, positions, _ = layouts[case["cluster_id"]]
         key = case_code(case), case["default_variant_id"]
@@ -417,7 +446,7 @@ def write_summary(ws, registry, cases, layouts, fleet_programs):
     for scores in council_scores():
         ws.append(scores)
     note(ws, "Оценки информационные. Для решений о продукте применяются предикаты и доказательства.", 10)
-    polish(ws, [23, 39, 24, 26, 18, 20, 21, 20, 20, 20], "C7")
+    polish(ws, [23, 39, 24, 26, 18, 20, 21, 20, 23, 23], "C7")
 
 
 def write_hubs(ws, registry):

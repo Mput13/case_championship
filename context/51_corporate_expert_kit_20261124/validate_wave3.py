@@ -16,8 +16,8 @@ sys.dont_write_bytecode = True
 from openpyxl import load_workbook
 
 from build_dossier_html import SECTIONS
-from build_xlsx import DIRECTIONS, ROOT, SHEETS, W2, build_workbook, case_code, council_scores, load_registry, read_csv
-from economics_engine import calculate, round_trip
+from build_xlsx import DIRECTIONS, MISSING, NA, ROOT, SHEETS, build_workbook, case_code, council_scores, load_registry, read_csv
+from economics_engine import CSV_OUTPUTS, calculate, load_sources, make_fleet, round_trip
 
 SOFFICE = Path("/opt/homebrew/bin/soffice")
 XLSX = "redwings_corporate_model.xlsx"
@@ -28,6 +28,7 @@ REQUIRED = (
     "pilot_economics_summary.csv", "build_xlsx.py", XLSX, "build_dossier_html.py", HTML, MEMO, "validate_wave3.py",
 )
 EVENTS = {"FUTURE_CONFIRMED": 4, "FUTURE_PROVISIONAL": 1, "FUTURE_TBD": 6}
+P1A_NO_Y_IN_J = "TU214_CHARTER_NO_Y_IN_J"
 FLEET_PROGRAM_FIELDS = (
     "rotations_per_program_per_week", "weekly_block_h", "weekly_aircraft_occupied_h", "max_simultaneous_aircraft",
     "active_aircraft", "fleet_with_reserve_base", "fleet_with_reserve_15_pct", "fleet_with_reserve_20_pct",
@@ -119,6 +120,9 @@ def verify_events(events):
 
 
 def verify_sources(registry):
+    tables, evidence, future, _ = load_sources()
+    matrix, _ = make_fleet(tables)
+    require(matrix == registry["fleet_matrix"]["pairs"], "Флот-матрица из исходных данных")
     cases = registry["pilots_and_clusters"]
     require([case_code(c) for c in cases] == ["P1A", "P1B", "P1C", "P2A", "P2B", "P3A", "P3B", "C4", "C5"],
             "Девять веток")
@@ -128,13 +132,12 @@ def verify_sources(registry):
             "Утверждение об объёме или выделенном парке")
     require(all(case["decision"] == "Conditional" and case["demand_basis"] == "STRUCTURAL_HYPOTHESIS"
                 and case["confirmed_pax"] is None for case in cases), "Исходные статусы / объём")
-    sources = read_csv(W2 / "evidence_wave2.csv")
-    require(len(sources) == 352 and registry["evidence"] == {e["evidence_id"]: e for e in sources},
+    require(len(evidence) == 352 and registry["evidence"] == evidence,
             "Записи доказательств должны совпадать с CSV Волны 2")
-    require(registry["organizations"] == read_csv(W2 / "organizations_screening_v2.csv") and
+    require(registry["organizations"] == tables["organizations_screening_v2"] and
             Counter(o["status"] for o in registry["organizations"]) == {"Conditional": 28, "Insufficient-Evidence": 40},
             "Скрининг 68 организаций")
-    opportunities = read_csv(W2 / "opportunities.csv")
+    opportunities = tables["opportunities"]
     require(len({o["pair_id"] for o in opportunities if o["pair_id"]}) == 30 and
             Counter(o["decision"] for o in opportunities) == {"Conditional": 104, "Insufficient-Evidence": 76} and
             all(o["demand_basis"] == "STRUCTURAL_HYPOTHESIS" for o in opportunities), "Срез возможностей Волны 2")
@@ -150,8 +153,7 @@ def verify_sources(registry):
         "geometry_pairs_25", "geometry_pairs_35", "observed_transit_pairs_25", "observed_transit_pairs_35"))
         for row in confirm), "Смешение геометрии гипотез с подтверждёнными единицами спроса")
     verify_events(registry["events_2027_future"])
-    require(registry["events_2027_future"] == [r for r in read_csv(W2 / "events_calendar_2027.csv")
-            if r["horizon_bucket"].startswith("FUTURE_")], "События из FUTURE_*")
+    require(registry["events_2027_future"] == future, "События из FUTURE_*")
     playbook = registry["benchmarks_and_playbooks"]
     require({key: len(value) for key, value in playbook.items()} ==
             {"qualified_cases": 13, "rf_adaptations": 6, "term_sheets": 5}, "Трек B")
@@ -168,17 +170,36 @@ def verify_csvs(registry, cases):
             actual = float(row[key]) if isinstance(value, (int, float)) else row[key]
             parity.check(value, actual, row["airport_pair"], key)
     rows = read_csv(ROOT / "pilot_economics_summary.csv")
+    variant_count = 0
     for case, row in zip(cases, rows, strict=True):
         require(row["case_id"] == case["case_id"] and row["decision"] == "Conditional"
-                and row["demand_basis"] == "STRUCTURAL_HYPOTHESIS" and row["confirmed_pax"] == "",
+                and row["demand_basis"] == "STRUCTURAL_HYPOTHESIS" and row["confirmed_pax"] == ""
+                and row["source_tag"] == registry["meta"]["model_status"]
+                and row["confirmation_status"] == registry["meta"]["confirmation_status"],
                 f"{row['case_id']}: классификация")
+        evidence = row["evidence_ids"].split(";")
+        require(evidence == case["evidence_ids"] and set(evidence) <= registry["evidence"].keys(),
+                f"{row['case_id']}: доказательства CSV")
+        if case_code(case) == "P1B":
+            require("EV-W13-003" not in evidence, "P1B: ошибочная привязка EV-W13-003")
+        variants = json.loads(row["variant_controls_json"])
+        require(isinstance(variants, list) and len(variants) == len(case["variants"]) - 1,
+                f"{row['case_id']}: варианты CSV")
+        for saved, variant in zip(variants, case["variants"][1:], strict=True):
+            keys = ("variant_id", "mode", "airport_pair", "aircraft_type", "gc_distance_km")
+            outputs = {d: {k: v for k, v in metrics.items() if k in CSV_OUTPUTS}
+                       for d, metrics in variant["expected_outputs"].items()}
+            require(saved == {**{k: variant[k] for k in keys}, "expected_outputs": outputs},
+                    f"{row['case_id']}.{variant['variant_id']}: содержимое вариантов CSV")
+            variant_count += 1
         expected = case["expected_outputs"]
         for direction in DIRECTIONS:
             for key, value in expected[direction].items():
                 field = f"{direction}_{key}"
                 if field in row:
                     parity.check(value, float(row[field]), row["case_id"], field)
-    return parity.report()
+    return {"load_sources": "PASS", "make_fleet": "PASS", "pilot_tags_and_evidence": "PASS",
+            "csv_variants_checked": variant_count, **parity.report()}
 
 
 def recalculate(workdir, *workbooks):
@@ -216,26 +237,107 @@ def verify_xlsx(registry, cases, workdir):
                 if isinstance(cell.value, str):
                     require(not BANNED_TOKEN.search(cell.value), f"Устаревший токен {ws.title}!{cell.coordinate}")
     _, layouts, pair_rows, program_rows = build_workbook(registry)
-    # Also exercise a change to an editable input and its via-formula executive link.
-    test_case = cases[0]
-    variant = test_case["variants"][0]
-    sheet, layout, _ = layouts[test_case["cluster_id"]]
-    test_positions, _, _ = layout[(case_code(test_case), variant["variant_id"])]
-    changed_xlsx = workdir / "expert_edit.xlsx"
-    edit_key = "doc_per_block_h_rub"
     assumptions = workbook[SHEETS[1]]
-    param = variant["input_param_ids"]["outbound"][edit_key]
-    change_row = next(r for r in range(4, assumptions.max_row + 1) if assumptions[f"A{r}"].value == param)
-    base_doc = assumptions[f"D{change_row}"].value
-    edited_value = base_doc + 10000
-    assumptions[f"D{change_row}"] = edited_value
-    workbook.save(changed_xlsx)
-    assumptions[f"D{change_row}"] = base_doc
-    original, edited = recalculate(workdir, ROOT / XLSX, changed_xlsx)
+    input_cells = {row[0].value: row[3] for row in assumptions.iter_rows(min_row=4, max_col=4)}
+    require(len(input_cells) == assumptions.max_row - 3 == len(registry["assumptions"]), "Число строк параметров")
+    cases_by_code = {case_code(case): case for case in cases}
+    executive_rows = {case_code(case): row for row, case in enumerate(cases, 7)}
+
+    def model_cells(code, variant_id=None):
+        case = cases_by_code[code]
+        variant_id = variant_id or case["default_variant_id"]
+        variant = next(v for v in case["variants"] if v["variant_id"] == variant_id)
+        sheet, layout, _ = layouts[case["cluster_id"]]
+        positions, _, summary = layout[(code, variant_id)]
+        return variant, sheet.title, positions, summary
+
+    def input_address(code, key, direction="outbound", variant_id=None):
+        variant, *_ = model_cells(code, variant_id)
+        return variant["input_param_ids"][direction][key]
+
+    def save_edit(name, changes):
+        path = workdir / (name + ".xlsx")
+        previous = {param: input_cells[param].value for param in changes}
+        for param, value in changes.items():
+            input_cells[param].value = value
+        workbook.save(path)
+        for param, value in previous.items():
+            input_cells[param].value = value
+        return path
+
+    def result(book, code, metric, leg="B", variant_id=None):
+        _, sheet, positions, _ = model_cells(code, variant_id)
+        return live_cell(workbook, book, sheet, f"{leg}{positions[metric]}")
+
+    edit_key = "doc_per_block_h_rub"
+    param = input_address("P1A", edit_key)
+    edited_value = input_cells[param].value + 10000
+    changed_xlsx = save_edit("expert_edit", {param: edited_value})
+    displacement = input_address("P3A", "displacement_lf_pct")
+    require(displacement != input_address("P3A", "displacement_lf_pct", "inbound"), "Независимые входы плеч P3A")
+    # Copy only the workbook, and exercise missing inputs for each product.
+    blank_xlsx = save_edit("missing_inputs", {displacement: None, param: None,
+        input_address("P1B", "offered_price_rub", variant_id="PUBLIC_FARE_VS_RAIL"): None})
+    y_thresholds = {}
+    for code in ("P2B", "C5"):
+        variant, *_ = model_cells(code)
+        for direction in DIRECTIONS[:2]:
+            threshold = variant["expected_outputs"][direction]["rw_break_even_y_price_rub"]
+            y_thresholds[input_address(code, "offered_price_rub", direction)] = threshold
+    screen_edit = {displacement: 0, input_address("P1A", "allow_y_in_j_seats"): 0,
+                   input_address("P3B", "screen_distance_limit_km"): 2355}
+    screen_xlsx = save_edit("zero_and_filters", screen_edit | y_thresholds)
+    original, edited, blank, screen = recalculate(workdir, ROOT / XLSX, changed_xlsx, blank_xlsx, screen_xlsx)
     calculated = load_workbook(original, data_only=True)
     inputs_after_edit = load_workbook(edited, data_only=True)
-    error_cells = errors(calculated) + errors(inputs_after_edit)
+    cleared = load_workbook(blank, data_only=True)
+    screening = load_workbook(screen, data_only=True)
+    error_cells = [error for book in (calculated, inputs_after_edit, cleared, screening) for error in errors(book)]
     require(not error_cells, f"Ошибки формул Excel: {error_cells[:20]}")
+    blank_fields = ("rw_net_contribution_rub", "rw_break_even_seat_price_rub", "client_total_tct_rub")
+    for code in ("P3A", "P1A"):
+        for field in blank_fields:
+            require(result(cleared, code, field) == MISSING, f"{code}: пустой вход в {field}")
+        for field in ("rw_net_contribution_rub", "client_total_tct_rub"):
+            require(result(cleared, code, field, "D") == MISSING, f"{code}: пустой вход в обороте {field}")
+        _, sheet, _, summary = model_cells(code)
+        require(all(cleared[sheet][f"{col}{summary}"].value == MISSING for col in "EFGHIJL"),
+                f"{code}: сводка пилота при пустом входе")
+        require(all(cleared[SHEETS[0]][f"{col}{executive_rows[code]}"].value == MISSING for col in "FGHI"),
+                f"{code}: общая сводка при пустом входе")
+    for leg in "BD":
+        require(result(cleared, "P1A", "rw_doc_max_rub_per_block_h", leg) == MISSING, "Пустой DOC на чартере")
+        require(result(cleared, "P1B", "client_total_tct_rub", leg, "PUBLIC_FARE_VS_RAIL") == MISSING,
+                "Пустой тариф TICKET")
+    p3a, _, _, _ = model_cells("P3A")
+    intact = p3a["expected_outputs"]["inbound"]["rw_net_contribution_rub"]
+    require(round(result(cleared, "P3A", "rw_net_contribution_rub", "C"), 2) == intact,
+            "У P3A пустой вылет блокирует независимый возврат")
+    explicit_zero = calculate("BLOCK", p3a["inputs"]["outbound"] | {"displacement_lf_pct": 0})
+    zero_contribution = round(result(screening, "P3A", "rw_net_contribution_rub"), 2)
+    require(zero_contribution == explicit_zero["rw_net_contribution_rub"] > 0, "P3A: явный ноль вытеснения")
+
+    allowed, _, _, _ = model_cells("P1A")
+    disallowed, _, _, _ = model_cells("P1A", P1A_NO_Y_IN_J)
+    for direction, leg in zip(DIRECTIONS[:2], "BC", strict=True):
+        for option, flag in ((allowed, 1), (disallowed, 0)):
+            inputs = option["inputs"][direction]
+            require((inputs["pax"], inputs["aircraft_seats"], inputs["j_seats_per_aircraft"],
+                     inputs["j_share_pct"], inputs["allow_y_in_j_seats"]) == (150, 164, 16, 0, flag), "Параметры P1A")
+            calculated_leg = calculate("CHARTER", inputs)
+            require((calculated_leg["y_cap_base"], calculated_leg["y_passengers"], calculated_leg["j_fits"],
+                     calculated_leg["y_fits"], calculated_leg["operational_screen_pass"]) == (148, 150, 1, flag, flag),
+                    f"Python: поклассовый фильтр P1A {direction}")
+            require(result(calculated, "P1A", "operational_screen_pass", leg, option["variant_id"]) == flag,
+                    f"Excel: поклассовый фильтр P1A {direction}")
+    require(result(screening, "P1A", "operational_screen_pass") == 0
+            and result(screening, "P1A", "operational_screen_pass", "C") == 1,
+            "Excel: переключение допуска Y в J")
+    require(result(screening, "P3B", "distance_fit") == result(screening, "P3B", "operational_screen_pass") == 0,
+            "Excel: фильтр дальности")
+    for code in ("P2B", "C5"):
+        require(all(result(screening, code, "rw_net_contribution_rub", leg) == 0 for leg in "BCD"),
+                f"Excel: вклад {code} при безубыточном тарифе Y")
     parity = Parity()
     values = {}
     for index, case in enumerate(cases, 7):
@@ -262,28 +364,37 @@ def verify_xlsx(registry, cases, workdir):
                     parity.check(value, raw, f"Вход {code}.{variant_id}.{direction}", field)
         for col in "BCDEFGHIJ":
             require(workbook[SHEETS[0]][f"{col}{index}"].data_type == "f", f"Статическая ссылка сводки {col}{index}")
-    t1_variant = test_case["variants"][0]
-    variant_inputs = t1_variant["inputs"]["outbound"] | {edit_key: edited_value}
+        for col, direction, field in (
+            ("F", "round_trip", "client_cash_tct_rub"), ("G", "round_trip", "client_lost_work_h"),
+            ("H", "round_trip", "rw_net_contribution_rub"), ("I", "outbound", "rw_break_even_seat_price_rub"),
+            ("J", "inbound", "rw_break_even_seat_price_rub"),
+        ):
+            parity.check(case["expected_outputs"][direction].get(field, NA), calculated[SHEETS[0]][f"{col}{index}"].value,
+                         f"Сводка {code}.{direction}", field)
+    variant_inputs = allowed["inputs"]["outbound"] | {edit_key: edited_value}
     expected_edit = calculate("CHARTER", variant_inputs)["rw_total_flight_cost_rub"]
-    edit_metric = f"B{test_positions['rw_total_flight_cost_rub']}"
-    test_sheet = layouts[test_case["cluster_id"]][0].title
-    parity.check(expected_edit, inputs_after_edit[test_sheet][edit_metric].value, "Изменение DOC", "cost_rub")
+    parity.check(expected_edit, result(inputs_after_edit, "P1A", "rw_total_flight_cost_rub"), "Изменение DOC", "cost_rub")
     changed_directions = {"outbound": calculate("CHARTER", variant_inputs, publish=False)}
-    param_in = t1_variant["input_param_ids"]["inbound"][edit_key]
-    changed_directions["inbound"] = calculate("CHARTER", t1_variant["inputs"]["inbound"] |
+    param_in = input_address("P1A", edit_key, "inbound")
+    changed_directions["inbound"] = calculate("CHARTER", allowed["inputs"]["inbound"] |
                                                ({edit_key: edited_value} if param_in == param else {}), publish=False)
     edit_cycle = round_trip("CHARTER", **changed_directions, margin_pct=variant_inputs["target_margin_pct"])
     parity.check(edit_cycle["rw_net_contribution_rub"], inputs_after_edit[SHEETS[0]]["H7"].value,
                  "Сводка после изменения DOC", "contribution_rub")
     executive = calculated[SHEETS[0]]
     require([executive[x].value for x in ("A4", "C4", "D4", "E4", "F4", "G4", "H4", "I4", "J4")] ==
-            ["0/3 Go", 0, 0, 30, 68, 352, 5, 9, 47], "Сводные показатели")
+            ["0/3 Go", 0, 0, 30, 68, 352, 5, 9, sum(len(c["variants"]) for c in cases)], "Сводные показатели")
+    require([executive[x].value for x in ("I6", "J6")] == ["Безубыт. место · вылет", "Безубыт. место · возврат"],
+            "Безубыточные цены в сводке Excel")
+    params = calculated[SHEETS[1]]
     for item, r in zip(registry["assumptions"], range(4, assumptions.max_row + 1), strict=True):
-        params = calculated[SHEETS[1]]
         require(params[f"A{r}"].value == item["param_id"] and params[f"G{r}"].value == item["source_tag"]
                 and (params[f"H{r}"].value or "") == "; ".join(item["evidence_ids"]), f"Параметр {r}")
+        actual = input_cells[item["param_id"]]
+        require(item["excel_cell_hint"] == f"'{assumptions.title}'!{actual.coordinate}",
+                f"Несовпадение excel_cell_hint для {item['param_id']}")
         for column, key in (("D", "base_value"), ("E", "min_value"), ("F", "max_value")):
-            parity.check(item[key], calculated[SHEETS[1]][f"{column}{r}"].value, item["param_id"], key)
+            parity.check(item[key], params[f"{column}{r}"].value, item["param_id"], key)
     for pair in registry["fleet_matrix"]["pairs"]:
         r = pair_rows[pair["airport_pair"]]
         require(calculated[SHEETS[5]][f"B{r}"].value == pair["airport_pair"], "Идентичность аэропортовой пары")
@@ -298,7 +409,12 @@ def verify_xlsx(registry, cases, workdir):
     require(sum(c.data_type == "f" for row in workbook[SHEETS[7]] for c in row) >= 4,
             "COUNTIF скрининга")
     count = sum(c.data_type == "f" for ws in workbook for row in ws for c in row)
-    return values, {"formula_errors": 0, "live_formulas": count, "edit_recalculated": True, **parity.report()}
+    return values, {"formula_errors": 0, "live_formulas": count, "edit_recalculated": True,
+                    "excel_cell_hints_checked": len(input_cells), "excel_cell_hints_match_pct": 100,
+                    "blank_required_inputs": "PASS", "p3a_blank_contribution": MISSING,
+                    "p3a_blank_executive_contribution": MISSING, "p3a_explicit_zero_contribution_rub": zero_contribution,
+                    "p1a_class_screen_python_and_excel": {"allow_y_in_j_0": 0, "allow_y_in_j_1": 1},
+                    "range_screen": "PASS", "mixed_block_break_even_y": "PASS", **parity.report()}
 
 
 def verify_html(dossier, registry, cases, xlsx_values, workdir):
@@ -318,25 +434,45 @@ def verify_html(dossier, registry, cases, xlsx_values, workdir):
     path.write_text(dossier.javascript(), encoding="utf-8")
     subprocess.run(["node", "--check", str(path)], check=True, capture_output=True, text=True, timeout=20)
     rows = []
-    prepared = registry["pilots_and_clusters"][0]["variants"][0]
-    delta = {"outbound": {"doc_per_block_h_rub": prepared["inputs"]["outbound"]["doc_per_block_h_rub"] + 10000}}
+    defaults = {}
     for case, embedded in zip(cases, data["cases"], strict=True):
         require(all(embedded[k] == case[k] for k in ("case_id", "demand_basis", "decision", "confirmed_pax")) and
                 embedded["code"] == case_code(case), "Доказательность сценариев в досье")
+        defaults[embedded["code"]] = embedded["variants"][0]
         for v, scenario in zip(case["variants"], embedded["variants"], strict=True):
             require(all(v[k] == scenario[k] for k in ("variant_id", "mode", "inputs", "input_param_ids")),
                     f"{v['variant_id']}: входы встроенного расчёта")
             rows.append((embedded["code"], v, scenario))
+    p1a, p3a, p3b = (defaults[code] for code in ("P1A", "P3A", "P3B"))
+    edits = {
+        "doc": (p1a, {"outbound": {"doc_per_block_h_rub": p1a["inputs"]["outbound"]["doc_per_block_h_rub"] + 10000}}),
+        "ferry": (p1a, {"outbound": {"ferry_factor": 0.25}}),
+        "y_in_j": (p1a, {"outbound": {"allow_y_in_j_seats": 0}}),
+        "range": (p3b, {"outbound": {"screen_distance_limit_km": 2355}}),
+        "price": (p3a, {"outbound": {"offered_price_rub": 20000}}),
+        "yield": (p3a, {"outbound": {"market_net_yield_rub": 15000}}),
+    }
+    for case in cases:
+        code = case_code(case)
+        if code in ("P2B", "C5"):
+            edits[code] = (defaults[code], {d: {"offered_price_rub": case["expected_outputs"][d]["rw_break_even_y_price_rub"]}
+                                          for d in DIRECTIONS[:2]})
     node_code = (
         "const {calculateScenario}=require(process.argv[1]);"
-        "const {variants,edited,delta}=JSON.parse(require('node:fs').readFileSync(0,'utf8'));"
-        "console.log(JSON.stringify({base:variants.map(v=>calculateScenario(v)),edited:calculateScenario(edited,delta)}));"
+        "const {variants,edits}=JSON.parse(require('node:fs').readFileSync(0,'utf8'));"
+        "const edited=Object.fromEntries(Object.entries(edits).map(([label,[v,delta]])=>[label,calculateScenario(v,delta)]));"
+        "console.log(JSON.stringify({base:variants.map(v=>calculateScenario(v)),edited}));"
     )
     result = subprocess.run(["node", "-e", node_code, str(path)], check=True, capture_output=True, text=True, timeout=20,
-                            input=json.dumps({"variants": [s for _, _, s in rows], "edited": rows[0][2], "delta": delta}))
+                            input=json.dumps({"variants": [s for _, _, s in rows], "edits": edits}))
     node_result = json.loads(result.stdout)
     parity = Parity()
     for (code, v, _), outputs in zip(rows, node_result["base"], strict=True):
+        if code == "P1A":
+            flag = 0 if v["variant_id"] == P1A_NO_Y_IN_J else 1
+            require(all((outputs[d]["y_cap_base"], outputs[d]["y_passengers"], outputs[d]["j_fits"],
+                         outputs[d]["y_fits"], outputs[d]["operational_screen_pass"]) == (148, 150, 1, flag, flag)
+                        for d in DIRECTIONS[:2]), f"JS: поклассовый фильтр {v['variant_id']}")
         for direction in DIRECTIONS:
             xlsx = xlsx_values[code, v["variant_id"]][direction]
             expected = v["expected_outputs"][direction]
@@ -346,25 +482,63 @@ def verify_html(dossier, registry, cases, xlsx_values, workdir):
                 context = f"JS.{code}.{v['variant_id']}.{direction}"
                 parity.check(value, actual[key], context, key)
                 parity.check(xlsx[key], actual[key], context + ".vsXLSX", key)
-    inputs = {direction: prepared["inputs"][direction] | delta.get(direction, {}) for direction in DIRECTIONS[:2]}
-    sides = {d: calculate("CHARTER", i, publish=False) for d, i in inputs.items()}
-    cycle = round_trip("CHARTER", **sides, margin_pct=inputs["outbound"]["target_margin_pct"])
-    for d, expected in {**sides, "round_trip": cycle}.items():
-        for key, value in expected.items():
-            parity.check(value, node_result["edited"][d][key], f"Правка JS.{d}", key)
+    edited = node_result["edited"]
+    for label, (variant, delta) in edits.items():
+        mode = variant["mode"]
+        inputs = {d: variant["inputs"][d] | delta.get(d, {}) for d in DIRECTIONS[:2]}
+        sides = {d: calculate(mode, i, publish=False) for d, i in inputs.items()}
+        cycle = round_trip(mode, **sides, margin_pct=inputs["outbound"]["target_margin_pct"])
+        for d, expected in {**sides, "round_trip": cycle}.items():
+            for key, value in expected.items():
+                parity.check(value, edited[label][d][key], f"Правка JS.{label}.{d}", key)
+        if label in ("P2B", "C5"):
+            require(all(edited[label][d]["rw_net_contribution_rub"] == 0 for d in DIRECTIONS)
+                    and all(side["rw_net_contribution_rub"] == 0 for side in sides.values()),
+                    f"Python и JS: вклад {label} при безубыточном Y")
+    require(edited["y_in_j"]["outbound"]["operational_screen_pass"] == 0
+            and edited["y_in_j"]["inbound"]["operational_screen_pass"] == 1, "JS: переключение допуска Y в J")
+    require(edited["range"]["outbound"]["operational_screen_pass"] == 0, "JS: фильтр дальности")
+    forum_base = next(c for c in cases if case_code(c) == "P3A")["expected_outputs"]["outbound"]
+    new_contribution = edited["price"]["outbound"]["rw_net_contribution_rub"]
+    require(forum_base["rw_net_contribution_rub"] < 0 < new_contribution, "JS: изменение знака вклада P3A при цене 20 000")
+    require(edited["yield"]["outbound"]["rw_displacement_cost_rub"] < forum_base["rw_displacement_cost_rub"],
+            "JS: сценарная стоимость вытеснения P3A")
     return {"node_check": "PASS", "offline": True, "base_cases": len(cases),
-            "variants": len(rows), "edit_recalculated": True, **parity.report()}
+            "variants": len(rows), "edit_recalculated": True,
+            "p1a_class_screen_js": {"allow_y_in_j_0": 0, "allow_y_in_j_1": 1}, "range_screen": "PASS",
+            "mixed_block_break_even_y": "PASS", "p3a_contribution_at_y_price_20000_rub": new_contribution,
+            "market_net_yield_and_ferry_edits": "PASS", **parity.report()}
 
 
-def verify_memo():
+def verify_memo(registry, cases):
     memo = (ROOT / MEMO).read_text(encoding="utf-8")
     headings = re.split(r"^## (.+)$", memo, flags=re.M)
     sections = dict(zip(headings[1::2], headings[2::2], strict=True))
     barriers = sections["Где спроса для отдельной программы нет и главные барьеры"]
     share = len(barriers.split()) / len(memo.split())
     require(75 <= len(memo.splitlines()) <= 115 and share >= 0.30, "Объём меморандума и доля барьеров")
-    require(all(code in barriers for code in ("GROUND_ALT", "OWN_FLEET", "ТМС ≠ GAP", "85%", "2 379,56", "150")),
+    require(all(code in barriers for code in ("GROUND_ALT", "OWN_FLEET", "ТМС ≠ GAP", "150")),
             "Обязательные барьеры меморандума")
+    def display(value, digits=0):
+        return f"{value:,.{digits}f}".replace(",", " ").replace(".", ",").replace("-", "−")
+
+    p3a = next(c for c in cases if case_code(c) == "P3A")
+    forum = next(block for block in barriers.split("\n- ") if block.startswith("**Блок ИННОПРОМ"))
+    numeric_text = r"−?\d+(?: \d{3})*(?:,\d+)?"
+    expected = [display(p3a["inputs"]["outbound"]["displacement_lf_pct"])]
+    for field in ("rw_net_contribution_rub", "rw_break_even_seat_price_rub"):
+        expected.extend(display(p3a["expected_outputs"][d][field]) for d in DIRECTIONS[:2])
+    require(re.findall(numeric_text, forum) == expected, f"Цифры ИННОПРОМ в меморандуме: {expected}")
+    led_nux = next(pair for pair in registry["fleet_matrix"]["pairs"] if pair["airport_pair"] == "LED-NUX")
+    led_barrier = next(block for block in barriers.split("\n- ") if block.startswith("**LED ↔ NUX"))
+    require(f"Ортодромия {display(led_nux['gc_distance_km'], 2)} км" in led_barrier, "Ортодромия LED–NUX в меморандуме")
+    meta = registry["meta"]
+    verdict = f"{meta['open_source_go_count']}/{meta['round0_threshold_pairs']} Go"
+    require(sections["Четыре вывода"].lstrip().startswith(f"1. **{verdict} "), "Go в меморандуме")
+    charter = next(block for block in barriers.split("\n- ") if block.startswith("**SSJ100 100Y"))
+    require(all(value in charter for value in ("≥150 мест", "≥700 кг", "../46_corporate_pilot_ufa_nux.md", "EV-W13-001",
+                                               "карточку запроса", "ТЗ был недоступен", "повторной сверки")),
+            "Атрибуция архивного ТЗ в меморандуме")
     require(len(re.findall(r"^\d\. ", sections["Четыре вывода"], re.M)) == 4 and
             len(re.findall(r"^\d\. ", sections["Две гипотезы к обсуждению"], re.M)) == 2, "Рамка встречи в меморандуме")
     questions = sections["Пять вопросов Red Wings"]
@@ -381,7 +555,8 @@ def verify_memo():
     for row in council_scores():
         require("| " + " | ".join(row) + " |" in sections["Оценки Консула"], f"Оценки {row[0]}")
     return {"lines": len(memo.splitlines()), "barriers_pct": round(share * 100, 2),
-            "questions": 5, "relative_links": len(links)}
+            "questions": 5, "relative_links": len(links), "key_values_checked": len(expected) + 2,
+            "archived_tender_attribution": "PASS"}
 
 
 def main():
@@ -402,10 +577,10 @@ def main():
             report["P5_FLEET_ECON"] = "PASS"
             dossier = Dossier((ROOT / HTML).read_text(encoding="utf-8"))
             report["html"] = verify_html(dossier, registry, cases, values, workdir)
-        report["memo"] = verify_memo()
+        report["memo"] = verify_memo(registry, cases)
         report["P7_EXPERT_KIT"] = "PASS"
         report["overall_verdict"] = "PASS"
-    except (ValueError, OSError, KeyError, subprocess.SubprocessError) as error:
+    except (ValueError, OSError, KeyError, StopIteration, subprocess.SubprocessError) as error:
         report["error"] = str(error)
         if isinstance(error, subprocess.CalledProcessError) and error.stderr:
             report["stderr"] = error.stderr.strip()

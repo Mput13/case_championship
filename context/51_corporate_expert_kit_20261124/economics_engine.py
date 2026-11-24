@@ -31,6 +31,10 @@ LEVELS = set(
 )
 OBS, HIST, SCEN, RW = "OBSERVED_OPEN", "HISTORICAL_RFI", "SCENARIO_MODEL", "NEEDS_RW_DATA"
 SSJ, SJ, TU = "SSJ100 100Y", "SJ-100 2-class", "Ту-214 2-class"
+ASSUMPTIONS_SHEET = "1_Inputs_Assumptions"
+SSJ_BORDERLINE_KM, SJ_STUDY_KM, TU_STUDY_KM = 2450, 2450, 5000
+RANGE_SCREEN = {SSJ: ("gc_distance_km", SSJ_BORDERLINE_KM), SJ: ("gc_distance_km", SJ_STUDY_KM),
+                TU: ("route_distance_km_k110", TU_STUDY_KM)}
 FLEET_FIELDS = (
     "rank airport_pair from_iata to_iata city_pair_id gc_distance_km route_distance_km_k110 "
     "est_block_time_h distance_band ssj95b_100y_fit sj100_pd8_fit tu214_2class_fit "
@@ -184,9 +188,9 @@ def make_fleet(tables):
             (900, "LE_900"), (2250, "901_2250"), (2450, "2251_2450"), (5000, "2451_5000")
         ) if km <= upper), "GT_5000")
         ssj_fit = ("FIT" if km <= 2250 else
-                   "BORDERLINE_PAYLOAD_CHECK" if km <= 2450 else "OUT_OF_RANGE")
-        sj_fit = "CANDIDATE_PERFORMANCE_CHECK" if km <= 2450 else "OUT_OF_RANGE"
-        tu_fit = "CANDIDATE_PERFORMANCE_CHECK" if route <= 5000 else "OUTSIDE_STUDY_ENVELOPE"
+                   "BORDERLINE_PAYLOAD_CHECK" if km <= SSJ_BORDERLINE_KM else "OUT_OF_RANGE")
+        sj_fit = "CANDIDATE_PERFORMANCE_CHECK" if km <= SJ_STUDY_KM else "OUT_OF_RANGE"
+        tu_fit = "CANDIDATE_PERFORMANCE_CHECK" if route <= TU_STUDY_KM else "OUTSIDE_STUDY_ENVELOPE"
         note = "[MODEL-ESTIMATE] Время прямого плеча. [NEEDS-RW-DATA] Доступность борта, аэродром, масса, запасной, ветер."
         if (a, b) == ("LED", "NUX"):
             note += " +24,56 км к ориентиру SSJ-95B 2 355 км по ортодромии. Запросить зимний профиль ЯНАО, МВМ, багаж и запасной."
@@ -257,12 +261,19 @@ def hubs_summary(tables, airports):
 COMMON = [
     ("j_passengers", "ROUNDUP(pax * j_share_pct / 100, 0)"),
     ("y_passengers", "pax - j_passengers"),
+    ("euro_j_passengers", "IF(euro_seats_per_j > 0, IF(j_seats_per_aircraft == 0, j_passengers, 0), 0)"),
     ("saleable_seats_per_aircraft", "ROUNDDOWN(aircraft_seats * (1 - payload_seat_haircut_pct / 100), 0)"),
-    ("effective_seats_per_aircraft", "saleable_seats_per_aircraft - ROUNDUP(j_passengers / aircraft_count, 0) * euro_seats_per_j"),
+    ("blocked_seats_per_aircraft", "ROUNDUP(euro_j_passengers / aircraft_count, 0) * euro_seats_per_j"),
+    ("effective_seats_per_aircraft", "saleable_seats_per_aircraft - blocked_seats_per_aircraft"),
     ("capacity_passengers", "MIN(effective_seats_per_aircraft, effective_sellable_limit_per_aircraft) * aircraft_count"),
     ("capacity_fit", "IF(pax <= capacity_passengers, 1, 0)"),
-    ("j_policy_fit", "IF(j_passengers <= j_seats_per_aircraft * aircraft_count, 1, IF(j_required + IF(euro_seats_per_j <= 0, 1, 0) > 0, 0, 1))"),
+    ("j_cap", "MIN(j_seats_per_aircraft * aircraft_count, capacity_passengers)"),
+    ("y_cap_base", "capacity_passengers - j_cap"),
+    ("j_fits", "IF(j_passengers - IF(j_required == 1, 0, euro_j_passengers) <= j_cap, 1, 0)"),
+    ("j_seats_open_to_y", "IF(allow_y_in_j_seats == 1, MAX(0, j_cap - j_passengers), 0)"),
+    ("y_fits", "IF(y_passengers + euro_j_passengers <= y_cap_base + j_seats_open_to_y, 1, 0)"),
     ("split_fit", "IF(aircraft_count <= 1, 1, split_allowed)"),
+    ("distance_fit", "IF(screen_distance_km <= screen_distance_limit_km, 1, 0)"),
     ("client_cash_excl_fare_rub", "bag_rub + transfer_rub + overnight_rub + disruption_probability_pct / 100 * disruption_cash_rub"),
     ("client_alt_cash_tct_rub", "alt_fare_rub + alt_bag_rub + alt_transfer_rub + alt_overnight_rub + alt_disruption_probability_pct / 100 * alt_disruption_cash_rub"),
     ("client_door_to_door_h", "block_h + access_buffer_h + destination_transfer_h"),
@@ -271,13 +282,15 @@ COMMON = [
     ("client_alt_lost_work_h", "client_alt_door_to_door_h * alt_work_overlap_pct / 100 + alt_disruption_probability_pct / 100 * alt_disruption_work_h"),
     ("client_time_value_rub", "client_lost_work_h * loaded_hour_rub"),
     ("client_alt_time_value_rub", "client_alt_lost_work_h * loaded_hour_rub"),
-    ("client_blended_offer_per_paid_seat_rub", "offered_price_rub * (1 + j_passengers / pax * j_fare_premium_pct / 100)"),
+    ("client_j_fare_multiplier", "1 + j_passengers / pax * j_fare_premium_pct / 100"),
+    ("client_blended_offer_per_paid_seat_rub", "offered_price_rub * client_j_fare_multiplier"),
     ("client_alt_total_tct_rub", "client_alt_cash_tct_rub + client_alt_time_value_rub"),
     ("client_max_offer_per_pax_rub", "client_alt_total_tct_rub - client_cash_excl_fare_rub - client_time_value_rub"),
 ]
 
+OPERATING_FILTER = "capacity_fit * j_fits * y_fits * split_fit * distance_fit"
 CHARTER = [
-    ("operational_screen_pass", "capacity_fit * j_policy_fit * split_fit"),
+    ("operational_screen_pass", OPERATING_FILTER),
     ("rw_aircraft_equivalent_cycles", "aircraft_count * (1 + ferry_factor)"),
     ("rw_billable_block_h", "block_h * rw_aircraft_equivalent_cycles"),
     ("rw_flight_non_doc_cost_rub", "rw_aircraft_equivalent_cycles * (fixed_per_departure_rub + airport_per_departure_rub) + aircraft_count * airport_per_departure_rub * parking_icing_pct / 100"),
@@ -295,19 +308,22 @@ CHARTER = [
 BLOCK = [
     ("rw_paid_seats", "MAX(MIN(pax, quota_seats), ROUNDUP(quota_seats * minimum_take_pct / 100, 0))"),
     ("rw_released_seats", "quota_seats - rw_paid_seats"),
-    ("rw_unavailable_y_seats", "j_passengers * euro_seats_per_j"),
+    ("rw_unavailable_y_seats", "euro_j_passengers * euro_seats_per_j"),
     ("rw_inventory_screen_pass", "IF(quota_seats <= capacity_passengers, IF(pax <= quota_seats, 1, 0), 0)"),
-    ("operational_screen_pass", "capacity_fit * j_policy_fit * split_fit * rw_inventory_screen_pass"),
-    ("rw_held_j_seats", "IF(euro_seats_per_j > 0, 0, MIN(j_passengers, rw_paid_seats))"),
+    ("operational_screen_pass", OPERATING_FILTER + " * rw_inventory_screen_pass"),
+    ("rw_held_j_seats", "MIN(j_cap, rw_paid_seats, j_passengers - euro_j_passengers + "
+                       "MIN(j_seats_open_to_y, MAX(0, y_passengers + euro_j_passengers - y_cap_base)))"),
     ("rw_expected_displaced_j_seats", "rw_held_j_seats * j_displacement_lf_pct / 100"),
     ("rw_expected_displaced_y_seats", "(rw_paid_seats - rw_held_j_seats + rw_unavailable_y_seats + rw_released_seats * release_spoilage_pct / 100) * displacement_lf_pct / 100"),
     ("rw_expected_displaced_seats", "rw_expected_displaced_y_seats + rw_expected_displaced_j_seats"),
     ("rw_displacement_cost_rub", "rw_expected_displaced_y_seats * market_net_yield_rub + rw_expected_displaced_j_seats * market_j_net_yield_rub"),
     ("rw_incremental_service_cost_rub", "pax * marginal_service_per_pax_rub + block_admin_rub"),
     ("rw_net_revenue_rub", "rw_paid_seats * client_blended_offer_per_paid_seat_rub * net_revenue_pct / 100"),
-    ("rw_block_net_contribution_after_displacement_rub", "rw_net_revenue_rub - rw_incremental_service_cost_rub - rw_displacement_cost_rub"),
-    ("rw_net_contribution_rub", "rw_block_net_contribution_after_displacement_rub"),
     ("rw_break_even_seat_price_rub", "(rw_incremental_service_cost_rub + rw_displacement_cost_rub) / (rw_paid_seats * net_revenue_pct / 100)"),
+    ("rw_break_even_y_price_rub", "rw_break_even_seat_price_rub / client_j_fare_multiplier"),
+    ("rw_block_net_contribution_after_displacement_rub", "IF(offered_price_rub == ROUND(rw_break_even_y_price_rub, 2), 0, "
+                                                      "rw_net_revenue_rub - rw_incremental_service_cost_rub - rw_displacement_cost_rub)"),
+    ("rw_net_contribution_rub", "rw_block_net_contribution_after_displacement_rub"),
     ("rw_target_price_per_seat_rub", "rw_break_even_seat_price_rub / (1 - target_margin_pct / 100)"),
     ("client_fare_per_flown_pax_rub", "client_blended_offer_per_paid_seat_rub * rw_paid_seats / pax"),
     ("client_max_unit_contract_price_rub", "client_max_offer_per_pax_rub * pax / rw_paid_seats"),
@@ -356,7 +372,7 @@ def rounddown(x, digits):
     return math.copysign(math.floor(abs(x) * 10 ** digits + 1e-10) / 10 ** digits, x)
 
 
-FUNCTIONS = {"ROUNDUP": roundup, "ROUNDDOWN": rounddown, "MAX": max, "MIN": min,
+FUNCTIONS = {"ROUND": round_excel, "ROUNDUP": roundup, "ROUNDDOWN": rounddown, "MAX": max, "MIN": min,
              "IF": lambda flag, yes, no: yes if flag else no}
 COMPILED = {mode: [(name, compile(expr, name, "eval")) for name, expr in spec] for mode, spec in FORMULAS.items()}
 
@@ -367,6 +383,7 @@ def calculate(mode, inputs, *, publish=True):
     if mode != "TICKET":
         check(0 < inputs["net_revenue_pct"] <= 100 and 0 <= inputs["target_margin_pct"] < 100,
               "Недопустимый знаменатель или маржа")
+        check(inputs["allow_y_in_j_seats"] in (0, 1), "Допуск рассадки Y в J должен быть 0 или 1")
     if mode == "BLOCK":
         check(inputs["quota_seats"] > 0, "Квота должна быть больше нуля")
     for key, expression in COMPILED[mode]:
@@ -398,10 +415,13 @@ PARAMS = {
     "effective_sellable_limit_per_aircraft": ("Предел мест к продаже по ограничениям загрузки", "seat", RW, 210, 50, 210, 1),
     "payload_seat_haircut_pct": ("Сценарное уменьшение пассажирской ёмкости из-за нагрузки", "%", RW, 0, 0, 25, 5),
     "j_seats_per_aircraft": ("Подтверждаемые кресла настоящего J на одном борту", "seat", RW, 0, 0, 24, 1),
+    "allow_y_in_j_seats": ("Разрешена рассадка пассажиров Y в свободные кресла J", "0/1", SCEN, 0, 0, 1, 1),
     "j_share_pct": ("Сценарная доля пассажиров группы с запросом J", "%", SCEN, 0, 0, 15, 1),
     "j_required": ("Политика клиента требует полноценный J", "0/1", SCEN, 0, 0, 1, 1),
     "euro_seats_per_j": ("Соседних кресел Y блокируется на одного пассажира с запросом J", "seat/J pax", SCEN, 0, 0, 1, 1),
     "split_allowed": ("Клиент допустил разбивку группы в данном сценарии", "0/1", SCEN, 0, 0, 1, 1),
+    "screen_distance_km": ("Дальность для фильтра типа ВС", "km", SCEN, 0, 0, 7500, 1),
+    "screen_distance_limit_km": ("Граница дальности для включения в скрининг", "km", SCEN, 0, 0, 7500, 1),
     "bag_rub": ("Багаж и экипировка в предложенном сценарии на пассажира", "RUB/pax", SCEN, 1200, 0, 5500, 100),
     "transfer_rub": ("Доплечья по воздуху и земле на пассажира", "RUB/pax", SCEN, 2300, 500, 10000, 100),
     "overnight_rub": ("Запланированная ночёвка на пассажира", "RUB/pax", SCEN, 0, 0, 14000, 500),
@@ -450,6 +470,7 @@ CHARTER_ONLY = {"ferry_factor", "fixed_per_departure_rub", "airport_per_departur
 FLEET_AND_CONTRACT = {
     "aircraft_seats", "aircraft_count", "effective_sellable_limit_per_aircraft", "payload_seat_haircut_pct",
     "j_seats_per_aircraft", "j_required", "euro_seats_per_j", "split_allowed", "net_revenue_pct", "target_margin_pct",
+    "allow_y_in_j_seats", "screen_distance_km", "screen_distance_limit_km",
 }
 MODE_EXCLUDED = {"CHARTER": BLOCK_ONLY, "BLOCK": CHARTER_ONLY,
                  "TICKET": CHARTER_ONLY | BLOCK_ONLY | FLEET_AND_CONTRACT}
@@ -466,7 +487,7 @@ class Registry:
         self.params[key] = dict(
             param_id=key, label_ru=label, unit=unit, base_value=value,
             min_value=minimum, max_value=maximum, step=step, source_tag=tag, evidence_ids=list(evidence),
-            excel_cell_hint=f"'Параметры'!D{len(self.params) + 2}", **extra,
+            excel_cell_hint=f"'{ASSUMPTIONS_SHEET}'!D{len(self.params) + 4}", **extra,
         )
         return key
 
@@ -592,15 +613,20 @@ def build_cases(reg, matrix, future):
     rail_ufa_out = dict(alt_fare_rub="ufa_nux_rail_from", alt_duration_h="ufa_nux_rail_h")
     rail_ufa_back = dict(alt_fare_rub=5000, alt_duration_h=46)
     p1a = variant("TU214_CHARTER", "CHARTER", "UFA-NUX", TU,
-                  rail_ufa | dict(pax="vankor_rfi_min_seats", bag_rub=0, offered_price_rub=13500,
+                  rail_ufa | dict(pax="vankor_rfi_min_seats", allow_y_in_j_seats=1, bag_rub=0, offered_price_rub=13500,
                                   work_overlap_pct=65, access_buffer_h=4),
                   rail_ufa_out | dict(parking_icing_pct=25, transfer_rub=4700),
                   rail_ufa_back | dict(offered_price_rub=13000, transfer_rub=4200),
                   contract_requirements={"extra_baggage_param_id": "vankor_rfi_min_extra_baggage",
                                          "parking_param_id": "vankor_rfi_min_excess_parking",
                                          "one_aircraft": True, "regulation_extension_required": True},
-                  condition_ru="700 кг и 150 человек на одном борту требуют совместной проверки загрузки. "
+                  condition_ru="Ту-214 148Y + 16J. Сценарий допускает рассадку двух пассажиров Y в свободные кресла J. "
+                               "Допуск, 700 кг груза и загрузку 150 пассажирами на одном борту нужно подтвердить. "
                                "25% к базовым аэропортовым расходам применяется один раз в НУР за оборот.")
+    p1a_y_only = p1a | {
+        "variant_id": "TU214_CHARTER_NO_Y_IN_J", "common": p1a["common"] | {"allow_y_in_j_seats": 0},
+        "condition_ru": "Ту-214 148Y + 16J. Без допуска рассадки Y в J группе из 150 пассажиров Y не хватает двух мест.",
+    }
     p1b = variant("BLOCK_30", "BLOCK", "UFA-NUX", SSJ,
                   rail_ufa | dict(quota_seats=30, minimum_take_pct=100, offered_price_rub=13000,
                                   access_buffer_h=4),
@@ -725,7 +751,7 @@ def build_cases(reg, matrix, future):
 
     return [
         case("P1A_VANKOR_CHARTER_164", "P1", "Исторический стресс-тест РН40302710", "РН-Ванкор",
-             ["EV-W13-001", *p1_market], [p1a], historical_reference="РН40302710",
+             ["EV-W13-001", *p1_market], [p1a, p1a_y_only], historical_reference="РН40302710",
              historical_flights_literal="80 рейсов за шесть месяцев с подписания. Единица рейса сохранена."),
         case("P1B_UFA_NUX_BLOCK_30", "P1", "Малая группа на существующем предложении", "Требует отдельного подтверждения",
              p1_market, [p1b, p1b_public], excluded_as_demand_evidence=[
@@ -794,6 +820,19 @@ def evaluate_cases(cases, reg, fleet):
             aircraft = {key: value for key, value in AIRCRAFT.get(plane, {}).items()
                         if key not in MODE_EXCLUDED[mode]}
             common = aircraft | {"block_h": block_id} | setup.pop("common")
+            if mode != "TICKET":
+                distance_field, limit = RANGE_SCREEN[plane]
+                distance_id = f"{matrix['airport_pair']}.{distance_field}"
+                limit_id = f"fleet_distance_limit.{plane}"
+                if distance_id not in reg.params:
+                    km = matrix[distance_field]
+                    label = "Ортодромия пары" if distance_field == "gc_distance_km" else "Дальность маршрута с коэффициентом 1,10"
+                    reg.add(distance_id, label, "km", SCEN, km, km, km, 0, ["EV-W2S1-001"])
+                if limit_id not in reg.params:
+                    label = f"Граница дальности скрининга для {plane}"
+                    reg.add(limit_id, label, "km", SCEN, limit, limit, limit, 0,
+                            note_ru="Граница исследования. Лётные характеристики для окна подтверждает RW.")
+                common.update(screen_distance_km=distance_id, screen_distance_limit_km=limit_id)
             setup.update(gc_distance_km=matrix["gc_distance_km"], route_distance_km_k110=matrix["route_distance_km_k110"])
             inputs, parameter_ids, output, linked_evidence = {}, {}, {}, {}
             raw = {}
@@ -835,7 +874,7 @@ def evaluate_cases(cases, reg, fleet):
     check(all("EV-W13-003" not in c["evidence_ids"] for c in cases), "Заявки Уфа–Новый Уренгой")
     check(cases[2]["variants"][1]["expected_outputs"]["outbound"]["operational_screen_pass"] == 0,
           "Дробление запрещено")
-    check(cases[4]["variants"][-1]["expected_outputs"]["outbound"]["j_policy_fit"] == 0, "Настоящий J")
+    check(cases[4]["variants"][-1]["expected_outputs"]["outbound"]["j_fits"] == 0, "Настоящий J")
     check(cases[6]["variants"][2]["expected_outputs"]["outbound"]["capacity_fit"] == 0, "Зима 25%")
     return cases
 
@@ -969,11 +1008,13 @@ FORMULA_SPEC = {
               "rw": "RUB per directed flight window or aircraft set, unless output suffix changes unit",
               "round_trip": "Сумма денежных показателей или времени двух направлений, без сложения вместимости"},
     "precision": {"published_decimals": 2, "allowed_rub_residual": 1, "intermediate_rounding": "NONE",
+                  "block_break_even_quote": "При вводе тарифа Y, равного порогу до копейки, субрублёвый остаток вклада считается нулём.",
                   "geometry_rounding": "Геометрия и блок-время фиксированы по флот-матрице. Не пересчитывать при смене тарифа."},
-    "functions": {"ROUNDUP": "От нуля", "ROUNDDOWN": "К нулю", "IF": "Если условие, взять второй аргумент, иначе третий",
+    "functions": {"ROUND": "До указанного знака", "ROUNDUP": "От нуля", "ROUNDDOWN": "К нулю",
+                  "IF": "Если условие, взять второй аргумент, иначе третий",
                   "MIN": "Минимум", "MAX": "Максимум"},
     "directional": {
-        mode: [{"output_id": key, "expression": expr, "excel_formula": "=" + expr}
+        mode: [{"output_id": key, "expression": expr, "excel_formula": "=" + expr.replace("==", "=")}
                for key, expr in formulas] for mode, formulas in FORMULAS.items()
     },
     "round_trip": {
@@ -997,8 +1038,9 @@ FORMULA_SPEC = {
         "ferry_factor": "Один коэффициент масштабирует блок-часы и эквивалентные циклы. После получения программы "
                         "считать точные маршруты, часы и дискретные циклы перегонов.",
         "rw_break_even_charter_price_rub": "Полная цена клиенту при нулевом вкладе RW, за все борта направленного окна.",
-        "rw_break_even_seat_price_rub": "Чартер: цена на пассажира в данном окне. Блок: цена выкупленного места с "
-                                      "покрытием обслуживания и вытеснения.",
+        "rw_break_even_seat_price_rub": "Чартер: цена на пассажира в данном окне. Блок: средняя цена выкупленного места "
+                                      "по классам с покрытием обслуживания и вытеснения.",
+        "rw_break_even_y_price_rub": "Тариф Y при нулевом вкладе RW с учётом доли и надбавки J. Применим к полю цены Y.",
         "rw_doc_max_rub_per_block_h": "Максимальный переменный расход блок-часа при заданной цене, "
                                      "нетто-выручке и целевой марже. Для блоков на существующих рейсах неприменим.",
         "rw_block_net_contribution_after_displacement_rub": "Нетто-выручка минус приращённые расходы и упущенный вклад. "
@@ -1006,15 +1048,16 @@ FORMULA_SPEC = {
             "Для настоящего J отдельные вероятность вытеснения и упущенный вклад. "
             "Размещение J и политика возврата требуют согласования.",
         "rw_inventory_screen_pass": "Проверка чисел квоты и ёмкости из сценария. Реальный инвентарь запрашивается отдельно.",
-        "operational_screen_pass": "Модельная проверка вместимости, допустимости дробления и класса; "
-                                   "фактические масса, слоты, запасной, аэродром и экипажи требуют проверки RW.",
+        "operational_screen_pass": "Модельный фильтр общей и поклассовой ёмкости, дробления и дальности. "
+                                   "Допуск Y в свободные места J задаётся явно. Для евробизнеса учтены занятые и соседние "
+                                   "заблокированные кресла. Масса, слоты, запасной, аэродром и экипажи требуют проверки RW.",
     },
 }
 CSV_OUTPUTS = (
     "client_cash_tct_rub", "client_lost_work_h", "client_time_value_rub", "client_total_tct_rub",
     "client_alt_cash_tct_rub", "client_alt_lost_work_h", "client_alt_time_value_rub", "client_alt_total_tct_rub",
     "client_max_unit_contract_price_rub", "rw_net_contribution_rub", "rw_total_flight_cost_rub",
-    "rw_break_even_charter_price_rub", "rw_break_even_seat_price_rub", "rw_doc_max_rub_per_block_h",
+    "rw_break_even_charter_price_rub", "rw_break_even_seat_price_rub", "rw_break_even_y_price_rub", "rw_doc_max_rub_per_block_h",
     "rw_expected_displaced_seats", "rw_displacement_cost_rub", "rw_paid_seats", "rw_released_seats",
     "rw_block_net_contribution_after_displacement_rub", "j_passengers", "effective_seats_per_aircraft", "operational_screen_pass",
 )
@@ -1102,9 +1145,9 @@ def main():
                 "est_block_time_h": "round(0.45 + route_distance_km_k110 / 760.0, 2)",
                 "source_tag": "MODEL_ESTIMATE",
                 "periods_of_flight_ru": "0,45 ч — руление, набор и снижение. 760 км/ч — средняя крейсерская путевая.",
-                "ssj95b_100y_gc_km": {"fit_max": 2250, "borderline_max": 2450, "conservative_reference": 2355},
-                "sj100_pd8_gc_km": {"study_envelope_max": 2450, "source_tag": RW},
-                "tu214_route_km": {"study_envelope_max": 5000, "source_tag": RW},
+                "ssj95b_100y_gc_km": {"fit_max": 2250, "borderline_max": SSJ_BORDERLINE_KM, "conservative_reference": 2355},
+                "sj100_pd8_gc_km": {"study_envelope_max": SJ_STUDY_KM, "source_tag": RW},
+                "tu214_route_km": {"study_envelope_max": TU_STUDY_KM, "source_tag": RW},
                 "notes_ru": "Границы — фильтр исследования. Для SJ-100 и Ту-214 требуется подтверждение AW/OPS "
                             "по массе, запасным и погоде. Дальние пары свыше 6 389 км рассматриваются отдельно.",
             },

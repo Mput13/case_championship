@@ -90,7 +90,7 @@ tbody tr:nth-child(even){background:#f9fbfd}
 .summary-table .text{min-width:15rem}
 .org-table td:nth-child(1){min-width:11rem}
 .org-table td:nth-child(2) .badge{white-space:nowrap}
-.org-table td:nth-child(3){overflow-wrap:anywhere;min-width:7rem}
+.org-table td:nth-child(3){word-break:normal;min-width:10.5rem}
 .org-table td:last-child{min-width:13rem}
 details{border-top:1px solid var(--line);margin:12px 0;padding-top:9px}
 summary{cursor:pointer;color:var(--accent);font-weight:660}
@@ -101,10 +101,12 @@ summary{cursor:pointer;color:var(--accent);font-weight:660}
 .hubs-chart{max-height:none}
 svg{display:block;font:13px system-ui,sans-serif}
 .chart-wrap svg{width:100%;min-width:590px;height:auto}
+.route-distance{paint-order:stroke;stroke:#ffffff;stroke-width:3px}
 .legend{display:flex;flex-wrap:wrap;gap:7px 16px;margin:.6rem 0;color:var(--muted);font-size:.83rem}
 .legend span::before{display:inline-block;content:"";width:11px;height:11px;background:var(--swatch);margin:0 5px -1px 0;border-radius:2px}
 .legend .dash::before{height:0;border-top:2px dashed var(--swatch);background:transparent}
 .console-inputs td{min-width:5.4rem}
+.fixed-note{color:var(--muted);font-weight:normal}
 .changed{background:#fff5e4}
 .change-note{display:block;color:var(--warm);font-size:.73rem}
 [hidden]{display:none!important}
@@ -225,7 +227,8 @@ SSJ-95B на 24,56 км. Для зимнего окна нужны расчёт 
 <h2>Экономика трёх пилотов и двух кластеров</h2>
 <p>Cash TCT — цена с багажом, доплечьями, ночёвками и ожидаемыми прямыми
 расходами при сбое. Lost Work Time переводится в стоимость по полной ставке часа
-из сценария. Порог цены RW за выкупленное место компенсирует обслуживание и вытеснение.
+из сценария. Средняя безубыточная цена блока учитывает оба класса и покрывает обслуживание
+и вытеснение. Безубыточный тариф Y можно подставить в поле цены при заданной надбавке J.
 Для чартера DOC_max ограничивает допустимую стоимость блок-часа при заданной цене и марже.
 Оборот считается до округления направлений.</p>
 <div id="pilot-cards"></div>""",
@@ -261,7 +264,7 @@ const DIRECTIONS = ["outbound", "inbound"];
 const ROUND_UP = (x, d) => Math.sign(x) * Math.ceil(Math.abs(x) * 10 ** d - 1e-10) / 10 ** d;
 const ROUND_DOWN = (x, d) => Math.sign(x) * Math.floor(Math.abs(x) * 10 ** d + 1e-10) / 10 ** d;
 const round = (x, d = 2) => Math.sign(x) * Math.floor(Math.abs(x) * 10 ** d + 0.500000001) / 10 ** d || 0;
-const f = {ROUNDUP: ROUND_UP, ROUNDDOWN: ROUND_DOWN, MIN: Math.min, MAX: Math.max,
+const f = {ROUND: round, ROUNDUP: ROUND_UP, ROUNDDOWN: ROUND_DOWN, MIN: Math.min, MAX: Math.max,
            IF: (condition, yes, no) => condition ? yes : no};
 
 function rawDirection(mode, inputs) {
@@ -269,6 +272,9 @@ function rawDirection(mode, inputs) {
   if (mode !== "TICKET" && (!(inputs.net_revenue_pct > 0 && inputs.net_revenue_pct <= 100) ||
       !(inputs.target_margin_pct >= 0 && inputs.target_margin_pct < 100))) {
     throw new Error("Доля чистой выручки должна быть в (0; 100], маржа — в [0; 100).");
+  }
+  if (mode !== "TICKET" && ![0, 1].includes(inputs.allow_y_in_j_seats)) {
+    throw new Error("Допуск рассадки Y в J должен быть 0 или 1.");
   }
   if (mode === "BLOCK" && !(inputs.quota_seats > 0)) throw new Error("Квота должна быть больше нуля.");
   const values = {...inputs};
@@ -374,7 +380,8 @@ function setupPage(data) {
     $("org-table").innerHTML = selected.length ? table(["Юрлицо / ИНН", "Статус", "Сектор / роль",
       "Основание, условие пересмотра и источники"], selected.map(o => [
       `<td><strong>${esc(o.legal_name)}</strong><br><small>ИНН ${esc(o.inn)}</small></td>`,
-      `<td>${status(o.status)}</td>`, `<td>${esc(o.sector)}<br><small>${esc(o.scope_role)}</small></td>`,
+      `<td>${status(o.status)}</td>`, `<td>${esc(o.sector).replaceAll("_","_<wbr>")}<br>
+        <small>${esc(o.scope_role).replaceAll("_","_<wbr>")}</small></td>`,
       `<td>${esc(o.decision_reason)}<br><small>${esc(o.decision_changing_fact)}</small>
         <br>${evidence(o.evidence_ids)}</td>`
     ]), {scroll:true, label:"Организации", cls:"org-table"}) : "<p>Организации по этим фильтрам не найдены.</p>";
@@ -427,9 +434,9 @@ function setupPage(data) {
       return svgText(axis - 10, y + 10, p.airport_pair, 'text-anchor="end"') +
         `<rect x="${axis}" y="${y}" width="${x(p.gc_distance_km)-axis}" height="11" fill="${routeColor(p.gc_distance_km)}" rx="2">
         <title>${esc(p.airport_pair)} · ${number(p.gc_distance_km,2)} км</title></rect>` +
-        svgText(x(p.gc_distance_km)+5, y+10, number(p.gc_distance_km,2), 'font-size="11"');
+        svgText(x(p.gc_distance_km)+5, y+10, number(p.gc_distance_km,2), 'font-size="11" class="route-distance"');
     }).join("");
-    $("route-chart").innerHTML = svg("Ортодромия " + pairs.length + " пар аэропортов, километры", bottom, ticks + bars + limits);
+    $("route-chart").innerHTML = svg("Ортодромия " + pairs.length + " пар аэропортов, километры", bottom, ticks + limits + bars);
     $("route-table").innerHTML = table(["Ранг","Пара","Ортодромия, км","Маршрут, км","Блок, ч","SSJ-95B",
       "SJ-100","Ту-214","Дальний тип"], pairs.map(p => [
       numeric(p.rank),th(p.airport_pair),numeric(p.gc_distance_km,2),numeric(p.route_distance_km_k110,2),
@@ -509,21 +516,24 @@ function setupPage(data) {
     "client_alt_time_value_rub","client_alt_total_tct_rub","client_tct_savings_vs_alt_rub",
     "client_max_unit_contract_price_rub","rw_net_revenue_rub","rw_total_flight_cost_rub",
     "rw_displacement_cost_rub","rw_break_even_charter_price_rub","rw_break_even_seat_price_rub",
+    "rw_break_even_y_price_rub",
     "rw_target_price_per_seat_rub","rw_doc_max_rub_per_block_h","rw_net_contribution_rub",
-    "j_passengers","effective_seats_per_aircraft","operational_screen_pass"
+    "j_passengers","effective_seats_per_aircraft","y_cap_base","j_cap","y_fits","j_fits","operational_screen_pass"
   ];
+  const detailedPrice = key => ["rw_break_even_seat_price_rub", "rw_break_even_y_price_rub"].includes(key);
   const comparison = (v, metrics, keys=econKeys) => table(
     ["Показатель", "Вылет " + v.direction_labels.outbound, "Возврат " + v.direction_labels.inbound, "Оборот"],
     keys.filter(k=>metrics.outbound[k]!=null).map(key=>[
       th(data.metrics[key] || key),...["outbound","inbound","round_trip"].map(d=>numeric(metrics[d][key],
-        key.endsWith("_h") && !key.includes("_rub") ? 2 : 0))
+        detailedPrice(key) || (key.endsWith("_h") && !key.includes("_rub")) ? 2 : 0))
     ]), {label:"Двусторонняя экономика",cls:"econ-table"});
   const baseKeyList = ["client_cash_tct_rub","client_lost_work_h","client_time_value_rub","client_total_tct_rub",
     "client_alt_total_tct_rub","rw_total_flight_cost_rub","rw_break_even_charter_price_rub",
-    "rw_break_even_seat_price_rub","rw_doc_max_rub_per_block_h","rw_net_contribution_rub","operational_screen_pass"];
+    "rw_break_even_seat_price_rub","rw_break_even_y_price_rub","rw_doc_max_rub_per_block_h",
+    "rw_net_contribution_rub","operational_screen_pass"];
   const alternativeSummary = c => c.variants.length < 2 ? "" :
     `<details><summary>Варианты (${c.variants.length})</summary>${table(
-      ["Пара","Тип ВС","Продукт","J, %","Снижение, %","Эфф. мест","Цена места, ₽","Вклад, ₽","Фильтр"],
+      ["Пара","Тип ВС","Продукт","J, %","Снижение, %","Эфф. мест","Безубыт. место · вылет / возврат","Вклад, ₽","Фильтр"],
       c.variants.map(v=>{
         const m = calculateScenario(v);
         const both = (get) => DIRECTIONS.map(d=>get(d)).map(x=>number(x)).join(" / ");
@@ -546,7 +556,9 @@ function setupPage(data) {
     }).join("")).join("");
 
   const controls = {
+    offered_price_rub:"Предложенный тариф Y, ₽", market_net_yield_rub:"Чистый вклад обычной продажи Y, ₽/место",
     doc_per_block_h_rub:"DOC, ₽/блок-ч", parking_icing_pct:"Стоянка / ПОО / аэропорты, % к базе",
+    ferry_factor:"Перегонные блок-часы и циклы, доля",
     target_margin_pct:"Целевая маржа, %", pax:"Летящие пассажиры, чел.", quota_seats:"Квота блока, мест",
     displacement_lf_pct:"Вероятность вытеснения Y, %", j_share_pct:"Доля группы с запросом J, %",
     payload_seat_haircut_pct:"Зимнее снижение ёмкости, %", loaded_hour_rub:"Стоимость рабочего часа, ₽/ч",
@@ -568,26 +580,31 @@ function setupPage(data) {
   }
   function showControls() {
     const c=selectedCase(), v=selectedVariant(), delta=currentDelta();
-    $("console-condition").textContent = v.condition_ru;
+    $("console-condition").textContent = v.condition_ru + (v.mode === "TICKET" ? " Расчёт на 1 пассажира." : "");
     $("console-controls").innerHTML = table(["Параметр", v.direction_labels.outbound, v.direction_labels.inbound],
       Object.entries(controls).filter(([key])=>Object.hasOwn(v.inputs.outbound,key)
+        && (key !== "pax" || v.mode !== "TICKET")
         && (key !== "payload_seat_haircut_pct" || c.code === "P3B")).map(([key,label])=>{
+        const specFor = d => data.controls[v.input_param_ids[d][key]];
+        const fixedArchive = DIRECTIONS.every(d=>specFor(d).source_tag === "HISTORICAL_RFI");
         function field(d) {
           if (key === "target_margin_pct" && d === "inbound") return "<td>Общая для оборота</td>";
           const base = v.inputs[d][key];
-          const spec = data.controls[v.input_param_ids[d][key]];
+          const spec = specFor(d);
           const value = delta[d][key] ?? base;
           // P2B variants pin a starting J share; calibration can use the full modeled range.
           const range = key === "j_share_pct" ? data.j_share_interval : [spec.min_value,spec.max_value];
           const maximum = key === "target_margin_pct" ? Math.min(99,range[1]) : Math.max(range[1],base);
           const minimum = Math.min(range[0],base);
           const step = ["pax","quota_seats"].includes(key) ? 1 : "any";
+          const fixed = minimum === maximum;
           return `<td><input type="number" aria-label="${esc(label+" · "+v.direction_labels[d])}" data-key="${key}"
             data-direction="${d}" min="${minimum}" max="${maximum}" step="${step}" value="${value}" required
-            ${minimum === maximum ? "readonly" : ""}>
-            <small class="change-note" hidden></small></td>`;
+            ${fixed ? "readonly" : ""}>
+            <small class="change-note" hidden></small>${fixed && !fixedArchive ? '<small class="fixed-note">фикс. срез</small>' : ""}</td>`;
         }
-        return [th(label),...DIRECTIONS.map(field)];
+        const heading = fixedArchive ? `<th scope="row">${esc(label)} <small class="fixed-note">фикс. арх. ТЗ</small></th>` : th(label);
+        return [heading,...DIRECTIONS.map(field)];
       }), {label:"Параметры калибровки",cls:"console-inputs"});
     $("console-state").textContent = "";
     renderCalculation();
@@ -717,9 +734,10 @@ if (typeof document !== "undefined") setupPage(JSON.parse(document.getElementByI
 
 
 def js_expression(expression):
-    functions = {"ROUNDUP", "ROUNDDOWN", "IF", "MIN", "MAX"}
+    functions = {"ROUND", "ROUNDUP", "ROUNDDOWN", "IF", "MIN", "MAX"}
     return re.sub(r"\b[A-Za-z][A-Za-z0-9_]*\b",
-                  lambda symbol: ("f." if symbol[0] in functions else "v.") + symbol[0], expression)
+                  lambda symbol: ("f." if symbol[0] in functions else "v.") + symbol[0],
+                  expression.replace("==", "==="))
 
 
 def formula_program(spec):
@@ -760,7 +778,7 @@ def pack(registry):
              "variants": [strip(v) for v in case["variants"]]}
             for case in registry["pilots_and_clusters"]
         ],
-        "controls": {a["param_id"]: {k: a[k] for k in ("min_value", "max_value", "step")}
+        "controls": {a["param_id"]: {k: a[k] for k in ("min_value", "max_value", "step", "source_tag")}
                      for a in registry["assumptions"]},
         "j_share_interval": [min(a["min_value"] for a in shares), max(a["max_value"] for a in shares)],
         "metrics": METRICS,
