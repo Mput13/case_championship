@@ -96,21 +96,24 @@ def load_registry():
 
 
 def council_scores():
-    def read_scores(path):
+    def read_scores(path, column):
         rows = {}
         for line in path.read_text(encoding="utf-8").splitlines():
             if line.startswith("| **"):
                 fields = line.split("|")
                 member = fields[1].strip().strip("*")
                 if member in {"Strategist", "Skeptic", "Quant", "Minimalist"}:
-                    rows[member] = re.findall(r"\b\d+/10\b", fields[4])
+                    rows[member] = re.findall(r"\b\d+/10\b", fields[column])
         return rows
 
-    r0 = read_scores(W1 / "round_0_ledger.md")
-    r1 = read_scores(W2 / "round_1_ledger.md")
+    r0 = read_scores(W1 / "round_0_ledger.md", 4)
+    r1 = read_scores(W2 / "round_1_ledger.md", 4)
+    r2_path = ROOT / "round_2_signoff.md"
+    r2 = read_scores(r2_path, 6) if r2_path.is_file() else {}
     if len(r0) != 4 or set(r0) != set(r1) or any(r1[k][0] != v[0] for k, v in r0.items()):
         raise ValueError("Расхождение оценок Консула в журналах R0/R1")
-    return [(member, score[0], r1[member][1], "Ожидается после ревью") for member, score in r0.items()]
+    return [(member, score[0], r1[member][1], r2[member][0] if member in r2 and r2[member] else "Ожидается после ревью")
+            for member, score in r0.items()]
 
 
 def ref(sheet, address):
