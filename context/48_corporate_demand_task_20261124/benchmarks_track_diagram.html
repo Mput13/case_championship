@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Трек B: исследование кейсов и бизнес-моделей (РФ и мир)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    color: var(--foreground, #e5e7eb);
+    font-size: 12.5px;
+    line-height: 1.38;
+  }
+  .section { margin-bottom: 16px; }
+  .section:last-child { margin-bottom: 0; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border, #2e3440);
+  }
+  .sec-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+    margin: 0;
+  }
+  .sec-meta {
+    font-size: 10.5px;
+    font-family: var(--font-mono, monospace);
+    color: var(--muted-foreground, #9ca3af);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* 4 case buckets */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .card.c1 { border-left: 3px solid var(--chart-1, #3b82f6); }
+  .card.c2 { border-left: 3px solid var(--chart-2, #10b981); }
+  .card.c3 { border-left: 3px solid var(--chart-3, #f59e0b); }
+  .card.c4 { border-left: 3px solid var(--chart-4, #a855f7); }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+  }
+  .tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--secondary, #232834);
+    color: var(--muted-foreground, #cbd5e1);
+    white-space: nowrap;
+  }
+  .card ul {
+    margin: 0;
+    padding-left: 14px;
+    font-size: 11.4px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+  .card li { margin-bottom: 2px; }
+  .card li:last-child { margin-bottom: 0; }
+  .card b { color: var(--foreground, #e5e7eb); font-weight: 600; }
+  .check-line {
+    margin-top: auto;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border, #2e3440);
+    font-size: 11px;
+    color: var(--info, #38bdf8);
+  }
+
+  /* RF adjustment lens: 6 factors */
+  .rf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .rf-grid { grid-template-columns: 1fr; }
+  }
+  .rf-box {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 10px 12px;
+  }
+  .rf-title {
+    font-size: 11.8px;
+    font-weight: 600;
+    color: var(--warning, #fbbf24);
+    margin-bottom: 4px;
+  }
+  .rf-desc {
+    font-size: 11.2px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+
+  /* Integration strip */
+  .link-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .link-grid { grid-template-columns: 1fr; }
+  }
+  .link-card {
+    background: var(--secondary, #232834);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 10px 12px;
+    font-size: 11.4px;
+  }
+  .link-head {
+    font-family: var(--font-mono, monospace);
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--primary, #60a5fa);
+    margin-bottom: 4px;
+  }
+  .link-card span { color: var(--muted-foreground, #cbd5e1); }
+  .link-card b { color: var(--foreground, #f3f4f6); }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">Трек B. Исследование контрактных моделей и срочных перевозок (РФ и мир)</h2>
+    <span class="sec-meta">отдельный глубокий блок · параллельно с Волной 1</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card c1">
+      <div class="card-top">
+        <h3>1. Российская практика (B2B / B2G / вахта)</h3>
+        <span class="tag">РФ · базовый контур</span>
+      </div>
+      <ul>
+        <li><b>Utair:</b> блоки мест на регулярке, долгосрочный и заявочный фрахт, именной обмен, вертолётная «последняя миля».</li>
+        <li><b>Ведомственные а/к:</b> Газпром авиа, Алроса, Северсталь Авиа, ЮВТ АЭРО — где свой флот закрывает поток, а где нужен внешний подрядчик.</li>
+        <li><b>Магистральные B2B-программы:</b> Аэрофлот, S7 Corp, трёхсторонние договоры через ТМС (Аэроклуб, Trivio, Continent Express).</li>
+        <li><b>Событийные программы РФ:</b> доп. рейсы и чартеры под ПМЭФ, ВЭФ, ИННОПРОМ.</li>
+      </ul>
+      <div class="check-line">Фокус: реальные каналы покупки, барьеры входа RW и прецеденты цен/условий</div>
+    </div>
+
+    <div class="card c2">
+      <div class="card-top">
+        <h3>2. Промышленные шаттлы и госконтракты</h3>
+        <span class="tag">ЕС · США</span>
+      </div>
+      <ul>
+        <li><b>Airbus Shuttle (TLS↔XFW):</b> выделенный заводской мост КБ↔сборка (Volotea → Titan Airways, 144–180 кресел, до 3×/день Пн–Чт).</li>
+        <li><b>GSA City Pair Program (США):</b> федеральные тарифы YCA/_CA — фиксированная цена, 100% возвратность, last-seat availability без выкупа целого борта.</li>
+        <li><b>Sun-Air of Scandinavia (Lego, Siemens):</b> корпоративный underwriting тонких маршрутов — и <b>разбор провала/ухода из регулярки в 2025</b>.</li>
+      </ul>
+      <div class="check-line">Фокус: условия выживания модели «завод ↔ завод» и пределы корпоративной гарантии</div>
+    </div>
+
+    <div class="card c3">
+      <div class="card-top">
+        <h3>3. Ресурсные FIFO-контракты и пулинг</h3>
+        <span class="tag">Австралия · Канада · США</span>
+      </div>
+      <ul>
+        <li><b>Alliance Airlines (100-местные Fokker/E190):</b> аналогичная SSJ100 размерность — take-or-pay, <b>fuel pass-through</b> (перекладка керосина на клиента), жёсткий KPI пунктуальности (OTP &gt;91–95%).</li>
+        <li><b>Canadian North / North Cariboo Air:</b> северный нефтегаз — блок-часы, оплата <b>ferry legs</b>, платный <b>standby</b>, багаж/спецодежда.</li>
+        <li><b>Travel Bank &amp; MRG:</b> предоплаченные депозиты коалиций корпораций для запуска новых прямых рейсов.</li>
+      </ul>
+      <div class="check-line">Фокус: защита маржи авиакомпании от скачков топлива, простоев и недозагрузки</div>
+    </div>
+
+    <div class="card c4">
+      <div class="card-top">
+        <h3>4. Срочные (ad-hoc / AOG) и ивент-перевозки</h3>
+        <span class="tag">Short-notice · MICE</span>
+      </div>
+      <ul>
+        <li><b>Срочный фрахт (1–72 ч):</b> аварийные и пусконаладочные бригады, замена борта, VIP/делегации — структура наценки за срочность.</li>
+        <li><b>Операционные ограничители:</b> рабочее время экипажей, резервный борт, слоты и разрешения, пустые перегоны (positioning).</li>
+        <li><b>Условия риска:</b> предоплата, шкала штрафов за отмену, кто оплачивает метеозадержки и продление работы аэропорта.</li>
+      </ul>
+      <div class="check-line">Фокус: когда срочный/событийный сегмент реально прибылен для RW с её парком</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">Фильтр адаптации: 6 поправок на особенности и масштаб рынка РФ</h2>
+    <span class="sec-meta">без этого зарубежные кейсы не переносятся</span>
+  </div>
+
+  <div class="rf-grid">
+    <div class="rf-box">
+      <div class="rf-title">1. Размеры и география</div>
+      <div class="rf-desc">11 часовых поясов, тонкие межрегиональные пары вне Москвы, отсутствие скоростного ЖД за Уралом, дальние запасные аэродромы и северный климат.</div>
+    </div>
+    <div class="rf-box">
+      <div class="rf-title">2. Парк, санкции и резерв</div>
+      <div class="rf-desc">Нельзя быстро докупить дешёвые E190/Fokker (как Alliance); дефицит исправных ВС и резерва, монокомпоновка SSJ100 100Y, закрытия юга и «Ковёр».</div>
+    </div>
+    <div class="rf-box">
+      <div class="rf-title">3. Закупки 223-ФЗ / 44-ФЗ</div>
+      <div class="rf-desc">Жёсткое обоснование НМЦК, банковские гарантии, ограничения на «чистый MRG» — нужна формула цены с привязкой к ГСМ и законная схема срочной закупки.</div>
+    </div>
+    <div class="rf-box">
+      <div class="rf-title">4. Налоги и субсидии РФ</div>
+      <div class="rf-desc"><b>НДС 0% в обход Москвы/МО</b> (ст. 164 НК РФ — проверить оформление регулярки vs чартера), демпфер, возможность стыковки с ПП 1780 и регионами.</div>
+    </div>
+    <div class="rf-box">
+      <div class="rf-title">5. Конкуренты и свои а/к</div>
+      <div class="rf-desc">Аэрофлот/S7 держат магистрали (частота + бизнес-класс + мили), у гигантов есть Газпром авиа/Алроса, у Utair — вертолётная «последняя миля».</div>
+    </div>
+    <div class="rf-box">
+      <div class="rf-title">6. Тревел-политики и аэропорты</div>
+      <div class="rf-desc">Лимиты на цену и бизнес-класс, покупка через ТМС, и критичное отличие Жуковского (ZIA) от SVO/VKO/DME для делового клиента.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">Как результаты Трека B встраиваются в основной план</h2>
+    <span class="sec-meta">артефакт: benchmarks_and_contract_models.md</span>
+  </div>
+
+  <div class="link-grid">
+    <div class="link-card">
+      <div class="link-head">→ В ВОЛНУ 1 (Скрининг)</div>
+      <span>Уточняет <b>критерии отсева</b>: в каких моделях корпорации реально переходят к внешнему перевозчику, а где модель исторически ломается.</span>
+    </div>
+    <div class="link-card">
+      <div class="link-head">→ В ВОЛНУ 2 (Разрыв и пулинг)</div>
+      <span>Даёт проверенные механики <b>мультикорпоративного пулинга</b> (Travel Bank / общие блоки) и формат для срочных/форумных пиков.</span>
+    </div>
+    <div class="link-card">
+      <div class="link-head">→ В ВОЛНУ 3 (Экономика и RW)</div>
+      <span>Формирует <b>готовые термшиты контрактов</b> (fuel pass-through, release window, замена ФИО, standby, НДС 0%) и проверяет их на реализуемость у RW.</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
