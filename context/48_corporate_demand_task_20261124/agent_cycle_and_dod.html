@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Агентский цикл, роли и Definition of Done</title>
+<title>Агентский цикл v2 (tstack + pstack/noodle) и Definition of Done</title>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -39,15 +39,14 @@
     flex-shrink: 0;
   }
 
-  /* Agent Cycle Architecture */
   .cycle-wrap {
     background: var(--card, #181c24);
     border: 1px solid var(--border, #2e3440);
     border-radius: var(--radius, 8px);
-    padding: 14px;
+    padding: 13px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 9px;
   }
   .node {
     border-radius: 7px;
@@ -66,10 +65,10 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
   }
   .node-name {
-    font-size: 12.4px;
+    font-size: 12.3px;
     font-weight: 700;
     color: var(--foreground, #f3f4f6);
   }
@@ -82,6 +81,48 @@
     color: var(--muted-foreground, #cbd5e1);
     white-space: nowrap;
   }
+
+  .lens-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  @media (max-width: 560px) {
+    .lens-grid { grid-template-columns: 1fr; }
+  }
+  .lens {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #374151);
+    border-radius: 5px;
+    padding: 6px 8px;
+    font-size: 10.8px;
+  }
+  .lens.opt { border-style: dashed; }
+  .lens-m {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    color: var(--foreground, #f3f4f6);
+    font-weight: 600;
+  }
+  .lens.opt .lens-m { color: var(--warning, #fbbf24); }
+  .lens-r {
+    color: var(--muted-foreground, #cbd5e1);
+    margin-top: 2px;
+  }
+  .lens-r b { color: var(--info, #38bdf8); }
+
+  .ground-bar {
+    background: rgba(16,185,129,0.10);
+    border: 1px solid rgba(16,185,129,0.35);
+    border-radius: 5px;
+    padding: 6px 9px;
+    font-size: 11px;
+    color: var(--foreground, #e5e7eb);
+    margin-bottom: 5px;
+  }
+  .ground-bar b { color: var(--success, #4ade80); }
+
   .models {
     display: flex;
     flex-wrap: wrap;
@@ -90,19 +131,15 @@
   }
   .m-pill {
     font-family: var(--font-mono, monospace);
-    font-size: 10.2px;
+    font-size: 10px;
     padding: 2px 7px;
     border-radius: 4px;
     background: var(--card, #181c24);
     border: 1px solid var(--border, #374151);
     color: var(--foreground, #e5e7eb);
   }
-  .m-pill.opt {
-    border-style: dashed;
-    color: var(--warning, #fbbf24);
-  }
   .node-desc {
-    font-size: 11.3px;
+    font-size: 11.2px;
     color: var(--muted-foreground, #cbd5e1);
   }
   .node-desc b { color: var(--foreground, #f3f4f6); }
@@ -111,11 +148,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
     font-family: var(--font-mono, monospace);
-    font-size: 10.5px;
-    color: var(--muted-foreground, #9ca3af);
-    padding: 1px 0;
+    font-size: 10.2px;
   }
   .arrow-pill {
     padding: 2px 8px;
@@ -138,49 +174,16 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px;
-    padding: 8px 11px;
+    padding: 7px 11px;
     border-radius: 6px;
     background: rgba(168,85,247,0.10);
     border: 1px dashed var(--chart-4, #a855f7);
-    font-size: 11.2px;
+    font-size: 11.1px;
     color: var(--foreground, #e5e7eb);
   }
   .loop-back b { color: var(--chart-4, #c084fc); }
 
-  /* 3 Macro-Rounds Strip */
-  .rounds {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 7px;
-  }
-  @media (max-width: 560px) {
-    .rounds { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  .rnd {
-    background: var(--card, #181c24);
-    border: 1px solid var(--border, #2e3440);
-    border-radius: var(--radius, 8px);
-    padding: 9px 10px;
-  }
-  .rnd-k {
-    font-family: var(--font-mono, monospace);
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--primary, #60a5fa);
-    margin-bottom: 3px;
-  }
-  .rnd-t {
-    font-size: 11.8px;
-    font-weight: 600;
-    color: var(--foreground, #f3f4f6);
-    margin-bottom: 3px;
-  }
-  .rnd-d {
-    font-size: 10.8px;
-    color: var(--muted-foreground, #cbd5e1);
-  }
-
-  /* Definition of Done: 7 gates + 5 anti-burn guardrails */
+  /* DoD + Guardrails */
   .dod-layout {
     display: grid;
     grid-template-columns: 1.25fr 1fr;
@@ -193,11 +196,11 @@
     background: var(--card, #181c24);
     border: 1px solid var(--border, #2e3440);
     border-radius: var(--radius, 8px);
-    padding: 12px 13px;
+    padding: 11px 13px;
   }
   .panel h3 {
-    margin: 0 0 8px 0;
-    font-size: 12.4px;
+    margin: 0 0 7px 0;
+    font-size: 12.2px;
     font-weight: 600;
     color: var(--foreground, #f3f4f6);
   }
@@ -206,13 +209,13 @@
     gap: 7px;
     align-items: flex-start;
     margin-bottom: 5px;
-    font-size: 11.2px;
+    font-size: 11.1px;
     color: var(--muted-foreground, #cbd5e1);
   }
   .dod-item:last-child { margin-bottom: 0; }
   .dod-num {
     font-family: var(--font-mono, monospace);
-    font-size: 10px;
+    font-size: 9.8px;
     font-weight: 700;
     padding: 1px 5px;
     border-radius: 4px;
@@ -228,8 +231,8 @@
     border-left: 3px solid var(--warning, #f59e0b);
     border-radius: 5px;
     padding: 6px 8px;
-    margin-bottom: 6px;
-    font-size: 11.1px;
+    margin-bottom: 5px;
+    font-size: 11px;
     color: var(--muted-foreground, #cbd5e1);
   }
   .guard:last-child { margin-bottom: 0; }
@@ -240,148 +243,126 @@
 
 <div class="section">
   <div class="sec-head">
-    <h2 class="sec-title">1. Агентский цикл: Консул ↔ Оркестратор ↔ Исполнители → Ревьюеры</h2>
-    <span class="sec-meta">все модели проверены через orchestrator_capabilities</span>
+    <h2 class="sec-title">Агентский цикл v2: Консул (линзы + grounding) ↔ Оркестратор ↔ Исполнители → Ревью</h2>
+    <span class="sec-meta">паттерны Theo tstack + Poteto pstack/noodle</span>
   </div>
 
   <div class="cycle-wrap">
     <div class="node node-council">
       <div class="node-top">
-        <span class="node-name">КОНСУЛ (Стратегия, объективность, пробелы, приоритеты)</span>
-        <span class="step-tag">ШАГ 1 И ШАГ 5 · кворум 3/4 (или 2/3)</span>
+        <span class="node-name">КОНСУЛ (4 независимые линзы · read-only + активный сбор контекста)</span>
+        <span class="step-tag">ШАГ 1 И ШАГ 5 · оценка /10 + rationale</span>
       </div>
-      <div class="models">
-        <span class="m-pill">antigravity/gemini-4-neon · high</span>
-        <span class="m-pill">codex/gpt-6.2-astra · xhigh</span>
-        <span class="m-pill">codex/gpt-6.2-sol · xhigh</span>
-        <span class="m-pill opt">antigravity/claude-opus-5-5 · high (до лимита)</span>
+      <div class="ground-bar">
+        <b>Общий контекст (Phase A: Ground):</b> получают Shared Grounding Manifest (AGENTS, бриф, таблицы, Ledger) и <b>сами читают файлы/CSV и делают точечные проверки</b>, чтобы видеть систему целиком и ловить слепые зоны Оркестратора (без массового скрейпинга).
       </div>
-      <div class="node-desc">Оценивает идеи, ищет перекосы и недостающие данные, решает <b>над чем работать дальше</b> и что <b>не делать</b>. В конце раунда выдаёт решение: следующая волна или <b>SHIP</b>.</div>
+      <div class="lens-grid">
+        <div class="lens">
+          <div class="lens-m">codex/gpt-6.2-astra · xhigh</div>
+          <div class="lens-r"><b>Strategist / Architect:</b> клиенты, форматы контрактов, бизнес-смысл для RW.</div>
+        </div>
+        <div class="lens opt">
+          <div class="lens-m">antigravity/claude-opus-5-5 · high (до лимита)</div>
+          <div class="lens-r"><b>Skeptic / Evidence:</b> что не доказано, слабые допущения, подмена единиц.</div>
+        </div>
+        <div class="lens">
+          <div class="lens-m">codex/gpt-6.2-sol · xhigh</div>
+          <div class="lens-r"><b>Quant / Feasibility:</b> когорты, дальность/флот, математика экономики.</div>
+        </div>
+        <div class="lens">
+          <div class="lens-m">antigravity/gemini-4-neon · high</div>
+          <div class="lens-r"><b>Minimalist / Pragmatist:</b> отсев лишнего, анти-scope-creep, фокус к встрече.</div>
+        </div>
+      </div>
+      <div class="node-desc">Каждый сдаёт оценку <b>/10</b>, список проверенных файлов, <b>≤5 предложений + отброшенные альтернативы</b> и Out of Scope. При лимите Opus Консул продолжает в составе 3 голосов без подмены модели.</div>
     </div>
 
     <div class="arrow-row">
-      <span class="arrow-pill">↓ 4 позиции Консула</span>
-      <span class="arrow-pill">↑ дайджест волны + вердикт Ревьюеров</span>
+      <span class="arrow-pill">↓ 4 позиции в своих линзах</span>
+      <span class="arrow-pill">↑ Grounding Manifest + оценки /10 + Finding Ledger</span>
     </div>
 
     <div class="node node-orch">
       <div class="node-top">
-        <span class="node-name">ГЛАВНЫЙ ОРКЕСТРАТОР (Middle Man · этот тред)</span>
-        <span class="step-tag">ШАГ 2 · единая точка управления</span>
+        <span class="node-name">ГЛАВНЫЙ ОРКЕСТРАТОР (Middle Man · Pick-and-Graft · Lead Judgment)</span>
+        <span class="step-tag">ШАГ 2 · antigravity/gemini-4-neon high</span>
       </div>
-      <div class="models">
-        <span class="m-pill">antigravity/gemini-4-neon · high</span>
-      </div>
-      <div class="node-desc">Сводит решения Консула в <b>frozen ТЗ</b>, делит на непересекающиеся пачки, запускает агентов, чинит <b>MINOR</b>-правки сам, контролирует бюджет раундов и коммитит артефакты.</div>
+      <div class="node-desc"><b>Pick-and-Graft:</b> берёт 1 базу + 1–2 сильнейшие идеи (не усредняет всё). <b>Lead Judgment:</b> фильтрует <i>Nitpick Gravity</i>, держит <b>Act On ≤ 5</b> и ведёт <b>Dismissed</b>. Прогоняет скрипт-предикаты <i>до</i> ревью; не правит файлы, пока ревьюеры читают checkout.</div>
     </div>
 
     <div class="arrow-row">
-      <span class="arrow-pill">↓ изолированные ТЗ и пути записи</span>
-      <span class="arrow-pill">↑ готовые CSV / MD / модели / HTML</span>
+      <span class="arrow-pill">↓ frozen ТЗ с непересекающимися путями</span>
+      <span class="arrow-pill">↑ верифицированные CSV / MD / модели / HTML</span>
     </div>
 
     <div class="split-2">
       <div class="node node-res">
         <div class="node-top">
-          <span class="node-name">РЕСЕРЧЕРЫ (Сбор и факты)</span>
+          <span class="node-name">РЕСЕРЧЕРЫ (Массовый сбор)</span>
           <span class="step-tag">ШАГ 3А · параллельно</span>
         </div>
-        <div class="models">
-          <span class="m-pill">codex/gpt-6.1-terra · xhigh</span>
-        </div>
-        <div class="node-desc">Скрининг 50–60+ орг., площадки и поставщики, календарь форумов, закупки 223-ФЗ, расписания/ЖД, кейсы РФ и мира, закрытие Issue #5.</div>
+        <div class="models"><span class="m-pill">codex/gpt-6.1-terra · xhigh</span></div>
+        <div class="node-desc">Скрининг 50–60+ орг., поставщики 1–2 уровня, форумы, 223-ФЗ, расписания/ЖД, кейсы РФ и мира, закрытие Issue #5.</div>
       </div>
 
       <div class="node node-work">
         <div class="node-top">
-          <span class="node-name">ВОРКЕРЫ (Модели и артефакты)</span>
+          <span class="node-name">ВОРКЕРЫ (Модели и стенд)</span>
           <span class="step-tag">ШАГ 3Б · параллельно</span>
         </div>
-        <div class="models">
-          <span class="m-pill">codex/gpt-6.2-sol · xhigh</span>
-        </div>
-        <div class="node-desc">Единые CSV-реестры, граф пулинга и узлов, когорты/бизнес-класс, подбор флота, экономика, сборка HTML-досье, XLSX и Briefing Memo.</div>
+        <div class="models"><span class="m-pill">codex/gpt-6.2-sol · xhigh</span></div>
+        <div class="node-desc">CSV-реестры, граф пулинга/узлов, когорты/бизнес-класс, флот, экономика, HTML-досье, XLSX и Briefing Memo.</div>
       </div>
     </div>
 
     <div class="arrow-row">
-      <span class="arrow-pill">↓ пакет результатов на проверку (до возврата в Консул)</span>
+      <span class="arrow-pill">↓ автопроверка предикатов → свежий delegate_task ревьюерам (никогда t3_thread_send)</span>
     </div>
 
     <div class="node node-rev">
       <div class="node-top">
-        <span class="node-name">ДВОЙНОЕ РЕВЬЮ (Аудит принципов и задачи Консула)</span>
-        <span class="step-tag">ШАГ 4 · макс. 1 фикс-проход по P0</span>
+        <span class="node-name">ДВОЙНОЕ РЕВЬЮ (Finding Ledger S1..Sn + оценка /10)</span>
+        <span class="step-tag">ШАГ 4 · ранний стоп при одних nit</span>
       </div>
       <div class="models">
-        <span class="m-pill">antigravity/gemini-4-neon · high</span>
-        <span class="m-pill">codex/gpt-6.2-sol · xhigh</span>
+        <span class="m-pill">codex/gpt-6.2-sol · xhigh (Skeptic / Math)</span>
+        <span class="m-pill">antigravity/gemini-4-neon · high (Intent / Minimalist)</span>
       </div>
-      <div class="node-desc">Проверяет: (1) соблюдение <b>AGENTS.md / брифа RW</b>, (2) точное выполнение ТЗ Консула, (3) источники, единицы и арифметику. Выдаёт <b>PASS / FAIL</b> с метками <code>P0 / P1 / P2 / EXTERNAL-BLOCKED</code>.</div>
+      <div class="node-desc">Вердикт <b>PASS | CONTESTED | REJECT</b> + <code>S1 [blocker|should|nit]</code>. Повторный проход (макс. 1) проверяет <b>только открытые ID и изменённые файлы</b>.</div>
     </div>
 
     <div class="loop-back">
-      <div><b>Возврат в Консул:</b> только после <b>PASS</b> (0 открытых <code>P0</code>). Консул решает следующий шаг или закрывает этап.</div>
-      <div><b>Лимит:</b> макс. 3 макро-раунда на Срез 1</div>
+      <div><b>Возврат в Консул:</b> после <b>PASS</b> (0 <code>blocker</code>) · макс. 3 макро-раунда (Раунд 0 → 1 → 2)</div>
+      <div><b>Stuck-правило:</b> 2 итерации без прогресса → стоп и эскалация пользователю</div>
     </div>
   </div>
 </div>
 
 <div class="section">
   <div class="sec-head">
-    <h2 class="sec-title">2. Расписание раундов Консула (жёсткий коридор)</h2>
-    <span class="sec-meta">новые ветки после Раунда 2 запрещены</span>
-  </div>
-
-  <div class="rounds">
-    <div class="rnd">
-      <div class="rnd-k">РАУНД 0</div>
-      <div class="rnd-t">Калибровка ТЗ</div>
-      <div class="rnd-d">Критика списка 50–60+ орг., формул когорт и набора бенчмарков → старт Волны 1 + Трека B.</div>
-    </div>
-    <div class="rnd">
-      <div class="rnd-k">РАУНД 1</div>
-      <div class="rnd-t">Шорт-лист Go</div>
-      <div class="rnd-d">Отбор Go-корпораций и топ-20–30 пар после ревью Волны 1 → запуск Волны 2 (граф, когорты, Gap).</div>
-    </div>
-    <div class="rnd">
-      <div class="rnd-k">РАУНД 2</div>
-      <div class="rnd-t">Финал и DoD</div>
-      <div class="rnd-d">Проверка флота, экономики, HTML-досье и XLSX → вердикт <b>SHIP</b> или 1 точечный P0-добор.</div>
-    </div>
-    <div class="rnd">
-      <div class="rnd-k">СРЕЗ 2 (ПОСЛЕ RW)</div>
-      <div class="rnd-t">1 цикл калибровки</div>
-      <div class="rnd-d">Подстановка реальных ставок RW в готовую модель → ревью → финальный пакет.</div>
-    </div>
-  </div>
-</div>
-
-<div class="section">
-  <div class="sec-head">
-    <h2 class="sec-title">3. Definition of Done (Срез 1) и 5 стоп-клапанов бюджета токенов</h2>
-    <span class="sec-meta">7 измеримых гейтов + защита от вечного цикла</span>
+    <h2 class="sec-title">Проверяемые предикаты DoD (Срез 1) и 5 стоп-клапанов бюджета токенов</h2>
+    <span class="sec-meta">PASS / FAIL по фактам · нельзя смягчать задним числом</span>
   </div>
 
   <div class="dod-layout">
     <div class="panel">
-      <h3>Definition of Done: когда Срез 1 считается готовым</h3>
-      <div class="dod-item"><span class="dod-num">1</span><div><b>Скрининг:</b> ≥50 организаций (7 секторов) с вердиктом <code>Go/Cond/No-Go</code>, источниками и полным <code>why_not_registry.md</code>.</div></div>
-      <div class="dod-item"><span class="dod-num">2</span><div><b>Трек B:</b> ≥8–10 кейсов (≥4 РФ + ≥4 мир, вкл. провал и срочный ad-hoc) + матрица поправок РФ + 4–5 термшитов.</div></div>
-      <div class="dod-item"><span class="dod-num">3</span><div><b>Граф и ивенты:</b> площадки и поставщики всех <code>Go</code> + срочные проекты (со спадом) + ≥10–12 форумов без фильтра старой сети.</div></div>
-      <div class="dod-item"><span class="dod-num">4</span><div><b>Объём и Gap:</b> топ-20–30 пар — когорты <code>Min/Base/Max</code>, бизнес-класс, расписание авиа/ЖД, пулинг и узлы (вкл. SVX).</div></div>
-      <div class="dod-item"><span class="dod-num">5</span><div><b>Флот и экономика:</b> ранжирование по дальности → потребный парк; по топ-5–8 кластерам и 2–3 пилотам — TCT клиента + порог RW.</div></div>
-      <div class="dod-item"><span class="dod-num">6</span><div><b>Чистое ревью:</b> <code>PASS</code> от обоих ревьюеров, 0 открытых <code>P0</code> (нет выдумок, MOW-склейки, перевода ₽ в кресла, скрытых нулей).</div></div>
-      <div class="dod-item"><span class="dod-num">7</span><div><b>Комплект эксперту:</b> HTML-досье (оглавление + карта + «что если»), Excel-модель с формулами, 1-стр. Briefing Memo (5 вопросов RW).</div></div>
+      <h3>7 бинарных предикатов Definition of Done</h3>
+      <div class="dod-item"><span class="dod-num">P1</span><div><b>Скрининг:</b> ≥50 орг. (7 секторов), 100% со статусом <code>Go/Cond/No-Go</code> и URL; 100% <code>No-Go</code> в <code>why_not_registry.md</code>.</div></div>
+      <div class="dod-item"><span class="dod-num">P2</span><div><b>Трек B:</b> ≥8 кейсов (≥4 РФ + ≥4 мир, вкл. провал и срочный ad-hoc) + 6 поправок РФ + 4–5 термшитов.</div></div>
+      <div class="dod-item"><span class="dod-num">P3</span><div><b>Граф и ивенты:</b> 100% <code>Go</code> + поставщики + проекты со спадом + ≥10 форумов; 0 склеек <code>MOW</code>, 0 ранних фильтров SSJ.</div></div>
+      <div class="dod-item"><span class="dod-num">P4</span><div><b>Объём и Gap:</b> ≥20 пар — когорты <code>Min/Base/Max</code>, бизнес-класс, авиа/ЖД, пулинг, узлы (SVX), закрыт Issue #5.</div></div>
+      <div class="dod-item"><span class="dod-num">P5</span><div><b>Флот и экономика:</b> ранжирование → потребный парк; ≥5 кластеров + ≥2 пилота (TCT + порог RW); 0 скрытых нулей.</div></div>
+      <div class="dod-item"><span class="dod-num">P6</span><div><b>Ревью:</b> <code>PASS</code> от обоих ревьюеров, 0 открытых <code>blocker</code>, зафиксированы <code>Act On ≤ 5</code> и <code>Dismissed</code>.</div></div>
+      <div class="dod-item"><span class="dod-num">P7</span><div><b>Комплект эксперту:</b> HTML-досье (0 JS-ошибок), XLSX (0 ошибок формул), 1-стр. Memo (5 вопросов RW) + таблица оценок <code>/10</code>.</div></div>
     </div>
 
     <div class="panel">
-      <h3>5 стоп-клапанов (чтобы Консул не жёг токены)</h3>
-      <div class="guard"><b>1. Потолок 3 раунда:</b> Раунд 0 → 1 → 2 (+ макс. 1 бинарный sign-off). Новые темы после Раунда 2 запрещены.</div>
-      <div class="guard"><b>2. Фильтр P0 / P1 / P2:</b> чиним только <code>P0</code>; <code>MINOR</code> правит Оркестратор сам; <code>P2</code> уходит в бэклог, а не в работу.</div>
-      <div class="guard"><b>3. Правило EXTERNAL-BLOCKED:</b> если данных нет в открытых источниках (ставки RW, закрытая ЕИС) — 1 попытка → метка <code>[NEEDS-RW-DATA]</code>, без повторных прогонов.</div>
-      <div class="guard"><b>4. Кворум и деградация:</b> решение 3/4 (или 2/3, если Opus в лимите); при 2–2 решает Оркестратор с записью спора для эксперта.</div>
-      <div class="guard"><b>5. Компактные дайджесты:</b> Консул и Ревьюеры читают выжимки и таблицы, а не сырые дампы — экономия ×4–6 токенов.</div>
+      <h3>5 стоп-клапанов (по tstack + pstack)</h3>
+      <div class="guard"><b>1. Потолок 3 раунда Консула:</b> Раунд 0 → 1 → 2 (+ макс. 1 бинарный P0-sign-off). Новые темы после Раунда 2 запрещены.</div>
+      <div class="guard"><b>2. Ранний стоп по nit:</b> только <code>nit</code> → фикс-раунд не запускаем; <code>Act On ≤ 5</code>, <code>P2</code> уходит в <code>Dismissed</code> / бэклог.</div>
+      <div class="guard"><b>3. Автомат Stuck (2 прогона):</b> 2 итерации без прогресса или затянувшийся спор → стоп, 2–3 строки обеих позиций пользователю. Конец бюджета ≠ одобрение.</div>
+      <div class="guard"><b>4. EXTERNAL-BLOCKED:</b> нет данных в открытом доступе (ставки RW, ЕИС) → 1 попытка → <code>[NEEDS-RW-DATA]</code>, без повторных поисков.</div>
+      <div class="guard"><b>5. Grounded, но не bulk:</b> Консул сам читает нужные файлы и делает точечные проверки, но массовый скрейпинг делает только <code>terra</code>.</div>
     </div>
   </div>
 </div>
