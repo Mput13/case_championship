@@ -1,4 +1,11 @@
-# Контекст кейса №5 Red Wings
+# Контекст проекта Red Wings
+
+> **Обновление (24.11.2026).** Актуальная задача перенесена с кейс-чемпионата МАИ на исследование **корпоративного пассажирского спроса госкорпораций и связанных цепочек поставщиков** (вне ограничений старой сети и парка).
+> - Актуальная постановка, методология, запрос данных к RW и ревизия наработок: [48_corporate_demand_task_20261124/requirements.md](48_corporate_demand_task_20261124/requirements.md), [methodology.md](48_corporate_demand_task_20261124/methodology.md), [rw_data_request.md](48_corporate_demand_task_20261124/rw_data_request.md), [audit_prior_work.md](48_corporate_demand_task_20261124/audit_prior_work.md).
+> - Рабочие заметки и пилотный разбор Уфа ↔ Новый Уренгой: [45_red_wings_corporate_demand_brief_20261123.md](45_red_wings_corporate_demand_brief_20261123.md), [46_corporate_pilot_ufa_nux.md](46_corporate_pilot_ufa_nux.md), [47_procurement_and_block_comparator.md](47_procurement_and_block_comparator.md).
+> - Каталоги `00_brief` – `44_travel_assistant_chat_20261113` — завершённый архив кейс-чемпионата МАИ (до 16.11.2026), используется только как справочная база.
+
+## Архив кейса №5 Red Wings (срез до 16.11.2026)
 
 Срез источников: **7 ноября 2026**. Задача — подготовить основу для выбора идей и сбора данных по сравнению нового регионального хаба с прямыми межрегиональными рейсами. Это исследовательский пакет: итоговый город, маршрутная сеть и финансовый прогноз ещё не выбраны.
 

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План исследования корпоративного спроса Red Wings</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    color: var(--foreground, #e5e7eb);
+    font-size: 12.5px;
+    line-height: 1.38;
+  }
+  .section {
+    margin-bottom: 16px;
+  }
+  .section:last-child {
+    margin-bottom: 0;
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border, #2e3440);
+  }
+  .sec-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+    margin: 0;
+  }
+  .sec-meta {
+    font-size: 10.5px;
+    font-family: var(--font-mono, monospace);
+    color: var(--muted-foreground, #9ca3af);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Diagram 1: 6-stage pipeline */
+  .pipe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .pipe-grid { grid-template-columns: 1fr; }
+  }
+  .stage {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 12px 14px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .stage-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .stage-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--secondary, #232834);
+    color: var(--foreground, #e5e7eb);
+  }
+  .stage-wave {
+    font-size: 10px;
+    font-family: var(--font-mono, monospace);
+    color: var(--muted-foreground, #9ca3af);
+  }
+  .stage.w1 { border-top: 3px solid var(--chart-1, #3b82f6); }
+  .stage.w2 { border-top: 3px solid var(--chart-2, #10b981); }
+  .stage.w3 { border-top: 3px solid var(--chart-3, #f59e0b); }
+  .stage h3 {
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--foreground, #f9fafb);
+  }
+  .stage ul {
+    margin: 0;
+    padding-left: 14px;
+    color: var(--muted-foreground, #cbd5e1);
+    font-size: 11.4px;
+  }
+  .stage li { margin-bottom: 2px; }
+  .stage li:last-child { margin-bottom: 0; }
+  .stage-out {
+    margin-top: auto;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border, #2e3440);
+    font-size: 11px;
+    color: var(--foreground, #e5e7eb);
+  }
+  .stage-out b { color: var(--primary, #60a5fa); font-weight: 600; }
+
+  .rule-strip {
+    margin-top: 8px;
+    background: var(--accent-surface, rgba(59,130,246,0.1));
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    font-size: 11px;
+  }
+  @media (max-width: 560px) {
+    .rule-strip { grid-template-columns: 1fr; }
+  }
+  .rule-item strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--foreground, #f3f4f6);
+    margin-bottom: 2px;
+  }
+  .rule-item span { color: var(--muted-foreground, #cbd5e1); }
+
+  /* Diagram 2: Universe 50-60+ orgs across 7 sectors + 3 demand layers */
+  .sector-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .sector-grid { grid-template-columns: 1fr; }
+  }
+  .sector {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 10px 12px;
+  }
+  .sector.wide { grid-column: 1 / -1; }
+  .sector-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    gap: 6px;
+  }
+  .sector-name {
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--foreground, #f3f4f6);
+  }
+  .badge {
+    font-family: var(--font-mono, monospace);
+    font-size: 10.5px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--secondary, #232834);
+    color: var(--muted-foreground, #cbd5e1);
+    white-space: nowrap;
+  }
+  .orgs {
+    font-size: 11.8px;
+    color: var(--muted-foreground, #cbd5e1);
+    margin-bottom: 5px;
+  }
+  .orgs b { color: var(--foreground, #e5e7eb); font-weight: 600; }
+  .driver-tag {
+    font-size: 11px;
+    color: var(--info, #38bdf8);
+  }
+
+  /* 3-layer demand + gating funnel */
+  .funnel-row {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  @media (max-width: 560px) {
+    .funnel-row { grid-template-columns: 1fr; }
+  }
+  .box {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 12px 14px;
+  }
+  .box-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--foreground, #f3f4f6);
+  }
+  .layer {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: var(--secondary, #232834);
+    margin-bottom: 6px;
+    font-size: 11.8px;
+  }
+  .layer:last-child { margin-bottom: 0; }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .d1 { background: var(--chart-1, #3b82f6); }
+  .d2 { background: var(--chart-3, #f59e0b); }
+  .d3 { background: var(--chart-4, #a855f7); }
+  .verdict-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .verdict {
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 11.8px;
+    border-left: 3px solid transparent;
+    background: var(--secondary, #232834);
+  }
+  .v-go { border-left-color: var(--success, #22c55e); }
+  .v-cond { border-left-color: var(--warning, #f59e0b); }
+  .v-nogo { border-left-color: var(--destructive, #ef4444); }
+  .verdict b { color: var(--foreground, #f3f4f6); }
+
+  /* Diagram 3: Waves & RW data hook */
+  .waves {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  @media (max-width: 560px) {
+    .waves { grid-template-columns: 1fr; }
+  }
+  .wave-card {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .wave-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .wl1 { color: var(--chart-1, #60a5fa); }
+  .wl2 { color: var(--chart-2, #34d399); }
+  .wl3 { color: var(--chart-3, #fbbf24); }
+  .wave-card h4 {
+    margin: 0;
+    font-size: 12.8px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+  }
+  .wave-card ul {
+    margin: 0;
+    padding-left: 15px;
+    font-size: 11.8px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+  .wave-card li { margin-bottom: 3px; }
+  .wave-card li:last-child { margin-bottom: 0; }
+  .rw-hook {
+    margin-top: 10px;
+    background: var(--warning-surface, rgba(245,158,11,0.1));
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 10px 14px;
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .rw-pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--warning, #f59e0b);
+    color: var(--warning-foreground, #111827);
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+  .sec-head-1 {}
+</style>
+</head>
+<body>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">1. Конвейер исследования: 6 этапов анализа</h2>
+    <span class="sec-meta">сначала чистый спрос → потом ВС и цена</span>
+  </div>
+
+  <div class="pipe-grid">
+    <div class="stage w1">
+      <div class="stage-top">
+        <span class="stage-num">ЭТАП 1</span>
+        <span class="stage-wave">Волна 1</span>
+      </div>
+      <h3>Скрининг 50–60+ организаций</h3>
+      <ul>
+        <li>7 секторов госкомпаний, холдингов и институтов развития</li>
+        <li>Проверка: география, кооперация, свой флот, канал закупки</li>
+        <li>Явный отсев: кому контракт <b>не нужен</b> и почему</li>
+      </ul>
+      <div class="stage-out"><b>Выход:</b> реестр Go / Conditional / No-Go + «реестр отказов»</div>
+    </div>
+
+    <div class="stage w1">
+      <div class="stage-top">
+        <span class="stage-num">ЭТАП 2</span>
+        <span class="stage-wave">Волна 1</span>
+      </div>
+      <h3>Граф связей, поставщики, ивенты</h3>
+      <ul>
+        <li>Филиалы, КБ, заводы и поставщики 1–2 уровня (внутри и вне контура)</li>
+        <li>Срочные стройки/проекты с датой спада</li>
+        <li>Календарь форумов и съездов (ПМЭФ, ВЭФ, ИННОПРОМ и др.)</li>
+      </ul>
+      <div class="stage-out"><b>Выход:</b> карта пар городов (без фильтра старой сети RW)</div>
+    </div>
+
+    <div class="stage w2">
+      <div class="stage-top">
+        <span class="stage-num">ЭТАП 3</span>
+        <span class="stage-wave">Волна 2</span>
+      </div>
+      <h3>Когорты, объёмы и бизнес-класс</h3>
+      <ul>
+        <li>Отсечение нелетающего штата; разбивка на топов / менеджеров / инженеров / вахту</li>
+        <li>Отдельно: доля спроса на бизнес-класс</li>
+        <li>Триангуляция: оргструктура + закупки 223-ФЗ + обзоры ТМС</li>
+      </ul>
+      <div class="stage-out"><b>Выход:</b> коридор Min / Base / Max по сегментам и креслам</div>
+    </div>
+
+    <div class="stage w2">
+      <div class="stage-top">
+        <span class="stage-num">ЭТАП 4</span>
+        <span class="stage-wave">Волна 2</span>
+      </div>
+      <h3>Аудит рынка и разрыва (Supply Gap)</h3>
+      <ul>
+        <li>Проверка текущих прямых рейсов, стыковок и ЖД-альтернатив</li>
+        <li>Фиксация дефицита: нет прямого / плохое окно / нет блока / нет бизнеса</li>
+        <li>Раздельный учёт аэропортов Москвы (ZIA ≠ SVO/VKO/DME)</li>
+      </ul>
+      <div class="stage-out"><b>Выход:</b> список пар с доказанным дефицитом ёмкости</div>
+    </div>
+
+    <div class="stage w3">
+      <div class="stage-top">
+        <span class="stage-num">ЭТАП 5</span>
+        <span class="stage-wave">Волна 3</span>
+      </div>
+      <h3>Пулинг, узлы и потребный флот</h3>
+      <ul>
+        <li>Наложение карт всех корпораций: где 3–4 клиента дают якорный поток</li>
+        <li>Поиск естественных узлов (в т.ч. проверка Екатеринбурга)</li>
+        <li>Ранжирование по дальности и объёму → подбор типов и числа ВС</li>
+      </ul>
+      <div class="stage-out"><b>Выход:</b> матрица «маршруты → типы ВС → потребный парк»</div>
+    </div>
+
+    <div class="stage w3">
+      <div class="stage-top">
+        <span class="stage-num">ЭТАП 6</span>
+        <span class="stage-wave">Волна 3</span>
+      </div>
+      <h3>Двусторонняя экономика и продукт</h3>
+      <ul>
+        <li>Бюджет клиента: билет + экономия ночёвок и рабочего времени</li>
+        <li>Ступени RW: блок мест (с displacement) → доп. рейс/чартер → программа</li>
+        <li>Порог безубыточности + пересчёт после ответа RW по затратам</li>
+      </ul>
+      <div class="stage-out"><b>Выход:</b> коммерческие карточки топ-кластеров и пилотов</div>
+    </div>
+  </div>
+
+  <div class="rule-strip">
+    <div class="rule-item">
+      <strong>Без ранних фильтров</strong>
+      <span>На этапах 1–4 не режем маршруты по дальности SSJ100 и текущей сети RW.</span>
+    </div>
+    <div class="rule-item">
+      <strong>Запрет на подмену единиц</strong>
+      <span>Не переводим рубли закупки в кресла; разделяем людей, поездки, сегменты и рейсы.</span>
+    </div>
+    <div class="rule-item">
+      <strong>Независимая сверка</strong>
+      <span>Идём параллельно с коллегами, закрываем открытые проверки по Issue #5 и #6.</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">2. Охват клиентов: 50–60+ организаций по 7 секторам</h2>
+    <span class="sec-meta">госкорпорации · АО с госучастием · поставщики</span>
+  </div>
+
+  <div class="sector-grid">
+    <div class="sector">
+      <div class="sector-head">
+        <span class="sector-name">1. ОПК, авиация, космос, машиностроение</span>
+        <span class="badge">~14–16 структур</span>
+      </div>
+      <div class="orgs"><b>Ростех</b> (ОАК, ОДК, Вертолёты России, КРЭТ, Технодинамика, УВЗ, КАМАЗ, Росэлектроника, Швабе, Высокоточные комплексы), <b>Роскосмос</b> (Прогресс, Энергия, Решетнёв, ЦЭНКИ), <b>ОСК</b>, <b>Алмаз-Антей</b>, <b>КТРВ</b></div>
+      <div class="driver-tag">Драйвер: плотная межрегиональная кооперация КБ ↔ заводы ↔ поставщики</div>
+    </div>
+
+    <div class="sector">
+      <div class="sector-head">
+        <span class="sector-name">2. Атом и электроэнергетика</span>
+        <span class="badge">~9–11 структур</span>
+      </div>
+      <div class="orgs"><b>Росатом</b> (Росэнергоатом, ТВЭЛ, Атомэнергомаш, АСЭ, АРМЗ, Атомфлот, РФЯЦ Саров/Снежинск), <b>Россети</b>, <b>РусГидро</b>, <b>Интер РАО</b>, <b>СО ЕЭС</b></div>
+      <div class="driver-tag">Драйвер: инжиниринг, пусконаладка АЭС/ГЭС, удалённые площадки, СМП</div>
+    </div>
+
+    <div class="sector">
+      <div class="sector-head">
+        <span class="sector-name">3. Нефтегаз и трубопроводы</span>
+        <span class="badge">~9–11 структур</span>
+      </div>
+      <div class="orgs"><b>Газпром</b> (добычные/трансгаз дочки), <b>Газпром нефть</b>, <b>Роснефть</b> (РН-Ванкор, Башнефть и др.), <b>Транснефть</b>, <b>Зарубежнефть</b>, <b>Татнефть</b>; контрольно: <b>Сургутнефтегаз</b>, <b>Новатэк</b></div>
+      <div class="driver-tag">Драйвер: вахтовые ротации + проверка барьера «Газпром авиа / Utair / Ямал»</div>
+    </div>
+
+    <div class="sector">
+      <div class="sector-head">
+        <span class="sector-name">4. Транспорт и инфраструктура</span>
+        <span class="badge">~7–8 структур</span>
+      </div>
+      <div class="orgs"><b>РЖД</b> (+ смежник ТМХ), <b>ГК Автодор</b>, <b>Росморпорт</b>, <b>Совкомфлот</b>, <b>Почта России</b>, <b>ГТЛК</b>, <b>Росгеология</b>, <b>Единый заказчик / ВСК</b></div>
+      <div class="driver-tag">Драйвер: региональные стройки, инспекции, геологоразведка, порты</div>
+    </div>
+
+    <div class="sector">
+      <div class="sector-head">
+        <span class="sector-name">5. Добыча, металлы, химия (и поставщики)</span>
+        <span class="badge">~8–10 структур</span>
+      </div>
+      <div class="orgs"><b>Алроса</b>, <b>ОЗК</b>, <b>Росагролизинг</b> + внешние поставщики в цепочках Ростеха/Росатома/Газпрома: <b>ВСМПО-АВИСМА</b>, <b>ТМК</b>, <b>ОМК</b>, <b>Сибур</b>, <b>Северсталь</b>, <b>ММК</b>, <b>НЛМК</b></div>
+      <div class="driver-tag">Драйвер: кооперационное плечо поставщиков + проверка своего флота (Алроса, Северсталь)</div>
+    </div>
+
+    <div class="sector">
+      <div class="sector-head">
+        <span class="sector-name">6–7. Госбанки, институты, ИТ и наука</span>
+        <span class="badge">~11–13 структур</span>
+      </div>
+      <div class="orgs"><b>Сбер</b>, <b>ВТБ</b>, <b>Газпромбанк</b>, <b>ВЭБ.РФ</b>, <b>ПСБ</b>, <b>РСХБ</b>, <b>ДОМ.РФ</b>, <b>РФПИ</b>, <b>Ростелеком</b>, <b>Гознак</b>, <b>Курчатовский институт</b>, <b>Росконгресс</b></div>
+      <div class="driver-tag">Драйвер: топ-менеджмент (бизнес-класс), аудит, форумы (ПМЭФ, ВЭФ, ИННОПРОМ)</div>
+    </div>
+  </div>
+
+  <div class="funnel-row">
+    <div class="box">
+      <h4 class="box-title">Три слоя генерации спроса (раздельно по режиму)</h4>
+      <div class="layer">
+        <span class="dot d1"></span>
+        <div><b>Регулярный кооперационный и вахтовый:</b> круглогодичные связи между площадками, головными офисами и поставщиками.</div>
+      </div>
+      <div class="layer">
+        <span class="dot d2"></span>
+        <div><b>Проектный (срочный, со спадом):</b> пуски заводов, блоков АЭС, новых филиалов 2026–2028 с фиксацией срока затухания.</div>
+      </div>
+      <div class="layer">
+        <span class="dot d3"></span>
+        <div><b>Событийный (пиковый):</b> ПМЭФ, ВЭФ, ИННОПРОМ, «Армия», Атомэкспо, ЦИПР, ПМГФ, ТНФ, AtomSkills — короткие пики 2–4 дня.</div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h4 class="box-title">Как делим компании на выходе Этапа 1</h4>
+      <div class="verdict-list">
+        <div class="verdict v-go"><b>GO (Приоритет):</b> много площадок вне Москвы, слабая прямая регулярка, нет своего флота, есть централизованная закупка.</div>
+        <div class="verdict v-cond"><b>CONDITIONAL (Точечно):</b> интерес только под отдельные проекты, вахты, внешние субподряды или крупные форумы.</div>
+        <div class="verdict v-nogo"><b>NO-GO (Отсев с обоснованием):</b> свой ведомственный флот закрывает поток, все пары — Москва↔миллионники, либо <500 км (ЖД/авто).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">3. Порядок выполнения: три волны и стыковка с Red Wings</h2>
+    <span class="sec-meta">срез к 26–27.11 → пересчёт после данных RW</span>
+  </div>
+
+  <div class="waves">
+    <div class="wave-card">
+      <span class="wave-label wl1">ВОЛНА 1 · СЕЙЧАС (к 26–27.11)</span>
+      <h4>Широкий скрининг и карта связей</h4>
+      <ul>
+        <li>Прогнать все 50–60+ структур через единую матрицу 6 критериев</li>
+        <li>Собрать граф площадок, поставщиков и календарь ключевых форумов</li>
+        <li>Закрыть проверки по Issue #5 (год РН40302710, ЕИС Севернефтегазпрома)</li>
+      </ul>
+    </div>
+
+    <div class="wave-card">
+      <span class="wave-label wl2">ВОЛНА 2 · ОБЪЁМ И РАЗРЫВ</span>
+      <h4>Когорты, дефицит рынка и пулинг</h4>
+      <ul>
+        <li>Посчитать мобильные когорты и бизнес-класс на топ-кластерах (Min/Base/Max)</li>
+        <li>Проверить расписания конкурентов и ЖД → выделить реальный Supply Gap</li>
+        <li>Наложить компании друг на друга → найти пулинг и естественные узлы</li>
+      </ul>
+    </div>
+
+    <div class="wave-card">
+      <span class="wave-label wl3">ВОЛНА 3 · ФЛОТ И ЭКОНОМИКА</span>
+      <h4>Типы ВС, цена и коммерческий пакет</h4>
+      <ul>
+        <li>Разбить маршруты по дальности/ёмкости → расчёт потребного парка</li>
+        <li>Считать бюджет клиента и маржу RW (блок vs чартер vs программа)</li>
+        <li>Собрать презентацию с картой Go/No-Go и пилотными карточками</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rw-hook">
+    <span class="rw-pill">ВХОД ОТ RW</span>
+    <div>Волны 1–2 полностью автономны на открытых данных. На стыке Волн 2 и 3 передаём в Red Wings короткий пакет из 5 вопросов (<b>DOC по SSJ100 и Ту-214, целевая маржа, планы по бизнес-классу, действующие B2B-каналы, окна недозагрузки флота</b>), чтобы заменить модельные допущения реальными цифрами.</div>
+  </div>
+</div>
+
+</body>
+</html>
