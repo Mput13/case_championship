@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Формат показа эксперту: интерактивное досье вместо слайдов</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    color: var(--foreground, #e5e7eb);
+    font-size: 12.5px;
+    line-height: 1.38;
+  }
+  .section { margin-bottom: 16px; }
+  .section:last-child { margin-bottom: 0; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border, #2e3440);
+  }
+  .sec-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+    margin: 0;
+  }
+  .sec-meta {
+    font-size: 10.5px;
+    font-family: var(--font-mono, monospace);
+    color: var(--muted-foreground, #9ca3af);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Browser mockup frame for interactive dossier */
+  .app-frame {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    overflow: hidden;
+  }
+  .app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 12px;
+    background: var(--secondary, #232834);
+    border-bottom: 1px solid var(--border, #2e3440);
+    font-family: var(--font-mono, monospace);
+    font-size: 10.5px;
+    color: var(--muted-foreground, #9ca3af);
+    gap: 8px;
+  }
+  .dots { display: flex; gap: 5px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border, #3f4654); }
+  .app-body {
+    display: grid;
+    grid-template-columns: 175px 1fr;
+    min-height: 360px;
+  }
+  @media (max-width: 560px) {
+    .app-body { grid-template-columns: 1fr; }
+  }
+  .toc {
+    border-right: 1px solid var(--border, #2e3440);
+    padding: 12px 10px;
+    background: rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .toc-hdr {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted-foreground, #9ca3af);
+    margin-bottom: 4px;
+  }
+  .toc-item {
+    font-size: 11px;
+    padding: 4px 7px;
+    border-radius: 5px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+  .toc-item.active {
+    background: var(--accent-surface, rgba(59,130,246,0.18));
+    color: var(--foreground, #f3f4f6);
+    font-weight: 600;
+  }
+  .toc-note {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border, #2e3440);
+    font-size: 10px;
+    color: var(--muted-foreground, #9ca3af);
+  }
+  .main-pane {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pane-block {
+    background: var(--secondary, #232834);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: 6px;
+    padding: 9px 11px;
+  }
+  .pb-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .pb-title {
+    font-size: 11.8px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+  }
+  .pb-tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 9.8px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--card, #181c24);
+    color: var(--info, #38bdf8);
+    white-space: nowrap;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .chip {
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--border, #374151);
+    color: var(--muted-foreground, #cbd5e1);
+    background: var(--card, #181c24);
+  }
+  .chip.on {
+    border-color: var(--chart-1, #3b82f6);
+    color: var(--foreground, #f3f4f6);
+    background: var(--accent-surface, rgba(59,130,246,0.18));
+  }
+  .pb-desc {
+    font-size: 11.2px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+  .pb-desc b { color: var(--foreground, #e5e7eb); }
+  .sliders {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 6px;
+  }
+  @media (max-width: 560px) {
+    .sliders { grid-template-columns: 1fr; }
+  }
+  .sl {
+    background: var(--card, #181c24);
+    border-radius: 5px;
+    padding: 6px 8px;
+    font-size: 10.5px;
+  }
+  .sl-k { color: var(--muted-foreground, #9ca3af); margin-bottom: 3px; }
+  .sl-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border, #374151);
+    position: relative;
+    margin-bottom: 3px;
+  }
+  .sl-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--warning, #fbbf24);
+  }
+  .sl-v {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    color: var(--warning, #fbbf24);
+  }
+
+  /* 3-part expert kit */
+  .kit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .kit-grid { grid-template-columns: 1fr; }
+  }
+  .kit {
+    background: var(--card, #181c24);
+    border: 1px solid var(--border, #2e3440);
+    border-radius: var(--radius, 8px);
+    padding: 11px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .kit.k1 { border-top: 3px solid var(--chart-2, #10b981); }
+  .kit.k2 { border-top: 3px solid var(--chart-1, #3b82f6); }
+  .kit.k3 { border-top: 3px solid var(--chart-3, #f59e0b); }
+  .kit-lbl {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    color: var(--muted-foreground, #9ca3af);
+  }
+  .kit h4 {
+    margin: 0;
+    font-size: 12.2px;
+    font-weight: 600;
+    color: var(--foreground, #f3f4f6);
+  }
+  .kit p {
+    margin: 0;
+    font-size: 11.2px;
+    color: var(--muted-foreground, #cbd5e1);
+  }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">Главный формат для эксперта: живое интерактивное досье (1 HTML-файл)</h2>
+    <span class="sec-meta">открывается локально в браузере · прокрутка + якоря</span>
+  </div>
+
+  <div class="app-frame">
+    <div class="app-bar">
+      <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <span>redwings_corporate_dossier.html · непрерывный документ с закреплённым оглавлением</span>
+      <span>[Экспорт правок JSON]</span>
+    </div>
+    <div class="app-body">
+      <div class="toc">
+        <div class="toc-hdr">Оглавление</div>
+        <div class="toc-item">1. Сводка и статус данных</div>
+        <div class="toc-item">2. Скрининг 50–60+ орг.</div>
+        <div class="toc-item">3. Кейсы РФ и мира</div>
+        <div class="toc-item active">4. Карта связей и пулинга</div>
+        <div class="toc-item">5. Когорты и Supply Gap</div>
+        <div class="toc-item">6. Дальность и типы ВС</div>
+        <div class="toc-item">7. Калькулятор «Что если»</div>
+        <div class="toc-item">8. 5 вопросов к RW</div>
+        <div class="toc-note">Главы не спрятаны за вкладками — читается прокруткой, быстрый прыжок по вопросу эксперта.</div>
+      </div>
+
+      <div class="main-pane">
+        <div class="pane-block">
+          <div class="pb-head">
+            <span class="pb-title">Живая карта и граф корпоративных потоков</span>
+            <span class="pb-tag">переключатель слоёв на звонке</span>
+          </div>
+          <div class="controls">
+            <span class="chip on">Все Go (пулинг)</span>
+            <span class="chip">Ростех</span>
+            <span class="chip">Росатом</span>
+            <span class="chip">Газпром / НГ</span>
+            <span class="chip on">Без фильтра ВС</span>
+            <span class="chip">Только SSJ100</span>
+            <span class="chip">Ту-214 / Бизнес</span>
+          </div>
+          <div class="pb-desc">Эксперт кликает фильтры и сразу видит: какие пары дают пул 3–4 корпораций, где проявляется естественный узел (вкл. <b>Екатеринбург</b>), а какие маршруты выпадают при ограничении SSJ100.</div>
+        </div>
+
+        <div class="pane-block">
+          <div class="pb-head">
+            <span class="pb-title">Кликабельный реестр компаний и пар с проверкой источников</span>
+            <span class="pb-tag">клик → первоисточник</span>
+          </div>
+          <div class="pb-desc">На вопрос «почему отсеяли X?» или «откуда оценка по паре Y?» — клик по строке раскрывает <b>реальные строки исходных CSV</b>, ссылки на годовой отчёт / 223-ФЗ / расписание и формулу расчёта.</div>
+        </div>
+
+        <div class="pane-block">
+          <div class="pb-head">
+            <span class="pb-title">Панель живой калибровки с экспертом Red Wings</span>
+            <span class="pb-tag">пересчёт на лету</span>
+          </div>
+          <div class="pb-desc">Прямо на встрече эксперт поправляет неизвестные параметры — таблица безубыточности и потребного парка обновляется сразу:</div>
+          <div class="sliders">
+            <div class="sl">
+              <div class="sl-k">DOC блок-часа (SSJ / Ту-214)</div>
+              <div class="sl-bar"><div class="sl-fill" style="width:60%"></div></div>
+              <div class="sl-v">NEEDS-RW-DATA · правка</div>
+            </div>
+            <div class="sl">
+              <div class="sl-k">Доля мобильных инженеров</div>
+              <div class="sl-bar"><div class="sl-fill" style="width:45%"></div></div>
+              <div class="sl-v">Min / Base / Max</div>
+            </div>
+            <div class="sl">
+              <div class="sl-k">Бизнес-класс на борту</div>
+              <div class="sl-bar"><div class="sl-fill" style="width:75%"></div></div>
+              <div class="sl-v">100Y vs 2-классный</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-head">
+    <h2 class="sec-title">Полный комплект для рабочей встречи с экспертом (без презентации)</h2>
+    <span class="sec-meta">для созвона · для проверки руками · для фиксации итогов</span>
+  </div>
+
+  <div class="kit-grid">
+    <div class="kit k1">
+      <span class="kit-lbl">1. НА ЭКРАНЕ В ЗВОНКЕ</span>
+      <h4>Интерактивное HTML-досье</h4>
+      <p>Непрерывный разбор с оглавлением, картой связей, фильтрами Go/No-Go и живым пересчётом допущений прямо в разговоре.</p>
+    </div>
+
+    <div class="kit k2">
+      <span class="kit-lbl">2. ЗАБРАТЬ С СОБОЙ</span>
+      <h4>Рабочая книга Excel (XLSX)</h4>
+      <p>Прозрачные формулы без «зашитых» цифр по листам (скрининг, граф, когорты, разрыв, парк, экономика) — эксперт может сам подставить внутренние ставки RW.</p>
+    </div>
+
+    <div class="kit k3">
+      <span class="kit-lbl">3. ЗА 2 МИНУТЫ ДО ВСТРЕЧИ</span>
+      <h4>1-страничный Briefing Memo</h4>
+      <p>Короткая записка (PDF/MD): 4 главных вывода, 2 спорные гипотезы и 5 конкретных вопросов, на которые нужна экспертная оценка RW.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
