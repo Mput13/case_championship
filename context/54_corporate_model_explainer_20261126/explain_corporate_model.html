@@ -592,12 +592,12 @@ footer {
       <div class="kicker">Red Wings · Корпоративные пассажиропотоки · 26.11.2026</div>
       <h1>Модель корпоративного спроса: таблицы, методика, расчёты и запрос к Red Wings</h1>
       <p class="lead">
-        Разбор всех 15 таблиц книги <code>outputs/red_wings_model.xlsx</code> (репозиторий <code>rew_wings</code> с объединёнными фактами Фазы 1 и ночного закрытия пробелов Gap 1–4, ветка <code>feat/phase1-verified-facts-20261125</code>), принципов исследования, международных практик оценки корпоративного трафика, специфики компаний, логики расчётов и перечня данных, которые нужно запросить у Red Wings.
+        Разбор всех 16 таблиц книги <code>outputs/red_wings_model.xlsx</code> (репозиторий <code>kiruha355/rew_wings</code>, актуальный PR #1 поверх <code>main</code> <code>acca252</code>: ночной поиск + Фаза 1 + Gap 1–4), принципов исследования, международных практик оценки корпоративного трафика, специфики компаний, логики расчётов и перечня данных, которые нужно запросить у Red Wings.
       </p>
       <div class="tiles">
-        <div class="tile"><b>43 / 937</b><span>организаций (36 с ЭТП) и площадок (238 с функцией)</span></div>
-        <div class="tile"><b>237 / 113 / 68</b><span>связей, событий (79 делегаций) и закупок</span></div>
-        <div class="tile"><b>210 → 178</b><span>направленных пар городов и пар аэропортов в «Итоге»</span></div>
+        <div class="tile"><b>48 / 937</b><span>организаций (36 с ЭТП) и площадок (419 с функцией)</span></div>
+        <div class="tile"><b>252 / 113 / 71</b><span>связей, событий (117 делегаций) и закупок</span></div>
+        <div class="tile"><b>225 → 184</b><span>направленных пар городов и пар аэропортов (+ 48 групп в «Итоге»)</span></div>
         <div class="tile"><b>157 / 621</b><span>проверенных плеч маршрутов и новых источников с URL</span></div>
       </div>
     </header>
@@ -606,20 +606,20 @@ footer {
     <div class="part-mark">Часть 1. Таблицы и связи в Excel-модели</div>
 
     <section id="s1">
-      <h2><span class="n">1</span>Все 15 таблиц и колонки модели</h2>
+      <h2><span class="n">1</span>Все 16 таблиц и колонки модели</h2>
       <p class="sub">
-        Книга <code>outputs/red_wings_model.xlsx</code> собирается из 15 CSV-файлов в папке <code>data/model/</code>. В самом Excel формул нет: все вычисления выполняют скрипты (<code>rebuild.ps1</code> на Windows или <code>rebuild.py</code> на Mac/Linux), а <code>build_excel.py</code> раскладывает готовые CSV по листам.
+        Книга <code>outputs/red_wings_model.xlsx</code> собирается из 16 CSV-файлов в папке <code>data/model/</code> (17-й лист в Excel — <code>Содержание</code>). В самом Excel формул нет: все вычисления выполняют скрипты (<code>scripts/build_results.ps1</code> на Windows или <code>scripts/build_results.py</code> на Mac/Linux), а <code>build_excel.py</code> раскладывает готовые CSV по листам.
       </p>
 
       <div class="note">
-        <b>Термин: grain (зерно таблицы).</b> Это точный ответ на вопрос «что описывает ровно одна строка». Если смешать строки разного зерна — например, сложить годовой поток по организации с отдельным рейсом на 139 человек или с билетом с пересадкой — итог станет бессмысленным. Поэтому в модели 15 отдельных таблиц.
+        <b>Термин: grain (зерно таблицы).</b> Это точный ответ на вопрос «что описывает ровно одна строка». Если смешать строки разного зерна — например, сложить годовой поток по организации с отдельным рейсом на 139 человек или с билетом с пересадкой — итог станет бессмысленным. Поэтому в модели 16 отдельных таблиц.
       </div>
 
       <div class="btns" aria-label="Подсветка слоя таблиц">
-        <button class="btn on" type="button" data-layer="all">Все 15 таблиц</button>
+        <button class="btn on" type="button" data-layer="all">Все 16 таблиц</button>
         <button class="btn" type="button" data-layer="ref">Справочники (4)</button>
         <button class="btn" type="button" data-layer="fact">Факты (8)</button>
-        <button class="btn" type="button" data-layer="calc">Расчётные витрины (3)</button>
+        <button class="btn" type="button" data-layer="calc">Расчётные витрины (4)</button>
       </div>
 
       <div class="tbl-wrap">
@@ -634,58 +634,60 @@ footer {
             </tr>
           </thead>
           <tbody>
-            <tr data-layer="ref"><td><b>Организации</b><br><small><code>dim_orgs.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">43 / 13</td><td><code>Org_ID</code></td><td>Головная корпорация, госкомпания или крупный подрядчик</td></tr>
-            <tr data-layer="ref"><td><b>Площадки</b><br><small><code>dim_sites.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">937 / 21</td><td><code>Site_ID</code></td><td>Юрлицо, дочернее общество или филиал группы</td></tr>
-            <tr data-layer="ref"><td><b>Места работы</b><br><small><code>site_locations.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">30 / 18</td><td><code>Location_ID</code></td><td>Фактический удалённый объект (месторождение, стройка, АЭС) и режим доступа</td></tr>
+            <tr data-layer="ref"><td><b>Организации</b><br><small><code>dim_orgs.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">48 / 13</td><td><code>Org_ID</code></td><td>Головная корпорация, госкомпания или крупный подрядчик</td></tr>
+            <tr data-layer="ref"><td><b>Площадки</b><br><small><code>dim_sites.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">937 / 21</td><td><code>Site_ID</code></td><td>Юрлицо, дочернее общество или филиал группы (419 с функцией)</td></tr>
+            <tr data-layer="ref"><td><b>Места работы</b><br><small><code>site_locations.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">32 / 18</td><td><code>Location_ID</code></td><td>Фактический удалённый объект (месторождение, стройка, АЭС) и режим доступа</td></tr>
             <tr data-layer="ref"><td><b>Аэропорты</b><br><small><code>fact_airports.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">330 / 13</td><td><code>Город</code> (+IATA)</td><td>Город и ближайший аэропорт с координатами и статусом</td></tr>
 
-            <tr data-layer="fact"><td><b>Связи</b><br><small><code>fact_links.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">237 / 25</td><td><code>Link_ID</code></td><td>Подтверждённая деловая или вахтовая поездка «откуда → куда»</td></tr>
+            <tr data-layer="fact"><td><b>Связи</b><br><small><code>fact_links.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">252 / 25</td><td><code>Link_ID</code></td><td>Подтверждённая деловая или вахтовая поездка «откуда → куда»</td></tr>
             <tr data-layer="fact"><td><b>События</b><br><small><code>fact_events.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">113 / 13</td><td><code>Event_ID</code></td><td>Форум, выставка, чемпионат, ремонтная кампания, учёба</td></tr>
-            <tr data-layer="fact"><td><b>Участники событий</b><br><small><code>event_participants.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">79 / 7</td><td><code>Event_ID + Город</code></td><td>Конкретная организация или команда, едущая на событие из своего города</td></tr>
-            <tr data-layer="fact"><td><b>Закупки</b><br><small><code>fact_procurement.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">68 / 17</td><td><code>Proc_ID</code></td><td>Тендер или контракт на билеты, чартеры, доставку персонала</td></tr>
-            <tr data-layer="fact"><td><b>Подрядчики</b><br><small><code>fact_contractors.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">10 / 7</td><td><code>Contract_ID</code></td><td>Связь «подрядчик/поставщик → заказчик» (<code>K* → A*/D*</code>)</td></tr>
-            <tr data-layer="fact"><td><b>Персонал групп</b><br><small><code>fact_staff_structure_orgs.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">43 / 14</td><td><code>Org_ID</code></td><td>Разбивка штата группы на руководителей, ИТР, служащих, рабочих (12 групп заполнены)</td></tr>
+            <tr data-layer="fact"><td><b>Участники событий</b><br><small><code>event_participants.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">117 / 7</td><td><code>Event_ID + Город</code></td><td>Конкретная организация или команда, едущая на событие из своего города</td></tr>
+            <tr data-layer="fact"><td><b>Закупки</b><br><small><code>fact_procurement.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">71 / 17</td><td><code>Proc_ID</code></td><td>Тендер или контракт на билеты, чартеры, доставку персонала</td></tr>
+            <tr data-layer="fact"><td><b>Подрядчики</b><br><small><code>fact_contractors.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">15 / 7</td><td><code>Contract_ID</code></td><td>Связь «подрядчик/поставщик → заказчик» (<code>K* → A*/D*</code>)</td></tr>
+            <tr data-layer="fact"><td><b>Персонал групп</b><br><small><code>fact_staff_structure_orgs.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">43 / 14</td><td><code>Org_ID</code></td><td>Разбивка штата группы на руководителей, ИТР, служащих, рабочих (13 групп заполнены)</td></tr>
             <tr data-layer="fact"><td><b>Персонал площадок</b><br><small><code>fact_staff_structure_sites.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">937 / 15</td><td><code>Site_ID</code></td><td>Та же разбивка персонала по конкретной площадке</td></tr>
-            <tr data-layer="fact"><td><b>Экономика</b><br><small><code>fact_economics.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">33 / 10</td><td><code>Econ_ID</code></td><td>Наблюдённые рыночные показатели, тарифы, субсидии и ограничения</td></tr>
+            <tr data-layer="fact"><td><b>Экономика</b><br><small><code>fact_economics.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">80 / 10</td><td><code>Econ_ID</code></td><td>Наблюдённые рыночные показатели, тарифы, субсидии и ограничения</td></tr>
 
-            <tr data-layer="calc"><td><b>Пары</b><br><small><code>od_pairs.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">210 / 12</td><td><code>OD_ID</code></td><td>Отобранная направленная пара «Город A → Город B» с аэропортами и расстоянием</td></tr>
+            <tr data-layer="calc"><td><b>Пары</b><br><small><code>od_pairs.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">225 / 12</td><td><code>OD_ID</code></td><td>Отобранная направленная пара «Город A → Город B» с аэропортами и расстоянием</td></tr>
             <tr data-layer="calc"><td><b>Плечи маршрутов</b><br><small><code>route_legs.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">157 / 17</td><td><code>Leg_ID</code></td><td>Конкретный прямой рейс, плечо пересадки, поезд или автотрансфер (60 привязаны к OD)</td></tr>
-            <tr data-layer="calc"><td><b>Итог</b><br><small><code>demand_estimate.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">178 / 23</td><td><code>Pair_ID</code></td><td>Сводка по паре аэропортов <code>A ↔ B</code> в обе стороны с выводом</td></tr>
+            <tr data-layer="calc"><td><b>Итог по направлениям</b><br><small><code>demand_estimate.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">184 / 23</td><td><code>Pair_ID</code></td><td>Сводка по паре аэропортов <code>A ↔ B</code> в обе стороны с пулингом организаций и выводом</td></tr>
+            <tr data-layer="calc"><td><b>Итог по группам</b><br><small><code>summary_by_org.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">48 / 18</td><td><code>Org_ID</code></td><td>Первая витрина Excel: карточка организации-переговорщика (состав, ЭТП, направления, закупки, вывод)</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>Ниже — разбор каждой таблицы по очереди: состав колонок (синим выделены ключи, жёлтым — почти пустые колонки), реальные строки CSV из текущей модели и роль таблицы в расчётах.</p>
+      <p>Ниже — разбор каждой таблицы по очереди: состав колонок (синим выделены ключи, жёлтым — почти пустые колонки), реальные строки CSV из текущей модели, источники данных и роль таблицы в расчётах.</p>
 
       <h3>Справочники (4 таблицы)</h3>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>1. Организации — <code>dim_orgs.csv</code></h4>
-          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>43 строки · 13 колонок</span></div>
+          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>48 строк · 13 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> одна головная группа, госкомпания или крупный подрядчик/поставщик.</p>
         <div class="cols-list">
-          <span class="col-pill pk">Org_ID <small>43/43</small></span>
-          <span class="col-pill">Организация <small>43/43</small></span>
+          <span class="col-pill pk">Org_ID <small>48/48</small></span>
+          <span class="col-pill">Организация <small>48/48</small></span>
           <span class="col-pill">Вид <small>A/B/C/D/K</small></span>
-          <span class="col-pill">Категория <small>43/43</small></span>
-          <span class="col-pill">Отрасль <small>43/43</small></span>
-          <span class="col-pill">Контроль государства <small>43/43</small></span>
-          <span class="col-pill">Статус проверен <small>43/43</small></span>
-          <span class="col-pill">Штаб-квартира <small>43/43</small></span>
-          <span class="col-pill">Численность <small>28/43</small></span>
-          <span class="col-pill">Год численности <small>28/43</small></span>
-          <span class="col-pill">Источники <small>43/43</small></span>
-          <span class="col-pill">Площадка закупок <small>36/43</small></span>
-          <span class="col-pill">Источник площадки закупок <small>36/43</small></span>
+          <span class="col-pill">Категория <small>48/48</small></span>
+          <span class="col-pill">Отрасль <small>48/48</small></span>
+          <span class="col-pill">Контроль государства <small>48/48</small></span>
+          <span class="col-pill">Статус проверен <small>48/48</small></span>
+          <span class="col-pill">Штаб-квартира <small>43/48</small></span>
+          <span class="col-pill">Численность <small>30/48</small></span>
+          <span class="col-pill">Год численности <small>30/48</small></span>
+          <span class="col-pill">Источники <small>48/48</small></span>
+          <span class="col-pill">Площадка закупок <small>36/48</small></span>
+          <span class="col-pill">Источник площадки закупок <small>36/48</small></span>
         </div>
         <div class="csv-sample">Org_ID,Организация,Вид,Категория,Отрасль,Штаб-квартира,Численность,Год,Источники
 A1,Росатом,A,Госкорпорация,Атомная энергетика,Москва,412000,2024,"S001,S010"
 A2,Ростех,A,Госкорпорация,Оборонная промышленность и машиностроение,Москва,700000,2024,"S003,S010"
 D2,Газпром,D,ПАО с госконтролем,Нефть и газ,Санкт-Петербург,501000,2024,"S001,S038"
 K6,СтройТрансНефтеГаз,K,Подрядчик (стройка, генподряд),Нефть и газ,,, ,"S2603,S2604..."</div>
-        <p class="transform"><b>Как используется:</b> задаёт периметр отбора. В <code>od_pairs.csv</code> попадают только поездки, где хотя бы у одной стороны <code>Org_ID</code> соответствует маске <code>A/B/C/D/K + цифра</code>.</p>
+        <p class="transform"><b>Источники данных:</b> годовые и ESG-отчёты корпораций, ЕГРЮЛ/ФНС, официальные сайты и закупочные порталы ЭТП (ЭТП ГПБ, Фабрикант, Росэлторг, АСТ ГОЗ, РТС-тендер).</p>
+        <p class="transform"><b>Как используется:</b> задаёт периметр отбора. В <code>od_pairs.csv</code> попадают только поездки, где хотя бы у одной стороны <code>Org_ID</code> соответствует маске <code>A/B/C/D/K + цифра</code>. В актуальной объединённой версии (PR #1) в таблице <b>48</b> организаций: у <b>36</b> заполнена ЭТП, у <b>30</b> — численность, у <b>43</b> — штаб-квартира.</p>
       </div>
 
       <div class="tcard">
@@ -703,7 +705,7 @@ K6,СтройТрансНефтеГаз,K,Подрядчик (стройка, г
           <span class="col-pill">ИНН <small>783/937</small></span>
           <span class="col-pill">Уровень <small>1/2/3</small></span>
           <span class="col-pill">Тип <small>дочка/филиал</small></span>
-          <span class="col-pill empty">Функция площадки <small>0/937</small></span>
+          <span class="col-pill">Функция площадки <small>419/937</small></span>
           <span class="col-pill">Город <small>910/937</small></span>
           <span class="col-pill">Регион <small>856/937</small></span>
           <span class="col-pill">Точность места <small>937/937</small></span>
@@ -718,34 +720,33 @@ K6,СтройТрансНефтеГаз,K,Подрядчик (стройка, г
 P0001,A1,Росатом,АО «Атомэнергопром»,Росатом,7706664260,1,дочернее общество,Москва,,
 P0002,A1,Росатом,АО «ТВЭЛ»,Росатом,7706123550,1,дочернее общество,Москва,,
 P0019,A1,Росатом,ПАТЭС,АО «Концерн Росэнергоатом»,,3,филиал,Певек,487,2022</div>
-        <p class="transform"><b>Как используется:</b> даёт географию и масштаб предприятий. Обратите внимание: юридический адрес дочки (часто Москва или Санкт-Петербург) не всегда равен месту фактической работы людей — для этого заведена следующая таблица <code>site_locations</code>.</p>
+        <p class="transform"><b>Источники данных:</b> списки аффилированных лиц и годовые отчёты групп, агрегаторы ЕГРЮЛ и данных ФНС по среднесписочной численности (Checko, Rusprofile, e-disclosure), официальные сайты предприятий.</p>
+        <p class="transform"><b>Как используется:</b> даёт географию, функцию (419 из 937 площадок классифицированы: завод, АЭС, КБ, офис, добыча, ремонтный филиал) и масштаб предприятий. Юридический адрес дочки не всегда равен месту фактической работы — для удалённых строек и месторождений заведена таблица <code>site_locations</code>.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>3. Места работы — <code>site_locations.csv</code></h4>
-          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>30 строк · 18 колонок</span></div>
+          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>32 строки · 18 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> фактический производственный объект (месторождение, стройка, станция), куда летают сотрудники площадки <code>Site_ID</code>.</p>
         <div class="cols-list">
-          <span class="col-pill pk">Location_ID <small>5/5</small></span>
-          <span class="col-pill pk">Site_ID <small>5/5</small></span>
-          <span class="col-pill">Место работы <small>5/5</small></span>
-          <span class="col-pill">Населённый пункт <small>3/5</small></span>
-          <span class="col-pill">Регион <small>5/5</small></span>
-          <span class="col-pill">Что за объект <small>5/5</small></span>
-          <span class="col-pill empty">Широта / Долгота <small>0/5</small></span>
-          <span class="col-pill">Аэропорт (IATA) <small>4/5</small></span>
-          <span class="col-pill">Как добираться от аэропорта <small>4/5</small></span>
-          <span class="col-pill empty">Численность / Год <small>0/5</small></span>
-          <span class="col-pill">Пассажиров в год / Рейсов в год <small>1/5</small></span>
-          <span class="col-pill">Точность / Источник / Как прочитано <small>5/5</small></span>
+          <span class="col-pill pk">Location_ID <small>32/32</small></span>
+          <span class="col-pill pk">Site_ID <small>32/32</small></span>
+          <span class="col-pill">Место работы <small>32/32</small></span>
+          <span class="col-pill">Регион / Что за объект</span>
+          <span class="col-pill">Аэропорт (IATA) <small>26/32</small></span>
+          <span class="col-pill">Как добираться от аэропорта</span>
+          <span class="col-pill">Режим доступа <small>открытый/закрытый/ЗАТО/вертолёт</small></span>
+          <span class="col-pill">Численность / Пассажиров / Рейсов <small>где опубликовано</small></span>
+          <span class="col-pill">Источник / Как прочитано</span>
         </div>
-        <div class="csv-sample">Location_ID,Site_ID,Место работы,Регион,Аэропорт (IATA),Как добираться от аэропорта,Источник
-LOC001,P0926,Ковыктинское ГКМ стройка,Иркутская обл.,IKT,автодорога,"S2613,S2723,S2738"
-LOC002,P0926,Тас-Юряхский проект,Республика Саха (Якутия),MJZ,автодорога или вертолёт,"S2605,S2739"
-LOC003,P0476,Ванкорское месторождение,Красноярский край,IAA,вертолёт или зимник,S2740</div>
-        <p class="transform"><b>Как используется:</b> пока это стартовый справочник (5 объектов). В скриптах <code>build_od_pairs</code> таблица ещё не участвует напрямую, но нужна для привязки вахтовых площадок к реальным «последним милям» (вертолёт/авто).</p>
+        <div class="csv-sample">Location_ID,Site_ID,Место работы,Регион,Аэропорт (IATA),Как добираться от аэропорта,Режим доступа
+LOC001,P0926,Ковыктинское ГКМ стройка,Иркутская обл.,IKT,автодорога,открытый
+LOC002,P0926,Тас-Юряхский проект,Якутия,MJZ,автодорога или вертолёт,вертолёт
+LOC011,P0019,ПАТЭС «Академик Ломоносов»,Чукотский АО,PWE,автодорога,вахтовый пропуск</div>
+        <p class="transform"><b>Источники данных:</b> пресс-релизы и отчёты компаний (Росатом, Газпром, Роснефть, СИБУР, НОВАТЭК, Роскосмос), реестр аэродромов Росавиации, карточки проектов и вакансий вахты.</p>
+        <p class="transform"><b>Как используется:</b> учитывается в <code>summary_by_org</code> (колонка «Мест работы вне города регистрации») и фиксирует реальную «последнюю милю» (вертолёт, зимник, ЗАТО, закрытый аэродром).</p>
       </div>
 
       <div class="tcard">
@@ -771,7 +772,8 @@ LOC003,P0476,Ванкорское месторождение,Красноярс�
 Новый Уренгой,ЯНАО,Новый Уренгой,NUX,да,,работает
 Саров,Нижегородская обл.,Саранск,SKX,нет,190,работает
 Уфа,Башкортостан,Уфа,UFA,да,,работает</div>
-        <p class="transform"><b>Как используется:</b> переводит названия городов из <code>fact_links</code> и <code>event_participants</code> в коды IATA. Если у одного из городов нет IATA или оба города попали в один аэропорт — пара в <code>od_pairs.csv</code> не попадает. <b>Ограничение:</b> сейчас скрипт склеивает <code>SVO/DME/VKO</code> в общий код <code>MOW</code> (оставляя пустой дальность у 42 пар), тогда как <code>ZIA</code> идёт отдельно.</p>
+        <p class="transform"><b>Источники данных:</b> база координат <code>OurAirports</code>, реестр аэродромов Росавиации, АИП России, справочники аэропортов и маршрутные сервисы (Туту, Яндекс).</p>
+        <p class="transform"><b>Как используется:</b> переводит названия городов из <code>fact_links</code> и <code>event_participants</code> в коды IATA. Если у города нет IATA или оба конца в одном аэропорту — пара в <code>od_pairs.csv</code> не попадает. <b>Ограничение:</b> сейчас скрипт склеивает <code>SVO/DME/VKO</code> в код <code>MOW</code>; отдельная развязка 16 московских пар по <code>SVO/DME/VKO/ZIA</code> лежит в <code>mow_airports_split_16.csv</code>.</p>
       </div>
 
       <h3>Таблицы фактов (8 таблиц)</h3>
@@ -779,40 +781,38 @@ LOC003,P0476,Ванкорское месторождение,Красноярс�
       <div class="tcard">
         <div class="tcard-head">
           <h4>5. Связи — <code>fact_links.csv</code></h4>
-          <div class="tcard-meta"><span class="tag fact">Факт · ядро модели</span><span>237 строк · 25 колонок</span></div>
+          <div class="tcard-meta"><span class="tag fact">Факт · ядро модели</span><span>252 строки · 25 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> одно документально подтверждённое направление перемещения людей между двумя городами или площадками.</p>
         <div class="cols-list">
-          <span class="col-pill pk">Link_ID <small>237/237</small></span>
-          <span class="col-pill pk">Org_ID / Site_ID откуда <small>162 / 92</small></span>
-          <span class="col-pill">Город / Организация откуда <small>237 / 218</small></span>
-          <span class="col-pill pk">Org_ID / Site_ID куда <small>184 / 105</small></span>
-          <span class="col-pill">Город / Организация куда <small>237 / 213</small></span>
-          <span class="col-pill">Тип связи <small>237/237</small></span>
+          <span class="col-pill pk">Link_ID <small>252/252</small></span>
+          <span class="col-pill pk">Org_ID / Site_ID откуда</span>
+          <span class="col-pill">Город / Организация откуда</span>
+          <span class="col-pill pk">Org_ID / Site_ID куда</span>
+          <span class="col-pill">Город / Организация куда</span>
+          <span class="col-pill">Тип связи <small>12 категорий</small></span>
           <span class="col-pill">Что подтверждает / Признаки поездок</span>
-          <span class="col-pill">Кто ездит <small>162/237</small></span>
-          <span class="col-pill empty">Человек <small>26/237</small></span>
-          <span class="col-pill empty">Поездок <small>3/237</small></span>
-          <span class="col-pill empty">Период <small>23/237</small></span>
-          <span class="col-pill">Год данных <small>56/237</small></span>
-          <span class="col-pill">Постоянная/временная <small>68/237</small></span>
-          <span class="col-pill">Срок с / Срок по <small>36 / 41</small></span>
-          <span class="col-pill empty">Частота <small>23/237</small></span>
+          <span class="col-pill">Кто ездит</span>
+          <span class="col-pill empty">Человек / Поездок / Период</span>
+          <span class="col-pill">Год данных / Постоянная-временная / Срок с–по</span>
+          <span class="col-pill empty">Частота</span>
           <span class="col-pill">Статус <small>1/2/3</small></span>
           <span class="col-pill">Источник / Как прочитано / Комментарий</span>
         </div>
+        <p class="transform"><b>Что такое колонка «Тип связи» (12 значений):</b> это причина, по которой люди ездят между двумя точками. В таблице используются ровно 12 категорий: <code>вахта и полевые работы</code> (65+), <code>поставка и кооперация</code> (37 — попадает в модель <b>только если заполнено «Кто ездит»</b>, чтобы отсечь перевозку грузов без людей), <code>сервис и ремонт</code> (25), <code>обучение</code> (24), <code>монтаж и пусконаладка</code> (20), <code>проезд к месту отдыха</code> (17), <code>испытания</code> (15), <code>проектирование и НИОКР</code> (15), <code>цель не раскрыта</code> (8), <code>строительство</code> (6), <code>приёмка и контроль</code>, <code>переезд офиса</code>.</p>
         <div class="csv-sample">Link_ID,Город откуда,Город куда,Org откуда/куда,Тип связи,Кто ездит,Человек,Период,Год,Статус,Источник
 L001,Москва,Певек,/A1,вахта и полевые работы,Эксплуатационный и судовой персонал,,,2025,3,"S215,S1330,S2211"
 L036,Пермь,Иркутск,A2/A2,испытания,Техники ОДК-ПМ и ОДК-Авиадвигателя,,,,1,"S1354,S2215"
 L184,Омск,Талакан (Якутия),/D2,вахта и полевые работы,Работники подрядчика,139,рейс,2020,3,S1463
 L255,Уфа,Новый Уренгой,K6/D2,вахта и полевые работы,Вахтовый персонал СТНГ / ГСП,,,2026,2,"M001,M005,M009"</div>
-        <p class="transform"><b>Как используется:</b> главный источник для <code>od_pairs.csv</code> и <code>demand_estimate.csv</code>. Строки с типом <code>поставка и кооперация</code> без заполненного поля <code>Кто ездит</code> отбрасываются автоматически (перевозка груза без людей в модель не входит).</p>
+        <p class="transform"><b>Источники данных:</b> корпоративные новости и пресс-релизы (Страна Росатом, Атомэнергоремонт, Газпром, ОДК, Роскосмос), вакансии вахтового найма (hh.ru, сайты ГСП/СТНГ), тарифные заключения регуляторов, отчёты аэропортов и контракты 223-ФЗ.</p>
+        <p class="transform"><b>Как используется:</b> главный вход для <code>od_pairs.csv</code>, <code>demand_estimate.csv</code> и <code>summary_by_org.csv</code>.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>6. События — <code>fact_events.csv</code> и 7. Участники событий — <code>event_participants.csv</code></h4>
-          <div class="tcard-meta"><span class="tag fact">Факт · событийный спрос</span><span>113 событий · 63 участника</span></div>
+          <div class="tcard-meta"><span class="tag fact">Факт · событийный спрос</span><span>113 событий · 117 записей участия</span></div>
         </div>
         <p class="grain"><b>Зерно:</b> в <code>fact_events</code> — одно мероприятие (где и когда); в <code>event_participants</code> — конкретная делегация, едущая из своего города на <code>Event_ID</code>.</p>
         <div class="cols-list">
@@ -820,202 +820,221 @@ L255,Уфа,Новый Уренгой,K6/D2,вахта и полевые раб�
           <span class="col-pill">Событие / Тип <small>113/113</small></span>
           <span class="col-pill">Город <small>109/113</small></span>
           <span class="col-pill">Даты <small>113/113</small></span>
-          <span class="col-pill">Периодичность / Обычный месяц <small>96 / 60</small></span>
+          <span class="col-pill">Периодичность / Обычный месяц</span>
           <span class="col-pill">Участников / точность <small>55/113</small></span>
           <span class="col-pill">Org_IDs / Организации-участники</span>
-          <span class="col-pill pk">Участники: Event_ID + Org_ID + Город отправления <small>63/63</small></span>
-          <span class="col-pill empty">Участники: Человек <small>4/63</small></span>
+          <span class="col-pill pk">Участники: Event_ID + Org_ID + Город отправления <small>117 записей</small></span>
+          <span class="col-pill">Участники: Человек <small>16+ записей с численностью</small></span>
         </div>
         <div class="csv-sample"># fact_events.csv
 E001,ПМЭФ-2025,форум и выставка,Санкт-Петербург,18–21.06.2025,ежегодно,24200,A1;A4;A5;B1;D1;D2;D7
 E015,Иннопром-2025,форум и выставка,Екатеринбург,07–10.07.2025,ежегодно,,A1;A2;D1;D18
-E126,Иннопром-2027,форум и выставка,Екатеринбург,05–08.07.2027,,,
+E066,Фестиваль «Факел»-2025,корпоративный спорт и культура,Санкт-Петербург,май 2025,,,D2
 
 # event_participants.csv
-E010,D2,P0357,команда Омского НПЗ,Омск,,S290,S291
-E015,D15,,НПО «Обуховский завод» (Концерн ВКО «Алмаз-Антей»),Санкт-Петербург,,M019
-E015,,,СПбПУ Петра Великого (стенд и деловая программа),Санкт-Петербург,,M019</div>
-        <p class="transform"><b>Как используется:</b> скрипт соединяет <code>event_participants</code> с <code>fact_events</code> по <code>Event_ID</code> и создаёт направленную пару <code>Город отправления → Город события</code>. Само по себе событие без строки в <code>event_participants</code> в маршруты не попадает.</p>
+E066,D2,,Газпром трансгаз Томск (чартер на фестиваль),Томск,90,G3-55
+E015,D15,,НПО «Обуховский завод» (Концерн ВКО «Алмаз-Антей»),Санкт-Петербург,,M019</div>
+        <p class="transform"><b>Источники данных:</b> сайты и итоговые отчёты форумов (Росконгресс ПМЭФ/ВЭФ/РЭН, ИННОПРОМ), дневники корпоративных фестивалей и спартакиад (Газпром «Факел», Транснефть, AtomSkills), пресс-релизы Атомэнергоремонта и вузов.</p>
+        <p class="transform"><b>Как используется:</b> скрипт соединяет <code>event_participants</code> с <code>fact_events</code> по <code>Event_ID</code> и создаёт направленную пару <code>Город отправления → Город события</code>. Само по себе событие без строки с городом отправления в <code>event_participants</code> в маршруты не попадает.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>8. Закупки — <code>fact_procurement.csv</code></h4>
-          <div class="tcard-meta"><span class="tag fact">Факт · платёжеспособный спрос</span><span>68 строк · 17 колонок</span></div>
+          <div class="tcard-meta"><span class="tag fact">Факт · платёжеспособный спрос</span><span>71 строка · 17 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> одна тендерная процедура, отбор или контракт на авиабилеты, чартеры или перевозку персонала.</p>
         <div class="cols-list">
-          <span class="col-pill pk">Proc_ID <small>68/68</small></span>
-          <span class="col-pill pk">Org_ID <small>68/68</small></span>
+          <span class="col-pill pk">Proc_ID <small>71/71</small></span>
+          <span class="col-pill pk">Org_ID <small>71/71</small></span>
           <span class="col-pill">Группа / Заказчик / Предмет</span>
-          <span class="col-pill">Вид закупки <small>68/68</small></span>
-          <span class="col-pill">Маршруты <small>28/68</small></span>
-          <span class="col-pill">Маршрут раскрыт <small>68/68</small></span>
-          <span class="col-pill empty">Объём <small>17/68</small></span>
-          <span class="col-pill">НМЦ, ₽ <small>22/68</small></span>
-          <span class="col-pill">Цена договора, ₽ <small>26/68</small></span>
-          <span class="col-pill">Период / Год <small>65 / 64</small></span>
-          <span class="col-pill">Исполнитель <small>20/68</small></span>
-          <span class="col-pill">Цель поездок / Источник / Как прочитано</span>
+          <span class="col-pill">Вид закупки <small>71/71</small></span>
+          <span class="col-pill">Маршруты / Маршрут раскрыт</span>
+          <span class="col-pill empty">Объём <small>18/71</small></span>
+          <span class="col-pill">НМЦ, ₽ / Цена договора, ₽</span>
+          <span class="col-pill">Период / Год</span>
+          <span class="col-pill">Исполнитель / Цель поездок / Источник</span>
         </div>
         <div class="csv-sample">Proc_ID,Org_ID,Заказчик,Предмет,НМЦ ₽,Период,Исполнитель,Источник
 PR060,K6,ООО «ГСП Центр» для АО «СТНГ»,Чартерные перевозки на 2027 г. (АП126926),1218952000,заявки до 27.11.2026 10:00,,S2603,S2634,S3113,M001
 PR064,K6,АО «Газстройпром» для АО «СТНГ»,Чартерные авиаперевозки (АП086548),1830965042.08,протокол 26.12.2024,"КрасАвиа; Якутия; АЛРОСА",M002
 PR065,K6,ООО «ГСП Центр» для АО «СТНГ»,Чартерные авиаперевозки на 2026 г. (АП110294),1086699489.32,протокол 04.12.2025,"КрасАвиа; Якутия; АЛРОСА",M003</div>
-        <p class="transform"><b>Как используется:</b> доказывает реальные бюджеты и действующих подрядчиков. Рубли закупки <b>не переводятся</b> в кресла без спецификации: если маршрутная форма закрыта (как в <code>АП126926</code>), в таблице честно стоит <code>Маршрут раскрыт = нет</code>.</p>
+        <p class="transform"><b>Источники данных:</b> карточки и итоговые протоколы ЭТП ГПБ, ЕИС (223-ФЗ / 44-ФЗ), Фабриканта, Росэлторга, Контур.Закупок, Синапса, РосТендера, планы закупок ГСП и опубликованные судебные акты.</p>
+        <p class="transform"><b>Как используется:</b> доказывает реальные бюджеты и действующих подрядчиков и попадает в <code>summary_by_org</code> («Закупок перевозок» и «Крупнейшая закупка»). Рубли <b>не переводятся</b> в кресла без спецификации.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>9. Подрядчики — <code>fact_contractors.csv</code></h4>
-          <div class="tcard-meta"><span class="tag fact">Факт · цепочки поставок</span><span>10 строк · 7 колонок</span></div>
+          <div class="tcard-meta"><span class="tag fact">Факт · цепочки поставок</span><span>15 строк · 7 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> подтверждённая контрактная связь между внешним поставщиком/подрядчиком (<code>K*</code>) и заказчиком (<code>A*/D*</code>).</p>
         <div class="cols-list">
-          <span class="col-pill pk">Contract_ID <small>10/10</small></span>
-          <span class="col-pill pk">Org_ID подрядчика <small>10/10</small></span>
-          <span class="col-pill pk">Org_ID заказчика <small>10/10</small></span>
-          <span class="col-pill">Роль <small>10/10</small></span>
-          <span class="col-pill">Что подтверждено <small>10/10</small></span>
-          <span class="col-pill empty">Период <small>1/10</small></span>
-          <span class="col-pill">Источник <small>10/10</small></span>
+          <span class="col-pill pk">Contract_ID <small>15/15</small></span>
+          <span class="col-pill pk">Org_ID подрядчика</span>
+          <span class="col-pill pk">Org_ID заказчика</span>
+          <span class="col-pill">Роль / Что подтверждено / Период / Источник</span>
         </div>
         <div class="csv-sample">Contract_ID,Org_ID подрядчика,Org_ID заказчика,Роль,Что подтверждено,Период,Источник
 C001,K1,A2,Поставщик,ОДК-Пермские моторы и ВСМПО-АВИСМА подписали допсоглашение на титан,2017–2025,"S2588,S2601,S2752"
 C002,K2,A1,Поставщик,Соглашение по поставкам резервных ДГУ для атомной отрасли,,"S2589,S2599"</div>
-        <p class="transform"><b>Как используется:</b> обосновывает, почему частные компании <code>K1–K12</code> (ВСМПО-АВИСМА, ТМХ, СТНГ, Газстройпром и др.) включены в периметр исследования госкорпораций.</p>
+        <p class="transform"><b>Источники данных:</b> пресс-релизы о долгосрочных соглашениях о поставках/генподряде, отчёты эмитентов, карточки госконтрактов.</p>
+        <p class="transform"><b>Как используется:</b> обосновывает, почему частные компании <code>K1–K17</code> (ВСМПО-АВИСМА, ТМХ, СТНГ, Газстройпром и др.) включены в периметр исследования госкорпораций.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>10. Персонал групп — <code>fact_staff_structure_orgs.csv</code> и 11. Персонал площадок — <code>fact_staff_structure_sites.csv</code></h4>
-          <div class="tcard-meta"><span class="tag fact">Факт · структура штата</span><span>43 группы · 937 площадок</span></div>
+          <div class="tcard-meta"><span class="tag fact">Факт · структура штата</span><span>43 группы (13 заполнены) · 937 площадок</span></div>
         </div>
-        <p class="grain"><b>Одна строка:</b> разбивка численности группы (<code>Org_ID</code>) или площадки (<code>Site_ID</code>) на 4 категории: руководители, специалисты/ИТР, служащие, рабочие (в людях и в %).</p>
+        <p class="grain"><b>Одна строка:</b> разбивка численности группы (<code>Org_ID</code>) или отдельной площадки (<code>Site_ID</code>) на 4 категории: руководители, специалисты/ИТР, служащие, рабочие (в людях и в %).</p>
         <div class="cols-list">
           <span class="col-pill pk">Org_ID / Site_ID <small>100%</small></span>
           <span class="col-pill">Организация / Площадка</span>
-          <span class="col-pill empty">Год <small>15/43 и 43/937</small></span>
-          <span class="col-pill empty">Руководители чел / % <small>3/43 и 10/937</small></span>
-          <span class="col-pill empty">Специалисты/ИТР чел / % <small>3/43 и 7/937</small></span>
-          <span class="col-pill empty">Служащие чел / % <small>3/43 и 5/937</small></span>
-          <span class="col-pill empty">Рабочие чел / % <small>3/43 и 11/937</small></span>
+          <span class="col-pill">Год <small>отчётный год (2023–2025)</small></span>
+          <span class="col-pill">Группы с разбивкой <small>13/48 (было 3!)</small></span>
+          <span class="col-pill empty">Площадки с разбивкой <small>10–11/937 (~1,2%)</small></span>
           <span class="col-pill">Источник / Как прочитано / Комментарий</span>
         </div>
-        <div class="csv-sample"># fact_staff_structure_orgs.csv (один из 3 заполненных примеров)
-D1,РЖД,2024,Руководители=53862,ИТР=173152,Служащие=16843,Рабочие=433506,S1653</div>
-        <p class="transform"><b>Текущее состояние:</b> каркас готов под 100% групп и площадок, но реальные числа по категориям пока нашлись менее чем для <b>1,2%</b> площадок — открытые отчёты редко раскрывают структуру штата на уровне отдельных заводов.</p>
+        <div class="csv-sample"># fact_staff_structure_orgs.csv (после закрытия Gap 1 — 13 крупнейших групп)
+A1,Росатом,2025,Руководители=11.46%,Рабочие=44.41%,G1-123
+D1,РЖД,2024,Руководители=53862,ИТР=173152,Служащие=16843,Рабочие=433506,S1653
+D2,Газпром,2024,Руководители=15.0%,Рабочие=48.7%,G1-118
+K9,СИБУР Холдинг,2025,Руководители=5586,ИТР=16525,Рабочие=16093,G1-129</div>
+        <p class="transform"><b>Что за колонка «Год»:</b> это отчётный год годового или ESG-отчёта (обычно 2023–2025), за который компания раскрыла состав штата.</p>
+        <p class="transform"><b>Источники данных:</b> разделы по персоналу (GRI 2-7 / 405-1) в официальных годовых и ESG-отчётах корпораций.</p>
+        <p class="transform"><b>Почему по группам уже 13 из 21 крупнейшей, а по 937 площадкам всего ~1%:</b> это <b>реальный потолок открытых данных</b>, а не недоработка. По головным группам мы целенаправленно проверили все отчёты за 2023–2025 гг. (у оборонных холдингов — Ростеха, Алмаз-Антея, ОСК, Роскосмоса — эта статистика закрыта). А на уровне 937 отдельных заводов и филиалов разбивка на руководителей/ИТР/рабочих в открытом доступе почти не публикуется (ФНС и Checko дают только общую численность без категорий). Поэтому вместо безнадёжного поиска категорий по 937 заводам мы закрыли <b><code>Функция площадки</code> у 419 площадок</b> — чтобы отличать завод от АЭС, КБ и офиса.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>12. Экономика — <code>fact_economics.csv</code></h4>
-          <div class="tcard-meta"><span class="tag fact">Факт · рынок, тарифы, нормы</span><span>33 строки · 10 колонок</span></div>
+          <div class="tcard-meta"><span class="tag fact">Факт · правила, тарифы, ориентиры</span><span>80 строк · 10 колонок</span></div>
         </div>
-        <p class="grain"><b>Одна строка:</b> один опубликованный количественный факт — рыночный индикатор OBT, тариф, ставка субсидии или нормативное ограничение.</p>
+        <p class="grain"><b>Одна строка:</b> один опубликованный числовой факт, который не является ни конкретной поездкой (<code>fact_links</code>), ни тендером (<code>fact_procurement</code>), но напрямую влияет на продукт и цену Red Wings.</p>
         <div class="cols-list">
-          <span class="col-pill pk">Econ_ID <small>33/33</small></span>
-          <span class="col-pill">Тип <small>рынок/тариф/требование/субсидия/ограничение</small></span>
-          <span class="col-pill">Показатель <small>33/33</small></span>
-          <span class="col-pill">Значение <small>33/33</small></span>
-          <span class="col-pill">Точность / Единица / Относится к / Период / Источник / Комментарий</span>
+          <span class="col-pill pk">Econ_ID <small>80/80</small></span>
+          <span class="col-pill">Тип <small>рынок / тариф / требование / субсидия / ограничение</small></span>
+          <span class="col-pill">Показатель / Значение / Точность / Единица / Относится к / Период / Источник / Комментарий</span>
         </div>
+        <p class="transform"><b>Простыми словами — зачем нужна эта таблица (на 4 живых примерах):</b> это не расчёт прибыли авиакомпании, а <b>«копилка проверенных числовых ориентиров и правил игры»</b>:</p>
+        <ul style="margin:6px 0 10px;font-size:14px;color:var(--ink-2)">
+          <li><b>Тариф (<code>EC020</code>):</b> <code>SVX–UFA</code> эконом от <code>3 827 ₽</code> → скрипт автоматически подтягивает эту цену в «Итог по направлениям».</li>
+          <li><b>Поведение клиентов на рынке (<code>EC022</code>, <code>EC028</code>):</b> доля бизнес-класса в РФ упала до <code>3%</code>, а <code>16,7%</code> деловых билетов меняют или отменяют → это сразу объясняет, почему невозвратные групповые правила Red Wings не подходят под деловой трафик и почему не стоит переделывать SSJ100 под большой бизнес-салон.</li>
+          <li><b>Условия субсидии (<code>EC031</code>):</b> Приказ Пермского края № 44-01-02-618 даёт <code>383 677,45 ₽/плечо</code> на <code>Пермь–Иркутск</code>, но запрещает закрытый корпоративный блок в экономе.</li>
+          <li><b>Операционные и правовые рамки (<code>EC032</code>, <code>EC033</code>):</b> ЕПоЗ Ростеха требует <code>≥30%</code> собственного исполнения для прямого договора без конкурса; аэровокзал <code>NUX</code> работает строго <code>05:45–17:30</code>.</li>
+        </ul>
         <div class="csv-sample">Econ_ID,Тип,Показатель,Значение,Единица,Период,Источник
 EC022,рынок,Доля бизнес-класса во внутренних деловых перелётах,3,%,I квартал 2026,M014
 EC028,рынок,Доля отмен и изменений деловых авиабилетов,16.7,%,2026,M015
 EC031,субсидия,Ставка софинансирования Пермского края Пермь–Иркутск,383677.45,₽/плечо,01.04–31.10.2027,M006
 EC032,требование,ЕПоЗ Ростеха: мин. доля собств. исполнения у ед. поставщика,30,%,ред. 02.09.2026,M007</div>
-        <p class="transform"><b>Как используется:</b> строки с <code>Тип = тариф</code> автоматически подтягиваются в <code>demand_estimate.csv</code> для пары аэропортов; остальные строки фиксируют проверяемые рыночные и юридические рамки (без модельных догадок).</p>
+        <p class="transform"><b>Источники данных:</b> открытая аналитика российских OBT/ТМС (Аэроклуб, Smartway, OneTwoTrip, J'son &amp; Partners), приказы региональных минтрансов, ЕПоЗ Ростеха, сайты аэропортов и витрины тарифов.</p>
       </div>
 
-      <h3>Расчётные витрины (3 таблицы)</h3>
+      <h3>Расчётные витрины (4 таблицы)</h3>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>13. Пары — <code>od_pairs.csv</code></h4>
-          <div class="tcard-meta"><span class="tag calc">Расчёт · направленные OD</span><span>208 строк · 12 колонок</span></div>
+          <div class="tcard-meta"><span class="tag calc">Расчёт · направленные OD</span><span>225 строк · 12 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> направленная пара городов <code>Город откуда → Город куда</code>, прошедшая 4 фильтра модели (<code>OD</code> = Origin–Destination).</p>
         <div class="cols-list">
-          <span class="col-pill pk">OD_ID <small>208/208</small></span>
-          <span class="col-pill">Город / Аэропорт откуда</span>
-          <span class="col-pill">Город / Аэропорт куда</span>
-          <span class="col-pill">Расстояние, км <small>139/208</small></span>
-          <span class="col-pill">Org_IDs <small>208/208</small></span>
-          <span class="col-pill">Основания <small>L###/E###</small></span>
-          <span class="col-pill">Типы поездок</span>
-          <span class="col-pill">Лучший статус <small>1/2/3</small></span>
-          <span class="col-pill">Последний год данных <small>134/208</small></span>
-          <span class="col-pill">Актуальность <small>208/208</small></span>
+          <span class="col-pill pk">OD_ID <small>225/225</small></span>
+          <span class="col-pill">Город / Аэропорт откуда и куда</span>
+          <span class="col-pill">Расстояние, км <small>ортодромия, пусто для MOW</small></span>
+          <span class="col-pill">Org_IDs / Основания / Типы поездок / Лучший статус / Последний год / Актуальность</span>
         </div>
         <div class="csv-sample">OD_ID,Откуда,IATA,Куда,IATA,Км,Org_IDs,Основания,Статус,Год,Актуальность
 OD180,Уфа,UFA,Новый Уренгой,NUX,1696,D2;D3;K6,L237;L255,2,2027,актуальна
 OD023,Заречный,SVX,Сосновый Бор,LED,1801,A1,L015,2,,не определена</div>
-        <p class="transform"><b>Как строится:</b> автоматически объединяет все записи из <code>fact_links</code> и <code>event_participants</code> с одинаковыми <code>Город откуда + Город куда</code>, подставляет аэропорты из <code>fact_airports</code> и считает расстояние по прямой (ортодромию) по координатам OurAirports.</p>
+        <p class="transform"><b>Источники данных (входы скрипта):</b> строится автоматически из <code>fact_links.csv</code> + <code>event_participants.csv</code> + <code>fact_events.csv</code> + <code>fact_airports.csv</code> + координат <code>OurAirports</code>.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
           <h4>14. Плечи маршрутов — <code>route_legs.csv</code></h4>
-          <div class="tcard-meta"><span class="tag calc">Справочник + привязка OD_ID</span><span>100 строк · 17 колонок</span></div>
+          <div class="tcard-meta"><span class="tag calc">Справочник + привязка OD_ID</span><span>157 строк · 17 колонок</span></div>
         </div>
         <p class="grain"><b>Одна строка:</b> один фактический прямой рейс, одно плечо пересадки, поезд или автотрансфер для конкретной пары.</p>
         <div class="cols-list">
-          <span class="col-pill pk">Leg_ID <small>100/100</small></span>
-          <span class="col-pill pk">OD_ID <small>34/100</small></span>
-          <span class="col-pill">Пара / Вариант / Плечо</span>
-          <span class="col-pill">Откуда / Куда</span>
-          <span class="col-pill">Вид транспорта <small>прямой/пересадка/поезд/авто</small></span>
-          <span class="col-pill">Перевозчик / Номер рейса</span>
-          <span class="col-pill">Время в пути, мин</span>
-          <span class="col-pill">Рейсов в неделю</span>
-          <span class="col-pill">Тариф, ₽</span>
-          <span class="col-pill">Дата рейса / Дата проверки / Источник / Как прочитано</span>
+          <span class="col-pill pk">Leg_ID <small>157/157</small></span>
+          <span class="col-pill pk">OD_ID <small>60/157 привязаны</small></span>
+          <span class="col-pill">Пара / Вариант / Плечо / Откуда / Куда</span>
+          <span class="col-pill">Вид транспорта <small>прямой / с остановкой / пересадка / ведомственный / поезд</small></span>
+          <span class="col-pill">Перевозчик / Номер рейса / Время / Рейсов в неделю / Тариф ₽ / Дата рейса</span>
         </div>
         <div class="csv-sample">Leg_ID,OD_ID,Пара,Вариант,Плечо,Вид транспорта,Перевозчик,Рейс,Рейсов/нед,Дата рейса,Источник
 RL001,OD180,UFA–NUX,1,1,самолёт прямой,Ямал,YC188,3,2026-11-25,"S2606,S2612,S2725"
 RL072,OD180,UFA–NUX,2,1,самолёт прямой,Red Wings,WZ1081,2,Пн/Сб прилёт 07:30,M009
 RL074,OD180,UFA–NUX,3,1,самолёт прямой,ЮТэйр,UT185,7,ежедневно,M009
 RL088,,IKT–PEE,1,1,самолёт пересадка,S7 Airlines,S75230,7,2026-12-02 (6ч25м через OVB),M011</div>
-        <p class="transform"><b>Как используется:</b> после каждой пересборки <code>od_pairs</code> скрипт обновляет колонку <code>OD_ID</code> по совпадению аэропортов. В <code>demand_estimate</code> в колонку «Прямые рейсы сейчас» попадают только строки с <code>Вид транспорта = самолёт, прямой</code> и <code>Плечо = 1</code>.</p>
+        <p class="transform"><b>Источники данных:</b> официальные расписания и онлайн-табло аэропортов (Кольцово, Уфа, Новый Уренгой, Иркутск, Благовещенск, Красноярск, Певек, Сабетта), Яндекс Расписания, сайты авиакомпаний и РЖД.</p>
+        <p class="transform"><b>Как используется:</b> после каждой пересборки <code>od_pairs</code> скрипт обновляет <code>OD_ID</code>. В «Прямые рейсы сейчас» попадают только строки с <code>самолёт, прямой</code>, а в «Тариф, ₽» — только сквозные билеты (<code>самолёт, прямой</code> или <code>самолёт, с остановкой</code>), чтобы кусок стыковки не занижал цену маршрута.</p>
       </div>
 
       <div class="tcard">
         <div class="tcard-head">
-          <h4>15. Итог — <code>demand_estimate.csv</code></h4>
-          <div class="tcard-meta"><span class="tag calc">Финальная витрина</span><span>176 строк · 23 колонки</span></div>
+          <h4>15. Итог по направлениям — <code>demand_estimate.csv</code></h4>
+          <div class="tcard-meta"><span class="tag calc">Витрина №2 · по маршрутам</span><span>184 строки · 23 колонки</span></div>
         </div>
-        <p class="grain"><b>Одна строка:</b> ненаправленная пара аэропортов <code>Аэропорт A ↔ Аэропорт B</code> (оба направления сложены в одну линию).</p>
+        <p class="grain"><b>Одна строка:</b> ненаправленная пара аэропортов <code>Аэропорт A ↔ Аэропорт B</code> (оба направления сложены в одну линию, с перечислением всех организаций <code>Org_IDs</code>, которым она нужна).</p>
         <div class="cols-list">
-          <span class="col-pill pk">Pair_ID <small>176/176</small></span>
+          <span class="col-pill pk">Pair_ID <small>184/184</small></span>
           <span class="col-pill">Аэропорт A / B и Города A / B</span>
-          <span class="col-pill">Длина, км <small>132/176</small></span>
+          <span class="col-pill">Длина, км <small>140/184</small></span>
           <span class="col-pill">Org_IDs / OD_IDs / Основания / Типы поездок</span>
-          <span class="col-pill empty">Пассажиров в год <small>8/176</small></span>
-          <span class="col-pill empty">Объём из источников <small>26/176</small></span>
-          <span class="col-pill empty">Наибольшая группа / от 80 чел. <small>11/176</small></span>
-          <span class="col-pill">Периодичность <small>91/176</small></span>
-          <span class="col-pill empty">Прямые рейсы сейчас <small>10/176</small></span>
-          <span class="col-pill empty">Тариф, ₽ <small>3/176</small></span>
-          <span class="col-pill empty">Выручка, ₽/год <small>0/176</small></span>
-          <span class="col-pill">Лучший статус / Актуальность / Вывод <small>176/176</small></span>
+          <span class="col-pill empty">Пассажиров в год <small>8/184</small></span>
+          <span class="col-pill">Объём из источников <small>28/184</small></span>
+          <span class="col-pill">Наибольшая группа / от 80 чел. <small>13/184</small></span>
+          <span class="col-pill">Периодичность</span>
+          <span class="col-pill">Прямые рейсы сейчас <small>21/184 (было 9)</small></span>
+          <span class="col-pill">Тариф, ₽ <small>17/184 (было 3)</small></span>
+          <span class="col-pill empty">Выручка, ₽/год <small>0/184</small></span>
+          <span class="col-pill">Лучший статус / Актуальность / Вывод <small>184/184</small></span>
         </div>
-        <div class="csv-sample">Pair_ID,Пара,Км,Org_IDs,Прямые рейсы сейчас,Актуальность,Вывод
-DP157,NUX–UFA,1696,D2;D3;K6,"Red Wings 2/нед.; ЮТэйр 7/нед.; Ямал 3/нед.",актуальна,проверить объём: поездки подтверждены
-DP119,LED–SVX,1801,A1;D15,"Smartavia 7; Победа 7; Россия 17; Уральские 14; Якутия 1",актуальна,проверить объём: поездки подтверждены
-DP159,OMS–TLK,2290,D2,,устарела,устарело: нужны свежие данные</div>
-        <p class="transform"><b>Главное свойство:</b> ничего не экстраполируется — месячные и разовые цифры остаются текстом в «Объём из источников», а выручка считается только там, где одновременно есть и годовой поток, и наблюдённый тариф (сейчас 0 из 176).</p>
+        <p class="transform"><b>Как именно собирается строка (4 шага скрипта <code>build_results</code>):</b> (1) берёт из <code>od_pairs</code> все пары <code>A→B</code> и <code>B→A</code> и склеивает в одну линию <code>A↔B</code>, собирая список всех <code>Org_IDs</code> (так видно, где сходятся 2–3 заказчика под пулинг); (2) подтягивает только прямые числа из <code>fact_links</code> и <code>event_participants</code> без пересчёта месяцев в годы; (3) присоединяет текущие прямые рейсы и минимальный сквозной тариф OW из <code>route_legs</code> и <code>fact_economics</code>; (4) по 6 правилам дерева решений ставит статус в колонку <code>Вывод</code>.</p>
+        <p class="transform"><b>Почему в ней много пустых ячеек (и почему это нормально):</b> это <b>не</b> незавершённый расчёт, а честный срез открытых данных. По <b>100 из 184</b> пар доказано, что сотрудники реально ездят, но корпорации не публикуют годовое число билетов по конкретной паре городов. Поэтому объём и выручка остаются пустыми до получения данных от Red Wings и ТМС/заказчиков.</p>
+        <div class="csv-sample">Pair_ID,Пара,Км,Org_IDs,Прямые рейсы сейчас,Тариф ₽,Вывод
+DP159,NUX–UFA,1696,D2;D3;K6,"Red Wings 2/нед.; ЮТэйр 7/нед.; Ямал 3/нед.",13994,проверить объём: поездки подтверждены
+DP122,LED–TOF,3299,D2,,,кандидат на чартер: группа от 80 чел. за раз (90 чел., «Факел»)
+DP039,GOJ–SVX,1051,A1,"Red Wings 4/нед.",6641,проверить объём: поездки подтверждены</div>
+        <p class="transform"><b>Источники данных (входы скрипта):</b> полностью расчётная таблица — строится из <code>od_pairs</code>, <code>fact_links</code>, <code>fact_events</code>, <code>event_participants</code>, <code>route_legs</code> и тарифов <code>fact_economics</code>.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>16. Итог по группам — <code>summary_by_org.csv</code></h4>
+          <div class="tcard-meta"><span class="tag calc">Витрина №1 · по организациям</span><span>48 строк · 18 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> одна организация-переговорщик (<code>Org_ID</code>) со всем её портфелем: состав, площадки, структура персонала, главные направления, известные объёмы, крупнейшая закупка, статус и чего не хватает.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Org_ID <small>48/48</small></span>
+          <span class="col-pill">Организация / Вид / Численность группы</span>
+          <span class="col-pill">Площадок / Городов / Мест работы вне города</span>
+          <span class="col-pill">Кто ездит: структура персонала <small>13/48</small></span>
+          <span class="col-pill">Зачем ездят / Направлений / Главные направления</span>
+          <span class="col-pill">Известные объёмы / Периодичность</span>
+          <span class="col-pill">Закупок перевозок / Крупнейшая закупка</span>
+          <span class="col-pill">Вывод по группе / Чего не хватает</span>
+        </div>
+        <p class="transform"><b>Источники данных (входы скрипта):</b> автоматически собирает в одну карточку клиента данные из <code>dim_orgs</code>, <code>dim_sites</code>, <code>site_locations</code>, <code>fact_staff_structure_orgs</code>, <code>fact_links</code>, <code>event_participants</code>, <code>fact_procurement</code> и <code>demand_estimate</code>. В книге Excel стоит <b>первым итоговым листом</b>.</p>
       </div>
     </section>
 
     <section id="s2">
       <h2><span class="n">2</span>Как таблицы связаны между собой</h2>
       <p class="sub">
-        Все 15 таблиц соединяются через явные текстовые ключи (внешние ключи / FK). Ниже — фактическая схема модели без вымышленных связей: сплошные стрелки показывают физические ключи, красные стрелки — автоматический расчётный конвейер скриптов.
+        Все 16 таблиц соединяются через явные текстовые ключи (внешние ключи / FK). Ниже — фактическая схема модели: сплошные стрелки показывают физические ключи, красные стрелки — автоматический расчётный конвейер скрипта <code>build_results</code>.
       </p>
 
+      <div class="good">
+        <b>Почему в модели две итоговые витрины — сначала по организациям, потом по направлениям:</b> авиакомпания не ведёт переговоры с «маршрутом» — она договаривается с <b>конкретной организацией-плательщиком</b> (Ростех, СТНГ, Росатом, СИБУР). Поэтому лист <b>«Итог по группам» (<code>summary_by_org.csv</code>)</b> + профили <code>company_profiles_22.csv</code> отвечают на вопрос <i>«кому куда интересно, через какую ЭТП/ТМС заходить и какие барьеры у клиента»</i>. А уже затем лист <b>«Итог по направлениям» (<code>demand_estimate.csv</code>)</b> складывает интересы всех организаций на каждой паре аэропортов — чтобы увидеть, где несколько бизнес-клиентов сходятся на одной линии (пулинг) и где добавление корпоративных пассажиров делает рейс прибыльным.
+      </div>
+
       <div class="fig">
-        <svg class="diagram" viewBox="0 0 920 500" role="img" aria-label="Схема связей 15 таблиц модели Red Wings">
+        <svg class="diagram" viewBox="0 0 932 500" role="img" aria-label="Схема связей 16 таблиц модели Red Wings">
           <defs>
             <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M 0 1 L 10 5 L 0 9 z" fill="#55606d"/>
@@ -1028,23 +1047,23 @@ DP159,OMS–TLK,2290,D2,,устарела,устарело: нужны свеж�
           <!-- Column labels -->
           <text x="20" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#2468b8">1. Справочники</text>
           <text x="305" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#9f251d">2. Факты</text>
-          <text x="670" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#168a5c">3. Расчётные витрины</text>
+          <text x="650" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#168a5c">3. Расчётные витрины</text>
 
           <!-- REF boxes -->
           <rect x="20" y="38" width="215" height="62" class="box ref"/>
-          <text x="32" y="59" class="t">dim_orgs (43)</text>
+          <text x="32" y="59" class="t">dim_orgs (48)</text>
           <text x="32" y="76" class="k">PK: Org_ID (A/B/C/D/K)</text>
-          <text x="32" y="91" class="s">Головные группы и подрядчики</text>
+          <text x="32" y="91" class="s">36 ЭТП · 30 численность · 43 ШК</text>
 
           <rect x="20" y="130" width="215" height="62" class="box ref"/>
           <text x="32" y="151" class="t">dim_sites (937)</text>
           <text x="32" y="168" class="k">PK: Site_ID · FK: Org_ID</text>
-          <text x="32" y="183" class="s">Дочки, филиалы, ИНН, города</text>
+          <text x="32" y="183" class="s">419 функций · 783 ИНН · 910 гор.</text>
 
           <rect x="20" y="222" width="215" height="58" class="box ref"/>
-          <text x="32" y="243" class="t">site_locations (5)</text>
+          <text x="32" y="243" class="t">site_locations (32)</text>
           <text x="32" y="260" class="k">PK: Location_ID · FK: Site_ID</text>
-          <text x="32" y="274" class="s">Удалённые стройки/месторождения</text>
+          <text x="32" y="274" class="s">Объекты, аэропорт, режим доступа</text>
 
           <rect x="20" y="324" width="215" height="72" class="box ref"/>
           <text x="32" y="346" class="t">fact_airports (330)</text>
@@ -1055,22 +1074,22 @@ DP159,OMS–TLK,2290,D2,,устарела,устарело: нужны свеж�
           <!-- FACT boxes -->
           <rect x="305" y="38" width="265" height="54" class="box fact"/>
           <text x="317" y="58" class="t">fact_staff_structure_orgs (43)</text>
-          <text x="317" y="74" class="k">FK: Org_ID · 1:1</text>
+          <text x="317" y="74" class="k">FK: Org_ID · 13 групп заполнены</text>
           <text x="317" y="86" class="s">fact_staff_structure_sites (937, Site_ID)</text>
 
           <rect x="305" y="106" width="265" height="54" class="box fact"/>
-          <text x="317" y="126" class="t">contractors (10) · procurement (68)</text>
+          <text x="317" y="126" class="t">contractors (15) · procurement (71)</text>
           <text x="317" y="142" class="k">FK: Org_ID (K* → A*/D*)</text>
           <text x="317" y="154" class="s">Закупки, бюджеты, цепочки подряда</text>
 
           <rect x="305" y="178" width="265" height="76" class="box fact"/>
-          <text x="317" y="199" class="t">fact_links (237)</text>
+          <text x="317" y="199" class="t">fact_links (252)</text>
           <text x="317" y="216" class="k">PK: Link_ID · FK: Org_ID, Site_ID</text>
-          <text x="317" y="231" class="s">Город откуда → Город куда, Кто ездит,</text>
-          <text x="317" y="245" class="s">Человек, Период, Год, Статус (1..3)</text>
+          <text x="317" y="231" class="s">Город откуда → Город куда, Тип связи,</text>
+          <text x="317" y="245" class="s">Кто ездит, Человек, Год, Статус (1..3)</text>
 
           <rect x="305" y="274" width="265" height="62" class="box fact"/>
-          <text x="317" y="295" class="t">event_participants (63)</text>
+          <text x="317" y="295" class="t">event_participants (117)</text>
           <text x="317" y="311" class="k">FK: Event_ID, Org_ID, Site_ID</text>
           <text x="317" y="326" class="s">Кто и из какого города едет на событие</text>
 
@@ -1080,28 +1099,34 @@ DP159,OMS–TLK,2290,D2,,устарела,устарело: нужны свеж�
           <text x="317" y="400" class="s">Город, даты, периодичность события</text>
 
           <rect x="305" y="424" width="265" height="54" class="box fact"/>
-          <text x="317" y="444" class="t">fact_economics (33)</text>
+          <text x="317" y="444" class="t">fact_economics (80)</text>
           <text x="317" y="460" class="k">PK: Econ_ID (Тип = тариф → в Итог)</text>
           <text x="317" y="472" class="s">Рынок OBT 2026, тарифы, ЕПоЗ, субсидии</text>
 
           <!-- CALC boxes -->
-          <rect x="650" y="178" width="248" height="82" class="box calc"/>
-          <text x="662" y="199" class="t">od_pairs (208)</text>
-          <text x="662" y="216" class="k">PK: OD_ID (Город A → Город B)</text>
-          <text x="662" y="231" class="s">Фильтры: 2 разных IATA + Org A..K</text>
-          <text x="662" y="245" class="s">+ люди едут + Статус ≥ 1</text>
+          <rect x="650" y="38" width="248" height="82" class="box calc"/>
+          <text x="662" y="59" class="t">summary_by_org (48)</text>
+          <text x="662" y="76" class="k">Витрина №1 · Итог по группам</text>
+          <text x="662" y="91" class="s">Кому куда интересно: состав, ЭТП,</text>
+          <text x="662" y="106" class="s">направления, закупки и вывод</text>
 
-          <rect x="650" y="290" width="248" height="72" class="box calc"/>
-          <text x="662" y="311" class="t">route_legs (100)</text>
-          <text x="662" y="328" class="k">PK: Leg_ID · FK: OD_ID (34/100)</text>
-          <text x="662" y="343" class="s">Прямые рейсы, пересадки, поезда,</text>
-          <text x="662" y="356" class="s">частоты, тарифы, даты проверки</text>
+          <rect x="650" y="160" width="248" height="82" class="box calc"/>
+          <text x="662" y="181" class="t">od_pairs (225)</text>
+          <text x="662" y="198" class="k">PK: OD_ID (Город A → Город B)</text>
+          <text x="662" y="213" class="s">Фильтры: 2 разных IATA + Org A..K</text>
+          <text x="662" y="227" class="s">+ люди едут + Статус ≥ 1</text>
 
-          <rect x="650" y="392" width="248" height="86" class="box calc"/>
-          <text x="662" y="413" class="t">demand_estimate / «Итог» (176)</text>
-          <text x="662" y="430" class="k">PK: Pair_ID (IATA A ↔ IATA B)</text>
-          <text x="662" y="445" class="s">Объёмы, группа ≥80, прямые рейсы,</text>
-          <text x="662" y="459" class="s">мин. тариф, актуальность и Вывод</text>
+          <rect x="650" y="276" width="248" height="72" class="box calc"/>
+          <text x="662" y="297" class="t">route_legs (157)</text>
+          <text x="662" y="314" class="k">PK: Leg_ID · FK: OD_ID (60/157)</text>
+          <text x="662" y="329" class="s">Прямые рейсы, пересадки, поезда,</text>
+          <text x="662" y="342" class="s">частоты, тарифы, даты проверки</text>
+
+          <rect x="650" y="384" width="248" height="90" class="box calc"/>
+          <text x="662" y="405" class="t">demand_estimate (184)</text>
+          <text x="662" y="422" class="k">Витрина №2 · Итог по направлениям</text>
+          <text x="662" y="437" class="s">Пулинг Org_IDs на паре IATA A↔B,</text>
+          <text x="662" y="451" class="s">21 прямой рейс, 17 тарифов и Вывод</text>
 
           <!-- Links -->
           <path d="M 127 100 L 127 128" class="arr"/>
@@ -1117,21 +1142,24 @@ DP159,OMS–TLK,2290,D2,,устарела,устарело: нужны свеж�
           <text x="444" y="348" class="s">1:N</text>
 
           <!-- Pipeline red arrows -->
-          <path d="M 570 214 L 648 214" class="arr acc"/>
-          <path d="M 570 302 L 610 302 L 610 232 L 648 232" class="arr acc"/>
-          <path d="M 235 360 L 285 360 L 285 488 L 626 488 L 626 244 L 648 244" class="arr acc"/>
-          <text x="650" y="170" class="k" style="fill:#9f251d">build_od_pairs</text>
+          <path d="M 570 64 L 648 64" class="arr acc"/>
+          <path d="M 570 124 L 610 124 L 610 88 L 648 88" class="arr acc"/>
+          <path d="M 570 206 L 648 206" class="arr acc"/>
+          <path d="M 570 302 L 610 302 L 610 222 L 648 222" class="arr acc"/>
+          <path d="M 235 360 L 285 360 L 285 488 L 626 488 L 626 232 L 648 232" class="arr acc"/>
+          <text x="650" y="152" class="k" style="fill:#9f251d">build_results</text>
 
-          <path d="M 774 260 L 774 288" class="arr acc"/>
-          <text x="782" y="278" class="s">OD_ID</text>
+          <path d="M 774 242 L 774 274" class="arr acc"/>
+          <text x="782" y="264" class="s">OD_ID</text>
 
-          <path d="M 774 362 L 774 390" class="arr acc"/>
-          <path d="M 898 220 L 912 220 L 912 432 L 900 432" class="arr acc"/>
+          <path d="M 774 348 L 774 382" class="arr acc"/>
+          <path d="M 898 202 L 920 202 L 920 434 L 900 434" class="arr acc"/>
+          <path d="M 898 408 L 909 408 L 909 78 L 900 78" class="arr acc"/>
           <path d="M 570 452 L 648 452" class="arr acc"/>
           <text x="576" y="446" class="s">тарифы</text>
         </svg>
         <div class="cap">
-          <b>Как читать схему:</b> синие блоки — справочники сущностей, розовые — таблицы первичных фактов, зелёные — расчётные витрины. Таблицы <code>fact_procurement</code>, <code>fact_contractors</code> и <code>fact_staff_structure_*</code> не генерируют строки в <code>od_pairs</code> автоматически — они служат доказательным слоем и базой для оценки масштаба на следующем шаге.
+          <b>Как читать схему:</b> синие блоки — справочники сущностей, розовые — таблицы первичных фактов, зелёные — расчётные витрины (две итоговые проекции: <code>summary_by_org</code> по организациям-клиентам и <code>demand_estimate</code> по парам аэропортов).
         </div>
       </div>
 
@@ -1520,25 +1548,25 @@ else:
       </p>
 
       <div class="card">
-        <h4>Фактическая заполненность ключевых колонок модели после закрытия пробелов (Gap 1–4)</h4>
+        <h4>Фактическая заполненность ключевых колонок модели после объединения (PR #1: ночной поиск + Фаза 1 + Gap 1–4)</h4>
         <div class="bars">
-          <div class="bar-row"><span>Организации: штаб-квартира (<code>dim_orgs</code>, было 25)</span><div class="bar-track"><div class="bar-fill grn" style="width:100%"></div></div><span class="bar-val">43 / 43</span></div>
-          <div class="bar-row"><span>Организации: площадка закупок / ЭТП (было 0!)</span><div class="bar-track"><div class="bar-fill grn" style="width:83.7%"></div></div><span class="bar-val">36 / 43</span></div>
-          <div class="bar-row"><span>Организации: общая численность (было 9)</span><div class="bar-track"><div class="bar-fill" style="width:65.1%"></div></div><span class="bar-val">28 / 43</span></div>
+          <div class="bar-row"><span>Организации: штаб-квартира (<code>dim_orgs</code>)</span><div class="bar-track"><div class="bar-fill grn" style="width:89.6%"></div></div><span class="bar-val">43 / 48</span></div>
+          <div class="bar-row"><span>Организации: площадка закупок / ЭТП (было 4 в <code>acca252</code>)</span><div class="bar-track"><div class="bar-fill grn" style="width:75.0%"></div></div><span class="bar-val">36 / 48</span></div>
+          <div class="bar-row"><span>Организации: общая численность (было 17)</span><div class="bar-track"><div class="bar-fill" style="width:62.5%"></div></div><span class="bar-val">30 / 48</span></div>
           <div class="bar-row"><span>Площадки: город / ИНН (<code>dim_sites</code>)</span><div class="bar-track"><div class="bar-fill grn" style="width:83.6%"></div></div><span class="bar-val">910 / 783 из 937</span></div>
-          <div class="bar-row"><span>Площадки: функция площадки (было 0!)</span><div class="bar-track"><div class="bar-fill" style="width:25.4%"></div></div><span class="bar-val">238 / 937</span></div>
-          <div class="bar-row"><span>Персонал групп: разбивка по категориям (было 3)</span><div class="bar-track"><div class="bar-fill" style="width:27.9%"></div></div><span class="bar-val">12 / 43</span></div>
-          <div class="bar-row"><span>Итог: заполнены прямые рейсы сейчас (было 9)</span><div class="bar-track"><div class="bar-fill amb" style="width:11.8%"></div></div><span class="bar-val">21 / 178</span></div>
-          <div class="bar-row"><span>Итог: наблюдённый сквозной тариф OW (было 3)</span><div class="bar-track"><div class="bar-fill amb" style="width:8.4%"></div></div><span class="bar-val">15 / 178</span></div>
-          <div class="bar-row"><span>Итог: известен годовой поток пассажиров</span><div class="bar-track"><div class="bar-fill acc" style="width:4.5%"></div></div><span class="bar-val">8 / 178</span></div>
-          <div class="bar-row"><span>Итог: расчётная выручка в год</span><div class="bar-track"><div class="bar-fill acc" style="width:0%"></div></div><span class="bar-val">0 / 178</span></div>
+          <div class="bar-row"><span>Площадки: функция площадки (было 292)</span><div class="bar-track"><div class="bar-fill" style="width:44.7%"></div></div><span class="bar-val">419 / 937</span></div>
+          <div class="bar-row"><span>Персонал групп: разбивка по категориям (было 4)</span><div class="bar-track"><div class="bar-fill" style="width:27.1%"></div></div><span class="bar-val">13 / 48</span></div>
+          <div class="bar-row"><span>Итог: заполнены прямые рейсы сейчас (было 9)</span><div class="bar-track"><div class="bar-fill amb" style="width:11.4%"></div></div><span class="bar-val">21 / 184</span></div>
+          <div class="bar-row"><span>Итог: наблюдённый сквозной тариф OW (было 3)</span><div class="bar-track"><div class="bar-fill amb" style="width:9.2%"></div></div><span class="bar-val">17 / 184</span></div>
+          <div class="bar-row"><span>Итог: известен годовой поток пассажиров</span><div class="bar-track"><div class="bar-fill acc" style="width:4.3%"></div></div><span class="bar-val">8 / 184</span></div>
+          <div class="bar-row"><span>Итог: расчётная выручка в год</span><div class="bar-track"><div class="bar-fill acc" style="width:0%"></div></div><span class="bar-val">0 / 184</span></div>
         </div>
       </div>
 
       <h3>Шесть конкретных разрывов, которые нужно закрыть дальше</h3>
       <ol>
-        <li><b>Нет объёмов и частот по 93 подтверждённым парам:</b> из открытых новостей и тендеров видно, что люди ездят, но почти никогда не раскрыто точное число билетов по конкретной паре городов. Эти цифры есть только в выгрузках корпораций/ТМС либо в статистике заявок самой авиакомпании.</li>
-        <li><b>Незаполнена структура персонала и функции площадок:</b> колонка <code>Функция площадки</code> пуста (0/937), а категории персонала заполнены у 11 из 937 площадок — без этого невозможно отделить «офис управления» от «ремонтного филиала» или «вахтового участка».</li>
+        <li><b>Нет объёмов и частот по большинству подтверждённых пар:</b> из открытых новостей и тендеров видно, что люди ездят, но почти никогда не раскрыто точное число билетов по конкретной паре городов. Эти цифры есть только в выгрузках корпораций/ТМС либо в статистике заявок самой авиакомпании.</li>
+        <li><b>Остаётся пробел по структуре персонала отдельных заводов и остатку площадок:</b> колонку <code>Функция площадки</code> уже подняли до <b>419/937</b> (44,7%), а структуру персонала групп — до <b>13/48</b>, но на уровне отдельных площадок разбивка штата в открытых отчётах есть только у ~1,2% (11 из 937) — это потолок публичных данных.</li>
         <li><b>Закрытые маршрутные приложения тендеров:</b> в живом отборе СТНГ <code>АП126926</code> (1,22 млрд ₽) и закупке ГПН-Снабжения <code>АП122552</code> перечень плеч и размеры смен закрыты — получить их может только коммерческий блок Red Wings напрямую у организатора.</li>
         <li><b>Склейка московских аэропортов в <code>MOW</code>:</b> из-за неё у всех 42 московских пар пустая дальность, а корпоративный продукт в <code>SVO</code>, <code>DME</code>, <code>VKO</code> и <code>ZIA</code> несопоставим по времени подъезда и слотам.</li>
         <li><b>Жёсткий порог 80 кресел в скрипте <code>demand_estimate</code>:</b> пары с группами 10–79 человек уходят в «малый поток», хотя у Red Wings групповой продукт начинается от 10 мест, а пулинг 2–3 заказчиков по 15–20 мест уже даёт коммерческий блок.</li>
@@ -1616,7 +1644,7 @@ else:
     </section>
 
     <footer>
-      Источники и артефакты: модель данных <code>kiruha355/rew_wings</code> (ветка <code>feat/phase1-verified-facts-20261125</code>, коммит <code>dd267ac</code>), пакеты закрытия пробелов <code>context/55_gap_closure_20261126/</code> (600 новых источников <code>G1–G4</code>), методические обзоры <code>docs/methodology.md</code>, <code>docs/research/demand_methods.md</code>, <code>docs/research/company_practices.md</code>, реестр проверок Фазы 1 <code>context/53_cycle2_phase1_20261125/</code> и запрос данных <code>context/48_corporate_demand_task_20261124/rw_data_request.md</code>. Все числа соответствуют состоянию таблиц на 26.11.2026.
+      Источники и артефакты: модель данных <code>kiruha355/rew_wings</code> (PR #1, ветка <code>feat/phase1-and-gaps-20261126</code>, коммит <code>91c6ede</code> поверх <code>main</code> <code>acca252</code>), пакеты закрытия пробелов <code>context/55_gap_closure_20261126/</code> (600 новых источников <code>G1–G4</code>), методические обзоры <code>docs/methodology.md</code>, <code>docs/research/demand_methods.md</code>, <code>docs/research/company_practices.md</code>, реестр проверок Фазы 1 <code>context/53_cycle2_phase1_20261125/</code> и запрос данных <code>context/48_corporate_demand_task_20261124/rw_data_request.md</code>. Все числа соответствуют объединённому состоянию таблиц на 26.11.2026.
     </footer>
   </main>
 </div>
