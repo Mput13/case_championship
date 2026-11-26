@@ -1,0 +1,2426 @@
+{
+  "metadata": {
+    "as_of_date": "2026-11-13",
+    "agent_role": "Agent 2 - Competitor Cost Floor & Baggage Rules",
+    "currency": "RUB",
+    "tax_notes": {
+      "domestic_airfares": "0% VAT in Russia (extended through 2027)",
+      "airport_tariffs_repo": "Published airport service offers in cost_ranges.csv are excluding VAT"
+    },
+    "repo_inputs_verified": [
+      "/Users/a/agent-audit-2026-09/case_championship/context/33_competitive_analysis_20261112/company_dossiers.json",
+      "/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P09/subject/P04/cost_ranges.csv",
+      "/Users/a/agent-audit-2026-09/case_championship/context/35_full_programme_execution_20261112/P09/subject/P04/finance_reference.csv",
+      "/Users/a/agent-audit-2026-09/case_championship/context/40_swarm_pricing_research_20261113/routes_manifest_209.csv"
+    ],
+    "route_network_distance_stats_km": {
+      "routes_count": 209,
+      "min": 166.0,
+      "p25": 685.25,
+      "median": 1028.5,
+      "p75": 1476.15,
+      "max": 2704.8
+    }
+  },
+  "macro_cost_drivers_2025_2026": {
+    "jet_fuel": {
+      "spimex_wholesale_2025_range_rub_per_t": [
+        70695,
+        84156
+      ],
+      "into_wing_index_2025_range_rub_per_t": [
+        85575,
+        97661
+      ],
+      "spimex_wholesale_2026_surge_rub_per_t": {
+        "jan_2026": 75781,
+        "may_2026": 89011,
+        "aug_2026": 103711,
+        "sep_2026": 126263,
+        "oct_2026": 127284
+      },
+      "into_wing_index_2026_rub_per_t": {
+        "jan_2026": 95654,
+        "sep_2026": 133462
+      },
+      "repo_ufa_published_offer_20261111_rub_per_t": {
+        "fuel_product": 136300,
+        "fuel_uplift": 1696,
+        "fuel_storage": 1353,
+        "total_gross_excl_vat": 139349
+      },
+      "damper_and_reverse_excise_2026": {
+        "indicative_domestic_price_nk_rf_rub_per_t": {
+          "2025": 64700,
+          "2026": 67300,
+          "2027_draft": 71650
+        },
+        "reverse_excise_rub_per_t": 3024,
+        "damper_oct_2026_rub_per_t": 59739.55,
+        "total_compensation_oct_2026_rub_per_t": 62763.55,
+        "compensation_share_of_spimex_oct_2026_pct": 49.3
+      },
+      "modeled_effective_net_fuel_price_2026_rub_per_t": {
+        "base": 80000,
+        "range": [
+          72000,
+          86000
+        ],
+        "note": "Уфимский ориентир (139.3 тыс. брутто - 62.8 тыс. компенсации ≈ 76.6 тыс. ₽/т нетто в окт-ноя 2026; заложено 80 000 ₽/т с учётом региональных наценок заправки)."
+      }
+    },
+    "airport_charges_russia_2025_2026": {
+      "repo_regional_published_offers_excl_vat": {
+        "airports": [
+          "UFA",
+          "GOJ",
+          "KUF",
+          "OMS",
+          "KHV"
+        ],
+        "takeoff_landing_rub_per_t_mtow": {
+          "min": 410.6,
+          "max": 911.0,
+          "avg": 688.92
+        },
+        "security_rub_per_t_mtow": {
+          "min": 360.4,
+          "max": 947.0,
+          "avg": 615.68
+        },
+        "terminal_domestic_rub_per_dep_pax": {
+          "min": 70.5,
+          "max": 180.0,
+          "avg": 122.38
+        },
+        "pax_service_domestic_rub_per_dep_pax": {
+          "min": 200.0,
+          "max": 780.0,
+          "avg": 421.2
+        },
+        "ground_turn_examples": {
+          "stairs_both_rub_per_turn": [
+            15600,
+            25000
+          ],
+          "bus_rub_per_approach": [
+            4740,
+            8180
+          ],
+          "receive_release_ssj_ufa_rub": 16668,
+          "receive_release_tu214_ufa_rub": 31457,
+          "deice_ssj_ufa_rub_per_event": [
+            49970,
+            65000
+          ]
+        }
+      },
+      "moscow_hubs_2026_hikes": {
+        "svo_jan_2026_hike_pct": 10.0,
+        "svo_takeoff_landing_rub_per_t": 845.36,
+        "svo_pax_service_dom_rub_per_pax": 333.6,
+        "svo_terminal_dom_rub_per_pax": 326.44,
+        "vko_mar_2026_hike_pct": 12.0,
+        "vko_takeoff_landing_rub_per_t": 386.0,
+        "vko_security_rub_per_t": 366.0,
+        "vko_terminal_dom_rub_per_pax": 193.0
+      },
+      "infrastructure_reconstruction_fee_pp1950": {
+        "effective_from": "2026-03-01",
+        "effective_until": "2032-03-01",
+        "rate_rub_per_pax_2025_prices": 150,
+        "transit_exempt": true
+      }
+    },
+    "air_navigation_charges_2025_2026": {
+      "domestic_enroute_rub_per_100km": 1667,
+      "sep_2024_hike_pct": 37.0,
+      "nov_2026_fas_draft_indexation_pct": 5.59,
+      "dfo_99pct_discount_ended": "2026-01-01"
+    },
+    "macro_finance_context": {
+      "cbr_key_rate_oct_2026_pct": 14.0,
+      "cbr_forecast_2027_pct": [
+        12.5,
+        13.5
+      ],
+      "mro_parts_inflation_post_2022": "2x-3x for SaM146 and sanctioned Western components",
+      "crew_cost_benchmark_rub_per_block_h": [
+        20000,
+        35000
+      ]
+    }
+  },
+  "red_wings_reference_baseline": {
+    "iata": "WZ",
+    "baggage_rules": {
+      "no_baggage_fare_name": "Лайт (ручная кладь 5 кг 40x30x20 см)",
+      "baggage_20kg_fare_name": "Стандарт (1×20 кг до 158 см + ручная кладь 5 кг)",
+      "online_addon_10_to_23kg_gt_24h_rub": 2700,
+      "addon_10_to_23kg_lt_24h_or_airport_rub": 3500,
+      "gate_penalty_rub": 3700
+    },
+    "ssj100_reference_seats": 100,
+    "note": "У Red Wings минимальная онлайн-доплата за 20 кг на ВВЛ от 2 700 ₽ (ниже, чем у Победы 2 999+, Уральских 3 500+, Азимута 4 199 и Аэрофлота 4 400+ при докупке), а в тарифе Стандарт чемодан 20 кг уже включён."
+  },
+  "competitors": [
+    {
+      "id": "pobeda",
+      "iata": "DP",
+      "name_ru": "Победа",
+      "name_en": "Pobeda",
+      "group": "Группа Аэрофлот (100% ДЗО)",
+      "business_model": "ULCC / монопарк",
+      "fleet_and_capacity": {
+        "primary_aircraft": "Boeing 737-800",
+        "primary_seats": 189,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Boeing 737-800",
+            "count_total": 42,
+            "count_active": 42,
+            "seats": 189,
+            "config": "189Y (all-economy)"
+          }
+        ],
+        "utilization_notes": "42 B737-800, 221.5 тыс. ч налёта в 2025 г. (~14.5 ч/сут на борт, 25-мин разворот)."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Базовый",
+        "baggage_10kg_fare_name": "Выгодный (10 кг + выбор места 19-32 ряд)",
+        "baggage_20kg_fare_name": "Максимум (20 кг + выбор любого места кроме 1ABC/2DEF + возврат/обмен)",
+        "hand_luggage": "36x30x27 см без ограничения веса (калибратор)",
+        "checked_baggage_target_kg": 20,
+        "online_addon_20kg_rub_per_segment": {
+          "min_eu_rf": 2999,
+          "min_eu_asia_rf": 3099,
+          "typical_range_online": [
+            2999,
+            3699
+          ],
+          "advance_rule": "Покупка на сайте/в управлении бронированием не позднее чем за 1 ч до вылета (динамическое ценообразование)"
+        },
+        "airport_addon_20kg_rub_per_segment": {
+          "eu_rf": 4999,
+          "eu_asia_rf": 5599
+        },
+        "bundle_spread_base_to_maximum_rub": [
+          4965,
+          5800
+        ],
+        "recommended_basket_adjustment_rub_per_segment": {
+          "eu_rf_short_medium": 3000,
+          "cross_ural_long": 3100,
+          "conservative_midpoint": 3100,
+          "note": "Добавлять 2 999–3 099+ ₽ к минимальному кэш-тарифу «Базовый» (докупка 20 кг онлайн дешевле апгрейда до «Максимум» на 1.5–2.8 тыс. ₽)."
+        },
+        "connecting_baggage_rule": "Point-to-point перевозчик; при оформлении раздельных сегментов или стыковки Smart/Mix доплата может начисляться за сегмент или по тарифу трансфера."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2024_m": 13.7,
+        "pax_2025_m": 13.8,
+        "pax_2026_1h_m": 6.5,
+        "pax_2026_plan_m": 13.8,
+        "load_factor_2024": 0.951,
+        "load_factor_2025": 0.948,
+        "load_factor_2026_1h": 0.944,
+        "revenue_2024_rub_bn_est": 100.0,
+        "revenue_2025_rub_bn_min_est": 115.0,
+        "net_profit_2024_rub_bn_est": 20.0,
+        "net_profit_2025_rub_bn_min_est": 15.0,
+        "dividends_paid_2025_for_2024_rub_bn": 10.0,
+        "dividends_paid_2026_for_2025_rub_bn": 14.7,
+        "ancillary_share_of_revenue_pct": 15.0,
+        "reported_rask_rub_per_ask": null,
+        "reported_cask_rub_per_ask": null,
+        "implied_cask_2025_rub_per_ask_est": [
+          3.1,
+          3.6
+        ],
+        "disclosure_note": "РСБУ закрыта после SDN-листа 2024; оценки Коммерсанта (2025 мин. выручка 115 млрд ₽, ЧП >=15 млрд ₽, дивиденды Аэрофлоту 14.7 млрд ₽ во 2К 2026)."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 189,
+          "assumed_lf": 0.945,
+          "mtow_t": 79.0,
+          "fuel_burn_t_per_h": 2.5,
+          "cruise_kmh": 780.0,
+          "airport_mtow_rub_per_t": 950.0,
+          "ground_turn_rub": 24000.0,
+          "airport_pax_fee_rub": 580.0,
+          "var_crew_plus_line_mro_rub_per_h": 32000.0,
+          "distrib_rub_per_pax": 120.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 72000.0,
+          "fixed_crew_and_sga_pct": 0.1
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.04,
+            "fuel_cost_net_rub_flight": 208205,
+            "airport_and_atc_rub_flight": 228976,
+            "variable_floor_rub_per_pax": 2754,
+            "full_floor_rub_per_pax": 3491,
+            "cask_variable_rub_per_ask": 4.98,
+            "cask_full_rub_per_ask": 6.6,
+            "block_hour_variable_rub": 451952,
+            "block_hour_full_rub": 598994
+          },
+          "1000_km": {
+            "block_hours": 1.68,
+            "fuel_cost_net_rub_flight": 336410,
+            "airport_and_atc_rub_flight": 237311,
+            "variable_floor_rub_per_pax": 3634,
+            "full_floor_rub_per_pax": 4743,
+            "cask_variable_rub_per_ask": 3.32,
+            "cask_full_rub_per_ask": 4.48,
+            "block_hour_variable_rub": 373084,
+            "block_hour_full_rub": 503609
+          },
+          "1500_km": {
+            "block_hours": 2.32,
+            "fuel_cost_net_rub_flight": 464615,
+            "airport_and_atc_rub_flight": 245646,
+            "variable_floor_rub_per_pax": 4513,
+            "full_floor_rub_per_pax": 5994,
+            "cask_variable_rub_per_ask": 2.77,
+            "cask_full_rub_per_ask": 3.78,
+            "block_hour_variable_rub": 337742,
+            "block_hour_full_rub": 460864
+          },
+          "2000_km": {
+            "block_hours": 2.96,
+            "fuel_cost_net_rub_flight": 592821,
+            "airport_and_atc_rub_flight": 253981,
+            "variable_floor_rub_per_pax": 5392,
+            "full_floor_rub_per_pax": 7246,
+            "cask_variable_rub_per_ask": 2.49,
+            "cask_full_rub_per_ask": 3.42,
+            "block_hour_variable_rub": 317686,
+            "block_hour_full_rub": 436608
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.72,
+            "variable_floor_rub_per_pax": 6418,
+            "full_floor_rub_per_pax": 8252
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.36,
+            "variable_floor_rub_per_pax": 7297,
+            "full_floor_rub_per_pax": 9504
+          }
+        }
+      },
+      "sources": [
+        "flypobeda.ru (тарифы багажа 2026)",
+        "Ведомости / интервью CEO Д. Тыщука (09.2026)",
+        "Интерфакс (итоги 2024–2025)",
+        "Коммерсантъ (оценки выручки и прибыли 2024–2025)",
+        "Отчетность ПАО Аэрофлот (дивиденды 10.0 и 14.7 млрд ₽)"
+      ]
+    },
+    {
+      "id": "aeroflot_mainline",
+      "iata": "SU",
+      "name_ru": "Аэрофлот (головная авиакомпания)",
+      "name_en": "Aeroflot (mainline)",
+      "group": "Группа Аэрофлот",
+      "business_model": "Full-service сетевой хабовый перевозчик (SVO)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "Airbus A320 / Boeing 737-800 / Airbus A321",
+        "primary_seats": 160,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Airbus A320ceo/neo",
+            "count_total": 58,
+            "seats": 158,
+            "config": "8J+150Y (A320ceo); 12J+144Y=156 (A320neo)"
+          },
+          {
+            "aircraft": "Boeing 737-800",
+            "count_total": 37,
+            "seats": 160,
+            "config": "20J+138Y=158 / 12J+150Y=162"
+          },
+          {
+            "aircraft": "Airbus A321ceo/neo",
+            "count_total": 35,
+            "seats": 183,
+            "config": "28J+142Y=170 / 16J+167Y=183 / 12J+184Y=196"
+          },
+          {
+            "aircraft": "Airbus A330-300",
+            "count_total": 12,
+            "seats": 296,
+            "config": "widebody (+2-4 wet-lease iFly)"
+          },
+          {
+            "aircraft": "Boeing 777-300ER",
+            "count_total": 22,
+            "seats": 402,
+            "config": "widebody"
+          },
+          {
+            "aircraft": "Airbus A350-900",
+            "count_total": 7,
+            "seats": 316,
+            "config": "widebody"
+          }
+        ],
+        "utilization_notes": "171 ВС в головной АК (349 ВС по Группе Аэрофлот в 2026 г.)."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Эконом Базовый (до 01.06.2026 — «Лайт», также без багажа тариф «Шаттл»)",
+        "baggage_23kg_fare_name": "Эконом Бюджет / Эконом Оптимум (1×23 кг)",
+        "hand_luggage": "1 место до 10 кг (55x40x25 см)",
+        "checked_baggage_target_kg": 23,
+        "online_addon_23kg_rub_per_segment": {
+          "min_promo_rf": 2700,
+          "eu_rf_from_2026_06_10": 4400,
+          "eu_asia_rf_from_2026_06_10": 4720,
+          "far_east_or_transfer_from_2026_06_10": 5040,
+          "base_table_before_20pct_discount": {
+            "eu_rf": 5500,
+            "asia_or_eu_asia": 5900,
+            "far_east_and_transfer": 6300
+          },
+          "advance_rule": "Скидка до 20% (до 35% по отдельным акциям) при покупке на сайте/в приложении более чем за 24 ч до вылета. Тарифы обновлены с 10.06.2026."
+        },
+        "airport_addon_23kg_rub_per_segment": {
+          "eu_rf": 5500,
+          "asia_or_eu_asia": 5900,
+          "far_east_and_transfer": 6300,
+          "note_2025": "В мае 2025 – начале 2026 базовый тариф в аэропорту РФ1 составлял 5 000 ₽ (онлайн ~4 200 ₽), с 10.06.2026 повышен до 5 500 ₽."
+        },
+        "bundle_spread_base_to_optimum_rub": [
+          1500,
+          3500
+        ],
+        "recommended_basket_adjustment_rub_per_segment": {
+          "eu_rf_direct": 3200,
+          "eu_asia_direct": 4720,
+          "connecting_single_ticket": 5040,
+          "conservative_midpoint": 3500,
+          "note": "Если витринная цена — «Базовый» без багажа и доступен «Оптимум», типичный спред +1 500–3 500 ₽ (в акции до +5 000 ₽); при докупке 1×23 кг онлайн заранее — ~4 400 ₽ (Европ. РФ) и 5 040 ₽ (трансфер/ДВ)."
+        },
+        "connecting_baggage_rule": "При едином трансферном билете действует единая зональная ставка «маршруты с пересадкой» (базовая 6 300 ₽, онлайн заранее со скидкой 20% ~5 040 ₽) на весь сквозной перелёт от пункта А до пункта Б."
+      },
+      "financial_and_operational_metrics": {
+        "group_ifrs_pax_2024_m": 55.3,
+        "group_ifrs_pax_2025_m": 55.3,
+        "group_ifrs_pax_9m2026_m": 42.2,
+        "group_ifrs_pax_10m2026_m": 46.7,
+        "mainline_pax_2025_m": 29.5,
+        "mainline_pax_9m2026_m": 22.45,
+        "group_load_factor_2024": 0.896,
+        "group_load_factor_2025": 0.902,
+        "group_load_factor_6m2026": 0.909,
+        "group_load_factor_10m2026": 0.914,
+        "group_rpk_2025_bn": 154.1,
+        "group_ask_2025_bn": 170.9,
+        "group_ifrs_revenue_2024_rub_bn": 856.8,
+        "group_ifrs_revenue_2025_rub_bn": 902.3,
+        "group_ifrs_revenue_6m2026_rub_bn": 429.8,
+        "group_adj_ebitda_2025_rub_bn": 185.0,
+        "group_adj_net_profit_2025_rub_bn": 22.6,
+        "group_adj_net_profit_6m2026_rub_bn": 0.472,
+        "mainline_rsbu_revenue_2025_rub_bn": 760.4,
+        "mainline_rsbu_revenue_9m2026_rub_bn": 613.4,
+        "mainline_rsbu_op_profit_2025_rub_bn": -14.6,
+        "mainline_rsbu_op_profit_9m2026_rub_bn": -19.6,
+        "reported_rask_rub_per_ask": {
+          "group_2024": 4.83,
+          "group_2025": 4.96,
+          "group_2025_domestic": 4.74,
+          "group_2025_intl": 5.29,
+          "group_6m2026": 4.94
+        },
+        "reported_cask_rub_per_ask": {
+          "group_2024_pre_other": 4.79,
+          "group_2024_net": 4.55,
+          "group_2025_pre_other": 5.06,
+          "group_2025_fuel": 1.78,
+          "group_2025_net": 4.47,
+          "group_6m2026_pre_other": 5.47,
+          "group_6m2026_net": 4.91
+        }
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 160,
+          "assumed_lf": 0.915,
+          "mtow_t": 77.0,
+          "fuel_burn_t_per_h": 2.35,
+          "cruise_kmh": 780.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 45000.0,
+          "airport_pax_fee_rub": 750.0,
+          "var_crew_plus_line_mro_rub_per_h": 44000.0,
+          "distrib_rub_per_pax": 280.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 105000.0,
+          "fixed_crew_and_sga_pct": 0.16
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.04,
+            "fuel_cost_net_rub_flight": 195713,
+            "airport_and_atc_rub_flight": 269685,
+            "variable_floor_rub_per_pax": 3772,
+            "full_floor_rub_per_pax": 5241,
+            "cask_variable_rub_per_ask": 6.39,
+            "cask_full_rub_per_ask": 9.59,
+            "block_hour_variable_rub": 491057,
+            "block_hour_full_rub": 737103
+          },
+          "1000_km": {
+            "block_hours": 1.68,
+            "fuel_cost_net_rub_flight": 316226,
+            "airport_and_atc_rub_flight": 278020,
+            "variable_floor_rub_per_pax": 4845,
+            "full_floor_rub_per_pax": 7019,
+            "cask_variable_rub_per_ask": 4.18,
+            "cask_full_rub_per_ask": 6.42,
+            "block_hour_variable_rub": 397286,
+            "block_hour_full_rub": 610922
+          },
+          "1500_km": {
+            "block_hours": 2.32,
+            "fuel_cost_net_rub_flight": 436738,
+            "airport_and_atc_rub_flight": 286355,
+            "variable_floor_rub_per_pax": 5917,
+            "full_floor_rub_per_pax": 8797,
+            "cask_variable_rub_per_ask": 3.44,
+            "cask_full_rub_per_ask": 5.37,
+            "block_hour_variable_rub": 355265,
+            "block_hour_full_rub": 554377
+          },
+          "2000_km": {
+            "block_hours": 2.96,
+            "fuel_cost_net_rub_flight": 557251,
+            "airport_and_atc_rub_flight": 294690,
+            "variable_floor_rub_per_pax": 6990,
+            "full_floor_rub_per_pax": 10575,
+            "cask_variable_rub_per_ask": 3.07,
+            "cask_full_rub_per_ask": 4.84,
+            "block_hour_variable_rub": 331420,
+            "block_hour_full_rub": 522289
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.72,
+            "variable_floor_rub_per_pax": 8486,
+            "full_floor_rub_per_pax": 12086
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.36,
+            "variable_floor_rub_per_pax": 9559,
+            "full_floor_rub_per_pax": 13863
+          }
+        }
+      },
+      "sources": [
+        "ПАО Аэрофлот МСФО 2025 / 6М 2026 / операционные результаты 10М 2026",
+        "ПАО Аэрофлот РСБУ 2025 / 9М 2026",
+        "aeroflot.ru (правила провоза и тарифы багажа с 10.06.2026)"
+      ]
+    },
+    {
+      "id": "rossiya",
+      "iata": "FV",
+      "name_ru": "Россия (авиакомпания, код SU 6001–6999)",
+      "name_en": "Rossiya Airlines",
+      "group": "Группа Аэрофлот",
+      "business_model": "Регионально-магистральный и хабовый перевозчик (LED / SVO / KJA) под коммерческим управлением SU",
+      "fleet_and_capacity": {
+        "primary_aircraft": "SSJ100 (78 ВС) / A319 (18) / A320 (8) / B737 (14)",
+        "primary_seats": 100,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Superjet 100 (RRJ-95)",
+            "count_total": 78,
+            "count_active_est": 69,
+            "seats": 100,
+            "config": "87 (12J+75Y) или 100Y"
+          },
+          {
+            "aircraft": "Airbus A319",
+            "count_total": 18,
+            "count_active_est": 17,
+            "seats": 128,
+            "config": "8J+120Y"
+          },
+          {
+            "aircraft": "Airbus A320",
+            "count_total": 8,
+            "count_active_est": 8,
+            "seats": 168,
+            "config": "12J+156Y (или 158)"
+          },
+          {
+            "aircraft": "Boeing 737-800/-900ER",
+            "count_total": 14,
+            "seats": 189,
+            "config": "B737-800: 168 / 189Y; B737-900ER: 215"
+          },
+          {
+            "aircraft": "Boeing 777-300/300ER",
+            "count_total": 10,
+            "count_active_est": 5,
+            "seats": 373,
+            "config": "373 / 457 (widebody)"
+          },
+          {
+            "aircraft": "Boeing 747-400",
+            "count_total": 8,
+            "seats": 522,
+            "config": "522 (widebody)"
+          }
+        ],
+        "utilization_notes": "136 ВС в парке; по оценке Коммерсанта на июнь 2026 г. ~30 из 136 (22%) стояли на ТО/хранении. Основной регионально-ближнемагистральный тип — SSJ100 (87/100 кресел)."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Эконом Базовый (под кодом SU 6001–6999, до 01.06.2026 — «Лайт»)",
+        "baggage_23kg_fare_name": "Эконом Бюджет / Эконом Оптимум (1×23 кг)",
+        "hand_luggage": "10 кг на регулярных рейсах SU (5 кг на туристических чартерах FV 5501–5999)",
+        "checked_baggage_target_kg": 23,
+        "online_addon_23kg_rub_per_segment": {
+          "eu_rf_from_2026_06_10": 4400,
+          "eu_asia_rf_from_2026_06_10": 4720,
+          "far_east_or_transfer_from_2026_06_10": 5040,
+          "note": "Регулярные рейсы (SU 6001–6999) полностью подчиняются тарифной сетке багажа ПАО Аэрофлот."
+        },
+        "airport_addon_23kg_rub_per_segment": {
+          "eu_rf": 5500,
+          "asia_or_eu_asia": 5900,
+          "far_east_and_transfer": 6300
+        },
+        "bundle_spread_base_to_optimum_rub": [
+          1500,
+          3500
+        ],
+        "recommended_basket_adjustment_rub_per_segment": {
+          "eu_rf_direct": 3200,
+          "eu_asia_direct": 4720,
+          "connecting_single_ticket": 5040,
+          "conservative_midpoint": 3500
+        },
+        "connecting_baggage_rule": "Единые правила с ПАО «Аэрофлот» на рейсах SU (единая трансферная ставка при пересадке в SVO/LED/KJA)."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2024_m": 11.5,
+        "pax_2025_m": 12.02,
+        "pax_2025_domestic_m": 10.47,
+        "pax_2026_summer_m": 3.95,
+        "load_factor_2024": 0.89,
+        "load_factor_2025": 0.892,
+        "load_factor_4m2026": 0.878,
+        "flights_2025": 111576,
+        "rsbu_revenue_2024_rub_bn": 167.6,
+        "rsbu_revenue_2025_rub_bn": 201.65,
+        "rsbu_cost_of_sales_2025_rub_bn": 199.7,
+        "rsbu_gross_profit_2025_rub_bn": 1.96,
+        "rsbu_net_profit_2025_rub_bn": 32.34,
+        "net_profit_note": "ЧП 2025 г. включает +47.5 млрд ₽ курсовых разниц и 4.3 млрд ₽ демпфера/акциза; операционная маржа около 1%.",
+        "reported_rask_rub_per_ask": null,
+        "reported_cask_rub_per_ask": null,
+        "implied_cask_ssj100_benchmark_rub_per_ask": [
+          6.5,
+          7.8
+        ]
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 100,
+          "assumed_lf": 0.89,
+          "mtow_t": 49.45,
+          "fuel_burn_t_per_h": 1.8,
+          "cruise_kmh": 750.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 36000.0,
+          "airport_pax_fee_rub": 720.0,
+          "var_crew_plus_line_mro_rub_per_h": 34000.0,
+          "distrib_rub_per_pax": 260.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 95000.0,
+          "fixed_crew_and_sga_pct": 0.18,
+          "note": "Параметризация по основному ближне/среднемагистральному борту SSJ100 (100 кресел); на A320/B737-800 cost floor близок к Аэрофлоту/S7."
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.07,
+            "fuel_cost_net_rub_flight": 153600,
+            "airport_and_atc_rub_flight": 183282,
+            "variable_floor_rub_per_pax": 4453,
+            "full_floor_rub_per_pax": 6598,
+            "cask_variable_rub_per_ask": 7.46,
+            "cask_full_rub_per_ask": 11.74,
+            "block_hour_variable_rub": 349827,
+            "block_hour_full_rub": 550495
+          },
+          "1000_km": {
+            "block_hours": 1.73,
+            "fuel_cost_net_rub_flight": 249600,
+            "airport_and_atc_rub_flight": 191618,
+            "variable_floor_rub_per_pax": 5880,
+            "full_floor_rub_per_pax": 9121,
+            "cask_variable_rub_per_ask": 5.0,
+            "cask_full_rub_per_ask": 8.12,
+            "block_hour_variable_rub": 288549,
+            "block_hour_full_rub": 468340
+          },
+          "1500_km": {
+            "block_hours": 2.4,
+            "fuel_cost_net_rub_flight": 345600,
+            "airport_and_atc_rub_flight": 199952,
+            "variable_floor_rub_per_pax": 7307,
+            "full_floor_rub_per_pax": 11645,
+            "cask_variable_rub_per_ask": 4.18,
+            "cask_full_rub_per_ask": 6.91,
+            "block_hour_variable_rub": 261314,
+            "block_hour_full_rub": 431827
+          },
+          "2000_km": {
+            "block_hours": 3.07,
+            "fuel_cost_net_rub_flight": 441600,
+            "airport_and_atc_rub_flight": 208288,
+            "variable_floor_rub_per_pax": 8734,
+            "full_floor_rub_per_pax": 14168,
+            "cask_variable_rub_per_ask": 3.77,
+            "cask_full_rub_per_ask": 6.3,
+            "block_hour_variable_rub": 245920,
+            "block_hour_full_rub": 411189
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.8,
+            "variable_floor_rub_per_pax": 10222,
+            "full_floor_rub_per_pax": 15562
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.47,
+            "variable_floor_rub_per_pax": 11649,
+            "full_floor_rub_per_pax": 18086
+          }
+        }
+      },
+      "sources": [
+        "rossiya-airlines.ru (флот, итоги 2025–2026)",
+        "РСБУ АО Авиакомпания Россия за 2025 г. / АвиаПорт",
+        "Коммерсантъ (простой парка 2026)"
+      ]
+    },
+    {
+      "id": "s7_airlines",
+      "iata": "S7",
+      "name_ru": "S7 Airlines (АО «Авиакомпания «Сибирь»)",
+      "name_en": "S7 Airlines",
+      "group": "S7 Group",
+      "business_model": "Крупнейший частный сетевой перевозчик (хабы OVB / DME / IKT)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "A320 / B737-800 / A321 / E170",
+        "primary_seats": 164,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Airbus A320 / A320neo",
+            "count_total": 47,
+            "seats": 164,
+            "config": "8J+156Y=164 (осн.) / 174Y; значительная часть ~25+ A320neo на земле (PW1100G)"
+          },
+          {
+            "aircraft": "Airbus A321 / A321neo",
+            "count_total": 20,
+            "seats": 203,
+            "config": "197–220 мест (все 8 A321neo на земле; +2 A321ceo введены в 2026 г.)"
+          },
+          {
+            "aircraft": "Boeing 737-800",
+            "count_total": 19,
+            "seats": 176,
+            "config": "8J+168Y=176 (плюс 2 грузовых BCF)"
+          },
+          {
+            "aircraft": "Embraer E170",
+            "count_total": 17,
+            "seats": 78,
+            "config": "78Y (региональный фидер)"
+          }
+        ],
+        "utilization_notes": "92 ВС в сертификате эксплуатанта (100–105 всего с учётом простоя A320/A321neo). За счёт жёсткого отбора маршрутов загрузка в 1П/лете 2026 г. — рекордные 94.4–95.6%."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Эконом Базовый",
+        "baggage_23kg_fare_name": "Эконом Стандарт (1×23 кг + спортинвентарь)",
+        "hand_luggage": "1 место до 10 кг (55x40x23 см)",
+        "checked_baggage_target_kg": 23,
+        "online_addon_23kg_rub_per_segment": {
+          "min_rf": 2500,
+          "typical_range_online": [
+            2500,
+            4200
+          ],
+          "example_mow_ovb_may2026": 4000,
+          "advance_rule": "Динамическая цена зависит от маршрута и времени до вылета: >72 ч (макс. скидка до 60%), 30–72 ч (до 30%), 4–30 ч (до 10%), <4 ч и аэропорт — без скидки."
+        },
+        "airport_addon_23kg_rub_per_segment": {
+          "min_rf": 3500,
+          "typical_range": [
+            3500,
+            6000
+          ]
+        },
+        "bundle_spread_base_to_standard_rub": [
+          2800,
+          4500
+        ],
+        "recommended_basket_adjustment_rub_per_segment": {
+          "short_medium_under_1500km": 3000,
+          "long_over_1500km": 4000,
+          "conservative_midpoint": 3300,
+          "note": "При покупке заранее >72 ч минимальная онлайн-доплата от 2 500 ₽ на коротких плечах и ~4 000 ₽ на плечах уровня MOW–OVB; разница «Базовый» vs «Стандарт» на MOW–OVB 4 400 ₽."
+        },
+        "connecting_baggage_rule": "При едином трансферном билете багаж оплачивается сразу от начального до конечного пункта маршрута (сквозной трансфер через OVB/DME/IKT)."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2024_m": 12.9,
+        "pax_2025_m": 12.8,
+        "pax_2026_1h_m": 6.1,
+        "pax_2026_plan_m": 12.8,
+        "load_factor_2025": 0.94,
+        "load_factor_2026_1h": 0.944,
+        "load_factor_summer_2026": 0.956,
+        "rsbu_revenue_2024_rub_bn": 188.1,
+        "rsbu_revenue_2025_rub_bn": 208.3,
+        "rsbu_op_profit_2025_rub_bn": 23.6,
+        "rsbu_net_profit_2024_rub_bn": 13.95,
+        "rsbu_net_profit_2025_rub_bn": 51.8,
+        "net_profit_note": "Рекордная ЧП 51.8 млрд ₽ в 2025 г. включает +36.3 млрд ₽ курсовой переоценки аренды, но операционная прибыль 23.6 млрд ₽ (маржа 11.3%) — лучшая среди крупных АК РФ.",
+        "reported_rask_rub_per_ask": null,
+        "reported_cask_rub_per_ask": null,
+        "implied_cask_2025_rub_per_ask_est": [
+          5.2,
+          6.2
+        ]
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 164,
+          "assumed_lf": 0.944,
+          "mtow_t": 77.0,
+          "fuel_burn_t_per_h": 2.35,
+          "cruise_kmh": 780.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 40000.0,
+          "airport_pax_fee_rub": 700.0,
+          "var_crew_plus_line_mro_rub_per_h": 42000.0,
+          "distrib_rub_per_pax": 250.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 100000.0,
+          "fixed_crew_and_sga_pct": 0.15,
+          "note": "Расчёт по базовому A320 (164 кресла). Для региональных фидеров Embraer E170 (78 кресел) переменный и полный cost floor на ~25–35% выше (см. таблицу aircraft_unit_cost_reference)."
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.04,
+            "fuel_cost_net_rub_flight": 195713,
+            "airport_and_atc_rub_flight": 263256,
+            "variable_floor_rub_per_pax": 3497,
+            "full_floor_rub_per_pax": 4795,
+            "cask_variable_rub_per_ask": 6.13,
+            "cask_full_rub_per_ask": 9.05,
+            "block_hour_variable_rub": 482882,
+            "block_hour_full_rub": 713069
+          },
+          "1000_km": {
+            "block_hours": 1.68,
+            "fuel_cost_net_rub_flight": 316226,
+            "airport_and_atc_rub_flight": 271591,
+            "variable_floor_rub_per_pax": 4503,
+            "full_floor_rub_per_pax": 6428,
+            "cask_variable_rub_per_ask": 4.02,
+            "cask_full_rub_per_ask": 6.07,
+            "block_hour_variable_rub": 391464,
+            "block_hour_full_rub": 591645
+          },
+          "1500_km": {
+            "block_hours": 2.32,
+            "fuel_cost_net_rub_flight": 436738,
+            "airport_and_atc_rub_flight": 279926,
+            "variable_floor_rub_per_pax": 5509,
+            "full_floor_rub_per_pax": 8061,
+            "cask_variable_rub_per_ask": 3.31,
+            "cask_full_rub_per_ask": 5.07,
+            "block_hour_variable_rub": 350498,
+            "block_hour_full_rub": 537232
+          },
+          "2000_km": {
+            "block_hours": 2.96,
+            "fuel_cost_net_rub_flight": 557251,
+            "airport_and_atc_rub_flight": 288261,
+            "variable_floor_rub_per_pax": 6516,
+            "full_floor_rub_per_pax": 9695,
+            "cask_variable_rub_per_ask": 2.96,
+            "cask_full_rub_per_ask": 4.58,
+            "block_hour_variable_rub": 327251,
+            "block_hour_full_rub": 506355
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.72,
+            "variable_floor_rub_per_pax": 7900,
+            "full_floor_rub_per_pax": 11086
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.36,
+            "variable_floor_rub_per_pax": 8906,
+            "full_floor_rub_per_pax": 12719
+          }
+        }
+      },
+      "sources": [
+        "s7.ru (тарифы Эконом Базовый / Стандарт, май 2026)",
+        "РСБУ АО Авиакомпания Сибирь за 2024–2025 гг.",
+        "Росавиация / отраслевые обзоры за 1П и лето 2026 г."
+      ]
+    },
+    {
+      "id": "ural_airlines",
+      "iata": "U6",
+      "name_ru": "Уральские авиалинии",
+      "name_en": "Ural Airlines",
+      "group": "Independent",
+      "business_model": "Среднемагистральный регулярный и чартерный перевозчик (SVX / DME / LED)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "Airbus A320 / A321",
+        "primary_seats": 176,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Airbus A320ceo",
+            "count_total": 22,
+            "seats": 160,
+            "config": "12J+144Y=156 / 12J+150Y=162"
+          },
+          {
+            "aircraft": "Airbus A321ceo",
+            "count_total": 14,
+            "seats": 220,
+            "config": "220Y"
+          },
+          {
+            "aircraft": "Airbus A319",
+            "count_total": 4,
+            "seats": 134,
+            "config": "4 борта"
+          },
+          {
+            "aircraft": "Airbus A320neo",
+            "count_total": 3,
+            "seats": 176,
+            "config": "8J+168Y=176"
+          },
+          {
+            "aircraft": "Airbus A321neo",
+            "count_total": 8,
+            "count_active": 0,
+            "seats": 236,
+            "config": "все 8 A321neo в простое (PW1100G)"
+          }
+        ],
+        "utilization_notes": "Всего 51 самолёт Airbus, фактически летает ~39–41 борт (10–12 в простое в 2025–2026 гг.)."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Промо",
+        "baggage_23kg_fare_name": "Эконом (1×23 кг)",
+        "hand_luggage": "1 место до 10 кг (55x40x25 см с 01.02.2026)",
+        "checked_baggage_target_kg": 23,
+        "online_addon_23kg_rub_per_segment": {
+          "min_at_booking_or_gt_24h": 3500,
+          "24h_to_6h": 4000,
+          "typical_range_online": [
+            3500,
+            4500
+          ],
+          "advance_rule": "При покупке билета и >24 ч до вылета — от 3 500 ₽ за сегмент; 24–6 ч — от 4 000 ₽; <6 ч и аэропорт — от 4 500 ₽."
+        },
+        "airport_addon_23kg_rub_per_segment": {
+          "min_rf": 4500
+        },
+        "bundle_spread_promo_to_econom_rub": [
+          2500,
+          4000
+        ],
+        "recommended_basket_adjustment_rub_per_segment": {
+          "direct_segment": 3500,
+          "conservative_midpoint": 3500,
+          "note": "Опубликованный порог «от 3 500 ₽» при покупке онлайн >24 ч до вылета за сегмент; на сайте часто выгоднее брать сразу «Эконом»."
+        },
+        "connecting_baggage_rule": "Базовый тариф на допбагаж взимается за каждый полётный сегмент."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2024_m": 9.52,
+        "pax_2025_m": 8.46,
+        "pax_2026_1h_m": 3.42,
+        "rpk_2025_bn": 23.8,
+        "load_factor_2024": 0.883,
+        "load_factor_2025": 0.854,
+        "load_factor_2026_1h": 0.828,
+        "rsbu_revenue_2024_rub_bn": 143.41,
+        "rsbu_revenue_2025_rub_bn": 140.32,
+        "rsbu_revenue_9m2026_rub_bn": 95.87,
+        "rsbu_op_profit_2025_rub_bn": 15.9,
+        "rsbu_op_profit_9m2026_rub_bn": 8.7,
+        "rsbu_net_profit_2025_rub_bn": 26.9,
+        "rsbu_net_profit_9m2026_rub_bn": 4.47,
+        "implied_rask_2025_rub_per_ask": 5.04,
+        "implied_cask_2025_rub_per_ask": 4.46,
+        "note_2026_margin": "В 9М 2026 выручка -9.1% г/г, чистая прибыль упала в ~5 раз (до 4.47 млрд ₽) на фоне роста топлива, ТОиР и падения LF до 82.8%."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 176,
+          "assumed_lf": 0.84,
+          "mtow_t": 81.0,
+          "fuel_burn_t_per_h": 2.5,
+          "cruise_kmh": 780.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 40000.0,
+          "airport_pax_fee_rub": 700.0,
+          "var_crew_plus_line_mro_rub_per_h": 42000.0,
+          "distrib_rub_per_pax": 250.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 98000.0,
+          "fixed_crew_and_sga_pct": 0.15,
+          "note": "Усреднённый профиль по активному парку A320ceo/A321ceo (~176 кресел, загрузка 83–85% в 2025–1П 2026)."
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.04,
+            "fuel_cost_net_rub_flight": 208205,
+            "airport_and_atc_rub_flight": 262973,
+            "variable_floor_rub_per_pax": 3733,
+            "full_floor_rub_per_pax": 5086,
+            "cask_variable_rub_per_ask": 5.85,
+            "cask_full_rub_per_ask": 8.55,
+            "block_hour_variable_rub": 494610,
+            "block_hour_full_rub": 722330
+          },
+          "1000_km": {
+            "block_hours": 1.68,
+            "fuel_cost_net_rub_flight": 336410,
+            "airport_and_atc_rub_flight": 271308,
+            "variable_floor_rub_per_pax": 4839,
+            "full_floor_rub_per_pax": 6847,
+            "cask_variable_rub_per_ask": 3.85,
+            "cask_full_rub_per_ask": 5.75,
+            "block_hour_variable_rub": 403296,
+            "block_hour_full_rub": 601759
+          },
+          "1500_km": {
+            "block_hours": 2.32,
+            "fuel_cost_net_rub_flight": 464615,
+            "airport_and_atc_rub_flight": 279643,
+            "variable_floor_rub_per_pax": 5944,
+            "full_floor_rub_per_pax": 8607,
+            "cask_variable_rub_per_ask": 3.19,
+            "cask_full_rub_per_ask": 4.82,
+            "block_hour_variable_rub": 362376,
+            "block_hour_full_rub": 547729
+          },
+          "2000_km": {
+            "block_hours": 2.96,
+            "fuel_cost_net_rub_flight": 592821,
+            "airport_and_atc_rub_flight": 287978,
+            "variable_floor_rub_per_pax": 7050,
+            "full_floor_rub_per_pax": 10367,
+            "cask_variable_rub_per_ask": 2.86,
+            "cask_full_rub_per_ask": 4.35,
+            "block_hour_variable_rub": 339155,
+            "block_hour_full_rub": 517068
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.72,
+            "variable_floor_rub_per_pax": 8471,
+            "full_floor_rub_per_pax": 11795
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.36,
+            "variable_floor_rub_per_pax": 9577,
+            "full_floor_rub_per_pax": 13556
+          }
+        }
+      },
+      "sources": [
+        "uralairlines.ru (тарифы сверхнормативного багажа 2026)",
+        "РСБУ ОАО АК Уральские авиалинии за 2025 и 9М 2026 (Finmarket / Cbonds / Интерфакс)"
+      ]
+    },
+    {
+      "id": "utair",
+      "iata": "UT",
+      "name_ru": "ЮТэйр (ПАО «Авиакомпания «ЮТэйр»)",
+      "name_en": "Utair",
+      "group": "Группа ЮТэйр (самолётный + вертолётный сегменты)",
+      "business_model": "Регионально-магистральный перевозчик Западной Сибири и ВВЛ (VKO / SGC / TJM / UFA)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "B737-800 / B737-500 / ATR 72-500",
+        "primary_seats": 126,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Boeing 737-800",
+            "seats": 186,
+            "config": "186–189 мест"
+          },
+          {
+            "aircraft": "Boeing 737-500",
+            "seats": 126,
+            "config": "126 мест"
+          },
+          {
+            "aircraft": "Boeing 737-400",
+            "seats": 150,
+            "config": "150 мест"
+          },
+          {
+            "aircraft": "ATR 72-500",
+            "seats": 70,
+            "config": "70 мест (региональный турбовинт)"
+          },
+          {
+            "aircraft": "Boeing 767-200",
+            "seats": 254,
+            "config": "широкофюзеляжный"
+          }
+        ],
+        "utilization_notes": "~56–63 самолёта в эксплуатации (+320 вертолётов в дочернем сегменте, которые нельзя смешивать с выручкой на пассажира самолёта!)."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Минимум",
+        "baggage_20kg_fare_name": "Оптимум (1×20 кг)",
+        "hand_luggage": "1 место до 5 кг (40x30x20 см)",
+        "checked_baggage_target_kg": 20,
+        "online_addon_20kg_rub_per_segment": {
+          "min_rf": 2999,
+          "typical_range_online": [
+            2999,
+            3800
+          ],
+          "advance_rule": "На сайте при управлении бронированием или онлайн-регистрации (за 36 ч, но не позднее 2–12 ч до вылета)."
+        },
+        "airport_addon_20kg_rub_per_segment": {
+          "per_kg_rate_rub": 600,
+          "equivalent_20kg_rub": 12000,
+          "gate_rub": 4500
+        },
+        "bundle_spread_minimum_to_optimum_rub": [
+          2000,
+          3500
+        ],
+        "recommended_basket_adjustment_rub_per_segment": {
+          "direct_segment": 3000,
+          "conservative_midpoint": 3100,
+          "note": "Онлайн-докупка 20 кг на ВВЛ от 2 999 ₽; в аэропорту крайне дорого (600 ₽/кг = 12 000 ₽ за 20 кг), поэтому пассажир с багажом почти всегда берёт «Оптимум» или докупает онлайн."
+        },
+        "connecting_baggage_rule": "Оплата по маршруту/сегменту в рамках единого заказа на сайте от 2 999 ₽+."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2025_fixed_wing_m": 6.09,
+        "pax_2025_fixed_wing_domestic_m": 4.82,
+        "rpk_2025_bn": 12.01,
+        "load_factor_2024": 0.857,
+        "load_factor_2025": 0.851,
+        "ifrs_group_revenue_2025_rub_bn": 121.3,
+        "fixed_wing_pax_revenue_2025_rub_bn": 81.9,
+        "rsbu_pao_revenue_2025_rub_bn": 82.81,
+        "rsbu_pao_revenue_9m2026_rub_bn": 65.21,
+        "ifrs_group_op_profit_2025_rub_bn": 0.4,
+        "ifrs_group_ebitda_2025_rub_bn": 22.4,
+        "ifrs_group_net_loss_1h2026_rub_bn": -5.1,
+        "rsbu_pao_net_profit_9m2026_rub_mn": 54.4,
+        "implied_rask_2025_fixed_wing_rub_per_ask": 5.8,
+        "implied_cask_2025_fixed_wing_rub_per_ask": 5.75,
+        "financial_stress_note": "Очень тонкая операционная маржа (опер. прибыль группы 0.4 млрд ₽ в 2025, убыток МСФО -5.1 млрд ₽ в 1П 2026, чистая прибыль РСБУ за 9М 2026 упала в 88 раз до 54.4 млн ₽) -> ограниченный ресурс на ценовую войну ниже переменного пола."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 126,
+          "assumed_lf": 0.851,
+          "mtow_t": 60.5,
+          "fuel_burn_t_per_h": 2.2,
+          "cruise_kmh": 760.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 36000.0,
+          "airport_pax_fee_rub": 680.0,
+          "var_crew_plus_line_mro_rub_per_h": 35000.0,
+          "distrib_rub_per_pax": 240.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 72000.0,
+          "fixed_crew_and_sga_pct": 0.16,
+          "note": "Профиль B737-500 (126 кресел); для ATR-72-500 (70 кресел) и B737-800 (186 кресел) см. aircraft_unit_cost_reference."
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.06,
+            "fuel_cost_net_rub_flight": 186189,
+            "airport_and_atc_rub_flight": 204824,
+            "variable_floor_rub_per_pax": 4232,
+            "full_floor_rub_per_pax": 5733,
+            "cask_variable_rub_per_ask": 6.79,
+            "cask_full_rub_per_ask": 9.76,
+            "block_hour_variable_rub": 404614,
+            "block_hour_full_rub": 581091
+          },
+          "1000_km": {
+            "block_hours": 1.72,
+            "fuel_cost_net_rub_flight": 301979,
+            "airport_and_atc_rub_flight": 213159,
+            "variable_floor_rub_per_pax": 5604,
+            "full_floor_rub_per_pax": 7837,
+            "cask_variable_rub_per_ask": 4.57,
+            "cask_full_rub_per_ask": 6.67,
+            "block_hour_variable_rub": 335234,
+            "block_hour_full_rub": 489789
+          },
+          "1500_km": {
+            "block_hours": 2.37,
+            "fuel_cost_net_rub_flight": 417768,
+            "airport_and_atc_rub_flight": 221494,
+            "variable_floor_rub_per_pax": 6977,
+            "full_floor_rub_per_pax": 9942,
+            "cask_variable_rub_per_ask": 3.82,
+            "cask_full_rub_per_ask": 5.64,
+            "block_hour_variable_rub": 304312,
+            "block_hour_full_rub": 449098
+          },
+          "2000_km": {
+            "block_hours": 3.03,
+            "fuel_cost_net_rub_flight": 533558,
+            "airport_and_atc_rub_flight": 229829,
+            "variable_floor_rub_per_pax": 8349,
+            "full_floor_rub_per_pax": 12046,
+            "cask_variable_rub_per_ask": 3.45,
+            "cask_full_rub_per_ask": 5.13,
+            "block_hour_variable_rub": 286812,
+            "block_hour_full_rub": 426068
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.77,
+            "variable_floor_rub_per_pax": 9746,
+            "full_floor_rub_per_pax": 13442
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.43,
+            "variable_floor_rub_per_pax": 11119,
+            "full_floor_rub_per_pax": 15546
+          }
+        }
+      },
+      "sources": [
+        "utair.ru (тарифы Минимум/Оптимум, багаж 20 кг)",
+        "МСФО Группы ЮТэйр 2025 / 1П 2026",
+        "РСБУ ПАО ЮТэйр за 2025 и 9М 2026 (АвиаПорт / Интерфакс)"
+      ]
+    },
+    {
+      "id": "azimuth",
+      "iata": "A4",
+      "name_ru": "Азимут (АО «Авиакомпания АЗИМУТ»)",
+      "name_en": "Azimuth",
+      "group": "Independent (региональный оператор Юга и Поволжья)",
+      "business_model": "Монопарк SSJ100, региональные point-to-point и южные хабы (MRV / AER / KRR / UFA)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "SSJ100 (RRJ-95LR)",
+        "primary_seats": 100,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Sukhoi Superjet 100",
+            "count_total": 19,
+            "count_active": 19,
+            "seats": 100,
+            "config": "100Y (20 рядов) и 103Y (21 ряд, до 15 комфорт + 85-88 эконом)"
+          }
+        ],
+        "utilization_notes": "19 SSJ100 (план +1 в 2026 г. и соглашение на ~31 SJ-100); высокая утилизация 9–10 ч/сутки, что напрямую сопоставимо с парком SSJ100 Red Wings."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Лёгкий (LT)",
+        "baggage_23kg_fare_name": "Гибкий (FL) — 1×23 кг",
+        "hand_luggage": "1 место до 5 кг (55x40x20 см)",
+        "checked_baggage_target_kg": 23,
+        "online_addon_23kg_rub_per_segment": {
+          "non_subsidized_gt_3h": 4199,
+          "non_subsidized_lt_3h": [
+            4830,
+            5313
+          ],
+          "subsidized_pp1242_cap_under_3000": 500,
+          "subsidized_pp1242_cap_3000_6000": 1000,
+          "subsidized_pp1242_cap_over_6000": 4199,
+          "advance_rule": "Фиксированная таблица на сайте azimuth.ru: >3 ч до вылета на обычных рейсах по РФ — 4 199 ₽ (единая для всех КБ тарифа LT); <3 ч и в аэропорту — 4 830 / 5 072 / 5 313 ₽ в зависимости от КБ."
+        },
+        "airport_addon_23kg_rub_per_segment": {
+          "range_by_booking_class": [
+            4830,
+            5313
+          ]
+        },
+        "recommended_basket_adjustment_rub_per_segment": {
+          "commercial_route": 4199,
+          "subsidized_route_low_cap": [
+            500,
+            1000
+          ],
+          "note": "На коммерческих ВВЛ Азимут имеет одну из самых высоких онлайн-доплат за чемодан (4 199 ₽ за 23 кг), что делает его витринный тариф «Лёгкий» обманчиво дешёвым по сравнению с тарифом «Стандарт» Red Wings (где 20 кг включены, а доплата на «Лайте» от 2 700 ₽)."
+        },
+        "connecting_baggage_rule": "Взимается за сегмент согласно официальной таблице сборов."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2025_m": 2.271,
+        "pax_2025_domestic_m": 1.041,
+        "load_factor_2024": 0.927,
+        "load_factor_2025": 0.906,
+        "rsbu_revenue_2024_rub_bn": 29.18,
+        "rsbu_revenue_2025_rub_bn": 27.69,
+        "rsbu_cost_of_sales_2025_rub_bn": 30.47,
+        "rsbu_gross_loss_2025_rub_bn": -2.78,
+        "rsbu_op_loss_2025_rub_bn": -3.61,
+        "rsbu_net_profit_2025_rub_mn": 503.6,
+        "other_income_2025_rub_bn": 9.47,
+        "implied_cost_per_pax_2025_rub": 13782,
+        "implied_cask_ssj100_rub_per_ask": [
+          6.8,
+          8.0
+        ],
+        "note": "Операционный убыток -3.61 млрд ₽ перекрыт прочими доходами (9.47 млрд ₽: субсидии/демпфер/курсовые). Прямой аналог Red Wings по себестоимости SSJ100."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 100,
+          "assumed_lf": 0.906,
+          "mtow_t": 49.45,
+          "fuel_burn_t_per_h": 1.8,
+          "cruise_kmh": 750.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 36000.0,
+          "airport_pax_fee_rub": 700.0,
+          "var_crew_plus_line_mro_rub_per_h": 33000.0,
+          "distrib_rub_per_pax": 250.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 90000.0,
+          "fixed_crew_and_sga_pct": 0.18
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.07,
+            "fuel_cost_net_rub_flight": 153600,
+            "airport_and_atc_rub_flight": 182622,
+            "variable_floor_rub_per_pax": 4350,
+            "full_floor_rub_per_pax": 6383,
+            "cask_variable_rub_per_ask": 7.43,
+            "cask_full_rub_per_ask": 11.57,
+            "block_hour_variable_rub": 348209,
+            "block_hour_full_rub": 542143
+          },
+          "1000_km": {
+            "block_hours": 1.73,
+            "fuel_cost_net_rub_flight": 249600,
+            "airport_and_atc_rub_flight": 190958,
+            "variable_floor_rub_per_pax": 5744,
+            "full_floor_rub_per_pax": 8810,
+            "cask_variable_rub_per_ask": 4.98,
+            "cask_full_rub_per_ask": 7.98,
+            "block_hour_variable_rub": 287168,
+            "block_hour_full_rub": 460477
+          },
+          "1500_km": {
+            "block_hours": 2.4,
+            "fuel_cost_net_rub_flight": 345600,
+            "airport_and_atc_rub_flight": 199292,
+            "variable_floor_rub_per_pax": 7138,
+            "full_floor_rub_per_pax": 11237,
+            "cask_variable_rub_per_ask": 4.16,
+            "cask_full_rub_per_ask": 6.79,
+            "block_hour_variable_rub": 260039,
+            "block_hour_full_rub": 424182
+          },
+          "2000_km": {
+            "block_hours": 3.07,
+            "fuel_cost_net_rub_flight": 441600,
+            "airport_and_atc_rub_flight": 207628,
+            "variable_floor_rub_per_pax": 8533,
+            "full_floor_rub_per_pax": 13663,
+            "cask_variable_rub_per_ask": 3.75,
+            "cask_full_rub_per_ask": 6.19,
+            "block_hour_variable_rub": 244705,
+            "block_hour_full_rub": 403667
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.8,
+            "variable_floor_rub_per_pax": 9994,
+            "full_floor_rub_per_pax": 15048
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.47,
+            "variable_floor_rub_per_pax": 11388,
+            "full_floor_rub_per_pax": 17474
+          }
+        }
+      },
+      "sources": [
+        "azimuth.ru (официальный перечень услуг и сборов 2025–2026)",
+        "РСБУ АО Авиакомпания АЗИМУТ за 2025 г. (Finmarket / TAdviser)"
+      ]
+    },
+    {
+      "id": "nordwind_and_ikar",
+      "iata": "N4 / EO",
+      "name_ru": "Nordwind Airlines (N4) и Икар (EO)",
+      "name_en": "Nordwind Airlines & Ikar",
+      "group": "Единая авиагруппа (хаб Казань / Сочи / СПб / Калининград)",
+      "business_model": "Гибридный сетевой-туристический перевозчик с транзитным узлом в Казани (до 46% трансферов на ряде направлений)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "N4: B737-800 (189), A321 (218-220), A330/B777; EO: E190 (110), B737-900ER (215), B777-200ER (440)",
+        "primary_seats": 189,
+        "active_fleet_2025_2026": [
+          {
+            "carrier": "N4",
+            "aircraft": "Boeing 737-800",
+            "count": 11,
+            "seats": 189
+          },
+          {
+            "carrier": "N4",
+            "aircraft": "Airbus A321-200 / neo",
+            "count": 7,
+            "seats": 220,
+            "config": "A321-200: 220Y; A321neo: 218Y"
+          },
+          {
+            "carrier": "N4",
+            "aircraft": "Airbus A330-200/300 & B777-200ER/300ER",
+            "count": 9,
+            "seats": 370,
+            "config": "widebody"
+          },
+          {
+            "carrier": "EO",
+            "aircraft": "Embraer E190",
+            "count": 5,
+            "count_active_est": 4,
+            "seats": 110,
+            "config": "110Y (региональный фидер)"
+          },
+          {
+            "carrier": "EO",
+            "aircraft": "Boeing 737-900ER",
+            "count": 3,
+            "count_active_est": 2,
+            "seats": 215
+          },
+          {
+            "carrier": "EO",
+            "aircraft": "Boeing 777-200ER",
+            "count": 2,
+            "count_active_est": 1,
+            "seats": 440
+          }
+        ],
+        "utilization_notes": "N4: 27 ВС в парке (~21 активный). EO: 8–10 ВС (~6 на крыле). Совместная стыковочная модель через KZN."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Лайт / Лёгкий",
+        "baggage_20kg_fare_name": "Оптимум (1×20 кг на регулярных рейсах)",
+        "hand_luggage": "1 место до 10 кг (40x30x20 см)",
+        "checked_baggage_target_kg": 20,
+        "online_addon_20kg_rub_per_segment": {
+          "n4_rf1_gt_36h": [
+            2329,
+            3299
+          ],
+          "n4_rf1_36h_to_4h": [
+            2929,
+            3899
+          ],
+          "n4_rf_general_range": [
+            1999,
+            9149
+          ],
+          "eo_rf_online": [
+            2500,
+            3500
+          ],
+          "advance_rule": "Зависит от тарифной зоны (РФ1, РФ2, РФ3) и времени до вылета (>36 ч, 36–4 ч, <4–5 ч/аэропорт)."
+        },
+        "airport_addon_20kg_rub_per_segment": {
+          "n4_from": 3500,
+          "eo_range": [
+            4000,
+            5000
+          ]
+        },
+        "recommended_basket_adjustment_rub_per_segment": {
+          "n4_eu_rf_rf1": 2800,
+          "n4_cross_zone_or_long": 3500,
+          "eo_e190_regional": 3000,
+          "conservative_midpoint": 3000,
+          "note": "Для N4 в зоне РФ1 при покупке >36 ч ориентир ~2 799 ₽ (вилка 2 329–3 299 ₽); для EO ~2 500–3 500 ₽."
+        },
+        "connecting_baggage_rule": "На стыковочных маршрутах N4+N4 / N4+EO при едином билете тариф рассчитывается по зональной матрице маршрута."
+      },
+      "financial_and_operational_metrics": {
+        "n4_pax_2025_m": 4.5,
+        "n4_flights_2025": 22400,
+        "n4_domestic_share_pct": 88.0,
+        "n4_load_factor_est": 0.895,
+        "n4_rsbu_revenue_2025_rub_bn": 66.4,
+        "n4_rsbu_op_profit_2025_rub_bn": 9.82,
+        "n4_rsbu_net_profit_2025_rub_bn": 18.32,
+        "eo_rsbu_revenue_2025_rub_bn": 18.33,
+        "eo_rsbu_gross_profit_2025_rub_bn": 3.1,
+        "eo_rsbu_net_profit_2025_rub_bn": 3.9,
+        "implied_cask_n4_2025_rub_per_ask": [
+          4.0,
+          5.0
+        ],
+        "note": "N4 — 3-я в РФ по операционной прибыли (9.82 млрд ₽, маржа 14.8%) за счёт высокой вместимости (~224 кресла на средний рейс) и транзита через KZN."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 189,
+          "assumed_lf": 0.895,
+          "mtow_t": 79.0,
+          "fuel_burn_t_per_h": 2.5,
+          "cruise_kmh": 780.0,
+          "airport_mtow_rub_per_t": 1100.0,
+          "ground_turn_rub": 38000.0,
+          "airport_pax_fee_rub": 680.0,
+          "var_crew_plus_line_mro_rub_per_h": 38000.0,
+          "distrib_rub_per_pax": 240.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 88000.0,
+          "fixed_crew_and_sga_pct": 0.14,
+          "note": "Основной узкофюзеляжный борт N4 — B737-800 (189 кресел); для E190 Икара (110 кресел) см. aircraft_unit_cost_reference (cost floor на ~35% выше)."
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.04,
+            "fuel_cost_net_rub_flight": 208205,
+            "airport_and_atc_rub_flight": 266260,
+            "variable_floor_rub_per_pax": 3279,
+            "full_floor_rub_per_pax": 4355,
+            "cask_variable_rub_per_ask": 5.44,
+            "cask_full_rub_per_ask": 7.8,
+            "block_hour_variable_rub": 493767,
+            "block_hour_full_rub": 707672
+          },
+          "1000_km": {
+            "block_hours": 1.68,
+            "fuel_cost_net_rub_flight": 336410,
+            "airport_and_atc_rub_flight": 274595,
+            "variable_floor_rub_per_pax": 4230,
+            "full_floor_rub_per_pax": 5820,
+            "cask_variable_rub_per_ask": 3.57,
+            "cask_full_rub_per_ask": 5.21,
+            "block_hour_variable_rub": 401250,
+            "block_hour_full_rub": 585260
+          },
+          "1500_km": {
+            "block_hours": 2.32,
+            "fuel_cost_net_rub_flight": 464615,
+            "airport_and_atc_rub_flight": 282930,
+            "variable_floor_rub_per_pax": 5181,
+            "full_floor_rub_per_pax": 7284,
+            "cask_variable_rub_per_ask": 2.95,
+            "cask_full_rub_per_ask": 4.35,
+            "block_hour_variable_rub": 359791,
+            "block_hour_full_rub": 530404
+          },
+          "2000_km": {
+            "block_hours": 2.96,
+            "fuel_cost_net_rub_flight": 592821,
+            "airport_and_atc_rub_flight": 291265,
+            "variable_floor_rub_per_pax": 6132,
+            "full_floor_rub_per_pax": 8749,
+            "cask_variable_rub_per_ask": 2.64,
+            "cask_full_rub_per_ask": 3.92,
+            "block_hour_variable_rub": 336264,
+            "block_hour_full_rub": 499275
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.72,
+            "variable_floor_rub_per_pax": 7419,
+            "full_floor_rub_per_pax": 10051
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.36,
+            "variable_floor_rub_per_pax": 8370,
+            "full_floor_rub_per_pax": 11516
+          }
+        }
+      },
+      "sources": [
+        "nordwindairlines.ru / ikar-airlines.ru (зоны РФ1–РФ3, тарифы 2025–2026)",
+        "РСБУ ООО Северный Ветер и ООО АК Икар за 2025 г. (TAdviser / Audit-it)"
+      ]
+    },
+    {
+      "id": "uvt_aero",
+      "iata": "RT",
+      "name_ru": "ЮВТ Аэро",
+      "name_en": "UVT Aero",
+      "group": "Independent (Татарстан, базовые KZN / BXK)",
+      "business_model": "Тонкие межрегиональные и субсидируемые маршруты (ПП 1242) на 50-кресельных джетах",
+      "fleet_and_capacity": {
+        "primary_aircraft": "Bombardier CRJ-200",
+        "primary_seats": 50,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Bombardier CRJ-200",
+            "count_total": 7,
+            "seats": 50,
+            "config": "50Y (2+2)"
+          }
+        ],
+        "utilization_notes": "7 CRJ-200; срыв сроков поставок Ту-214 вынуждает переориентироваться на SJ-100 / Ил-114-300."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Промо / Лайт",
+        "baggage_20kg_fare_name": "Оптимум (1×20 кг)",
+        "hand_luggage": "1 место до 5 кг (15x35x45 см)",
+        "checked_baggage_target_kg": 20,
+        "online_addon_20kg_rub_per_segment": {
+          "flat_20kg_rub": 2500,
+          "flat_10kg_rub": 1500,
+          "flat_30kg_rub": 4000,
+          "advance_rule": "Фиксированная шкала допбагажа (2 500 ₽ за 1 место до 20 кг)."
+        },
+        "airport_addon_20kg_rub_per_segment": {
+          "overweight_per_kg_rub": 300
+        },
+        "recommended_basket_adjustment_rub_per_segment": {
+          "direct_segment": 2500,
+          "conservative_midpoint": 2500,
+          "note": "На ряде тарифов «Лайт»/«Специальный» включено 10 кг, переход на 20 кг = 2 500 ₽."
+        },
+        "connecting_baggage_rule": "Преимущественно прямые межрегиональные рейсы; на стыковке оплачивается по условиям тарифа."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2024_m_est": 0.31,
+        "pax_2025_m_est": 0.31,
+        "load_factor_est": 0.82,
+        "rsbu_revenue_2024_rub_bn": 4.3,
+        "rsbu_revenue_2025_rub_bn": 4.5,
+        "rsbu_net_profit_2024_rub_mn_est": 549.0,
+        "rsbu_net_profit_2025_rub_mn": 45.0,
+        "implied_cask_rub_per_ask": [
+          8.5,
+          11.0
+        ],
+        "note": "Устойчивость критически опирается на региональные субсидии (ПП 1242 / бюджет Татарстана); чистая прибыль упала на 91.8% в 2025 г. (до 45 млн ₽)."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 50,
+          "assumed_lf": 0.82,
+          "mtow_t": 24.0,
+          "fuel_burn_t_per_h": 1.18,
+          "cruise_kmh": 700.0,
+          "airport_mtow_rub_per_t": 1150.0,
+          "ground_turn_rub": 22000.0,
+          "airport_pax_fee_rub": 650.0,
+          "var_crew_plus_line_mro_rub_per_h": 26000.0,
+          "distrib_rub_per_pax": 220.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 46000.0,
+          "fixed_crew_and_sga_pct": 0.18
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.11,
+            "fuel_cost_net_rub_flight": 105189,
+            "airport_and_atc_rub_flight": 102585,
+            "variable_floor_rub_per_pax": 5994,
+            "full_floor_rub_per_pax": 8548,
+            "cask_variable_rub_per_ask": 9.47,
+            "cask_full_rub_per_ask": 14.02,
+            "block_hour_variable_rub": 212463,
+            "block_hour_full_rub": 314539
+          },
+          "1000_km": {
+            "block_hours": 1.83,
+            "fuel_cost_net_rub_flight": 172617,
+            "airport_and_atc_rub_flight": 110920,
+            "variable_floor_rub_per_pax": 8295,
+            "full_floor_rub_per_pax": 12209,
+            "cask_variable_rub_per_ask": 6.62,
+            "cask_full_rub_per_ask": 10.01,
+            "block_hour_variable_rub": 181059,
+            "block_hour_full_rub": 273751
+          },
+          "1500_km": {
+            "block_hours": 2.54,
+            "fuel_cost_net_rub_flight": 240046,
+            "airport_and_atc_rub_flight": 119255,
+            "variable_floor_rub_per_pax": 10596,
+            "full_floor_rub_per_pax": 15870,
+            "cask_variable_rub_per_ask": 5.67,
+            "cask_full_rub_per_ask": 8.68,
+            "block_hour_variable_rub": 167298,
+            "block_hour_full_rub": 255877
+          },
+          "2000_km": {
+            "block_hours": 3.26,
+            "fuel_cost_net_rub_flight": 307474,
+            "airport_and_atc_rub_flight": 127590,
+            "variable_floor_rub_per_pax": 12897,
+            "full_floor_rub_per_pax": 19530,
+            "cask_variable_rub_per_ask": 5.2,
+            "cask_full_rub_per_ask": 8.01,
+            "block_hour_variable_rub": 159572,
+            "block_hour_full_rub": 245843
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.94,
+            "variable_floor_rub_per_pax": 14219,
+            "full_floor_rub_per_pax": 20648
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.66,
+            "variable_floor_rub_per_pax": 16520,
+            "full_floor_rub_per_pax": 24309
+          }
+        }
+      },
+      "sources": [
+        "uvtaero.ru (официальные тарифы допбагажа 1 500 / 2 500 / 4 000 ₽)",
+        "РСБУ АО ЮВТ АЭРО за 2025 г. (Audit-it / TenderData)"
+      ]
+    },
+    {
+      "id": "iraero",
+      "iata": "IO",
+      "name_ru": "ИрАэро",
+      "name_en": "IrAero",
+      "group": "Independent (Иркутск / Сибирь и ДВ)",
+      "business_model": "Регионально-магистральный оператор Сибири, ДФО и ближнего зарубежья (IKT)",
+      "fleet_and_capacity": {
+        "primary_aircraft": "SSJ100 (7 активных) / Ан-24/26 (29) / CRJ-200 (1 акт.) / A319 (1)",
+        "primary_seats": 100,
+        "active_fleet_2025_2026": [
+          {
+            "aircraft": "Sukhoi Superjet 100",
+            "count_active": 7,
+            "seats": 100,
+            "config": "93–100 мест"
+          },
+          {
+            "aircraft": "Bombardier CRJ-200LR",
+            "count_active": 1,
+            "count_stored": 4,
+            "seats": 50,
+            "config": "50Y"
+          },
+          {
+            "aircraft": "Airbus A319",
+            "count_active": 1,
+            "seats": 156,
+            "config": "156Y"
+          },
+          {
+            "aircraft": "Ан-24 / Ан-26",
+            "count_active": 29,
+            "seats": 48,
+            "config": "местные линии Сибири и ДВ"
+          }
+        ],
+        "utilization_notes": "Всего ~38 активных ВС (43 в реестре); для конкуренции с Red Wings на реактивных маршрутах ключевой тип — SSJ100 (93–100 мест)."
+      },
+      "baggage_rules": {
+        "no_baggage_fare_name": "Базовый (LIGHT) на SSJ100/CRJ-200/A319",
+        "baggage_20kg_fare_name": "Стандарт (STANDARD) / Плюс (OPTIMAL+) — 1×20 кг",
+        "hand_luggage": "10 кг на Базовом (5 кг на Стандарте); CRJ-200 габариты 15x35x45 см",
+        "checked_baggage_target_kg": 20,
+        "online_addon_20kg_rub_per_segment": {
+          "typical_range_online": [
+            1500,
+            3400
+          ],
+          "siberia_yakutia_example": 3400,
+          "advance_rule": "Динамический расчёт на сайте iraero.ru (>12 ч до вылета дешевле)."
+        },
+        "airport_addon_20kg_rub_per_segment": {
+          "typical_range": [
+            2500,
+            3500
+          ]
+        },
+        "recommended_basket_adjustment_rub_per_segment": {
+          "short_regional": 2000,
+          "siberia_far_east_medium": 3400,
+          "conservative_midpoint": 2500
+        },
+        "connecting_baggage_rule": "Зависит от маршрута; на отдельных северных рейсах (Мама, Ербогачён) сверхнормативный багаж запрещён до 31.12.2026."
+      },
+      "financial_and_operational_metrics": {
+        "pax_2025_1h_m": 0.596,
+        "pax_2025_est_m": 1.15,
+        "load_factor_2025_1h": 0.85,
+        "rsbu_revenue_2024_rub_bn": 20.4,
+        "rsbu_revenue_2025_rub_bn": 22.9,
+        "rsbu_net_profit_2024_rub_mn": 207.2,
+        "rsbu_net_profit_2025_rub_mn": 227.6,
+        "implied_cask_ssj100_rub_per_ask": [
+          7.0,
+          8.5
+        ],
+        "note": "Узкая чистая рентабельность (~1.0%, ЧП 227.6 млн ₽ на 22.9 млрд ₽ выручки); высокие издержки топливозаправки и сборов в ДФО (99% скидка на АНО в ДФО отменена с 2026 г.)."
+      },
+      "cost_floor_model": {
+        "parametric_inputs": {
+          "seats": 100,
+          "assumed_lf": 0.85,
+          "mtow_t": 49.45,
+          "fuel_burn_t_per_h": 1.8,
+          "cruise_kmh": 750.0,
+          "airport_mtow_rub_per_t": 1250.0,
+          "ground_turn_rub": 36000.0,
+          "airport_pax_fee_rub": 720.0,
+          "var_crew_plus_line_mro_rub_per_h": 34000.0,
+          "distrib_rub_per_pax": 250.0,
+          "fixed_lease_plus_heavy_mro_rub_per_h": 90000.0,
+          "fixed_crew_and_sga_pct": 0.18
+        },
+        "formula_description": {
+          "direct": "variable_floor_rub_per_pax = (Fuel_net + Airport_turn_MTOW_and_fixed + ATC_enroute_and_terminal + Block_h * (Var_crew + Line_MRO)) / (Seats * LF) + Airport_pax_fee + Distrib_per_pax; full_floor_rub_per_pax adds (Block_h * (Lease_ownership + Heavy_MRO_reserves)) / (Seats * LF) and Fixed_crew_SGA_markup",
+          "connecting_1stop": "sum(leg_floor(d1), leg_floor(d2)) - 150 RUB (transit exemption from PP 1950 infrastructure fee) + 300 RUB (hub baggage/transfer handling) - Distrib_overlap (150-250 RUB)"
+        },
+        "benchmarks_direct_rub_per_pax": {
+          "500_km": {
+            "block_hours": 1.07,
+            "fuel_cost_net_rub_flight": 153600,
+            "airport_and_atc_rub_flight": 185348,
+            "variable_floor_rub_per_pax": 4664,
+            "full_floor_rub_per_pax": 6837,
+            "cask_variable_rub_per_ask": 7.5,
+            "cask_full_rub_per_ask": 11.62,
+            "block_hour_variable_rub": 351763,
+            "block_hour_full_rub": 544788
+          },
+          "1000_km": {
+            "block_hours": 1.73,
+            "fuel_cost_net_rub_flight": 249600,
+            "airport_and_atc_rub_flight": 193682,
+            "variable_floor_rub_per_pax": 6158,
+            "full_floor_rub_per_pax": 9433,
+            "cask_variable_rub_per_ask": 5.02,
+            "cask_full_rub_per_ask": 8.02,
+            "block_hour_variable_rub": 289740,
+            "block_hour_full_rub": 462559
+          },
+          "1500_km": {
+            "block_hours": 2.4,
+            "fuel_cost_net_rub_flight": 345600,
+            "airport_and_atc_rub_flight": 202018,
+            "variable_floor_rub_per_pax": 7653,
+            "full_floor_rub_per_pax": 12029,
+            "cask_variable_rub_per_ask": 4.19,
+            "cask_full_rub_per_ask": 6.82,
+            "block_hour_variable_rub": 262174,
+            "block_hour_full_rub": 426013
+          },
+          "2000_km": {
+            "block_hours": 3.07,
+            "fuel_cost_net_rub_flight": 441600,
+            "airport_and_atc_rub_flight": 210352,
+            "variable_floor_rub_per_pax": 9147,
+            "full_floor_rub_per_pax": 14625,
+            "cask_variable_rub_per_ask": 3.78,
+            "cask_full_rub_per_ask": 6.22,
+            "block_hour_variable_rub": 246593,
+            "block_hour_full_rub": 405357
+          }
+        },
+        "benchmarks_connecting_1stop_rub_per_pax": {
+          "2x750km_total_1500km": {
+            "total_block_hours": 2.8,
+            "variable_floor_rub_per_pax": 10723,
+            "full_floor_rub_per_pax": 16124
+          },
+          "2x1000km_total_2000km": {
+            "total_block_hours": 3.47,
+            "variable_floor_rub_per_pax": 12217,
+            "full_floor_rub_per_pax": 18720
+          }
+        }
+      },
+      "sources": [
+        "iraero.ru (правила провоза багажа и итоги 1П 2025)",
+        "РСБУ АО АК ИрАэро за 2025 г. (TAdviser / Audit-it / Checko)"
+      ]
+    }
+  ],
+  "aircraft_unit_cost_reference": {
+    "Boeing 737-800 (LCC 189Y)": {
+      "seats": 189,
+      "assumed_lf": 0.945,
+      "mtow_t": 79.0,
+      "fuel_burn_t_per_h": 2.5,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.04,
+          "fuel_cost_net_rub_flight": 208205,
+          "airport_and_atc_rub_flight": 228976,
+          "variable_floor_rub_per_pax": 2754,
+          "full_floor_rub_per_pax": 3491,
+          "cask_variable_rub_per_ask": 4.98,
+          "cask_full_rub_per_ask": 6.6,
+          "block_hour_variable_rub": 451952,
+          "block_hour_full_rub": 598994
+        },
+        "1000_km": {
+          "block_hours": 1.68,
+          "fuel_cost_net_rub_flight": 336410,
+          "airport_and_atc_rub_flight": 237311,
+          "variable_floor_rub_per_pax": 3634,
+          "full_floor_rub_per_pax": 4743,
+          "cask_variable_rub_per_ask": 3.32,
+          "cask_full_rub_per_ask": 4.48,
+          "block_hour_variable_rub": 373084,
+          "block_hour_full_rub": 503609
+        },
+        "1500_km": {
+          "block_hours": 2.32,
+          "fuel_cost_net_rub_flight": 464615,
+          "airport_and_atc_rub_flight": 245646,
+          "variable_floor_rub_per_pax": 4513,
+          "full_floor_rub_per_pax": 5994,
+          "cask_variable_rub_per_ask": 2.77,
+          "cask_full_rub_per_ask": 3.78,
+          "block_hour_variable_rub": 337742,
+          "block_hour_full_rub": 460864
+        },
+        "2000_km": {
+          "block_hours": 2.96,
+          "fuel_cost_net_rub_flight": 592821,
+          "airport_and_atc_rub_flight": 253981,
+          "variable_floor_rub_per_pax": 5392,
+          "full_floor_rub_per_pax": 7246,
+          "cask_variable_rub_per_ask": 2.49,
+          "cask_full_rub_per_ask": 3.42,
+          "block_hour_variable_rub": 317686,
+          "block_hour_full_rub": 436608
+        }
+      }
+    },
+    "Boeing 737-800 (FSC 168-176 seats)": {
+      "seats": 172,
+      "assumed_lf": 0.91,
+      "mtow_t": 79.0,
+      "fuel_burn_t_per_h": 2.5,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.04,
+          "fuel_cost_net_rub_flight": 208205,
+          "airport_and_atc_rub_flight": 266749,
+          "variable_floor_rub_per_pax": 3564,
+          "full_floor_rub_per_pax": 4825,
+          "cask_variable_rub_per_ask": 6.03,
+          "cask_full_rub_per_ask": 8.78,
+          "block_hour_variable_rub": 498237,
+          "block_hour_full_rub": 725448
+        },
+        "1000_km": {
+          "block_hours": 1.68,
+          "fuel_cost_net_rub_flight": 336410,
+          "airport_and_atc_rub_flight": 275084,
+          "variable_floor_rub_per_pax": 4608,
+          "full_floor_rub_per_pax": 6473,
+          "cask_variable_rub_per_ask": 3.97,
+          "cask_full_rub_per_ask": 5.89,
+          "block_hour_variable_rub": 405541,
+          "block_hour_full_rub": 602375
+        },
+        "1500_km": {
+          "block_hours": 2.32,
+          "fuel_cost_net_rub_flight": 464615,
+          "airport_and_atc_rub_flight": 283419,
+          "variable_floor_rub_per_pax": 5653,
+          "full_floor_rub_per_pax": 8122,
+          "cask_variable_rub_per_ask": 3.28,
+          "cask_full_rub_per_ask": 4.93,
+          "block_hour_variable_rub": 364002,
+          "block_hour_full_rub": 547222
+        },
+        "2000_km": {
+          "block_hours": 2.96,
+          "fuel_cost_net_rub_flight": 592821,
+          "airport_and_atc_rub_flight": 291754,
+          "variable_floor_rub_per_pax": 6697,
+          "full_floor_rub_per_pax": 9770,
+          "cask_variable_rub_per_ask": 2.93,
+          "cask_full_rub_per_ask": 4.45,
+          "block_hour_variable_rub": 340429,
+          "block_hour_full_rub": 515925
+        }
+      }
+    },
+    "Airbus A320ceo (164 seats)": {
+      "seats": 164,
+      "assumed_lf": 0.91,
+      "mtow_t": 77.0,
+      "fuel_burn_t_per_h": 2.35,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.04,
+          "fuel_cost_net_rub_flight": 195713,
+          "airport_and_atc_rub_flight": 259353,
+          "variable_floor_rub_per_pax": 3592,
+          "full_floor_rub_per_pax": 4933,
+          "cask_variable_rub_per_ask": 6.08,
+          "cask_full_rub_per_ask": 8.98,
+          "block_hour_variable_rub": 479132,
+          "block_hour_full_rub": 707218
+        },
+        "1000_km": {
+          "block_hours": 1.68,
+          "fuel_cost_net_rub_flight": 316226,
+          "airport_and_atc_rub_flight": 267688,
+          "variable_floor_rub_per_pax": 4636,
+          "full_floor_rub_per_pax": 6627,
+          "cask_variable_rub_per_ask": 3.99,
+          "cask_full_rub_per_ask": 6.03,
+          "block_hour_variable_rub": 389144,
+          "block_hour_full_rub": 588024
+        },
+        "1500_km": {
+          "block_hours": 2.32,
+          "fuel_cost_net_rub_flight": 436738,
+          "airport_and_atc_rub_flight": 276023,
+          "variable_floor_rub_per_pax": 5680,
+          "full_floor_rub_per_pax": 8322,
+          "cask_variable_rub_per_ask": 3.29,
+          "cask_full_rub_per_ask": 5.05,
+          "block_hour_variable_rub": 348818,
+          "block_hour_full_rub": 534610
+        },
+        "2000_km": {
+          "block_hours": 2.96,
+          "fuel_cost_net_rub_flight": 557251,
+          "airport_and_atc_rub_flight": 284358,
+          "variable_floor_rub_per_pax": 6723,
+          "full_floor_rub_per_pax": 10016,
+          "cask_variable_rub_per_ask": 2.95,
+          "cask_full_rub_per_ask": 4.56,
+          "block_hour_variable_rub": 325934,
+          "block_hour_full_rub": 504299
+        }
+      }
+    },
+    "Airbus A321ceo (220Y)": {
+      "seats": 220,
+      "assumed_lf": 0.88,
+      "mtow_t": 89.0,
+      "fuel_burn_t_per_h": 2.85,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.04,
+          "fuel_cost_net_rub_flight": 237354,
+          "airport_and_atc_rub_flight": 308205,
+          "variable_floor_rub_per_pax": 3305,
+          "full_floor_rub_per_pax": 4437,
+          "cask_variable_rub_per_ask": 5.38,
+          "cask_full_rub_per_ask": 7.81,
+          "block_hour_variable_rub": 568059,
+          "block_hour_full_rub": 825184
+        },
+        "1000_km": {
+          "block_hours": 1.68,
+          "fuel_cost_net_rub_flight": 383508,
+          "airport_and_atc_rub_flight": 316540,
+          "variable_floor_rub_per_pax": 4248,
+          "full_floor_rub_per_pax": 5915,
+          "cask_variable_rub_per_ask": 3.52,
+          "cask_full_rub_per_ask": 5.2,
+          "block_hour_variable_rub": 460187,
+          "block_hour_full_rub": 680755
+        },
+        "1500_km": {
+          "block_hours": 2.32,
+          "fuel_cost_net_rub_flight": 529662,
+          "airport_and_atc_rub_flight": 324875,
+          "variable_floor_rub_per_pax": 5192,
+          "full_floor_rub_per_pax": 7392,
+          "cask_variable_rub_per_ask": 2.9,
+          "cask_full_rub_per_ask": 4.34,
+          "block_hour_variable_rub": 411847,
+          "block_hour_full_rub": 616033
+        },
+        "2000_km": {
+          "block_hours": 2.96,
+          "fuel_cost_net_rub_flight": 675815,
+          "airport_and_atc_rub_flight": 333210,
+          "variable_floor_rub_per_pax": 6136,
+          "full_floor_rub_per_pax": 8869,
+          "cask_variable_rub_per_ask": 2.59,
+          "cask_full_rub_per_ask": 3.9,
+          "block_hour_variable_rub": 384415,
+          "block_hour_full_rub": 579305
+        }
+      }
+    },
+    "SSJ100 / RRJ-95 (100Y)": {
+      "seats": 100,
+      "assumed_lf": 0.9,
+      "mtow_t": 49.45,
+      "fuel_burn_t_per_h": 1.8,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.07,
+          "fuel_cost_net_rub_flight": 153600,
+          "airport_and_atc_rub_flight": 182202,
+          "variable_floor_rub_per_pax": 4372,
+          "full_floor_rub_per_pax": 6418,
+          "cask_variable_rub_per_ask": 7.42,
+          "cask_full_rub_per_ask": 11.55,
+          "block_hour_variable_rub": 347815,
+          "block_hour_full_rub": 541512
+        },
+        "1000_km": {
+          "block_hours": 1.73,
+          "fuel_cost_net_rub_flight": 249600,
+          "airport_and_atc_rub_flight": 190538,
+          "variable_floor_rub_per_pax": 5776,
+          "full_floor_rub_per_pax": 8861,
+          "cask_variable_rub_per_ask": 4.97,
+          "cask_full_rub_per_ask": 7.97,
+          "block_hour_variable_rub": 286925,
+          "block_hour_full_rub": 460089
+        },
+        "1500_km": {
+          "block_hours": 2.4,
+          "fuel_cost_net_rub_flight": 345600,
+          "airport_and_atc_rub_flight": 198872,
+          "variable_floor_rub_per_pax": 7180,
+          "full_floor_rub_per_pax": 11304,
+          "cask_variable_rub_per_ask": 4.16,
+          "cask_full_rub_per_ask": 6.78,
+          "block_hour_variable_rub": 259864,
+          "block_hour_full_rub": 423901
+        },
+        "2000_km": {
+          "block_hours": 3.07,
+          "fuel_cost_net_rub_flight": 441600,
+          "airport_and_atc_rub_flight": 207208,
+          "variable_floor_rub_per_pax": 8583,
+          "full_floor_rub_per_pax": 13747,
+          "cask_variable_rub_per_ask": 3.75,
+          "cask_full_rub_per_ask": 6.19,
+          "block_hour_variable_rub": 244568,
+          "block_hour_full_rub": 403447
+        }
+      }
+    },
+    "Embraer E190 (Ikar 110Y)": {
+      "seats": 110,
+      "assumed_lf": 0.88,
+      "mtow_t": 50.3,
+      "fuel_burn_t_per_h": 1.7,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.06,
+          "fuel_cost_net_rub_flight": 143874,
+          "airport_and_atc_rub_flight": 184004,
+          "variable_floor_rub_per_pax": 3977,
+          "full_floor_rub_per_pax": 5554,
+          "cask_variable_rub_per_ask": 6.58,
+          "cask_full_rub_per_ask": 9.77,
+          "block_hour_variable_rub": 341934,
+          "block_hour_full_rub": 508179
+        },
+        "1000_km": {
+          "block_hours": 1.72,
+          "fuel_cost_net_rub_flight": 233347,
+          "airport_and_atc_rub_flight": 192339,
+          "variable_floor_rub_per_pax": 5205,
+          "full_floor_rub_per_pax": 7575,
+          "cask_variable_rub_per_ask": 4.37,
+          "cask_full_rub_per_ask": 6.67,
+          "block_hour_variable_rub": 280099,
+          "block_hour_full_rub": 427385
+        },
+        "1500_km": {
+          "block_hours": 2.37,
+          "fuel_cost_net_rub_flight": 322821,
+          "airport_and_atc_rub_flight": 200674,
+          "variable_floor_rub_per_pax": 6433,
+          "full_floor_rub_per_pax": 9597,
+          "cask_variable_rub_per_ask": 3.63,
+          "cask_full_rub_per_ask": 5.63,
+          "block_hour_variable_rub": 252541,
+          "block_hour_full_rub": 391378
+        },
+        "2000_km": {
+          "block_hours": 3.03,
+          "fuel_cost_net_rub_flight": 412295,
+          "airport_and_atc_rub_flight": 209009,
+          "variable_floor_rub_per_pax": 7661,
+          "full_floor_rub_per_pax": 11619,
+          "cask_variable_rub_per_ask": 3.27,
+          "cask_full_rub_per_ask": 5.11,
+          "block_hour_variable_rub": 236944,
+          "block_hour_full_rub": 370998
+        }
+      }
+    },
+    "Embraer E170 (S7 78Y)": {
+      "seats": 78,
+      "assumed_lf": 0.92,
+      "mtow_t": 37.2,
+      "fuel_burn_t_per_h": 1.3,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.08,
+          "fuel_cost_net_rub_flight": 111870,
+          "airport_and_atc_rub_flight": 149347,
+          "variable_floor_rub_per_pax": 4340,
+          "full_floor_rub_per_pax": 6251,
+          "cask_variable_rub_per_ask": 7.53,
+          "cask_full_rub_per_ask": 11.5,
+          "block_hour_variable_rub": 272840,
+          "block_hour_full_rub": 417041
+        },
+        "1000_km": {
+          "block_hours": 1.75,
+          "fuel_cost_net_rub_flight": 182141,
+          "airport_and_atc_rub_flight": 157682,
+          "variable_floor_rub_per_pax": 5718,
+          "full_floor_rub_per_pax": 8614,
+          "cask_variable_rub_per_ask": 5.03,
+          "cask_full_rub_per_ask": 7.93,
+          "block_hour_variable_rub": 224034,
+          "block_hour_full_rub": 352962
+        },
+        "1500_km": {
+          "block_hours": 2.43,
+          "fuel_cost_net_rub_flight": 252411,
+          "airport_and_atc_rub_flight": 166017,
+          "variable_floor_rub_per_pax": 7096,
+          "full_floor_rub_per_pax": 10977,
+          "cask_variable_rub_per_ask": 4.2,
+          "cask_full_rub_per_ask": 6.73,
+          "block_hour_variable_rub": 202403,
+          "block_hour_full_rub": 324562
+        },
+        "2000_km": {
+          "block_hours": 3.1,
+          "fuel_cost_net_rub_flight": 322681,
+          "airport_and_atc_rub_flight": 174352,
+          "variable_floor_rub_per_pax": 8473,
+          "full_floor_rub_per_pax": 13340,
+          "cask_variable_rub_per_ask": 3.78,
+          "cask_full_rub_per_ask": 6.14,
+          "block_hour_variable_rub": 190194,
+          "block_hour_full_rub": 308532
+        }
+      }
+    },
+    "Boeing 737-500 (Utair 126Y)": {
+      "seats": 126,
+      "assumed_lf": 0.85,
+      "mtow_t": 60.5,
+      "fuel_burn_t_per_h": 2.2,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.06,
+          "fuel_cost_net_rub_flight": 186189,
+          "airport_and_atc_rub_flight": 204738,
+          "variable_floor_rub_per_pax": 4236,
+          "full_floor_rub_per_pax": 5739,
+          "cask_variable_rub_per_ask": 6.79,
+          "cask_full_rub_per_ask": 9.76,
+          "block_hour_variable_rub": 404533,
+          "block_hour_full_rub": 580964
+        },
+        "1000_km": {
+          "block_hours": 1.72,
+          "fuel_cost_net_rub_flight": 301979,
+          "airport_and_atc_rub_flight": 213073,
+          "variable_floor_rub_per_pax": 5610,
+          "full_floor_rub_per_pax": 7845,
+          "cask_variable_rub_per_ask": 4.56,
+          "cask_full_rub_per_ask": 6.67,
+          "block_hour_variable_rub": 335184,
+          "block_hour_full_rub": 489711
+        },
+        "1500_km": {
+          "block_hours": 2.37,
+          "fuel_cost_net_rub_flight": 417768,
+          "airport_and_atc_rub_flight": 221408,
+          "variable_floor_rub_per_pax": 6984,
+          "full_floor_rub_per_pax": 9952,
+          "cask_variable_rub_per_ask": 3.82,
+          "cask_full_rub_per_ask": 5.64,
+          "block_hour_variable_rub": 304276,
+          "block_hour_full_rub": 449042
+        },
+        "2000_km": {
+          "block_hours": 3.03,
+          "fuel_cost_net_rub_flight": 533558,
+          "airport_and_atc_rub_flight": 229743,
+          "variable_floor_rub_per_pax": 8358,
+          "full_floor_rub_per_pax": 12059,
+          "cask_variable_rub_per_ask": 3.45,
+          "cask_full_rub_per_ask": 5.13,
+          "block_hour_variable_rub": 286783,
+          "block_hour_full_rub": 426024
+        }
+      }
+    },
+    "ATR 72-500 (Utair 70Y)": {
+      "seats": 70,
+      "assumed_lf": 0.85,
+      "mtow_t": 22.5,
+      "fuel_burn_t_per_h": 0.72,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.39,
+          "fuel_cost_net_rub_flight": 80160,
+          "airport_and_atc_rub_flight": 110885,
+          "variable_floor_rub_per_pax": 3992,
+          "full_floor_rub_per_pax": 6588,
+          "cask_variable_rub_per_ask": 6.41,
+          "cask_full_rub_per_ask": 11.2,
+          "block_hour_variable_rub": 161278,
+          "block_hour_full_rub": 281647
+        },
+        "1000_km": {
+          "block_hours": 2.43,
+          "fuel_cost_net_rub_flight": 140160,
+          "airport_and_atc_rub_flight": 119220,
+          "variable_floor_rub_per_pax": 5561,
+          "full_floor_rub_per_pax": 9843,
+          "cask_variable_rub_per_ask": 4.54,
+          "cask_full_rub_per_ask": 8.37,
+          "block_hour_variable_rub": 130595,
+          "block_hour_full_rub": 240689
+        },
+        "1500_km": {
+          "block_hours": 3.48,
+          "fuel_cost_net_rub_flight": 200160,
+          "airport_and_atc_rub_flight": 127555,
+          "variable_floor_rub_per_pax": 7129,
+          "full_floor_rub_per_pax": 13099,
+          "cask_variable_rub_per_ask": 3.92,
+          "cask_full_rub_per_ask": 7.42,
+          "block_hour_variable_rub": 118306,
+          "block_hour_full_rub": 224287
+        },
+        "2000_km": {
+          "block_hours": 4.52,
+          "fuel_cost_net_rub_flight": 260160,
+          "airport_and_atc_rub_flight": 135890,
+          "variable_floor_rub_per_pax": 8698,
+          "full_floor_rub_per_pax": 16355,
+          "cask_variable_rub_per_ask": 3.6,
+          "cask_full_rub_per_ask": 6.95,
+          "block_hour_variable_rub": 111686,
+          "block_hour_full_rub": 215450
+        }
+      }
+    },
+    "Bombardier CRJ-200 (UVT/IrAero 50Y)": {
+      "seats": 50,
+      "assumed_lf": 0.82,
+      "mtow_t": 24.0,
+      "fuel_burn_t_per_h": 1.18,
+      "benchmarks_direct": {
+        "500_km": {
+          "block_hours": 1.11,
+          "fuel_cost_net_rub_flight": 105189,
+          "airport_and_atc_rub_flight": 102585,
+          "variable_floor_rub_per_pax": 5994,
+          "full_floor_rub_per_pax": 8548,
+          "cask_variable_rub_per_ask": 9.47,
+          "cask_full_rub_per_ask": 14.02,
+          "block_hour_variable_rub": 212463,
+          "block_hour_full_rub": 314539
+        },
+        "1000_km": {
+          "block_hours": 1.83,
+          "fuel_cost_net_rub_flight": 172617,
+          "airport_and_atc_rub_flight": 110920,
+          "variable_floor_rub_per_pax": 8295,
+          "full_floor_rub_per_pax": 12209,
+          "cask_variable_rub_per_ask": 6.62,
+          "cask_full_rub_per_ask": 10.01,
+          "block_hour_variable_rub": 181059,
+          "block_hour_full_rub": 273751
+        },
+        "1500_km": {
+          "block_hours": 2.54,
+          "fuel_cost_net_rub_flight": 240046,
+          "airport_and_atc_rub_flight": 119255,
+          "variable_floor_rub_per_pax": 10596,
+          "full_floor_rub_per_pax": 15870,
+          "cask_variable_rub_per_ask": 5.67,
+          "cask_full_rub_per_ask": 8.68,
+          "block_hour_variable_rub": 167298,
+          "block_hour_full_rub": 255877
+        },
+        "2000_km": {
+          "block_hours": 3.26,
+          "fuel_cost_net_rub_flight": 307474,
+          "airport_and_atc_rub_flight": 127590,
+          "variable_floor_rub_per_pax": 12897,
+          "full_floor_rub_per_pax": 19530,
+          "cask_variable_rub_per_ask": 5.2,
+          "cask_full_rub_per_ask": 8.01,
+          "block_hour_variable_rub": 159572,
+          "block_hour_full_rub": 245843
+        }
+      }
+    }
+  }
+}

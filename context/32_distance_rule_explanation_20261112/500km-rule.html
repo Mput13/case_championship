@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+#distance-rule { font-family:var(--font-sans); color:var(--foreground); }
+#distance-rule * { box-sizing:border-box; }
+#distance-rule .start { text-align:center; }
+#distance-rule b { font-weight:500; }
+#distance-rule p { margin:0; }
+#distance-rule .arrow { display:block; height:32px; width:100%; color:var(--muted-foreground); }
+#distance-rule .split { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+#distance-rule .branch { min-width:0; }
+#distance-rule .test { border-top:2px solid var(--border); padding-top:12px; margin-bottom:12px; }
+#distance-rule .test.pass { border-color:var(--chart-1); }
+#distance-rule .town { display:flex; gap:12px; justify-content:space-between; padding:5px 0; }
+#distance-rule .km { white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--muted-foreground); }
+#distance-rule .muted { color:var(--muted-foreground); }
+#distance-rule .step { margin-top:12px; }
+#distance-rule .winners { display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:8px; }
+#distance-rule .source { margin-top:20px; padding-top:12px; border-top:1px solid var(--border); }
+#distance-rule .source p+p { margin-top:8px; }
+@media(max-width:520px) { #distance-rule .split { grid-template-columns:1fr; gap:20px; } }
+</style></head><body>
+<div id="distance-rule" role="group" aria-label="Как фильтр 500 километров сокращал основной список городов">
+  <div class="start"><b>20 городов-кандидатов</b></div>
+  <svg class="arrow" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 0"/><line x1="50%" y1="4" x2="50%" y2="25"/><path d="M0 0"/><polyline points="0,0"/><g transform="translate(0 0)"><svg x="50%" y="20" overflow="visible"><path d="M-5 0 L0 6 L5 0"/></svg></g></svg>
+  <div class="start">Расстояние по прямой до ближайшей базы:<br><b>Москва или Екатеринбург</b></div>
+  <svg class="arrow" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3"><line x1="50%" y1="4" x2="50%" y2="25"/><svg x="50%" y="20" overflow="visible"><path d="M-5 0 L0 6 L5 0"/></svg></svg>
+  <div class="split">
+    <div class="branch">
+      <div class="test"><b>Меньше 500 км → исключаем 5</b></div>
+      <div class="town"><span>Челябинск</span><span class="km">166 км</span></div>
+      <div class="town"><span>Тюмень</span><span class="km">279 км</span></div>
+      <div class="town"><span>Пермь</span><span class="km">315 км</span></div>
+      <div class="town"><span>Нижний Новгород</span><span class="km">378 км</span></div>
+      <div class="town"><span>Уфа</span><span class="km">393 км</span></div>
+      <p class="step muted">В основной рейтинг не попадают,<br>даже при высоких остальных баллах.</p>
+    </div>
+    <div class="branch">
+      <div class="test pass"><b>От 500 км → оставляем 15</b></div>
+      <div class="town"><span>Оренбург</span><span class="km">650 км</span></div>
+      <div class="town"><span>Самара</span><span class="km">765 км</span></div>
+      <div class="town"><span>Омск</span><span class="km">804 км</span></div>
+      <p class="muted">и ещё 12 городов</p>
+      <svg class="arrow" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3"><line x1="50%" y1="4" x2="50%" y2="25"/><svg x="50%" y="20" overflow="visible"><path d="M-5 0 L0 6 L5 0"/></svg></svg>
+      <p>Рейтинг по рынку, связности,<br>ограничениям и другим критериям</p>
+      <div class="winners"><b>1. Омск</b><span>2. Самара</span><span>3. Оренбург</span></div>
+    </div>
+  </div>
+  <div class="source">
+    <p><b>Расчёт сети и денег:</b> в версии 11 ноября выполнен для всех 20 городов, включая исключённые из основного рейтинга.</p>
+    <p class="muted">Основной профиль весов · развитие существующей опоры разрешено · версия dceadc9.</p>
+  </div>
+</div>
+</body></html>

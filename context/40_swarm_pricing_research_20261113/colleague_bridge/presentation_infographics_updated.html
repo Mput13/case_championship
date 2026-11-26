@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  :root { font-family: var(--font-sans); }
+  body { margin: 0; color: var(--foreground); font-size: 12.5px; line-height: 1.4; }
+  h3 { margin: 0 0 4px 0; font-size: 13.5px; font-weight: 600; color: var(--foreground); }
+  .sub { margin: 0 0 8px 0; font-size: 11.5px; color: var(--muted-foreground); }
+  .sep { border-top: 1px solid var(--border); margin: 14px 0 12px 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; background: var(--card); }
+  .kpi { font-size: 18px; font-weight: 700; margin: 2px 0; font-variant-numeric: tabular-nums; }
+  .pos { color: var(--success); }
+  .warn { color: var(--warning); }
+  .neg { color: var(--destructive); }
+  .muted { color: var(--muted-foreground); font-size: 11px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 4px 0 8px 0; font-size: 11px; color: var(--muted-foreground); }
+  .li { display: inline-flex; align-items: center; gap: 5px; }
+  .dot { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 4px; }
+  th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted-foreground); font-weight: 500; font-size: 11px; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .badge { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 10.5px; font-weight: 600; }
+  .b-ok { background: color-mix(in srgb, var(--success) 16%, transparent); color: var(--success); }
+  .b-warn { background: var(--warning-surface); color: var(--warning); }
+  .b-bad { background: var(--destructive-surface); color: var(--destructive); }
+  svg text { font-family: var(--font-sans); }
+</style>
+</head>
+<body>
+  <h3>Слайд 3–4 (Пересчёт): Первый хаб OMS + 2 треугольника MOW — ожидание vs рынок</h3>
+  <p class="sub">Слева — цифры слайдов (модель 1 года без ответа конкурентов); справа — расчёт P09 с живыми ценами API, субсидиями и стрессом 2028 (24 мес., Δ к KEEP, RW_SUPPORT_NEW = 0).</p>
+  <div class="grid2">
+    <div class="card">
+      <div class="muted">Как сейчас в презентации (Слайд 3–4, 1 год без конкурентов)</div>
+      <div class="kpi">+455 млн ₽/год <span class="muted">OMS (7 ВС, 9 лучей)</span></div>
+      <div>+113 млн ₽/год — 2 треугольника из MOW (+72 AER–VOG, +40 GSV–MRV)</div>
+      <div class="muted" style="margin-top:4px">Итого в презентации: <b>+568 млн ₽/год</b> (~10 ВС). В осторожном 1-год: OMS проваливается до <b>−2 346 млн ₽</b>.</div>
+    </div>
+    <div class="card">
+      <div class="muted">После учёта рынка (P09, 24 мес. 2027–2028, Δ к KEEP)</div>
+      <div class="kpi"><span class="pos">+540.1 млн ₽</span> <span class="muted">OMS_RADIAL (База, −25% к P09)</span></div>
+      <div>Осторожный / 2028: <b class="neg">−192.2 / −195.5 млн ₽</b> (пик кассы <b class="neg">140 млн ₽</b>)</div>
+      <div class="muted" style="margin-top:4px">MOW-плечи в норме только из <b>ZIA</b>; из SVO/DME/VKO на всех 5 парах MOW 9–26 вылетов/2 дн. (SU, DP, S7, U6).</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <h3>Слайд 6 (Пересчёт): Масштабируемость хабов — почему «тяжёлый банк» ломается и побеждает RADIAL</h3>
+  <p class="sub">Δ к KEEP (млн ₽, 2027–2028) при росте сложности сети от 9-лучевого радиала (RADIAL) к стыковочному банку (BANK9) в Базе (верхняя полоса) и Стрессе 2028 (нижняя полоса).</p>
+  <div class="legend">
+    <span class="li"><span class="dot" style="background:var(--chart-2)"></span>Рынок (База)</span>
+    <span class="li"><span class="dot" style="background:var(--chart-4)"></span>Стресс экспансии 2028 (SU/SVX, DP, N4 + осторожный спрос)</span>
+  </div>
+  <svg id="scaleChart" viewBox="0 0 720 250" style="width:100%;height:250px;display:block" role="img" aria-label="Масштабируемость конструкций сети для Омска, Волгограда и Челябинска"></svg>
+
+  <div class="sep"></div>
+
+  <h3>Слайд 7 (Пересчёт роадмапа): OMS vs CEK vs UFA vs TJM и новые лидеры устойчивости (VOG, GOJ, KUF)</h3>
+  <p class="sub">Сравнение выбора презентации с пересчётом лонглиста (50% база конкурента + 50% W_comp_2028) и экономикой P09 в 3 режимах.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Хаб / роль</th>
+        <th class="num">До базы RW</th>
+        <th class="num">Ковёр</th>
+        <th class="num">W28 (риск)</th>
+        <th class="num">Лонглист</th>
+        <th class="num">≥500 км</th>
+        <th class="num">P09 База</th>
+        <th class="num">Эксп. 2028</th>
+        <th>Вердикт по пересчёту</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>OMS Омск</b> (Хаб 1)</td>
+        <td class="num">804 км</td>
+        <td class="num pos"><b>7 дн.</b></td>
+        <td class="num">0.151</td>
+        <td class="num">#4→#5</td>
+        <td class="num"><span class="badge b-ok">#1→#1</span></td>
+        <td class="num pos">+540.1</td>
+        <td class="num neg">−195.5</td>
+        <td><span class="badge b-warn">Хаб 1 ОК, но старт с RADIAL</span></td>
+      </tr>
+      <tr>
+        <td><b>VOG Волгоград</b></td>
+        <td class="num">857 км</td>
+        <td class="num neg"><b>141 дн.</b></td>
+        <td class="num">0.124</td>
+        <td class="num">#10→#10</td>
+        <td class="num">#5→#5</td>
+        <td class="num pos">+545.2</td>
+        <td class="num pos"><b>+293.7</b></td>
+        <td><span class="badge b-warn">№1 в стрессе P09, но 141 дн. Ковра</span></td>
+      </tr>
+      <tr>
+        <td><b>GOJ Нижний</b></td>
+        <td class="num warn">378 км</td>
+        <td class="num neg">116 дн.</td>
+        <td class="num">0.206</td>
+        <td class="num">#7→#7</td>
+        <td class="num">— (&lt;500 MOW)</td>
+        <td class="num pos">+519.7</td>
+        <td class="num pos"><b>+184.7</b></td>
+        <td><span class="badge b-warn">№2 в стрессе, но 116 дн. Ковра</span></td>
+      </tr>
+      <tr>
+        <td><b>KUF Самара</b></td>
+        <td class="num">765 км</td>
+        <td class="num neg">137 дн.</td>
+        <td class="num">0.227</td>
+        <td class="num">#6→#6</td>
+        <td class="num">#2→#2</td>
+        <td class="num pos">+606.1</td>
+        <td class="num pos">+48.8</td>
+        <td><span class="badge b-warn">№2 ≥500 км, но 137 дн. Ковра</span></td>
+      </tr>
+      <tr>
+        <td><b>CEK Челябинск</b> (Хаб 2 в презе)</td>
+        <td class="num neg"><b>166 км</b></td>
+        <td class="num pos">16 дн.</td>
+        <td class="num">0.150</td>
+        <td class="num">#3→<b>#1</b></td>
+        <td class="num neg">отсеян</td>
+        <td class="num pos">+516.7</td>
+        <td class="num neg">−60.1</td>
+        <td><span class="badge b-bad">Снять с Хаба 2: рядом с SVX + A4 MRV</span></td>
+      </tr>
+      <tr>
+        <td><b>UFA Уфа</b></td>
+        <td class="num warn">393 км</td>
+        <td class="num warn">64 дн.</td>
+        <td class="num neg"><b>0.295</b></td>
+        <td class="num">#1→#3</td>
+        <td class="num warn">отсеян</td>
+        <td class="num pos">+453.8</td>
+        <td class="num warn">−0.1</td>
+        <td><span class="badge b-warn">Лучше CEK/OMS в P09, но SU/DP + 64 дн.</span></td>
+      </tr>
+      <tr>
+        <td><b>TJM Тюмень</b> (Хаб 3 в презе)</td>
+        <td class="num warn">279 км</td>
+        <td class="num pos">13 дн.</td>
+        <td class="num">0.178</td>
+        <td class="num">#5→#4</td>
+        <td class="num warn">отсеян</td>
+        <td class="num pos">+404.3</td>
+        <td class="num neg">−215.7</td>
+        <td><span class="badge b-bad">Слаб в стрессе (−216М, пик 170М, UT)</span></td>
+      </tr>
+      <tr>
+        <td><b>SVX Екатеринб.</b> (база RW)</td>
+        <td class="num">0 км</td>
+        <td class="num muted">—</td>
+        <td class="num neg"><b>0.339</b></td>
+        <td class="num">база</td>
+        <td class="num">база</td>
+        <td class="num pos">+394.4</td>
+        <td class="num neg">−15.2</td>
+        <td><span class="badge b-bad">Риск кластера «Аэрофлот — Урал»</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+<script>
+const ns = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, text) => {
+  const n = document.createElementNS(ns, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (text !== undefined) n.textContent = text;
+  return n;
+};
+
+const rows = [
+  { name: "VOG_RADIAL (9 лучей, старт)",     base: 545.2,  exp: 293.7 },
+  { name: "VOG_HYBRID (волны + SVX)",         base: 500.5,  exp: -204.0 },
+  { name: "VOG_BANK9 (полный банк 9 лучей)",  base: 249.0,  exp: -389.3 },
+  { name: "OMS_RADIAL (9 лучей, без волн)",   base: 540.1,  exp: -195.5 },
+  { name: "OMS_HYBRID (волны + SVX)",         base: 476.5,  exp: -452.5 },
+  { name: "OMS_BANK9 (полный банк 9 лучей)",  base: -745.4, exp: -979.9 },
+  { name: "CEK_RADIAL (vs UFA_RADIAL −0.1M)",  base: 516.7,  exp: -60.1 },
+  { name: "CEK_BANK9 (полный банк 9 лучей)",  base: -483.3, exp: -1007.1 }
+];
+
+const svg = document.getElementById("scaleChart");
+const xMin = -1050, xMax = 650, lp = 225, rp = 58, tp = 18, rh = 28;
+const X = v => lp + ((v - xMin) / (xMax - xMin)) * (720 - lp - rp);
+[-1000, -750, -500, -250, 0, 250, 500].forEach(t => {
+  const x = X(t);
+  svg.appendChild(el("line", { x1: x, y1: tp, x2: x, y2: tp + rows.length * rh, stroke: t === 0 ? "var(--muted-foreground)" : "var(--border)", "stroke-width": t === 0 ? "1.3" : "1" }));
+  svg.appendChild(el("text", { x: x, y: tp - 5, "text-anchor": "middle", fill: "var(--muted-foreground)", "font-size": "10" }, t));
+});
+const x0 = X(0);
+rows.forEach((d, i) => {
+  const y = tp + i * rh + 3;
+  svg.appendChild(el("text", { x: 4, y: y + 15, fill: "var(--foreground)", "font-size": "11", "font-weight": d.name.includes("RADIAL") ? "600" : "400" }, d.name));
+  // base bar
+  const b1 = el("rect", { x: Math.min(x0, X(d.base)).toFixed(1), y: y + 2, width: Math.max(2, Math.abs(X(d.base) - x0)).toFixed(1), height: "8", rx: "2", fill: "var(--chart-2)" });
+  b1.appendChild(el("title", {}, `${d.name} (База): ${d.base > 0 ? "+" : ""}${d.base} млн ₽`));
+  svg.appendChild(b1);
+  // exp bar
+  const b2 = el("rect", { x: Math.min(x0, X(d.exp)).toFixed(1), y: y + 12, width: Math.max(2, Math.abs(X(d.exp) - x0)).toFixed(1), height: "8", rx: "2", fill: d.exp > 0 ? "var(--success)" : "var(--chart-4)" });
+  b2.appendChild(el("title", {}, `${d.name} (Экспансия 2028): ${d.exp > 0 ? "+" : ""}${d.exp} млн ₽`));
+  svg.appendChild(b2);
+  svg.appendChild(el("text", { x: 716, y: y + 15, "text-anchor": "end", fill: d.exp > 0 ? "var(--success)" : "var(--muted-foreground)", "font-size": "10.5", "font-weight": d.exp > 0 ? "600" : "400" }, `${d.exp > 0 ? "+" : ""}${d.exp.toFixed(0)}М`));
+});
+</script>
+</body>
+</html>
