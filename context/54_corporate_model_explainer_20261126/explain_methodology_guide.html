@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как мы искали корпоративный авиаспрос для Red Wings — методика и ход анализа</title>
+<style>
+:root {
+  --bg: #f6f6f4;
+  --surface: #ffffff;
+  --ink: #171b1f;
+  --ink-2: #49525c;
+  --ink-3: #76808b;
+  --line: #e3e6ea;
+  --accent: #c8372d;
+  --accent-ink: #9b231b;
+  --accent-soft: #fdf0ef;
+  --blue: #2364b0;
+  --blue-soft: #ecf3fc;
+  --green: #168558;
+  --green-soft: #ebf8f2;
+  --amber: #9b6500;
+  --amber-soft: #fdf6e4;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17.5px/1.68 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  background: #eceff2;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* DID layout: sticky left TOC + continuous article column */
+.layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 38px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 28px 100px;
+}
+nav#toc {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  padding: 28px 0 32px;
+  font-size: 14px;
+  line-height: 1.38;
+}
+nav#toc .toc-title {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 10px 10px;
+}
+nav#toc a {
+  display: block;
+  padding: 6px 10px;
+  border-left: 2px solid var(--line);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+nav#toc a:hover { color: var(--ink); background: rgba(0,0,0,0.025); }
+nav#toc a.on {
+  border-left-color: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+  background: rgba(200,55,45,0.05);
+}
+nav#toc .toc-note {
+  margin: 18px 0 0 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.45;
+}
+main { min-width: 0; }
+
+/* Mobile header & drawer */
+.mob-bar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mob-bar .mob-cur {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mob-toggle {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 12px;
+  font: 600 13.5px/1.2 inherit;
+  cursor: pointer;
+  flex: none;
+}
+.mob-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,24,28,0.42);
+  z-index: 48;
+}
+.mob-backdrop.open { display: block; }
+
+@media (max-width: 960px) {
+  .mob-bar { display: flex; }
+  .layout { grid-template-columns: 1fr; padding: 0 16px 80px; gap: 0; }
+  nav#toc {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--surface);
+    z-index: 50;
+    padding: 20px 14px 32px;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    transform: translateX(-105%);
+    transition: transform .18s ease;
+  }
+  nav#toc.open { transform: translateX(0); }
+}
+
+/* Editorial typography */
+header.hero { padding: 46px 0 24px; }
+header.hero .kicker {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+header.hero h1 {
+  font-size: 38px;
+  line-height: 1.15;
+  margin: 10px 0 16px;
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+}
+header.hero p.lead {
+  font-size: 19.5px;
+  color: var(--ink-2);
+  max-width: 64ch;
+  margin: 0;
+  line-height: 1.55;
+}
+@media (max-width: 720px) {
+  header.hero h1 { font-size: 28px; }
+  header.hero p.lead { font-size: 17px; }
+}
+
+section {
+  padding: 36px 0 6px;
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+}
+section > h2 {
+  font-size: 28px;
+  line-height: 1.22;
+  margin: 0 0 10px;
+  letter-spacing: -0.015em;
+}
+section > h2 .n {
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 10px;
+}
+section > p.sub {
+  font-size: 18.5px;
+  color: var(--ink-2);
+  margin: 0 0 20px;
+  max-width: 66ch;
+  line-height: 1.55;
+}
+h3 { font-size: 20px; margin: 28px 0 8px; line-height: 1.3; }
+p, li { max-width: 68ch; }
+ul, ol { padding-left: 22px; }
+li { margin: 6px 0; }
+
+/* Callout boxes like textbook inserts */
+.rule-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 15px 18px;
+  margin: 18px 0;
+  max-width: 72ch;
+}
+.rule-box .lbl {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: 4px;
+}
+.example-box {
+  background: var(--blue-soft);
+  border: 1px solid #c9def6;
+  border-radius: var(--radius);
+  padding: 15px 18px;
+  margin: 18px 0;
+  max-width: 72ch;
+}
+.example-box .lbl {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+.trap-box {
+  background: var(--amber-soft);
+  border: 1px solid #ebd596;
+  border-radius: var(--radius);
+  padding: 15px 18px;
+  margin: 18px 0;
+  max-width: 72ch;
+}
+.trap-box .lbl {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+
+/* Cards & grids */
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 16px 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+@media (max-width: 780px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.card h4 { margin: 0 0 6px; font-size: 16.5px; }
+.card p { margin: 4px 0; font-size: 15px; color: var(--ink-2); }
+.card.ok { border-top: 3px solid var(--green); }
+.card.warn { border-top: 3px solid #d4961a; }
+.card.no { border-top: 3px solid var(--accent); }
+.card.blu { border-top: 3px solid var(--blue); }
+
+/* Case study cards */
+.case {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.case-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.case-head h4 { margin: 0; font-size: 17px; }
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+.badge.go { background: var(--green-soft); color: var(--green); }
+.badge.cond { background: var(--amber-soft); color: var(--amber); }
+.badge.nogo { background: var(--accent-soft); color: var(--accent-ink); }
+.case p { margin: 6px 0; font-size: 15.5px; }
+
+/* Tables */
+.tbl-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.45;
+}
+th {
+  font-size: 12px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: #f8f9fa;
+  font-weight: 700;
+}
+tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Figures & SVGs */
+figure.fig {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 18px 14px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+figure.fig figcaption {
+  font-size: 14.5px;
+  color: var(--ink-2);
+  margin-top: 12px;
+  line-height: 1.48;
+}
+figure.fig figcaption b { color: var(--ink); }
+svg.dia { width: 100%; min-width: 660px; height: auto; display: block; }
+svg.dia text { font: 12.5px -apple-system, "Segoe UI", Roboto, Arial, sans-serif; fill: var(--ink); }
+svg.dia text.t { font-weight: 700; font-size: 13.5px; }
+svg.dia text.s { fill: var(--ink-2); font-size: 11.5px; }
+svg.dia text.k { font-weight: 700; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+svg.dia .bx { fill: #fff; stroke: #c5cdd5; stroke-width: 1.4; rx: 8; }
+svg.dia .bx.blu { fill: #f2f7fe; stroke: #7db0e8; }
+svg.dia .bx.red { fill: #fff6f5; stroke: #e39690; }
+svg.dia .bx.grn { fill: #effbf5; stroke: #68c19a; }
+svg.dia .bx.amb { fill: #fffaf0; stroke: #e2bd68; }
+svg.dia .bx.gry { fill: #f8f9fa; stroke: #cfd5dc; }
+svg.dia .ar { stroke: #55606d; stroke-width: 1.6; fill: none; marker-end: url(#ah); }
+svg.dia .ar.red { stroke: var(--accent); stroke-width: 1.8; marker-end: url(#ah-r); }
+svg.dia .ar.grn { stroke: var(--green); stroke-width: 1.8; marker-end: url(#ah-g); }
+
+/* Timeline */
+.timeline {
+  border-left: 3px solid var(--line);
+  padding-left: 20px;
+  margin: 18px 0;
+}
+.tl-item {
+  position: relative;
+  margin: 0 0 22px;
+}
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.tl-item .tl-step {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.tl-item h4 { margin: 2px 0 6px; font-size: 17px; }
+.tl-item p { margin: 4px 0; font-size: 15.5px; color: var(--ink-2); }
+
+footer {
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+</style>
+</head>
+<body>
+
+<div class="mob-bar">
+  <span class="mob-cur" id="mob-cur">1. Главный вопрос исследования</span>
+  <button class="mob-toggle" id="mob-btn" type="button">Оглавление</button>
+</div>
+<div class="mob-backdrop" id="mob-bg"></div>
+
+<div class="layout">
+  <nav id="toc" aria-label="Оглавление статьи">
+    <span class="toc-title">Содержание</span>
+    <a href="#ch1">1. Главный вопрос исследования</a>
+    <a href="#ch2">2. Сначала спрос, потом самолёт</a>
+    <a href="#ch3">3. Кого искали и кто реально летает</a>
+    <a href="#ch4">4. Как собирали данные без готовой базы</a>
+    <a href="#ch5">5. Как не запутаться в единицах и аэропортах</a>
+    <a href="#ch6">6. Проверка на реальность: барьеры и кейсы</a>
+    <a href="#ch7">7. Как шёл анализ шаг за шагом</a>
+    <a href="#ch8">8. Где граница открытых данных и что спросить у Red Wings</a>
+    <div class="toc-note">
+      Справочник всех 15 таблиц и колонок Excel лежит в соседнем файле <code>explain_corporate_model.html</code>.
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">Red Wings · Методическое руководство · 26.11.2026</div>
+      <h1>Как мы искали корпоративный авиаспрос: логика, порядок шагов и выводы</h1>
+      <p class="lead">
+        Последовательный разбор того, как строилось наше исследование для Red Wings: почему мы начали с географии предприятий, а не с самолётов, как доставали факты без открытой статистики перелётов, какие ловушки отсекли и зачем нам теперь разговор с авиакомпанией.
+      </p>
+    </header>
+
+    <!-- ============================================================ -->
+    <section id="ch1">
+      <h2><span class="n">1</span>Главный вопрос исследования</h2>
+      <p class="sub">
+        Авиакомпания Red Wings хочет понять, стоит ли делать ставку на контракты с российскими госкорпорациями, госкомпаниями и их подрядчиками — и на каких именно направлениях это имеет коммерческий смысл.
+      </p>
+
+      <p>
+        Если сформулировать задачу совсем просто, мы отвечали на три последовательных вопроса:
+      </p>
+      <ol>
+        <li><b>Кто, откуда, куда и зачем регулярно ездит по России</b> внутри крупных государственных холдингов и их цепочек поставщиков?</li>
+        <li><b>Где эти поездки уже удобно закрыты рынком</b> (есть частые прямые рейсы, быстрый ночной поезд или собственный ведомственный самолёт), а <b>где у заказчиков реальный дефицит</b>?</li>
+        <li><b>Какой продукт может предложить Red Wings</b> на незакрытых направлениях — от корпоративного тарифа и блока на 10–30 кресел до отдельного чартера?</li>
+      </ol>
+
+      <div class="rule-box">
+        <span class="lbl">Ключевой принцип оценки</span>
+        Честный отрицательный ответ (<code>No-Go</code>) здесь так же полезен, как найденный контракт. Если мы заранее доказали, что на линии летают 5 конкурентов или туда не пускают чужие борта, авиакомпания не потратит месяцы на пустые переговоры и не сожжёт деньги на убыточном рейсе.
+      </div>
+
+      <figure class="fig">
+        <svg class="dia" viewBox="0 0 880 210" role="img" aria-label="Шесть шагов исследования в правильном порядке">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#55606d"/>
+            </marker>
+            <marker id="ah-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#c8372d"/>
+            </marker>
+            <marker id="ah-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#168558"/>
+            </marker>
+          </defs>
+
+          <rect x="10" y="24" width="128" height="126" class="bx blu"/>
+          <text x="20" y="46" class="k" style="fill:#2364b0">Шаг 1</text>
+          <text x="20" y="66" class="t">Периметр</text>
+          <text x="20" y="85" class="s">43 компании</text>
+          <text x="20" y="101" class="s">и 937 площадок</text>
+          <text x="20" y="117" class="s">по всей РФ</text>
+          <text x="20" y="137" class="s">+ подрядчики</text>
+
+          <rect x="156" y="24" width="128" height="126" class="bx blu"/>
+          <text x="166" y="46" class="k" style="fill:#2364b0">Шаг 2</text>
+          <text x="166" y="66" class="t">Кто ездит</text>
+          <text x="166" y="85" class="s">8 мобильных</text>
+          <text x="166" y="101" class="s">когорт и 3 ритма</text>
+          <text x="166" y="117" class="s">(вахта, ППР,</text>
+          <text x="166" y="133" class="s">форумы, ИТР)</text>
+
+          <rect x="302" y="24" width="128" height="126" class="bx red"/>
+          <text x="312" y="46" class="k" style="fill:#9b231b">Шаг 3</text>
+          <text x="312" y="66" class="t">Сбор фактов</text>
+          <text x="312" y="85" class="s">Связи, события,</text>
+          <text x="312" y="101" class="s">закупки 223-ФЗ,</text>
+          <text x="312" y="117" class="s">0 догадок в базе</text>
+          <text x="312" y="137" class="s">→ 178 пар</text>
+
+          <rect x="448" y="24" width="128" height="126" class="bx amb"/>
+          <text x="458" y="46" class="k" style="fill:#9b6500">Шаг 4</text>
+          <text x="458" y="66" class="t">Барьеры</text>
+          <text x="458" y="85" class="s">Живые табло,</text>
+          <text x="458" y="101" class="s">поезда, свой</text>
+          <text x="458" y="117" class="s">флот, 223-ФЗ,</text>
+          <text x="458" y="133" class="s">отсев No-Go</text>
+
+          <rect x="594" y="24" width="128" height="126" class="bx grn"/>
+          <text x="604" y="46" class="k" style="fill:#168558">Шаг 5</text>
+          <text x="604" y="66" class="t">Продукт</text>
+          <text x="604" y="85" class="s">OBT-тариф,</text>
+          <text x="604" y="101" class="s">блок ≥10 мест,</text>
+          <text x="604" y="117" class="s">пулинг, чартер</text>
+          <text x="604" y="133" class="s">или ACMI</text>
+
+          <rect x="740" y="24" width="130" height="126" class="bx gry"/>
+          <text x="750" y="46" class="k" style="fill:#49525c">Шаг 6</text>
+          <text x="750" y="66" class="t">Запрос к RW</text>
+          <text x="750" y="85" class="s">Отказы заявок,</text>
+          <text x="750" y="101" class="s">канал Ростеха,</text>
+          <text x="750" y="117" class="s">часы флота и</text>
+          <text x="750" y="133" class="s">ставки DOC</text>
+
+          <path d="M 138 87 L 154 87" class="ar"/>
+          <path d="M 284 87 L 300 87" class="ar"/>
+          <path d="M 430 87 L 446 87" class="ar red"/>
+          <path d="M 576 87 L 592 87" class="ar grn"/>
+          <path d="M 722 87 L 738 87" class="ar"/>
+
+          <line x1="10" y1="172" x2="576" y2="172" stroke="#2364b0" stroke-width="2.5"/>
+          <text x="10" y="192" class="s" style="fill:#2364b0;font-weight:600">Выполнено на открытых данных (шаги 1–4 + черновик шага 5)</text>
+          <line x1="594" y1="172" x2="870" y2="172" stroke="#76808b" stroke-width="2.5" stroke-dasharray="5,4"/>
+          <text x="594" y="192" class="s" style="font-weight:600">Требует внутренних цифр RW</text>
+        </svg>
+        <figcaption><b>Схема 1. Порядок исследования.</b> Первые четыре шага дают объективную карту рынка и отсеивают нерабочие идеи. К расчёту конкретной маржи и подбору самолётов переходим только после получения внутренних параметров Red Wings.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch2">
+      <h2><span class="n">2</span>Почему мы начали со спроса, а не с самолётов</h2>
+      <p class="sub">
+        Самая частая ошибка в авиационной аналитике — начать с того, что уже стоит на перроне: взять карту действующих рейсов авиакомпании, посмотреть дальность SSJ100 и искать клиентов только туда.
+      </p>
+
+      <p>
+        Если фильтровать рынок парком на первом шаге, возникают два перекоса. Во-первых, мы слепнем к крупным потокам на плечах 2 400–5 500 км (например, Москва ↔ Певек, Пермь ↔ Иркутск или Тюмень ↔ Благовещенск), хотя у Red Wings есть и перспективный флот (<code>Ту-214</code>, <code>RRJ-95LR</code>), и возможность партнёрских программ. Во-вторых, мы начинаем «подгонять» корпорации под уже существующие маршруты, вместо того чтобы увидеть реальные очаги поездок.
+      </p>
+
+      <figure class="fig">
+        <svg class="dia" viewBox="0 0 880 230" role="img" aria-label="Сравнение ошибочного и правильного порядка анализа">
+          <!-- Bad path -->
+          <text x="16" y="24" class="k" style="fill:#9b231b">Ошибочный порядок (фильтр в самом начале)</text>
+          <rect x="16" y="34" width="235" height="64" class="bx red"/>
+          <text x="28" y="56" class="t">Старая сеть + дальность SSJ</text>
+          <text x="28" y="75" class="s">Отсекаем всё дальше 2 200 км</text>
+          <text x="28" y="90" class="s">и города без рейсов RW</text>
+
+          <rect x="296" y="34" width="245" height="64" class="bx red"/>
+          <text x="308" y="56" class="t">Узкий список пар</text>
+          <text x="308" y="75" class="s">Не видим реальных строек,</text>
+          <text x="308" y="90" class="s">вахт и новых центров</text>
+
+          <rect x="586" y="34" width="276" height="64" class="bx red"/>
+          <text x="598" y="56" class="t">Ложный вывод</text>
+          <text x="598" y="75" class="s">«Корпоративного спроса мало»</text>
+          <text x="598" y="90" class="s">или попытка продать ненужный рейс</text>
+
+          <path d="M 251 66 L 294 66" class="ar red"/>
+          <path d="M 541 66 L 584 66" class="ar red"/>
+
+          <!-- Good path -->
+          <text x="16" y="132" class="k" style="fill:#168558">Наш порядок (сначала чистый спрос, потом ограничения)</text>
+          <rect x="16" y="142" width="235" height="68" class="bx grn"/>
+          <text x="28" y="164" class="t">1. Вся карта поездок РФ</text>
+          <text x="28" y="183" class="s">178 пар аэропортов без</text>
+          <text x="28" y="198" class="s">оглядки на текущий флот</text>
+
+          <rect x="296" y="142" width="245" height="68" class="bx grn"/>
+          <text x="308" y="164" class="t">2. Ранжирование и барьеры</text>
+          <text x="308" y="183" class="s">Проверяем дальность, конкурентов,</text>
+          <text x="308" y="198" class="s">поезда, свой флот и законы</text>
+
+          <rect x="586" y="142" width="276" height="68" class="bx grn"/>
+          <text x="598" y="164" class="t">3. Подбор продукта и ВС</text>
+          <text x="598" y="183" class="s">Где хватает действующих рейсов,</text>
+          <text x="598" y="198" class="s">где нужен чартер, где — Ту-214</text>
+
+          <path d="M 251 176 L 294 176" class="ar grn"/>
+          <path d="M 541 176 L 584 176" class="ar grn"/>
+        </svg>
+        <figcaption><b>Схема 2. Почему флот подключается только на третьем шаге.</b> Такой порядок сразу показал нам и быстрые победы на уже летающих линиях Red Wings (<code>UFA–NUX</code>, <code>SVX–KZN</code>, <code>GOJ–SVX</code>), и дальние резервы вроде <code>IKT–PEE</code>, которым нужен другой тип самолёта.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch3">
+      <h2><span class="n">3</span>Кого мы искали и кто на самом деле летает</h2>
+      <p class="sub">
+        Две простые, но важные идеи: во-первых, вокруг каждой госкорпорации летают её подрядчики; во-вторых, нельзя оценивать число пассажиров от общей численности компании.
+      </p>
+
+      <h3>Почему в базе 43 организации, а не только «Росатом, Ростех и Газпром»</h3>
+      <p>
+        Когда мы начали разбирать реальные закупки, быстро выяснилось: головные госкорпорации часто не строят и не возят вахты сами. Этим занимаются крупные компании с госучастием и внешние генподрядчики. Поэтому периметр разделили на 5 понятных групп:
+      </p>
+      <ul>
+        <li><b>Госкорпорации (5):</b> Росатом, Ростех, Роскосмос, ВЭБ.РФ, АСВ.</li>
+        <li><b>Автодор (1)</b> и <b>публично-правовые компании (6)</b> вроде Роскадастра и Единого заказчика в строительстве.</li>
+        <li><b>Крупные компании с госконтролем (19):</b> Газпром, Роснефть, РЖД, Транснефть, РусГидро, Россети, Алроса, ОСК, Алмаз-Антей, Ростелеком и др.</li>
+        <li><b>Подрядчики, поставщики и частные вахтовые компании (12):</b> СтройТрансНефтеГаз (СТНГ), Газстройпром, ВСМПО-АВИСМА, СИБУР, НОВАТЭК, Сургутнефтегаз, ТМХ, металлурги.</li>
+      </ul>
+
+      <div class="example-box">
+        <span class="lbl">Зачем нужны подрядчики: живой пример</span>
+        Крупнейший живой чартерный тендер, который мы нашли прямо сейчас — процедура <code>АП126926</code> на <b>1,22 млрд ₽</b> на 2027 год (заявки до 27.11.2026) — объявлена не «Газпромом» напрямую, а его генподрядчиком <b>АО «СТНГ» / ООО «ГСП Центр»</b>. Без слоя подрядчиков мы бы её пропустили.
+      </div>
+
+      <h3>Почему нельзя умножать всю численность завода на «средний процент командировок»</h3>
+      <p>
+        В Ростехе работает около 700 тысяч человек, в Газпроме — 501 тысяча, в Росатоме — 415 тысяч. Но токарь у станка в одном цеху не летает вообще, а сервисный инженер или ремонтник АЭС может летать каждый месяц. Поэтому мы разделили всех сотрудников на <b>8 мобильных когорт</b> и <b>3 ритма поездок</b>:
+      </p>
+
+      <div class="grid3">
+        <div class="card blu">
+          <h4>Постоянный ритм</h4>
+          <p><b>Управленцы</b> (1–4 чел., частые короткие поездки), <b>инженеры/наладчики</b> (КБ ↔ завод ↔ полигон, группы 2–20 чел.), <b>коммерция и приёмка</b>. Главная боль — гибкость: каждый шестой деловой билет в РФ (16,7%) меняется или отменяется.</p>
+        </div>
+        <div class="card warn">
+          <h4>Проектный и вахтовый ритм</h4>
+          <p><b>Вахтовики</b> (смены 15–60 дней круглый год — сотни и тысячи человек) и <b>ремонтные бригады</b> (плановые ремонты энергоблоков АЭС по 1 000–2 000 человек, часть приезжает из других филиалов). Важно проверять дату окончания стройки!</p>
+        </div>
+        <div class="card ok">
+          <h4>Событийный ритм</h4>
+          <p><b>Форумы</b> (ПМЭФ, ВЭФ, ИННОПРОМ), <b>профконкурсы</b> (AtomSkills — 2 000+ чел. в Екатеринбурге) и корпоративные фестивали (пример: «Газпром трансгаз Томск» вывозил чартером 90 чел. из Томска в СПб на «Факел»).</p>
+        </div>
+      </div>
+
+      <div class="trap-box">
+        <span class="lbl">Пойманная ловушка: история с закупкой ТВЭЛ</span>
+        В ранних заметках встречалась заманчивая цифра: закупка АО «ТВЭЛ» (<code>32211165411</code>) на 12 400 билетов, делённая на 222 сотрудника московского офиса, якобы давала «56 перелётов на человека в год». Мы подняли копию спецификации: оказалось, что 12 400 — это <b>бланки билетов на сотрудников и деловых партнёров по РФ, СНГ и зарубежью</b>, а цифра 222 взята из сторонней новости и не относится к кругу пассажиров. Этот расчёт мы честно отбраковали.
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch4">
+      <h2><span class="n">4</span>Как собирали данные, если готовой базы в России нет</h2>
+      <p class="sub">
+        В США авиационное ведомство публикует открытые выборки билетов по парам городов (BTS DB1B/DB1C). В России Росавиация даёт только общие итоги по стране, а билетные базы (ТКП, «Сирена») не знают, какая компания оплатила билет. Поэтому данные пришлось собирать с двух сторон навстречу друг другу.
+      </p>
+
+      <figure class="fig">
+        <svg class="dia" viewBox="0 0 880 280" role="img" aria-label="Встречный сбор данных сверху вниз и снизу вверх">
+          <!-- Top-down -->
+          <rect x="16" y="18" width="350" height="108" class="bx blu"/>
+          <text x="28" y="40" class="k" style="fill:#2364b0">Ветка А · Сверху вниз (от структуры к поездкам)</text>
+          <text x="28" y="61" class="t">Кто есть на карте России?</text>
+          <text x="28" y="80" class="s">• 43 компании → 937 юрлиц/филиалов (ИНН, города)</text>
+          <text x="28" y="96" class="s">• 238 функций площадок + 30 удалённых мест работы</text>
+          <text x="28" y="112" class="s">• 113 событий (79 делегаций) и кооперация заводов</text>
+
+          <!-- Bottom-up -->
+          <rect x="16" y="152" width="350" height="108" class="bx red"/>
+          <text x="28" y="174" class="k" style="fill:#9b231b">Ветка Б · Снизу вверх (от денег и табло к связям)</text>
+          <text x="28" y="195" class="t">Кто уже платит и куда реально летает?</text>
+          <text x="28" y="214" class="s">• 68 закупок 223-ФЗ и ЭТП ГПБ (чартеры и билеты)</text>
+          <text x="28" y="230" class="s">• 157 проверенных плеч расписаний и тарифов 2026</text>
+          <text x="28" y="246" class="s">• Статистика OBT 2026 (Аэроклуб, Smartway, OneTwoTrip)</text>
+
+          <!-- Convergence -->
+          <rect x="442" y="76" width="196" height="124" class="bx grn"/>
+          <text x="454" y="98" class="k" style="fill:#168558">Точка стыковки</text>
+          <text x="454" y="119" class="t">Единая база фактов</text>
+          <text x="454" y="139" class="s">Правило: 0 догадок.</text>
+          <text x="454" y="155" class="s">Каждая запись имеет</text>
+          <text x="454" y="171" class="s">ссылку на источник</text>
+          <text x="454" y="187" class="s">и статус 1, 2 или 3.</text>
+
+          <!-- Output levels -->
+          <rect x="678" y="22" width="186" height="68" class="bx gry"/>
+          <text x="690" y="43" class="t">Статус 1 · Связь</text>
+          <text x="690" y="61" class="s">Есть кооперация/подряд,</text>
+          <text x="690" y="76" class="s">поездки не доказаны (36)</text>
+
+          <rect x="678" y="106" width="186" height="68" class="bx amb"/>
+          <text x="690" y="127" class="t">Статус 2 · Ездят</text>
+          <text x="690" y="145" class="s">Поездки подтверждены,</text>
+          <text x="690" y="160" class="s">число людей скрыто (93)</text>
+
+          <rect x="678" y="190" width="186" height="68" class="bx grn"/>
+          <text x="690" y="211" class="t">Статус 3 · Объём</text>
+          <text x="690" y="229" class="s">В источнике есть число</text>
+          <text x="690" y="244" class="s">пассажиров/рейсов (13)</text>
+
+          <path d="M 366 72 L 404 72 L 404 126 L 440 126" class="ar"/>
+          <path d="M 366 206 L 404 206 L 404 150 L 440 150" class="ar red"/>
+          <path d="M 638 115 L 676 56" class="ar"/>
+          <path d="M 638 138 L 676 140" class="ar"/>
+          <path d="M 638 161 L 676 224" class="ar grn"/>
+        </svg>
+        <figcaption><b>Схема 3. Встречный метод и три уровня доказательности.</b> Сверху вниз мы гарантируем широкий охват (не пропустить ни одну крупную группу), а снизу вверх — приземляем гипотезы на реальные тендеры и расписания. Все 178 итоговых пар честно разложены по статусам 1–3 (плюс 36 устаревших старше 2024 года).</figcaption>
+      </figure>
+
+      <h3>Главное правило гигиены данных: пустая ячейка честнее придуманного числа</h3>
+      <p>
+        В нашей работе строго разведены два слоя. Первый слой — <b>база фактов</b> (<code>outputs/red_wings_model.xlsx</code>). В ней действует железный принцип: если источник даёт цифру за один месяц, мы не умножаем её на 12; если в тендере есть сумма в рублях, но нет числа кресел, мы не делим рубли на средний билет; если данных нет — ячейка остаётся пустой. Второй слой — <b>сценарные расчёты экономики</b> (калькулятор маржи и вытеснения), где все допущения помечены явно и меняются ползунками.
+      </p>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch5">
+      <h2><span class="n">5</span>Как не запутаться в единицах, пересадках и аэропортах</h2>
+      <p class="sub">
+        Даже хорошие данные легко испортить на этапе подсчёта, если сложить вместе разные сущности. В мировой практике транспортного анализа (модель NASA/Virginia Tech <code>TSAM</code>, статистика <code>BTS</code> и <code>ICAO</code>) для этого жёстко разделяют уровни учёта.
+      </p>
+
+      <figure class="fig">
+        <svg class="dia" viewBox="0 0 880 230" role="img" aria-label="Три уровня учёта авиапоездки и сравнение дверь-в-дверь">
+          <rect x="16" y="20" width="246" height="114" class="bx blu"/>
+          <text x="28" y="42" class="k" style="fill:#2364b0">Уровень 1 · Командировка</text>
+          <text x="28" y="63" class="t">1 инженер едет туда-обратно</text>
+          <text x="28" y="83" class="s">Цель: испытания ПД-14 (ОДК-ПМ)</text>
+          <text x="28" y="99" class="s">Окно работы: Пн–Чт на заводе</text>
+          <text x="28" y="115" class="s">Плательщик: юрлицо в Перми</text>
+
+          <rect x="308" y="20" width="246" height="114" class="bx amb"/>
+          <text x="320" y="42" class="k" style="fill:#9b6500">Уровень 2 · Пара городов (OD)</text>
+          <text x="320" y="63" class="t">2 направленные поездки</text>
+          <text x="320" y="83" class="s">Туда: Пермь (PEE) → Иркутск (IKT)</text>
+          <text x="320" y="99" class="s">Обратно: Иркутск → Пермь</text>
+          <text x="320" y="115" class="s">Прямая ортодромия: 3 072 км</text>
+
+          <rect x="600" y="20" width="264" height="114" class="bx red"/>
+          <text x="612" y="42" class="k" style="fill:#9b231b">Уровень 3 · Плечи рейсов</text>
+          <text x="612" y="63" class="t">4 полётных сегмента</text>
+          <text x="612" y="83" class="s">Туда: PEE→OVB + OVB→IKT (6ч 25м)</text>
+          <text x="612" y="99" class="s">Обратно: IKT→OVB + OVB→PEE (7ч 15м)</text>
+          <text x="612" y="115" class="s">Прямых 0/нед. (стыковка S7)</text>
+
+          <path d="M 262 77 L 306 77" class="ar"/>
+          <path d="M 554 77 L 598 77" class="ar"/>
+
+          <rect x="16" y="156" width="848" height="58" class="bx gry"/>
+          <text x="28" y="178" class="t">Принцип «дверь-в-дверь» (почему важно время до проходной, а не только полёт):</text>
+          <text x="28" y="198" class="s">Пример Москва → НИИАР (Димитровград): самолёт до ULV + 1ч 53м авто (102 км) vs поезд 050Й в 16 мин от проходной.</text>
+        </svg>
+        <figcaption><b>Схема 4. Почему нельзя путать людей, поездки и сегменты.</b> Один командированный туда-обратно с пересадкой создаёт 2 поездки между городами и 4 посадочных талона. Поэтому в нашей базе <code>fact_links</code> (поездки), <code>od_pairs</code> (пары городов) и <code>route_legs</code> (плечи рейсов и поездов) хранятся в разных таблицах.</figcaption>
+      </figure>
+
+      <h3>Ещё два важных правила разведения данных</h3>
+      <ul>
+        <li><b>Разделять аэропорты Москвы (`SVO`, `DME`, `VKO`, `ZIA`):</b> в исходных скриптах Москва склеивалась в единый код `MOW`, из-за чего у 42 пар пропадала дальность. На практике это четыре разных рынка: из <code>VKO</code> летают вахтовые чартеры «Газпром авиа» и Сабетты, из <code>SVO</code> — регулярка Аэрофлота/России, из <code>DME</code> — S7 и Уральские, а <code>ZIA</code> связан с испытательными рейсами авиапрома. В отдельном пакете мы развязали 16 ключевых московских пар по всем 4 аэропортам (64 точных расстояния).</li>
+        <li><b>Не путать кусок стыковки с ценой всего маршрута:</b> при сборе расписаний мы поймали ошибку, когда на пересадочном маршруте <code>Игарка → Красноярск → Томск</code> скрипт брал минимальный тариф второго короткого плеча (6 587 ₽) вместо полной цены поездки (22 947 + 6 587 ₽). Правило исправлено: в итоговую колонку тарифов попадают только сквозные билеты на один рейс.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch6">
+      <h2><span class="n">6</span>Проверка на реальность: барьеры и пять показательных кейсов</h2>
+      <p class="sub">
+        То, что между двумя промышленными городами нет прямого рейса, само по себе ничего не доказывает. Чтобы отличить реальную возможность от красивой иллюзии, мы пропускали кандидатов через 4 фильтра барьеров и ступенчатую лестницу продуктов.
+      </p>
+
+      <figure class="fig">
+        <svg class="dia" viewBox="0 0 880 272" role="img" aria-label="Четыре барьера отсева и пять ступеней продукта Red Wings">
+          <!-- Left: 4 filters -->
+          <text x="16" y="22" class="k" style="fill:#9b231b">Четыре фильтра отсева (почему пара получает No-Go)</text>
+          <rect x="16" y="34" width="380" height="46" class="bx red"/>
+          <text x="28" y="54" class="t">1. Свой флот / закрытый аэродром</text>
+          <text x="28" y="70" class="s">Газпром авиа (Ямбург, Бованенково), спецпропуска Сабетты</text>
+
+          <rect x="16" y="90" width="380" height="46" class="bx red"/>
+          <text x="28" y="110" class="t">2. Рынок уже плотно закрыт конкурентами</text>
+          <text x="28" y="126" class="s">LED–SVX: 5 авиакомпаний, 41–46 рейсов/нед. (у RW — 0)</text>
+
+          <rect x="16" y="146" width="380" height="46" class="bx red"/>
+          <text x="28" y="166" class="t">3. Быстрая наземная альтернатива / спад стройки</text>
+          <text x="28" y="182" class="s">Ночной поезд OMS–TOF (13,5 ч), спад подрядчиков АГХК с 2026</text>
+
+          <rect x="16" y="202" width="380" height="46" class="bx red"/>
+          <text x="28" y="222" class="t">4. Юридический запрет</text>
+          <text x="28" y="238" class="s">Субсидия Пермь–Иркутск требует открытой продажи всех кресел Y</text>
+
+          <!-- Right: Product ladder -->
+          <text x="456" y="22" class="k" style="fill:#168558">Ступенчатая линейка продуктов (от простого к сложному)</text>
+          <rect x="456" y="34" width="408" height="38" class="bx grn"/>
+          <text x="468" y="57" class="t">Ступень 1 · Корпоративный тариф в OBT (83–87% рынка)</text>
+
+          <rect x="456" y="80" width="408" height="38" class="bx grn"/>
+          <text x="468" y="103" class="t">Ступень 2 · Блок от 10 мест на действующем рейсе RW</text>
+
+          <rect x="456" y="126" width="408" height="38" class="bx blu"/>
+          <text x="468" y="149" class="t">Ступень 3 · Пулинг 2–3 заказчиков на одном рейсе</text>
+
+          <rect x="456" y="172" width="408" height="38" class="bx amb"/>
+          <text x="468" y="195" class="t">Ступень 4 · Проектный чартер или ACMI-резерв</text>
+
+          <rect x="456" y="218" width="408" height="38" class="bx gry"/>
+          <text x="468" y="241" class="t">Ступень 5 · Новый рейс (только с твёрдым якорем)</text>
+
+          <path d="M 398 140 L 452 140" class="ar grn"/>
+          <text x="404" y="130" class="s" style="fill:#168558;font-weight:700">прошли</text>
+        </svg>
+        <figcaption><b>Схема 5. Как мы принимаем решение по каждому коридору.</b> Сначала отсеиваем очевидные барьеры, затем подбираем минимально рискованный продукт: продать блок на уже летающем рейсе Red Wings всегда проще и безопаснее, чем открывать новую линию с нуля.</figcaption>
+      </figure>
+
+      <h3>Пять кейсов, которые лучше всего объясняют наш подход</h3>
+
+      <div class="case">
+        <div class="case-head">
+          <h4>1. Уфа ↔ Новый Уренгой + тендер СТНГ <code>АП126926</code> — реальная точка опоры</h4>
+          <span class="badge go">Приоритет · действующая линия + живой тендер</span>
+        </div>
+        <p><b>Что нашли:</b> в Уфе расположен официальный центр вахтования АО «СТНГ», а 24.11.2026 вышел открытый чартерный отбор <code>АП126926</code> на <b>1,22 млрд ₽</b> на 2027 год (продолжение ежегодной серии 1,83 → 1,09 → 1,22 млрд ₽). При этом у Red Wings на линии <code>UFA–NUX</code> уже летает прямой рейс <code>WZ-1081/1082</code> с ранним прилётом в <code>07:30</code> — на 8 часов раньше Utair, удобно под вертолётную стыковку (сам аэровокзал <code>NUX</code> закрывается в 17:30).</p>
+        <p><b>Почему это сработало:</b> совпали и реальный плательщик, и действующий слот Red Wings, и понятный продукт (блок от 10 мест на <code>WZ-1081</code> либо участие в тендере / ACMI-резерв).</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <h4>2. Екатеринбург ↔ Уфа / Казань / Нижний Новгород — своя сеть и правовая лазейка Ростеха</h4>
+          <span class="badge go">Действующая сеть RW · 0 новых самолётов</span>
+        </div>
+        <p><b>Что нашли:</b> на <code>SVX–KZN</code> у Red Wings зимняя монополия (6/нед.), на <code>SVX–UFA</code> и <code>GOJ–SVX</code> — по 4 рейса в неделю. А в актуальном Едином положении о закупке ГК «Ростех» (ред. 02.09.2026, подп. <code>6.6.2(51)</code>) подтверждена возможность прямого внутригруппового договора с единственным поставщиком (при самостоятельном исполнении ≥30% услуг).</p>
+        <p><b>Ограничение, которое мы тоже проверили:</b> внешние поставщики вроде ВСМПО-АВИСМА под это исключение 223-ФЗ не попадают — для них нужна отдельная коммерческая схема.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <h4>3. Санкт-Петербург ↔ Екатеринбург (ИННОПРОМ-2027) — честный отказ для регулярного блока</h4>
+          <span class="badge nogo">Working No-Go для блока на регулярке RW</span>
+        </div>
+        <p><b>Что нашли:</b> делегации из СПб реально ездят на ИННОПРОМ (СПбПУ, Обуховский завод), но живое расписание показало: у Red Wings на <code>LED–SVX</code> ровно <b>0 рейсов</b> как в ноябре 2026, так и в выставочную неделю июля 2027, а 5 конкурентов выполняют <b>41–46 рейсов в неделю</b>. Единственная реальная щель в расписании — в пятницу 9 июля 2027 все 5 вылетов из Екатеринбурга стоят до 12:30 (послеобеденного возврата нет).</p>
+        <p><b>Вывод:</b> блок на собственной регулярке невозможен; обсуждать можно только разовый послеобеденный чартер 9 июля или партнёрский блок при наличии делегации-плательщика.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <h4>4. Пермь ↔ Иркутск (ПД-14 / МС-21) — юридический конфликт блока и субсидии</h4>
+          <span class="badge cond">Резерв · несовместимо с закрытым блоком</span>
+        </div>
+        <p><b>Что нашли:</b> кооперация между пермскими двигателестроителями и иркутским авиазаводом есть, прямых рейсов 0 (стыковка S7 через Новосибирск занимает 6ч 25м), а Минтранс Пермского края подписал Приказ № 44-01-02-618 с субсидией 383 677 ₽/плечо на лето 2027. Но в тексте приказа прямо записана обязательная <b>открытая продажа всех кресел экономкласса</b> — закрытый корпоративный блок в Y юридически запрещён. Плюс дальность 3 072 км выходит за предел базового SSJ-95B.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <h4>5. Ложные «хиты», которые спасла перепроверка</h4>
+          <span class="badge nogo">Отбраковано проверкой фактов</span>
+        </div>
+        <p><b>Талакан (`OMS–TLK`):</b> сначала выскочил как единственный «кандидат на чартер» (139 чел./рейс), пока проверка не показала, что это новость от 27.08.2020 с пустым полем года. <b>Сабетта (`MOW–SBT`):</b> 125 000 чел./год выглядят как «блок мест», но это закрытый вахтовый аэропорт со спецпропусками «Ямал СПГ». <b>Томск → СПб (`LED–TOF`):</b> зато при закрытии пробелов нашёлся реальный свежий чартер 2025 года на <b>90 пассажиров</b> («Газпром трансгаз Томск» на фестиваль «Факел»).</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch7">
+      <h2><span class="n">7</span>Как шёл анализ: хронология в четырёх тактах</h2>
+      <p class="sub">
+        Короткая карта того, в какой последовательности развивалась работа команды и как из разрозненных поисков собралась цельная модель.
+      </p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-step">Такт 1 · Постановка и очистка рамок</div>
+          <h4>Отделение новой задачи от старого кейс-чемпионата</h4>
+          <p>Зафиксировали новые правила: работаем только по корпоративному спросу госкорпораций и подрядчиков (без туризма и грузов), не фильтруем направления старым флотом, вводим единую иерархию доказательств и отдельный запрос данных к Red Wings.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-step">Такт 2 · Параллельный сбор в две стороны</div>
+          <h4>Широкая база сущностей + глубокие проверки ключевых коридоров</h4>
+          <p>Параллельно собрались два взаимодополняющих массива: (а) структурированная реляционная база 43 организаций, 937 площадок, 113 событий и 235 связей в <code>rew_wings</code>; (б) глубокая проверка 15 приоритетных коридоров, живых табло, тендеров ГСП/СТНГ (<code>АП126926</code>), Приказа Пермского края № 44-01-02-618, ЕПоЗ Ростеха и рынка OBT 2026 (доля бизнес-класса упала до 3%, обмены выросли до 16,7%, 64% билетов покупаются за ≤7 дней).</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-step">Такт 3 · Сведение в единую модель и аудит багов</div>
+          <h4>Объединение без догадок и кроссплатформенная пересборка</h4>
+          <p>Все проверенные факты перенесли в единый формат таблиц <code>rew_wings</code>, написали Python-пересборщик <code>rebuild.py</code> (100% совпадение с Windows PowerShell), починили баг с датой 2020 года по Талакану, отделили прямые рейсы от стыковок и исправили расчёт тарифов на пересадках.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-step">Такт 4 · Целенаправленное закрытие 4 главных пробелов (Gap 1–4)</div>
+          <h4>Оцифровка специфики компаний, площадок и расписаний</h4>
+          <p>За один автономный прогон закрыли самые болезненные пустоты базы — добавили <b>600 новых проверяемых источников с URL</b> (всего 621 новый источник):</p>
+          <div class="tbl-wrap" style="margin-top:10px">
+            <table>
+              <thead>
+                <tr><th>Что было пусто в модели</th><th class="num">Было</th><th class="num">Стало</th><th>Что это дало анализу</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Площадки закупок (ЭТП) по организациям</td><td class="num">0 / 43</td><td class="num"><b>36 / 43</b></td><td>Понятно, на какой ЭТП и по какому режиму заходить в компанию</td></tr>
+                <tr><td>Численность и штаб-квартиры организаций</td><td class="num">9 / 25</td><td class="num"><b>28 / 43</b></td><td>Масштаб и центры принятия решений по группам</td></tr>
+                <tr><td>Функции площадок (завод, АЭС, КБ, вахта)</td><td class="num">0 / 937</td><td class="num"><b>238 / 937</b></td><td>Закрыты все связанные площадки и предприятия ≥3 000 чел.</td></tr>
+                <tr><td>Удалённые места работы + режим доступа</td><td class="num">5</td><td class="num"><b>30</b></td><td>Учтены вертолётные плечи, ЗАТО и закрытые аэродромы</td></tr>
+                <tr><td>Проверенные плечи и сквозные тарифы OW</td><td class="num">71 / 3</td><td class="num"><b>157 / 15</b></td><td>Живое зимнее предложение по 21 паре (вкл. RW на <code>GOJ–SVX</code>)</td></tr>
+                <tr><td>Специфика 22 компаний и развязка <code>MOW</code></td><td class="num">0</td><td class="num"><b>22 / 16</b></td><td>Ведомственные флоты, ТМС/OBT и 64 ортодромии по SVO/DME/VKO/ZIA</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ch8">
+      <h2><span class="n">8</span>Где граница открытых данных и что мы просим у Red Wings</h2>
+      <p class="sub">
+        Мы выжали из открытых источников почти максимум того, что можно доказать без гаданий. Дальше проходит естественная граница: публичный интернет показывает <b>где люди ездят</b>, но почти никогда не показывает <b>сколько кресел нужно в конкретный вторник</b> и <b>сколько это стоит самой авиакомпании</b>.
+      </p>
+
+      <p>
+        Именно поэтому в нашей итоговой таблице из 178 пар аэропортов <b>93 пары</b> честно стоят в статусе «поездки подтверждены — проверить объём», а колонка выручки пуста. Чтобы перевести эту карту в коммерческие контракты, на встрече с Red Wings мы просим <b>пять конкретных вещей</b> (в обезличенном или диапазонном виде, без раскрытия NDA):
+      </p>
+
+      <div class="grid2">
+        <div class="card ok">
+          <h4>1. Отклонённые групповые заявки (от 10 чел.)</h4>
+          <p>Обезличенный срез за 12 месяцев: какие корпоративные группы уже приходили в Red Wings и почему им отказали (не хватило мест, не подошло время, запрет переноса дат, цена). Это самый быстрый список горячих линий.</p>
+        </div>
+        <div class="card blu">
+          <h4>2. Внутригрупповой канал Ростеха</h4>
+          <p>Доступ к обезличенной матрице командировок ОАК, ОДК, «Вертолётов России», КРЭТ (включая пересадки и поезда) и подтверждение прямого контракта по ЕПоЗ <code>6.6.2(51)</code>.</p>
+        </div>
+        <div class="card warn">
+          <h4>3. Реакция на 2 готовых кейса прямо сейчас</h4>
+          <p>Готова ли Red Wings зайти в открытый чартерный отбор СТНГ <code>АП126926</code> (или дать ACMI-резерв) и кто внутри авиакомпании ведёт групповые/блочные котировки (в т. ч. по событиям вроде ИННОПРОМ)?</p>
+        </div>
+        <div class="card">
+          <h4>4. Свободные часы флота и база SVX</h4>
+          <p>Когда у <code>SSJ100</code>, <code>Ту-214</code> и бизнес-борта <code>SSJ-100B (52C)</code> есть свободные часы в будни (Вт–Чт) и межсезонье (ноябрь–март), и какую роль руководство отводит Екатеринбургу?</p>
+        </div>
+      </div>
+
+      <div class="rule-box">
+        <span class="lbl">Пятый вопрос — ключ к экономике (после выбора 3–5 приоритетных пар)</span>
+        Диапазоны внутренних параметров: реальное вытеснение розничных пассажиров при продаже блока (<code>displacement</code>), доля неперепроданных мест после возврата квоты (<code>spoilage</code>), планы по «евробизнесу» и вилка переменных затрат на блок-час (<code>DOC</code>). Как только Red Wings даст эти коридоры, сценарная модель превратится в точный расчёт маржи по каждому маршруту.
+      </div>
+    </section>
+
+    <footer>
+      Связанные материалы проекта: детальный разбор всех 15 таблиц и колонок — <code>explain_corporate_model.html</code>; объединённая книга Excel — <code>outputs/red_wings_model.xlsx</code> (ветка <code>feat/phase1-verified-facts-20261125</code>, коммит <code>dd267ac</code>); пакеты закрытия пробелов — <code>context/55_gap_closure_20261126/</code>; подробный запрос к Red Wings — <code>context/48_corporate_demand_task_20261124/rw_data_request.md</code>.
+    </footer>
+  </main>
+</div>
+
+<script>
+const toc = document.getElementById('toc');
+const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
+const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const mobCur = document.getElementById('mob-cur');
+const mobBtn = document.getElementById('mob-btn');
+const mobBg = document.getElementById('mob-bg');
+
+function closeDrawer() { toc.classList.remove('open'); mobBg.classList.remove('open'); }
+mobBtn.addEventListener('click', () => { toc.classList.toggle('open'); mobBg.classList.toggle('open'); });
+mobBg.addEventListener('click', closeDrawer);
+tocLinks.forEach(a => a.addEventListener('click', closeDrawer));
+
+function updateActive() {
+  let active = sections[0];
+  const y = window.scrollY + 120;
+  for (const s of sections) {
+    if (s.offsetTop <= y) active = s;
+  }
+  tocLinks.forEach(a => {
+    const isOn = active && a.getAttribute('href') === '#' + active.id;
+    a.classList.toggle('on', isOn);
+    if (isOn && mobCur) mobCur.textContent = a.textContent;
+  });
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+updateActive();
+</script>
+</body>
+</html>
