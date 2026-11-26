@@ -1,0 +1,1787 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Wings: модель корпоративного спроса — таблицы, методика, расчёты и запрос к авиакомпании</title>
+<style>
+:root {
+  --bg: #f5f6f7;
+  --surface: #ffffff;
+  --ink: #14181c;
+  --ink-2: #4a535c;
+  --ink-3: #76808a;
+  --line: #e2e6ea;
+  --accent: #c8372d;
+  --accent-ink: #9f251d;
+  --accent-soft: #fdf0ef;
+  --blue: #2468b8;
+  --blue-soft: #eaf2fc;
+  --green: #168a5c;
+  --green-soft: #eaf7f1;
+  --amber: #a36a00;
+  --amber-soft: #fdf6e3;
+  --red: #b83333;
+  --red-soft: #fdf0f0;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+code {
+  background: #eceff2;
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: #1f2933;
+}
+pre {
+  background: #171c21;
+  color: #e6ebf0;
+  padding: 13px 15px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  line-height: 1.48;
+  margin: 10px 0 14px;
+  font-size: 13px;
+}
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* DID layout: sticky left TOC + single continuous reading column */
+.layout {
+  display: grid;
+  grid-template-columns: 256px minmax(0, 1fr);
+  gap: 36px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 28px 110px;
+}
+nav#toc {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  padding: 26px 0 32px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+nav#toc .toc-title {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 8px 10px;
+}
+nav#toc span.part {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin: 16px 0 5px 10px;
+}
+nav#toc a {
+  display: block;
+  padding: 5px 10px;
+  border-left: 2px solid var(--line);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+nav#toc a:hover { color: var(--ink); background: rgba(0,0,0,0.025); }
+nav#toc a.on {
+  border-left-color: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+  background: rgba(200,55,45,0.05);
+}
+main { min-width: 0; }
+
+/* Mobile floating TOC bar + drawer */
+.mob-bar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mob-bar .mob-cur {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mob-toggle {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 12px;
+  font: 600 13.5px/1.2 inherit;
+  cursor: pointer;
+  flex: none;
+}
+.mob-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,24,28,0.42);
+  z-index: 48;
+}
+.mob-backdrop.open { display: block; }
+
+@media (max-width: 980px) {
+  .mob-bar { display: flex; }
+  .layout { grid-template-columns: 1fr; padding: 0 16px 80px; gap: 0; }
+  nav#toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    max-height: none;
+    background: var(--surface);
+    z-index: 50;
+    padding: 20px 14px 32px;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    transform: translateX(-105%);
+    transition: transform .18s ease;
+  }
+  nav#toc.open { transform: translateX(0); }
+}
+
+/* Header & hero */
+header.hero { padding: 44px 0 22px; }
+header.hero .kicker {
+  font-size: 12.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+header.hero h1 {
+  font-size: 36px;
+  line-height: 1.15;
+  margin: 10px 0 14px;
+  letter-spacing: -0.02em;
+  max-width: 26ch;
+}
+header.hero p.lead {
+  font-size: 19px;
+  color: var(--ink-2);
+  max-width: 66ch;
+  margin: 0 0 22px;
+}
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.tile b {
+  display: block;
+  font-size: 26px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+}
+.tile span {
+  display: block;
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.35;
+  margin-top: 4px;
+}
+@media (max-width: 760px) {
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+  .tile b { font-size: 20px; }
+  header.hero h1 { font-size: 27px; }
+  header.hero p.lead { font-size: 17px; }
+}
+
+/* Sections & typography */
+.part-mark {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  border-top: 2px solid var(--accent);
+  padding-top: 12px;
+  margin-top: 44px;
+  margin-bottom: 6px;
+}
+section {
+  padding: 28px 0 6px;
+  border-top: 1px solid var(--line);
+  margin-top: 28px;
+}
+.part-mark + section {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 6px;
+}
+section > h2 {
+  font-size: 27px;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  letter-spacing: -0.015em;
+}
+section > h2 .n {
+  color: var(--ink-3);
+  font-weight: 500;
+  margin-right: 8px;
+}
+section > p.sub {
+  color: var(--ink-2);
+  font-size: 18px;
+  margin: 0 0 18px;
+  max-width: 70ch;
+}
+h3 { font-size: 20px; margin: 28px 0 8px; line-height: 1.28; }
+h4 { font-size: 16px; margin: 18px 0 6px; line-height: 1.3; }
+p, li { max-width: 74ch; }
+ul, ol { padding-left: 22px; }
+li { margin: 5px 0; }
+
+/* Callouts & cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 16px 0;
+}
+.note {
+  background: var(--accent-soft);
+  border: 1px solid #efc9c6;
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  margin: 16px 0;
+  max-width: 78ch;
+}
+.note b:first-child { color: var(--accent-ink); }
+.good {
+  background: var(--green-soft);
+  border: 1px solid #bce4d3;
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  margin: 16px 0;
+  max-width: 78ch;
+}
+.warn {
+  background: var(--amber-soft);
+  border: 1px solid #ebd79a;
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  margin: 16px 0;
+  max-width: 78ch;
+}
+
+/* Tables */
+.tbl-wrap {
+  overflow-x: auto;
+  margin: 14px 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14.5px;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.4;
+}
+th {
+  font-size: 11.5px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: #f8f9fa;
+  font-weight: 700;
+}
+tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.dimmed { opacity: 0.28; }
+
+.tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+.tag.ref { background: var(--blue-soft); color: var(--blue); }
+.tag.fact { background: var(--accent-soft); color: var(--accent-ink); }
+.tag.calc { background: var(--green-soft); color: var(--green); }
+.tag.warn { background: var(--amber-soft); color: var(--amber); border: none; padding: 2px 7px; margin: 0; }
+.tag.no { background: var(--red-soft); color: var(--red); }
+
+/* Individual table-spec cards for the 15 sheets */
+.tcard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 14px 0;
+}
+.tcard-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 14px;
+  margin-bottom: 8px;
+}
+.tcard-head h4 { margin: 0; font-size: 17px; }
+.tcard-meta {
+  font-size: 13px;
+  color: var(--ink-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.tcard .grain {
+  font-size: 15px;
+  margin: 6px 0 10px;
+  color: var(--ink);
+}
+.cols-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 8px 0 10px;
+}
+.col-pill {
+  font-size: 12.5px;
+  background: #f2f4f7;
+  border: 1px solid #e0e4e8;
+  border-radius: 5px;
+  padding: 2px 7px;
+  color: var(--ink);
+}
+.col-pill.pk { background: #e8f1fc; border-color: #bfd6f5; color: #1a4f8f; font-weight: 600; }
+.col-pill.empty { background: #fdf6e3; border-color: #ebd79a; color: #7c5200; }
+.col-pill small { color: var(--ink-3); font-weight: 400; margin-left: 3px; }
+.tcard .csv-sample {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  background: #f8f9fa;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 9px 11px;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.45;
+  color: #1f2933;
+  margin: 8px 0;
+}
+.tcard .transform {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 6px 0 0;
+}
+.tcard .transform b { color: var(--ink); }
+
+/* Horizontal bars */
+.bars { display: grid; gap: 9px; margin: 14px 0; }
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 290px) minmax(0, 1fr) 108px;
+  gap: 12px;
+  align-items: center;
+  font-size: 14.5px;
+}
+.bar-track {
+  height: 16px;
+  background: #e9edf1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--blue);
+}
+.bar-fill.acc { background: var(--accent); }
+.bar-fill.grn { background: var(--green); }
+.bar-fill.amb { background: #d4961a; }
+.bar-fill.gry { background: #9aa5b1; }
+.bar-val {
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+}
+@media (max-width: 640px) {
+  .bar-row { grid-template-columns: 1fr 64px; gap: 4px 10px; }
+  .bar-track { grid-column: 1 / -1; height: 12px; }
+}
+
+/* Filter buttons & interactive tracer */
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+.btn {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid #cbd2d9;
+  border-radius: 8px;
+  padding: 6px 13px;
+  font: 500 14px/1.3 inherit;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--ink-2); }
+.btn.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+.trace-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+@media (max-width: 820px) { .trace-grid { grid-template-columns: 1fr; } }
+.trace-box {
+  background: #f8f9fa;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+.trace-box .step-k {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: 4px;
+}
+.trace-box b { display: block; margin-bottom: 6px; font-size: 15px; }
+.trace-box ul { margin: 6px 0 0; padding-left: 18px; }
+.trace-box li { margin: 3px 0; font-size: 13.5px; color: var(--ink-2); }
+
+/* Cards grid */
+.cards2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 14px 0; }
+.cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0; }
+@media (max-width: 820px) { .cards2, .cards3 { grid-template-columns: 1fr; } }
+.mini-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 15px 16px;
+}
+.mini-card h4 { margin: 0 0 6px; font-size: 16px; }
+.mini-card p { margin: 4px 0; font-size: 14.5px; color: var(--ink-2); }
+.mini-card.top-acc { border-top: 3px solid var(--accent); }
+.mini-card.top-grn { border-top: 3px solid var(--green); }
+.mini-card.top-amb { border-top: 3px solid #d4961a; }
+.mini-card.top-blu { border-top: 3px solid var(--blue); }
+
+/* Diagrams */
+.fig {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 16px 0;
+  overflow-x: auto;
+}
+.fig .cap {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-top: 10px;
+}
+svg.diagram { width: 100%; min-width: 680px; height: auto; display: block; }
+svg.diagram text { font: 12.5px -apple-system, "Segoe UI", Roboto, Arial, sans-serif; fill: var(--ink); }
+svg.diagram text.t { font-weight: 700; font-size: 13.5px; }
+svg.diagram text.s { fill: var(--ink-2); font-size: 11.5px; }
+svg.diagram text.k { fill: #1a4f8f; font-family: ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 600; }
+svg.diagram .box { fill: #fff; stroke: #c5ccd4; stroke-width: 1.4; rx: 7; }
+svg.diagram .box.ref { fill: #f4f8fe; stroke: #7fb0e8; }
+svg.diagram .box.fact { fill: #fff7f6; stroke: #e59893; }
+svg.diagram .box.calc { fill: #f1fbf6; stroke: #6cc5a0; stroke-width: 1.8; }
+svg.diagram .arr { stroke: #55606d; stroke-width: 1.5; fill: none; marker-end: url(#ah); }
+svg.diagram .arr.acc { stroke: var(--accent); stroke-width: 1.8; marker-end: url(#ah-acc); }
+
+dl.gl { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 18px; font-size: 15px; margin: 14px 0; }
+dl.gl dt { font-weight: 700; color: var(--ink); }
+dl.gl dd { margin: 0; color: var(--ink-2); }
+@media (max-width: 680px) { dl.gl { grid-template-columns: 1fr; gap: 2px; } dl.gl dt { margin-top: 10px; } }
+
+details.code-box { margin: 10px 0; }
+details.code-box summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  padding: 4px 0;
+}
+
+footer {
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+</style>
+</head>
+<body>
+
+<div class="mob-bar">
+  <span class="mob-cur" id="mob-cur">1. Все 15 таблиц модели</span>
+  <button class="mob-toggle" id="mob-btn" type="button">Оглавление</button>
+</div>
+<div class="mob-backdrop" id="mob-bg"></div>
+
+<div class="layout">
+  <nav id="toc" aria-label="Оглавление документа">
+    <span class="toc-title">Оглавление</span>
+    <span class="part">Часть 1. Таблицы (запрос Насти)</span>
+    <a href="#s1">1. Все 15 таблиц и колонки</a>
+    <a href="#s2">2. Связи, ключи и кодировки</a>
+
+    <span class="part">Часть 2. Методика и практики</span>
+    <a href="#s3">3. Идея и принципы работы</a>
+    <a href="#s4">4. Отраслевые практики анализа</a>
+
+    <span class="part">Часть 3. Данные и расчёты</span>
+    <a href="#s5">5. Как собрали и объединили данные</a>
+    <a href="#s6">6. Что и как считают скрипты</a>
+    <a href="#s7">7. Что получили на 26.11.2026</a>
+
+    <span class="part">Часть 4. Пробелы и Red Wings</span>
+    <a href="#s8">8. Каких данных не хватает</a>
+    <a href="#s9">9. Что просим у Red Wings</a>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">Red Wings · Корпоративные пассажиропотоки · 26.11.2026</div>
+      <h1>Модель корпоративного спроса: таблицы, методика, расчёты и запрос к Red Wings</h1>
+      <p class="lead">
+        Разбор всех 15 таблиц книги <code>outputs/red_wings_model.xlsx</code> (репозиторий <code>rew_wings</code> с объединёнными фактами Фазы 1 и ночного закрытия пробелов Gap 1–4, ветка <code>feat/phase1-verified-facts-20261125</code>), принципов исследования, международных практик оценки корпоративного трафика, специфики компаний, логики расчётов и перечня данных, которые нужно запросить у Red Wings.
+      </p>
+      <div class="tiles">
+        <div class="tile"><b>43 / 937</b><span>организаций (36 с ЭТП) и площадок (238 с функцией)</span></div>
+        <div class="tile"><b>237 / 113 / 68</b><span>связей, событий (79 делегаций) и закупок</span></div>
+        <div class="tile"><b>210 → 178</b><span>направленных пар городов и пар аэропортов в «Итоге»</span></div>
+        <div class="tile"><b>157 / 621</b><span>проверенных плеч маршрутов и новых источников с URL</span></div>
+      </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <div class="part-mark">Часть 1. Таблицы и связи в Excel-модели</div>
+
+    <section id="s1">
+      <h2><span class="n">1</span>Все 15 таблиц и колонки модели</h2>
+      <p class="sub">
+        Книга <code>outputs/red_wings_model.xlsx</code> собирается из 15 CSV-файлов в папке <code>data/model/</code>. В самом Excel формул нет: все вычисления выполняют скрипты (<code>rebuild.ps1</code> на Windows или <code>rebuild.py</code> на Mac/Linux), а <code>build_excel.py</code> раскладывает готовые CSV по листам.
+      </p>
+
+      <div class="note">
+        <b>Термин: grain (зерно таблицы).</b> Это точный ответ на вопрос «что описывает ровно одна строка». Если смешать строки разного зерна — например, сложить годовой поток по организации с отдельным рейсом на 139 человек или с билетом с пересадкой — итог станет бессмысленным. Поэтому в модели 15 отдельных таблиц.
+      </div>
+
+      <div class="btns" aria-label="Подсветка слоя таблиц">
+        <button class="btn on" type="button" data-layer="all">Все 15 таблиц</button>
+        <button class="btn" type="button" data-layer="ref">Справочники (4)</button>
+        <button class="btn" type="button" data-layer="fact">Факты (8)</button>
+        <button class="btn" type="button" data-layer="calc">Расчётные витрины (3)</button>
+      </div>
+
+      <div class="tbl-wrap">
+        <table id="tbl-overview">
+          <thead>
+            <tr>
+              <th>Лист и CSV</th>
+              <th>Слой</th>
+              <th class="num">Строк / кол.</th>
+              <th>Ключ (PK)</th>
+              <th>Что описывает одна строка</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-layer="ref"><td><b>Организации</b><br><small><code>dim_orgs.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">43 / 13</td><td><code>Org_ID</code></td><td>Головная корпорация, госкомпания или крупный подрядчик</td></tr>
+            <tr data-layer="ref"><td><b>Площадки</b><br><small><code>dim_sites.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">937 / 21</td><td><code>Site_ID</code></td><td>Юрлицо, дочернее общество или филиал группы</td></tr>
+            <tr data-layer="ref"><td><b>Места работы</b><br><small><code>site_locations.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">30 / 18</td><td><code>Location_ID</code></td><td>Фактический удалённый объект (месторождение, стройка, АЭС) и режим доступа</td></tr>
+            <tr data-layer="ref"><td><b>Аэропорты</b><br><small><code>fact_airports.csv</code></small></td><td><span class="tag ref">Справочник</span></td><td class="num">330 / 13</td><td><code>Город</code> (+IATA)</td><td>Город и ближайший аэропорт с координатами и статусом</td></tr>
+
+            <tr data-layer="fact"><td><b>Связи</b><br><small><code>fact_links.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">237 / 25</td><td><code>Link_ID</code></td><td>Подтверждённая деловая или вахтовая поездка «откуда → куда»</td></tr>
+            <tr data-layer="fact"><td><b>События</b><br><small><code>fact_events.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">113 / 13</td><td><code>Event_ID</code></td><td>Форум, выставка, чемпионат, ремонтная кампания, учёба</td></tr>
+            <tr data-layer="fact"><td><b>Участники событий</b><br><small><code>event_participants.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">79 / 7</td><td><code>Event_ID + Город</code></td><td>Конкретная организация или команда, едущая на событие из своего города</td></tr>
+            <tr data-layer="fact"><td><b>Закупки</b><br><small><code>fact_procurement.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">68 / 17</td><td><code>Proc_ID</code></td><td>Тендер или контракт на билеты, чартеры, доставку персонала</td></tr>
+            <tr data-layer="fact"><td><b>Подрядчики</b><br><small><code>fact_contractors.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">10 / 7</td><td><code>Contract_ID</code></td><td>Связь «подрядчик/поставщик → заказчик» (<code>K* → A*/D*</code>)</td></tr>
+            <tr data-layer="fact"><td><b>Персонал групп</b><br><small><code>fact_staff_structure_orgs.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">43 / 14</td><td><code>Org_ID</code></td><td>Разбивка штата группы на руководителей, ИТР, служащих, рабочих (12 групп заполнены)</td></tr>
+            <tr data-layer="fact"><td><b>Персонал площадок</b><br><small><code>fact_staff_structure_sites.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">937 / 15</td><td><code>Site_ID</code></td><td>Та же разбивка персонала по конкретной площадке</td></tr>
+            <tr data-layer="fact"><td><b>Экономика</b><br><small><code>fact_economics.csv</code></small></td><td><span class="tag fact">Факт</span></td><td class="num">33 / 10</td><td><code>Econ_ID</code></td><td>Наблюдённые рыночные показатели, тарифы, субсидии и ограничения</td></tr>
+
+            <tr data-layer="calc"><td><b>Пары</b><br><small><code>od_pairs.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">210 / 12</td><td><code>OD_ID</code></td><td>Отобранная направленная пара «Город A → Город B» с аэропортами и расстоянием</td></tr>
+            <tr data-layer="calc"><td><b>Плечи маршрутов</b><br><small><code>route_legs.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">157 / 17</td><td><code>Leg_ID</code></td><td>Конкретный прямой рейс, плечо пересадки, поезд или автотрансфер (60 привязаны к OD)</td></tr>
+            <tr data-layer="calc"><td><b>Итог</b><br><small><code>demand_estimate.csv</code></small></td><td><span class="tag calc">Расчёт</span></td><td class="num">178 / 23</td><td><code>Pair_ID</code></td><td>Сводка по паре аэропортов <code>A ↔ B</code> в обе стороны с выводом</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Ниже — разбор каждой таблицы по очереди: состав колонок (синим выделены ключи, жёлтым — почти пустые колонки), реальные строки CSV из текущей модели и роль таблицы в расчётах.</p>
+
+      <h3>Справочники (4 таблицы)</h3>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>1. Организации — <code>dim_orgs.csv</code></h4>
+          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>43 строки · 13 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> одна головная группа, госкомпания или крупный подрядчик/поставщик.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Org_ID <small>43/43</small></span>
+          <span class="col-pill">Организация <small>43/43</small></span>
+          <span class="col-pill">Вид <small>A/B/C/D/K</small></span>
+          <span class="col-pill">Категория <small>43/43</small></span>
+          <span class="col-pill">Отрасль <small>43/43</small></span>
+          <span class="col-pill">Контроль государства <small>43/43</small></span>
+          <span class="col-pill">Статус проверен <small>43/43</small></span>
+          <span class="col-pill">Штаб-квартира <small>43/43</small></span>
+          <span class="col-pill">Численность <small>28/43</small></span>
+          <span class="col-pill">Год численности <small>28/43</small></span>
+          <span class="col-pill">Источники <small>43/43</small></span>
+          <span class="col-pill">Площадка закупок <small>36/43</small></span>
+          <span class="col-pill">Источник площадки закупок <small>36/43</small></span>
+        </div>
+        <div class="csv-sample">Org_ID,Организация,Вид,Категория,Отрасль,Штаб-квартира,Численность,Год,Источники
+A1,Росатом,A,Госкорпорация,Атомная энергетика,Москва,412000,2024,"S001,S010"
+A2,Ростех,A,Госкорпорация,Оборонная промышленность и машиностроение,Москва,700000,2024,"S003,S010"
+D2,Газпром,D,ПАО с госконтролем,Нефть и газ,Санкт-Петербург,501000,2024,"S001,S038"
+K6,СтройТрансНефтеГаз,K,Подрядчик (стройка, генподряд),Нефть и газ,,, ,"S2603,S2604..."</div>
+        <p class="transform"><b>Как используется:</b> задаёт периметр отбора. В <code>od_pairs.csv</code> попадают только поездки, где хотя бы у одной стороны <code>Org_ID</code> соответствует маске <code>A/B/C/D/K + цифра</code>.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>2. Площадки — <code>dim_sites.csv</code></h4>
+          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>937 строк · 21 колонка</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> дочернее общество, филиал или отдельное предприятие внутри группы (именно этот лист Настя показывала на скриншоте).</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Site_ID <small>937/937</small></span>
+          <span class="col-pill pk">Org_ID <small>937/937</small></span>
+          <span class="col-pill">Головная <small>937/937</small></span>
+          <span class="col-pill">Площадка <small>937/937</small></span>
+          <span class="col-pill">Владелец <small>937/937</small></span>
+          <span class="col-pill">ИНН <small>783/937</small></span>
+          <span class="col-pill">Уровень <small>1/2/3</small></span>
+          <span class="col-pill">Тип <small>дочка/филиал</small></span>
+          <span class="col-pill empty">Функция площадки <small>0/937</small></span>
+          <span class="col-pill">Город <small>910/937</small></span>
+          <span class="col-pill">Регион <small>856/937</small></span>
+          <span class="col-pill">Точность места <small>937/937</small></span>
+          <span class="col-pill empty">Широта / Долгота <small>0/937</small></span>
+          <span class="col-pill">Численность <small>578/937</small></span>
+          <span class="col-pill">Год численности <small>515/937</small></span>
+          <span class="col-pill">Тип численности <small>573/937</small></span>
+          <span class="col-pill">Источники (3 колонки) <small>578–934/937</small></span>
+          <span class="col-pill">Как получено <small>937/937</small></span>
+        </div>
+        <div class="csv-sample">Site_ID,Org_ID,Головная,Площадка,Владелец,ИНН,Уровень,Тип,Город,Численность,Год
+P0001,A1,Росатом,АО «Атомэнергопром»,Росатом,7706664260,1,дочернее общество,Москва,,
+P0002,A1,Росатом,АО «ТВЭЛ»,Росатом,7706123550,1,дочернее общество,Москва,,
+P0019,A1,Росатом,ПАТЭС,АО «Концерн Росэнергоатом»,,3,филиал,Певек,487,2022</div>
+        <p class="transform"><b>Как используется:</b> даёт географию и масштаб предприятий. Обратите внимание: юридический адрес дочки (часто Москва или Санкт-Петербург) не всегда равен месту фактической работы людей — для этого заведена следующая таблица <code>site_locations</code>.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>3. Места работы — <code>site_locations.csv</code></h4>
+          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>30 строк · 18 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> фактический производственный объект (месторождение, стройка, станция), куда летают сотрудники площадки <code>Site_ID</code>.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Location_ID <small>5/5</small></span>
+          <span class="col-pill pk">Site_ID <small>5/5</small></span>
+          <span class="col-pill">Место работы <small>5/5</small></span>
+          <span class="col-pill">Населённый пункт <small>3/5</small></span>
+          <span class="col-pill">Регион <small>5/5</small></span>
+          <span class="col-pill">Что за объект <small>5/5</small></span>
+          <span class="col-pill empty">Широта / Долгота <small>0/5</small></span>
+          <span class="col-pill">Аэропорт (IATA) <small>4/5</small></span>
+          <span class="col-pill">Как добираться от аэропорта <small>4/5</small></span>
+          <span class="col-pill empty">Численность / Год <small>0/5</small></span>
+          <span class="col-pill">Пассажиров в год / Рейсов в год <small>1/5</small></span>
+          <span class="col-pill">Точность / Источник / Как прочитано <small>5/5</small></span>
+        </div>
+        <div class="csv-sample">Location_ID,Site_ID,Место работы,Регион,Аэропорт (IATA),Как добираться от аэропорта,Источник
+LOC001,P0926,Ковыктинское ГКМ стройка,Иркутская обл.,IKT,автодорога,"S2613,S2723,S2738"
+LOC002,P0926,Тас-Юряхский проект,Республика Саха (Якутия),MJZ,автодорога или вертолёт,"S2605,S2739"
+LOC003,P0476,Ванкорское месторождение,Красноярский край,IAA,вертолёт или зимник,S2740</div>
+        <p class="transform"><b>Как используется:</b> пока это стартовый справочник (5 объектов). В скриптах <code>build_od_pairs</code> таблица ещё не участвует напрямую, но нужна для привязки вахтовых площадок к реальным «последним милям» (вертолёт/авто).</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>4. Аэропорты — <code>fact_airports.csv</code></h4>
+          <div class="tcard-meta"><span class="tag ref">Справочник</span><span>330 строк · 13 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> город и аэропорт, через который из него летят (у Москвы 3 отдельные строки: <code>SVO</code>, <code>DME</code>, <code>VKO</code>).</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Город <small>330/330</small></span>
+          <span class="col-pill">Регион <small>325/330</small></span>
+          <span class="col-pill">Аэропорт <small>317/330</small></span>
+          <span class="col-pill pk">Код ИАТА <small>309/330</small></span>
+          <span class="col-pill">Широта / Долгота <small>307/330</small></span>
+          <span class="col-pill">Аэропорт в городе <small>306/330</small></span>
+          <span class="col-pill">Расстояние, км <small>123/330</small></span>
+          <span class="col-pill">Статус <small>301/330</small></span>
+          <span class="col-pill">Ближайший закрытый аэропорт <small>13/330</small></span>
+          <span class="col-pill">Источник / Как прочитано / Комментарий</span>
+        </div>
+        <div class="csv-sample">Город,Регион,Аэропорт,Код ИАТА,Аэропорт в городе,Расстояние км,Статус
+Москва,Москва,Москва (Шереметьево),SVO,да,,работает
+Новый Уренгой,ЯНАО,Новый Уренгой,NUX,да,,работает
+Саров,Нижегородская обл.,Саранск,SKX,нет,190,работает
+Уфа,Башкортостан,Уфа,UFA,да,,работает</div>
+        <p class="transform"><b>Как используется:</b> переводит названия городов из <code>fact_links</code> и <code>event_participants</code> в коды IATA. Если у одного из городов нет IATA или оба города попали в один аэропорт — пара в <code>od_pairs.csv</code> не попадает. <b>Ограничение:</b> сейчас скрипт склеивает <code>SVO/DME/VKO</code> в общий код <code>MOW</code> (оставляя пустой дальность у 42 пар), тогда как <code>ZIA</code> идёт отдельно.</p>
+      </div>
+
+      <h3>Таблицы фактов (8 таблиц)</h3>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>5. Связи — <code>fact_links.csv</code></h4>
+          <div class="tcard-meta"><span class="tag fact">Факт · ядро модели</span><span>237 строк · 25 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> одно документально подтверждённое направление перемещения людей между двумя городами или площадками.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Link_ID <small>237/237</small></span>
+          <span class="col-pill pk">Org_ID / Site_ID откуда <small>162 / 92</small></span>
+          <span class="col-pill">Город / Организация откуда <small>237 / 218</small></span>
+          <span class="col-pill pk">Org_ID / Site_ID куда <small>184 / 105</small></span>
+          <span class="col-pill">Город / Организация куда <small>237 / 213</small></span>
+          <span class="col-pill">Тип связи <small>237/237</small></span>
+          <span class="col-pill">Что подтверждает / Признаки поездок</span>
+          <span class="col-pill">Кто ездит <small>162/237</small></span>
+          <span class="col-pill empty">Человек <small>26/237</small></span>
+          <span class="col-pill empty">Поездок <small>3/237</small></span>
+          <span class="col-pill empty">Период <small>23/237</small></span>
+          <span class="col-pill">Год данных <small>56/237</small></span>
+          <span class="col-pill">Постоянная/временная <small>68/237</small></span>
+          <span class="col-pill">Срок с / Срок по <small>36 / 41</small></span>
+          <span class="col-pill empty">Частота <small>23/237</small></span>
+          <span class="col-pill">Статус <small>1/2/3</small></span>
+          <span class="col-pill">Источник / Как прочитано / Комментарий</span>
+        </div>
+        <div class="csv-sample">Link_ID,Город откуда,Город куда,Org откуда/куда,Тип связи,Кто ездит,Человек,Период,Год,Статус,Источник
+L001,Москва,Певек,/A1,вахта и полевые работы,Эксплуатационный и судовой персонал,,,2025,3,"S215,S1330,S2211"
+L036,Пермь,Иркутск,A2/A2,испытания,Техники ОДК-ПМ и ОДК-Авиадвигателя,,,,1,"S1354,S2215"
+L184,Омск,Талакан (Якутия),/D2,вахта и полевые работы,Работники подрядчика,139,рейс,2020,3,S1463
+L255,Уфа,Новый Уренгой,K6/D2,вахта и полевые работы,Вахтовый персонал СТНГ / ГСП,,,2026,2,"M001,M005,M009"</div>
+        <p class="transform"><b>Как используется:</b> главный источник для <code>od_pairs.csv</code> и <code>demand_estimate.csv</code>. Строки с типом <code>поставка и кооперация</code> без заполненного поля <code>Кто ездит</code> отбрасываются автоматически (перевозка груза без людей в модель не входит).</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>6. События — <code>fact_events.csv</code> и 7. Участники событий — <code>event_participants.csv</code></h4>
+          <div class="tcard-meta"><span class="tag fact">Факт · событийный спрос</span><span>113 событий · 63 участника</span></div>
+        </div>
+        <p class="grain"><b>Зерно:</b> в <code>fact_events</code> — одно мероприятие (где и когда); в <code>event_participants</code> — конкретная делегация, едущая из своего города на <code>Event_ID</code>.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Event_ID <small>113/113</small></span>
+          <span class="col-pill">Событие / Тип <small>113/113</small></span>
+          <span class="col-pill">Город <small>109/113</small></span>
+          <span class="col-pill">Даты <small>113/113</small></span>
+          <span class="col-pill">Периодичность / Обычный месяц <small>96 / 60</small></span>
+          <span class="col-pill">Участников / точность <small>55/113</small></span>
+          <span class="col-pill">Org_IDs / Организации-участники</span>
+          <span class="col-pill pk">Участники: Event_ID + Org_ID + Город отправления <small>63/63</small></span>
+          <span class="col-pill empty">Участники: Человек <small>4/63</small></span>
+        </div>
+        <div class="csv-sample"># fact_events.csv
+E001,ПМЭФ-2025,форум и выставка,Санкт-Петербург,18–21.06.2025,ежегодно,24200,A1;A4;A5;B1;D1;D2;D7
+E015,Иннопром-2025,форум и выставка,Екатеринбург,07–10.07.2025,ежегодно,,A1;A2;D1;D18
+E126,Иннопром-2027,форум и выставка,Екатеринбург,05–08.07.2027,,,
+
+# event_participants.csv
+E010,D2,P0357,команда Омского НПЗ,Омск,,S290,S291
+E015,D15,,НПО «Обуховский завод» (Концерн ВКО «Алмаз-Антей»),Санкт-Петербург,,M019
+E015,,,СПбПУ Петра Великого (стенд и деловая программа),Санкт-Петербург,,M019</div>
+        <p class="transform"><b>Как используется:</b> скрипт соединяет <code>event_participants</code> с <code>fact_events</code> по <code>Event_ID</code> и создаёт направленную пару <code>Город отправления → Город события</code>. Само по себе событие без строки в <code>event_participants</code> в маршруты не попадает.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>8. Закупки — <code>fact_procurement.csv</code></h4>
+          <div class="tcard-meta"><span class="tag fact">Факт · платёжеспособный спрос</span><span>68 строк · 17 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> одна тендерная процедура, отбор или контракт на авиабилеты, чартеры или перевозку персонала.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Proc_ID <small>68/68</small></span>
+          <span class="col-pill pk">Org_ID <small>68/68</small></span>
+          <span class="col-pill">Группа / Заказчик / Предмет</span>
+          <span class="col-pill">Вид закупки <small>68/68</small></span>
+          <span class="col-pill">Маршруты <small>28/68</small></span>
+          <span class="col-pill">Маршрут раскрыт <small>68/68</small></span>
+          <span class="col-pill empty">Объём <small>17/68</small></span>
+          <span class="col-pill">НМЦ, ₽ <small>22/68</small></span>
+          <span class="col-pill">Цена договора, ₽ <small>26/68</small></span>
+          <span class="col-pill">Период / Год <small>65 / 64</small></span>
+          <span class="col-pill">Исполнитель <small>20/68</small></span>
+          <span class="col-pill">Цель поездок / Источник / Как прочитано</span>
+        </div>
+        <div class="csv-sample">Proc_ID,Org_ID,Заказчик,Предмет,НМЦ ₽,Период,Исполнитель,Источник
+PR060,K6,ООО «ГСП Центр» для АО «СТНГ»,Чартерные перевозки на 2027 г. (АП126926),1218952000,заявки до 27.11.2026 10:00,,S2603,S2634,S3113,M001
+PR064,K6,АО «Газстройпром» для АО «СТНГ»,Чартерные авиаперевозки (АП086548),1830965042.08,протокол 26.12.2024,"КрасАвиа; Якутия; АЛРОСА",M002
+PR065,K6,ООО «ГСП Центр» для АО «СТНГ»,Чартерные авиаперевозки на 2026 г. (АП110294),1086699489.32,протокол 04.12.2025,"КрасАвиа; Якутия; АЛРОСА",M003</div>
+        <p class="transform"><b>Как используется:</b> доказывает реальные бюджеты и действующих подрядчиков. Рубли закупки <b>не переводятся</b> в кресла без спецификации: если маршрутная форма закрыта (как в <code>АП126926</code>), в таблице честно стоит <code>Маршрут раскрыт = нет</code>.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>9. Подрядчики — <code>fact_contractors.csv</code></h4>
+          <div class="tcard-meta"><span class="tag fact">Факт · цепочки поставок</span><span>10 строк · 7 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> подтверждённая контрактная связь между внешним поставщиком/подрядчиком (<code>K*</code>) и заказчиком (<code>A*/D*</code>).</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Contract_ID <small>10/10</small></span>
+          <span class="col-pill pk">Org_ID подрядчика <small>10/10</small></span>
+          <span class="col-pill pk">Org_ID заказчика <small>10/10</small></span>
+          <span class="col-pill">Роль <small>10/10</small></span>
+          <span class="col-pill">Что подтверждено <small>10/10</small></span>
+          <span class="col-pill empty">Период <small>1/10</small></span>
+          <span class="col-pill">Источник <small>10/10</small></span>
+        </div>
+        <div class="csv-sample">Contract_ID,Org_ID подрядчика,Org_ID заказчика,Роль,Что подтверждено,Период,Источник
+C001,K1,A2,Поставщик,ОДК-Пермские моторы и ВСМПО-АВИСМА подписали допсоглашение на титан,2017–2025,"S2588,S2601,S2752"
+C002,K2,A1,Поставщик,Соглашение по поставкам резервных ДГУ для атомной отрасли,,"S2589,S2599"</div>
+        <p class="transform"><b>Как используется:</b> обосновывает, почему частные компании <code>K1–K12</code> (ВСМПО-АВИСМА, ТМХ, СТНГ, Газстройпром и др.) включены в периметр исследования госкорпораций.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>10. Персонал групп — <code>fact_staff_structure_orgs.csv</code> и 11. Персонал площадок — <code>fact_staff_structure_sites.csv</code></h4>
+          <div class="tcard-meta"><span class="tag fact">Факт · структура штата</span><span>43 группы · 937 площадок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> разбивка численности группы (<code>Org_ID</code>) или площадки (<code>Site_ID</code>) на 4 категории: руководители, специалисты/ИТР, служащие, рабочие (в людях и в %).</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Org_ID / Site_ID <small>100%</small></span>
+          <span class="col-pill">Организация / Площадка</span>
+          <span class="col-pill empty">Год <small>15/43 и 43/937</small></span>
+          <span class="col-pill empty">Руководители чел / % <small>3/43 и 10/937</small></span>
+          <span class="col-pill empty">Специалисты/ИТР чел / % <small>3/43 и 7/937</small></span>
+          <span class="col-pill empty">Служащие чел / % <small>3/43 и 5/937</small></span>
+          <span class="col-pill empty">Рабочие чел / % <small>3/43 и 11/937</small></span>
+          <span class="col-pill">Источник / Как прочитано / Комментарий</span>
+        </div>
+        <div class="csv-sample"># fact_staff_structure_orgs.csv (один из 3 заполненных примеров)
+D1,РЖД,2024,Руководители=53862,ИТР=173152,Служащие=16843,Рабочие=433506,S1653</div>
+        <p class="transform"><b>Текущее состояние:</b> каркас готов под 100% групп и площадок, но реальные числа по категориям пока нашлись менее чем для <b>1,2%</b> площадок — открытые отчёты редко раскрывают структуру штата на уровне отдельных заводов.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>12. Экономика — <code>fact_economics.csv</code></h4>
+          <div class="tcard-meta"><span class="tag fact">Факт · рынок, тарифы, нормы</span><span>33 строки · 10 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> один опубликованный количественный факт — рыночный индикатор OBT, тариф, ставка субсидии или нормативное ограничение.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Econ_ID <small>33/33</small></span>
+          <span class="col-pill">Тип <small>рынок/тариф/требование/субсидия/ограничение</small></span>
+          <span class="col-pill">Показатель <small>33/33</small></span>
+          <span class="col-pill">Значение <small>33/33</small></span>
+          <span class="col-pill">Точность / Единица / Относится к / Период / Источник / Комментарий</span>
+        </div>
+        <div class="csv-sample">Econ_ID,Тип,Показатель,Значение,Единица,Период,Источник
+EC022,рынок,Доля бизнес-класса во внутренних деловых перелётах,3,%,I квартал 2026,M014
+EC028,рынок,Доля отмен и изменений деловых авиабилетов,16.7,%,2026,M015
+EC031,субсидия,Ставка софинансирования Пермского края Пермь–Иркутск,383677.45,₽/плечо,01.04–31.10.2027,M006
+EC032,требование,ЕПоЗ Ростеха: мин. доля собств. исполнения у ед. поставщика,30,%,ред. 02.09.2026,M007</div>
+        <p class="transform"><b>Как используется:</b> строки с <code>Тип = тариф</code> автоматически подтягиваются в <code>demand_estimate.csv</code> для пары аэропортов; остальные строки фиксируют проверяемые рыночные и юридические рамки (без модельных догадок).</p>
+      </div>
+
+      <h3>Расчётные витрины (3 таблицы)</h3>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>13. Пары — <code>od_pairs.csv</code></h4>
+          <div class="tcard-meta"><span class="tag calc">Расчёт · направленные OD</span><span>208 строк · 12 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> направленная пара городов <code>Город откуда → Город куда</code>, прошедшая 4 фильтра модели (<code>OD</code> = Origin–Destination).</p>
+        <div class="cols-list">
+          <span class="col-pill pk">OD_ID <small>208/208</small></span>
+          <span class="col-pill">Город / Аэропорт откуда</span>
+          <span class="col-pill">Город / Аэропорт куда</span>
+          <span class="col-pill">Расстояние, км <small>139/208</small></span>
+          <span class="col-pill">Org_IDs <small>208/208</small></span>
+          <span class="col-pill">Основания <small>L###/E###</small></span>
+          <span class="col-pill">Типы поездок</span>
+          <span class="col-pill">Лучший статус <small>1/2/3</small></span>
+          <span class="col-pill">Последний год данных <small>134/208</small></span>
+          <span class="col-pill">Актуальность <small>208/208</small></span>
+        </div>
+        <div class="csv-sample">OD_ID,Откуда,IATA,Куда,IATA,Км,Org_IDs,Основания,Статус,Год,Актуальность
+OD180,Уфа,UFA,Новый Уренгой,NUX,1696,D2;D3;K6,L237;L255,2,2027,актуальна
+OD023,Заречный,SVX,Сосновый Бор,LED,1801,A1,L015,2,,не определена</div>
+        <p class="transform"><b>Как строится:</b> автоматически объединяет все записи из <code>fact_links</code> и <code>event_participants</code> с одинаковыми <code>Город откуда + Город куда</code>, подставляет аэропорты из <code>fact_airports</code> и считает расстояние по прямой (ортодромию) по координатам OurAirports.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>14. Плечи маршрутов — <code>route_legs.csv</code></h4>
+          <div class="tcard-meta"><span class="tag calc">Справочник + привязка OD_ID</span><span>100 строк · 17 колонок</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> один фактический прямой рейс, одно плечо пересадки, поезд или автотрансфер для конкретной пары.</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Leg_ID <small>100/100</small></span>
+          <span class="col-pill pk">OD_ID <small>34/100</small></span>
+          <span class="col-pill">Пара / Вариант / Плечо</span>
+          <span class="col-pill">Откуда / Куда</span>
+          <span class="col-pill">Вид транспорта <small>прямой/пересадка/поезд/авто</small></span>
+          <span class="col-pill">Перевозчик / Номер рейса</span>
+          <span class="col-pill">Время в пути, мин</span>
+          <span class="col-pill">Рейсов в неделю</span>
+          <span class="col-pill">Тариф, ₽</span>
+          <span class="col-pill">Дата рейса / Дата проверки / Источник / Как прочитано</span>
+        </div>
+        <div class="csv-sample">Leg_ID,OD_ID,Пара,Вариант,Плечо,Вид транспорта,Перевозчик,Рейс,Рейсов/нед,Дата рейса,Источник
+RL001,OD180,UFA–NUX,1,1,самолёт прямой,Ямал,YC188,3,2026-11-25,"S2606,S2612,S2725"
+RL072,OD180,UFA–NUX,2,1,самолёт прямой,Red Wings,WZ1081,2,Пн/Сб прилёт 07:30,M009
+RL074,OD180,UFA–NUX,3,1,самолёт прямой,ЮТэйр,UT185,7,ежедневно,M009
+RL088,,IKT–PEE,1,1,самолёт пересадка,S7 Airlines,S75230,7,2026-12-02 (6ч25м через OVB),M011</div>
+        <p class="transform"><b>Как используется:</b> после каждой пересборки <code>od_pairs</code> скрипт обновляет колонку <code>OD_ID</code> по совпадению аэропортов. В <code>demand_estimate</code> в колонку «Прямые рейсы сейчас» попадают только строки с <code>Вид транспорта = самолёт, прямой</code> и <code>Плечо = 1</code>.</p>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-head">
+          <h4>15. Итог — <code>demand_estimate.csv</code></h4>
+          <div class="tcard-meta"><span class="tag calc">Финальная витрина</span><span>176 строк · 23 колонки</span></div>
+        </div>
+        <p class="grain"><b>Одна строка:</b> ненаправленная пара аэропортов <code>Аэропорт A ↔ Аэропорт B</code> (оба направления сложены в одну линию).</p>
+        <div class="cols-list">
+          <span class="col-pill pk">Pair_ID <small>176/176</small></span>
+          <span class="col-pill">Аэропорт A / B и Города A / B</span>
+          <span class="col-pill">Длина, км <small>132/176</small></span>
+          <span class="col-pill">Org_IDs / OD_IDs / Основания / Типы поездок</span>
+          <span class="col-pill empty">Пассажиров в год <small>8/176</small></span>
+          <span class="col-pill empty">Объём из источников <small>26/176</small></span>
+          <span class="col-pill empty">Наибольшая группа / от 80 чел. <small>11/176</small></span>
+          <span class="col-pill">Периодичность <small>91/176</small></span>
+          <span class="col-pill empty">Прямые рейсы сейчас <small>10/176</small></span>
+          <span class="col-pill empty">Тариф, ₽ <small>3/176</small></span>
+          <span class="col-pill empty">Выручка, ₽/год <small>0/176</small></span>
+          <span class="col-pill">Лучший статус / Актуальность / Вывод <small>176/176</small></span>
+        </div>
+        <div class="csv-sample">Pair_ID,Пара,Км,Org_IDs,Прямые рейсы сейчас,Актуальность,Вывод
+DP157,NUX–UFA,1696,D2;D3;K6,"Red Wings 2/нед.; ЮТэйр 7/нед.; Ямал 3/нед.",актуальна,проверить объём: поездки подтверждены
+DP119,LED–SVX,1801,A1;D15,"Smartavia 7; Победа 7; Россия 17; Уральские 14; Якутия 1",актуальна,проверить объём: поездки подтверждены
+DP159,OMS–TLK,2290,D2,,устарела,устарело: нужны свежие данные</div>
+        <p class="transform"><b>Главное свойство:</b> ничего не экстраполируется — месячные и разовые цифры остаются текстом в «Объём из источников», а выручка считается только там, где одновременно есть и годовой поток, и наблюдённый тариф (сейчас 0 из 176).</p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <h2><span class="n">2</span>Как таблицы связаны между собой</h2>
+      <p class="sub">
+        Все 15 таблиц соединяются через явные текстовые ключи (внешние ключи / FK). Ниже — фактическая схема модели без вымышленных связей: сплошные стрелки показывают физические ключи, красные стрелки — автоматический расчётный конвейер скриптов.
+      </p>
+
+      <div class="fig">
+        <svg class="diagram" viewBox="0 0 920 500" role="img" aria-label="Схема связей 15 таблиц модели Red Wings">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#55606d"/>
+            </marker>
+            <marker id="ah-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#c8372d"/>
+            </marker>
+          </defs>
+
+          <!-- Column labels -->
+          <text x="20" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#2468b8">1. Справочники</text>
+          <text x="305" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#9f251d">2. Факты</text>
+          <text x="670" y="22" class="s" style="font-weight:700;text-transform:uppercase;fill:#168a5c">3. Расчётные витрины</text>
+
+          <!-- REF boxes -->
+          <rect x="20" y="38" width="215" height="62" class="box ref"/>
+          <text x="32" y="59" class="t">dim_orgs (43)</text>
+          <text x="32" y="76" class="k">PK: Org_ID (A/B/C/D/K)</text>
+          <text x="32" y="91" class="s">Головные группы и подрядчики</text>
+
+          <rect x="20" y="130" width="215" height="62" class="box ref"/>
+          <text x="32" y="151" class="t">dim_sites (937)</text>
+          <text x="32" y="168" class="k">PK: Site_ID · FK: Org_ID</text>
+          <text x="32" y="183" class="s">Дочки, филиалы, ИНН, города</text>
+
+          <rect x="20" y="222" width="215" height="58" class="box ref"/>
+          <text x="32" y="243" class="t">site_locations (5)</text>
+          <text x="32" y="260" class="k">PK: Location_ID · FK: Site_ID</text>
+          <text x="32" y="274" class="s">Удалённые стройки/месторождения</text>
+
+          <rect x="20" y="324" width="215" height="72" class="box ref"/>
+          <text x="32" y="346" class="t">fact_airports (330)</text>
+          <text x="32" y="363" class="k">Key: Город → Код ИАТА</text>
+          <text x="32" y="378" class="s">SVO/DME/VKO → MOW</text>
+          <text x="32" y="391" class="s">+ OurAirports координаты</text>
+
+          <!-- FACT boxes -->
+          <rect x="305" y="38" width="265" height="54" class="box fact"/>
+          <text x="317" y="58" class="t">fact_staff_structure_orgs (43)</text>
+          <text x="317" y="74" class="k">FK: Org_ID · 1:1</text>
+          <text x="317" y="86" class="s">fact_staff_structure_sites (937, Site_ID)</text>
+
+          <rect x="305" y="106" width="265" height="54" class="box fact"/>
+          <text x="317" y="126" class="t">contractors (10) · procurement (68)</text>
+          <text x="317" y="142" class="k">FK: Org_ID (K* → A*/D*)</text>
+          <text x="317" y="154" class="s">Закупки, бюджеты, цепочки подряда</text>
+
+          <rect x="305" y="178" width="265" height="76" class="box fact"/>
+          <text x="317" y="199" class="t">fact_links (237)</text>
+          <text x="317" y="216" class="k">PK: Link_ID · FK: Org_ID, Site_ID</text>
+          <text x="317" y="231" class="s">Город откуда → Город куда, Кто ездит,</text>
+          <text x="317" y="245" class="s">Человек, Период, Год, Статус (1..3)</text>
+
+          <rect x="305" y="274" width="265" height="62" class="box fact"/>
+          <text x="317" y="295" class="t">event_participants (63)</text>
+          <text x="317" y="311" class="k">FK: Event_ID, Org_ID, Site_ID</text>
+          <text x="317" y="326" class="s">Кто и из какого города едет на событие</text>
+
+          <rect x="305" y="352" width="265" height="54" class="box fact"/>
+          <text x="317" y="372" class="t">fact_events (113)</text>
+          <text x="317" y="388" class="k">PK: Event_ID</text>
+          <text x="317" y="400" class="s">Город, даты, периодичность события</text>
+
+          <rect x="305" y="424" width="265" height="54" class="box fact"/>
+          <text x="317" y="444" class="t">fact_economics (33)</text>
+          <text x="317" y="460" class="k">PK: Econ_ID (Тип = тариф → в Итог)</text>
+          <text x="317" y="472" class="s">Рынок OBT 2026, тарифы, ЕПоЗ, субсидии</text>
+
+          <!-- CALC boxes -->
+          <rect x="650" y="178" width="248" height="82" class="box calc"/>
+          <text x="662" y="199" class="t">od_pairs (208)</text>
+          <text x="662" y="216" class="k">PK: OD_ID (Город A → Город B)</text>
+          <text x="662" y="231" class="s">Фильтры: 2 разных IATA + Org A..K</text>
+          <text x="662" y="245" class="s">+ люди едут + Статус ≥ 1</text>
+
+          <rect x="650" y="290" width="248" height="72" class="box calc"/>
+          <text x="662" y="311" class="t">route_legs (100)</text>
+          <text x="662" y="328" class="k">PK: Leg_ID · FK: OD_ID (34/100)</text>
+          <text x="662" y="343" class="s">Прямые рейсы, пересадки, поезда,</text>
+          <text x="662" y="356" class="s">частоты, тарифы, даты проверки</text>
+
+          <rect x="650" y="392" width="248" height="86" class="box calc"/>
+          <text x="662" y="413" class="t">demand_estimate / «Итог» (176)</text>
+          <text x="662" y="430" class="k">PK: Pair_ID (IATA A ↔ IATA B)</text>
+          <text x="662" y="445" class="s">Объёмы, группа ≥80, прямые рейсы,</text>
+          <text x="662" y="459" class="s">мин. тариф, актуальность и Вывод</text>
+
+          <!-- Links -->
+          <path d="M 127 100 L 127 128" class="arr"/>
+          <text x="134" y="119" class="s">1:N</text>
+          <path d="M 127 192 L 127 220" class="arr"/>
+          <text x="134" y="211" class="s">1:N</text>
+
+          <path d="M 235 64 L 303 64" class="arr"/>
+          <path d="M 235 76 L 270 76 L 270 132 L 303 132" class="arr"/>
+          <path d="M 235 160 L 270 160 L 270 205 L 303 205" class="arr"/>
+          <path d="M 235 170 L 260 170 L 260 298 L 303 298" class="arr"/>
+          <path d="M 437 352 L 437 338" class="arr"/>
+          <text x="444" y="348" class="s">1:N</text>
+
+          <!-- Pipeline red arrows -->
+          <path d="M 570 214 L 648 214" class="arr acc"/>
+          <path d="M 570 302 L 610 302 L 610 232 L 648 232" class="arr acc"/>
+          <path d="M 235 360 L 285 360 L 285 488 L 626 488 L 626 244 L 648 244" class="arr acc"/>
+          <text x="650" y="170" class="k" style="fill:#9f251d">build_od_pairs</text>
+
+          <path d="M 774 260 L 774 288" class="arr acc"/>
+          <text x="782" y="278" class="s">OD_ID</text>
+
+          <path d="M 774 362 L 774 390" class="arr acc"/>
+          <path d="M 898 220 L 912 220 L 912 432 L 900 432" class="arr acc"/>
+          <path d="M 570 452 L 648 452" class="arr acc"/>
+          <text x="576" y="446" class="s">тарифы</text>
+        </svg>
+        <div class="cap">
+          <b>Как читать схему:</b> синие блоки — справочники сущностей, розовые — таблицы первичных фактов, зелёные — расчётные витрины. Таблицы <code>fact_procurement</code>, <code>fact_contractors</code> и <code>fact_staff_structure_*</code> не генерируют строки в <code>od_pairs</code> автоматически — они служат доказательным слоем и базой для оценки масштаба на следующем шаге.
+        </div>
+      </div>
+
+      <h3>Четыре главные кодировки, без которых таблицы читаются неверно</h3>
+      <dl class="gl">
+        <dt><code>Org_ID</code> (A / B / C / D / K)</dt>
+        <dd><b>A</b> — госкорпорации (5: Росатом, Ростех, Роскосмос, ВЭБ.РФ, АСВ); <b>B</b> — госкомпания Автодор (1); <b>C</b> — публично-правовые компании (6); <b>D</b> — крупные компании с госконтролем (19: РЖД, Газпром, Роснефть, Транснефть, РусГидро, Россети, Алмаз-Антей и др.); <b>K</b> — подрядчики, поставщики и частные вахтовые компании (12: ВСМПО-АВИСМА, Газстройпром, СТНГ, Сургутнефтегаз, НОВАТЭК, СИБУР и др.).</dd>
+
+        <dt><code>Статус</code> (1 / 2 / 3)</dt>
+        <dd><b>1</b> — подтверждена деловая связь (кооперация, подряд, владение); <b>2</b> — подтверждён факт реальных поездок людей; <b>3</b> — в источнике есть числовой объём (людей или рейсов). В <code>od_pairs</code> берётся максимум статуса среди всех связей пары.</dd>
+
+        <dt><code>Актуальность</code></dt>
+        <dd><b>актуальна</b> — последний год данных 2024 или новее; <b>устарела</b> — все датированные записи старше 2024 года; <b>не определена</b> — в источнике не указан год. Важно: пустой год не делает запись устаревшей, поэтому год публикации нужно заполнять обязательно.</dd>
+
+        <dt><code>Источник</code> (S#### и M###)</dt>
+        <dd>Коды <b><code>S0001–S3113</code></b> ссылаются на локальную коллекцию Zotero Насти (<code>red_wings_sources</code>). Коды <b><code>M001–M021</code></b> добавлены при интеграции наших проверок Фазы 1 и полностью расшифрованы с кликабельными URL в файле <code>data/raw/colleague/sources_phase1_20261125.csv</code>.</dd>
+      </dl>
+    </section>
+
+    <!-- ============================================================ -->
+    <div class="part-mark">Часть 2. Идея, принципы и отраслевые практики</div>
+
+    <section id="s3">
+      <h2><span class="n">3</span>Идея и принципы исследования</h2>
+      <p class="sub">
+        Главная задача — проверить, существует ли у российских госкорпораций, госкомпаний и их цепочек подрядчиков устойчивый платёжеспособный спрос на авиаперелёты внутри РФ, который не закрыт текущим рынком, и какие продуктовые форматы (блок мест, пулинг нескольких заказчиков, допрейс, чартер) могут его обслуживать.
+      </p>
+
+      <div class="cards2">
+        <div class="mini-card top-acc">
+          <h4>1. Сначала чистый спрос — без фильтра по парку</h4>
+          <p>На этапе выявления очагов поездок мы намеренно не фильтруем направления старой маршрутной сетью Red Wings и дальностью SSJ100. Сначала строим карту реальных потоков по России, и только после понимания объёмов подбираем продукт, узлы и типы ВС.</p>
+        </div>
+        <div class="mini-card top-blu">
+          <h4>2. Ноль догадок в таблицах фактов</h4>
+          <p>В <code>data/model/*.csv</code> попадают только проверяемые факты из источников. Пустая ячейка означает «данных нет», а не «ноль». Сценарные расчёты маржи, вытеснения и чувствительности живут отдельно и не смешиваются с сырой базой фактов.</p>
+        </div>
+        <div class="mini-card top-grn">
+          <h4>3. Когорты и ритм вместо «всей численности»</h4>
+          <p>Умножать всю численность корпорации на средний процент командировок неверно. Мы выделяем 8 мобильных групп (от топ-менеджмента до вахтовых и ремонтных бригад) и 3 ритма: постоянный, проектный (с датой окончания стройки) и событийный.</p>
+        </div>
+        <div class="mini-card top-amb">
+          <h4>4. Честный <code>Working No-Go</code> — полноценный результат</h4>
+          <p>Если на направлении уже летают 5 конкурентов (как <code>LED–SVX</code>), есть быстрый ночной поезд (<code>OMS–TOF</code>, <code>Москва–Димитровград</code>) или работает собственный ведомственный флот (Сабетта, Бованенково) — мы фиксируем отказ, а не подгоняем маршрут под презентацию.</p>
+        </div>
+      </div>
+
+      <h3>Восемь мобильных групп персонала (методика сегментации)</h3>
+      <p>По опросам деловой мобильности, в среднем чаще всех ездят руководители (76%), а рабочие реже — но в промышленности именно отдельные категории рабочих (ремонтники АЭС и вахтовики) формируют самые крупные чартерные потоки.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>№</th><th>Группа</th><th>Кто едет и куда</th><th>Ритм</th><th>Размер группы</th><th>Подходящий продукт RW</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><b>Управленцы</b></td><td>Топ-менеджмент, аудит, советы директоров (ШК ↔ дочки)</td><td>Постоянно</td><td>1–4 чел.</td><td>Гибкий корпоративный тариф / OBT (запрос на бизнес-класс)</td></tr>
+            <tr><td>2</td><td><b>Инженеры и ИТР</b></td><td>Конструкторы, наладчики, сервис (КБ ↔ завод ↔ объект; +45% спроса за 3 года)</td><td>Постоянно и проектно</td><td>2–20 чел.</td><td>Корпоративный блок от 10 мест с гибкой заменой ФИО и дат</td></tr>
+            <tr><td>3</td><td><b>Ремонтные бригады</b></td><td>ППР на АЭС и ТЭС (Атомэнергоремонт: ~1 500–2 000 чел. на энергоблок)</td><td>Сезонно, кампаниями</td><td>Сотни–тысячи</td><td>Сезонный блок мест или проектный чартер</td></tr>
+            <tr><td>4</td><td><b>Вахтовики</b></td><td>Добыча и магистральные стройки (смены 15–60 дней круглый год)</td><td>График смен</td><td>Сотни–тысячи</td><td>Чартерный контракт (223-ФЗ / ЭТП ГПБ) или ACMI-резерв</td></tr>
+            <tr><td>5</td><td><b>Полевые / экипажи</b></td><td>Геологи, морские и лётные экипажи</td><td>Сезонно / график</td><td>Десятки–сотни</td><td>Смешанный блок / чартер</td></tr>
+            <tr><td>6</td><td><b>Обучение и конкурсы</b></td><td>Академии, AtomSkills (2 000+ чел. в Екатеринбурге), спартакиады</td><td>Ежегодно</td><td>Десятки–тысячи</td><td>Событийный блок или разовый чартер под пиковые даты</td></tr>
+            <tr><td>7</td><td><b>Приёмка и контроль</b></td><td>Входной контроль заказчика у поставщиков</td><td>Регулярно</td><td>Малые группы</td><td>Корпоративный тариф / пулинг на регулярке</td></tr>
+            <tr><td>8</td><td><b>Коммерция и закупки</b></td><td>Менеджеры продаж и снабжения (лидеры по числу командировок)</td><td>Постоянно</td><td>Малые группы</td><td>OBT / агентский корпоративный тариф</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s4">
+      <h2><span class="n">4</span>Отраслевые и академические практики такой аналитики</h2>
+      <p class="sub">
+        Корпоративный авиационный спрос редко оценивают «на глаз». В мировой практике транспортного моделирования и у крупных добывающих и авиационных компаний сложились стандартные правила сбора, разделения сущностей и проверки гипотез. Мы проверили эти стандарты и перенесли их в нашу методику.
+      </p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Практика / стандарт</th><th>Как это работает в мире и РФ</th><th>Что именно мы взяли для Red Wings</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>NASA / Virginia Tech TSAM</b><br><small>Transportation Systems Analysis Model</small></td>
+              <td>Делит задачу на 3 шага: частота поездок по цели → распределение по пунктам назначения → выбор вида транспорта по полной стоимости и времени «дверь-в-дверь» (включая трансфер, регистрацию и выезд).</td>
+              <td>В наших проверках мы сравниваем авиа с поездом и авто не по «чистому времени полёта», а по полной двери-в-дверь (пример: до НИИАР Димитровград от вокзала 16 мин, а от аэропорта ULV — 1ч 53м).</td>
+            </tr>
+            <tr>
+              <td><b>BTS DB1B / DB1C / T-100</b> и <b>ICAO Form B</b></td>
+              <td>Жёстко разделяют три уровня учёта: билет/командировка целиком, конечная пара городов пассажира (OD) и выполненные лётные сегменты по номерам рейсов.</td>
+              <td>Разведены таблицы <code>fact_links</code> (поездка), <code>od_pairs</code> (конечная направленная пара) и <code>route_legs</code> (плечи перелёта и стыковки).</td>
+            </tr>
+            <tr>
+              <td><b>GSA City Pair Program (США, FY2026)</b></td>
+              <td>Для госконтрактов по парам городов берут данные ведомств, корпоративных карт и ARC; при пересечении источников берут максимум, а не сумму (защита от двойного счёта). Прогноз объёма хранят отдельно от обязательства выкупа.</td>
+              <td>Мы не складываем противоречивые источники и не приравниваем объём закупки/анонса к гарантированному выкупу мест.</td>
+            </tr>
+            <tr>
+              <td><b>IATA AirportIS, OAG, ТКП, Сирена-Трэвел</b></td>
+              <td>Билетные базы показывают рынок и пересадки (в РФ: ТКП публикует топ-100 пар с лагом 45 дней, «Сирена» — договорные отчёты, Росавиация — только агрегаты), но <b>не знают работодателя и цель поездки</b>.</td>
+              <td>Понимание границы открытых данных: билетные базы проверяют масштаб рынка, но корпоративного плательщика можно подтвердить только через закупки 223-ФЗ, ТМС/OBT или выгрузку заказчика.</td>
+            </tr>
+            <tr>
+              <td><b>FIFO-практика (Rio Tinto, Virgin Australia, Qantas, ПАТЭС)</b></td>
+              <td>В Австралии добытчики комбинируют выделенный чартер, блок мест с трансфером и гибрид (в Онслоу Rio Tinto и Qantas открывали продажу свободных кресел чартера местным жителям). По ПАТЭС в Певеке факт подтверждается подписанными отчётами перевозчика по сменам.</td>
+              <td>Ступенчатая линейка продуктов RW (блок на регулярке → допрейс → чартер → ACMI-резерв) и учёт асимметрии прямого/обратного плеча смен.</td>
+            </tr>
+            <tr>
+              <td><b>Процессы компаний (HeadHunter/Smartway, Hitachi Rail, SAP FSM)</b></td>
+              <td>У командировок два разных «источника правды»: цель и инициатор возникают в заявке/плане работ (Jira, SAP, график ППР), а билет, тариф и возврат — в OBT/ТМС (Smartway, Аэроклуб).</td>
+              <td>Чёткий список полей для запроса у пилотного заказчика и его ТМС: обезличенный ID поездки, направленная пара, дата, статус (выполнена/возврат/обмен), транспорт и канал покупки.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <div class="part-mark">Часть 3. Сбор данных, логика расчётов и результаты</div>
+
+    <section id="s5">
+      <h2><span class="n">5</span>Как собирали данные и объединили два направления работы</h2>
+      <p class="sub">
+        В России нет открытой статистики пассажиропотока «город–город» с привязкой к корпорациям. Поэтому команда вела сбор встречным методом — сверху вниз и снизу вверх — и свела оба слоя в единую модель <code>rew_wings</code> без смешивания фактов с догадками.
+      </p>
+
+      <div class="cards2">
+        <div class="mini-card top-blu">
+          <h4>Сверху вниз: от структуры компаний к очагам поездок</h4>
+          <p>Отобраны 43 организации (A/B/C/D/K) → раскрыты 937 дочек и филиалов с ИНН и городами (из годовых отчётов, ЕГРЮЛ/Checko, сайтов) → собраны 113 событий, 63 делегации и 237 связей кооперации, управления, ремонтов и вахт → привязаны к 330 городам и аэропортам.</p>
+        </div>
+        <div class="mini-card top-acc">
+          <h4>Снизу вверх: от реальных закупок, табло и OBT к проверке</h4>
+          <p>Проверены первичные карточки ЭТП ГПБ и 223-ФЗ (68 процедур, включая живой тендер СТНГ <code>АП126926</code> и серию 2024–2026), скачаны нормативные PDF (Приказ Пермского края № 44-01-02-618, ЕПоЗ Ростеха от 02.09.2026), сняты живые расписания аэропортов на ноябрь 2026 и июль 2027, собрана статистика OBT 2026.</p>
+        </div>
+      </div>
+
+      <h3>Как сведена общая версия модели (ветка <code>feat/phase1-verified-facts-20261125</code>)</h3>
+      <ul>
+        <li><b>Закрыты сайты, не открывавшиеся из-за SSL/403:</b> в <code>fact_procurement</code> и <code>fact_economics</code> добавлены подтверждённые карточки <code>АП126926</code> (номер и ссылка в <code>PR060</code>), <code>АП086548</code>, <code>АП110294</code>, <code>АП126878</code>, <code>АП124297</code>, спецификация ТВЭЛ <code>32211165411</code>, Приказ Минтранса Пермского края № 44-01-02-618 и нормы ЕПоЗ Ростеха <code>6.6.2(51)</code>.</li>
+        <li><b>Добавлены живые расписания и альтернативы (<code>route_legs.csv</code>: 71 → 100 строк):</b> внесены действующий рейс Red Wings <code>WZ-1081/1082</code> и <code>ЮТэйр UT-185/186</code> на <code>UFA–NUX</code>, все 5 конкурентов на <code>LED–SVX</code> (с фактом <code>0/0</code> рейсов RW), частоты на <code>SVX–UFA</code>, <code>SVX–KZN</code>, <code>LED–NUX</code>, <code>OMS–KJA</code>, <code>KJA–UFA</code>, <code>MOW–ULV</code> и стыковки/поезда на беспересадочно закрытых парах.</li>
+        <li><b>Исправлены 2 технические ошибки пересборки:</b>
+          <ol>
+            <li>В <code>L183</code> и <code>L184</code> (рейсы «Якутии» в Талакан из публикации 27.08.2020) заполнено пустое поле <code>Год данных = 2020</code>, после чего 6-летняя новость на 139 человек перестала быть ложным «кандидатом на чартер» и честно ушла в <code>устарело</code>.</li>
+            <li>В <code>build_demand_estimate.ps1</code> (и новом <code>scripts/rebuild.py</code>) фильтр <code>самолёт*</code> заменён на строгое <code>самолёт, прямой</code>, чтобы пересадочные плечи (<code>самолёт, пересадка</code>) не попадали в колонку «Прямые рейсы сейчас».</li>
+          </ol>
+        </li>
+        <li><b>Добавлена таблица URL для новых источников:</b> все 21 новый источник (<code>M001–M021</code>) вынесены в <code>data/raw/colleague/sources_phase1_20261125.csv</code> с полными ссылками — их можно проверять сразу и загрузить в Zotero одной выгрузкой.</li>
+      </ul>
+    </section>
+
+    <section id="s6">
+      <h2><span class="n">6</span>Что и как считают скрипты (пошаговая механика)</h2>
+      <p class="sub">
+        За пересборку модели отвечают 3 последовательных шага: <code>build_od_pairs</code> → <code>build_demand_estimate</code> → <code>build_excel.py</code>. На Mac/Linux весь цикл запускается одной командой <code>python3 scripts/rebuild.py</code> (проверено на 100% совпадение с PowerShell-скриптами).
+      </p>
+
+      <h3>Шаг 1. Отбор направленных пар (<code>od_pairs.csv</code>)</h3>
+      <p>Из всех строк <code>fact_links</code> (237) и <code>event_participants</code> (63) в расчёт проходят записи, которые одновременно выполняют 4 правила:</p>
+      <ol>
+        <li><b>У обоих городов есть аэропорт в <code>fact_airports</code> и коды IATA различаются</b> (поездки внутри одного авиаузла отсекаются; <code>SVO/DME/VKO</code> приводятся к <code>MOW</code>).</li>
+        <li><b>Хотя бы одна сторона входит в наш периметр</b> (<code>Org_ID</code> начинается с <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code> или <code>K</code>).</li>
+        <li><b>Едут люди:</b> связи с типом <code>поставка и кооперация</code> без заполненного поля <code>Кто ездит</code> пропускаются.</li>
+        <li><b>Статус не ниже 1.</b></li>
+      </ol>
+      <p>Для прошедших записей скрипт группирует одинаковые <code>Город откуда + Город куда</code>, вычисляет расстояние по формуле гаверсинусов (ортодромию по координатам OurAirports, в км; для <code>MOW</code> оставляет пустым), берёт максимальный статус и самый свежий год. Затем синхронизирует <code>OD_ID</code> в <code>route_legs.csv</code>.</p>
+
+      <h3>Шаг 2. Сводка по паре аэропортов и дерево решений (<code>demand_estimate.csv</code>)</h3>
+      <p>Направленные пары <code>A → B</code> и <code>B → A</code> склеиваются в одну ненаправленную строку <code>A ↔ B</code> (сортировка кодов по алфавиту). Дальше для каждой пары считаются:</p>
+      <ul>
+        <li><b>Пассажиров в год:</b> суммируется только из строк <code>fact_links</code>, где <code>Период = год</code> и стоит целое число. Месячные и разовые цифры в год <b>не умножаются</b>.</li>
+        <li><b>Наибольшая группа за раз:</b> максимум числа людей из записей с <code>Период ∈ {рейс, одна поездка}</code> или из <code>event_participants</code>. Сравнивается с ориентиром <code>SEATS = 80</code>.</li>
+        <li><b>Прямые рейсы сейчас:</b> уникальные перевозчики и частоты из <code>route_legs</code>, где <code>Вид транспорта = самолёт, прямой</code> и <code>Плечо = 1</code>.</li>
+        <li><b>Тариф и выручка:</b> минимальный наблюдённый тариф из <code>route_legs</code> или <code>fact_economics</code>; выручка = <code>Пассажиров в год × Тариф</code> (если хотя бы одного числа нет — пусто).</li>
+      </ul>
+
+      <div class="card">
+        <h4>Дерево присвоения статуса в колонке «Вывод» (строгий порядок проверки сверху вниз)</h4>
+        <ol style="margin:6px 0 0">
+          <li>Если <code>Актуальность = устарела</code> (все годы &lt; 2024) → <b><code>устарело: нужны свежие данные</code></b></li>
+          <li>Иначе если <code>Наибольшая группа ≥ 80</code> → <b><code>кандидат на чартер: группа от 80 чел. за раз</code></b></li>
+          <li>Иначе если <code>Пассажиров в год &gt; 0</code> → <b><code>кандидат на блок мест: известен поток за год</code></b></li>
+          <li>Иначе если есть хоть какой-то объём в источниках → <b><code>малый поток: объём известен, меньше 80 чел. за раз</code></b></li>
+          <li>Иначе если <code>Лучший статус ≥ 2</code> → <b><code>проверить объём: поездки подтверждены</code></b></li>
+          <li>Иначе (<code>Статус = 1</code>) → <b><code>гипотеза: подтверждена только связь</code></b></li>
+        </ol>
+      </div>
+
+      <h3>Интерактивный трассировщик: как исходные строки превращаются в строку «Итога»</h3>
+      <p>Выберите любую из 5 реальных пар ниже — показаны точные записи из входных CSV и результат, который выдаёт скрипт (те же 5 кейсов разобраны и в таблице следующего раздела).</p>
+
+      <div class="card">
+        <div class="btns" id="trace-btns">
+          <button class="btn on" type="button" data-trace="nux-ufa">DP157 · NUX–UFA (точка опоры)</button>
+          <button class="btn" type="button" data-trace="led-svx">DP119 · LED–SVX (ИННОПРОМ)</button>
+          <button class="btn" type="button" data-trace="ikt-pee">DP065 · IKT–PEE (субсидия)</button>
+          <button class="btn" type="button" data-trace="oms-tlk">DP159 · OMS–TLK (починенный баг)</button>
+          <button class="btn" type="button" data-trace="mow-sbt">DP139 · MOW–SBT (оговорка)</button>
+        </div>
+        <div id="trace-out" class="trace-grid"></div>
+      </div>
+
+      <details class="code-box">
+        <summary>Показать точное условие вывода из скрипта (build_demand_estimate.ps1 / rebuild.py)</summary>
+        <pre><code>if rel == "устарела":
+    verdict = "устарело: нужны свежие данные"
+elif group_max >= 80:
+    verdict = "кандидат на чартер: группа от 80 чел. за раз"
+elif pax_year > 0:
+    verdict = "кандидат на блок мест: известен поток за год"
+elif vol:
+    verdict = "малый поток: объём известен, меньше 80 чел. за раз"
+elif best >= 2:
+    verdict = "проверить объём: поездки подтверждены"
+else:
+    verdict = "гипотеза: подтверждена только связь"</code></pre>
+      </details>
+    </section>
+
+    <section id="s7">
+      <h2><span class="n">7</span>Что получили в общем результате на 26.11.2026</h2>
+      <p class="sub">
+        Объединённая модель собрала проверяемую карту корпоративной мобильности по 43 организациям и 937 площадкам, свела 237 подтверждённых связей, 113 событий и 68 закупок в 176 пар аэропортов и дополнила её глубокой проверкой расписаний, субсидий и закупочного права.
+      </p>
+
+      <h3>Масштаб собранной базы: кто и зачем ездит</h3>
+      <div class="cards2">
+        <div class="mini-card">
+          <h4>Крупнейшие группы по числу площадок (937 всего)</h4>
+          <p>Ростех — <b>232</b>, Росатом — <b>90</b>, РЖД — <b>72</b>, Росгеология — <b>61</b>, Газпром — <b>60</b>, Интер РАО — <b>45</b>, Алмаз-Антей — <b>43</b>, Транснефть — <b>37</b> (плюс ещё 35 госкомпаний и подрядчиков).</p>
+        </div>
+        <div class="mini-card">
+          <h4>События (113) и закупки (68)</h4>
+          <p><b>События:</b> форумы и выставки (38: ПМЭФ 24 200 чел., ВЭФ, ИННОПРОМ), спорт и культура (17), профмастерство (15: AtomSkills 2 000+ чел.), стройки/сезонные (12), обучение (8), ремонтные кампании АЭС (7).<br><b>Закупки:</b> билеты и командировки (38), чартеры и доставка персонала (27), ведомственная авиация (2), блок мест (1). Лидеры по процедурам: Росатом (8), Газпром (7), Россети (6), Роснефть (5), СТНГ (5).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Структура всех 237 подтверждённых связей по типу (<code>fact_links.csv</code>)</h4>
+        <div class="bars">
+          <div class="bar-row"><span>Вахта и полевые работы</span><div class="bar-track"><div class="bar-fill acc" style="width:100%"></div></div><span class="bar-val">65 (27,4%)</span></div>
+          <div class="bar-row"><span>Поставка и кооперация</span><div class="bar-track"><div class="bar-fill" style="width:56.9%"></div></div><span class="bar-val">37 (15,6%)</span></div>
+          <div class="bar-row"><span>Сервис и ремонт</span><div class="bar-track"><div class="bar-fill grn" style="width:38.5%"></div></div><span class="bar-val">25 (10,5%)</span></div>
+          <div class="bar-row"><span>Обучение</span><div class="bar-track"><div class="bar-fill grn" style="width:36.9%"></div></div><span class="bar-val">24 (10,1%)</span></div>
+          <div class="bar-row"><span>Монтаж и пусконаладка</span><div class="bar-track"><div class="bar-fill" style="width:30.8%"></div></div><span class="bar-val">20 (8,4%)</span></div>
+          <div class="bar-row"><span>Проезд к месту отдыха / испытания / НИОКР</span><div class="bar-track"><div class="bar-fill amb" style="width:72.3%"></div></div><span class="bar-val">47 (19,8%)</span></div>
+          <div class="bar-row"><span>Строительство, переезд офиса, цель не раскрыта</span><div class="bar-track"><div class="bar-fill gry" style="width:29.2%"></div></div><span class="bar-val">19 (8,0%)</span></div>
+        </div>
+        <p style="font-size:14px;color:var(--ink-2);margin:8px 0 0">По степени доказательности: <b>105</b> связей имеют статус 1 (деловая связь), <b>105</b> — статус 2 (подтверждены реальные поездки людей), <b>26</b> — статус 3 (в источнике есть числовой объём).</p>
+      </div>
+
+      <h3>Распределение всех 178 пар аэропортов в листе «Итог»</h3>
+      <div class="card">
+        <div class="bars">
+          <div class="bar-row">
+            <span><b>Проверить объём</b> (поездки подтверждены, статус 2)</span>
+            <div class="bar-track"><div class="bar-fill" style="width:52.2%"></div></div>
+            <span class="bar-val">93 (52,2%)</span>
+          </div>
+          <div class="bar-row">
+            <span><b>Устарело</b> (все данные старше 2024 года)</span>
+            <div class="bar-track"><div class="bar-fill gry" style="width:20.2%"></div></div>
+            <span class="bar-val">36 (20,2%)</span>
+          </div>
+          <div class="bar-row">
+            <span><b>Гипотеза</b> (подтверждена только связь, статус 1)</span>
+            <div class="bar-track"><div class="bar-fill amb" style="width:20.2%"></div></div>
+            <span class="bar-val">36 (20,2%)</span>
+          </div>
+          <div class="bar-row">
+            <span><b>Малый поток</b> (объём известен, &lt; 80 чел. за раз)</span>
+            <div class="bar-track"><div class="bar-fill grn" style="width:6.2%"></div></div>
+            <span class="bar-val">11 (6,2%)</span>
+          </div>
+          <div class="bar-row">
+            <span><b>Кандидат на чартер</b> (<code>DP122 LED–TOF</code>, 90 чел. «Факел»)</span>
+            <div class="bar-track"><div class="bar-fill grn" style="width:2.0%"></div></div>
+            <span class="bar-val">1 (0,6%)</span>
+          </div>
+          <div class="bar-row">
+            <span><b>Кандидат на блок мест</b> (<code>MOW–SBT</code> — с оговоркой)</span>
+            <div class="bar-track"><div class="bar-fill acc" style="width:2.0%"></div></div>
+            <span class="bar-val">1 (0,6%)</span>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--ink-2);margin:10px 0 0"><b>Новые подтверждённые находки после закрытия пробелов (Gap 1–4):</b> (1) <code>DP122 LED–TOF</code> — реальный чартер «Газпром трансгаз Томск» на <b>90 пассажиров</b> (Томск → Санкт-Петербург, фестиваль «Факел» 2025); (2) <code>DP039 GOJ–SVX</code> — на линии уже летает <b>Red Wings WZ-5030</b> (4/нед., 6 641 ₽, во Вт–Чт только Ср); (3) <code>DP013 BQS–MOW</code> — общий поток &gt;320 тыс. пасс. в 2025 и &gt;150 тыс. в 1П 2026 (DME/SVO), а космодром Восточный 23.05.2025 принял первый официальный рейс на собственный аэродром; (4) у ПО «Космос» (Роскосмос) коммерческий сертификат № 444 приостановлен приказом № 401-П от 10.07.2026.</p>
+        <div class="warn" style="margin:12px 0 0">
+          <b>Оговорка по строке «кандидат на блок мест» (<code>DP141 MOW–SBT</code>):</b> это вахта «Ямал СПГ» (НОВАТЭК, 125 000 чел./год из Telegram-канала аэропорта Сабетта). Сабетта — закрытый вахтовый аэропорт со спецпропусками и аккредитованными чартерами (VKO: Северо-Запад, ЮТэйр, Якутия, Уральские), а не открытый регулярный блок мест.
+        </div>
+      </div>
+
+      <h3>Специфика 22 компаний и развязка московских аэропортов (Gap 4)</h3>
+      <div class="cards2">
+        <div class="mini-card top-grn">
+          <h4>Точки входа для Red Wings</h4>
+          <p><b>СТНГ / ГСП:</b> живой открытый отбор <code>АП126926</code> (1,22 млрд ₽). <b>Ростех:</b> внутригрупповой канал по ЕПоЗ <code>6.6.2(51)</code> + действующие рейсы RW на <code>SVX–UFA</code>, <code>SVX–KZN</code>, <code>GOJ–SVX</code>. <b>ПАТЭС (Певек):</b> подтверждены прошлые контракты с АО «АВИАТИМ» и свежий тендер на 104 билета. <b>СИБУР:</b> агентский OBT-канал через «Аэроклуб».</p>
+        </div>
+        <div class="mini-card top-acc">
+          <h4>Главные барьеры и развязка <code>MOW</code></h4>
+          <p><b>Ведомственные флоты:</b> «Газпром авиа» (VKO — Ямбург, Бованенково), АЛРОСА (DME/VKO — Мирный/Полярный), ЦПК (Чкаловский). <b>Развязка 16 московских пар (64 ортодромии):</b> <code>VKO</code> — вахтовые чартеры (Сабетта, Ямбург, Певек через Якутск), <code>SVO</code> — регулярный Аэрофлот/Россия (BQS, REN, ULV), <code>DME</code> — S7/Уральские (BQS, SVX), <code>ZIA</code> — испытательные рейсы ОАК. Склеивать их в единый <code>MOW</code> для корпоративного продукта нельзя.</p>
+        </div>
+      </div>
+
+      <h3>Ключевые проверенные очаги и коридоры</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Коридор / кейс</th><th>Дальность</th><th>Реальное предложение (ноябрь 2026)</th><th>Главный факт из источников</th><th>Рабочий статус</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>UFA ↔ NUX</b><br><small>DP157 · ГСП / СТНГ</small></td>
+              <td class="num">1 696 км</td>
+              <td><b>Red Wings WZ-1081/1082</b> (2/нед., прилёт 07:30 — на 8 ч раньше Utair), ЮТэйр 7/нед., Ямал 3/нед., чартеры</td>
+              <td>Центр вахтования СТНГ в Уфе + <b>срочный живой тендер <code>АП126926</code></b> на 1,22 млрд ₽ (заявки до 27.11.2026 10:00 МСК; серия 1,83 → 1,09 → 1,22 млрд ₽). Аэровокзал NUX работает строго 05:45–17:30.</td>
+              <td><span class="tag calc">Приоритет L1</span></td>
+            </tr>
+            <tr>
+              <td><b>MOW ↔ PWE</b> и <b>ППР АЭС</b><br><small>L001 · Росатом</small></td>
+              <td class="num">5 560 км / регионы</td>
+              <td>Ведомственные/заказные чартеры (ПАТЭС Певек) + сборные бригады Атомэнергоремонта</td>
+              <td>ПАТЭС: 303 вахтовика в штате (май 2025), смена раз в 2 мес. со сбором в Москве. Ремонт одного энергоблока АЭС (Смоленская, ЛАЭС) привлекает 1 000–2 000 чел., включая сотни командированных из других филиалов.</td>
+              <td><span class="tag warn">Проверить плечи смен</span></td>
+            </tr>
+            <tr>
+              <td><b>SVX ↔ UFA</b> и <b>SVX ↔ KZN</b><br><small>Контур Ростеха</small></td>
+              <td class="num">393 / 724 км</td>
+              <td>SVX–UFA: ЮТэйр 14/нед., <b>RW 4/нед.</b>; SVX–KZN: <b>зимняя монополия RW 6/нед.</b></td>
+              <td>Внутри контура Ростеха возможен прямой контракт с единственным поставщиком по <b>ЕПоЗ 6.6.2(51)</b> (ред. 02.09.2026, ≥30% собственного исполнения). Внешние поставщики (ВСМПО) под исключение 223-ФЗ не попадают.</td>
+              <td><span class="tag calc">Действующая сеть RW</span></td>
+            </tr>
+            <tr>
+              <td><b>LED ↔ SVX</b><br><small>DP119 · ИННОПРОМ-2027</small></td>
+              <td class="num">1 801 км</td>
+              <td><b>Red Wings: 0/0 рейсов</b> (ноябрь 2026 и июль 2027). 5 конкурентов: 45–46/нед. зимой, 41/39 летом</td>
+              <td>Подтверждены делегации из СПб (СПбПУ, Обуховский завод), но собственного рейса RW нет. Единственный разрыв расписания: в пятницу 09.07.2027 все 5 вылетов из SVX стоят в 05:40–12:30.</td>
+              <td><span class="tag no">No-Go для блока на регулярке RW</span></td>
+            </tr>
+            <tr>
+              <td><b>IKT ↔ PEE</b><br><small>DP065 · ПД-14 / МС-21</small></td>
+              <td class="num">3 072 км</td>
+              <td>Прямых 0/нед.; ежедневная стыковка S7 через OVB 6ч 25м / 7ч 15м</td>
+              <td>Подписанный Приказ Минтранса Пермского края <b>№ 44-01-02-618</b> (п. 5): субсидия 383 677,45 ₽/плечо на 01.04–31.10.2027 (1/нед.), но обязательна открытая продажа Y — закрытый блок запрещён. Плечо 3 072 км вне SSJ-95B.</td>
+              <td><span class="tag warn">Резерв (не блок с субсидией)</span></td>
+            </tr>
+            <tr>
+              <td><b>OMS–KJA</b> и <b>KJA–UFA</b></td>
+              <td class="num">1 209 / 2 293 км</td>
+              <td>По 2 рейса/нед. (Россия / Азимут), но <b>во Вт–Чт рейсов нет (0/нед.)</b></td>
+              <td>Подтверждён дефицит деловых окон в середине недели, но обе линии в 2026 году уже субсидируются у конкурентов.</td>
+              <td><span class="tag warn">Проверить окна Вт–Чт</span></td>
+            </tr>
+            <tr>
+              <td><b>SVO–ULV</b>, <b>OMS–TOF</b>, <b>TJM–BQS</b></td>
+              <td class="num">714 / 761 / 4 000 км</td>
+              <td>ULV: 28/нед. (ULY: 0/нед.); OMS–TOF: поезд 13,5–15,5 ч; TJM–BQS: 0 прямых</td>
+              <td>Контрольные отказы: Димитровград закрыт 4 рейсами/день в ULV + поездом 16ч 43м в 16 мин от НИИАР; OMS–TOF закрыт ночным поездом; по АГХК (Свободный) официально объявлен спад подрядчиков с 2026 г.</td>
+              <td><span class="tag no">Working No-Go</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Свежие факты российского рынка деловых перелётов (OBT 2026)</h3>
+      <div class="cards3">
+        <div class="mini-card">
+          <h4>Бизнес-класс: 3% рынка</h4>
+          <p>По данным «Аэроклуба» (I кв. 2026), внутренние командировки просели на <b>−15%</b>, бизнес-класс — на <b>−22%</b>, доля J упала с 4% до <b>3%</b> (OneTwoTrip: 2,8%). Исключение — Екатеринбург (+43% к чеку J) и крупные форумы (ПМЭФ 18%, ВЭФ 30%).</p>
+        </div>
+        <div class="mini-card">
+          <h4>Каждый шестой билет меняется</h4>
+          <p>По данным Smartway (2026), доля отмен и обменов выросла с 15% до <b>16,7%</b>. Для Red Wings это прямое продуктовое ограничение: стандартные групповые правила с запретом переноса дат не подходят под реальный деловой спрос.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Покупка в последний момент и OBT</h4>
+          <p>OneTwoTrip (2026): <b>64%</b> деловых билетов покупаются за 7 дней и меньше (38% за 1–3 дня). J'son &amp; Partners: проникновение OBT-платформ в крупном бизнесе достигло <b>83–87%</b> — без этого канала корпоративный тариф не виден закупщикам.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <div class="part-mark">Часть 4. Пробелы модели и запрос к Red Wings</div>
+
+    <section id="s8">
+      <h2><span class="n">8</span>Каких данных не хватает для точного анализа</h2>
+      <p class="sub">
+        Ниже — честная картина заполненности ключевых полей модели на 26.11.2026. Структура базы уже готова, но для перехода к расчёту конкретных рейсов, частот и маржи не хватает шести блоков данных.
+      </p>
+
+      <div class="card">
+        <h4>Фактическая заполненность ключевых колонок модели после закрытия пробелов (Gap 1–4)</h4>
+        <div class="bars">
+          <div class="bar-row"><span>Организации: штаб-квартира (<code>dim_orgs</code>, было 25)</span><div class="bar-track"><div class="bar-fill grn" style="width:100%"></div></div><span class="bar-val">43 / 43</span></div>
+          <div class="bar-row"><span>Организации: площадка закупок / ЭТП (было 0!)</span><div class="bar-track"><div class="bar-fill grn" style="width:83.7%"></div></div><span class="bar-val">36 / 43</span></div>
+          <div class="bar-row"><span>Организации: общая численность (было 9)</span><div class="bar-track"><div class="bar-fill" style="width:65.1%"></div></div><span class="bar-val">28 / 43</span></div>
+          <div class="bar-row"><span>Площадки: город / ИНН (<code>dim_sites</code>)</span><div class="bar-track"><div class="bar-fill grn" style="width:83.6%"></div></div><span class="bar-val">910 / 783 из 937</span></div>
+          <div class="bar-row"><span>Площадки: функция площадки (было 0!)</span><div class="bar-track"><div class="bar-fill" style="width:25.4%"></div></div><span class="bar-val">238 / 937</span></div>
+          <div class="bar-row"><span>Персонал групп: разбивка по категориям (было 3)</span><div class="bar-track"><div class="bar-fill" style="width:27.9%"></div></div><span class="bar-val">12 / 43</span></div>
+          <div class="bar-row"><span>Итог: заполнены прямые рейсы сейчас (было 9)</span><div class="bar-track"><div class="bar-fill amb" style="width:11.8%"></div></div><span class="bar-val">21 / 178</span></div>
+          <div class="bar-row"><span>Итог: наблюдённый сквозной тариф OW (было 3)</span><div class="bar-track"><div class="bar-fill amb" style="width:8.4%"></div></div><span class="bar-val">15 / 178</span></div>
+          <div class="bar-row"><span>Итог: известен годовой поток пассажиров</span><div class="bar-track"><div class="bar-fill acc" style="width:4.5%"></div></div><span class="bar-val">8 / 178</span></div>
+          <div class="bar-row"><span>Итог: расчётная выручка в год</span><div class="bar-track"><div class="bar-fill acc" style="width:0%"></div></div><span class="bar-val">0 / 178</span></div>
+        </div>
+      </div>
+
+      <h3>Шесть конкретных разрывов, которые нужно закрыть дальше</h3>
+      <ol>
+        <li><b>Нет объёмов и частот по 93 подтверждённым парам:</b> из открытых новостей и тендеров видно, что люди ездят, но почти никогда не раскрыто точное число билетов по конкретной паре городов. Эти цифры есть только в выгрузках корпораций/ТМС либо в статистике заявок самой авиакомпании.</li>
+        <li><b>Незаполнена структура персонала и функции площадок:</b> колонка <code>Функция площадки</code> пуста (0/937), а категории персонала заполнены у 11 из 937 площадок — без этого невозможно отделить «офис управления» от «ремонтного филиала» или «вахтового участка».</li>
+        <li><b>Закрытые маршрутные приложения тендеров:</b> в живом отборе СТНГ <code>АП126926</code> (1,22 млрд ₽) и закупке ГПН-Снабжения <code>АП122552</code> перечень плеч и размеры смен закрыты — получить их может только коммерческий блок Red Wings напрямую у организатора.</li>
+        <li><b>Склейка московских аэропортов в <code>MOW</code>:</b> из-за неё у всех 42 московских пар пустая дальность, а корпоративный продукт в <code>SVO</code>, <code>DME</code>, <code>VKO</code> и <code>ZIA</code> несопоставим по времени подъезда и слотам.</li>
+        <li><b>Жёсткий порог 80 кресел в скрипте <code>demand_estimate</code>:</b> пары с группами 10–79 человек уходят в «малый поток», хотя у Red Wings групповой продукт начинается от 10 мест, а пулинг 2–3 заказчиков по 15–20 мест уже даёт коммерческий блок.</li>
+        <li><b>Коды <code>S####</code> без таблицы URL в репозитории:</b> для полной проверяемости всей базы Насте стоит выгрузить из Zotero справочник <code>S#### → URL</code> (по аналогии с нашим <code>sources_phase1_20261125.csv</code>).</li>
+      </ol>
+    </section>
+
+    <section id="s9">
+      <h2><span class="n">9</span>Что просим у Red Wings</h2>
+      <p class="sub">
+        Запрос построен так, чтобы авиакомпания могла ответить в обезличенном или диапазонном виде — без раскрытия коммерческой тайны и NDA. Начинать разговор лучше не с общих ставок себестоимости, а с коммерческих каналов, отклонённых заявок и свободных окон флота.
+      </p>
+
+      <h3>Топ-5 вопросов на встречу (в порядке приоритета)</h3>
+      <div class="card">
+        <ol style="margin:4px 0">
+          <li><b>Отклонённые групповые запросы (от 10 человек) за последние 12 месяцев:</b> обезличенная сводка по направлениям, размерам групп и причинам отказа (нехватка кресел в салоне, неудобное время, цена, запрет переноса дат). Это самый быстрый способ увидеть реальный неудовлетворённый спрос, который уже стучался в Red Wings.</li>
+          <li><b>Внутригрупповой канал ГК «Ростех»:</b> может ли Red Wings запросить обезличенную агрегированную матрицу командировок ОАК, ОДК, «Вертолётов России», КРЭТ (включая пересадки и поездки на поезде) и подтвердить рабочий закупочный механизм по ЕПоЗ <code>6.6.2(51)</code>?</li>
+          <li><b>Владелец B2B-котировок и доступность инвентаря под ближайшие пилоты:</b> кто ведёт групповые/блочные сделки, готова ли авиакомпания зайти в живой чартерный отбор СТНГ <code>АП126926</code> (или предложить ACMI/резерв) и рассматривает ли событийный чартер/партнёрский блок на ИННОПРОМ-2027 (<code>LED–SVX</code>, пятница 09.07 после 12:30)?</li>
+          <li><b>Свободные блок-часы флота в будни (Вт–Чт) и межсезонье (ноябрь–март):</b> на каких типах ВС (<code>SSJ100</code>, <code>Ту-214</code>, бизнес-борт <code>SSJ-100B 52C</code>) есть свободный ресурс под проектные смены или резерв для ведомственных перевозчиков, и какую роль руководство отводит базе в Екатеринбурге (<code>SVX</code>)?</li>
+          <li><b>Пиковое вытеснение, возврат квоты и диапазоны затрат (для перехода к экономике):</b> реальная доля вытесняемых розничных продаж (<code>displacement</code>) и неперепроданных мест после возврата квоты (<code>spoilage</code>), планы по «евробизнесу» на SSJ100 и вилки переменных затрат на блок-час (<code>DOC</code>), стоянок и ПОО.</li>
+        </ol>
+      </div>
+
+      <h3>Подробный перечень данных для передачи аналитикам после встречи</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Блок</th><th>Что запрашиваем у Red Wings</th><th>Единицы / формат</th><th>На какое решение влияет</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>A1. Каналы и отказы</b></td>
+              <td>Действующие B2B/вахтовые контракты, каналы продаж (прямой, ТМС/OBT, ЭТП 223-ФЗ) и обезличенные отклонённые групповые заявки от 10 чел.</td>
+              <td>Таблица за 12 мес. (пара, мес., размер группы, причина)</td>
+              <td>Отделяет незакрытый спрос от уже обслуженного; показывает, нужен ли вход в OBT до запуска новых линий.</td>
+            </tr>
+            <tr>
+              <td><b>A2. Условия блока / чартера</b></td>
+              <td>Минимальный твёрдый выкуп, допустимость переноса дат и бесплатной замены ФИО, срок возврата квоты (<code>release window</code>), норма багажа/груза, оценка маржи за оборот (туда+обратно).</td>
+              <td>Типовые правила / коридоры</td>
+              <td>Позволяет собрать конкурентную котировку против Utair, S7, Ямала и Smartavia (учитывая 16,7% обменов на рынке).</td>
+            </tr>
+            <tr>
+              <td><b>A3. Канал Ростеха и субсидии 2027</b></td>
+              <td>Контакт держателя агрегатов командировок холдинга; правовая позиция по внешним поставщикам; список направлений, на которые RW подаётся в отборы субсидий 2027 г.</td>
+              <td>Перечень пар и ограничений</td>
+              <td>Открывает самый короткий путь к контрактам без полугода тендеров и исключает конфликт блока с условиями субсидий.</td>
+            </tr>
+            <tr>
+              <td><b>B1. Загрузка и вытеснение</b></td>
+              <td>Средняя/пиковая загрузка по дням недели на ключевых парах (<code>UFA–NUX</code>, <code>SVX–UFA</code>, <code>SVX–KZN</code>), чистая выручка на пассажира (<code>net yield</code>), реальные доли <code>displacement</code> и <code>spoilage</code>.</td>
+              <td>% и вилка ₽/пасс.</td>
+              <td>Заменяет сценарные ориентиры модели и даёт точную минимальную цену корпоративного кресла.</td>
+            </tr>
+            <tr>
+              <td><b>B2. Флот, дальность и салон</b></td>
+              <td>Свободные блок-часы Вт–Чт и ноябрь–март; исправность/резерв под вахты; планы по «евробизнесу» и <code>SSJ-100B 52C</code>; зимний расчёт загрузки на плечах &gt;2 250 км (<code>LED–NUX</code> 2 380 км).</td>
+              <td>Часы/нед., кг полезной нагрузки, график поставок</td>
+              <td>Определяет, какие маршруты запускаются на текущем флоте без новых бортов, а какие ждут <code>Ту-214</code> / <code>SJ-100</code>.</td>
+            </tr>
+            <tr>
+              <td><b>C1–C3. Ставки затрат</b></td>
+              <td>Вилка переменных затрат на блок-час (<code>DOC</code>: топливо, ТО, экипаж, аэронавигация), ориентир фикса владения, требуемый порог вклада (<code>hurdle rate</code>), надбавки за пустые перегоны (<code>ferry</code>), сверхнормативную стоянку и ПОО.</td>
+              <td>Вилка ₽/блок-час, ₽/рейс, %</td>
+              <td>Переводит модель из «карты очагов поездок» в ранжированный расчёт маржи и точки безубыточности по каждому коридору.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="good">
+        <b>Параллельный запрос к 1–2 пилотным заказчикам или их ТМС (по международной практике):</b> обезличенная выгрузка фактических поездок за 12 месяцев — направленная пара городов, дата, цель/проект, статус (выполнена / возврат / обмен), вид транспорта (авиа или поезд) и рабочее окно прибытия на площадку. Это закрывает главный пробел таблицы <code>Итог</code> — точные годовые объёмы по 93 подтверждённым парам.
+      </div>
+    </section>
+
+    <footer>
+      Источники и артефакты: модель данных <code>kiruha355/rew_wings</code> (ветка <code>feat/phase1-verified-facts-20261125</code>, коммит <code>dd267ac</code>), пакеты закрытия пробелов <code>context/55_gap_closure_20261126/</code> (600 новых источников <code>G1–G4</code>), методические обзоры <code>docs/methodology.md</code>, <code>docs/research/demand_methods.md</code>, <code>docs/research/company_practices.md</code>, реестр проверок Фазы 1 <code>context/53_cycle2_phase1_20261125/</code> и запрос данных <code>context/48_corporate_demand_task_20261124/rw_data_request.md</code>. Все числа соответствуют состоянию таблиц на 26.11.2026.
+    </footer>
+  </main>
+</div>
+
+<script>
+// 1. Table layer highlight filter (keeps all rows visible, dims non-matching)
+document.querySelectorAll('.btns [data-layer]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.btns [data-layer]').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const layer = btn.dataset.layer;
+    document.querySelectorAll('#tbl-overview tbody tr').forEach(tr => {
+      tr.classList.toggle('dimmed', layer !== 'all' && tr.dataset.layer !== layer);
+    });
+  });
+});
+
+// 2. Interactive pipeline tracer (all 5 cases are also covered in text/table of §7)
+const TRACES = {
+  'nux-ufa': {
+    inputs: [
+      'fact_links L237: Уфа → Новый Уренгой (D3, 2024, статус 1, S2612)',
+      'fact_links L255: Уфа → Новый Уренгой (K6/D2, вахта СТНГ, 2026, статус 2, M001/M005/M009)',
+      'fact_airports: Уфа → UFA, Новый Уренгой → NUX (1 696 км)',
+      'route_legs RL001/072/074: Ямал 3/нед. (13 994 ₽), Red Wings WZ1081 2/нед. (07:30), ЮТэйр 7/нед.'
+    ],
+    od: [
+      'od_pairs OD180: Уфа (UFA) → Новый Уренгой (NUX)',
+      'Длина: 1 696 км · Org_IDs: D2;D3;K6',
+      'Основания: L237;L255 · Статус: 2 · Год: 2027 (актуальна)',
+      'Привязано 3 варианта прямых рейсов в route_legs'
+    ],
+    out: [
+      'demand_estimate DP157: NUX–UFA (1 696 км)',
+      'Прямые рейсы: Red Wings 2/нед.; ЮТэйр 7/нед.; Ямал 3/нед.',
+      'Тариф: 13 994 ₽ · Вывод: «проверить объём: поездки подтверждены»',
+      'Коммерческий вывод: точка опоры — действующий ранний WZ-1081 + живой тендер АП126926 (1,22 млрд ₽)'
+    ]
+  },
+  'led-svx': {
+    inputs: [
+      'fact_links L015: Заречный (SVX) → Сосновый Бор (LED), обучение (A1, статус 2)',
+      'event_participants E015/E016: НПО «Обуховский завод» (D15) и СПбПУ из СПб на ИННОПРОМ (M019)',
+      'fact_airports: СПб/Сосновый Бор → LED, Екатеринбург/Заречный → SVX (1 801 км)',
+      'route_legs RL066/067/077–083: 5 конкурентов (45–46/нед. зимой), Red Wings 0/0'
+    ],
+    od: [
+      'od_pairs OD023: Заречный (SVX) → Сосновый Бор (LED) (A1, L015)',
+      'od_pairs OD151: Санкт-Петербург (LED) → Екатеринбург (SVX) (D15, E015;E016, 2026)',
+      'Оба направления склеиваются в пару LED–SVX',
+      'Число людей у СПбПУ оставлено пустым (в источнике нет полной спецификации)'
+    ],
+    out: [
+      'demand_estimate DP119: LED–SVX (1 801 км, A1;D15)',
+      'Прямые рейсы: Smartavia 7; Победа 7; Россия 17; Уральские 14; Якутия 1',
+      'Вывод модели: «проверить объём: поездки подтверждены» (актуальна)',
+      'Коммерческий вывод: Working No-Go для блока на собственной регулярке RW (0 рейсов); разрыв только в пт 09.07 после 12:30'
+    ]
+  },
+  'ikt-pee': {
+    inputs: [
+      'fact_links L036: Пермь → Иркутск, ОДК-ПМ → ИАЗ (A2/A2, испытания ПД-14, статус 1)',
+      'fact_airports: Пермь → PEE, Иркутск → IKT (3 072 км)',
+      'route_legs RL088–091: S7 с пересадкой через OVB (6ч 25м / 7ч 15м; самолёт, пересадка)',
+      'fact_economics EC031: Приказ Перми № 44-01-02-618 (383 677,45 ₽/плечо, запрет закрытого блока Y)'
+    ],
+    od: [
+      'od_pairs OD124: Пермь (PEE) → Иркутск (IKT)',
+      'Длина: 3 072 км · Org_IDs: A2 · Статус: 1',
+      'Год данных в L036 не указан → Актуальность: не определена',
+      'Стыковка S7 не попадает в «Прямые рейсы сейчас» после фикса фильтра'
+    ],
+    out: [
+      'demand_estimate DP065: IKT–PEE (3 072 км, A2)',
+      'Прямые рейсы: пусто (0/нед.)',
+      'Вывод модели: «гипотеза: подтверждена только связь»',
+      'Коммерческий вывод: резерв под Ту-214/Ростех; No-Go для SSJ-95B и закрытого блока с субсидией'
+    ]
+  },
+  'oms-tlk': {
+    inputs: [
+      'fact_links L184: Омск → Талакан (D2, вахта ГазАртСтрой, 139 чел. за рейс, S1463)',
+      'Комментарий Насти: «Рейс указан в публикации от 27.08.2020»',
+      'Исправление: заполнено поле Год данных = 2020 (ранее было пусто!)',
+      'fact_airports: Омск → OMS, Талакан → TLK (2 290 км)'
+    ],
+    od: [
+      'od_pairs OD120: Омск (OMS) → Талакан (TLK)',
+      'Длина: 2 290 км · Статус: 3 · Последний год: 2020',
+      'По правилу «год < 2024» получает Актуальность = устарела',
+      'Раньше без года получало «не определена» и ложно выигрывало рейтинг'
+    ],
+    out: [
+      'demand_estimate DP159: OMS–TLK (2 290 км)',
+      'Наибольшая группа: 139 чел. (≥ 80 = да), но Актуальность = устарела',
+      'Правило №1 дерева решений срабатывает раньше порога 80 чел.',
+      'Итог: «устарело: нужны свежие данные» — ложный чартерный кандидат убран'
+    ]
+  },
+  'mow-sbt': {
+    inputs: [
+      'fact_links L227: Москва → Сабетта (K8, вахта «Ямал СПГ», 125 000 чел./год, 2025)',
+      'Комментарий: слабый источник (Telegram) + закрытый вахтовый аэропорт со спецпропусками',
+      'fact_airports: Москва → SVO/DME/VKO (склеиваются скриптом в MOW)',
+      'Сабетта → SBT'
+    ],
+    od: [
+      'od_pairs OD081: Москва (MOW) → Сабетта (SBT)',
+      'Длина: пусто (из-за агрегации MOW)',
+      'Статус: 3 · Год: 2025 → Актуальность: актуальна',
+      'Поток за год: 125 000 чел.'
+    ],
+    out: [
+      'demand_estimate DP139: MOW–SBT (длина пусто)',
+      'Вывод скрипта: «кандидат на блок мест: известен поток за год»',
+      'Почему это оговорка: скрипт не знает о ведомственном режиме аэропорта Сабетта',
+      'Реальный формат: только аккредитованный чартер/ACMI, а не регулярный блок мест'
+    ]
+  }
+};
+
+function renderTrace(key) {
+  const t = TRACES[key];
+  document.getElementById('trace-out').innerHTML = `
+    <div class="trace-box"><div class="step-k">Шаг 1 · Входные CSV</div><b>Что лежит в базе фактов</b><ul>${t.inputs.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="trace-box"><div class="step-k">Шаг 2 · build_od_pairs</div><b>Отбор и привязка аэропортов</b><ul>${t.od.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="trace-box"><div class="step-k">Шаг 3 · demand_estimate</div><b>Строка в «Итоге» и смысл</b><ul>${t.out.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  `;
+}
+renderTrace('nux-ufa');
+document.querySelectorAll('#trace-btns .btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#trace-btns .btn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    renderTrace(btn.dataset.trace);
+  });
+});
+
+// 3. Sticky TOC active highlight + mobile drawer
+const toc = document.getElementById('toc');
+const tocLinks = Array.from(toc.querySelectorAll('a[href^="#"]'));
+const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const mobCur = document.getElementById('mob-cur');
+const mobBtn = document.getElementById('mob-btn');
+const mobBg = document.getElementById('mob-bg');
+
+function closeDrawer() { toc.classList.remove('open'); mobBg.classList.remove('open'); }
+mobBtn.addEventListener('click', () => { toc.classList.toggle('open'); mobBg.classList.toggle('open'); });
+mobBg.addEventListener('click', closeDrawer);
+tocLinks.forEach(a => a.addEventListener('click', closeDrawer));
+
+function updateActive() {
+  let active = sections[0];
+  const y = window.scrollY + 120;
+  for (const s of sections) {
+    if (s.offsetTop <= y) active = s;
+  }
+  tocLinks.forEach(a => {
+    const isOn = active && a.getAttribute('href') === '#' + active.id;
+    a.classList.toggle('on', isOn);
+    if (isOn && mobCur) mobCur.textContent = a.textContent;
+  });
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+updateActive();
+</script>
+</body>
+</html>
