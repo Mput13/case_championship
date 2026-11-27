@@ -502,7 +502,65 @@ def build():
     add_tb(s7, 0.72, 6.88, 11.88, 0.30, "Дополнительно лист «Итог по группам» (16-й лист) сводит те же таблицы по каждой из 48 организаций.", font=FONT_BODY, size=9.0, color=MUTED)
 
     # =========================================================================
-    # SLIDE 8: NEXT STEP BY DEC 3 (exact content & layout of v2 Slide 9)
+    # SLIDE 8: RESULTS — WHAT IS ALREADY DONE & FOUND AS OF NOV 26
+    # =========================================================================
+    s8_res = init_light_slide(prs, assets["light_bg"], stripe="right_top")
+    add_header(s8_res, "РЕЗУЛЬТАТЫ · СДЕЛАНО НА 26 НОЯБРЯ", "08", "Что уже собрано и найдено на сегодняшний день", assets["black_plane"])
+
+    # Top 5 metric cards (real verified numbers)
+    done_kpis = [
+        ("48", "организаций разобрано", "36 с ЭТП · 30 со штатом\n22 профиля специфики", RED),
+        ("937 / 32", "площадок и объектов", "910 с городом · 783 с ИНН\n419 с функцией площадки", INK),
+        ("252 / 71", "связей и закупок", "113 событий · 117 делегаций\n15 связок подряда", INK),
+        ("184 (118)", "пар аэропортов", "118 пар вне Москвы и СПб\n157 проверенных плеч", RED),
+        ("621", "новых источников URL", "плюс базовый реестр Zotero\nвсе факты проверяемы", INK),
+    ]
+    for i, (val, ttl, sub, col) in enumerate(done_kpis):
+        x = 0.72 + i * 2.41
+        add_rect(s8_res, x, 1.48, 2.24, 1.32, WHITE, line_rgb=LINE, line_pt=0.75)
+        add_rect(s8_res, x, 1.48, 2.24, 0.05, col)
+        add_tb(s8_res, x + 0.12, 1.58, 2.00, 0.42, val, font=FONT_HEAD, size=16.5, bold=True, color=col)
+        add_tb(s8_res, x + 0.12, 2.02, 2.00, 0.24, ttl, font=FONT_BODY, size=8.8, bold=True, color=INK)
+        add_tb(s8_res, x + 0.12, 2.27, 2.00, 0.46, sub, font=FONT_BODY, size=8.0, color=MUTED, line_spacing=1.18)
+
+    # Left big card: Concrete findings already uncovered
+    add_rect(s8_res, 0.72, 3.00, 6.32, 4.02, WHITE, line_rgb=LINE, line_pt=0.75)
+    add_tb(s8_res, 0.94, 3.14, 5.88, 0.28, "Первые подтверждённые находки", font=FONT_HEAD, size=11.0, bold=True, color=INK)
+
+    findings_left = [
+        ("Крупнейшие региональные узлы площадок (вне Москвы и СПб)",
+         "Екатеринбург (SVX: 29 площ. / 13 корп.), Самара (KUF: 27 / 12), Н. Новгород (GOJ: 24 / 11), Уфа (UFA: 14 / 7), Новосибирск (OVB: 12 / 8) и Хабаровск (KHV: 11 / 9)."),
+        ("5 региональных пар, где уже сходятся 2–3 корпорации",
+         "Новый Уренгой ↔ Уфа (Газпром + Роснефть + СТНГ; отбор АП126926 на 1,22 млрд ₽ + рейс RW), Красноярск ↔ Екатеринбург (Росатом + Роснефть), Иркутск ↔ Талакан, Благовещенск ↔ Тюмень, Благовещенск ↔ Н. Новгород."),
+        ("Специфика 22 компаний: барьеры и живые точки входа",
+         "Учтены ведомственные авиакомпании («Газпром авиа», АК «АЛРОСА», «Северсталь Авиа»), допуск Сабетты и закрытые ЭТП ГОЗ. Найдены рабочие входы: тендер СТНГ, внутригрупповой канал Ростеха (ЕПоЗ 6.6.2(51)), рейсы RW на ПАТЭС Певек и ТМС «Аэроклуб» у СИБУРа."),
+    ]
+    yf = 3.54
+    for fh, fb in findings_left:
+        add_tb(s8_res, 0.94, yf, 5.88, 0.24, fh, font=FONT_BODY, size=9.8, bold=True, color=RED if "5 региональных" in fh else INK)
+        add_tb(s8_res, 0.94, yf + 0.24, 5.88, 0.84, fb, font=FONT_BODY, size=9.0, color=MUTED, line_spacing=1.20)
+        yf += 1.14
+
+    # Right big card: Working artifacts + honest gaps motivating next step
+    add_rect(s8_res, 7.26, 3.00, 5.34, 4.02, CARD_BG, line_rgb=LINE, line_pt=0.75)
+    add_tb(s8_res, 7.48, 3.14, 4.90, 0.28, "Готовые инструменты и текущие пробелы", font=FONT_HEAD, size=10.6, bold=True, color=INK)
+
+    findings_right = [
+        ("Собрана единая Excel-модель и автоскрипт пересчёта",
+         "Все 16 таблиц связаны ключами; сводки по группам и направлениям пересчитываются автоматически, каждый факт привязан к источнику."),
+        ("Сделано интерактивное веб-досье по всем 48 клиентам",
+         "С картой России, узлами пересечения компаний, карточкой каждого заказчика, закупками, барьерами и предложениями для Red Wings."),
+        ("Честно зафиксирован потолок открытых данных",
+         "Разбивка штата по категориям нашлась у 13 из 48 групп и лишь у 1,2% отдельных заводов (11/937). Годовой поток раскрыт по 8 парам из 184, рублёвый тариф — по 15. Поэтому следующий шаг — расчётный слой допущений и кластеры 5 госкорпораций."),
+    ]
+    yr = 3.54
+    for rh, rb in findings_right:
+        add_tb(s8_res, 7.48, yr, 4.90, 0.24, rh, font=FONT_BODY, size=9.8, bold=True, color=RED if "потолок" in rh else INK)
+        add_tb(s8_res, 7.48, yr + 0.24, 4.90, 0.88, rb, font=FONT_BODY, size=9.0, color=MUTED, line_spacing=1.20)
+        yr += 1.14
+
+    # =========================================================================
+    # SLIDE 9: NEXT STEP BY DEC 3 (exact content & layout of v2 Slide 9)
     # =========================================================================
     s8 = prs.slides.add_slide(prs.slide_layouts[6])
     s8.background.fill.solid()
@@ -517,7 +575,7 @@ def build():
     s8.shapes.add_picture(str(assets["white_plane"]), Inches(11.45), Inches(5.55), width=Inches(1.05), height=Inches(1.05))
 
     add_tb(s8, 0.72, 0.44, 4.50, 0.24, "СЛЕДУЮЩИЙ ШАГ · К 3 ДЕКАБРЯ", font=FONT_BODY, size=10, bold=True, color=LIGHT_MUTED)
-    add_tb(s8, 11.80, 0.42, 0.81, 0.26, "08", font=FONT_HEAD, size=11, bold=True, color=WHITE, align=PP_ALIGN.RIGHT)
+    add_tb(s8, 11.80, 0.42, 0.81, 0.26, "09", font=FONT_HEAD, size=11, bold=True, color=WHITE, align=PP_ALIGN.RIGHT)
     add_tb(s8, 0.72, 0.96, 9.45, 0.96, "К 3 декабря проверяем гипотезу\nна ядре из пяти госкорпораций", font=FONT_HEAD, size=24, bold=True, color=WHITE, line_spacing=1.18)
 
     items_s8 = [
